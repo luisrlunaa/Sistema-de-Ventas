@@ -41,6 +41,10 @@ namespace Capa_de_Presentacion
 			{
 				v.Handled = false;
 			}
+			else if (char.IsPunctuation(v.KeyChar))
+			{
+				v.Handled = false;
+			}
 			else
 			{
 				v.Handled = true;

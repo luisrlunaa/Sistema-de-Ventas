@@ -305,7 +305,7 @@ namespace Capa_de_Presentacion
 
 								V.PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
 
-								V.SubTotal = Math.Round(Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text),2);
+								V.SubTotal = Math.Round((Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text))* Convert.ToInt32(txtCantidad.Text), 2);
 								btnAgregar.Visible = false;
 								lst.Add(V);
 								LlenarGri();
@@ -898,6 +898,11 @@ namespace Capa_de_Presentacion
         private void dgvVenta_Click(object sender, EventArgs e)
         {
 			btnEliminarItem.Enabled = true;
+		}
+
+        private void txtPVenta_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+			validar.solonumeros(e);
 		}
     }
 }

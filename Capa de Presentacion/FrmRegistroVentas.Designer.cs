@@ -435,6 +435,7 @@
             this.txtPVenta.Size = new System.Drawing.Size(99, 25);
             this.txtPVenta.TabIndex = 7;
             this.txtPVenta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPVenta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPVenta_KeyPress_1);
             // 
             // label9
             // 

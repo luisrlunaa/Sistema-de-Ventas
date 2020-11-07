@@ -148,7 +148,7 @@ namespace Capa_de_Presentacion
             {
 				decimal paga = decimal.Parse(txtpaga.Text);
 				decimal total = decimal.Parse(txtmonto.Text);
-				decimal devuelta = Math.Round(paga - total);
+				decimal devuelta = Math.Round(paga - total,2);
 				txtDev.Text = devuelta.ToString();
 			}
 		}
@@ -266,20 +266,23 @@ namespace Capa_de_Presentacion
 				if (montocaja > 0)
 				{
 					txtGa.Text = montocaja.ToString();
-					lbNota.Text = "SUS GANANCIAS SON DE: " + montocaja;
+					lbNota.Text = "SUS GANANCIAS SON DE: " + montocaja + " Pesos";
+					lbNota.ForeColor = Color.GreenYellow;
 					txtPe.Clear();
 				}
 				else if (montocaja == 0)
 				{
 					montocaja = 0;
 					lbNota.Text = "NO HUBO PERDIDAS";
+					lbNota.ForeColor = Color.DeepSkyBlue;
 					txtPe.Clear();
 					txtGa.Clear();
 				}
 				else
 				{
 					txtPe.Text = montocaja.ToString();
-					lbNota.Text = "SUS PERDIDAS SON DE: " + montocaja;
+					lbNota.Text = "SUS PERDIDAS SON DE: " + montocaja + " Pesos";
+					lbNota.ForeColor = Color.MediumVioletRed;
 					txtGa.Clear();
 				}
 			}
@@ -354,6 +357,11 @@ namespace Capa_de_Presentacion
 			Program.inventario = "Inventario";
 			MP.Show();
 			this.Hide();
+		}
+
+        private void txtFinal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+			validar.solonumeros(e);
 		}
     }
 }

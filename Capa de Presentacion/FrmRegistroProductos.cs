@@ -256,13 +256,18 @@ namespace Capa_de_Presentacion
 			this.Close();
 		}
 
-		//private void button2_Click(object sender, EventArgs e)
-		//{
-		//	OpenFileDialog flg = new OpenFileDialog();
-		//	flg.InitialDirectory = "C:\\";
-		//	flg.Filter = "Archivos jpg (*.jpg)|*.jpg|Archivos png (*.png)|*.png";
-		//	if (flg.ShowDialog() == DialogResult.OK) pictureBox1.Load(flg.FileName);
-		//}
+        private void txtPCompra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+			validar.solonumeros(e);
+		}
+
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //	OpenFileDialog flg = new OpenFileDialog();
+        //	flg.InitialDirectory = "C:\\";
+        //	flg.Filter = "Archivos jpg (*.jpg)|*.jpg|Archivos png (*.png)|*.png";
+        //	if (flg.ShowDialog() == DialogResult.OK) pictureBox1.Load(flg.FileName);
+        //}
 
         //bool activo;
         //private void FrmRegistroProductos_Activated(object sender, EventArgs e)
@@ -295,7 +300,7 @@ namespace Capa_de_Presentacion
 
         //            //Representa un caché (un espacio) en memoria de los datos.
         //            DataSet ds = new DataSet("Producto");
-                    
+
         //                //Arreglo de byte en donde se almacenara la foto en bytes
         //                byte[] MyData = new byte[0];
 
@@ -321,7 +326,7 @@ namespace Capa_de_Presentacion
         //            {
         //                pictureBox1.Image = null;
         //            }
-                
+
         //        }
         //    }
         //}

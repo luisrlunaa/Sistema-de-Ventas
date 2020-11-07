@@ -42,6 +42,7 @@ namespace Capa_de_Presentacion
 			Program.nota = "";
 			Program.descripcion = "";
 			Program.marca = "";
+			Program.modelo = "";
 
 			txtaros.Clear();
 			txtTotal.Clear();

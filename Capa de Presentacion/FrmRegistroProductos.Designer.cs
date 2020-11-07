@@ -109,6 +109,7 @@
             this.txtPCompra.Size = new System.Drawing.Size(111, 25);
             this.txtPCompra.TabIndex = 50;
             this.txtPCompra.TabStop = false;
+            this.txtPCompra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPCompra_KeyPress);
             // 
             // label4
             // 
@@ -127,6 +128,7 @@
             this.txtPVenta.Size = new System.Drawing.Size(126, 25);
             this.txtPVenta.TabIndex = 70;
             this.txtPVenta.TabStop = false;
+            this.txtPVenta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPCompra_KeyPress);
             // 
             // label5
             // 
@@ -221,6 +223,7 @@
             this.txtitbis.Size = new System.Drawing.Size(111, 25);
             this.txtitbis.TabIndex = 74;
             this.txtitbis.TabStop = false;
+            this.txtitbis.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPCompra_KeyPress);
             // 
             // label9
             // 
