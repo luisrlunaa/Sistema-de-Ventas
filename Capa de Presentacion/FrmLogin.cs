@@ -44,7 +44,7 @@ namespace Capa_de_Presentacion
             {
                 if (txtPassword.Text.Trim() != "")
                 {
-                    String Mensaje = "";
+                    string Mensaje = "";
                     U.User = txtUser.Text;
                     U.Password = txtPassword.Text;
                    

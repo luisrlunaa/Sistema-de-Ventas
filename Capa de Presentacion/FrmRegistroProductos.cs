@@ -152,7 +152,16 @@ namespace Capa_de_Presentacion
         }
 
         private void Limpiar() {
-            txtProducto.Text = "";
+			Program.IdProducto = 0;
+			Program.Descripcion = "";
+			Program.Marca = "";
+			Program.PrecioVenta = 0;
+			Program.Stock = 0;
+			Program.IdCategoria =0;
+			Program.itbis = 0;
+			Program.tipo ="";
+
+			txtProducto.Text = "";
             txtMarca.Clear();
             txtPCompra.Clear();
             txtPVenta.Clear();

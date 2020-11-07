@@ -30,6 +30,7 @@ namespace Capa_de_Presentacion
             dataGridView1.ClearSelection();
             repetitivo();
             Mrepetitivo();
+			button2.Enabled = false;
 			ListarElementostipo();
 			clear();
 		}
@@ -329,7 +330,7 @@ namespace Capa_de_Presentacion
 			Program.PrecioVenta = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["pVenta"].Value.ToString());
 			Program.Stock = Convert.ToInt32(dataGridView1.CurrentRow.Cells["cantidad"].Value.ToString());
 			Program.IdCategoria = Convert.ToInt32(dataGridView1.CurrentRow.Cells["IdC"].Value.ToString());
-			Program.itbis = Convert.ToInt32(dataGridView1.CurrentRow.Cells["itbis"].Value.ToString());
+			Program.itbis = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["itbis"].Value.ToString());
 			Program.tipo = dataGridView1.CurrentRow.Cells["tipoGOma"].Value.ToString();
 			this.Close();
 		}
@@ -339,7 +340,7 @@ namespace Capa_de_Presentacion
 		}
 		private void rbCero_CheckedChanged(object sender, EventArgs e)
 		{
-			double compras = 0, total = 0, ventas = 0, totalproducto = 0;
+			decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
 			if (rbCero.Checked == true)
 			{
 				//declaramos la cadena  de conexion
@@ -374,11 +375,11 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
 					dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
 					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioCompra")));
-					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioVenta")));
+					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
+					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
 					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("itbis")));
+					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
 					dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
 					//if (dataGridView1.Rows[renglon].Cells[10].Value == null)
 					//{
@@ -390,9 +391,9 @@ namespace Capa_de_Presentacion
 					//}
 
 
-					compras += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[4].Value);
-					ventas += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[5].Value);
-					totalproducto += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[6].Value);
+					compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
+					ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
+					totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
 					lbltotalproductos.Text = Convert.ToString(totalproducto);
 					total = ventas - compras;
 					txttotalG.Text = Convert.ToString(total);
@@ -405,7 +406,7 @@ namespace Capa_de_Presentacion
 		}
 		private void rdmedia_CheckedChanged(object sender, EventArgs e)
 		{
-			double compras = 0, total = 0, ventas = 0, totalproducto = 0;
+			decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
 			if (rdmedia.Checked == true)
 			{
 				//declaramos la cadena  de conexion
@@ -440,12 +441,12 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
 					dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
 					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioCompra")));
-					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioVenta")));
+					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
+					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
 					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("itbis")));
+					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
 					dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
 
 					//if (dataGridView1.Rows[renglon].Cells[10].Value == null)
@@ -458,9 +459,9 @@ namespace Capa_de_Presentacion
 					//}
 
 
-					compras += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[4].Value);
-					ventas += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[5].Value);
-					totalproducto += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[6].Value);
+					compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
+					ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
+					totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
 					lbltotalproductos.Text = Convert.ToString(totalproducto);
 					total = ventas - compras;
 					txttotalG.Text = Convert.ToString(total);
@@ -474,7 +475,7 @@ namespace Capa_de_Presentacion
 
 		private void rbbuena_CheckedChanged(object sender, EventArgs e)
 		{
-			double compras = 0, total = 0, ventas = 0, totalproducto = 0;
+			decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
 			if (rbbuena.Checked == true)
 			{
 				//declaramos la cadena  de conexion
@@ -509,12 +510,12 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
 					dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
 					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioCompra")));
-					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioVenta")));
+					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
+					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
 					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("itbis"))); 
+					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis"))); 
 					dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
 					//if (dataGridView1.Rows[renglon].Cells[10].Value == null)
 					//{
@@ -525,9 +526,9 @@ namespace Capa_de_Presentacion
 					//	dataGridView1.Rows[renglon].Cells[10].Value = dr.GetOrdinal("Imagen");
 					//}
 
-					compras += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[4].Value);
-					ventas += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[5].Value);
-					totalproducto += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[6].Value);
+					compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
+					ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
+					totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
 					lbltotalproductos.Text = Convert.ToString(totalproducto);
 					total = ventas - compras;
 					txttotalG.Text = Convert.ToString(total);
@@ -540,7 +541,7 @@ namespace Capa_de_Presentacion
 		}
 		private void radioButton1_CheckedChanged(object sender, EventArgs e)
 		{
-			double compras = 0, total = 0, ventas = 0, totalproducto = 0;
+			decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
 			if (radioButton1.Checked == true)
 			{
 				//declaramos la cadena  de conexion
@@ -575,12 +576,12 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
 					dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
 					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioCompra")));
-					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioVenta")));
+					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
+					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
 					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("itbis")));
+					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
 					dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
 					//if (dataGridView1.Rows[renglon].Cells[10].Value == null)
 					//{
@@ -591,9 +592,9 @@ namespace Capa_de_Presentacion
 					//	dataGridView1.Rows[renglon].Cells[10].Value = dr.GetOrdinal("Imagen");
 					//}
 
-					compras += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[4].Value);
-					ventas += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[5].Value);
-					totalproducto += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[6].Value);
+					compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
+					ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
+					totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
 					lbltotalproductos.Text = Convert.ToString(totalproducto);
 					total = ventas - compras;
 					txttotalG.Text = Convert.ToString(total);
@@ -612,7 +613,7 @@ namespace Capa_de_Presentacion
 		private void cbxCategoria_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			buscarid();
-			double compras = 0, total = 0, ventas = 0, totalproducto = 0;
+			decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
 			if (id.Text != "")
 			{
 				//declaramos la cadena  de conexion
@@ -647,12 +648,12 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
 					dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
 					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioCompra")));
-					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioVenta")));
+					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
+					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
 					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("itbis")));
+					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
 					dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
 
 					//if (dataGridView1.Rows[renglon].Cells[10].Value == null)
@@ -664,9 +665,9 @@ namespace Capa_de_Presentacion
 
 					//}
 
-					compras += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[4].Value);
-					ventas += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[5].Value);
-					totalproducto += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[6].Value);
+					compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
+					ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
+					totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
 					lbltotalproductos.Text = Convert.ToString(totalproducto);
 					total = ventas - compras;
 					txttotalG.Text = Convert.ToString(total);
@@ -905,7 +906,7 @@ namespace Capa_de_Presentacion
 
 		private void rbfechaing_CheckedChanged(object sender, EventArgs e)
 		{
-			double compras = 0, total = 0, ventas = 0, totalproducto = 0;
+			decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection
@@ -938,12 +939,12 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
 				dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
 				dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-				dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioCompra")));
-				dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioVenta")));
+				dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
+				dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
 				dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
 				dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 				dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-				dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("itbis")));
+				dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
 				dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
 				//if (dataGridView1.Rows[renglon].Cells[10].Value == null)
 				//{
@@ -953,11 +954,11 @@ namespace Capa_de_Presentacion
 				//{
 				//	dataGridView1.Rows[renglon].Cells[10].Value = dr.GetOrdinal("Imagen");
 				//}
-				totalproducto += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[6].Value);
+				totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
 				lbltotalproductos.Text = Convert.ToString(totalproducto);
 
-				compras += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[4].Value);
-				ventas += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[5].Value);
+				compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
+				ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
 
 				total = ventas - compras;
 				txttotalG.Text = Convert.ToString(total);
@@ -967,7 +968,7 @@ namespace Capa_de_Presentacion
 
 		private void rbfechamod_CheckedChanged(object sender, EventArgs e)
 		{
-			double compras = 0, total = 0, ventas = 0, totalproducto = 0;
+			decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
 
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
@@ -1001,12 +1002,12 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
 				dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
 				dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-				dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioCompra")));
-				dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioVenta")));
+				dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
+				dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
 				dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
 				dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 				dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-				dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("itbis")));
+				dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
 				dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
 				//if (dataGridView1.Rows[renglon].Cells[10].Value == null)
 				//{
@@ -1016,11 +1017,11 @@ namespace Capa_de_Presentacion
 				//{
 				//	dataGridView1.Rows[renglon].Cells[10].Value = dr.GetOrdinal("Imagen");
 				//}
-				totalproducto += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[6].Value);
+				totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
 				lbltotalproductos.Text = Convert.ToString(totalproducto);
 
-				compras += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[4].Value);
-				ventas += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[5].Value);
+				compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
+				ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
 
 				total = ventas - compras;
 				txttotalG.Text = Convert.ToString(total);
@@ -1056,7 +1057,7 @@ namespace Capa_de_Presentacion
         private void cbTipoGoma_SelectedIndexChanged(object sender, EventArgs e)
         {
 			buscardesc();
-			double compras = 0, total = 0, ventas = 0, totalproducto =0;
+			decimal compras = 0, total = 0, ventas = 0, totalproducto =0;
 			if (textBox5.Text !="")
 			{
 				//declaramos la cadena  de conexion
@@ -1092,12 +1093,12 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
 					dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
 					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioCompra")));
-					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioVenta")));
+					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
+					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
 					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("itbis")));
+					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
 					dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
 
 					//if (dataGridView1.Rows[renglon].Cells[10].Value == null)
@@ -1109,9 +1110,9 @@ namespace Capa_de_Presentacion
 
 					//}
 
-					compras += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[4].Value);
-					ventas += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[5].Value);
-					totalproducto += Convert.ToDouble(dataGridView1.Rows[renglon].Cells[6].Value);
+					compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
+					ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
+					totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
 					total = ventas - compras;
 					txttotalG.Text = Convert.ToString(total);
 					lbltotalproductos.Text = Convert.ToString(totalproducto);
@@ -1121,6 +1122,11 @@ namespace Capa_de_Presentacion
 			{
 				CargarListado();
 			}
+		}
+
+        private void dataGridView1_Click(object sender, EventArgs e)
+        {
+			button2.Enabled = true;
 		}
     }
 }

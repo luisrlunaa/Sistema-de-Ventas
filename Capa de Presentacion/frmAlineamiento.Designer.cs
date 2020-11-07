@@ -45,7 +45,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtMarca = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnEntregar = new System.Windows.Forms.Button();
+            this.btnpagar = new System.Windows.Forms.Button();
             this.lblTel2 = new System.Windows.Forms.Label();
             this.lbltel = new System.Windows.Forms.Label();
             this.lbltel1 = new System.Windows.Forms.Label();
@@ -59,6 +59,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.lblidAliBal = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
@@ -244,18 +245,18 @@
             this.label7.TabIndex = 1;
             this.label7.Text = "Marca:";
             // 
-            // btnEntregar
+            // btnpagar
             // 
-            this.btnEntregar.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.btnEntregar.Font = new System.Drawing.Font("Open Sans Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEntregar.Location = new System.Drawing.Point(551, 551);
-            this.btnEntregar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnEntregar.Name = "btnEntregar";
-            this.btnEntregar.Size = new System.Drawing.Size(88, 46);
-            this.btnEntregar.TabIndex = 38;
-            this.btnEntregar.Text = "Pagar";
-            this.btnEntregar.UseVisualStyleBackColor = false;
-            this.btnEntregar.Click += new System.EventHandler(this.btnEntregar_Click);
+            this.btnpagar.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnpagar.Font = new System.Drawing.Font("Open Sans Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnpagar.Location = new System.Drawing.Point(551, 551);
+            this.btnpagar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnpagar.Name = "btnpagar";
+            this.btnpagar.Size = new System.Drawing.Size(88, 46);
+            this.btnpagar.TabIndex = 38;
+            this.btnpagar.Text = "Pagar";
+            this.btnpagar.UseVisualStyleBackColor = false;
+            this.btnpagar.Click += new System.EventHandler(this.btnpagar_Click);
             // 
             // lblTel2
             // 
@@ -271,7 +272,7 @@
             // 
             this.lbltel.AutoSize = true;
             this.lbltel.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltel.Location = new System.Drawing.Point(430, 100);
+            this.lbltel.Location = new System.Drawing.Point(409, 91);
             this.lbltel.Name = "lbltel";
             this.lbltel.Size = new System.Drawing.Size(34, 19);
             this.lbltel.TabIndex = 53;
@@ -281,7 +282,7 @@
             // 
             this.lbltel1.AutoSize = true;
             this.lbltel1.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltel1.Location = new System.Drawing.Point(317, 100);
+            this.lbltel1.Location = new System.Drawing.Point(317, 91);
             this.lbltel1.Name = "lbltel1";
             this.lbltel1.Size = new System.Drawing.Size(34, 19);
             this.lbltel1.TabIndex = 52;
@@ -291,7 +292,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(160, 100);
+            this.label14.Location = new System.Drawing.Point(160, 91);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(145, 19);
             this.label14.TabIndex = 51;
@@ -311,7 +312,7 @@
             // 
             this.lblLogo.AutoSize = true;
             this.lblLogo.Font = new System.Drawing.Font("Open Sans", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLogo.Location = new System.Drawing.Point(248, 34);
+            this.lblLogo.Location = new System.Drawing.Point(218, 36);
             this.lblLogo.Name = "lblLogo";
             this.lblLogo.Size = new System.Drawing.Size(62, 33);
             this.lblLogo.TabIndex = 49;
@@ -360,7 +361,7 @@
             // 
             this.button1.BackColor = System.Drawing.Color.SpringGreen;
             this.button1.Font = new System.Drawing.Font("Open Sans Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(455, 551);
+            this.button1.Location = new System.Drawing.Point(551, 551);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(88, 46);
@@ -385,6 +386,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
+            this.linkLabel1.LinkColor = System.Drawing.Color.White;
             this.linkLabel1.Location = new System.Drawing.Point(337, 188);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(211, 19);
@@ -393,12 +395,23 @@
             this.linkLabel1.Text = "Lista de Alineacion y Balanceo";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // lblidAliBal
+            // 
+            this.lblidAliBal.AutoSize = true;
+            this.lblidAliBal.Location = new System.Drawing.Point(766, 347);
+            this.lblidAliBal.Name = "lblidAliBal";
+            this.lblidAliBal.Size = new System.Drawing.Size(60, 19);
+            this.lblidAliBal.TabIndex = 93;
+            this.lblidAliBal.Text = "idAliBal";
+            this.lblidAliBal.Visible = false;
+            // 
             // frmAlineamiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
-            this.ClientSize = new System.Drawing.Size(653, 615);
+            this.ClientSize = new System.Drawing.Size(654, 615);
+            this.Controls.Add(this.lblidAliBal);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.button1);
@@ -412,7 +425,7 @@
             this.Controls.Add(this.lbldir);
             this.Controls.Add(this.lblLogo);
             this.Controls.Add(this.lblTel2);
-            this.Controls.Add(this.btnEntregar);
+            this.Controls.Add(this.btnpagar);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.DoubleBuffered = true;
@@ -445,7 +458,7 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox txtnota;
 		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Button btnEntregar;
+		private System.Windows.Forms.Button btnpagar;
 		public System.Windows.Forms.Label lblTel2;
         public System.Windows.Forms.Label lbltel;
         public System.Windows.Forms.Label lbltel1;
@@ -461,5 +474,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        public System.Windows.Forms.Label lblidAliBal;
     }
 }

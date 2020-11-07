@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using CapaLogicaNegocio;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Capa_de_Presentacion
 {
@@ -34,6 +35,8 @@ namespace Capa_de_Presentacion
 
 		public void clean()
 		{
+			Program.pagoRealizado = 0;
+			Program.Id = 0;
 			Program.Aros = "";
 			Program.total = 0;
 			Program.nota = "";
@@ -55,30 +58,24 @@ namespace Capa_de_Presentacion
 
 		private void frmTaller_Activated(object sender, EventArgs e)
 		{
-			cbtipo.Text= Program.descripcion;
-			txtMarca.Text=	Program.marca;
-			txtaros.Text=	Program.Aros;
+			txtMarca.Text = Program.marca;
+			txtmodelo.Text = Program.modelo; ;
+			cbtipo.Text = Program.descripcion;
+;			txtaros.Text=	Program.Aros;
 			txtTotal.Text= Convert.ToString(Program.total);
 			txtnota.Text=	Program.nota;
+			lblidAliBal.Text = Program.Id+"";
+
+			if(Program.Id>0)
+            {
+				btnpagar.Hide();
+				button1.Show();
+				button1.Text = "Imprimir";
+				button1.BackColor = Color.Khaki;
+			}
 		}
 
-		private void btnEntregar_Click(object sender, EventArgs e)
-		{
-			frmPagar pa = new frmPagar();
-			pa.txtmonto.Text = txtTotal.Text;
-			pa.gbAbrir.Visible = false;
-			pa.gbCierre.Visible = false;
-			pa.btnCerrar.Visible = false;
-			button1.Show();
 
-			Program.descripcion = cbtipo.Text;
-			Program.marca = txtMarca.Text;
-			Program.Aros = txtaros.Text;
-			Program.total = Convert.ToDouble(txtTotal.Text);
-			Program.nota = txtnota.Text;
-
-			pa.Show();
-		}
 		public void tickEstiloP()
 		{
 			CrearTiket ticket = new CrearTiket();
@@ -107,7 +104,7 @@ namespace Capa_de_Presentacion
 			ticket.textoIzquierda("NOTA: " + txtnota.Text);
 
 			//resumen de la venta
-			ticket.agregarTotales("           COSTO TOTAL DEL SERVICIO :", decimal.Parse(txtTotal.Text));
+			ticket.agregarTotales("       COSTO TOTAL DEL SERVICIO : ", decimal.Parse(txtTotal.Text));
 
 			//TEXTO FINAL DEL TICKET
 			ticket.textoIzquierda("EXTRA");
@@ -124,44 +121,51 @@ namespace Capa_de_Presentacion
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-			using (SqlConnection con = new SqlConnection(Cx.conet))
+			if (Program.Id > 0)
 			{
-				using (SqlCommand cmd = new SqlCommand("RegistrarAlineamientoBalanceo", con))
+				tickEstiloP();
+			}
+			else
+            {
+				using (SqlConnection con = new SqlConnection(Cx.conet))
 				{
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = Convert.ToInt32(txtidEmp.Text);
-					cmd.Parameters.Add("@tipoDeTrabajo", SqlDbType.VarChar).Value = cbtipo.Text.ToUpper();
-					cmd.Parameters.Add("@vehiculo", SqlDbType.NVarChar).Value = (txtMarca.Text+" " + txtmodelo.Text).ToUpper();
-					cmd.Parameters.Add("@AroGoma", SqlDbType.Int).Value = Convert.ToInt32(txtaros.Text);
-					cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(dtpFecha.Text);
-					cmd.Parameters.Add("@precio", SqlDbType.Decimal).Value = Convert.ToDecimal(txtTotal.Text);
-					cmd.Parameters.Add("@nota", SqlDbType.NVarChar).Value = txtnota.Text;
-
-					con.Open();
-					cmd.ExecuteNonQuery();
-					cmd.Parameters.Clear();
-					con.Close();
-
-					using (SqlCommand cmd2 = new SqlCommand("pagos_re", con))
+					using (SqlCommand cmd = new SqlCommand("RegistrarAlineamientoBalanceo", con))
 					{
-						cmd2.CommandType = CommandType.StoredProcedure;
-
-						//Tabla de pago
-						cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
-						cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
-						cmd2.Parameters.Add("@monto", SqlDbType.Float).Value = Program.Caja;
-						cmd2.Parameters.Add("@ingresos", SqlDbType.Float).Value = Program.pagoRealizado;
-						cmd2.Parameters.Add("@egresos", SqlDbType.Float).Value = Program.Devuelta;
-						cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = Convert.ToInt32(txtidEmp.Text);
+						cmd.Parameters.Add("@tipoDeTrabajo", SqlDbType.VarChar).Value = cbtipo.Text.ToUpper();
+						cmd.Parameters.Add("@vehiculo", SqlDbType.NVarChar).Value = (txtMarca.Text + " " + txtmodelo.Text).ToUpper();
+						cmd.Parameters.Add("@AroGoma", SqlDbType.Int).Value = Convert.ToInt32(txtaros.Text);
+						cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(dtpFecha.Text);
+						cmd.Parameters.Add("@precio", SqlDbType.Decimal).Value = Convert.ToDecimal(txtTotal.Text);
+						cmd.Parameters.Add("@nota", SqlDbType.NVarChar).Value = txtnota.Text;
 
 						con.Open();
-						cmd2.ExecuteNonQuery();
+						cmd.ExecuteNonQuery();
+						cmd.Parameters.Clear();
 						con.Close();
+
+						using (SqlCommand cmd2 = new SqlCommand("pagos_re", con))
+						{
+							cmd2.CommandType = CommandType.StoredProcedure;
+
+							//Tabla de pago
+							cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
+							cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
+							cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
+							cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
+							cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
+							cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
+
+							con.Open();
+							cmd2.ExecuteNonQuery();
+							con.Close();
+						}
+						Program.pagoRealizado = 0;
+						MessageBox.Show(cbtipo.Text + "Registrada y Pago Confirmado");
+						tickEstiloP();
+						clean();
 					}
-					Program.pagoRealizado = 0;
-					MessageBox.Show(cbtipo.Text+"Registrada y Pago Confirmado");
-					tickEstiloP();
-					clean();
 				}
 			}
 		}
@@ -193,6 +197,24 @@ namespace Capa_de_Presentacion
 			cargar_combo_Tipo(cbtipo);
 			cbtipo.SelectedIndex = 0;
 			button1.Hide();
+		}
+
+        private void btnpagar_Click(object sender, EventArgs e)
+        {
+			frmPagar pa = new frmPagar();
+			pa.txtmonto.Text = txtTotal.Text;
+			pa.gbAbrir.Visible = false;
+			pa.gbCierre.Visible = false;
+			pa.btnCerrar.Visible = false;
+			button1.Show();
+
+			Program.descripcion = cbtipo.Text;
+			Program.marca = txtMarca.Text;
+			Program.Aros = txtaros.Text;
+			Program.total = Convert.ToDecimal(txtTotal.Text);
+			Program.nota = txtnota.Text;
+
+			pa.Show();
 		}
     }
 }

@@ -258,7 +258,7 @@
             this.txtActual.Size = new System.Drawing.Size(123, 28);
             this.txtActual.TabIndex = 1;
             this.txtActual.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtActual.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtActual_KeyPress);
+           // this.txtActual.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtActual_KeyPress);
             // 
             // txtCaja
             // 
@@ -352,7 +352,7 @@
             this.txtDev.Size = new System.Drawing.Size(123, 35);
             this.txtDev.TabIndex = 10;
             this.txtDev.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtDev.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtActual_KeyPress);
+            //this.txtDev.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtActual_KeyPress);
             // 
             // button2
             // 
@@ -405,7 +405,7 @@
             this.txtpaga.Size = new System.Drawing.Size(123, 35);
             this.txtpaga.TabIndex = 6;
             this.txtpaga.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtpaga.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtActual_KeyPress);
+            //this.txtpaga.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtActual_KeyPress);
             this.txtpaga.Leave += new System.EventHandler(this.txtpaga_Leave);
             // 
             // txtCaja1
@@ -536,7 +536,7 @@
             this.txtGa.Size = new System.Drawing.Size(100, 21);
             this.txtGa.TabIndex = 14;
             this.txtGa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtGa.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtActual_KeyPress);
+          //  this.txtGa.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtActual_KeyPress);
             // 
             // label10
             // 
@@ -558,7 +558,7 @@
             this.txtMo.Name = "txtMo";
             this.txtMo.Size = new System.Drawing.Size(285, 76);
             this.txtMo.TabIndex = 12;
-            this.txtMo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMo_KeyPress);
+           // this.txtMo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMo_KeyPress);
             // 
             // label9
             // 
@@ -581,7 +581,7 @@
             this.txtPe.Size = new System.Drawing.Size(100, 21);
             this.txtPe.TabIndex = 10;
             this.txtPe.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtPe.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtActual_KeyPress);
+            //this.txtPe.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtActual_KeyPress);
             // 
             // btnCierre
             // 
@@ -634,7 +634,7 @@
             this.txtFinal.Size = new System.Drawing.Size(123, 35);
             this.txtFinal.TabIndex = 6;
             this.txtFinal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtFinal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtActual_KeyPress);
+         //   this.txtFinal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtActual_KeyPress);
             this.txtFinal.Leave += new System.EventHandler(this.txtFinal_Leave);
             // 
             // txtCaja2

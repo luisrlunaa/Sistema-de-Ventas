@@ -73,10 +73,16 @@ namespace Capa_de_Presentacion
 
 		private void dataGridView1_DoubleClick(object sender, EventArgs e)
 		{
-			Program.descripcion= dataGridView1.CurrentRow.Cells["tipoDeTrabajo"].Value.ToString(); 
-			Program.marca= dataGridView1.CurrentRow.Cells["vehiculo"].Value.ToString(); 
+			var marca= dataGridView1.CurrentRow.Cells["vehiculo"].Value.ToString();
+			string cadena = marca;
+			char delimitador = ' ';
+			string[] valores = cadena.Split(delimitador);
+
+			Program.descripcion = dataGridView1.CurrentRow.Cells["tipoDeTrabajo"].Value.ToString();
+			Program.marca = valores[0].Trim();
+			Program.modelo = valores[1].Trim();
 			Program.Aros= dataGridView1.CurrentRow.Cells["AroGoma"].Value.ToString(); 
-			Program.total= Convert.ToDouble(dataGridView1.CurrentRow.Cells["precio"].Value.ToString());
+			Program.total= Convert.ToDecimal(dataGridView1.CurrentRow.Cells["precio"].Value.ToString());
 			Program.nota= dataGridView1.CurrentRow.Cells["nota"].Value.ToString();
 			Program.Id= Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
 			this.Close();

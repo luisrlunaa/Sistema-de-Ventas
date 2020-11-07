@@ -33,17 +33,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnIngresar = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnIngresar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -90,16 +90,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Iniciar Sesión";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Location = new System.Drawing.Point(115, 40);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(175, 180);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 7;
-            this.pictureBox2.TabStop = false;
-            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -112,6 +102,51 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Recuperar Contraseña";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.Location = new System.Drawing.Point(160, 330);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(201, 28);
+            this.txtPassword.TabIndex = 3;
+            this.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPassword_KeyPress);
+            // 
+            // txtUser
+            // 
+            this.txtUser.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUser.Location = new System.Drawing.Point(160, 259);
+            this.txtUser.Margin = new System.Windows.Forms.Padding(4);
+            this.txtUser.Name = "txtUser";
+            this.txtUser.Size = new System.Drawing.Size(201, 28);
+            this.txtUser.TabIndex = 2;
+            this.txtUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtUser.Leave += new System.EventHandler(this.txtUser_Leave);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(229)))));
+            this.pictureBox1.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_usuarios1;
+            this.pictureBox1.Location = new System.Drawing.Point(-3, -1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(407, 569);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.Image = global::Capa_de_Presentacion.Properties.Resources.LogoCepeda1;
+            this.pictureBox2.Location = new System.Drawing.Point(42, 52);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(326, 180);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 7;
+            this.pictureBox2.TabStop = false;
             // 
             // btnCancelar
             // 
@@ -155,40 +190,6 @@
             this.btnIngresar.UseVisualStyleBackColor = false;
             this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             // 
-            // txtPassword
-            // 
-            this.txtPassword.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(160, 330);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(201, 28);
-            this.txtPassword.TabIndex = 3;
-            this.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPassword_KeyPress);
-            // 
-            // txtUser
-            // 
-            this.txtUser.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUser.Location = new System.Drawing.Point(160, 259);
-            this.txtUser.Margin = new System.Windows.Forms.Padding(4);
-            this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(201, 28);
-            this.txtUser.TabIndex = 2;
-            this.txtUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtUser.Leave += new System.EventHandler(this.txtUser_Leave);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(229)))));
-            this.pictureBox1.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_usuarios1;
-            this.pictureBox1.Location = new System.Drawing.Point(-3, -1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(407, 569);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
-            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -206,8 +207,8 @@
             this.Text = "Login";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -29,7 +29,7 @@ namespace Capa_de_Presentacion
 		}
 		public void llenar_data_V()
 		{
-			double montovendido = 0;
+			decimal montovendido = 0;
 			int Cantvendido = 0, idprod=0;
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
@@ -61,8 +61,8 @@ namespace Capa_de_Presentacion
 				// nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 
 				dataGridView2.Rows[renglon].Cells["id_p"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-				dataGridView2.Rows[renglon].Cells["sub"].Value = Convert.ToDouble(dr.GetDouble(dr.GetOrdinal("subt")));
-				dataGridView2.Rows[renglon].Cells["cant"].Value = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("total")));
+				dataGridView2.Rows[renglon].Cells["sub"].Value = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("subt")));
+				dataGridView2.Rows[renglon].Cells["cant"].Value = Convert.ToDouble(dr.GetInt32(dr.GetOrdinal("total")));
 
 				dataGridView2.Rows[0].Selected = true;
 				dataGridView2.CurrentCell = dataGridView2.Rows[0].Cells["cant"];
@@ -72,7 +72,7 @@ namespace Capa_de_Presentacion
 				dataGridView2.CurrentCell = dataGridView2.Rows[0].Cells["id_p"];
 				idprod = Convert.ToInt32(dataGridView2.Rows[0].Cells["id_p"].Value);
 
-				montovendido += Convert.ToDouble(dataGridView2.Rows[renglon].Cells["sub"].Value);
+				montovendido += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["sub"].Value),2);
 		
 				txtidprod.Text= Convert.ToString(idprod);
 				txtCantvend.Text = Convert.ToString(Cantvendido);
@@ -137,10 +137,10 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells["descripcion"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
 				dataGridView1.Rows[renglon].Cells["idp"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
 				dataGridView1.Rows[renglon].Cells["can"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
-				dataGridView1.Rows[renglon].Cells["pre"].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioUnitario")));
-				dataGridView1.Rows[renglon].Cells["igv"].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("Igv")));
-				dataGridView1.Rows[renglon].Cells["subtotal"].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("SubTotal")));
-				dataGridView1.Rows[renglon].Cells["total"].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("Total")));
+				dataGridView1.Rows[renglon].Cells["pre"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
+				dataGridView1.Rows[renglon].Cells["igv"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+				dataGridView1.Rows[renglon].Cells["subtotal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
+				dataGridView1.Rows[renglon].Cells["total"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Total")));
 				dataGridView1.Rows[renglon].Cells["Tipo"].Value = dr.GetString(dr.GetOrdinal("Tipofactura"));
 				dataGridView1.Rows[renglon].Cells["restante"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Restante")));
 				dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
@@ -167,12 +167,13 @@ namespace Capa_de_Presentacion
 			Program.NCF = dataGridView1.CurrentRow.Cells["NCF"].Value.ToString();
 			Program.NroComprobante = dataGridView1.CurrentRow.Cells["nroComprobante"].Value.ToString();
 			Program.Id =Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
-			Program.total =Convert.ToDouble(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
-			Program.ST +=Convert.ToDouble(dataGridView1.CurrentRow.Cells["subtotal"].Value.ToString());
-			Program.igv +=Convert.ToDouble(dataGridView1.CurrentRow.Cells["igv"].Value.ToString());
+			Program.total =Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
+			Program.ST +=Convert.ToDecimal(dataGridView1.CurrentRow.Cells["subtotal"].Value.ToString());
+			Program.igv +=Convert.ToDecimal(dataGridView1.CurrentRow.Cells["igv"].Value.ToString());
 			Program.DocumentoIdentidad = dataGridView1.CurrentRow.Cells["doc"].Value.ToString();
 			Program.fecha = dataGridView1.CurrentRow.Cells["fecha"].Value.ToString();
 			Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
+			Program.ReImpresion = "Factura ReImpresa";
 		}
 
 		private void label2_Click(object sender, EventArgs e)
@@ -307,7 +308,7 @@ namespace Capa_de_Presentacion
 		}
 		private void button1_Click(object sender, EventArgs e)
 		{
-			double total = 0;
+			decimal total = 0;
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection
@@ -349,17 +350,17 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells["descripcion"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
 				dataGridView1.Rows[renglon].Cells["idp"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
 				dataGridView1.Rows[renglon].Cells["can"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
-				dataGridView1.Rows[renglon].Cells["pre"].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("PrecioUnitario")));
-				dataGridView1.Rows[renglon].Cells["igv"].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("Igv")));
-				dataGridView1.Rows[renglon].Cells["subtotal"].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("SubTotal")));
-				dataGridView1.Rows[renglon].Cells["total"].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("Total")));
-				dataGridView1.Rows[renglon].Cells["Tipo"].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("Tipofactura")));
-				dataGridView1.Rows[renglon].Cells["restante"].Value = Convert.ToString(dr.GetDouble(dr.GetOrdinal("Restante")));
+				dataGridView1.Rows[renglon].Cells["pre"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
+				dataGridView1.Rows[renglon].Cells["igv"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+				dataGridView1.Rows[renglon].Cells["subtotal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
+				dataGridView1.Rows[renglon].Cells["total"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Total")));
+				dataGridView1.Rows[renglon].Cells["Tipo"].Value = dr.GetString(dr.GetOrdinal("Tipofactura"));
+				dataGridView1.Rows[renglon].Cells["restante"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Restante")));
 				dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
 
-				total += Convert.ToDouble(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
+				total += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
 
-				txtTtal.Text = Convert.ToString(total);
+				txtTtal.Text = Convert.ToString(Math.Round(total,2));
 			}
 		}
 		private void button2_Click(object sender, EventArgs e)

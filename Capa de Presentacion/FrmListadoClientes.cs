@@ -19,6 +19,7 @@ namespace Capa_de_Presentacion
 
         private void FrmListadoClientes_Load(object sender, EventArgs e)
         {
+            button1.Enabled = false;
             timer1.Start();
             timer1.Interval = 5000;
             ListarClientes();
@@ -320,6 +321,11 @@ namespace Capa_de_Presentacion
                 {
                     dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
                 }
+        }
+
+        private void dataGridView2_Click(object sender, EventArgs e)
+        {
+            button1.Enabled = true;
         }
     }
 }

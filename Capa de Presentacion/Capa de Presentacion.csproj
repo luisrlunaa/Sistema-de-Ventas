@@ -355,6 +355,7 @@
     <Content Include="Resources\1button.png" />
     <Content Include="Resources\1button_click.png" />
     <Content Include="Resources\1button_hover.png" />
+    <None Include="Resources\LogoCepeda1.png" />
     <None Include="Resources\LogoCepeda.png" />
     <None Include="Resources\llantas-toyota-corolla.jpg" />
     <None Include="Resources\llantas-1024x682.jpg" />

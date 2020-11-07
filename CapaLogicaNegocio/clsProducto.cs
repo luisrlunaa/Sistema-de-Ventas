@@ -21,9 +21,9 @@ namespace CapaLogicaNegocio
         private String m_Marca;
         private String m_tipoGoma;
         private Int32 m_Stock;
-        private double m_PrecioCompra;
-        private double m_PrecioVenta;
-        private double m_itbis;
+        private decimal m_PrecioCompra;
+        private decimal m_PrecioVenta;
+        private decimal m_itbis;
         private DateTime m_FechaVencimiento;
 
         public Int32 IdP
@@ -61,18 +61,18 @@ namespace CapaLogicaNegocio
             set { m_Stock = value; }
         }
 
-        public double PrecioCompra
+        public decimal PrecioCompra
         {
             get { return m_PrecioCompra; }
             set { m_PrecioCompra = value; }
         }
 
-        public double PrecioVenta
+        public decimal PrecioVenta
         {
             get { return m_PrecioVenta; }
             set { m_PrecioVenta = value; }
         }
-        public double itbis
+        public decimal itbis
         {
             get { return m_itbis; }
             set { m_itbis = value; }

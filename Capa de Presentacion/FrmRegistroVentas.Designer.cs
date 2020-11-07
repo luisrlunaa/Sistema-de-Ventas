@@ -82,12 +82,12 @@
             this.txtIdV = new System.Windows.Forms.TextBox();
             this.dgvVenta = new System.Windows.Forms.DataGridView();
             this.IdD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DescripcionP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cantidadP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PrecioU = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubtoTal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IGV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubtoTal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dtpFf = new System.Windows.Forms.DateTimePicker();
@@ -703,12 +703,12 @@
             this.dgvVenta.ColumnHeadersHeight = 29;
             this.dgvVenta.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IdD,
+            this.IDP,
             this.DescripcionP,
             this.cantidadP,
             this.PrecioU,
-            this.SubtoTal,
-            this.IDP,
-            this.IGV});
+            this.IGV,
+            this.SubtoTal});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightSteelBlue;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -719,13 +719,13 @@
             this.dgvVenta.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvVenta.EnableHeadersVisualStyles = false;
             this.dgvVenta.GridColor = System.Drawing.Color.MidnightBlue;
-            this.dgvVenta.Location = new System.Drawing.Point(17, 460);
-            this.dgvVenta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgvVenta.Location = new System.Drawing.Point(17, 463);
+            this.dgvVenta.Margin = new System.Windows.Forms.Padding(0);
             this.dgvVenta.Name = "dgvVenta";
             this.dgvVenta.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.MidnightBlue;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Open Sans Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -741,57 +741,63 @@
             this.dgvVenta.RowTemplate.Height = 24;
             this.dgvVenta.Size = new System.Drawing.Size(861, 217);
             this.dgvVenta.TabIndex = 43;
+            this.dgvVenta.Click += new System.EventHandler(this.dgvVenta_Click);
             // 
             // IdD
             // 
+            this.IdD.FillWeight = 78.35892F;
             this.IdD.HeaderText = "ID Venta";
-            this.IdD.MinimumWidth = 6;
+            this.IdD.MinimumWidth = 25;
             this.IdD.Name = "IdD";
             this.IdD.ReadOnly = true;
             // 
+            // IDP
+            // 
+            this.IDP.HeaderText = "IDP";
+            this.IDP.MinimumWidth = 10;
+            this.IDP.Name = "IDP";
+            this.IDP.ReadOnly = true;
+            this.IDP.Visible = false;
+            // 
             // DescripcionP
             // 
+            this.DescripcionP.FillWeight = 127.5433F;
             this.DescripcionP.HeaderText = "Descripcion";
-            this.DescripcionP.MinimumWidth = 6;
+            this.DescripcionP.MinimumWidth = 60;
             this.DescripcionP.Name = "DescripcionP";
             this.DescripcionP.ReadOnly = true;
             // 
             // cantidadP
             // 
+            this.cantidadP.FillWeight = 80.21391F;
             this.cantidadP.HeaderText = "Cantidad";
-            this.cantidadP.MinimumWidth = 6;
+            this.cantidadP.MinimumWidth = 25;
             this.cantidadP.Name = "cantidadP";
             this.cantidadP.ReadOnly = true;
             // 
             // PrecioU
             // 
+            this.PrecioU.FillWeight = 113.4559F;
             this.PrecioU.HeaderText = "Precio";
-            this.PrecioU.MinimumWidth = 6;
+            this.PrecioU.MinimumWidth = 35;
             this.PrecioU.Name = "PrecioU";
             this.PrecioU.ReadOnly = true;
             // 
-            // SubtoTal
-            // 
-            this.SubtoTal.HeaderText = "Importe";
-            this.SubtoTal.MinimumWidth = 6;
-            this.SubtoTal.Name = "SubtoTal";
-            this.SubtoTal.ReadOnly = true;
-            // 
-            // IDP
-            // 
-            this.IDP.HeaderText = "IDP";
-            this.IDP.MinimumWidth = 6;
-            this.IDP.Name = "IDP";
-            this.IDP.ReadOnly = true;
-            this.IDP.Visible = false;
-            // 
             // IGV
             // 
+            this.IGV.FillWeight = 72.88459F;
             this.IGV.HeaderText = "ITBIS";
-            this.IGV.MinimumWidth = 6;
+            this.IGV.MinimumWidth = 20;
             this.IGV.Name = "IGV";
             this.IGV.ReadOnly = true;
-            this.IGV.Visible = false;
+            // 
+            // SubtoTal
+            // 
+            this.SubtoTal.FillWeight = 127.5433F;
+            this.SubtoTal.HeaderText = "Importe";
+            this.SubtoTal.MinimumWidth = 30;
+            this.SubtoTal.Name = "SubtoTal";
+            this.SubtoTal.ReadOnly = true;
             // 
             // groupBox2
             // 
@@ -1315,14 +1321,14 @@
         private System.Windows.Forms.Label label11;
         public System.Windows.Forms.ComboBox cbtipofactura;
         public System.Windows.Forms.Button btnRegistrarVenta;
+        private System.Windows.Forms.CheckBox chkComprobante;
+        public System.Windows.Forms.Label txttotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDP;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescripcionP;
         private System.Windows.Forms.DataGridViewTextBoxColumn cantidadP;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioU;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubtoTal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IDP;
         private System.Windows.Forms.DataGridViewTextBoxColumn IGV;
-        private System.Windows.Forms.CheckBox chkComprobante;
-        public System.Windows.Forms.Label txttotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubtoTal;
     }
 }

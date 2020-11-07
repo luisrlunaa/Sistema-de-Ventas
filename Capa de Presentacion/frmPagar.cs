@@ -45,10 +45,10 @@ namespace Capa_de_Presentacion
 					else
 						id_var = txtId.Text;
 
-					cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
 					cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
-					cmd.Parameters.Add("@monto", SqlDbType.Float).Value = Convert.ToDouble(txtActual.Text);
+					cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtActual.Text);
 					cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = dateTimePicker1.Text;
 
 					Cx.conexion.Open();
@@ -69,7 +69,7 @@ namespace Capa_de_Presentacion
 
 			SqlDataReader leer = comando.ExecuteReader();
 
-			if   (leer.Read() == true)
+			if(leer.Read() == true)
 			{
 				txtCaja.Text = leer["monto_inicial"].ToString();
 				txtCaja1.Text = leer["monto_inicial"].ToString();
@@ -168,7 +168,7 @@ namespace Capa_de_Presentacion
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			if (Program.tipo != "Credito" && Convert.ToDouble(txtmonto.Text) > Convert.ToDouble(txtpaga.Text))
+			if (Program.tipo != "Credito" && Convert.ToDecimal(txtmonto.Text) > Convert.ToDecimal(txtpaga.Text))
 			{
 				Program.pagoRealizado = 0;
 				MessageBox.Show("Por Favor Cambiar tipo de Factura, Las Facturas a Debito no Aceptan Deudas.");
@@ -185,14 +185,14 @@ namespace Capa_de_Presentacion
 						Program.idPago = 0;
 					else
 						Program.idPago = Convert.ToInt32(txtIdp.Text);
-						Program.pagoRealizado = Convert.ToDouble(txtpaga.Text);
-						Program.Devuelta = Convert.ToDouble(txtDev.Text);
+						Program.pagoRealizado = Convert.ToDecimal(txtpaga.Text);
+						Program.Devuelta = Convert.ToDecimal(txtDev.Text);
 						Program.idcaja = Convert.ToInt32(txtId.Text);
 						Program.Fechapago = dateTimePicker1.Text;
 
-					float dev = float.Parse(txtDev.Text);
-					float paga = float.Parse(txtpaga.Text);
-					float caja1 = float.Parse(txtCaja1.Text);
+					decimal dev = decimal.Parse(txtDev.Text);
+					decimal paga = decimal.Parse(txtpaga.Text);
+					decimal caja1 = decimal.Parse(txtCaja1.Text);
 
 					if (dev <= 0)
 					{
@@ -209,7 +209,7 @@ namespace Capa_de_Presentacion
 			using (SqlCommand cmd = new SqlCommand("cierre_caja", Cx.conexion))
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				int num = 0;
+				decimal num = 0;
 				if(txtGa.Text== "")
                 {
 					txtGa.Text = num.ToString();
@@ -221,9 +221,9 @@ namespace Capa_de_Presentacion
 
 				}
 				cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = Convert.ToInt32(txtId.Text);
-				cmd.Parameters.Add("@monto", SqlDbType.Float).Value = Convert.ToDouble(txtFinal.Text);
-				cmd.Parameters.Add("@ganancias", SqlDbType.Float).Value = Convert.ToDouble(txtGa.Text);
-				cmd.Parameters.Add("@perdidas", SqlDbType.Float).Value = Convert.ToDouble(txtPe.Text);
+				cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtFinal.Text);
+				cmd.Parameters.Add("@ganancias", SqlDbType.Decimal).Value = Convert.ToDecimal(txtGa.Text);
+				cmd.Parameters.Add("@perdidas", SqlDbType.Decimal).Value = Convert.ToDecimal(txtPe.Text);
 				cmd.Parameters.Add("@motivo_perdida", SqlDbType.NVarChar).Value = txtMo.Text;
 				cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(dateTimePicker1.Text);
 
@@ -250,18 +250,18 @@ namespace Capa_de_Presentacion
 			{
 				if (txtGa.Text == "")
 				{
-					float i = 0;
+					decimal i = 0;
 					txtGa.Text = i.ToString();
 				}
 				if (txtPe.Text == "")
 				{
-					float i = 0;
+					decimal i = 0;
 					txtPe.Text = i.ToString();
 				}
 
-				float actual = float.Parse(txtCaja2.Text);
-				float totales = float.Parse(txtFinal.Text);
-				float montocaja = totales - actual;
+				decimal actual = decimal.Parse(txtCaja2.Text);
+				decimal totales = decimal.Parse(txtFinal.Text);
+				decimal montocaja = totales - actual;
 
 				if (montocaja > 0)
 				{
@@ -283,7 +283,6 @@ namespace Capa_de_Presentacion
 					txtGa.Clear();
 				}
 			}
-			
 		}
 		private void btnImprimir_Click(object sender, EventArgs e)
 		{
@@ -330,7 +329,7 @@ namespace Capa_de_Presentacion
 				// nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 
 				dgvCaja.Rows[renglon].Cells["id_caja"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_caja")));
-				dgvCaja.Rows[renglon].Cells["monto"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("monto_inicial")).ToString("C2"));
+				dgvCaja.Rows[renglon].Cells["monto"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto_inicial")).ToString("C2"));
 				dgvCaja.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
 
 				tienefila = true;
@@ -347,17 +346,6 @@ namespace Capa_de_Presentacion
 			{
 				MessageBox.Show("Debe Insertar Un Monto Inicial De Caja");
 			}
-			
-		}
-
-		private void txtActual_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			validar.solonumeros(e);
-		}
-
-		private void txtMo_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			validar.sololetras(e);
 		}
 
         private void button4_Click_1(object sender, EventArgs e)

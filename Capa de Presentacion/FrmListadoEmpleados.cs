@@ -26,6 +26,7 @@ namespace Capa_de_Presentacion
 
         private void FrmListadoEmpleados_Load(object sender, EventArgs e)
         {
+            button1.Enabled = false;
             timer1.Start();
             timer1.Interval = 1000;
             MostrarListadoEmpleados();
@@ -114,6 +115,7 @@ namespace Capa_de_Presentacion
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
+            button1.Enabled = true;
             if (dataGridView1.RowCount > 0)
             {
                 dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;

@@ -69,7 +69,7 @@
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
             this.btnCancelar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_salir_de_24;
             this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelar.Location = new System.Drawing.Point(67, 331);
+            this.btnCancelar.Location = new System.Drawing.Point(76, 331);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(134, 40);
@@ -90,7 +90,7 @@
             this.btnIngresar.ForeColor = System.Drawing.Color.Black;
             this.btnIngresar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_entrar;
             this.btnIngresar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnIngresar.Location = new System.Drawing.Point(67, 283);
+            this.btnIngresar.Location = new System.Drawing.Point(76, 283);
             this.btnIngresar.Margin = new System.Windows.Forms.Padding(4);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(134, 40);
