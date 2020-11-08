@@ -155,8 +155,16 @@ namespace Capa_de_Presentacion
 							cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
 							cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
 							cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
-							cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
+							if (Program.Devuelta > 0)
+							{
+								cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
+							}
+							else
+							{
+								cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = 0;
+							}
 							cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
+							cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = 0;
 
 							con.Open();
 							cmd2.ExecuteNonQuery();
@@ -205,7 +213,6 @@ namespace Capa_de_Presentacion
 			frmPagar pa = new frmPagar();
 			pa.txtmonto.Text = txtTotal.Text;
 			pa.gbAbrir.Visible = false;
-			pa.gbCierre.Visible = false;
 			pa.btnCerrar.Visible = false;
 			button1.Show();
 

@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using CapaLogicaNegocio;
@@ -12,9 +7,7 @@ using System.IO;
 
 namespace Capa_de_Presentacion
 {
-#pragma warning disable CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
-	public partial class frmPagar : DevComponents.DotNetBar.Metro.MetroForm
-#pragma warning restore CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
+    public partial class frmPagar : DevComponents.DotNetBar.Metro.MetroForm
 	{
 		public frmPagar()
 		{
@@ -73,7 +66,6 @@ namespace Capa_de_Presentacion
 			{
 				txtCaja.Text = leer["monto_inicial"].ToString();
 				txtCaja1.Text = leer["monto_inicial"].ToString();
-				txtCaja2.Text = leer["monto_inicial"].ToString();
 			}
 			Cx.conexion.Close();
 		}
@@ -185,7 +177,6 @@ namespace Capa_de_Presentacion
 						Program.idPago = 0;
 					else
 						Program.idPago = Convert.ToInt32(txtIdp.Text);
-						Program.pagoRealizado = Convert.ToDecimal(txtpaga.Text);
 						Program.Devuelta = Convert.ToDecimal(txtDev.Text);
 						Program.idcaja = Convert.ToInt32(txtId.Text);
 						Program.Fechapago = dateTimePicker1.Text;
@@ -197,96 +188,21 @@ namespace Capa_de_Presentacion
 					if (dev <= 0)
 					{
 						Program.Caja = caja1 + paga;
+						Program.pagoRealizado = paga;
+					}
+					else
+                    {
+						Program.Caja = caja1 + (paga - dev);
+						Program.pagoRealizado = paga - dev;
 					}
 
-					Program.Caja = caja1 + (paga - dev);
+					Program.pagoRealizado = Convert.ToDecimal(txtpaga.Text);
+
 					MessageBox.Show("Pago Realizado");
 				}
 			}
 		}
-		private void btnCierre_Click(object sender, EventArgs e)
-		{
-			using (SqlCommand cmd = new SqlCommand("cierre_caja", Cx.conexion))
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				decimal num = 0;
-				if(txtGa.Text== "")
-                {
-					txtGa.Text = num.ToString();
 
-				}
-				if(txtPe.Text=="")
-                {
-					txtPe.Text = num.ToString();
-
-				}
-				cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = Convert.ToInt32(txtId.Text);
-				cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtFinal.Text);
-				cmd.Parameters.Add("@ganancias", SqlDbType.Decimal).Value = Convert.ToDecimal(txtGa.Text);
-				cmd.Parameters.Add("@perdidas", SqlDbType.Decimal).Value = Convert.ToDecimal(txtPe.Text);
-				cmd.Parameters.Add("@motivo_perdida", SqlDbType.NVarChar).Value = txtMo.Text;
-				cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(dateTimePicker1.Text);
-
-				Cx.conexion.Open();
-				cmd.ExecuteNonQuery();
-				Cx.conexion.Close();
-			}
-			MessageBox.Show("Cierre de Caja Realizado Con Exito");
-
-			txtFinal.Text= "";
-			txtGa.Text = "";
-			txtPe.Text = "";
-			txtMo.Text = "";
-
-			btnCer.Visible = true;
-		}
-		private void txtFinal_Leave(object sender, EventArgs e)
-		{
-			if (txtFinal.Text == "")
-			{
-				MessageBox.Show("Debe Ingresar un Monto");
-			}
-			else
-			{
-				if (txtGa.Text == "")
-				{
-					decimal i = 0;
-					txtGa.Text = i.ToString();
-				}
-				if (txtPe.Text == "")
-				{
-					decimal i = 0;
-					txtPe.Text = i.ToString();
-				}
-
-				decimal actual = decimal.Parse(txtCaja2.Text);
-				decimal totales = decimal.Parse(txtFinal.Text);
-				decimal montocaja = totales - actual;
-
-				if (montocaja > 0)
-				{
-					txtGa.Text = montocaja.ToString();
-					lbNota.Text = "SUS GANANCIAS SON DE: " + montocaja + " Pesos";
-					lbNota.ForeColor = Color.GreenYellow;
-					txtPe.Clear();
-				}
-				else if (montocaja == 0)
-				{
-					montocaja = 0;
-					lbNota.Text = "NO HUBO PERDIDAS";
-					lbNota.ForeColor = Color.DeepSkyBlue;
-					txtPe.Clear();
-					txtGa.Clear();
-				}
-				else
-				{
-					txtPe.Text = montocaja.ToString();
-					lbNota.Text = "SUS PERDIDAS SON DE: " + montocaja + " Pesos";
-					lbNota.ForeColor = Color.MediumVioletRed;
-					txtGa.Clear();
-				}
-			}
-		}
 		private void btnImprimir_Click(object sender, EventArgs e)
 		{
 			frmMovimientoCaja mo = new frmMovimientoCaja();
@@ -363,5 +279,53 @@ namespace Capa_de_Presentacion
         {
 			validar.solonumeros(e);
 		}
-    }
+
+		//private void txtFinal_Leave(object sender, EventArgs e)
+		//{
+		//	if (txtFinal.Text == "")
+		//	{
+		//		MessageBox.Show("Debe Ingresar un Monto");
+		//	}
+		//	else
+		//	{
+		//		if (txtGa.Text == "")
+		//		{
+		//			decimal i = 0;
+		//			txtGa.Text = i.ToString();
+		//		}
+		//		if (txtPe.Text == "")
+		//		{
+		//			decimal i = 0;
+		//			txtPe.Text = i.ToString();
+		//		}
+
+		//		decimal actual = decimal.Parse(txtCaja2.Text);
+		//		decimal totales = decimal.Parse(txtFinal.Text);
+		//		decimal montocaja = totales - actual;
+
+		//		if (montocaja > 0)
+		//		{
+		//			txtGa.Text = montocaja.ToString();
+		//			lbNota.Text = "SUS GANANCIAS SON DE: " + montocaja + " Pesos";
+		//			lbNota.ForeColor = Color.GreenYellow;
+		//			txtPe.Clear();
+		//		}
+		//		else if (montocaja == 0)
+		//		{
+		//			montocaja = 0;
+		//			lbNota.Text = "NO HUBO PERDIDAS";
+		//			lbNota.ForeColor = Color.DeepSkyBlue;
+		//			txtPe.Clear();
+		//			txtGa.Clear();
+		//		}
+		//		else
+		//		{
+		//			txtPe.Text = montocaja.ToString();
+		//			lbNota.Text = "SUS PERDIDAS SON DE: " + montocaja + " Pesos";
+		//			lbNota.ForeColor = Color.MediumVioletRed;
+		//			txtGa.Clear();
+		//		}
+		//	}
+		//}
+	}
 }

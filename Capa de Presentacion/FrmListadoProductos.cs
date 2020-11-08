@@ -161,7 +161,7 @@ namespace Capa_de_Presentacion
         {
             DataTable dt = new DataTable();
             dt = P.Listar();
-			double compras = 0, total = 0, ventas = 0, totalproducto = 0;
+			decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
 			try
             {
 				dataGridView1.Rows.Clear();
@@ -188,11 +188,11 @@ namespace Capa_de_Presentacion
 					//    dataGridView1.Rows[i].Cells[10].Value = dt.Rows[i][10].ToString();
 					//}
 
-					compras += Convert.ToDouble(dataGridView1.Rows[i].Cells[4].Value);
-                    ventas += Convert.ToDouble(dataGridView1.Rows[i].Cells[5].Value);
-					totalproducto += Convert.ToDouble(dataGridView1.Rows[i].Cells[6].Value);
+					compras += Convert.ToDecimal(dataGridView1.Rows[i].Cells[4].Value);
+                    ventas += Convert.ToDecimal(dataGridView1.Rows[i].Cells[5].Value);
+					totalproducto += Convert.ToDecimal(dataGridView1.Rows[i].Cells[6].Value);
 					lbltotalproductos.Text = Convert.ToString(totalproducto);
-					total = ventas - compras;
+					total =Math.Round(ventas - compras,2);
                     txttotalG.Text = Convert.ToString(total);
                 }
 			}
@@ -398,6 +398,7 @@ namespace Capa_de_Presentacion
 					total = ventas - compras;
 					txttotalG.Text = Convert.ToString(total);
 				}
+				con.Close();
 			}
 			else
 			{
@@ -466,6 +467,7 @@ namespace Capa_de_Presentacion
 					total = ventas - compras;
 					txttotalG.Text = Convert.ToString(total);
 				}
+				con.Close();
 			}
 			else
 			{
@@ -533,6 +535,7 @@ namespace Capa_de_Presentacion
 					total = ventas - compras;
 					txttotalG.Text = Convert.ToString(total);
 				}
+				con.Close();
 			}
 			else
 			{
@@ -599,6 +602,7 @@ namespace Capa_de_Presentacion
 					total = ventas - compras;
 					txttotalG.Text = Convert.ToString(total);
 				}
+				con.Close();
 			}
 			else
 			{
@@ -672,6 +676,7 @@ namespace Capa_de_Presentacion
 					total = ventas - compras;
 					txttotalG.Text = Convert.ToString(total);
 				}
+				con.Close();
 			}
 			else
 			{
@@ -802,21 +807,18 @@ namespace Capa_de_Presentacion
 				string ubicado = lblDir.Text;
 				string envio = "Fecha : " + DateTime.Now.ToString();
 
-				Chunk chunk = new Chunk("Reporte de Inventario de Productos", FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD));
+				Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
+				doc.Add(new Paragraph("                                                                                                                                                                                                                                                     " + envio, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC)));
 				doc.Add(image1);
 				doc.Add(new Paragraph(chunk));
-				doc.Add(new Paragraph(Reporte, FontFactory.GetFont("ARIAL", 14, iTextSharp.text.Font.BOLD)));
+				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("                       "));
-				doc.Add(new Paragraph("------------------------------------------------------------------------------------------"));
-				doc.Add(new Paragraph(remito));
-				doc.Add(new Paragraph(ubicado));
-				doc.Add(new Paragraph(envio));
-				doc.Add(new Paragraph("------------------------------------------------------------------------------------------"));
+				doc.Add(new Paragraph("Reporte de Inventario de Productos   "));
 				doc.Add(new Paragraph("                       "));
 				GenerarDocumento(doc);
 				doc.AddCreationDate();
 				doc.Add(new Paragraph("                       "));
-				doc.Add(new Paragraph("Total de Prodcutos = " + lbltotalproductos.Text));
+				doc.Add(new Paragraph("Total de Productos = " + lbltotalproductos.Text));
 				doc.Add(new Paragraph("Ganancias Total de Ventas= " + txttotalG.Text));
 				doc.Add(new Paragraph("                       "));
 				doc.Add(new Paragraph("                       "));
@@ -963,7 +965,7 @@ namespace Capa_de_Presentacion
 				total = ventas - compras;
 				txttotalG.Text = Convert.ToString(total);
 			}
-
+			con.Close();
 		}
 
 		private void rbfechamod_CheckedChanged(object sender, EventArgs e)
@@ -1026,7 +1028,7 @@ namespace Capa_de_Presentacion
 				total = ventas - compras;
 				txttotalG.Text = Convert.ToString(total);
 			}
-
+			con.Close();
 		}
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -1117,6 +1119,7 @@ namespace Capa_de_Presentacion
 					txttotalG.Text = Convert.ToString(total);
 					lbltotalproductos.Text = Convert.ToString(totalproducto);
 				}
+				con.Close();
 			}
 			else
 			{

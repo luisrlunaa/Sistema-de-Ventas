@@ -55,29 +55,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtpaga = new System.Windows.Forms.TextBox();
             this.txtCaja1 = new System.Windows.Forms.TextBox();
-            this.gbCierre = new System.Windows.Forms.GroupBox();
-            this.btnImprimir = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.btnCer = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtGa = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtMo = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtPe = new System.Windows.Forms.TextBox();
-            this.btnCierre = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtFinal = new System.Windows.Forms.TextBox();
-            this.txtCaja2 = new System.Windows.Forms.TextBox();
             this.txtId = new System.Windows.Forms.TextBox();
             this.txtIdp = new System.Windows.Forms.TextBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.lbNota = new System.Windows.Forms.Label();
             this.gbAbrir.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaja)).BeginInit();
             this.gbPagar.SuspendLayout();
-            this.gbCierre.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbAbrir
@@ -93,11 +76,11 @@
             this.gbAbrir.Controls.Add(this.txtCaja);
             this.gbAbrir.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbAbrir.ForeColor = System.Drawing.Color.Black;
-            this.gbAbrir.Location = new System.Drawing.Point(16, 15);
+            this.gbAbrir.Location = new System.Drawing.Point(14, 17);
             this.gbAbrir.Margin = new System.Windows.Forms.Padding(4);
             this.gbAbrir.Name = "gbAbrir";
             this.gbAbrir.Padding = new System.Windows.Forms.Padding(4);
-            this.gbAbrir.Size = new System.Drawing.Size(804, 267);
+            this.gbAbrir.Size = new System.Drawing.Size(704, 300);
             this.gbAbrir.TabIndex = 0;
             this.gbAbrir.TabStop = false;
             this.gbAbrir.Text = "Apertura de Caja";
@@ -114,10 +97,10 @@
             this.button4.ForeColor = System.Drawing.Color.Black;
             this.button4.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_producto_30;
             this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(454, 212);
+            this.button4.Location = new System.Drawing.Point(397, 238);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(333, 37);
+            this.button4.Size = new System.Drawing.Size(291, 42);
             this.button4.TabIndex = 6;
             this.button4.Text = "Entrar a Inventario";
             this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -146,7 +129,7 @@
             this.fecha});
             this.dgvCaja.EnableHeadersVisualStyles = false;
             this.dgvCaja.GridColor = System.Drawing.Color.White;
-            this.dgvCaja.Location = new System.Drawing.Point(27, 105);
+            this.dgvCaja.Location = new System.Drawing.Point(24, 118);
             this.dgvCaja.Margin = new System.Windows.Forms.Padding(4);
             this.dgvCaja.Name = "dgvCaja";
             this.dgvCaja.ReadOnly = true;
@@ -158,7 +141,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.dgvCaja.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCaja.RowTemplate.Height = 24;
-            this.dgvCaja.Size = new System.Drawing.Size(760, 91);
+            this.dgvCaja.Size = new System.Drawing.Size(665, 112);
             this.dgvCaja.TabIndex = 5;
             this.dgvCaja.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCaja_CellDoubleClick);
             // 
@@ -230,10 +213,10 @@
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_abrir_carpeta_16;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(603, 49);
+            this.button1.Location = new System.Drawing.Point(528, 55);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(184, 37);
+            this.button1.Size = new System.Drawing.Size(161, 42);
             this.button1.TabIndex = 4;
             this.button1.Text = "Abrir Caja";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -246,10 +229,10 @@
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.Font = new System.Drawing.Font("Open Sans Semibold", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCerrar.ForeColor = System.Drawing.Color.Red;
-            this.btnCerrar.Location = new System.Drawing.Point(758, 11);
+            this.btnCerrar.Location = new System.Drawing.Point(663, 12);
             this.btnCerrar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(33, 30);
+            this.btnCerrar.Size = new System.Drawing.Size(29, 34);
             this.btnCerrar.TabIndex = 5;
             this.btnCerrar.Text = "X";
             this.btnCerrar.UseVisualStyleBackColor = true;
@@ -259,7 +242,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(221, 27);
+            this.label2.Location = new System.Drawing.Point(193, 30);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(107, 17);
@@ -270,7 +253,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(23, 27);
+            this.label1.Location = new System.Drawing.Point(20, 30);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 17);
@@ -281,11 +264,11 @@
             // 
             this.txtActual.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtActual.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.txtActual.Location = new System.Drawing.Point(224, 52);
+            this.txtActual.Location = new System.Drawing.Point(196, 58);
             this.txtActual.Margin = new System.Windows.Forms.Padding(4);
             this.txtActual.Multiline = true;
             this.txtActual.Name = "txtActual";
-            this.txtActual.Size = new System.Drawing.Size(163, 34);
+            this.txtActual.Size = new System.Drawing.Size(143, 38);
             this.txtActual.TabIndex = 1;
             this.txtActual.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtActual.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFinal_KeyPress);
@@ -296,12 +279,12 @@
             this.txtCaja.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCaja.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCaja.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.txtCaja.Location = new System.Drawing.Point(8, 52);
+            this.txtCaja.Location = new System.Drawing.Point(7, 58);
             this.txtCaja.Margin = new System.Windows.Forms.Padding(4);
             this.txtCaja.Multiline = true;
             this.txtCaja.Name = "txtCaja";
             this.txtCaja.ReadOnly = true;
-            this.txtCaja.Size = new System.Drawing.Size(164, 34);
+            this.txtCaja.Size = new System.Drawing.Size(144, 38);
             this.txtCaja.TabIndex = 0;
             this.txtCaja.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -320,11 +303,11 @@
             this.gbPagar.Controls.Add(this.txtCaja1);
             this.gbPagar.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbPagar.ForeColor = System.Drawing.Color.Black;
-            this.gbPagar.Location = new System.Drawing.Point(16, 290);
+            this.gbPagar.Location = new System.Drawing.Point(14, 326);
             this.gbPagar.Margin = new System.Windows.Forms.Padding(4);
             this.gbPagar.Name = "gbPagar";
             this.gbPagar.Padding = new System.Windows.Forms.Padding(4);
-            this.gbPagar.Size = new System.Drawing.Size(804, 178);
+            this.gbPagar.Size = new System.Drawing.Size(704, 200);
             this.gbPagar.TabIndex = 1;
             this.gbPagar.TabStop = false;
             this.gbPagar.Text = "Realizar Pago";
@@ -335,10 +318,10 @@
             this.btnC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnC.Font = new System.Drawing.Font("Open Sans Semibold", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnC.ForeColor = System.Drawing.Color.Red;
-            this.btnC.Location = new System.Drawing.Point(757, 17);
+            this.btnC.Location = new System.Drawing.Point(662, 19);
             this.btnC.Margin = new System.Windows.Forms.Padding(4);
             this.btnC.Name = "btnC";
-            this.btnC.Size = new System.Drawing.Size(33, 31);
+            this.btnC.Size = new System.Drawing.Size(29, 35);
             this.btnC.TabIndex = 18;
             this.btnC.Text = "X";
             this.btnC.UseVisualStyleBackColor = true;
@@ -348,7 +331,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(227, 32);
+            this.label6.Location = new System.Drawing.Point(199, 36);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(109, 17);
@@ -359,12 +342,12 @@
             // 
             this.txtmonto.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtmonto.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.txtmonto.Location = new System.Drawing.Point(230, 56);
+            this.txtmonto.Location = new System.Drawing.Point(201, 63);
             this.txtmonto.Margin = new System.Windows.Forms.Padding(4);
             this.txtmonto.Multiline = true;
             this.txtmonto.Name = "txtmonto";
             this.txtmonto.ReadOnly = true;
-            this.txtmonto.Size = new System.Drawing.Size(163, 42);
+            this.txtmonto.Size = new System.Drawing.Size(143, 47);
             this.txtmonto.TabIndex = 12;
             this.txtmonto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -372,7 +355,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(620, 32);
+            this.label5.Location = new System.Drawing.Point(542, 36);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 17);
@@ -383,11 +366,11 @@
             // 
             this.txtDev.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDev.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.txtDev.Location = new System.Drawing.Point(623, 57);
+            this.txtDev.Location = new System.Drawing.Point(545, 64);
             this.txtDev.Margin = new System.Windows.Forms.Padding(4);
             this.txtDev.Multiline = true;
             this.txtDev.Name = "txtDev";
-            this.txtDev.Size = new System.Drawing.Size(163, 42);
+            this.txtDev.Size = new System.Drawing.Size(143, 47);
             this.txtDev.TabIndex = 10;
             this.txtDev.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDev.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFinal_KeyPress);
@@ -404,10 +387,10 @@
             this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_dinero_241;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(629, 123);
+            this.button2.Location = new System.Drawing.Point(550, 138);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(157, 48);
+            this.button2.Size = new System.Drawing.Size(137, 54);
             this.button2.TabIndex = 9;
             this.button2.Text = "Pagar";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -418,7 +401,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(432, 32);
+            this.label3.Location = new System.Drawing.Point(378, 36);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 17);
@@ -429,7 +412,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(23, 32);
+            this.label4.Location = new System.Drawing.Point(20, 36);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 17);
@@ -440,11 +423,11 @@
             // 
             this.txtpaga.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtpaga.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.txtpaga.Location = new System.Drawing.Point(435, 57);
+            this.txtpaga.Location = new System.Drawing.Point(381, 64);
             this.txtpaga.Margin = new System.Windows.Forms.Padding(4);
             this.txtpaga.Multiline = true;
             this.txtpaga.Name = "txtpaga";
-            this.txtpaga.Size = new System.Drawing.Size(163, 42);
+            this.txtpaga.Size = new System.Drawing.Size(143, 47);
             this.txtpaga.TabIndex = 6;
             this.txtpaga.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtpaga.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFinal_KeyPress);
@@ -456,266 +439,33 @@
             this.txtCaja1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCaja1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCaja1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.txtCaja1.Location = new System.Drawing.Point(26, 56);
+            this.txtCaja1.Location = new System.Drawing.Point(23, 63);
             this.txtCaja1.Margin = new System.Windows.Forms.Padding(4);
             this.txtCaja1.Multiline = true;
             this.txtCaja1.Name = "txtCaja1";
             this.txtCaja1.ReadOnly = true;
-            this.txtCaja1.Size = new System.Drawing.Size(164, 43);
+            this.txtCaja1.Size = new System.Drawing.Size(144, 48);
             this.txtCaja1.TabIndex = 5;
             this.txtCaja1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // gbCierre
-            // 
-            this.gbCierre.BackColor = System.Drawing.Color.SeaGreen;
-            this.gbCierre.Controls.Add(this.lbNota);
-            this.gbCierre.Controls.Add(this.btnImprimir);
-            this.gbCierre.Controls.Add(this.button3);
-            this.gbCierre.Controls.Add(this.btnCer);
-            this.gbCierre.Controls.Add(this.label11);
-            this.gbCierre.Controls.Add(this.txtGa);
-            this.gbCierre.Controls.Add(this.label10);
-            this.gbCierre.Controls.Add(this.txtMo);
-            this.gbCierre.Controls.Add(this.label9);
-            this.gbCierre.Controls.Add(this.txtPe);
-            this.gbCierre.Controls.Add(this.btnCierre);
-            this.gbCierre.Controls.Add(this.label7);
-            this.gbCierre.Controls.Add(this.label8);
-            this.gbCierre.Controls.Add(this.txtFinal);
-            this.gbCierre.Controls.Add(this.txtCaja2);
-            this.gbCierre.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbCierre.ForeColor = System.Drawing.Color.Black;
-            this.gbCierre.Location = new System.Drawing.Point(16, 486);
-            this.gbCierre.Margin = new System.Windows.Forms.Padding(4);
-            this.gbCierre.Name = "gbCierre";
-            this.gbCierre.Padding = new System.Windows.Forms.Padding(4);
-            this.gbCierre.Size = new System.Drawing.Size(804, 268);
-            this.gbCierre.TabIndex = 2;
-            this.gbCierre.TabStop = false;
-            this.gbCierre.Text = "Cierre de Caja";
-            // 
-            // btnImprimir
-            // 
-            this.btnImprimir.BackColor = System.Drawing.Color.DarkGray;
-            this.btnImprimir.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnImprimir.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.btnImprimir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnImprimir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImprimir.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImprimir.ForeColor = System.Drawing.Color.Black;
-            this.btnImprimir.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_reporte;
-            this.btnImprimir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImprimir.Location = new System.Drawing.Point(438, 170);
-            this.btnImprimir.Margin = new System.Windows.Forms.Padding(4);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(352, 39);
-            this.btnImprimir.TabIndex = 18;
-            this.btnImprimir.Text = "Reporte de Movimiento de Caja";
-            this.btnImprimir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnImprimir.UseVisualStyleBackColor = false;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.MidnightBlue;
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.button3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_abrir_carpeta_16;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(635, -442);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(184, 48);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Abrir Caja";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btnCer
-            // 
-            this.btnCer.FlatAppearance.BorderSize = 0;
-            this.btnCer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCer.Font = new System.Drawing.Font("Open Sans Semibold", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCer.ForeColor = System.Drawing.Color.Red;
-            this.btnCer.Location = new System.Drawing.Point(757, 14);
-            this.btnCer.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCer.Name = "btnCer";
-            this.btnCer.Size = new System.Drawing.Size(29, 30);
-            this.btnCer.TabIndex = 16;
-            this.btnCer.Text = "X";
-            this.btnCer.UseVisualStyleBackColor = true;
-            this.btnCer.Visible = false;
-            this.btnCer.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(620, 58);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(76, 17);
-            this.label11.TabIndex = 15;
-            this.label11.Text = "Ganancias";
-            // 
-            // txtGa
-            // 
-            this.txtGa.BackColor = System.Drawing.Color.White;
-            this.txtGa.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGa.ForeColor = System.Drawing.Color.ForestGreen;
-            this.txtGa.Location = new System.Drawing.Point(623, 81);
-            this.txtGa.Margin = new System.Windows.Forms.Padding(4);
-            this.txtGa.Name = "txtGa";
-            this.txtGa.ReadOnly = true;
-            this.txtGa.Size = new System.Drawing.Size(132, 25);
-            this.txtGa.TabIndex = 14;
-            this.txtGa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(23, 132);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(137, 17);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "Motivo de la Perdida";
-            // 
-            // txtMo
-            // 
-            this.txtMo.BackColor = System.Drawing.Color.White;
-            this.txtMo.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMo.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.txtMo.Location = new System.Drawing.Point(26, 170);
-            this.txtMo.Margin = new System.Windows.Forms.Padding(4);
-            this.txtMo.Multiline = true;
-            this.txtMo.Name = "txtMo";
-            this.txtMo.Size = new System.Drawing.Size(387, 82);
-            this.txtMo.TabIndex = 12;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(432, 58);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(64, 17);
-            this.label9.TabIndex = 11;
-            this.label9.Text = "Perdidas";
-            // 
-            // txtPe
-            // 
-            this.txtPe.BackColor = System.Drawing.Color.White;
-            this.txtPe.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPe.ForeColor = System.Drawing.Color.Red;
-            this.txtPe.Location = new System.Drawing.Point(435, 81);
-            this.txtPe.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPe.Name = "txtPe";
-            this.txtPe.ReadOnly = true;
-            this.txtPe.Size = new System.Drawing.Size(132, 25);
-            this.txtPe.TabIndex = 10;
-            this.txtPe.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // btnCierre
-            // 
-            this.btnCierre.BackColor = System.Drawing.Color.Firebrick;
-            this.btnCierre.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnCierre.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.btnCierre.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnCierre.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.btnCierre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCierre.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCierre.ForeColor = System.Drawing.Color.Black;
-            this.btnCierre.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_cerrar_ventana1;
-            this.btnCierre.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCierre.Location = new System.Drawing.Point(563, 214);
-            this.btnCierre.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCierre.Name = "btnCierre";
-            this.btnCierre.Size = new System.Drawing.Size(223, 38);
-            this.btnCierre.TabIndex = 9;
-            this.btnCierre.Text = "Cierre de Caja";
-            this.btnCierre.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCierre.UseVisualStyleBackColor = false;
-            this.btnCierre.Click += new System.EventHandler(this.btnCierre_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(227, 51);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(107, 17);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Cantidad Actual";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(24, 50);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(100, 17);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Monto En Caja";
-            // 
-            // txtFinal
-            // 
-            this.txtFinal.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFinal.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.txtFinal.Location = new System.Drawing.Point(230, 76);
-            this.txtFinal.Margin = new System.Windows.Forms.Padding(4);
-            this.txtFinal.Multiline = true;
-            this.txtFinal.Name = "txtFinal";
-            this.txtFinal.Size = new System.Drawing.Size(163, 42);
-            this.txtFinal.TabIndex = 6;
-            this.txtFinal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtFinal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFinal_KeyPress);
-            this.txtFinal.Leave += new System.EventHandler(this.txtFinal_Leave);
-            // 
-            // txtCaja2
-            // 
-            this.txtCaja2.BackColor = System.Drawing.Color.SeaGreen;
-            this.txtCaja2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtCaja2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCaja2.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.txtCaja2.Location = new System.Drawing.Point(26, 75);
-            this.txtCaja2.Margin = new System.Windows.Forms.Padding(4);
-            this.txtCaja2.Multiline = true;
-            this.txtCaja2.Name = "txtCaja2";
-            this.txtCaja2.ReadOnly = true;
-            this.txtCaja2.Size = new System.Drawing.Size(164, 43);
-            this.txtCaja2.TabIndex = 5;
-            this.txtCaja2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtId
             // 
             this.txtId.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtId.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.txtId.Location = new System.Drawing.Point(1075, 423);
+            this.txtId.Location = new System.Drawing.Point(941, 476);
             this.txtId.Margin = new System.Windows.Forms.Padding(4);
             this.txtId.Name = "txtId";
-            this.txtId.Size = new System.Drawing.Size(88, 22);
+            this.txtId.Size = new System.Drawing.Size(78, 22);
             this.txtId.TabIndex = 16;
             this.txtId.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtIdp
             // 
             this.txtIdp.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIdp.Location = new System.Drawing.Point(1075, 252);
+            this.txtIdp.Location = new System.Drawing.Point(941, 284);
             this.txtIdp.Margin = new System.Windows.Forms.Padding(4);
             this.txtIdp.Name = "txtIdp";
-            this.txtIdp.Size = new System.Drawing.Size(88, 22);
+            this.txtIdp.Size = new System.Drawing.Size(78, 22);
             this.txtIdp.TabIndex = 17;
             this.txtIdp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -723,36 +473,25 @@
             // 
             this.dateTimePicker1.CalendarForeColor = System.Drawing.Color.MidnightBlue;
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(1075, 324);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(5);
+            this.dateTimePicker1.Location = new System.Drawing.Point(941, 364);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(171, 22);
+            this.dateTimePicker1.Size = new System.Drawing.Size(150, 25);
             this.dateTimePicker1.TabIndex = 18;
-            // 
-            // lbNota
-            // 
-            this.lbNota.AutoSize = true;
-            this.lbNota.Font = new System.Drawing.Font("Open Sans Semibold", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNota.Location = new System.Drawing.Point(435, 131);
-            this.lbNota.Name = "lbNota";
-            this.lbNota.Size = new System.Drawing.Size(21, 19);
-            this.lbNota.TabIndex = 19;
-            this.lbNota.Text = "...";
             // 
             // frmPagar
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Teal;
-            this.ClientSize = new System.Drawing.Size(836, 769);
+            this.ClientSize = new System.Drawing.Size(732, 539);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.txtIdp);
             this.Controls.Add(this.txtId);
-            this.Controls.Add(this.gbCierre);
             this.Controls.Add(this.gbPagar);
             this.Controls.Add(this.gbAbrir);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmPagar";
@@ -764,8 +503,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaja)).EndInit();
             this.gbPagar.ResumeLayout(false);
             this.gbPagar.PerformLayout();
-            this.gbCierre.ResumeLayout(false);
-            this.gbCierre.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -783,24 +520,10 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.TextBox txtCaja1;
-		private System.Windows.Forms.Label label11;
-		private System.Windows.Forms.TextBox txtGa;
-		private System.Windows.Forms.Label label10;
-		private System.Windows.Forms.TextBox txtMo;
-		private System.Windows.Forms.Label label9;
-		private System.Windows.Forms.TextBox txtPe;
-		private System.Windows.Forms.Button btnCierre;
-		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.Label label8;
-		private System.Windows.Forms.TextBox txtFinal;
-		private System.Windows.Forms.TextBox txtCaja2;
 		public System.Windows.Forms.GroupBox gbAbrir;
 		public System.Windows.Forms.GroupBox gbPagar;
-		public System.Windows.Forms.GroupBox gbCierre;
 		public System.Windows.Forms.Button btnCerrar;
-		public System.Windows.Forms.Button btnCer;
 		public System.Windows.Forms.TextBox txtmonto;
-		private System.Windows.Forms.Button btnImprimir;
 		public System.Windows.Forms.TextBox txtDev;
 		public System.Windows.Forms.TextBox txtpaga;
 		public System.Windows.Forms.Button btnC;
@@ -813,8 +536,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn monto;
 		private DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn fecha;
 		public System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label lbNota;
     }
 }

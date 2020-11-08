@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using CapaLogicaNegocio;
@@ -12,7 +7,7 @@ using CapaLogicaNegocio;
 namespace Capa_de_Presentacion
 {
 #pragma warning disable CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
-	public partial class FrmBuscarAlineacionyBalanceo : DevComponents.DotNetBar.Metro.MetroForm
+    public partial class FrmBuscarAlineacionyBalanceo : DevComponents.DotNetBar.Metro.MetroForm
 #pragma warning restore CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
 	{
 		public FrmBuscarAlineacionyBalanceo()
@@ -69,6 +64,7 @@ namespace Capa_de_Presentacion
 				total += Convert.ToDouble(dataGridView1.Rows[renglon].Cells["precio"].Value);
 				txttotalG.Text = Convert.ToString(total);
 			}
+			conexion.Close();
 		}
 
 		private void dataGridView1_DoubleClick(object sender, EventArgs e)

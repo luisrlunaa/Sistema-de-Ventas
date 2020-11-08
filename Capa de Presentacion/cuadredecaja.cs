@@ -1,0 +1,453 @@
+﻿using System.Windows.Forms;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Diagnostics;
+using System.IO;
+using System.Data.SqlClient;
+using CapaLogicaNegocio;
+using System;
+using System.Data;
+using System.Drawing;
+
+namespace Capa_de_Presentacion
+{
+    public partial class cuadredecaja : Form
+    {
+        public cuadredecaja()
+        {
+            InitializeComponent();
+        }
+		clsCx Cx = new clsCx();
+		Correo c = new Correo();
+		public void limpiar()
+        {
+			txtde5.Text = "";
+			txtde10.Text = "";
+			txtde25.Text = "";
+			txtde50.Text = "";
+			txtde100.Text = "";
+			txtde200.Text = "";
+			txtde500.Text = "";
+			txtde1000.Text = "";
+			txtde2000.Text = "";
+
+			txtde5.ReadOnly = false;
+			txtde10.ReadOnly = false;
+			txtde25.ReadOnly = false;
+			txtde50.ReadOnly = false;
+			txtde100.ReadOnly = false;
+			txtde200.ReadOnly = false;
+			txtde500.ReadOnly = false;
+			txtde1000.ReadOnly = false;
+			txtde2000.ReadOnly = false;
+
+			lbldeudas.Text = "";
+			lblmontocuadre.Text = "";
+			lblmontocaja.Text = "";
+			lblmontoingreso.Text = "";
+			lblmontogasto.Text = "";
+			dataGridView1.Rows.Clear();
+			dataGridView2.Rows.Clear();
+		}
+		private void btnregistrar_Click(object sender, EventArgs e)
+        {
+			using (SqlConnection con = new SqlConnection(Cx.conet))
+			{
+				using (SqlCommand cmd = new SqlCommand("Registrarcuadre", con))
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+
+					//tabla cuadre
+					cmd.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(lblidcaja.Text);
+					cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtde5.Text+","+txtde10.Text + "," +txtde25.Text + ","
+						+txtde50.Text + "," +txtde100.Text + "," +txtde200.Text + "," +txtde500.Text + "," + txtde1000.Text + "," +txtde2000.Text;
+					cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(lblmontocuadre.Text);
+					cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
+
+					con.Open();
+					cmd.ExecuteNonQuery();
+					con.Close();
+					limpiar();
+					MessageBox.Show("Cuadre Registrado");
+				}
+			}
+		}
+        private void agregargasto_Click(object sender, EventArgs e)
+        {
+			limpiar();
+			string fecha = dpkfechacuadre.Value.ToString("yyyy-MM-dd");
+			//declaramos la cadena  de conexion
+			string cadenaconexion = Cx.conet;
+			//variable de tipo Sqlconnection
+			SqlConnection con = new SqlConnection();
+			//variable de tipo Sqlcommand
+			SqlCommand comando = new SqlCommand();
+			//variable SqlDataReader para leer los datos
+			SqlDataReader dr;
+			con.ConnectionString = cadenaconexion;
+			comando.Connection = con;
+			//declaramos el comando para realizar la busqueda
+			comando.CommandText = "Select * From cuadre where fecha ='"+fecha+"'";
+			//especificamos que es de tipo Text
+			comando.CommandType = CommandType.Text;
+			//se abre la conexion
+			con.Open();
+			//limpiamos los renglones de la datagridview
+			dataGridView1.Rows.Clear();
+			//a la variable DataReader asignamos  el la variable de tipo SqlCommand
+			dr = comando.ExecuteReader();
+			//el ciclo while se ejecutará mientras lea registros en la tabla
+			while (dr.Read())
+			{
+				//variable de tipo entero para ir enumerando los la filas del datagridview
+				int renglon = dataGridView1.Rows.Add();
+				// especificamos en que fila se mostrará cada registro
+				// nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+
+				dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
+				dataGridView1.Rows[renglon].Cells[1].Value = dr.GetString(dr.GetOrdinal("descripcion"));
+				dataGridView1.Rows[renglon].Cells[2].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
+				dataGridView1.Rows[renglon].Cells[3].Value = dr.GetDateTime(dr.GetOrdinal("fecha")); ;
+
+				llenargridpagos(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
+				llenar(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
+				llenargastos(fecha);
+
+				string desglose = Convert.ToString(dataGridView1.Rows[renglon].Cells[1].Value);
+				if(desglose!="")
+                {
+					var marca = desglose;
+					string cadena = marca;
+					char delimitador = ',';
+					string[] valores = cadena.Split(delimitador);
+
+					txtde5.Text = valores[0];
+					txtde10.Text = valores[1];
+					txtde25.Text = valores[2];
+					txtde50.Text = valores[3];
+					txtde100.Text = valores[4];
+					txtde200.Text = valores[5];
+					txtde500.Text = valores[6];
+					txtde1000.Text = valores[7];
+					txtde2000.Text = valores[8];
+				}
+
+				txtde5.ReadOnly=true;
+				txtde10.ReadOnly = true;
+				txtde25.ReadOnly = true;
+				txtde50.ReadOnly = true;
+				txtde100.ReadOnly = true;
+				txtde200.ReadOnly = true;
+				txtde500.ReadOnly = true;
+				txtde1000.ReadOnly = true;
+				txtde2000.ReadOnly = true;
+
+				lblmontocuadre.Text = Convert.ToString(dataGridView1.Rows[renglon].Cells[2].Value);
+
+				btnregistrar.Visible = false;
+				btnimprimir.Visible = true;
+			}
+			con.Close();
+		}
+		public void llenargridpagos(int id)
+		{
+			decimal devuelta = 0, pagos = 0;
+			//declar=0amos la cadena  de conexion
+			string cadenaconexion = Cx.conet;
+			//variable de tipo Sqlconnection
+			SqlConnection con = new SqlConnection();
+			//variable de tipo Sqlcommand
+			SqlCommand comando = new SqlCommand();
+			//variable SqlDataReader para leer los datos
+			SqlDataReader dr;
+			con.ConnectionString = cadenaconexion;
+			comando.Connection = con;
+			//declaramos el comando para realizar la busqueda
+			comando.CommandText = "select id_caja,id_pago,monto,ingresos,egresos from Pagos WHERE dbo.Pagos.id_caja ="+ id;
+			//especificamos que es de tipo Text
+			comando.CommandType = CommandType.Text;
+			//se abre la conexion
+			con.Open();
+			//limpiamos los renglones de la datagridview
+			dataGridView2.Rows.Clear();
+			//a la variable DataReader asignamos  el la variable de tipo SqlCommand
+			dr = comando.ExecuteReader();
+			while (dr.Read())
+			{
+				//variable de tipo entero para ir enumerando los la filas del datagridview
+				int renglon = dataGridView2.Rows.Add();
+				// especificamos en que fila se mostrará cada registro
+				// nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+				//pagos
+				dataGridView2.Rows[renglon].Cells["id_caja"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_caja")));
+				dataGridView2.Rows[renglon].Cells["id_pago"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_pago")));
+				dataGridView2.Rows[renglon].Cells["montoventa"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
+				dataGridView2.Rows[renglon].Cells["ingresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("ingresos")));
+				dataGridView2.Rows[renglon].Cells["egresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("egresos")));
+				if (Convert.ToInt32(dataGridView2.Rows[renglon].Cells["id_caja"].Value) == id)
+				{
+					devuelta += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["egresos"].Value), 2);
+					pagos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["ingresos"].Value), 2);
+				}
+
+				lblmontoingreso.Text = (Convert.ToDecimal(txtmonto_inicial.Text) + pagos).ToString();
+				lblmontogasto.Text = devuelta.ToString();
+			}
+			con.Close();
+		}
+
+		public void llenar(int id)
+		{
+			string cadSql = "select montoactual from Caja where id_caja="+ id;
+
+			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+			Cx.conexion.Open();
+
+			SqlDataReader leer = comando.ExecuteReader();
+
+			if (leer.Read() == true)
+			{
+				lblmontocaja.Text = leer["montoactual"].ToString();
+			}
+			Cx.conexion.Close();
+		}
+
+		public void llenargastos(string fecha)
+		{
+			decimal totalgasto = 0;
+			string cadSql = "select * from Gastos where fecha='" + fecha + "'";
+
+			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+			Cx.conexion.Open();
+
+			SqlDataReader leer = comando.ExecuteReader();
+			while (leer.Read())
+			{
+				var monto = Convert.ToString(leer.GetDecimal(leer.GetOrdinal("monto")));
+				totalgasto += Convert.ToDecimal(monto);
+			}
+
+			lblmontogasto.Text = totalgasto.ToString();
+
+			Cx.conexion.Close();
+		}
+
+		private void btnimprimir_Click(object sender, EventArgs e)
+        {
+			To_pdf();
+			limpiar();
+		}
+		private void To_pdf()
+		{
+			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
+			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
+			image1.ScaleAbsoluteWidth(100);
+			image1.ScaleAbsoluteHeight(50);
+			saveFileDialog1.InitialDirectory = @"C:";
+			saveFileDialog1.Title = "Guardar Reporte";
+			saveFileDialog1.DefaultExt = "pdf";
+			saveFileDialog1.Filter = "pdf Files (*.pdf)|*.pdf| All Files (*.*)|*.*";
+			saveFileDialog1.FilterIndex = 2;
+			saveFileDialog1.RestoreDirectory = true;
+			string filename = "Reporte de Cuadre de Caja" + DateTime.Now.ToString();
+			if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+			{
+				filename = saveFileDialog1.FileName;
+			}
+
+			if (filename.Trim() != "")
+			{
+				FileStream file = new FileStream(filename,
+				FileMode.OpenOrCreate,
+				FileAccess.ReadWrite,
+				FileShare.ReadWrite);
+				PdfWriter.GetInstance(doc, file);
+				doc.Open();
+				string remito = lblLogo.Text;
+				string ubicado = lblDir.Text;
+				string envio = "Fecha : " + DateTime.Now.ToString();
+
+				Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
+				doc.Add(new Paragraph("                                                                                                                                                                                                                                                     " + envio, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC)));
+				doc.Add(image1);
+				doc.Add(new Paragraph(chunk));
+				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
+				doc.Add(new Paragraph("                       "));
+				doc.Add(new Paragraph("Reporte de Cuadre de Caja"));
+				doc.Add(new Paragraph("                       "));
+				doc.Add(new Paragraph("Total de Modenas de 5       : " + txtde5.Text));
+				doc.Add(new Paragraph("Total de Modenas de 10     : " + txtde10.Text));
+				doc.Add(new Paragraph("Total de Modenas de 25     : " + txtde25.Text));
+				doc.Add(new Paragraph("Total de Billetes de 50        : " + txtde50.Text));
+				doc.Add(new Paragraph("Total de Billetes de 100      : " + txtde100.Text));
+				doc.Add(new Paragraph("Total de Billetes de 200      : " + txtde200.Text));
+				doc.Add(new Paragraph("Total de Billetes de 500      : " + txtde500.Text));
+				doc.Add(new Paragraph("Total de Billetes de 1000    : " + txtde1000.Text));
+				doc.Add(new Paragraph("Total de Billetes de 2000    : " + txtde2000.Text));
+				doc.Add(new Paragraph("                       "));
+				doc.Add(new Paragraph("                       "));
+				doc.Add(new Paragraph("Totales de Ingresos  : " + lblmontoingreso.Text));
+				doc.Add(new Paragraph("Totales de Gastos    : " + lblmontogasto.Text));
+				doc.Add(new Paragraph("Totales Final             : " + lblmontocuadre.Text));
+				doc.Add(new Paragraph("Totales De Deudas del dia : " + lbldeudas.Text));
+				doc.Add(new Paragraph("                       "));
+				doc.Add(new Paragraph(lblmensaje.Text, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
+				doc.AddCreationDate();
+				doc.Close();
+				Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
+			}
+		}
+		public void llenarid()
+		{
+			string cadSql = "select top(1) id_caja,monto_inicial,deuda from Caja order by id_caja desc";
+
+			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+			Cx.conexion.Open();
+
+			SqlDataReader leer = comando.ExecuteReader();
+
+			if (leer.Read() == true)
+			{
+				lbldeudas.Text = leer["deuda"].ToString();
+				txtmonto_inicial.Text = leer["monto_inicial"].ToString();
+				lblidcaja.Text = leer["id_caja"].ToString();
+			}
+			Cx.conexion.Close();
+		}
+		private void cuadredecaja_Load(object sender, EventArgs e)
+        {
+			string fecha = dpkfechacuadre.Value.ToString("yyyy-MM-dd");
+			limpiar();
+			llenarid();
+			int idcajaa = Convert.ToInt32(lblidcaja.Text);
+			if (idcajaa >0)
+            {
+				llenargridpagos(idcajaa);
+				llenar(idcajaa);
+				llenargastos(fecha);
+			}
+
+			btnimprimir.Visible = false;
+		}
+
+        private void label18_Click(object sender, EventArgs e)
+        {
+			if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+			{
+				////////////////////Borrar copia de seguridad de base de datos anterior
+				string direccion = @"C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\Backup\SalesSystem.bak";
+				File.Delete(direccion);
+
+				////////////////////Creando copia de seguridad de base de datos nueva
+				string comand_query = "BACKUP DATABASE [SalesSystem] TO  DISK = N'C:\\Program Files\\Microsoft SQL Server\\MSSQL13.MSSQLSERVER\\MSSQL\\Backup\\SalesSystem.bak'WITH NOFORMAT, NOINIT,  NAME = N'SalesSystem-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
+				SqlCommand comando = new SqlCommand(comand_query, Cx.conexion);
+				try
+				{
+					Cx.conexion.Open();
+					comando.ExecuteNonQuery();
+
+					////////////////////Enviando al correo copia de seguridad de base de datos nueva
+					c.enviarCorreo("sendingsystembackup@gmail.com", "evitarperdidadedatos/0", "Realizando la creacion diaria de respaldo de base de datos para evitar perdidas de datos en caso de algun problema con el equipo.",
+						"Backup de base de datos" + DateTime.Now, "cepedaimport2715@hotmail.com", direccion);
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.Message);
+					throw;
+				}
+				finally
+				{
+					Cx.conexion.Close();
+					Cx.conexion.Dispose();
+					Application.Exit();
+				}
+			}
+			else
+			{
+				Application.Exit();
+			}
+		}
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+			FrmMenuPrincipal menu = new FrmMenuPrincipal();
+			menu.Show();
+			this.Close();
+        }
+
+        private void txtde5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+			validar.solonumeros(e);
+		}
+
+        private void btnsuma_Click(object sender, EventArgs e)
+        {
+			decimal total = 0;
+            decimal gastos = Convert.ToDecimal(lblmontogasto.Text);
+            decimal ingresos = Convert.ToDecimal(lblmontoingreso.Text);
+            decimal cuadre = ingresos - gastos;
+
+			if(txtde5.Text =="")
+            {
+				txtde5.Text = "0";
+			}
+			if (txtde10.Text == "")
+			{
+				txtde10.Text = "0";
+			}
+			if (txtde25.Text == "")
+			{
+				txtde25.Text = "0";
+			}
+			if (txtde50.Text == "")
+			{
+				txtde50.Text = "0";
+			}
+			if (txtde100.Text == "")
+			{
+				txtde100.Text = "0";
+			}
+			if (txtde200.Text == "")
+			{
+				txtde200.Text = "0";
+			}
+			if (txtde500.Text == "")
+			{
+				txtde500.Text = "0";
+			}
+			if (txtde1000.Text == "")
+			{
+				txtde1000.Text = "0";
+			}
+			if (txtde2000.Text == "")
+			{
+				txtde2000.Text = "0";
+			}
+
+			total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
+				(50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) + (500 * decimal.Parse(txtde500.Text)) +
+				(1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)), 2);
+
+			if ( cuadre < total)
+			{
+				lblmensaje.Text="Cuadre excitoso";
+				lblmensaje.ForeColor = Color.White;
+			}
+
+			else if (cuadre == total)
+			{
+				lblmensaje.Text = "Cuadre exacto";
+				lblmensaje.ForeColor = Color.MidnightBlue;
+			}
+			else
+			{
+				var faltantes = cuadre - total;
+				lblmensaje.Text = "Cuadre defectuoso, Faltan : \n" + faltantes +" Pesos";
+				lblmensaje.ForeColor = Color.Red;
+			}
+
+			lblmontocuadre.Text = total.ToString();
+		}
+    }
+}

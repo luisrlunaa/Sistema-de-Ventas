@@ -212,12 +212,14 @@ namespace Capa_de_Presentacion
 			}
 			else
 			{
-				frmPagar pa = new frmPagar();
-				pa.gbPagar.Visible = false;
-				pa.gbAbrir.Visible = false;
-				pa.btnCerrar.Visible = false;
-				pa.txtId.Visible = true;
-				pa.Show();
+				cuadredecaja cuadre = new cuadredecaja();
+				cuadre.lblLogo.Text = lblLogo.Text;
+				cuadre.lblDir.Text = lblDir.Text;
+				cuadre.lbltel1.Text = lblTel1.Text;
+				cuadre.lbltel.Text = lblTel2.Text;
+				cuadre.lblCorreo.Text = lblCorreo.Text;
+				cuadre.lblrnc.Text = lblrnc.Text;
+				cuadre.Show();
 				this.Hide();
 			}
 		}
@@ -383,6 +385,12 @@ namespace Capa_de_Presentacion
 			V.lblrnc.Text = lblrnc.Text;
 			V.Show();
 		}
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+			frmMovimientoCaja move = new frmMovimientoCaja();
+			move.Show();
+        }
     }
 }
 

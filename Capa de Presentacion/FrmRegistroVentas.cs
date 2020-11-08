@@ -30,6 +30,7 @@ namespace Capa_de_Presentacion
 			btnRegistrarVenta.Hide();
 			btnImprimir.Visible = false;
 			btnAgregar.Visible = false;
+			button2.Visible = false;
 			llenar();
 			btnEliminarItem.Enabled = false;
 			frmPagar pa = new frmPagar();
@@ -174,17 +175,6 @@ namespace Capa_de_Presentacion
 		bool activar;
 		private void FrmVentas_Activated(object sender, EventArgs e)
 		{
-			if (Program.pagoRealizado > 0)
-			{
-				btnRegistrarVenta.Visible = true;
-				btnSalir.Visible = false;
-			}
-			else
-			{
-				btnRegistrarVenta.Visible = false;
-				btnSalir.Visible = true;
-			}
-
 			txtDocIdentidad.Text = Program.DocumentoIdentidad;
 			txtDatos.Text = Program.ApellidosCliente + ", " + Program.NombreCliente;
 			txtidCli.Text = Program.IdCliente + "";
@@ -198,8 +188,30 @@ namespace Capa_de_Presentacion
 			txttotal.Text = Program.total + "";
 			lblsubt.Text = Program.ST + "";
 			lbligv.Text = Program.igv + "";
+			
+			if (Program.Esabono != "" && Program.Esabono != null && Program.pagoRealizado > 0)
+			{
+				button2.Visible = true;
+				btnSalir.Visible = false;
+			}
+			else if (Program.pagoRealizado > 0)
+			{
+				btnRegistrarVenta.Visible = true;
+				btnSalir.Visible = false;
+			}
+			else
+			{
+				btnRegistrarVenta.Visible = false;
+				btnSalir.Visible = true;
+			}
 
-			if (Convert.ToInt32(Program.Id) == 0)
+			if (Program.Esabono != "" && Program.Esabono !=null)
+			{
+				activar = true;
+				btnImprimir.Visible = false;
+				btnSalir.Visible = true;
+			}
+			else if (Program.Id == 0)
 			{
 				activar = false;
 			}
@@ -208,6 +220,7 @@ namespace Capa_de_Presentacion
 				activar = true;
 				btnImprimir.Visible = true;
 			}
+
 
 			if (activar == true)
 			{
@@ -270,6 +283,7 @@ namespace Capa_de_Presentacion
 					dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
 					dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
 				}
+				con.Close();
 			}
 		}
         private void btnBusquedaProducto_Click(object sender, EventArgs e)
@@ -390,11 +404,6 @@ namespace Capa_de_Presentacion
 					txtNCF.Text = "";
 				}
 			}
-			else
-            {
-				chkComprobante.Checked = false;
-				txtNCF.Text = "";
-			}
 			
 			frmPagar pa = new frmPagar();
 			Program.total = Convert.ToDecimal(txttotal.Text);
@@ -402,7 +411,6 @@ namespace Capa_de_Presentacion
 			Program.ST = Convert.ToDecimal(lblsubt.Text);
 			pa.txtmonto.Text = txttotal.Text;
 			pa.gbAbrir.Visible = false;
-			pa.gbCierre.Visible = false;
 			pa.btnCerrar.Visible = false;
 			pa.Show();
 
@@ -531,8 +539,24 @@ namespace Capa_de_Presentacion
 					cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
 					cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
 					cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
-					cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
+					if (Program.Devuelta > 0)
+					{
+						cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
+					}
+					else
+					{
+						cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = 0;
+					}
 					cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
+					if (cbtipofactura.Text == "Credito")
+					{
+                        cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = restante;
+					}
+					else
+					{
+						cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = 0;
+					}
+					
 
 					con.Open();
 					cmd2.ExecuteNonQuery();
@@ -606,7 +630,8 @@ namespace Capa_de_Presentacion
 		}
 
 		private void Limpiar1() {
-            txtIgv.Clear();
+			Program.Esabono = "";
+			txtIgv.Clear();
             txtDocIdentidad.Clear();
             txtDatos.Clear();
             dgvVenta.Rows.Clear();
@@ -903,6 +928,66 @@ namespace Capa_de_Presentacion
         private void txtPVenta_KeyPress_1(object sender, KeyPressEventArgs e)
         {
 			validar.solonumeros(e);
+		}
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+			restante = Convert.ToDecimal(txttotal.Text) - Program.pagoRealizado;
+			using (SqlConnection con = new SqlConnection(Cx.conet))
+			{
+				using (SqlCommand cmd = new SqlCommand("AbonaraVenta", con))
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+
+					//tabla Ventas
+					cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Program.Id;
+					cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
+
+					con.Open();
+					cmd.ExecuteNonQuery();
+					con.Close();
+				}
+
+				using (SqlCommand cmd2 = new SqlCommand("Actualizarpagos_re", con))
+				{
+					cmd2.CommandType = CommandType.StoredProcedure;
+
+					//Tabla de pago
+					cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
+					cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
+					cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
+					cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
+					if(Program.Devuelta>0)
+                    {
+						cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
+					}
+                    else
+                    {
+						cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = 0;
+					}
+					cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
+					cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = restante;
+
+					con.Open();
+					cmd2.ExecuteNonQuery();
+					con.Close();
+				}
+				Program.pagoRealizado = 0;
+				MessageBox.Show("Abono Registrado y Pago Confirmado");
+
+				if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de factura desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+				{
+					tickEstilo();
+				}
+				else
+				{
+					To_pdf();
+				}
+
+				llenar();
+				Limpiar();
+				Limpiar1();
+			}
 		}
     }
 }

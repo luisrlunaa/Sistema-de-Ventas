@@ -78,6 +78,7 @@ namespace Capa_de_Presentacion
 				txtCantvend.Text = Convert.ToString(Cantvendido);
 				txtMontvend.Text = Convert.ToString(montovendido);
 			}
+			con.Close();
 		}
 		private void btnNuevo_Click(object sender, EventArgs e)
 		{
@@ -149,6 +150,7 @@ namespace Capa_de_Presentacion
 
 				txtTtal.Text = Convert.ToString(total);
 			}
+			con.Close();
 		}
 		private void btnCancelar_Click(object sender, EventArgs e)
 		{
@@ -173,6 +175,16 @@ namespace Capa_de_Presentacion
 			Program.DocumentoIdentidad = dataGridView1.CurrentRow.Cells["doc"].Value.ToString();
 			Program.fecha = dataGridView1.CurrentRow.Cells["fecha"].Value.ToString();
 			Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
+			if(Program.tipo != "Credito")
+            {
+				Program.Esabono = "";
+				Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
+			}
+			else
+            {
+				Program.Esabono = "Es Abono";
+				Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["restante"].Value.ToString());
+			}
 			Program.ReImpresion = "Factura ReImpresa";
 		}
 
@@ -229,15 +241,13 @@ namespace Capa_de_Presentacion
 				string ubicado = lblDir.Text;
 				string envio = "Fecha : " + DateTime.Now.ToString();
 
-				Chunk chunk = new Chunk("Reporte de Listado de Ventas Realizadas", FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD));
+				Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
+				doc.Add(new Paragraph("                                                                                                                                                                                                                                                     " + envio, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC)));
 				doc.Add(image1);
 				doc.Add(new Paragraph(chunk));
+				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("                       "));
-				doc.Add(new Paragraph(""));
-				doc.Add(new Paragraph(remito));
-				doc.Add(new Paragraph(ubicado));
-				doc.Add(new Paragraph(envio));
-				doc.Add(new Paragraph("                       "));
+				doc.Add(new Paragraph("Reporte de Listado de Ventas Realizadas                       "));
 				doc.Add(new Paragraph("                       "));
 				GenerarDocumento(doc);
 				doc.AddCreationDate();
@@ -362,6 +372,7 @@ namespace Capa_de_Presentacion
 
 				txtTtal.Text = Convert.ToString(Math.Round(total,2));
 			}
+			con.Close();
 		}
 		private void button2_Click(object sender, EventArgs e)
 		{

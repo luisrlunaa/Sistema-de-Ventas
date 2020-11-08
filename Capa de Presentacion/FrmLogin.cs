@@ -66,7 +66,6 @@ namespace Capa_de_Presentacion
                         else
                         {
                             DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-						pa.gbCierre.Visible = false;
 						pa.gbPagar.Visible = false;
 						pa.btnCerrar.Visible = false;
 						pa.Show();
