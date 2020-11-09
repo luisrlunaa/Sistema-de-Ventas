@@ -388,7 +388,7 @@ namespace Capa_de_Presentacion
             Program.Stock = 0;
             Program.Marca = "";
             Program.PrecioVenta = 0;
-			Program.IdProducto = 0;
+			Program.IdProducto = 0; 
 		}
         private void btnSalir_Click(object sender, EventArgs e)
         {	
@@ -401,8 +401,16 @@ namespace Capa_de_Presentacion
 				else
                 {
 					chkComprobante.Checked = false;
-					txtNCF.Text = "";
+					txtNCF.Text = "Sin NCF";
+					combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
 				}
+			}
+
+			if(chkComprobante.Checked == false && txtNCF.Text == "")
+            {
+				chkComprobante.Checked = false;
+				txtNCF.Text = "Sin NCF";
+				combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
 			}
 			
 			frmPagar pa = new frmPagar();
@@ -605,6 +613,7 @@ namespace Capa_de_Presentacion
 				else
                 {
 					txtNCF.Text = "Sin NCF";
+					combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
 				}
 				
 				VentaRealizada();
@@ -662,7 +671,7 @@ namespace Capa_de_Presentacion
 			{
 				ticket.textoDerecha(Program.ReImpresion);
 			}
-			ticket.textoCentro(lblLogo.Text);
+				ticket.textoCentro(lblLogo.Text);
 				ticket.textoIzquierda("");
 				ticket.textoIzquierda(lblDir.Text);
 				ticket.textoIzquierda("Tel: " + lblTel1.Text + "/" + lblTel2.Text);
@@ -672,7 +681,7 @@ namespace Capa_de_Presentacion
 				ticket.textoIzquierda("Numero de Comprobante: " + txtNCF.Text);
 				ticket.textoIzquierda("RNC: " + lblrnc.Text);
 				ticket.textoExtremos("CAJA #1", "ID VENTA: " + txtIdVenta.Text);
-				ticket.lineasAsteriscos();
+				ticket.lineasGuio();
 
 				//SUB CABECERA.
 				ticket.textoIzquierda("ATENDIDO POR: " + txtUsu.Text);
@@ -683,7 +692,7 @@ namespace Capa_de_Presentacion
 
 				//ARTICULOS A VENDER.
 				ticket.EncabezadoVentas();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
-				ticket.lineasAsteriscos();
+				ticket.lineasGuio();
 				//SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
 				foreach (DataGridViewRow fila in dgvVenta.Rows)
 				{
@@ -699,7 +708,7 @@ namespace Capa_de_Presentacion
 
 				//TEXTO FINAL DEL TICKET
 				ticket.textoIzquierda("EXTRA");
-				ticket.textoIzquierda("FAVOR REVISE SU MERCANCIA LA RECIBIRLA");
+				ticket.textoIzquierda("FAVOR REVISE SU MERCANCIA AL RECIBIRLA");
 				ticket.textoCentro("!GRACIAS POR SU COMPRA!");
 				ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
 			}

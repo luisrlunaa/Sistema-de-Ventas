@@ -177,8 +177,9 @@ namespace Capa_de_Presentacion
 
 				if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
 				{
+					
 					////////////////////Borrar copia de seguridad de base de datos anterior
-					string direccion = @"C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\Backup\SalesSystem.bak";
+					string direccion = @"C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Backup\SalesSystem.bak";
 					File.Delete(direccion);
 
 					////////////////////Creando copia de seguridad de base de datos nueva

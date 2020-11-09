@@ -128,8 +128,8 @@ namespace Capa_de_Presentacion
 
 				lblegr.Text = devuelta.ToString();
 			}
-			decimal montoinicial = Convert.ToDecimal(txtmonto_inicial.Text);
-			lbling.Text = (montoinicial + pagos).ToString();
+
+			lbling.Text = pagos.ToString();
 			con.Close();
 		}
 
@@ -289,8 +289,12 @@ namespace Capa_de_Presentacion
 
         private void frmMovimientoCaja_Activated(object sender, EventArgs e)
         {
+			decimal gastos = 0;
 			decimal pagos = Convert.ToDecimal(lbling.Text);
-			decimal gastos = Convert.ToDecimal(lbldeu.Text);
+			if(lbldeu.Text!= "...")
+            {
+				gastos = Convert.ToDecimal(lbldeu.Text);
+			}
 			decimal total = pagos - gastos;
 
 			lbltotal.Text = total.ToString();
