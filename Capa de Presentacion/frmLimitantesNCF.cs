@@ -23,6 +23,25 @@ namespace Capa_de_Presentacion
 			llenar_data_comprobante();
 		}
 
+		public void llenardatoscomprobantes(int id)
+		{
+			Cx.conexion.Open();
+			string sql = "SELECT * FROM ncf INNER JOIN Comprobantes ON ncf.id_ncf = Comprobantes.id_comprobante where ncf.id_ncf=@id";
+			SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+			cmd.Parameters.AddWithValue("@id", id);
+
+			SqlDataReader reade = cmd.ExecuteReader();
+			if (reade.Read())
+			{
+				txtfinal.Text = Convert.ToString(reade["secuenciaF"]);
+				txtinicio.Text = Convert.ToString(reade["secuenciaIni"]);
+
+				dtpinicio.Value = Convert.ToDateTime(reade["fecha_inicio"]);
+				dtpfinal.Value = Convert.ToDateTime(reade["fecha_final"]);
+			}
+			Cx.conexion.Close();
+		}
+
 		public void actualzarestadoscomprobantes()
 		{
 			var listaidint = new List<int>();
@@ -154,11 +173,11 @@ namespace Capa_de_Presentacion
 			using (SqlCommand cmd = new SqlCommand("limitantes", Cx.conexion))
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@id_comprobante", SqlDbType.NVarChar).Value = txtid.Text;
+				cmd.Parameters.Add("@id_comprobante", SqlDbType.Int).Value =Convert.ToInt32(txtid.Text);
 				cmd.Parameters.Add("@secuenciai", SqlDbType.NVarChar).Value = txtinicio.Text;
 				cmd.Parameters.Add("@secuenciaf", SqlDbType.NVarChar).Value = txtfinal.Text;
-				cmd.Parameters.Add("@fecha_inicio", SqlDbType.NVarChar).Value = dtpinicio.Text;
-				cmd.Parameters.Add("@fecha_final", SqlDbType.NVarChar).Value = dtpfinal.Text;
+				cmd.Parameters.Add("@fecha_inicio", SqlDbType.DateTime).Value =Convert.ToDateTime(dtpinicio.Text);
+				cmd.Parameters.Add("@fecha_final", SqlDbType.DateTime).Value = Convert.ToDateTime(dtpfinal.Text);
 
 				Cx.conexion.Open();
 				cmd.ExecuteNonQuery();
@@ -179,6 +198,12 @@ namespace Capa_de_Presentacion
 		{
 			txtid.Text = data_ncf.CurrentRow.Cells[0].Value.ToString();
 			lblcomp.Text = data_ncf.CurrentRow.Cells[1].Value.ToString();
+
+			if(txtid.Text !="")
+            {
+				int id = Convert.ToInt32(txtid.Text);
+				llenardatoscomprobantes(id);
+			}
 		}
 
 		private void txtinicio_KeyPress(object sender, KeyPressEventArgs e)
