@@ -23,6 +23,7 @@ namespace Capa_de_Presentacion
         }
 		private void FrmVentas_Load(object sender, EventArgs e)
 		{
+			Program.realizopago = false;
 			actualzarestadoscomprobantes();
 			llenar_data_ncf();
 			cargar_combo_NCF(combo_tipo_NCF);
@@ -189,12 +190,12 @@ namespace Capa_de_Presentacion
 			lblsubt.Text = Program.ST + "";
 			lbligv.Text = Program.igv + "";
 			
-			if (Program.Esabono != "" && Program.Esabono != null && Program.pagoRealizado > 0)
+			if (Program.Esabono != "" && Program.Esabono != null && Program.pagoRealizado >= 0 && Program.realizopago == true)
 			{
 				button2.Visible = true;
 				btnSalir.Visible = false;
 			}
-			else if (Program.pagoRealizado > 0)
+			else if (Program.pagoRealizado >= 0 && Program.realizopago==true)
 			{
 				btnRegistrarVenta.Visible = true;
 				btnSalir.Visible = false;
@@ -309,7 +310,7 @@ namespace Capa_de_Presentacion
 							{
 								V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
 								V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
-								V.Descripcion = txtDescripcion.Text + " - " + txtMarca.Text;
+								V.Descripcion = (txtDescripcion.Text+ "-"+txtMarca.Text).Trim();
 								V.Cantidad = Convert.ToInt32(txtCantidad.Text);
 
 								if (Convert.ToDecimal(txtIgv.Text) > 0)
@@ -384,11 +385,14 @@ namespace Capa_de_Presentacion
             txtCantidad.Clear();
             txtCantidad.Focus();
 			txtIgv.Clear();
-            Program.Descripcion = "";
+			txtIgv.Text = "";
+			Program.Descripcion = "";
             Program.Stock = 0;
             Program.Marca = "";
             Program.PrecioVenta = 0;
-			Program.IdProducto = 0; 
+			Program.IdProducto = 0;
+			Program.igv = 0;
+			Program.realizopago = false;
 		}
         private void btnSalir_Click(object sender, EventArgs e)
         {	
@@ -545,7 +549,7 @@ namespace Capa_de_Presentacion
 					//Tabla de pago
 					cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
 					cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
-					cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
+					cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
 					cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
 					if (Program.Devuelta > 0)
 					{
@@ -660,6 +664,8 @@ namespace Capa_de_Presentacion
 			Program.NCF = "";
 			txtNCF.Clear();
 			lst.Clear();
+			txtIgv.Text = "";
+			Program.realizopago = false;
 		}
 
 		public void tickEstilo()
@@ -669,56 +675,60 @@ namespace Capa_de_Presentacion
 			//cabecera del ticket.
 			if (Program.ReImpresion != null)
 			{
-				ticket.textoDerecha(Program.ReImpresion);
+				ticket.TextoDerecha(Program.ReImpresion);
 			}
-			ticket.textoCentro(lblLogo.Text);
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda(lblDir.Text);
-			ticket.textoIzquierda("Tel: " + lblTel1.Text + "/" + lblTel2.Text);
-			ticket.textoIzquierda("Correo: " + lblCorreo.Text);
-			ticket.textoIzquierda("Tipo de Comprobante: " + combo_tipo_NCF.Text);
-			ticket.textoIzquierda("Tipo de Factura: " + cbtipofactura.Text.ToUpper());
-			ticket.textoIzquierda("Numero de Comprobante: " + txtNCF.Text);
-			ticket.textoIzquierda("RNC: " + lblrnc.Text);
-			ticket.textoExtremos("CAJA #1", "ID VENTA: " + txtIdVenta.Text);
+			ticket.TextoCentro(lblLogo.Text);
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda(lblDir.Text);
+			ticket.TextoIzquierda("Tel: " + lblTel1.Text + "/" + lblTel2.Text);
+			ticket.TextoIzquierda("Correo: " + lblCorreo.Text);
+			ticket.TextoIzquierda("Tipo de Comprobante: " + combo_tipo_NCF.Text);
+			ticket.TextoIzquierda("Tipo de Factura: " + cbtipofactura.Text.ToUpper());
+			ticket.TextoIzquierda("Numero de Comprobante: " + txtNCF.Text);
+			ticket.TextoIzquierda("RNC: " + lblrnc.Text);
+			ticket.TextoExtremos("CAJA #1", "ID VENTA: " + txtIdVenta.Text);
 			ticket.lineasGuio();
 
 			//SUB CABECERA.
-			ticket.textoIzquierda("ATENDIDO POR: " + txtUsu.Text);
-			ticket.textoIzquierda("CLIENTE: " + txtDatos.Text);
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("FECHA: " + dateTimePicker1.Text);
-			ticket.textoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
+			ticket.TextoIzquierda("ATENDIDO POR: " + txtUsu.Text);
+			ticket.TextoIzquierda("CLIENTE: " + txtDatos.Text);
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("FECHA: " + dateTimePicker1.Text);
+			ticket.TextoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
 
 			//ARTICULOS A VENDER.
-			ticket.EncabezadoVentas();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
+			ticket.EncabezadoVenta();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
 			ticket.lineasGuio();
 			//SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
 			foreach (DataGridViewRow fila in dgvVenta.Rows)
 			{
-				ticket.AgregarArticulo(fila.Cells["DescripcionP"].Value.ToString(), int.Parse(fila.Cells["cantidadP"].Value.ToString()),
-				decimal.Parse(fila.Cells["SubtoTal"].Value.ToString()), decimal.Parse(fila.Cells["IGV"].Value.ToString()));
+				ticket.AgregaArticulo((fila.Cells["DescripcionP"].Value.ToString()).Trim(), int.Parse((fila.Cells["cantidadP"].Value.ToString()).Trim()),
+				decimal.Parse((fila.Cells["SubtoTal"].Value.ToString()).Trim()), decimal.Parse((fila.Cells["IGV"].Value.ToString()).Trim()));
 			}
-
+			ticket.TextoIzquierda(" ");
 			//resumen de la venta
-			ticket.agregarTotales("TOTAL    : ", decimal.Parse(txttotal.Text));
-			ticket.agregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
-			ticket.textoIzquierda(" ");
-			ticket.textoCentro("__________________________________");
+			ticket.AgregarTotales("TOTAL    : ", decimal.Parse(txttotal.Text));
+			ticket.AgregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
+			ticket.TextoIzquierda(" ");
+			ticket.TextoCentro("__________________________________");
 
 			//TEXTO FINAL DEL TICKET
-			ticket.textoIzquierda("EXTRA");
-			ticket.textoIzquierda("FAVOR REVISE SU MERCANCIA AL RECIBIRLA");
-			ticket.textoCentro("!GRACIAS POR SU COMPRA!");
+			ticket.TextoIzquierda("EXTRA");
+			ticket.TextoIzquierda("FAVOR REVISE SU MERCANCIA AL RECIBIRLA");
+			ticket.TextoCentro("!GRACIAS POR SU COMPRA!");
+
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.CortaTicket();//CORTAR TICKET
 			ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("");
-			ticket.CortaTicket();
 		}
 
 		private void txtPVenta_KeyPress(object sender, KeyPressEventArgs e)

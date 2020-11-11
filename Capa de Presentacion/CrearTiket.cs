@@ -1,260 +1,241 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using System.Drawing.Printing;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
 {
-   public class CrearTiket
+    public class CrearTiket
     {
-        //objeto de la clase, para las lineas del ticket
         StringBuilder linea = new StringBuilder();
-        //variable que guarda el numero maximo de caracteres
+        private Image headerImage = null;
+        //Creamos una variable para almacenar el numero maximo de caracteres que permitiremos en el ticket.
+        int maxCar = 48, cortar;//Para una impresora ticketera que imprime a 40 columnas. La variable cortar cortara el texto cuando rebase el limte.
+      
+        public Image HeaderImage
+        {
+            get { return headerImage; }
+            set { if (headerImage != value) headerImage = value; }
+        }
 
-        int maxcar = 40, cortar; //depende de la impresora.
-        // la variable cortar es para cortar el texto.
-
-
-        //lineas guion
-
+        //Creamos el primer metodo, este dibujara lineas guion.
         public string lineasGuio()
         {
             string lineasGuion = "";
-            for (int i = 0; i < maxcar; i++)
+            for (int i = 0; i < maxCar; i++)
             {
-                lineasGuion += "-";// este es el guion
-
+                lineasGuion += "-";//Agregara un guio hasta llegar la numero maximo de caracteres.
             }
-            return linea.AppendLine(lineasGuion).ToString(); //retorno al principio
+            return linea.AppendLine(lineasGuion).ToString(); //Devolvemos la lineaGuion
         }
 
-        //mismo metodo pero para dibujar asteriscos
+        //Metodo para dibujar una linea con asteriscos
         public string lineasAsteriscos()
         {
             string lineasAsterisco = "";
-            for (int i = 0; i < maxcar; i++)
+            for (int i = 0; i < maxCar; i++)
             {
-                lineasAsterisco += "*";// este es el asterisco
-
+                lineasAsterisco += "*";//Agregara un asterisco hasta llegar la numero maximo de caracteres.
             }
-            return linea.AppendLine(lineasAsterisco).ToString(); //retorno al principio
+            return linea.AppendLine(lineasAsterisco).ToString(); //Devolvemos la linea con asteriscos
         }
 
-        //mismo procedimiento para linea con signo de igual
-
+        //Realizamos el mismo procedimiento para dibujar una lineas con el signo igual
         public string lineasIgual()
         {
             string lineasIgual = "";
-            for (int i = 0; i < maxcar; i++)
+            for (int i = 0; i < maxCar; i++)
             {
-                lineasIgual += "=";// este es el guion
-
+                lineasIgual += "=";//Agregara un igual hasta llegar la numero maximo de caracteres.
             }
-            return linea.AppendLine(lineasIgual).ToString(); //retorno al principio
-        }
-        //encabezado para los articulos
-
-        public void EncabezadoVentas()
-        {
-            linea.AppendLine("ARTICULOS                 |CANT|PRECIO|IMPORTE");// espacios que mostrara el articulo, en total 40 caracteres
+            return linea.AppendLine(lineasIgual).ToString(); //Devolvemos la lienas con iguales
         }
 
-        //creamos un metodo para poner el texto a la izquierda
-        public void textoIzquierda(string texto)
+        //Creamos un metodo para poner el texto a la izquierda
+        public void TextoIzquierda(string texto)
         {
-            if (texto.Length > maxcar)
+            //Si la longitud del texto es mayor al numero maximo de caracteres permitidos, realizar el siguiente procedimiento.
+            if (texto.Length > maxCar)
             {
-                int caracterActual = 0; //indica el caracter se quedo al bajar texto linea
-                for (int longitudTexto = texto.Length; longitudTexto > maxcar; longitudTexto -= maxcar)
-                {// primer fragmento de linea
-                    linea.AppendLine(texto.Substring(caracterActual, maxcar));
-                    caracterActual += maxcar;
+                int caracterActual = 0;//Nos indicara en que caracter se quedo al bajar el texto a la siguiente linea
+                for (int longitudTexto = texto.Length; longitudTexto > maxCar; longitudTexto -= maxCar)
+                {
+                    //Agregamos los fragmentos que salgan del texto
+                    linea.AppendLine(texto.Substring(caracterActual, maxCar));
+                    caracterActual += maxCar;
                 }
-
-
                 //agregamos el fragmento restante
                 linea.AppendLine(texto.Substring(caracterActual, texto.Length - caracterActual));
-
-
             }
             else
-            {//si no es mayor solo agregarlo
+            {
+                //Si no es mayor solo agregarlo.
                 linea.AppendLine(texto);
             }
         }
 
-        // metodo para texto a la derecha
-
-        public void textoDerecha(string texto)
+        //Creamos un metodo para poner texto a la derecha.
+        public void TextoDerecha(string texto)
         {
-            if (texto.Length > maxcar)
+            //Si la longitud del texto es mayor al numero maximo de caracteres permitidos, realizar el siguiente procedimiento.
+            if (texto.Length > maxCar)
             {
-                int caracterActual = 0; //indica el caracter se quedo al bajar texto linea
-                for (int longitudTexto = texto.Length; longitudTexto > maxcar; longitudTexto -= maxcar)
-                {// primer fragmento de linea
-                    linea.AppendLine(texto.Substring(caracterActual, maxcar));
-                    caracterActual += maxcar;
-                }
-
-                //variable para poner espacios retantes
-                string espacios = "";
-                for (int i = 0; i < (maxcar - texto.Substring(caracterActual, texto.Length - caracterActual).Length); i++)
+                int caracterActual = 0;//Nos indicara en que caracter se quedo al bajar el texto a la siguiente linea
+                for (int longitudTexto = texto.Length; longitudTexto > maxCar; longitudTexto -= maxCar)
                 {
-                    espacios += " "; //agregar espacios para alinear a la derecha
+                    //Agregamos los fragmentos que salgan del texto
+                    linea.AppendLine(texto.Substring(caracterActual, maxCar));
+                    caracterActual += maxCar;
+                }
+                //Variable para poner espacios restntes
+                string espacios = "";
+                //Obtenemos la longitud del texto restante.
+                for (int i = 0; i < (maxCar - texto.Substring(caracterActual, texto.Length - caracterActual).Length); i++)
+                {
+                    espacios += " ";//Agrega espacios para alinear a la derecha
                 }
 
-                //agregamos el fragmento restante
+                //agregamos el fragmento restante, agregamos antes del texto los espacios
                 linea.AppendLine(espacios + texto.Substring(caracterActual, texto.Length - caracterActual));
-
-
             }
             else
-            {//variable para poner espacios retantes
+            {
                 string espacios = "";
-                for (int i = 0; i < (maxcar - texto.Length); i++)
+                //Obtenemos la longitud del texto restante.
+                for (int i = 0; i < (maxCar - texto.Length); i++)
                 {
-                    espacios += " "; //agregar espacios para alinear a la derecha
+                    espacios += " ";//Agrega espacios para alinear a la derecha
                 }
-
-
-                //si no es mayor solo agregarlo
+                //Si no es mayor solo agregarlo.
                 linea.AppendLine(espacios + texto);
             }
         }
 
-        //metodo para centrar el texto
-        public void textoCentro(string texto)
+        //Metodo para centrar el texto
+        public void TextoCentro(string texto)
         {
-			if (texto.Length > maxcar)
+            if (texto.Length > maxCar)
             {
-                int caracterActual = 0; //indica el caracter se quedo al bajar texto linea
-                for (int longitudTexto = texto.Length; longitudTexto > maxcar; longitudTexto -= maxcar)
-                {// primer fragmento de linea
-                    linea.AppendLine(texto.Substring(caracterActual, maxcar));
-                    caracterActual += maxcar;
-
+                int caracterActual = 0;//Nos indicara en que caracter se quedo al bajar el texto a la siguiente linea
+                for (int longitudTexto = texto.Length; longitudTexto > maxCar; longitudTexto -= maxCar)
+                {
+                    //Agregamos los fragmentos que salgan del texto
+                    linea.AppendLine(texto.Substring(caracterActual, maxCar));
+                    caracterActual += maxCar;
                 }
-
-                //variable para poner espacios retantes
+                //Variable para poner espacios restntes
                 string espacios = "";
-
-                //sacamos la cantidad de espacios libres y el resultado se divide entre dos
-                int centrar = (maxcar - texto.Substring(caracterActual, texto.Length - caracterActual).Length) / 2;
-
+                //sacamos la cantidad de espacios libres y el resultado lo dividimos entre dos
+                int centrar = (maxCar - texto.Substring(caracterActual, texto.Length - caracterActual).Length) / 2;
+                //Obtenemos la longitud del texto restante.
                 for (int i = 0; i < centrar; i++)
                 {
-                    espacios += " "; //agregar espacios para centrar
+                    espacios += " ";//Agrega espacios para centrar
                 }
 
-                //agregamos el fragmento restante
+                //agregamos el fragmento restante, agregamos antes del texto los espacios
                 linea.AppendLine(espacios + texto.Substring(caracterActual, texto.Length - caracterActual));
-
-
             }
             else
             {
-                //variable para poner espacios retantes
                 string espacios = "";
-
-                //sacamos la cantidad de espacios libres y el resultado se divide entre dos
-                int centrar = (maxcar - texto.Length) / 2;
-
+                //sacamos la cantidad de espacios libres y el resultado lo dividimos entre dos
+                int centrar = (maxCar - texto.Length) / 2;
+                //Obtenemos la longitud del texto restante.
                 for (int i = 0; i < centrar; i++)
                 {
-                    espacios += " "; //agregar espacios para centrar
+                    espacios += " ";//Agrega espacios para centrar
                 }
 
-                //agregamos el fragmento restante
+                //agregamos el fragmento restante, agregamos antes del texto los espacios
                 linea.AppendLine(espacios + texto);
-
             }
         }
-        // metodo para poner texto a los extremos
-        public void textoExtremos(string textoizquierdo, string textoderecho)
+
+        //Metodo para poner texto a los extremos
+        public void TextoExtremos(string textoIzquierdo, string textoDerecho)
         {
-            //variables a utilizar
-            string textoizq, textoder, textocompleto = "", espacios = "";
+            //variables que utilizaremos
+            string textoIzq, textoDer, textoCompleto = "", espacios = "";
 
-            //si el texto que va a la izquierda es mayor a 18, cortamos el texto.
-            if (textoizquierdo.Length > 18)
+            //Si el texto que va a la izquierda es mayor a 18, cortamos el texto.
+            if (textoIzquierdo.Length > 22)
             {
-                cortar = textoizquierdo.Length - 18;
-                textoizq = textoizquierdo.Remove(18, cortar);
+                cortar = textoIzquierdo.Length - 22;
+                textoIzq = textoIzquierdo.Remove(22, cortar);
             }
             else
-            {
-                textoizq = textoizquierdo;
-            }
-            textocompleto = textoizq;// agregamos el primer texto
+            { textoIzq = textoIzquierdo; }
 
+            textoCompleto = textoIzq;//Agregamos el primer texto.
 
-            if (textoderecho.Length > 20) // si es mayor a 20 lo cortamos
+            if (textoDerecho.Length > 24)//Si es mayor a 20 lo cortamos
             {
-                cortar = textoderecho.Length - 20;
-                textoder = textoderecho.Remove(20, cortar);
+                cortar = textoDerecho.Length - 24;
+                textoDer = textoDerecho.Remove(24, cortar);
             }
             else
+            { textoDer = textoDerecho; }
+
+            //Obtenemos el numero de espacios restantes para poner textoDerecho al final
+            int nroEspacios = maxCar - (textoIzq.Length + textoDer.Length);
+            for (int i = 0; i < nroEspacios; i++)
             {
-                textoder = textoderecho;
+                espacios += " ";//agrega los espacios para poner textoDerecho al final
             }
-            //obtenemos el numero de espacios restantes para poner texto derecho al final
-            int nroEspacios = maxcar - (textoizq.Length + textoder.Length);
+            textoCompleto += espacios + textoDerecho;//Agregamos el segundo texto con los espacios para alinearlo a la derecha.
+            linea.AppendLine(textoCompleto);//agregamos la linea al ticket, al objeto en si.
+        }
+
+        //Creamos el encabezado para los articulos
+        public void EncabezadoVenta()
+        {
+            //Escribimos los espacios para mostrar el articulo. En total tienen que ser 40 caracteres
+            linea.AppendLine("ARTICULOS             | CANT | PRECIO | IMPORTE");
+        }
+
+        //Metodo para agregar los totales d ela venta
+        public void AgregarTotales(string texto, decimal total)
+        {
+            //Variables que usaremos
+            string resumen, valor, textoCompleto, espacios = "";
+
+            if (texto.Length > 29)//Si es mayor a 25 lo cortamos
+            {
+                cortar = texto.Length - 29;
+                resumen = texto.Remove(29, cortar);
+            }
+            else
+            { resumen = texto; }
+
+            textoCompleto = resumen;
+            valor = total.ToString("#,#.00");//Agregamos el total previo formateo.
+
+            //Obtenemos el numero de espacios restantes para alinearlos a la derecha
+            int nroEspacios = maxCar - (resumen.Length + valor.Length);
+            //agregamos los espacios
             for (int i = 0; i < nroEspacios; i++)
             {
                 espacios += " ";
             }
-
-            textocompleto += espacios + textoderecho;// se agrega el segundo texto
-            linea.AppendLine(textocompleto);//agregarmos la linea ticket al objeto
-
-
+            textoCompleto += espacios + valor;
+            linea.AppendLine(textoCompleto);
         }
-        // metodo para agregar los totales de la venta
-        public void agregarTotales(string texto, decimal total)
-        {
-            //variables que usamos
-            string resumen, valor, textocompleto, espacios = "";
-            if (texto.Length > 25)// si es mayor a 25 lo cortamos
-            {
-                cortar = texto.Length - 25;
-                resumen = texto.Remove(25, cortar);
-            }
-            else
-            { resumen = texto; }
-            textocompleto = resumen;
-            valor = total.ToString("#,#.00");//agregamos el total previo formateo.
-
-            //obtenemos el numero de espacios restantes para alinear a la derecha
-            int nrpEspacios = maxcar - (resumen.Length + valor.Length);
-            //agregamos los espacios
-            for (int i = 0; i < nrpEspacios; i++)
-            {
-                espacios += " ";
-            }
-            textocompleto += espacios + valor;
-            linea.AppendLine(textocompleto);
-        }
-
 
         // agregar los articulos a la factura
-        public void AgregarArticulo(string articulo, int cant, decimal precio, decimal importe)
+        public void AgregaArticulo(string articulo, int cant, decimal precio, decimal importe)
         {
             // valida que cant precio e importe esten dentro del rango
-            if (cant.ToString().Length <= 5 && precio.ToString().Length <= 12 && importe.ToString().Length <= 8)
+            if (cant.ToString().Length <= 7 && precio.ToString().Length <= 12 && importe.ToString().Length <= 8)
             {
                 string elemento = "", espacios = "";
                 bool bandera = false;
                 int nroEspacios = 0;
 
-                if (articulo.Length > 20)
+                if (articulo.Length > 24)
                 {
                     //colocar la cantidad a la derecha
-                    nroEspacios = (5 - cant.ToString().Length);
+                    nroEspacios = (7 - cant.ToString().Length);
                     espacios = "";
                     for (int i = 0; i < nroEspacios; i++)
                     {
@@ -264,7 +245,7 @@ namespace Capa_de_Presentacion
                     elemento += espacios + cant.ToString();
 
                     //colocar el precio a la derecha.
-                    nroEspacios = (7 - precio.ToString().Length);
+                    nroEspacios = (12 - precio.ToString().Length);
                     espacios = "";
                     for (int i = 0; i < nroEspacios; i++)
                     {
@@ -285,16 +266,16 @@ namespace Capa_de_Presentacion
                     elemento += espacios + importe.ToString(); //se agrega el importe
 
                     int caracterActual = 0;
-                    for (int longitudTexto = articulo.Length; longitudTexto > 20; longitudTexto -= 20)
+                    for (int longitudTexto = articulo.Length; longitudTexto > 24; longitudTexto -= 24)
                     {
                         if (bandera == false)
                         {
-                            linea.AppendLine(articulo.Substring(caracterActual, 20) + elemento);
+                            linea.AppendLine(articulo.Substring(caracterActual, 24) + elemento);
                             bandera = true;
                         }
                         else//-----------------------
 
-                            linea.AppendLine(articulo.Substring(caracterActual, 20));
+                            linea.AppendLine(articulo.Substring(caracterActual, 24));
                         caracterActual += 20;
                     }
 
@@ -347,38 +328,32 @@ namespace Capa_de_Presentacion
                 throw new Exception("los valores ingresados para algunas filas del ticket/no superan las soportadas por este");
             }
         }
-
-
-        //metodos para enviar secuencias de escape a la impresora
-        //para cortar el ticket
-
-
+        //Metodos para enviar secuencias de escape a la impresora
+        //Para cortar el ticket
         public void CortaTicket()
         {
-            linea.AppendLine("\x1B" + "m"); //comando de corte, el cual cambia dependiendo de la impresora
-            linea.AppendLine("\x1B" + "d" + "\x09"); // avanza 9 renglones, varial por impresora
-
+            linea.AppendLine("\x1B" + "m"); //Caracteres de corte. Estos comando varian segun el tipo de impresora
+            linea.AppendLine("\x1B" + "d" + "\x00"); //Avanza 9 renglones, Tambien varian
         }
 
+        //Para abrir el cajon
         public void AbreCajon()
         {
-            // este codigo varia segun la impresora, se necesita leer el manual para saber
-            linea.AppendLine("\x1B" + "p" + "\x00" + "\x0F" + "\x96"); // codigo para abrir cajon, varia segun la impresora
-
+            //Estos tambien varian, tienen que ever el manual de la impresora para poner los correctos.
+            linea.AppendLine("\x1B" + "p" + "\x00" + "\x0F" + "\x96"); //Caracteres de apertura cajon 0
+            //linea.AppendLine("\x1B" + "p" + "\x01" + "\x0F" + "\x96"); //Caracteres de apertura cajon 1
         }
+
+        //Para mandara a imprimir el texto a la impresora que le indiquemos.
         public void ImprimirTicket(string impresora)
         {
-            // este metodo recibe el nombre de la impresora a la cual se mandara a imprimir y el texto 
-            //se utiliza un codigo que saque de la paguina de microsoft
+            //Este metodo recibe el nombre de la impresora a la cual se mandara a imprimir y el texto que se imprimira.
+            //Usaremos un código que nos proporciona Microsoft. https://support.microsoft.com/es-es/kb/322091
 
-            RawPrinterHelper.SendStringToPrinter(impresora, linea.ToString());//imprime texto
-            linea.Clear();//al acabar de imprimir limpia la linea de todo el texto agregado
+            RawPrinterHelper.SendStringToPrinter(impresora, linea.ToString()); //Imprime texto.
+            //linea.Clear();//Al cabar de imprimir limpia la linea de todo el texto agregado.
         }
-
     }
-
-
-
 
     //Clase para mandara a imprimir texto plano a la impresora
     public class RawPrinterHelper
@@ -428,6 +403,7 @@ namespace Capa_de_Presentacion
 
             di.pDocName = "Ticket de Venta";//Este es el nombre con el que guarda el archivo en caso de no imprimir a la impresora fisica.
             di.pDataType = "RAW";//de tipo texto plano
+            //di.pOutputFile = "D:\\ticket.txt";
 
             // Open the printer.
             if (OpenPrinter(szPrinterName.Normalize(), out hPrinter, IntPtr.Zero))

@@ -52,22 +52,21 @@ namespace Capa_de_Presentacion
 			CrearTiket ticket = new CrearTiket();
 
 			//cabecera del ticket.
-			ticket.textoCentro(lblLogo.Text);
-			ticket.textoIzquierda("");
+			ticket.TextoCentro(lblLogo.Text);
+			ticket.TextoIzquierda("");
 			ticket.lineasGuio();
 
 			//SUB CABECERA.
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("FECHA: " + DateTime.Now.ToShortDateString());
-			ticket.textoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("FECHA: " + DateTime.Now.ToShortDateString());
+			ticket.TextoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
 			ticket.lineasGuio();
 
-			ticket.EncabezadoVentas();
 			ticket.lineasGuio();
 
-			ticket.textoCentro(label1.Text+""+turno1.Text);
-			ticket.textoCentro(textBox1.Text);
-			ticket.textoCentro("!GRACIAS POR SU PACIENCIA!");
+			ticket.TextoCentro(label1.Text+""+turno1.Text);
+			ticket.TextoCentro(textBox1.Text);
+			ticket.TextoCentro("!GRACIAS POR SU PACIENCIA!");
 			ticket.CortaTicket();
 			ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
 		}

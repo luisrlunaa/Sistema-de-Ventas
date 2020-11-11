@@ -55,7 +55,7 @@ namespace Capa_de_Presentacion
 		}
 		public void llenar()
 		{
-			string cadSql = "select top(1) monto_inicial from Caja order by id_caja desc";
+			string cadSql = "select top(1) montoactual from Caja order by id_caja desc";
 
 			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
 			Cx.conexion.Open();
@@ -64,8 +64,8 @@ namespace Capa_de_Presentacion
 
 			if(leer.Read() == true)
 			{
-				txtCaja.Text = leer["monto_inicial"].ToString();
-				txtCaja1.Text = leer["monto_inicial"].ToString();
+				txtCaja.Text = leer["montoactual"].ToString();
+				txtCaja1.Text = leer["montoactual"].ToString();
 			}
 			Cx.conexion.Close();
 		}
@@ -183,21 +183,18 @@ namespace Capa_de_Presentacion
 
 					decimal dev = decimal.Parse(txtDev.Text);
 					decimal paga = decimal.Parse(txtpaga.Text);
-					decimal caja1 = decimal.Parse(txtCaja1.Text);
 
 					if (dev <= 0)
 					{
-						Program.Caja = caja1 + paga;
 						Program.pagoRealizado = paga;
 					}
 					else
                     {
-						Program.Caja = caja1 + (paga - dev);
 						Program.pagoRealizado = paga - dev;
 					}
 
 					Program.pagoRealizado = Convert.ToDecimal(txtpaga.Text);
-
+					Program.realizopago = true;
 					MessageBox.Show("Pago Realizado");
 				}
 			}

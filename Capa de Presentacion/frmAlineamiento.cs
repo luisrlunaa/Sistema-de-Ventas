@@ -46,6 +46,7 @@ namespace Capa_de_Presentacion
 			txtnota.Clear();
 			txtMarca.Clear();
 			txtmodelo.Clear();
+			Program.realizopago = false;
 		}
 
 		private void btnBusqueda_Click(object sender, EventArgs e)
@@ -79,45 +80,49 @@ namespace Capa_de_Presentacion
 			CrearTiket ticket = new CrearTiket();
 
 			//cabecera del ticket.
-			ticket.textoCentro(lblLogo.Text);
-			ticket.textoIzquierda(lbldir.Text);
-			ticket.textoIzquierda("TELEFONOS:" + lbltel.Text + "/" + lblTel2.Text);
-			ticket.textoIzquierda("RNC: " + lblrnc.Text);
-			ticket.textoIzquierda("EMAIL:" + lblCorreo.Text);
+			ticket.TextoCentro(lblLogo.Text);
+			ticket.TextoIzquierda(lbldir.Text);
+			ticket.TextoIzquierda("TELEFONOS:" + lbltel.Text + "/" + lblTel2.Text);
+			ticket.TextoIzquierda("RNC: " + lblrnc.Text);
+			ticket.TextoIzquierda("EMAIL:" + lblCorreo.Text);
 			ticket.lineasGuio();
 
 			//SUB CABECERA.
-			ticket.textoIzquierda("ATENDIDO: " + txtUsu.Text);
-			ticket.textoIzquierda("FECHA: " + DateTime.Now.ToShortDateString());
-			ticket.textoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
+			ticket.TextoIzquierda("ATENDIDO: " + txtUsu.Text);
+			ticket.TextoIzquierda("FECHA: " + DateTime.Now.ToShortDateString());
+			ticket.TextoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
 
 			//ARTICULOS A VENDER.
-			ticket.EncabezadoVentas();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
+			ticket.EncabezadoVenta();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
 			ticket.lineasGuio();
 
-			ticket.textoIzquierda("TIPO DE TRABAJO: " + cbtipo.Text);
-			ticket.textoIzquierda("MARCA: " + txtMarca.Text);
-			ticket.textoIzquierda("MODELO: " + txtmodelo.Text);
-			ticket.textoIzquierda("AROS No.: " + txtaros.Text);
-			ticket.textoIzquierda("NOTA: " + txtnota.Text);
-
+			ticket.TextoIzquierda("TIPO DE TRABAJO: " + cbtipo.Text);
+			ticket.TextoIzquierda("MARCA: " + txtMarca.Text);
+			ticket.TextoIzquierda("MODELO: " + txtmodelo.Text);
+			ticket.TextoIzquierda("AROS No.: " + txtaros.Text);
+			ticket.TextoIzquierda("NOTA: " + txtnota.Text);
+			ticket.TextoIzquierda("");
 			//resumen de la venta
-			ticket.agregarTotales("       COSTO TOTAL DEL SERVICIO : ", decimal.Parse(txtTotal.Text));
+			ticket.AgregarTotales("       COSTO TOTAL DEL SERVICIO : ", decimal.Parse(txtTotal.Text));
 
 			//TEXTO FINAL DEL TICKET
-			ticket.textoIzquierda("EXTRA");
-			ticket.textoIzquierda("-FAVOR REVISE MUY BIEN EL TRABAJO AL RECIBIRLO");
-			ticket.textoIzquierda("-SOLO GARANTIZAMOS EL TRABAJO REALIZADO POR NOSOTROS");
-			ticket.textoCentro("!GRACIAS POR VISITARNOS");
+			ticket.TextoIzquierda("EXTRA");
+			ticket.TextoIzquierda("-FAVOR REVISE MUY BIEN EL TRABAJO AL RECIBIRLO");
+			ticket.TextoIzquierda("-SOLO GARANTIZAMOS EL TRABAJO REALIZADO POR NOSOTROS");
+			ticket.TextoCentro("!GRACIAS POR VISITARNOS");
+
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.TextoIzquierda("");
+			ticket.CortaTicket();//CORTAR TICKET
 			ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("");
-			ticket.textoIzquierda("");
-			ticket.CortaTicket();
 		}
 
 		private void button1_Click(object sender, EventArgs e)

@@ -71,6 +71,7 @@ namespace Capa_de_Presentacion
 		public static int IdEmpleadoLogueado1;
 		public static string NombreEmpleadoLogueado1;
 		public static string CargoEmpleadoLogueado1;
+		public static bool realizopago;
 
 		//turno
 		public static double turno;
