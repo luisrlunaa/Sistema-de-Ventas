@@ -245,7 +245,7 @@ namespace Capa_de_Presentacion
         public void AgregarArticulo(string articulo, int cant, decimal precio, decimal importe)
         {
             // valida que cant precio e importe esten dentro del rango
-            if (cant.ToString().Length <= 5 && precio.ToString().Length <= 7 && importe.ToString().Length <= 8)
+            if (cant.ToString().Length <= 5 && precio.ToString().Length <= 12 && importe.ToString().Length <= 8)
             {
                 string elemento = "", espacios = "";
                 bool bandera = false;

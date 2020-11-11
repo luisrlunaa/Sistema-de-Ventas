@@ -73,6 +73,7 @@ namespace Capa_de_Presentacion
 						con.Close();
 						To_pdf();
 						limpiar();
+						label18.Enabled = true;
 						MessageBox.Show("Cuadre Registrado");
 					}
 				}
@@ -334,6 +335,7 @@ namespace Capa_de_Presentacion
 		}
 		private void cuadredecaja_Load(object sender, EventArgs e)
 		{
+			label18.Enabled = false;
 			btnregistrar.Enabled = false; 
 			btnsuma.Visible = true;
 
