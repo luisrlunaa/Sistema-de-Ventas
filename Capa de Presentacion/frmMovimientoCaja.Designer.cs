@@ -30,11 +30,17 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.id_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_caja = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ingresos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.egresos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtBuscarCaja = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblDir = new System.Windows.Forms.Label();
@@ -62,16 +68,10 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtmonto_inicial = new System.Windows.Forms.TextBox();
-            this.egresos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ingresos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_caja = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -83,6 +83,78 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(633, 439);
             this.panel1.TabIndex = 15;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.ColumnHeadersHeight = 29;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id_pago,
+            this.id_caja,
+            this.monto,
+            this.ingresos,
+            this.egresos});
+            this.dataGridView1.EnableHeadersVisualStyles = false;
+            this.dataGridView1.Location = new System.Drawing.Point(-1, -1);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView1.Name = "dataGridView1";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.MidnightBlue;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.Size = new System.Drawing.Size(630, 434);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // id_pago
+            // 
+            this.id_pago.HeaderText = "ID Pago";
+            this.id_pago.MinimumWidth = 80;
+            this.id_pago.Name = "id_pago";
+            this.id_pago.Width = 80;
+            // 
+            // id_caja
+            // 
+            this.id_caja.HeaderText = "ID Caja";
+            this.id_caja.MinimumWidth = 6;
+            this.id_caja.Name = "id_caja";
+            this.id_caja.Visible = false;
+            this.id_caja.Width = 125;
+            // 
+            // monto
+            // 
+            this.monto.HeaderText = "Monto venta";
+            this.monto.MinimumWidth = 120;
+            this.monto.Name = "monto";
+            this.monto.Width = 120;
+            // 
+            // ingresos
+            // 
+            this.ingresos.HeaderText = "Pagos";
+            this.ingresos.MinimumWidth = 110;
+            this.ingresos.Name = "ingresos";
+            this.ingresos.Width = 110;
+            // 
+            // egresos
+            // 
+            this.egresos.HeaderText = "Devueltas";
+            this.egresos.MinimumWidth = 110;
+            this.egresos.Name = "egresos";
+            this.egresos.Width = 110;
             // 
             // txtBuscarCaja
             // 
@@ -231,7 +303,7 @@
             this.lbldeu.AutoSize = true;
             this.lbldeu.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbldeu.ForeColor = System.Drawing.Color.Gold;
-            this.lbldeu.Location = new System.Drawing.Point(781, 558);
+            this.lbldeu.Location = new System.Drawing.Point(765, 558);
             this.lbldeu.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbldeu.Name = "lbldeu";
             this.lbldeu.Size = new System.Drawing.Size(21, 20);
@@ -243,7 +315,7 @@
             this.lblegr.AutoSize = true;
             this.lblegr.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblegr.ForeColor = System.Drawing.Color.Red;
-            this.lblegr.Location = new System.Drawing.Point(461, 558);
+            this.lblegr.Location = new System.Drawing.Point(467, 558);
             this.lblegr.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblegr.Name = "lblegr";
             this.lblegr.Size = new System.Drawing.Size(21, 20);
@@ -255,7 +327,7 @@
             this.lbling.AutoSize = true;
             this.lbling.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbling.ForeColor = System.Drawing.Color.GreenYellow;
-            this.lbling.Location = new System.Drawing.Point(150, 558);
+            this.lbling.Location = new System.Drawing.Point(133, 558);
             this.lbling.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbling.Name = "lbling";
             this.lbling.Size = new System.Drawing.Size(21, 20);
@@ -410,78 +482,6 @@
             this.txtmonto_inicial.Size = new System.Drawing.Size(100, 22);
             this.txtmonto_inicial.TabIndex = 96;
             // 
-            // egresos
-            // 
-            this.egresos.HeaderText = "Devueltas";
-            this.egresos.MinimumWidth = 110;
-            this.egresos.Name = "egresos";
-            this.egresos.Width = 110;
-            // 
-            // ingresos
-            // 
-            this.ingresos.HeaderText = "Pagos";
-            this.ingresos.MinimumWidth = 110;
-            this.ingresos.Name = "ingresos";
-            this.ingresos.Width = 110;
-            // 
-            // monto
-            // 
-            this.monto.HeaderText = "Monto venta";
-            this.monto.MinimumWidth = 120;
-            this.monto.Name = "monto";
-            this.monto.Width = 120;
-            // 
-            // id_caja
-            // 
-            this.id_caja.HeaderText = "ID Caja";
-            this.id_caja.MinimumWidth = 6;
-            this.id_caja.Name = "id_caja";
-            this.id_caja.Visible = false;
-            this.id_caja.Width = 125;
-            // 
-            // id_pago
-            // 
-            this.id_pago.HeaderText = "ID Pago";
-            this.id_pago.MinimumWidth = 80;
-            this.id_pago.Name = "id_pago";
-            this.id_pago.Width = 80;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeight = 29;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id_pago,
-            this.id_caja,
-            this.monto,
-            this.ingresos,
-            this.egresos});
-            this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.Location = new System.Drawing.Point(-1, -1);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.MidnightBlue;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(630, 434);
-            this.dataGridView1.TabIndex = 0;
-            // 
             // frmMovimientoCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -520,9 +520,9 @@
             this.Activated += new System.EventHandler(this.frmMovimientoCaja_Activated);
             this.Load += new System.EventHandler(this.frmMovimientoCaja_Load);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -8,10 +8,7 @@ using System.Drawing;
 
 namespace Capa_de_Presentacion
 {
-
-#pragma warning disable CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
     public partial class frmAlineamiento : DevComponents.DotNetBar.Metro.MetroForm
-#pragma warning restore CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
 	{
 		public frmAlineamiento()
 		{
@@ -60,7 +57,7 @@ namespace Capa_de_Presentacion
 		private void frmTaller_Activated(object sender, EventArgs e)
 		{
 			txtMarca.Text = Program.marca;
-			txtmodelo.Text = Program.modelo; ;
+			txtmodelo.Text = Program.modelo;
 			cbtipo.Text = Program.descripcion;
 ;			txtaros.Text=	Program.Aros;
 			txtTotal.Text= Convert.ToString(Program.total);
@@ -113,6 +110,14 @@ namespace Capa_de_Presentacion
 			ticket.textoIzquierda("-SOLO GARANTIZAMOS EL TRABAJO REALIZADO POR NOSOTROS");
 			ticket.textoCentro("!GRACIAS POR VISITARNOS");
 			ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("");
+			ticket.CortaTicket();
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -216,6 +221,7 @@ namespace Capa_de_Presentacion
 			pa.btnCerrar.Visible = false;
 			button1.Show();
 
+			Program.modelo = txtmodelo.Text;
 			Program.descripcion = cbtipo.Text;
 			Program.marca = txtMarca.Text;
 			Program.Aros = txtaros.Text;

@@ -662,56 +662,64 @@ namespace Capa_de_Presentacion
 			lst.Clear();
 		}
 
-			public void tickEstilo()
-			{
-				CrearTiket ticket = new CrearTiket();
+		public void tickEstilo()
+		{
+			CrearTiket ticket = new CrearTiket();
 
 			//cabecera del ticket.
 			if (Program.ReImpresion != null)
 			{
 				ticket.textoDerecha(Program.ReImpresion);
 			}
-				ticket.textoCentro(lblLogo.Text);
-				ticket.textoIzquierda("");
-				ticket.textoIzquierda(lblDir.Text);
-				ticket.textoIzquierda("Tel: " + lblTel1.Text + "/" + lblTel2.Text);
-				ticket.textoIzquierda("Correo: " + lblCorreo.Text);
-				ticket.textoIzquierda("Tipo de Comprobante: " + combo_tipo_NCF.Text);
-				ticket.textoIzquierda("Tipo de Factura: " + cbtipofactura.Text.ToUpper());
-				ticket.textoIzquierda("Numero de Comprobante: " + txtNCF.Text);
-				ticket.textoIzquierda("RNC: " + lblrnc.Text);
-				ticket.textoExtremos("CAJA #1", "ID VENTA: " + txtIdVenta.Text);
-				ticket.lineasGuio();
+			ticket.textoCentro(lblLogo.Text);
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda(lblDir.Text);
+			ticket.textoIzquierda("Tel: " + lblTel1.Text + "/" + lblTel2.Text);
+			ticket.textoIzquierda("Correo: " + lblCorreo.Text);
+			ticket.textoIzquierda("Tipo de Comprobante: " + combo_tipo_NCF.Text);
+			ticket.textoIzquierda("Tipo de Factura: " + cbtipofactura.Text.ToUpper());
+			ticket.textoIzquierda("Numero de Comprobante: " + txtNCF.Text);
+			ticket.textoIzquierda("RNC: " + lblrnc.Text);
+			ticket.textoExtremos("CAJA #1", "ID VENTA: " + txtIdVenta.Text);
+			ticket.lineasGuio();
 
-				//SUB CABECERA.
-				ticket.textoIzquierda("ATENDIDO POR: " + txtUsu.Text);
-				ticket.textoIzquierda("CLIENTE: " + txtDatos.Text);
-				ticket.textoIzquierda("");
-				ticket.textoIzquierda("FECHA: " + dateTimePicker1.Text);
-				ticket.textoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
+			//SUB CABECERA.
+			ticket.textoIzquierda("ATENDIDO POR: " + txtUsu.Text);
+			ticket.textoIzquierda("CLIENTE: " + txtDatos.Text);
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("FECHA: " + dateTimePicker1.Text);
+			ticket.textoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
 
-				//ARTICULOS A VENDER.
-				ticket.EncabezadoVentas();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
-				ticket.lineasGuio();
-				//SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
-				foreach (DataGridViewRow fila in dgvVenta.Rows)
-				{
-					ticket.AgregarArticulo(fila.Cells["DescripcionP"].Value.ToString(), int.Parse(fila.Cells["cantidadP"].Value.ToString()),
-					decimal.Parse(fila.Cells["SubtoTal"].Value.ToString()), decimal.Parse(fila.Cells["IGV"].Value.ToString()));
-				}
-
-				//resumen de la venta
-				ticket.agregarTotales("TOTAL    : ", decimal.Parse(txttotal.Text));
-				ticket.agregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
-				ticket.textoIzquierda(" ");
-				ticket.textoCentro("__________________________________");
-
-				//TEXTO FINAL DEL TICKET
-				ticket.textoIzquierda("EXTRA");
-				ticket.textoIzquierda("FAVOR REVISE SU MERCANCIA AL RECIBIRLA");
-				ticket.textoCentro("!GRACIAS POR SU COMPRA!");
-				ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
+			//ARTICULOS A VENDER.
+			ticket.EncabezadoVentas();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
+			ticket.lineasGuio();
+			//SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
+			foreach (DataGridViewRow fila in dgvVenta.Rows)
+			{
+				ticket.AgregarArticulo(fila.Cells["DescripcionP"].Value.ToString(), int.Parse(fila.Cells["cantidadP"].Value.ToString()),
+				decimal.Parse(fila.Cells["SubtoTal"].Value.ToString()), decimal.Parse(fila.Cells["IGV"].Value.ToString()));
 			}
+
+			//resumen de la venta
+			ticket.agregarTotales("TOTAL    : ", decimal.Parse(txttotal.Text));
+			ticket.agregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
+			ticket.textoIzquierda(" ");
+			ticket.textoCentro("__________________________________");
+
+			//TEXTO FINAL DEL TICKET
+			ticket.textoIzquierda("EXTRA");
+			ticket.textoIzquierda("FAVOR REVISE SU MERCANCIA AL RECIBIRLA");
+			ticket.textoCentro("!GRACIAS POR SU COMPRA!");
+			ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("");
+			ticket.textoIzquierda("");
+			ticket.CortaTicket();
+		}
 
 		private void txtPVenta_KeyPress(object sender, KeyPressEventArgs e)
 		{

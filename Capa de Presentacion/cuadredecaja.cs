@@ -208,7 +208,6 @@ namespace Capa_de_Presentacion
 				}
 
 				lblmontoingreso.Text = pagos.ToString();
-				lblmontogasto.Text = devuelta.ToString();
 			}
 			con.Close();
 		}
@@ -224,7 +223,8 @@ namespace Capa_de_Presentacion
 
 			if (leer.Read() == true)
 			{
-				lblmontocaja.Text = leer["montoactual"].ToString();
+				var montoactual = leer["montoactual"].ToString();
+				lblmontocaja.Text= (Math.Round(Convert.ToDecimal(montoactual)-Convert.ToDecimal(lblmontogasto.Text),2)).ToString();
 			}
 
 			Cx.conexion.Close();
@@ -241,7 +241,7 @@ namespace Capa_de_Presentacion
 			SqlDataReader leer = comando.ExecuteReader();
 			while (leer.Read())
 			{
-				var monto = Convert.ToString(leer.GetDecimal(leer.GetOrdinal("monto")));
+				var monto = leer["monto"].ToString();
 				totalgasto += Convert.ToDecimal(monto);
 			}
 
@@ -333,19 +333,18 @@ namespace Capa_de_Presentacion
 			Cx.conexion.Close();
 		}
 		private void cuadredecaja_Load(object sender, EventArgs e)
-        {
+		{
 			btnregistrar.Enabled = false; 
 			btnsuma.Visible = true;
 
 			string fecha = dpkfechacuadre.Value.ToString("yyyy-MM-dd");
-			limpiar();
 			llenarid();
 			int idcajaa = Convert.ToInt32(lblidcaja.Text);
+			llenargastos(fecha);
 			if (idcajaa >0)
             {
 				llenargridpagos(idcajaa);
 				llenar(idcajaa);
-				llenargastos(fecha);
 			}
 
 			btnimprimir.Visible = false;
