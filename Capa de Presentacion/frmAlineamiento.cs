@@ -203,6 +203,8 @@ namespace Capa_de_Presentacion
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 			FrmBuscarAlineacionyBalanceo F = new FrmBuscarAlineacionyBalanceo();
+			F.lblLogo.Text = lblLogo.Text;
+			F.lblDir.Text = lbldir.Text;
 			F.Show();
 		}
 

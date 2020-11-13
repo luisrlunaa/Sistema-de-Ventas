@@ -23,6 +23,7 @@ namespace Capa_de_Presentacion
         public static string DocumentoIdentidad;
         public static string NombreCliente;
         public static string ApellidosCliente;
+		public static string datoscliente;
 
 		//Datos del Cliente2
 		public static int IdCliente2;

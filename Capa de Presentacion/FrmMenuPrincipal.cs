@@ -183,7 +183,7 @@ namespace Capa_de_Presentacion
 					File.Delete(direccion);
 
 					////////////////////Creando copia de seguridad de base de datos nueva
-					string comand_query = "BACKUP DATABASE [SalesSystem] TO  DISK = N'C:\\Program Files\\Microsoft SQL Server\\MSSQL13.MSSQLSERVER\\MSSQL\\Backup\\SalesSystem.bak'WITH NOFORMAT, NOINIT,  NAME = N'SalesSystem-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
+					string comand_query = "BACKUP DATABASE [SalesSystem] TO  DISK = N'C:\\Program Files\\Microsoft SQL Server\\MSSQL12.MSSQLSERVER\\MSSQL\\Backup\\SalesSystem.bak'WITH NOFORMAT, NOINIT,  NAME = N'SalesSystem-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
 					SqlCommand comando = new SqlCommand(comand_query, Cx.conexion);
 					try
 					{
@@ -191,7 +191,7 @@ namespace Capa_de_Presentacion
 						comando.ExecuteNonQuery();
 
 						////////////////////Enviando al correo copia de seguridad de base de datos nueva
-						c.enviarCorreo("sendingsystembackup@gmail.com", "evitarperdidadedatos/0", "Realizando la creacion diaria de respaldo de base de datos para evitar perdidas de datos en caso de algun problema con el equipo.",
+						c.enviarCorreo("sendingsystembackup@gmail.com", "evitarperdidadedatos/0", "Realizando la creación diaria de respaldo de base de datos para evitar perdidas de datos en caso de algún problema con el equipo.",
 							"Backup de base de datos" + DateTime.Now, "cepedaimport2715@hotmail.com", direccion);
 					}
 					catch (Exception ex)

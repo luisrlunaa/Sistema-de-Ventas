@@ -23,6 +23,20 @@ namespace Capa_de_Presentacion
         }
 		private void FrmVentas_Load(object sender, EventArgs e)
 		{
+			txtidCli.Text = null;
+			Program.IdCliente = 0;
+			cbidentificacion.Checked = false;
+			if (cbidentificacion.Checked == true)
+			{
+				btnBuscar.Show();
+				txtDatos.ReadOnly = true;
+			}
+			else
+			{
+				btnBuscar.Hide();
+				txtDatos.ReadOnly = false;
+			}
+			Program.datoscliente = "";
 			Program.realizopago = false;
 			actualzarestadoscomprobantes();
 			llenar_data_ncf();
@@ -177,8 +191,16 @@ namespace Capa_de_Presentacion
 		private void FrmVentas_Activated(object sender, EventArgs e)
 		{
 			txtDocIdentidad.Text = Program.DocumentoIdentidad;
-			txtDatos.Text = Program.ApellidosCliente + ", " + Program.NombreCliente;
-			txtidCli.Text = Program.IdCliente + "";
+			if(Program.IdCliente !=0)
+            {
+				txtDatos.Text = Program.ApellidosCliente + " " + Program.NombreCliente;
+				txtidCli.Text = Program.IdCliente + "";
+			}
+			else
+            {
+				txtDatos.Text = Program.datoscliente;
+			}
+			
 			txtIdProducto.Text = Program.IdProducto + "";
 			txtDescripcion.Text = Program.Descripcion;
 			txtMarca.Text = Program.Marca;
@@ -291,6 +313,7 @@ namespace Capa_de_Presentacion
         {
             FrmListadoProductos P = new FrmListadoProductos();
 			btnAgregar.Visible = true;
+			Program.datoscliente = txtDatos.Text;
 			P.Show();
         }
 
@@ -298,8 +321,6 @@ namespace Capa_de_Presentacion
 		{
 			clsVenta V = new clsVenta();
 
-			if (txtDocIdentidad.Text.Trim() != "")
-			{
 				if (txtDescripcion.Text.Trim() != "")
 				{
 					if (txtCantidad.Text.Trim() != "")
@@ -324,7 +345,14 @@ namespace Capa_de_Presentacion
 								btnAgregar.Visible = false;
 								lst.Add(V);
 								LlenarGri();
-								Limpiar();
+
+							if (cbidentificacion.Checked == false && txtDatos.Text != "" && Program.IdCliente == 0)
+							{
+								txtDocIdentidad.Text = "Sin identificacion";
+								txtDatos.Text = Program.datoscliente;
+							}
+
+							Limpiar();
 							}
 							else
 							{
@@ -348,11 +376,6 @@ namespace Capa_de_Presentacion
 				{
 					DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor buscar un Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 				}
-			}
-			else
-			{
-				DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Busque el Cliente a Vender.", "Sistema de Ventas", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-			}
 		}
 		private void LlenarGri() {
             Decimal SumaSubTotal = 0; Decimal SumaIgv=0; Decimal SumaTotal=0;
@@ -410,13 +433,12 @@ namespace Capa_de_Presentacion
 				}
 			}
 
-			if(chkComprobante.Checked == false && txtNCF.Text == "")
+			if(cbidentificacion.Checked == false && Program.IdCliente==0)
             {
-				chkComprobante.Checked = false;
-				txtNCF.Text = "Sin NCF";
-				combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+				txtDatos.Text = Program.datoscliente;
+				txtDocIdentidad.Text = "Sin Identificación";
 			}
-			
+
 			frmPagar pa = new frmPagar();
 			Program.total = Convert.ToDecimal(txttotal.Text);
 			Program.igv = Convert.ToDecimal(lbligv.Text);
@@ -473,16 +495,35 @@ namespace Capa_de_Presentacion
 		decimal restante = 0;
 		public void VentaRealizada()
         {
+			string procedure = "";
 			using (SqlConnection con = new SqlConnection(Cx.conet))
 			{
-				using (SqlCommand cmd = new SqlCommand("RegistrarVenta", con))
+				if(Program.IdCliente>0)
+                {
+					procedure = "RegistrarVenta";
+				}
+				else
+                {
+					procedure = "RegistrarVentasinIDcliente";
+				}
+
+				using (SqlCommand cmd = new SqlCommand(procedure, con))
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 
 					//tabla Ventas
-					cmd.Parameters.Add("@IdCliente", SqlDbType.Int).Value = Convert.ToInt32(txtidCli.Text);
+					if(Program.IdCliente != 0)
+					{
+						cmd.Parameters.Add("@IdCliente", SqlDbType.Int).Value = Convert.ToInt32(txtidCli.Text);
+					}
+					else
+                    {
+						cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = Program.datoscliente;
+					}
+
 					cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
 					cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
+
 					if (cbtipofactura.Text == "Credito")
 					{
 						restante = Convert.ToDecimal(txttotal.Text) - Program.pagoRealizado;
@@ -492,6 +533,7 @@ namespace Capa_de_Presentacion
 					{
 						cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = 0;
 					}
+
 					cmd.Parameters.Add("@Serie", SqlDbType.Int).Value = Convert.ToInt32(txtid.Text);
 					cmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = txtNCF.Text;
 					cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
@@ -643,12 +685,14 @@ namespace Capa_de_Presentacion
 		}
 
 		private void Limpiar1() {
+			cbidentificacion.Visible = true;
+			txtidCli.Text = "0";
+			cbidentificacion.Checked = false;
 			Program.Esabono = "";
 			txtIgv.Clear();
             txtDocIdentidad.Clear();
             txtDatos.Clear();
             dgvVenta.Rows.Clear();
-            Program.IdEmpleadoLogueado = 0;
             Program.IdCliente = 0;
             txtIdProducto.Clear();
 			Program.pagoRealizado = 0;
@@ -670,6 +714,8 @@ namespace Capa_de_Presentacion
 
 		public void tickEstilo()
 		{
+			string nombre = "";
+			string cedula = "";
 			CrearTiket ticket = new CrearTiket();
 
 			//cabecera del ticket.
@@ -689,12 +735,23 @@ namespace Capa_de_Presentacion
 			ticket.TextoExtremos("CAJA #1", "ID VENTA: " + txtIdVenta.Text);
 			ticket.lineasGuio();
 
+			if(Program.datoscliente !="")
+            {
+				nombre = Program.datoscliente;
+				cedula = "Sin Identificación";
+			}
+			else
+            {
+				nombre = txtDatos.Text;
+				cedula = Program.DocumentoIdentidad;
+			}
+
 			//SUB CABECERA.
-			ticket.TextoIzquierda("ATENDIDO POR: " + txtUsu.Text);
-			ticket.TextoIzquierda("CLIENTE: " + txtDatos.Text);
-			ticket.TextoIzquierda("");
-			ticket.TextoIzquierda("FECHA: " + dateTimePicker1.Text);
-			ticket.TextoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
+			ticket.TextoIzquierda("Atendido Por: " + txtUsu.Text);
+			ticket.TextoIzquierda("Cliente: " + nombre);
+			ticket.TextoIzquierda("Documento de Identificación: "+ cedula);
+			ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Text);
+			ticket.TextoIzquierda("Hora: " + DateTime.Now.ToShortTimeString());
 
 			//ARTICULOS A VENDER.
 			ticket.EncabezadoVenta();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
@@ -841,6 +898,8 @@ namespace Capa_de_Presentacion
 
 		private void To_pdf()
 		{
+			string nombre = "";
+			string cedula = "";
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             Image image1 = Image.GetInstance("LogoCepeda.png");
@@ -875,20 +934,35 @@ namespace Capa_de_Presentacion
 				{
 					doc.Add(new Paragraph("                                                                                                                                                                                                                                                                                                                                                                                            " + Program.ReImpresion, FontFactory.GetFont("ARIAL", 5, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
 				}
+
+				if (Program.datoscliente != "" && Program.IdCliente == 0)
+				{
+					nombre = Program.datoscliente;
+					cedula = "Sin Identificación";
+				}
+				else
+				{
+					nombre = txtDatos.Text;
+					cedula = txtDocIdentidad.Text;
+				}
+
 				doc.Add(new Paragraph("                                                                                                                                                                                                                                                     " + envio, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC)));
 				doc.Add(image1);
 				doc.Add(new Paragraph(chunk));
 				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph(" "));
-				doc.Add(new Paragraph("ATENDIDO POR: " + txtUsu.Text + "                                                                                                              " + "Tipo de Factura: "  + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-				doc.Add(new Paragraph("CLIENTE: " + txtDatos.Text + "                                                                                                                           " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-				doc.Add(new Paragraph("Documento del Cliente: " + txtDocIdentidad.Text + "                                                                                                                            " + "Numero de Comprobante: " + txtNCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+				doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+				doc.Add(new Paragraph("Tipo de Factura: "  + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+				doc.Add(new Paragraph("Tipo de Comprobante: " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+				doc.Add(new Paragraph("Numero de Comprobante: " + txtNCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+				doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+				doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph(" "));
 				GenerarDocumento(doc);
 				doc.AddCreationDate();
 				if(dgvVenta.Rows.Count>=1)
                 {
-					int filas = 25 - dgvVenta.Rows.Count;
+					int filas = 22 - dgvVenta.Rows.Count;
 					if(filas>1)
                     {
 						for (int i = 1; i < filas; i++)
@@ -1014,6 +1088,21 @@ namespace Capa_de_Presentacion
 				llenar();
 				Limpiar();
 				Limpiar1();
+			}
+		}
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+			if (cbidentificacion.Checked == true)
+			{
+				btnBuscar.Show();
+				txtDatos.ReadOnly = true;
+				cbidentificacion.Visible = false;
+			}
+			else
+			{
+				btnBuscar.Hide();
+				txtDatos.ReadOnly = false;
 			}
 		}
     }

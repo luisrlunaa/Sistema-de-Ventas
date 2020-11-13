@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Data.SqlClient;
 using CapaLogicaNegocio;
-using DevComponents.Editors;
 
 namespace Capa_de_Presentacion
 {
