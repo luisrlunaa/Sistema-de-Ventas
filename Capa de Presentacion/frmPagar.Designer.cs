@@ -65,7 +65,7 @@
             // 
             // gbAbrir
             // 
-            this.gbAbrir.BackColor = System.Drawing.Color.SeaGreen;
+            this.gbAbrir.BackColor = System.Drawing.Color.RoyalBlue;
             this.gbAbrir.Controls.Add(this.button4);
             this.gbAbrir.Controls.Add(this.dgvCaja);
             this.gbAbrir.Controls.Add(this.button1);
@@ -275,7 +275,7 @@
             // 
             // txtCaja
             // 
-            this.txtCaja.BackColor = System.Drawing.Color.SeaGreen;
+            this.txtCaja.BackColor = System.Drawing.Color.RoyalBlue;
             this.txtCaja.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCaja.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCaja.ForeColor = System.Drawing.Color.MidnightBlue;
@@ -290,7 +290,7 @@
             // 
             // gbPagar
             // 
-            this.gbPagar.BackColor = System.Drawing.Color.SeaGreen;
+            this.gbPagar.BackColor = System.Drawing.Color.RoyalBlue;
             this.gbPagar.Controls.Add(this.btnC);
             this.gbPagar.Controls.Add(this.label6);
             this.gbPagar.Controls.Add(this.txtmonto);
@@ -435,7 +435,7 @@
             // 
             // txtCaja1
             // 
-            this.txtCaja1.BackColor = System.Drawing.Color.SeaGreen;
+            this.txtCaja1.BackColor = System.Drawing.Color.RoyalBlue;
             this.txtCaja1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCaja1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCaja1.ForeColor = System.Drawing.Color.MidnightBlue;
@@ -483,7 +483,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Teal;
+            this.BackColor = System.Drawing.Color.SteelBlue;
             this.ClientSize = new System.Drawing.Size(732, 539);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.txtIdp);

@@ -40,7 +40,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.SeaGreen;
+            this.groupBox1.BackColor = System.Drawing.Color.RoyalBlue;
             this.groupBox1.Controls.Add(this.btnCancelar);
             this.groupBox1.Controls.Add(this.btnIngresar);
             this.groupBox1.Controls.Add(this.txtPassword);

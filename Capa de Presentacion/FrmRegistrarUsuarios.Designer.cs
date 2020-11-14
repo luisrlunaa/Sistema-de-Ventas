@@ -53,7 +53,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.SeaGreen;
+            this.groupBox1.BackColor = System.Drawing.Color.RoyalBlue;
             this.groupBox1.Controls.Add(this.lblDni);
             this.groupBox1.Controls.Add(this.lblCargo);
             this.groupBox1.Controls.Add(this.lblEmpleado);
@@ -135,7 +135,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.SeaGreen;
+            this.groupBox2.BackColor = System.Drawing.Color.RoyalBlue;
             this.groupBox2.Controls.Add(this.txtPassword);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.txtUser);
@@ -251,7 +251,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
+            this.BackColor = System.Drawing.Color.RoyalBlue;
             this.ClientSize = new System.Drawing.Size(678, 403);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtEmp);

@@ -246,7 +246,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.SeaGreen;
+            this.groupBox1.BackColor = System.Drawing.Color.RoyalBlue;
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.txttotalG);
             this.groupBox1.Controls.Add(this.label5);
@@ -266,7 +266,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.BackColor = System.Drawing.Color.SeaGreen;
+            this.groupBox3.BackColor = System.Drawing.Color.RoyalBlue;
             this.groupBox3.Controls.Add(this.rbfechamod);
             this.groupBox3.Controls.Add(this.rbfechaing);
             this.groupBox3.Controls.Add(this.label12);
@@ -603,7 +603,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
+            this.BackColor = System.Drawing.Color.RoyalBlue;
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.lbltotalproductos);
             this.Controls.Add(this.label14);

@@ -97,7 +97,7 @@
             // 
             // agregargasto
             // 
-            this.agregargasto.BackColor = System.Drawing.Color.SeaGreen;
+            this.agregargasto.BackColor = System.Drawing.Color.RoyalBlue;
             this.agregargasto.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.agregargasto.FlatAppearance.BorderSize = 0;
             this.agregargasto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
@@ -798,7 +798,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
+            this.BackColor = System.Drawing.Color.RoyalBlue;
             this.ClientSize = new System.Drawing.Size(682, 574);
             this.Controls.Add(this.lblmensaje);
             this.Controls.Add(this.lbldeudas);

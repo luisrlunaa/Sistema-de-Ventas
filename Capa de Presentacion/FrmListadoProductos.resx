@@ -1651,16 +1651,16 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>720, 115</value>
+    <value>714, 117</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 17</value>
+    <value>183, 17</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>109</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Filtrar Por Tipo de Goma</value>
+    <value>Filtrar Por Tipo de Producto</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>

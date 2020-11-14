@@ -37,6 +37,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtNombres = new System.Windows.Forms.TextBox();
             this.cbxEstadoCivil = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -44,8 +46,6 @@
             this.rbnFemenino = new System.Windows.Forms.RadioButton();
             this.rbnMasculino = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtNombres = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.txtApellidos = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -158,6 +158,25 @@
             this.label8.TabIndex = 15;
             this.label8.Text = "Dirección";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(23, 117);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(73, 20);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Nombres";
+            // 
+            // txtNombres
+            // 
+            this.txtNombres.Location = new System.Drawing.Point(27, 140);
+            this.txtNombres.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNombres.Name = "txtNombres";
+            this.txtNombres.Size = new System.Drawing.Size(359, 28);
+            this.txtNombres.TabIndex = 7;
+            this.txtNombres.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtApellidos_KeyPress);
+            // 
             // cbxEstadoCivil
             // 
             this.cbxEstadoCivil.BackColor = System.Drawing.Color.White;
@@ -237,25 +256,6 @@
             this.label5.Size = new System.Drawing.Size(46, 20);
             this.label5.TabIndex = 8;
             this.label5.Text = "Sexo:";
-            // 
-            // txtNombres
-            // 
-            this.txtNombres.Location = new System.Drawing.Point(27, 140);
-            this.txtNombres.Margin = new System.Windows.Forms.Padding(4);
-            this.txtNombres.Name = "txtNombres";
-            this.txtNombres.Size = new System.Drawing.Size(359, 28);
-            this.txtNombres.TabIndex = 7;
-            this.txtNombres.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtApellidos_KeyPress);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(23, 117);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 20);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Nombres";
             // 
             // txtApellidos
             // 
@@ -346,7 +346,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
+            this.BackColor = System.Drawing.Color.RoyalBlue;
             this.ClientSize = new System.Drawing.Size(681, 572);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label9);

@@ -50,12 +50,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.data_ncf = new System.Windows.Forms.DataGridView();
-            this.btnAplicar = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.id_ncf = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Activo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnAplicar = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.data_comprobante)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -128,6 +128,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.RoyalBlue;
             this.groupBox2.Controls.Add(this.lblcomp);
             this.groupBox2.Controls.Add(this.txtid);
             this.groupBox2.Controls.Add(this.label6);
@@ -258,6 +259,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.RoyalBlue;
             this.groupBox1.Controls.Add(this.data_ncf);
             this.groupBox1.Font = new System.Drawing.Font("Open Sans", 7.8F);
             this.groupBox1.Location = new System.Drawing.Point(24, 111);
@@ -301,6 +303,27 @@
             this.data_ncf.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.data_ncf_CellFormatting);
             this.data_ncf.DoubleClick += new System.EventHandler(this.data_ncf_DoubleClick);
             // 
+            // id_ncf
+            // 
+            this.id_ncf.FillWeight = 50.17418F;
+            this.id_ncf.HeaderText = "ID NCF";
+            this.id_ncf.MinimumWidth = 45;
+            this.id_ncf.Name = "id_ncf";
+            // 
+            // tipo
+            // 
+            this.tipo.FillWeight = 177.6333F;
+            this.tipo.HeaderText = "Tipo De NCF";
+            this.tipo.MinimumWidth = 6;
+            this.tipo.Name = "tipo";
+            // 
+            // Activo
+            // 
+            this.Activo.FillWeight = 72.19251F;
+            this.Activo.HeaderText = "Activo";
+            this.Activo.MinimumWidth = 45;
+            this.Activo.Name = "Activo";
+            // 
             // btnAplicar
             // 
             this.btnAplicar.BackColor = System.Drawing.Color.SpringGreen;
@@ -343,32 +366,11 @@
             this.label7.TabIndex = 113;
             this.label7.Text = "Limitaciones de los NCF";
             // 
-            // id_ncf
-            // 
-            this.id_ncf.FillWeight = 50.17418F;
-            this.id_ncf.HeaderText = "ID NCF";
-            this.id_ncf.MinimumWidth = 45;
-            this.id_ncf.Name = "id_ncf";
-            // 
-            // tipo
-            // 
-            this.tipo.FillWeight = 177.6333F;
-            this.tipo.HeaderText = "Tipo De NCF";
-            this.tipo.MinimumWidth = 6;
-            this.tipo.Name = "tipo";
-            // 
-            // Activo
-            // 
-            this.Activo.FillWeight = 72.19251F;
-            this.Activo.HeaderText = "Activo";
-            this.Activo.MinimumWidth = 45;
-            this.Activo.Name = "Activo";
-            // 
             // frmLimitantesNCF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
+            this.BackColor = System.Drawing.Color.RoyalBlue;
             this.ClientSize = new System.Drawing.Size(1027, 746);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);

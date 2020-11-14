@@ -172,6 +172,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.RoyalBlue;
             this.panel1.Controls.Add(this.button1);
             this.panel1.Location = new System.Drawing.Point(104, 205);
             this.panel1.Name = "panel1";
@@ -196,7 +197,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
+            this.BackColor = System.Drawing.Color.RoyalBlue;
             this.ClientSize = new System.Drawing.Size(550, 397);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtUsuarioCed);

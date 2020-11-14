@@ -30,7 +30,7 @@ namespace Capa_de_Presentacion
 				btnProductos.Visible = true;
 				btnClientes.Visible = false;
 				btnVentas.Visible = false;
-				btnAyB.Visible = false;
+				
 
 				button5.Visible = false;
 				button2.Visible = false;
@@ -48,7 +48,7 @@ namespace Capa_de_Presentacion
 					btnProductos.Visible = true;
 					btnClientes.Visible = true;
 					btnVentas.Visible = true;
-					btnAyB.Visible = true;
+					
 
 					button5.Visible = false;
 					button2.Visible = false;
@@ -66,7 +66,7 @@ namespace Capa_de_Presentacion
 					btnProductos.Visible = true;
 					btnClientes.Visible = true;
 					btnVentas.Visible = true;
-					btnAyB.Visible = true;
+					
 
 					button5.Visible = true;
 					button2.Visible = true;
