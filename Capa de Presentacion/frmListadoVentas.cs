@@ -10,9 +10,7 @@ using CapaLogicaNegocio;
 
 namespace Capa_de_Presentacion
 {
-#pragma warning disable CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
     public partial class frmListadoVentas : DevComponents.DotNetBar.Metro.MetroForm
-#pragma warning restore CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
 	{
 		public frmListadoVentas()
 		{
@@ -108,11 +106,12 @@ namespace Capa_de_Presentacion
 			SqlDataReader dr;
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
-			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "SELECT dbo.Cliente.DNI, dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal, dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv," +
-				" dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto, dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura, dbo.Venta.Total,dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento, dbo.Venta.FechaVenta, dbo.Cliente.Nombres, dbo.Cliente.Apellidos " +
-				"FROM  dbo.Cliente INNER JOIN dbo.Venta ON dbo.Cliente.IdCliente = dbo.Venta.IdCliente INNER JOIN dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND " +
-				"dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta WHERE dbo.DetalleVenta.IdVenta  like '%" + txtBuscarid.Text + "%'";
+			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0), " +
+			"dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto, " +
+			"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
+			"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta " +
+			"inner join dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta " +
+			"WHERE dbo.DetalleVenta.IdVenta  like '%" + txtBuscarid.Text + "%'";
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -130,11 +129,8 @@ namespace Capa_de_Presentacion
 
 				dataGridView1.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
 				dataGridView1.Rows[renglon].Cells["idEm"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdEmpleado")));
-				dataGridView1.Rows[renglon].Cells["doc"].Value = dr.GetString(dr.GetOrdinal("DNI"));
-				dataGridView1.Rows[renglon].Cells["nombre"].Value = dr.GetString(dr.GetOrdinal("Nombres"));
 				dataGridView1.Rows[renglon].Cells["NCF"].Value = dr.GetString(dr.GetOrdinal("TipoDocumento"));
 				dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = dr.GetString(dr.GetOrdinal("NroDocumento"));
-				dataGridView1.Rows[renglon].Cells["apellido"].Value = dr.GetString(dr.GetOrdinal("Apellidos"));
 				dataGridView1.Rows[renglon].Cells["descripcion"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
 				dataGridView1.Rows[renglon].Cells["idp"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
 				dataGridView1.Rows[renglon].Cells["can"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
@@ -145,6 +141,8 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells["Tipo"].Value = dr.GetString(dr.GetOrdinal("Tipofactura"));
 				dataGridView1.Rows[renglon].Cells["restante"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Restante")));
 				dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
+				dataGridView1.Rows[renglon].Cells["idcliente"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCliente")));
+				dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
 
 				total += Convert.ToDouble(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
 
@@ -163,8 +161,27 @@ namespace Capa_de_Presentacion
 
 		public void seleccion_data()
 		{
-			Program.NombreCliente = dataGridView1.CurrentRow.Cells["nombre"].Value.ToString();
-			Program.ApellidosCliente = dataGridView1.CurrentRow.Cells["apellido"].Value.ToString();
+			Program.IdCliente = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idcliente"].Value.ToString());
+			if(Program.IdCliente >0)
+            {
+				Cx.conexion.Open();
+				string sql = "SELECT DNI,Apellidos,Nombres from Cliente where IdCliente = '" + Program.IdCliente + "'";
+				SqlCommand comando = new SqlCommand(sql, Cx.conexion);
+				SqlDataReader dr = comando.ExecuteReader();
+				if (dr.Read())
+				{
+					Program.DocumentoIdentidad = dr.GetString(dr.GetOrdinal("DNI"));
+					Program.NombreCliente = dr.GetString(dr.GetOrdinal("Nombres"));
+					Program.ApellidosCliente = dr.GetString(dr.GetOrdinal("Apellidos"));
+				}
+				Cx.conexion.Close();
+			}
+            else
+            {
+				Program.datoscliente= dataGridView1.CurrentRow.Cells["nombrecliente"].Value.ToString();
+				Program.DocumentoIdentidad = "";
+			}
+
 			Program.tipo = dataGridView1.CurrentRow.Cells["Tipo"].Value.ToString();
 			Program.NCF = dataGridView1.CurrentRow.Cells["NCF"].Value.ToString();
 			Program.NroComprobante = dataGridView1.CurrentRow.Cells["nroComprobante"].Value.ToString();
@@ -172,9 +189,9 @@ namespace Capa_de_Presentacion
 			Program.total =Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
 			Program.ST +=Convert.ToDecimal(dataGridView1.CurrentRow.Cells["subtotal"].Value.ToString());
 			Program.igv +=Convert.ToDecimal(dataGridView1.CurrentRow.Cells["igv"].Value.ToString());
-			Program.DocumentoIdentidad = dataGridView1.CurrentRow.Cells["doc"].Value.ToString();
 			Program.fecha = dataGridView1.CurrentRow.Cells["fecha"].Value.ToString();
 			Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
+
 			if(Program.tipo != "Credito")
             {
 				Program.Esabono = "";
@@ -185,6 +202,7 @@ namespace Capa_de_Presentacion
 				Program.Esabono = "Es Abono";
 				Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["restante"].Value.ToString());
 			}
+
 			Program.ReImpresion = "Factura ReImpresa";
 		}
 
@@ -319,6 +337,7 @@ namespace Capa_de_Presentacion
 		private void button1_Click(object sender, EventArgs e)
 		{
 			decimal total = 0;
+			string idCliente = "";
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection
@@ -330,10 +349,12 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "SELECT dbo.Cliente.DNI, dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal, dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv," +
-				" dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto, dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura, dbo.Venta.Total,dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento, dbo.Venta.FechaVenta, dbo.Cliente.Nombres, dbo.Cliente.Apellidos " +
-				"FROM  dbo.Cliente INNER JOIN dbo.Venta ON dbo.Cliente.IdCliente = dbo.Venta.IdCliente INNER JOIN dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND " +
-				"dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta where FechaVenta BETWEEN '" + dtpfecha1.Value.ToString("yyyy-MM-dd") + "' AND '" + dtpfecha2.Value.ToString("yyyy-MM-dd") + "'";
+			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0), " +
+			"dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto, " +
+			"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
+				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta " +
+				"inner join dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta " +
+				"where FechaVenta BETWEEN '" + dtpfecha1.Value.ToString("yyyy-MM-dd") + "' AND '" + dtpfecha2.Value.ToString("yyyy-MM-dd") + "'";
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -348,15 +369,11 @@ namespace Capa_de_Presentacion
 				//variable de tipo entero para ir enumerando los la filas del datagridview
 				int renglon = dataGridView1.Rows.Add();
 				// especificamos en que fila se mostrará cada registro
-				// nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 
 				dataGridView1.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
 				dataGridView1.Rows[renglon].Cells["idEm"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdEmpleado")));
-				dataGridView1.Rows[renglon].Cells["doc"].Value = dr.GetString(dr.GetOrdinal("DNI"));
-				dataGridView1.Rows[renglon].Cells["nombre"].Value = dr.GetString(dr.GetOrdinal("Nombres"));
 				dataGridView1.Rows[renglon].Cells["NCF"].Value = dr.GetString(dr.GetOrdinal("TipoDocumento"));
 				dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = dr.GetString(dr.GetOrdinal("NroDocumento"));
-				dataGridView1.Rows[renglon].Cells["apellido"].Value = dr.GetString(dr.GetOrdinal("Apellidos"));
 				dataGridView1.Rows[renglon].Cells["descripcion"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
 				dataGridView1.Rows[renglon].Cells["idp"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
 				dataGridView1.Rows[renglon].Cells["can"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
@@ -367,6 +384,8 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells["Tipo"].Value = dr.GetString(dr.GetOrdinal("Tipofactura"));
 				dataGridView1.Rows[renglon].Cells["restante"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Restante")));
 				dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
+				dataGridView1.Rows[renglon].Cells["idcliente"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCliente")));
+				dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
 
 				total += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
 

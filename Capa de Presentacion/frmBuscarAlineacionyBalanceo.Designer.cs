@@ -39,8 +39,6 @@
             this.precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nota = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
-            this.txtBuscar = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cbtipo = new System.Windows.Forms.ComboBox();
@@ -55,6 +53,8 @@
             this.agregargasto = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,7 +81,7 @@
             this.nota,
             this.fecha});
             this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.Location = new System.Drawing.Point(21, 169);
+            this.dataGridView1.Location = new System.Drawing.Point(21, 170);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
@@ -169,23 +169,6 @@
             this.fecha.Name = "fecha";
             this.fecha.Width = 125;
             // 
-            // txtBuscar
-            // 
-            this.txtBuscar.Location = new System.Drawing.Point(455, 137);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(222, 22);
-            this.txtBuscar.TabIndex = 2;
-            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscar_KeyPress);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(518, 117);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 17);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Por Vehiculo:";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -214,10 +197,10 @@
             this.cbtipo.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbtipo.ForeColor = System.Drawing.Color.MidnightBlue;
             this.cbtipo.FormattingEnabled = true;
-            this.cbtipo.Location = new System.Drawing.Point(189, 136);
+            this.cbtipo.Location = new System.Drawing.Point(199, 138);
             this.cbtipo.Margin = new System.Windows.Forms.Padding(4);
             this.cbtipo.Name = "cbtipo";
-            this.cbtipo.Size = new System.Drawing.Size(156, 26);
+            this.cbtipo.Size = new System.Drawing.Size(173, 26);
             this.cbtipo.TabIndex = 114;
             // 
             // label11
@@ -226,7 +209,7 @@
             this.label11.BackColor = System.Drawing.Color.SeaGreen;
             this.label11.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(197, 115);
+            this.label11.Location = new System.Drawing.Point(215, 117);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(141, 19);
@@ -260,7 +243,7 @@
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
             this.btnCancelar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
             this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelar.Location = new System.Drawing.Point(786, 609);
+            this.btnCancelar.Location = new System.Drawing.Point(786, 612);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(137, 39);
@@ -274,7 +257,7 @@
             // 
             this.dtpfecha1.CustomFormat = "";
             this.dtpfecha1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpfecha1.Location = new System.Drawing.Point(743, 137);
+            this.dtpfecha1.Location = new System.Drawing.Point(740, 137);
             this.dtpfecha1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtpfecha1.Name = "dtpfecha1";
             this.dtpfecha1.Size = new System.Drawing.Size(121, 22);
@@ -283,7 +266,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(776, 118);
+            this.label5.Location = new System.Drawing.Point(772, 114);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 17);
             this.label5.TabIndex = 120;
@@ -323,7 +306,7 @@
             this.agregargasto.ForeColor = System.Drawing.Color.Black;
             this.agregargasto.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_buscar;
             this.agregargasto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.agregargasto.Location = new System.Drawing.Point(871, 132);
+            this.agregargasto.Location = new System.Drawing.Point(868, 132);
             this.agregargasto.Margin = new System.Windows.Forms.Padding(4);
             this.agregargasto.Name = "agregargasto";
             this.agregargasto.Size = new System.Drawing.Size(44, 33);
@@ -344,7 +327,7 @@
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_buscar;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(350, 132);
+            this.button1.Location = new System.Drawing.Point(380, 132);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(44, 33);
@@ -359,12 +342,29 @@
             this.label6.BackColor = System.Drawing.Color.SeaGreen;
             this.label6.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(17, 139);
+            this.label6.Location = new System.Drawing.Point(28, 141);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(132, 19);
+            this.label6.Size = new System.Drawing.Size(128, 19);
             this.label6.TabIndex = 125;
-            this.label6.Text = "Tipos de Filtrados:";
+            this.label6.Text = "Tipos de Filtrados";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(487, 139);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(173, 22);
+            this.textBox1.TabIndex = 126;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(503, 119);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(136, 17);
+            this.label1.TabIndex = 127;
+            this.label1.Text = "Buscar Por Nombre:";
             // 
             // FrmBuscarAlineacionyBalanceo
             // 
@@ -372,6 +372,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(942, 662);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.agregargasto);
@@ -386,8 +388,6 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.dataGridView1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -403,11 +403,9 @@
 
         #endregion
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox txtBuscar;
 #pragma warning disable CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
 #pragma warning restore CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
 #pragma warning disable CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.ComboBox cbtipo;
@@ -429,6 +427,8 @@
         private System.Windows.Forms.Button agregargasto;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
 #pragma warning restore CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
     }
 }

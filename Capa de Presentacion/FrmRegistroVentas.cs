@@ -256,20 +256,19 @@ namespace Capa_de_Presentacion
 				txtidEmp.Text = Program.IdEmpleado + "";
 				dateTimePicker1.Text = Program.fecha;
 
-
-				if (txtidCli.Text == "0" || txtidCli.Text == null || Program.IdCliente + "" == null || Program.IdCliente + "" == "0")
-				{
-					Cx.conexion.Open();
-					string sql = "select idCliente from Cliente where DNI=@DNI";
-					SqlCommand Command = new SqlCommand(sql, Cx.conexion);
-					Command.Parameters.AddWithValue("@DNI", Program.DocumentoIdentidad);
-					SqlDataReader reade = Command.ExecuteReader();
-					if (reade.Read())
-					{
-						txtidCli.Text = reade["idCliente"].ToString();
-					}
-					Cx.conexion.Close();
-				}
+				//if (txtidCli.Text == "0" || txtidCli.Text == null || Program.IdCliente + "" == null || Program.IdCliente + "" == "0")
+				//{
+				//	Cx.conexion.Open();
+				//	string sql = "select idCliente from Cliente where DNI=@DNI";
+				//	SqlCommand Command = new SqlCommand(sql, Cx.conexion);
+				//	Command.Parameters.AddWithValue("@DNI", Program.DocumentoIdentidad);
+				//	SqlDataReader reade = Command.ExecuteReader();
+				//	if (reade.Read())
+				//	{
+				//		txtidCli.Text = reade["idCliente"].ToString();
+				//	}
+				//	Cx.conexion.Close();
+				//}
 
 				//declaramos la cadena  de conexion
 				string cadenaconexion = Cx.conet;

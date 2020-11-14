@@ -10,9 +10,7 @@ using System.Diagnostics;
 
 namespace Capa_de_Presentacion
 {
-#pragma warning disable CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
 	public partial class FrmBuscarAlineacionyBalanceo : DevComponents.DotNetBar.Metro.MetroForm
-#pragma warning restore CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
 	{
 		public FrmBuscarAlineacionyBalanceo()
 		{
@@ -23,7 +21,7 @@ namespace Capa_de_Presentacion
 		public void cargardata()
 		{
 			double total = 0;
-			string fecha = dtpfecha1.Value.ToString("yyyy-MM-dd");
+			limpiar();
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection
@@ -34,17 +32,16 @@ namespace Capa_de_Presentacion
 			SqlDataReader dr;
 			conexion.ConnectionString = cadenaconexion;
 			comando.Connection = conexion;
-			if(txtBuscar.Text != "")
-            {
+			if (textBox1.Text != "")
+			{
 				//declaramos el comando para realizar la busqueda
-				comando.CommandText = "select * from AlineamientoYBalanceo where vehiculo like '%" + txtBuscar.Text.ToUpper() + "%' and fecha ='" + fecha + "'";
+				comando.CommandText = "select * from AlineamientoYBalanceo where vehiculo like '%" + textBox1.Text.ToUpper() + "%' and fecha ='" + dtpfecha1.Value.ToString("yyyy-MM-dd") + "'";
 			}
 			else
-            {
+			{
 				//declaramos el comando para realizar la busqueda
 				comando.CommandText = "select * from AlineamientoYBalanceo";
 			}
-
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -114,7 +111,6 @@ namespace Capa_de_Presentacion
 		}
 		public void limpiar()
 		{
-			txtBuscar.Text = "";
 			dataGridView1.Rows.Clear();
 		}
 
@@ -122,7 +118,6 @@ namespace Capa_de_Presentacion
 		{
 			double total = 0;
 			limpiar();
-			string fecha = dtpfecha1.Value.ToString("yyyy-MM-dd");
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection
@@ -134,7 +129,7 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "select * from AlineamientoYBalanceo where fecha ='" + fecha + "'";
+			comando.CommandText = "select * from AlineamientoYBalanceo where fecha ='" + dtpfecha1.Value.ToString("yyyy-MM-dd") + "'";
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -271,7 +266,6 @@ namespace Capa_de_Presentacion
         private void button1_Click(object sender, EventArgs e)
         {
 			double total = 0;
-			string fecha = dtpfecha1.Value.ToString("yyyy-MM-dd");
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection
@@ -283,7 +277,7 @@ namespace Capa_de_Presentacion
 			conexion.ConnectionString = cadenaconexion;
 			comando.Connection = conexion;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "select * from AlineamientoYBalanceo where tipoDeTrabajo like '%" + cbtipo.Text+ "%' and fecha ='" + fecha + "'";
+			comando.CommandText = "select * from AlineamientoYBalanceo where tipoDeTrabajo like '%" + cbtipo.Text+ "%' AND fecha ='" + dtpfecha1.Value.ToString("yyyy-MM-dd") + "'";
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -311,6 +305,11 @@ namespace Capa_de_Presentacion
 				txttotalG.Text = Convert.ToString(total);
 			}
 			conexion.Close();
+		}
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+			cargardata();
 		}
     }
 }

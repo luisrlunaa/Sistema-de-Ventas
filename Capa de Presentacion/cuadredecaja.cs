@@ -86,7 +86,6 @@ namespace Capa_de_Presentacion
         private void agregargasto_Click(object sender, EventArgs e)
         {
 			limpiar();
-			string fecha = dpkfechacuadre.Value.ToString("yyyy-MM-dd");
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection
@@ -98,7 +97,7 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "Select * From Cuadre where fecha ='"+fecha+"'";
+			comando.CommandText = "Select * From Cuadre where fecha ='"+ dpkfechacuadre.Value.ToString("yyyy-MM-dd") + "'";
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -127,7 +126,7 @@ namespace Capa_de_Presentacion
 
 					llenargridpagos(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
 					llenar(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
-					llenargastos(fecha);
+					llenargastos();
 
 					string desglose = Convert.ToString(dataGridView1.Rows[renglon].Cells[1].Value);
 					if (desglose != "")
@@ -224,17 +223,23 @@ namespace Capa_de_Presentacion
 
 			if (leer.Read() == true)
 			{
+				decimal montogasto = 0;
 				var montoactual = leer["montoactual"].ToString();
-				lblmontocaja.Text= (Math.Round(Convert.ToDecimal(montoactual)-Convert.ToDecimal(lblmontogasto.Text),2)).ToString();
+				if(lblmontogasto.Text!="")
+                {
+					montogasto = Convert.ToDecimal(lblmontogasto.Text);
+				}
+				
+				lblmontocaja.Text= (Math.Round(Convert.ToDecimal(montoactual)- montogasto, 2)).ToString();
 			}
 
 			Cx.conexion.Close();
 		}
 
-		public void llenargastos(string fecha)
+		public void llenargastos()
 		{
 			decimal totalgasto = 0;
-			string cadSql = "select * from Gastos where fecha='" + fecha + "'";
+			string cadSql = "select * from Gastos where fecha='" + dpkfechacuadre.Value.ToString("yyyy-MM-dd") + "'";
 
 			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
 			Cx.conexion.Open();
@@ -339,10 +344,9 @@ namespace Capa_de_Presentacion
 			btnregistrar.Enabled = false; 
 			btnsuma.Visible = true;
 
-			string fecha = dpkfechacuadre.Value.ToString("yyyy-MM-dd");
 			llenarid();
 			int idcajaa = Convert.ToInt32(lblidcaja.Text);
-			llenargastos(fecha);
+			llenargastos();
 			if (idcajaa >0)
             {
 				llenargridpagos(idcajaa);
