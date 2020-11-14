@@ -649,7 +649,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Teal;
+            this.pictureBox1.BackColor = System.Drawing.Color.SteelBlue;
             this.pictureBox1.Image = global::Capa_de_Presentacion.Properties.Resources.x_30465_960_720;
             this.pictureBox1.Location = new System.Drawing.Point(1181, 12);
             this.pictureBox1.Name = "pictureBox1";

@@ -207,7 +207,7 @@
             this.btnimprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnimprimir.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnimprimir.ForeColor = System.Drawing.Color.Black;
-            this.btnimprimir.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
+            //this.btnimprimir.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
             this.btnimprimir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnimprimir.Location = new System.Drawing.Point(964, 602);
             this.btnimprimir.Margin = new System.Windows.Forms.Padding(4);
@@ -411,7 +411,7 @@
             this.agregargasto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.agregargasto.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.agregargasto.ForeColor = System.Drawing.Color.Black;
-            this.agregargasto.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_agregar;
+          //  this.agregargasto.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_agregar;
             this.agregargasto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.agregargasto.Location = new System.Drawing.Point(1101, 133);
             this.agregargasto.Margin = new System.Windows.Forms.Padding(4);

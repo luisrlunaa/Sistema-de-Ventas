@@ -265,7 +265,7 @@ namespace Capa_de_Presentacion
 		{
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
+			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("ferreteria.png");
 			image1.ScaleAbsoluteWidth(100);
 			image1.ScaleAbsoluteHeight(50);
 			saveFileDialog1.InitialDirectory = @"C:";
@@ -374,7 +374,7 @@ namespace Capa_de_Presentacion
 
 					////////////////////Enviando al correo copia de seguridad de base de datos nueva
 					c.enviarCorreo("sendingsystembackup@gmail.com", "evitarperdidadedatos/0", "Realizando la creación diaria de respaldo de base de datos para evitar perdidas de datos en caso de algún problema con el equipo.",
-						"Backup de base de datos" + DateTime.Now, "cepedaimport2715@hotmail.com", direccion);
+						"Backup de base de datos" + DateTime.Now, "   ", direccion);
 				}
 				catch (Exception ex)
 				{
