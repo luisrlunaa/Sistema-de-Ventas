@@ -11,16 +11,16 @@ using System.Drawing;
 
 namespace Capa_de_Presentacion
 {
-    public partial class cuadredecaja : Form
-    {
-        public cuadredecaja()
-        {
-            InitializeComponent();
-        }
+	public partial class cuadredecaja : Form
+	{
+		public cuadredecaja()
+		{
+			InitializeComponent();
+		}
 		clsCx Cx = new clsCx();
 		Correo c = new Correo();
 		public void limpiar()
-        {
+		{
 			txtde5.Text = "";
 			txtde10.Text = "";
 			txtde25.Text = "";
@@ -50,10 +50,10 @@ namespace Capa_de_Presentacion
 			dataGridView2.Rows.Clear();
 		}
 		private void btnregistrar_Click(object sender, EventArgs e)
-        {
+		{
 			decimal montofinal = 0;
-			if (lblmontocuadre.Text !="")
-            {
+			if (lblmontocuadre.Text != "")
+			{
 				montofinal = Convert.ToDecimal(lblmontocuadre.Text);
 				using (SqlConnection con = new SqlConnection(Cx.conet))
 				{
@@ -79,12 +79,12 @@ namespace Capa_de_Presentacion
 				}
 			}
 			else
-            {
+			{
 				MessageBox.Show("Debe darle al boton de Sumar antes de registrar un nuevo Cuadre");
-            }
+			}
 		}
-        private void agregargasto_Click(object sender, EventArgs e)
-        {
+		private void agregargasto_Click(object sender, EventArgs e)
+		{
 			limpiar();
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
@@ -97,7 +97,7 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "Select * From Cuadre where fecha ='"+ dpkfechacuadre.Value.ToString("yyyy-MM-dd") + "'";
+			comando.CommandText = "Select * From Cuadre where fecha ='" + dpkfechacuadre.Value.ToString("yyyy-MM-dd") + "'";
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -106,65 +106,65 @@ namespace Capa_de_Presentacion
 			dataGridView1.Rows.Clear();
 			//a la variable DataReader asignamos  el la variable de tipo SqlCommand
 			dr = comando.ExecuteReader();
-			if(dr.HasRows==false)
-            {
+			if (dr.HasRows == false)
+			{
 				limpiar();
 				MessageBox.Show("No tiene ningún cuadre registrado en esta Fecha");
 			}
 			//el ciclo while se ejecutará mientras lea registros en la tabla
-				while (dr.Read())
+			while (dr.Read())
+			{
+				//variable de tipo entero para ir enumerando los la filas del datagridview
+				int renglon = dataGridView1.Rows.Add();
+				// especificamos en que fila se mostrará cada registro
+				// nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+
+				dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
+				dataGridView1.Rows[renglon].Cells[1].Value = dr.GetString(dr.GetOrdinal("descripcion"));
+				dataGridView1.Rows[renglon].Cells[2].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
+				dataGridView1.Rows[renglon].Cells[3].Value = dr.GetDateTime(dr.GetOrdinal("fecha")); ;
+
+				llenargridpagos(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
+				llenar(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
+				llenargastos();
+
+				string desglose = Convert.ToString(dataGridView1.Rows[renglon].Cells[1].Value);
+				if (desglose != "")
 				{
-					//variable de tipo entero para ir enumerando los la filas del datagridview
-					int renglon = dataGridView1.Rows.Add();
-					// especificamos en que fila se mostrará cada registro
-					// nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+					var marca = desglose;
+					string cadena = marca;
+					char delimitador = ',';
+					string[] valores = cadena.Split(delimitador);
 
-					dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
-					dataGridView1.Rows[renglon].Cells[1].Value = dr.GetString(dr.GetOrdinal("descripcion"));
-					dataGridView1.Rows[renglon].Cells[2].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
-					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetDateTime(dr.GetOrdinal("fecha")); ;
+					txtde5.Text = valores[0];
+					txtde10.Text = valores[1];
+					txtde25.Text = valores[2];
+					txtde50.Text = valores[3];
+					txtde100.Text = valores[4];
+					txtde200.Text = valores[5];
+					txtde500.Text = valores[6];
+					txtde1000.Text = valores[7];
+					txtde2000.Text = valores[8];
+				}
 
-					llenargridpagos(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
-					llenar(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
-					llenargastos();
+				txtde5.ReadOnly = true;
+				txtde10.ReadOnly = true;
+				txtde25.ReadOnly = true;
+				txtde50.ReadOnly = true;
+				txtde100.ReadOnly = true;
+				txtde200.ReadOnly = true;
+				txtde500.ReadOnly = true;
+				txtde1000.ReadOnly = true;
+				txtde2000.ReadOnly = true;
 
-					string desglose = Convert.ToString(dataGridView1.Rows[renglon].Cells[1].Value);
-					if (desglose != "")
-					{
-						var marca = desglose;
-						string cadena = marca;
-						char delimitador = ',';
-						string[] valores = cadena.Split(delimitador);
+				lblmontocuadre.Text = Convert.ToString(dataGridView1.Rows[renglon].Cells[2].Value);
 
-						txtde5.Text = valores[0];
-						txtde10.Text = valores[1];
-						txtde25.Text = valores[2];
-						txtde50.Text = valores[3];
-						txtde100.Text = valores[4];
-						txtde200.Text = valores[5];
-						txtde500.Text = valores[6];
-						txtde1000.Text = valores[7];
-						txtde2000.Text = valores[8];
-					}
-
-					txtde5.ReadOnly = true;
-					txtde10.ReadOnly = true;
-					txtde25.ReadOnly = true;
-					txtde50.ReadOnly = true;
-					txtde100.ReadOnly = true;
-					txtde200.ReadOnly = true;
-					txtde500.ReadOnly = true;
-					txtde1000.ReadOnly = true;
-					txtde2000.ReadOnly = true;
-
-					lblmontocuadre.Text = Convert.ToString(dataGridView1.Rows[renglon].Cells[2].Value);
-
-					btnregistrar.Visible = false;
-					btnimprimir.Visible = true;
-					btnsuma.Visible = false;
+				btnregistrar.Visible = false;
+				btnimprimir.Visible = true;
+				btnsuma.Visible = false;
 			}
 
-            con.Close();
+			con.Close();
 		}
 		public void llenargridpagos(int id)
 		{
@@ -180,7 +180,7 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "select id_caja,id_pago,monto,ingresos,egresos from Pagos WHERE dbo.Pagos.id_caja ="+ id;
+			comando.CommandText = "select id_caja,id_pago,monto,ingresos,egresos from Pagos WHERE dbo.Pagos.id_caja =" + id;
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -214,7 +214,7 @@ namespace Capa_de_Presentacion
 
 		public void llenar(int id)
 		{
-			string cadSql = "select montoactual from Caja where id_caja="+ id;
+			string cadSql = "select montoactual from Caja where id_caja=" + id;
 
 			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
 			Cx.conexion.Open();
@@ -225,12 +225,12 @@ namespace Capa_de_Presentacion
 			{
 				decimal montogasto = 0;
 				var montoactual = leer["montoactual"].ToString();
-				if(lblmontogasto.Text!="")
-                {
+				if (lblmontogasto.Text != "")
+				{
 					montogasto = Convert.ToDecimal(lblmontogasto.Text);
 				}
-				
-				lblmontocaja.Text= (Math.Round(Convert.ToDecimal(montoactual)- montogasto, 2)).ToString();
+
+				lblmontocaja.Text = (Math.Round(Convert.ToDecimal(montoactual) - montogasto, 2)).ToString();
 			}
 
 			Cx.conexion.Close();
@@ -257,7 +257,7 @@ namespace Capa_de_Presentacion
 		}
 
 		private void btnimprimir_Click(object sender, EventArgs e)
-        {
+		{
 			To_pdf();
 			limpiar();
 		}
@@ -265,7 +265,7 @@ namespace Capa_de_Presentacion
 		{
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("ferreteria.png");
+            iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("ferreteria.png");
 			image1.ScaleAbsoluteWidth(100);
 			image1.ScaleAbsoluteHeight(50);
 			saveFileDialog1.InitialDirectory = @"C:";
@@ -340,15 +340,20 @@ namespace Capa_de_Presentacion
 		}
 		private void cuadredecaja_Load(object sender, EventArgs e)
 		{
+			int idcajaa = 0;
 			label18.Enabled = false;
-			btnregistrar.Enabled = false; 
+			btnregistrar.Enabled = false;
 			btnsuma.Visible = true;
 
 			llenarid();
-			int idcajaa = Convert.ToInt32(lblidcaja.Text);
+			if (lblidcaja.Text != "")
+			{
+				idcajaa = Convert.ToInt32(lblidcaja.Text);
+			}
+
 			llenargastos();
-			if (idcajaa >0)
-            {
+			if (idcajaa > 0)
+			{
 				llenargridpagos(idcajaa);
 				llenar(idcajaa);
 			}
@@ -356,8 +361,8 @@ namespace Capa_de_Presentacion
 			btnimprimir.Visible = false;
 		}
 
-        private void label18_Click(object sender, EventArgs e)
-        {
+		private void label18_Click(object sender, EventArgs e)
+		{
 			if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
 			{
 				////////////////////Borrar copia de seguridad de base de datos anterior
@@ -374,7 +379,7 @@ namespace Capa_de_Presentacion
 
 					////////////////////Enviando al correo copia de seguridad de base de datos nueva
 					c.enviarCorreo("sendingsystembackup@gmail.com", "evitarperdidadedatos/0", "Realizando la creación diaria de respaldo de base de datos para evitar perdidas de datos en caso de algún problema con el equipo.",
-						"Backup de base de datos" + DateTime.Now, "   ", direccion);
+						"Backup de base de datos" + DateTime.Now, "cepedaimport2715@hotmail.com", direccion);
 				}
 				catch (Exception ex)
 				{
@@ -394,27 +399,41 @@ namespace Capa_de_Presentacion
 			}
 		}
 
-        private void label7_Click(object sender, EventArgs e)
-        {
+		private void label7_Click(object sender, EventArgs e)
+		{
 			FrmMenuPrincipal menu = new FrmMenuPrincipal();
 			menu.Show();
 			this.Close();
-        }
+		}
 
-        private void txtde5_KeyPress(object sender, KeyPressEventArgs e)
-        {
+		private void txtde5_KeyPress(object sender, KeyPressEventArgs e)
+		{
 			validar.solonumeros(e);
 		}
 
-        private void btnsuma_Click(object sender, EventArgs e)
-        {
+		private void btnsuma_Click(object sender, EventArgs e)
+		{
 			decimal total = 0;
-            decimal gastos = Convert.ToDecimal(lblmontogasto.Text);
-            decimal ingresos = Convert.ToDecimal(lblmontoingreso.Text);
-            decimal cuadre = ingresos - gastos;
+			decimal ingresos = 0;
+			decimal gastos = 0;
 
-			if(txtde5.Text =="")
-            {
+			if (lblmontogasto.Text != "...")
+			{
+				gastos = Convert.ToDecimal(lblmontogasto.Text);
+			}
+
+			if (lblmontoingreso.Text != "...")
+			{
+				ingresos = Convert.ToDecimal(lblmontoingreso.Text);
+			}
+
+			decimal cuadre = ingresos - gastos;
+			if (lbldeudas.Text == "")
+			{
+				txtde2000.Text = "0";
+			}
+			if (txtde5.Text == "")
+			{
 				txtde5.Text = "0";
 			}
 			if (txtde10.Text == "")
@@ -454,10 +473,10 @@ namespace Capa_de_Presentacion
 				(50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) + (500 * decimal.Parse(txtde500.Text)) +
 				(1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)), 2);
 
-			if ( cuadre < total)
+			if (cuadre < total)
 			{
-				var sobrantes = total-cuadre;
-				lblmensaje.Text= "Cuadre excitoso Sobran : \n" + sobrantes + " Pesos";
+				var sobrantes = total - cuadre;
+				lblmensaje.Text = "Cuadre excitoso Sobran : \n" + sobrantes + " Pesos";
 				lblmensaje.ForeColor = Color.White;
 			}
 
@@ -469,12 +488,12 @@ namespace Capa_de_Presentacion
 			else
 			{
 				var faltantes = cuadre - total;
-				lblmensaje.Text = "Cuadre defectuoso, Faltan : \n" + faltantes +" Pesos";
+				lblmensaje.Text = "Cuadre defectuoso, Faltan : \n" + faltantes + " Pesos";
 				lblmensaje.ForeColor = Color.Red;
 			}
 
 			lblmontocuadre.Text = total.ToString();
 			btnregistrar.Enabled = true;
 		}
-    }
+	}
 }
