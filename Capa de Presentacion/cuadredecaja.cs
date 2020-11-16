@@ -340,12 +340,17 @@ namespace Capa_de_Presentacion
 		}
 		private void cuadredecaja_Load(object sender, EventArgs e)
 		{
+			int idcajaa = 0;
 			label18.Enabled = false;
 			btnregistrar.Enabled = false; 
 			btnsuma.Visible = true;
 
 			llenarid();
-			int idcajaa = Convert.ToInt32(lblidcaja.Text);
+			if(lblidcaja.Text != "")
+            {
+				idcajaa = Convert.ToInt32(lblidcaja.Text);
+			}
+			
 			llenargastos();
 			if (idcajaa >0)
             {
@@ -409,8 +414,19 @@ namespace Capa_de_Presentacion
         private void btnsuma_Click(object sender, EventArgs e)
         {
 			decimal total = 0;
-            decimal gastos = Convert.ToDecimal(lblmontogasto.Text);
-            decimal ingresos = Convert.ToDecimal(lblmontoingreso.Text);
+			decimal ingresos = 0;
+			decimal gastos = 0;
+			
+			if (lblmontogasto.Text != "...")
+			{
+				gastos = Convert.ToDecimal(lblmontogasto.Text);
+			}
+
+			if (lblmontoingreso.Text != "...")
+            {
+				ingresos = Convert.ToDecimal(lblmontoingreso.Text);
+			}
+            
             decimal cuadre = ingresos - gastos;
 
 			if(txtde5.Text =="")
