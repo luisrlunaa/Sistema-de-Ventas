@@ -417,8 +417,16 @@ namespace Capa_de_Presentacion
 			Program.realizopago = false;
 		}
         private void btnSalir_Click(object sender, EventArgs e)
-        {	
-			if(chkComprobante.Checked== false && txtNCF.Text !="")
+        {
+			frmPagar pa = new frmPagar();
+			Program.total = Convert.ToDecimal(txttotal.Text);
+			Program.igv = Convert.ToDecimal(lbligv.Text);
+			Program.ST = Convert.ToDecimal(lblsubt.Text);
+			pa.txtmonto.Text = txttotal.Text;
+			pa.gbAbrir.Visible = false;
+			pa.btnCerrar.Visible = false;
+
+			if (chkComprobante.Checked== false && !string.IsNullOrEmpty(txtNCF.Text))
             {
 				if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea Agregar Comprobantes a la Factura?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
 				{
@@ -438,13 +446,6 @@ namespace Capa_de_Presentacion
 				txtDocIdentidad.Text = "Sin Identificación";
 			}
 
-			frmPagar pa = new frmPagar();
-			Program.total = Convert.ToDecimal(txttotal.Text);
-			Program.igv = Convert.ToDecimal(lbligv.Text);
-			Program.ST = Convert.ToDecimal(lblsubt.Text);
-			pa.txtmonto.Text = txttotal.Text;
-			pa.gbAbrir.Visible = false;
-			pa.btnCerrar.Visible = false;
 			pa.Show();
 
 			Program.tipo = cbtipofactura.Text;
@@ -949,6 +950,7 @@ namespace Capa_de_Presentacion
 				doc.Add(image1);
 				doc.Add(new Paragraph(chunk));
 				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
+				doc.Add(new Paragraph("Tel: " + lblTel1.Text + " / " + lblTel2.Text));
 				doc.Add(new Paragraph(" "));
 				doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("Tipo de Factura: "  + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));

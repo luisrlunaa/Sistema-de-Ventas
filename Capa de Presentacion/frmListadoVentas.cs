@@ -337,7 +337,6 @@ namespace Capa_de_Presentacion
 		private void button1_Click(object sender, EventArgs e)
 		{
 			decimal total = 0;
-			string idCliente = "";
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection

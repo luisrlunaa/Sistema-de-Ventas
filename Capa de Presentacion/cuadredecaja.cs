@@ -52,7 +52,7 @@ namespace Capa_de_Presentacion
 		private void btnregistrar_Click(object sender, EventArgs e)
         {
 			decimal montofinal = 0;
-			if (lblmontocuadre.Text !="")
+			if (!string.IsNullOrEmpty(lblmontocuadre.Text))
             {
 				montofinal = Convert.ToDecimal(lblmontocuadre.Text);
 				using (SqlConnection con = new SqlConnection(Cx.conet))
@@ -83,8 +83,25 @@ namespace Capa_de_Presentacion
 				MessageBox.Show("Debe darle al boton de Sumar antes de registrar un nuevo Cuadre");
             }
 		}
-        private void agregargasto_Click(object sender, EventArgs e)
+		public void llenardeudas(int id)
+		{
+			string cadSql = "select deuda from Caja where id_caja ="+id;
+
+			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+			Cx.conexion.Open();
+
+			SqlDataReader leer = comando.ExecuteReader();
+
+			if (leer.Read() == true)
+			{
+				lbldeudas.Text = leer["deuda"].ToString();
+			}
+			Cx.conexion.Close();
+		}
+		private void agregargasto_Click(object sender, EventArgs e)
         {
+			DateTime fecha = Convert.ToDateTime(dpkfechacuadre.Value.Year + "/" + dpkfechacuadre.Value.Month + "/" + dpkfechacuadre.Value.Day);
+			string realfecha = fecha.ToString();
 			limpiar();
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
@@ -97,7 +114,7 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "Select * From Cuadre where fecha ='"+ dpkfechacuadre.Value.ToString("yyyy-MM-dd") + "'";
+			comando.CommandText = "Select * From Cuadre where fecha ='" + realfecha + "'";
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -122,13 +139,14 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
 					dataGridView1.Rows[renglon].Cells[1].Value = dr.GetString(dr.GetOrdinal("descripcion"));
 					dataGridView1.Rows[renglon].Cells[2].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
-					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetDateTime(dr.GetOrdinal("fecha")); ;
+					dataGridView1.Rows[renglon].Cells[3].Value = Convert.ToString(dr.GetDateTime(dr.GetOrdinal("fecha")));
 
 					llenargridpagos(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
 					llenar(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
+					llenardeudas(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
 					llenargastos();
 
-					string desglose = Convert.ToString(dataGridView1.Rows[renglon].Cells[1].Value);
+					string desglose = dr.GetString(dr.GetOrdinal("descripcion")); 
 					if (desglose != "")
 					{
 						var marca = desglose;
@@ -168,7 +186,7 @@ namespace Capa_de_Presentacion
 		}
 		public void llenargridpagos(int id)
 		{
-			decimal devuelta = 0, pagos = 0;
+			decimal pagos = 0;
 			//declar=0amos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection
@@ -203,7 +221,6 @@ namespace Capa_de_Presentacion
 				dataGridView2.Rows[renglon].Cells["egresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("egresos")));
 				if (Convert.ToInt32(dataGridView2.Rows[renglon].Cells["id_caja"].Value) == id)
 				{
-					devuelta += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["egresos"].Value), 2);
 					pagos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["ingresos"].Value), 2);
 				}
 
@@ -238,8 +255,10 @@ namespace Capa_de_Presentacion
 
 		public void llenargastos()
 		{
+			DateTime fecha = Convert.ToDateTime(dpkfechacuadre.Value.Year + "/" + dpkfechacuadre.Value.Month + "/" + dpkfechacuadre.Value.Day);
+			string realfecha = fecha.ToString();
 			decimal totalgasto = 0;
-			string cadSql = "select * from Gastos where fecha='" + dpkfechacuadre.Value.ToString("yyyy-MM-dd") + "'";
+			string cadSql = "select * from Gastos where fecha ='" + realfecha + "'";
 
 			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
 			Cx.conexion.Open();
@@ -274,7 +293,7 @@ namespace Capa_de_Presentacion
 			saveFileDialog1.Filter = "pdf Files (*.pdf)|*.pdf| All Files (*.*)|*.*";
 			saveFileDialog1.FilterIndex = 2;
 			saveFileDialog1.RestoreDirectory = true;
-			string filename = "Reporte de Cuadre de Caja" + DateTime.Now.ToString();
+			string filename = "Reporte de Cuadre de Caja";
 			if (saveFileDialog1.ShowDialog() == DialogResult.OK)
 			{
 				filename = saveFileDialog1.FileName;
@@ -290,7 +309,7 @@ namespace Capa_de_Presentacion
 				doc.Open();
 				string remito = lblLogo.Text;
 				string ubicado = lblDir.Text;
-				string envio = "Fecha : " + DateTime.Now.ToString();
+				string envio = "Fecha : "+DateTime.Now.ToShortTimeString();
 
 				Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
 				doc.Add(new Paragraph("                                                                                                                                                                                                                                                     " + envio, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC)));
@@ -429,7 +448,11 @@ namespace Capa_de_Presentacion
             
             decimal cuadre = ingresos - gastos;
 
-			if(txtde5.Text =="")
+			if (lbldeudas.Text == "")
+			{
+				txtde2000.Text = "0";
+			}
+			if (txtde5.Text =="")
             {
 				txtde5.Text = "0";
 			}
