@@ -353,7 +353,9 @@ namespace Capa_de_Presentacion
 			"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
 				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta " +
 				"inner join dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta " +
-				"where FechaVenta BETWEEN '" + dtpfecha1.Value.ToString("yyyy-MM-dd") + "' AND '" + dtpfecha2.Value.ToString("yyyy-MM-dd") + "'";
+				"where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103)";
+			comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
+			comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
