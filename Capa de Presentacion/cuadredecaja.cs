@@ -100,8 +100,6 @@ namespace Capa_de_Presentacion
 		}
 		private void agregargasto_Click(object sender, EventArgs e)
 		{
-			DateTime fecha = Convert.ToDateTime(dpkfechacuadre.Value.Year + "/" + dpkfechacuadre.Value.Month + "/" + dpkfechacuadre.Value.Day);
-			string realfecha = fecha.ToString();
 			limpiar();
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
@@ -114,7 +112,8 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "Select * From Cuadre where fecha =" + realfecha;
+			comando.CommandText = "Select * From Cuadre where fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
+			comando.Parameters.AddWithValue("@fecha", dpkfechacuadre.Value);
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -255,12 +254,10 @@ namespace Capa_de_Presentacion
 
 		public void llenargastos()
 		{
-			DateTime fecha = Convert.ToDateTime(dpkfechacuadre.Value.Year + "/" + dpkfechacuadre.Value.Month + "/" + dpkfechacuadre.Value.Day);
-			string realfecha = fecha.ToString();
 			decimal totalgasto = 0;
-			string cadSql = "select * from Gastos where fecha =" + realfecha;
-
+			string cadSql = "select * from Gastos where fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
 			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+			comando.Parameters.AddWithValue("@fecha", dpkfechacuadre.Value);
 			Cx.conexion.Open();
 
 			SqlDataReader leer = comando.ExecuteReader();
