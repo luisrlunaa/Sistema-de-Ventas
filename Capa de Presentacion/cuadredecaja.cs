@@ -114,7 +114,7 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "Select * From Cuadre where fecha ='" + realfecha + "'";
+			comando.CommandText = "Select * From Cuadre where fecha =" + realfecha;
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -139,7 +139,7 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
 					dataGridView1.Rows[renglon].Cells[1].Value = dr.GetString(dr.GetOrdinal("descripcion"));
 					dataGridView1.Rows[renglon].Cells[2].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
-					dataGridView1.Rows[renglon].Cells[3].Value = Convert.ToString(dr.GetDateTime(dr.GetOrdinal("fecha")));
+					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
 
 					llenargridpagos(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
 					llenar(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
@@ -198,7 +198,7 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "select id_caja,id_pago,monto,ingresos,egresos from Pagos WHERE dbo.Pagos.id_caja ="+ id;
+			comando.CommandText = "select id_caja,id_pago,monto,ingresos,egresos From Pagos WHERE id_caja ="+ id;
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -258,7 +258,7 @@ namespace Capa_de_Presentacion
 			DateTime fecha = Convert.ToDateTime(dpkfechacuadre.Value.Year + "/" + dpkfechacuadre.Value.Month + "/" + dpkfechacuadre.Value.Day);
 			string realfecha = fecha.ToString();
 			decimal totalgasto = 0;
-			string cadSql = "select * from Gastos where fecha ='" + realfecha + "'";
+			string cadSql = "select * from Gastos where fecha =" + realfecha;
 
 			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
 			Cx.conexion.Open();
