@@ -950,7 +950,7 @@ namespace Capa_de_Presentacion
 				doc.Add(image1);
 				doc.Add(new Paragraph(chunk));
 				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
-				doc.Add(new Paragraph("Tel: " + lblTel1.Text + " / " + lblTel2.Text));
+				doc.Add(new Paragraph("Tel: " + lblTel1.Text + " / " + lblTel2.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph(" "));
 				doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("Tipo de Factura: "  + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
