@@ -10,7 +10,7 @@ using CapaLogicaNegocio;
 
 namespace Capa_de_Presentacion
 {
-    public partial class frmListadoVentas : DevComponents.DotNetBar.Metro.MetroForm
+	public partial class frmListadoVentas : DevComponents.DotNetBar.Metro.MetroForm
 	{
 		public frmListadoVentas()
 		{
@@ -28,7 +28,7 @@ namespace Capa_de_Presentacion
 		public void llenar_data_V()
 		{
 			decimal montovendido = 0;
-			int Cantvendido = 0, idprod=0;
+			int Cantvendido = 0, idprod = 0;
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection
@@ -70,9 +70,9 @@ namespace Capa_de_Presentacion
 				dataGridView2.CurrentCell = dataGridView2.Rows[0].Cells["id_p"];
 				idprod = Convert.ToInt32(dataGridView2.Rows[0].Cells["id_p"].Value);
 
-				montovendido += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["sub"].Value),2);
-		
-				txtidprod.Text= Convert.ToString(idprod);
+				montovendido += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["sub"].Value), 2);
+
+				txtidprod.Text = Convert.ToString(idprod);
 				txtCantvend.Text = Convert.ToString(Cantvendido);
 				txtMontvend.Text = Convert.ToString(montovendido);
 			}
@@ -162,8 +162,8 @@ namespace Capa_de_Presentacion
 		public void seleccion_data()
 		{
 			Program.IdCliente = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idcliente"].Value.ToString());
-			if(Program.IdCliente >0)
-            {
+			if (Program.IdCliente > 0)
+			{
 				Cx.conexion.Open();
 				string sql = "SELECT DNI,Apellidos,Nombres from Cliente where IdCliente = '" + Program.IdCliente + "'";
 				SqlCommand comando = new SqlCommand(sql, Cx.conexion);
@@ -176,29 +176,29 @@ namespace Capa_de_Presentacion
 				}
 				Cx.conexion.Close();
 			}
-            else
-            {
-				Program.datoscliente= dataGridView1.CurrentRow.Cells["nombrecliente"].Value.ToString();
+			else
+			{
+				Program.datoscliente = dataGridView1.CurrentRow.Cells["nombrecliente"].Value.ToString();
 				Program.DocumentoIdentidad = "";
 			}
 
 			Program.tipo = dataGridView1.CurrentRow.Cells["Tipo"].Value.ToString();
 			Program.NCF = dataGridView1.CurrentRow.Cells["NCF"].Value.ToString();
 			Program.NroComprobante = dataGridView1.CurrentRow.Cells["nroComprobante"].Value.ToString();
-			Program.Id =Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
-			Program.total =Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
-			Program.ST +=Convert.ToDecimal(dataGridView1.CurrentRow.Cells["subtotal"].Value.ToString());
-			Program.igv +=Convert.ToDecimal(dataGridView1.CurrentRow.Cells["igv"].Value.ToString());
+			Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
+			Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
+			Program.ST += Convert.ToDecimal(dataGridView1.CurrentRow.Cells["subtotal"].Value.ToString());
+			Program.igv += Convert.ToDecimal(dataGridView1.CurrentRow.Cells["igv"].Value.ToString());
 			Program.fecha = dataGridView1.CurrentRow.Cells["fecha"].Value.ToString();
 			Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
 
-			if(Program.tipo != "Credito")
-            {
+			if (Program.tipo != "Credito")
+			{
 				Program.Esabono = "";
 				Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
 			}
 			else
-            {
+			{
 				Program.Esabono = "Es Abono";
 				Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["restante"].Value.ToString());
 			}
@@ -209,7 +209,7 @@ namespace Capa_de_Presentacion
 		private void label2_Click(object sender, EventArgs e)
 		{
 			FrmRegistroVentas V = new FrmRegistroVentas();
-			V.txtidEmp.Text=Convert.ToString(Program.IdEmpleadoLogueado);
+			V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
 			this.Close();
 		}
 
@@ -232,7 +232,7 @@ namespace Capa_de_Presentacion
 		{
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-			Image image1 = Image.GetInstance("ferreteria.png");
+			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
 			image1.ScaleAbsoluteWidth(100);
 			image1.ScaleAbsoluteHeight(50);
 			saveFileDialog1.InitialDirectory = @"C:";
@@ -353,7 +353,9 @@ namespace Capa_de_Presentacion
 			"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
 				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta " +
 				"inner join dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta " +
-				"where FechaVenta BETWEEN '" + dtpfecha1.Value.ToString("yyyy-MM-dd") + "' AND '" + dtpfecha2.Value.ToString("yyyy-MM-dd") + "'";
+				"where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103)";
+			comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
+			comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -388,7 +390,7 @@ namespace Capa_de_Presentacion
 
 				total += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
 
-				txtTtal.Text = Convert.ToString(Math.Round(total,2));
+				txtTtal.Text = Convert.ToString(Math.Round(total, 2));
 			}
 			con.Close();
 		}
@@ -398,12 +400,12 @@ namespace Capa_de_Presentacion
 			llenar_data();
 		}
 
-        private void dataGridView1_DoubleClick(object sender, EventArgs e)
-        {
+		private void dataGridView1_DoubleClick(object sender, EventArgs e)
+		{
 			seleccion_data();
 			FrmRegistroVentas V = new FrmRegistroVentas();
 			V.btnSalir.Visible = false;
 			this.Close();
 		}
-    }
+	}
 }

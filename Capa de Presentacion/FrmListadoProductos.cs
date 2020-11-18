@@ -11,48 +11,48 @@ using CapaLogicaNegocio;
 
 namespace Capa_de_Presentacion
 {
-    public partial class FrmListadoProductos : DevComponents.DotNetBar.Metro.MetroForm
+	public partial class FrmListadoProductos : DevComponents.DotNetBar.Metro.MetroForm
 
-    {
-        private clsProducto P = new clsProducto();
-        private clsCategoria C = new clsCategoria();
-        clsCx Cx = new clsCx();
-        public FrmListadoProductos()
-        {
-            InitializeComponent();
-        }
+	{
+		private clsProducto P = new clsProducto();
+		private clsCategoria C = new clsCategoria();
+		clsCx Cx = new clsCx();
+		public FrmListadoProductos()
+		{
+			InitializeComponent();
+		}
 
-        private void FrmProductos_Load(object sender, EventArgs e)
-        {
+		private void FrmProductos_Load(object sender, EventArgs e)
+		{
 			ListarElementos();
 			CargarListado();
-            dataGridView1.ClearSelection();
-            repetitivo();
-            Mrepetitivo();
+			dataGridView1.ClearSelection();
+			repetitivo();
+			Mrepetitivo();
 			button2.Enabled = false;
 			ListarElementostipo();
 			clear();
 		}
 		public void buscarid()
-        {
-            Cx.conexion.Open();
-            string sql = "select IdCategoria from Categoria where Descripcion =@id";
-            SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
-            cmd.Parameters.AddWithValue("@id", cbxCategoria.Text);
+		{
+			Cx.conexion.Open();
+			string sql = "select IdCategoria from Categoria where Descripcion =@id";
+			SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+			cmd.Parameters.AddWithValue("@id", cbxCategoria.Text);
 
-            SqlDataReader reade = cmd.ExecuteReader();
-            if (reade.Read())
-            {
-                id.Text = Convert.ToString(reade["IdCategoria"]);
-                txtdesc.Text = cbxCategoria.Text;
-                rbbuena.Checked = false;
-                rdmedia.Checked = false;
-                rbCero.Checked = false;
-                rbtodos.Checked = false;
-                radioButton1.Checked = false;
-            }
-            Cx.conexion.Close();
-        }
+			SqlDataReader reade = cmd.ExecuteReader();
+			if (reade.Read())
+			{
+				id.Text = Convert.ToString(reade["IdCategoria"]);
+				txtdesc.Text = cbxCategoria.Text;
+				rbbuena.Checked = false;
+				rdmedia.Checked = false;
+				rbCero.Checked = false;
+				rbtodos.Checked = false;
+				radioButton1.Checked = false;
+			}
+			Cx.conexion.Close();
+		}
 
 		public void buscardesc()
 		{
@@ -60,8 +60,8 @@ namespace Capa_de_Presentacion
 			string sql = "select descripcion from tipoGOma where id =@id";
 			SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
 			cmd.Parameters.AddWithValue("@id", cbTipoGoma.SelectedValue);
-			if(cbTipoGoma.SelectedValue !=null)
-            {
+			if (cbTipoGoma.SelectedValue != null)
+			{
 				SqlDataReader reade = cmd.ExecuteReader();
 				if (reade.Read())
 				{
@@ -74,39 +74,39 @@ namespace Capa_de_Presentacion
 					radioButton1.Checked = false;
 				}
 			}
-			
+
 			Cx.conexion.Close();
 		}
 
 		private void Stretch(object sender, EventArgs e)
-        {
-            foreach (DataGridViewImageColumn column in
-                dataGridView1.Columns)
-            {
-                column.ImageLayout = DataGridViewImageCellLayout.Stretch;
-                column.Description = "Stretched";
-            }
-        }
+		{
+			foreach (DataGridViewImageColumn column in
+				dataGridView1.Columns)
+			{
+				column.ImageLayout = DataGridViewImageCellLayout.Stretch;
+				column.Description = "Stretched";
+			}
+		}
 
-        private void ZoomToImage(object sender, EventArgs e)
-        {
-            foreach (DataGridViewImageColumn column in
-                dataGridView1.Columns)
-            {
-                column.ImageLayout = DataGridViewImageCellLayout.Zoom;
-                column.Description = "Zoomed";
-            }
-        }
+		private void ZoomToImage(object sender, EventArgs e)
+		{
+			foreach (DataGridViewImageColumn column in
+				dataGridView1.Columns)
+			{
+				column.ImageLayout = DataGridViewImageCellLayout.Zoom;
+				column.Description = "Zoomed";
+			}
+		}
 
-        private void NormalImage(object sender, EventArgs e)
-        {
-            foreach (DataGridViewImageColumn column in
-                dataGridView1.Columns)
-            {
-                column.ImageLayout = DataGridViewImageCellLayout.Normal;
-                column.Description = "Normal";
-            }
-        }
+		private void NormalImage(object sender, EventArgs e)
+		{
+			foreach (DataGridViewImageColumn column in
+				dataGridView1.Columns)
+			{
+				column.ImageLayout = DataGridViewImageCellLayout.Normal;
+				column.Description = "Normal";
+			}
+		}
 
 		private void ListarElementostipo()
 		{
@@ -127,56 +127,56 @@ namespace Capa_de_Presentacion
 
 
 		private void ListarElementos()
-        {
-            if (id.Text.Trim() != "")
-            {
-                cbxCategoria.DisplayMember = "Descripcion";
-                cbxCategoria.ValueMember = "IdCategoria";
+		{
+			if (id.Text.Trim() != "")
+			{
+				cbxCategoria.DisplayMember = "Descripcion";
+				cbxCategoria.ValueMember = "IdCategoria";
 				cbxCategoria.DataSource = C.Listar();
-                cbxCategoria.SelectedItem = id.Text;
-            }
-            else
-            {
-                cbxCategoria.DisplayMember = "Descripcion";
-                cbxCategoria.ValueMember = "IdCategoria";
-                cbxCategoria.DataSource = C.Listar();
-            }
-        }
+				cbxCategoria.SelectedItem = id.Text;
+			}
+			else
+			{
+				cbxCategoria.DisplayMember = "Descripcion";
+				cbxCategoria.ValueMember = "IdCategoria";
+				cbxCategoria.DataSource = C.Listar();
+			}
+		}
 
-        public void clear()
-        {
-            id.Clear();
-            rbbuena.Checked = false;
-            rdmedia.Checked = false;
-            rbCero.Checked = false;
-            rbtodos.Checked = false;
-            radioButton1.Checked = false;
-            rbfechaing.Checked = false;
-            rbfechamod.Checked = false;
-            txtdesc.Text = "";
-            CargarListado();
-        }
-        public void CargarListado()
-        {
-            DataTable dt = new DataTable();
-            dt = P.Listar();
+		public void clear()
+		{
+			id.Clear();
+			rbbuena.Checked = false;
+			rdmedia.Checked = false;
+			rbCero.Checked = false;
+			rbtodos.Checked = false;
+			radioButton1.Checked = false;
+			rbfechaing.Checked = false;
+			rbfechamod.Checked = false;
+			txtdesc.Text = "";
+			CargarListado();
+		}
+		public void CargarListado()
+		{
+			DataTable dt = new DataTable();
+			dt = P.Listar();
 			decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
 			try
-            {
+			{
 				dataGridView1.Rows.Clear();
 				for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    dataGridView1.Rows.Add(dt.Rows[i][0]);
-                    dataGridView1.Rows[i].Cells[0].Value = dt.Rows[i][0].ToString();
-                    dataGridView1.Rows[i].Cells[1].Value = dt.Rows[i][1].ToString();
-                    dataGridView1.Rows[i].Cells[2].Value = dt.Rows[i][2].ToString();
-                    dataGridView1.Rows[i].Cells[3].Value = dt.Rows[i][3].ToString();
-                    dataGridView1.Rows[i].Cells[4].Value = dt.Rows[i][4].ToString();
-                    dataGridView1.Rows[i].Cells[5].Value = dt.Rows[i][5].ToString();
-                    dataGridView1.Rows[i].Cells[6].Value = dt.Rows[i][6].ToString();
-                    dataGridView1.Rows[i].Cells[7].Value = Convert.ToDateTime(dt.Rows[i][7].ToString()).ToShortDateString();
-                    dataGridView1.Rows[i].Cells[8].Value = Convert.ToDateTime(dt.Rows[i][8].ToString()).ToShortDateString();
-                    dataGridView1.Rows[i].Cells[9].Value = dt.Rows[i][9].ToString();
+				{
+					dataGridView1.Rows.Add(dt.Rows[i][0]);
+					dataGridView1.Rows[i].Cells[0].Value = dt.Rows[i][0].ToString();
+					dataGridView1.Rows[i].Cells[1].Value = dt.Rows[i][1].ToString();
+					dataGridView1.Rows[i].Cells[2].Value = dt.Rows[i][2].ToString();
+					dataGridView1.Rows[i].Cells[3].Value = dt.Rows[i][3].ToString();
+					dataGridView1.Rows[i].Cells[4].Value = dt.Rows[i][4].ToString();
+					dataGridView1.Rows[i].Cells[5].Value = dt.Rows[i][5].ToString();
+					dataGridView1.Rows[i].Cells[6].Value = dt.Rows[i][6].ToString();
+					dataGridView1.Rows[i].Cells[7].Value = Convert.ToDateTime(dt.Rows[i][7].ToString()).ToShortDateString();
+					dataGridView1.Rows[i].Cells[8].Value = Convert.ToDateTime(dt.Rows[i][8].ToString()).ToShortDateString();
+					dataGridView1.Rows[i].Cells[9].Value = dt.Rows[i][9].ToString();
 					dataGridView1.Rows[i].Cells[10].Value = dt.Rows[i][10].ToString();
 					//if (dataGridView1.Rows[i].Cells[10].Value == null)
 					//{
@@ -188,80 +188,80 @@ namespace Capa_de_Presentacion
 					//}
 
 					compras += Convert.ToDecimal(dataGridView1.Rows[i].Cells[4].Value);
-                    ventas += Convert.ToDecimal(dataGridView1.Rows[i].Cells[5].Value);
+					ventas += Convert.ToDecimal(dataGridView1.Rows[i].Cells[5].Value);
 					totalproducto += Convert.ToDecimal(dataGridView1.Rows[i].Cells[6].Value);
 					lbltotalproductos.Text = Convert.ToString(totalproducto);
-					total =Math.Round(ventas - compras,2);
-                    txttotalG.Text = Convert.ToString(total);
-                }
+					total = Math.Round(ventas - compras, 2);
+					txttotalG.Text = Convert.ToString(total);
+				}
 			}
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            dataGridView1.ClearSelection();
-        }
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridView1.Rows.Count > 0)
-            {
-                dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			dataGridView1.ClearSelection();
+		}
+		private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (dataGridView1.Rows.Count > 0)
+			{
+				dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
 			}
 		}
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-                Close();
-            }
-        }
+		private void btnCancelar_Click(object sender, EventArgs e)
+		{
+			if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+			{
+				Close();
+			}
+		}
 
-        private void btnNuevo_Click(object sender, EventArgs e)
-        {
-            FrmRegistroProductos P = new FrmRegistroProductos();
-            if (dataGridView1.SelectedRows.Count > 0)
-                Program.Evento = 1;
-            else
-                Program.Evento = 0;
-            dataGridView1.ClearSelection();
-            P.label6.Text = "Fecha de Ingreso";
-            P.Show();
-        }
+		private void btnNuevo_Click(object sender, EventArgs e)
+		{
+			FrmRegistroProductos P = new FrmRegistroProductos();
+			if (dataGridView1.SelectedRows.Count > 0)
+				Program.Evento = 1;
+			else
+				Program.Evento = 0;
+			dataGridView1.ClearSelection();
+			P.label6.Text = "Fecha de Ingreso";
+			P.Show();
+		}
 
-        private void btnEditar_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.SelectedRows.Count > 0)
-            {
-                FrmRegistroProductos P = new FrmRegistroProductos();
-                P.txtIdP.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                P.IdC.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                P.txtProducto.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-                P.txtMarca.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
-                P.txtPCompra.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
-                P.txtPVenta.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
-                P.txtStock.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
-                P.txtitbis.Text = dataGridView1.CurrentRow.Cells[9].Value.ToString();
+		private void btnEditar_Click(object sender, EventArgs e)
+		{
+			if (dataGridView1.SelectedRows.Count > 0)
+			{
+				FrmRegistroProductos P = new FrmRegistroProductos();
+				P.txtIdP.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+				P.IdC.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+				P.txtProducto.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+				P.txtMarca.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+				P.txtPCompra.Text = dataGridView1.CurrentRow.Cells[4].Value.ToString();
+				P.txtPVenta.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+				P.txtStock.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
+				P.txtitbis.Text = dataGridView1.CurrentRow.Cells[9].Value.ToString();
 				P.cbtipo.Text = dataGridView1.CurrentRow.Cells[10].Value.ToString();
 				P.dateTimePicker1.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells[8].Value.ToString());
-                P.button1.Visible = true;
-                P.btnGuardar.Visible = false;
-                P.label6.Text = "Fecha de Modificacion";
-                P.label11.Text = "Actualizar Producto";
-                P.Show();
+				P.button1.Visible = true;
+				P.btnGuardar.Visible = false;
+				P.label6.Text = "Fecha de Modificacion";
+				P.label11.Text = "Actualizar Producto";
+				P.Show();
 
-                if (dataGridView1.SelectedRows.Count > 0)
-                    Program.Evento = 1;
-                else
-                    Program.Evento = 0;
-                dataGridView1.ClearSelection();
-            }
+				if (dataGridView1.SelectedRows.Count > 0)
+					Program.Evento = 1;
+				else
+					Program.Evento = 0;
+				dataGridView1.ClearSelection();
+			}
 
-            else
-            {
-                DevComponents.DotNetBar.MessageBoxEx.Show("Debe Seleccionar la Fila a Editar.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
+			else
+			{
+				DevComponents.DotNetBar.MessageBoxEx.Show("Debe Seleccionar la Fila a Editar.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+			}
+		}
 
 		private void BusquedaProductos()
 		{
@@ -516,7 +516,7 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis"))); 
+					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
 					dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
 					//if (dataGridView1.Rows[renglon].Cells[10].Value == null)
 					//{
@@ -725,10 +725,10 @@ namespace Capa_de_Presentacion
 		{
 			if (textBox5.Text != "")
 			{
-				Reporte = "Inventario Por Tipo Productos "+cbTipoGoma.Text;
+				Reporte = "Inventario Por Tipo Productos " + cbTipoGoma.Text;
 			}
 
-			if (txtdesc.Text !="")
+			if (txtdesc.Text != "")
 			{
 				Reporte = "Inventario de Productos por Categoria " + cbxCategoria.Text;
 			}
@@ -765,10 +765,10 @@ namespace Capa_de_Presentacion
 
 			if (rbfechaing.Checked == true)
 			{
-				Reporte = "Inventario de Fecha de Ingreso \n"+
+				Reporte = "Inventario de Fecha de Ingreso \n" +
 					"Desde " + dtpfecha1.Text + "\n" +
 					"Hasta " + dtpfecha2.Text;
-			} 
+			}
 
 			if (rbfechamod.Checked == true)
 			{
@@ -779,7 +779,7 @@ namespace Capa_de_Presentacion
 
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("ferreteria.png");
+			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
 			image1.ScaleAbsoluteWidth(100);
 			image1.ScaleAbsoluteHeight(50);
 			saveFileDialog1.InitialDirectory = @"C:";
@@ -919,7 +919,9 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "	Select * From Producto where FechaVencimiento BETWEEN '" + dtpfecha1.Value.ToString("yyyy-MM-dd") + "' AND '" + dtpfecha2.Value.ToString("yyyy-MM-dd") + "'";
+			comando.CommandText = "	Select * From Producto where FechaVencimiento BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103)";
+			comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
+			comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -982,7 +984,9 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "Select * From Producto where FechaModificacion BETWEEN '" + dtpfecha1.Value.ToString("yyyy-MM-dd") + "' AND '" + dtpfecha2.Value.ToString("yyyy-MM-dd") + "'";
+			comando.CommandText = "Select * From Producto where FechaModificacion BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103)";
+			comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
+			comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -1030,8 +1034,8 @@ namespace Capa_de_Presentacion
 			con.Close();
 		}
 
-        private void button2_Click_1(object sender, EventArgs e)
-        {
+		private void button2_Click_1(object sender, EventArgs e)
+		{
 			Program.IdProducto = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
 			if (Program.IdProducto > 0)
 			{
@@ -1055,11 +1059,11 @@ namespace Capa_de_Presentacion
 			}
 		}
 
-        private void cbTipoGoma_SelectedIndexChanged(object sender, EventArgs e)
-        {
+		private void cbTipoGoma_SelectedIndexChanged(object sender, EventArgs e)
+		{
 			buscardesc();
-			decimal compras = 0, total = 0, ventas = 0, totalproducto =0;
-			if (textBox5.Text !="")
+			decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
+			if (textBox5.Text != "")
 			{
 				//declaramos la cadena  de conexion
 				string cadenaconexion = Cx.conet;
@@ -1126,10 +1130,9 @@ namespace Capa_de_Presentacion
 			}
 		}
 
-        private void dataGridView1_Click(object sender, EventArgs e)
-        {
+		private void dataGridView1_Click(object sender, EventArgs e)
+		{
 			button2.Enabled = true;
 		}
-    }
+	}
 }
-
