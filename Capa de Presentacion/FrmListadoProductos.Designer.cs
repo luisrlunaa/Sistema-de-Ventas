@@ -689,6 +689,11 @@
 		private System.Windows.Forms.DateTimePicker dtpfecha1;
 		public System.Windows.Forms.Label label13;
         public System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cbTipoGoma;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lbltotalproductos;
+        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdC;
         private System.Windows.Forms.DataGridViewTextBoxColumn description;
@@ -700,10 +705,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn fechamodificacion;
         private System.Windows.Forms.DataGridViewTextBoxColumn itbis;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipoGOma;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cbTipoGoma;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label lbltotalproductos;
-        private System.Windows.Forms.TextBox textBox5;
     }
 }
