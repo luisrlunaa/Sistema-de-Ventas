@@ -36,6 +36,9 @@ namespace Capa_de_Presentacion
 				btnBuscar.Hide();
 				txtDatos.ReadOnly = false;
 			}
+			txtDivisor.Text = "1.18";
+			txtPorcentaje.Text = "";
+			Program.ReImpresion = "";
 			Program.datoscliente = "";
 			Program.realizopago = false;
 			actualzarestadoscomprobantes();
@@ -320,6 +323,25 @@ namespace Capa_de_Presentacion
 		{
 			clsVenta V = new clsVenta();
 
+			decimal precio = 0;
+			decimal itbis = 0;
+			if(txtPorcentaje.Text.Trim() != "" && txtPVenta.Text.Trim() != "")
+            {
+				decimal precioreal = Convert.ToDecimal(txtPVenta.Text);
+				decimal porcentaje = Convert.ToInt32(txtPorcentaje.Text);
+				decimal valortotalporcentaje = 100;
+				decimal divisor = Convert.ToDecimal(txtDivisor.Text);
+
+				decimal calculoporcentaje = Math.Round(porcentaje / valortotalporcentaje, 2);
+
+				precio = Math.Round(precioreal / divisor,2);
+				itbis = Math.Round(precio * calculoporcentaje,2);
+			}
+			else
+            {
+				precio = Convert.ToDecimal(txtPVenta.Text);
+				itbis = Convert.ToDecimal(txtIgv.Text);
+			}
 				if (txtDescripcion.Text.Trim() != "")
 				{
 					if (txtCantidad.Text.Trim() != "")
@@ -335,12 +357,12 @@ namespace Capa_de_Presentacion
 
 								if (Convert.ToDecimal(txtIgv.Text) > 0)
 								{
-									V.Igv = Convert.ToDecimal(txtIgv.Text);
+									V.Igv = itbis;
 								}
 
-								V.PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
+								V.PrecioVenta = precio;
 
-								V.SubTotal = Math.Round((Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text))* Convert.ToInt32(txtCantidad.Text), 2);
+								V.SubTotal = Math.Round((precio +itbis)* Convert.ToInt32(txtCantidad.Text), 2);
 								btnAgregar.Visible = false;
 								lst.Add(V);
 								LlenarGri();
@@ -406,14 +428,15 @@ namespace Capa_de_Presentacion
             txtPVenta.Clear();
             txtCantidad.Clear();
             txtCantidad.Focus();
-			txtIgv.Clear();
 			txtIgv.Text = "";
+			txtPorcentaje.Text = "";
 			Program.Descripcion = "";
             Program.Stock = 0;
             Program.Marca = "";
             Program.PrecioVenta = 0;
 			Program.IdProducto = 0;
 			Program.igv = 0;
+			Program.itbis = 0;
 			Program.realizopago = false;
 		}
         private void btnSalir_Click(object sender, EventArgs e)
@@ -710,6 +733,7 @@ namespace Capa_de_Presentacion
 			lst.Clear();
 			txtIgv.Text = "";
 			Program.realizopago = false;
+			Program.ReImpresion = "";
 		}
 
 		public void tickEstilo()
@@ -719,10 +743,11 @@ namespace Capa_de_Presentacion
 			CrearTiket ticket = new CrearTiket();
 
 			//cabecera del ticket.
-			if (Program.ReImpresion != null)
+			if (Program.ReImpresion != "")
 			{
 				ticket.TextoDerecha(Program.ReImpresion);
 			}
+
 			ticket.TextoCentro(lblLogo.Text);
 			ticket.TextoIzquierda("");
 			ticket.TextoIzquierda(lblDir.Text);

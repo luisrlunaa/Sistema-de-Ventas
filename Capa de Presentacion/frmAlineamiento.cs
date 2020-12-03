@@ -47,6 +47,7 @@ namespace Capa_de_Presentacion
 			txtMarca.Clear();
 			txtmodelo.Clear();
 			Program.realizopago = false;
+			Program.ReImpresion = "";
 		}
 
 		private void btnBusqueda_Click(object sender, EventArgs e)

@@ -203,7 +203,7 @@ namespace Capa_de_Presentacion
 				Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["restante"].Value.ToString());
 			}
 
-			Program.ReImpresion = "Factura ReImpresa";
+			Program.ReImpresion = "Copia Factura";
 		}
 
 		private void label2_Click(object sender, EventArgs e)
