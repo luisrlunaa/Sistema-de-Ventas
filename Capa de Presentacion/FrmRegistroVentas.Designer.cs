@@ -1304,7 +1304,6 @@
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.TextBox txtCantidad;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtPVenta;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtStock;
         private System.Windows.Forms.Label label8;
@@ -1313,7 +1312,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtIdVenta;
-        private System.Windows.Forms.TextBox txtIgv;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btnEliminarItem;
         private System.Windows.Forms.TextBox txtIdProducto;
@@ -1382,5 +1380,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox cbidentificacion;
         public System.Windows.Forms.Label label19;
+        public System.Windows.Forms.TextBox txtPVenta;
+        public System.Windows.Forms.TextBox txtIgv;
     }
 }

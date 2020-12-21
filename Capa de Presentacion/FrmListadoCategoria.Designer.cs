@@ -212,11 +212,11 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnNuevo;
-        private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdC;
         private System.Windows.Forms.DataGridViewTextBoxColumn Descripcion;
         public System.Windows.Forms.TextBox txtBuscarCategoria;
 		private System.Windows.Forms.Label label2;
 		public System.Windows.Forms.Label label3;
-	}
+        public System.Windows.Forms.Button btnEditar;
+    }
 }

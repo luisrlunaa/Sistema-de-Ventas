@@ -30,6 +30,10 @@ namespace Capa_de_Presentacion
             timer1.Start();
             timer1.Interval = 1000;
             MostrarListadoEmpleados();
+            if (Program.CargoEmpleadoLogueado != "Administrador")
+            {
+                btnActualizar.Enabled = false;
+            }
         }
 
         private void MostrarListadoEmpleados() {
@@ -176,7 +180,11 @@ namespace Capa_de_Presentacion
         }
 		private void label2_Click(object sender, EventArgs e)
 		{
-			this.Close();
+            if (Program.CargoEmpleadoLogueado != "Administrador")
+            {
+                btnActualizar.Enabled = false;
+            }
+            this.Close();
 		}
 
         private void button1_Click(object sender, EventArgs e)

@@ -36,6 +36,13 @@ namespace Capa_de_Presentacion
 				btnBuscar.Hide();
 				txtDatos.ReadOnly = false;
 			}
+
+			if (Program.CargoEmpleadoLogueado != "Administrador")
+			{
+				txtPVenta.Enabled = false;
+				txtIgv.Enabled = false;
+			}
+
 			Program.datoscliente = "";
 			Program.realizopago = false;
 			actualzarestadoscomprobantes();
@@ -872,6 +879,11 @@ namespace Capa_de_Presentacion
 			Program.pagoRealizado = 0;
 			Limpiar();
 			Limpiar1();
+			if (Program.CargoEmpleadoLogueado != "Administrador")
+			{
+				txtPVenta.Enabled = false;
+				txtIgv.Enabled = false;
+			}
 			this.Close();
 		}
 

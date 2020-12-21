@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Capa_de_Presentacion
 {
-    public partial class FrmMenuPrincipal : DevComponents.DotNetBar.Metro.MetroForm
+	public partial class FrmMenuPrincipal : DevComponents.DotNetBar.Metro.MetroForm
 	{
 		int EnviarFecha = 0;
 		public FrmMenuPrincipal()
@@ -20,7 +20,6 @@ namespace Capa_de_Presentacion
 		clsUsuarios U = new clsUsuarios();
 		private void FrmMenuPrincipal_Activated(object sender, EventArgs e)
 		{
-			frmListadoVentas V = new frmListadoVentas();
 			lblUsuario.Text = Program.NombreEmpleadoLogueado;
 			txtcargo.Text = Program.CargoEmpleadoLogueado;
 			textBox1.Text = Program.CargoEmpleadoLogueado1;
@@ -30,7 +29,6 @@ namespace Capa_de_Presentacion
 				btnProductos.Visible = true;
 				btnClientes.Visible = false;
 				btnVentas.Visible = false;
-				
 
 				button5.Visible = false;
 				button2.Visible = false;
@@ -48,7 +46,6 @@ namespace Capa_de_Presentacion
 					btnProductos.Visible = true;
 					btnClientes.Visible = true;
 					btnVentas.Visible = true;
-					
 
 					button5.Visible = false;
 					button2.Visible = false;
@@ -58,15 +55,12 @@ namespace Capa_de_Presentacion
 					button1.Visible = true;
 					button3.Visible = true;
 					btnVer.Visible = true;
-
-					V.btnCancelar.Visible = false;
 				}
 				else
 				{
 					btnProductos.Visible = true;
 					btnClientes.Visible = true;
 					btnVentas.Visible = true;
-					
 
 					button5.Visible = true;
 					button2.Visible = true;
@@ -75,7 +69,7 @@ namespace Capa_de_Presentacion
 
 					button1.Visible = true;
 					button3.Visible = true;
-					btnVer.Visible = true;
+					btnVer.Visible = false;
 				}
 			}
 		}
@@ -113,6 +107,7 @@ namespace Capa_de_Presentacion
 				P.lblDir.Text = lblDir.Text;
 				P.btnNuevo.Enabled = false;
 				P.btnEditar.Enabled = false;
+				P.button2.Enabled = false;
 				P.Show();
 			}
 			else
@@ -126,6 +121,11 @@ namespace Capa_de_Presentacion
 		private void btnClientes_Click(object sender, EventArgs e)
 		{
 			FrmListadoClientes C = new FrmListadoClientes();
+			if (Program.CargoEmpleadoLogueado != "Administrador")
+			{
+				C.btnActualizar.Enabled = false;
+			}
+
 			C.Show();
 		}
 		private void btnVentas_Click(object sender, EventArgs e)
@@ -139,6 +139,13 @@ namespace Capa_de_Presentacion
 			V.lblTel2.Text = lblTel2.Text;
 			V.lblCorreo.Text = lblCorreo.Text;
 			V.lblrnc.Text = lblrnc.Text;
+
+			if (Program.CargoEmpleadoLogueado != "Administrador")
+			{
+				V.txtPVenta.Enabled = false;
+				V.txtIgv.Enabled = false;
+			}
+
 			V.Show();
 		}
 		private void btnUsuarios_Click(object sender, EventArgs e)
@@ -162,11 +169,12 @@ namespace Capa_de_Presentacion
 		private void btnEmpleados_Click(object sender, EventArgs e)
 		{
 			FrmListadoEmpleados E = new FrmListadoEmpleados();
+			if (Program.CargoEmpleadoLogueado != "Administrador")
+			{
+				E.btnActualizar.Enabled = false;
+			}
+
 			E.Show();
-		}
-		private void FrmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			
 		}
 
 		private void pictureBox1_Click(object sender, EventArgs e)
@@ -177,7 +185,7 @@ namespace Capa_de_Presentacion
 
 				if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
 				{
-					
+
 					////////////////////Borrar copia de seguridad de base de datos anterior
 					string direccion = @"C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Backup\SalesSystem.bak";
 					File.Delete(direccion);
@@ -293,14 +301,14 @@ namespace Capa_de_Presentacion
 			MessageBox.Show("Buscando Usuario");
 			Refresh();
 			if (textBox1.Text.Trim() == "Administrador")
-				{
-					usuario.Hide();
-					panel2.Show();
-				}
-				else
-				{
-					MessageBox.Show("No eres Administrador");
-				}
+			{
+				usuario.Hide();
+				panel2.Show();
+			}
+			else
+			{
+				MessageBox.Show("No eres Administrador");
+			}
 			txtUser.Clear();
 			txtClave.Clear();
 		}
@@ -327,7 +335,6 @@ namespace Capa_de_Presentacion
 		}
 		private void button5_Click(object sender, EventArgs e)
 		{
-			FrmListadoProductos li = new FrmListadoProductos();
 			frmListadoVentas vt = new frmListadoVentas();
 			vt.lblLogo.Text = lblLogo.Text;
 			vt.lblDir.Text = lblDir.Text;
@@ -343,26 +350,26 @@ namespace Capa_de_Presentacion
 		}
 
 		bool val = false;
-        private void lblLogo_MouseDown(object sender, MouseEventArgs e)
-        {
+		private void lblLogo_MouseDown(object sender, MouseEventArgs e)
+		{
 			val = true;
-        }
+		}
 
-        private void lblLogo_MouseMove(object sender, MouseEventArgs e)
-        {
-			if(val==true)
-            {
+		private void lblLogo_MouseMove(object sender, MouseEventArgs e)
+		{
+			if (val == true)
+			{
 				this.Location = Cursor.Position;
-            }
-        }
+			}
+		}
 
-        private void lblLogo_MouseUp(object sender, MouseEventArgs e)
-        {
+		private void lblLogo_MouseUp(object sender, MouseEventArgs e)
+		{
 			val = false;
-        }
+		}
 
-        private void ckbback_CheckedChanged(object sender, EventArgs e)
-        {
+		private void ckbback_CheckedChanged(object sender, EventArgs e)
+		{
 			if (ckbback.Checked == true)
 			{
 				button5.Visible = true;
@@ -373,8 +380,8 @@ namespace Capa_de_Presentacion
 			}
 		}
 
-        private void btnAyB_Click(object sender, EventArgs e)
-        {
+		private void btnAyB_Click(object sender, EventArgs e)
+		{
 			frmAlineamiento V = new frmAlineamiento();
 			V.txtUsu.Text = lblUsuario.Text;
 			V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
@@ -387,11 +394,11 @@ namespace Capa_de_Presentacion
 			V.Show();
 		}
 
-        private void button6_Click(object sender, EventArgs e)
-        {
+		private void button6_Click(object sender, EventArgs e)
+		{
 			frmMovimientoCaja move = new frmMovimientoCaja();
 			move.Show();
-        }
-    }
+		}
+	}
 }
 
