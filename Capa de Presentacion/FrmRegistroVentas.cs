@@ -809,9 +809,9 @@ namespace Capa_de_Presentacion
 		{
 			Cx.conexion.Close();
 			Cx.conexion.Open();
-			string sql = "SELECT id_ncf FROM ncf WHERE id_ncf =@id";
+			string sql = "SELECT id_ncf FROM ncf WHERE descripcion_ncf =@id";
 			SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
-			cmd.Parameters.AddWithValue("@id", combo_tipo_NCF.SelectedIndex + 1);
+			cmd.Parameters.AddWithValue("@id", combo_tipo_NCF.Text);
 
 			SqlDataReader reade = cmd.ExecuteReader();
 			if (reade.Read())
