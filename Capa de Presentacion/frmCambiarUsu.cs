@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevComponents.DotNetBar;
 using CapaLogicaNegocio;
 
 namespace Capa_de_Presentacion
 {
-	public partial class frmCambiarUsu : DevComponents.DotNetBar.Metro.MetroForm
+    public partial class frmCambiarUsu : DevComponents.DotNetBar.Metro.MetroForm
 	{
 		clsUsuarios U = new clsUsuarios();
 		public frmCambiarUsu()
@@ -38,8 +31,7 @@ namespace Capa_de_Presentacion
 						txtPassword.Clear();
 						txtPassword.Focus();
 					}
-					else
-						if (Mensaje == "El Nombre de Usuario no Existe.")
+					else if (Mensaje == "El Nombre de Usuario no Existe.")
 					{
 						DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 						txtUser.Clear();

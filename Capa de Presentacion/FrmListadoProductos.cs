@@ -1134,6 +1134,22 @@ namespace Capa_de_Presentacion
         {
 			button2.Enabled = true;
 		}
+
+        private void FrmListadoProductos_FormClosed(object sender, FormClosedEventArgs e)
+        {
+			if (Program.CargoEmpleadoLogueado != "Administrador")
+			{
+				btnEditar.Enabled = false;
+			}
+		}
+
+        private void FrmListadoProductos_FormClosing(object sender, FormClosingEventArgs e)
+        {
+			if (Program.CargoEmpleadoLogueado != "Administrador")
+			{
+				btnEditar.Enabled = false;
+			}
+		}
     }
 }
 

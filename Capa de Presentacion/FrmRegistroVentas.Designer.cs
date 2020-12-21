@@ -49,6 +49,10 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtDivisor = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtPorcentaje = new System.Windows.Forms.TextBox();
             this.txtIgv = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.btnBusquedaProducto = new System.Windows.Forms.Button();
@@ -121,10 +125,6 @@
             this.txttotal = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
-            this.txtPorcentaje = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.txtDivisor = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -361,6 +361,48 @@
             this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Producto";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(470, 52);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(18, 19);
+            this.label21.TabIndex = 17;
+            this.label21.Text = "/:";
+            // 
+            // txtDivisor
+            // 
+            this.txtDivisor.BackColor = System.Drawing.Color.White;
+            this.txtDivisor.ForeColor = System.Drawing.Color.Black;
+            this.txtDivisor.Location = new System.Drawing.Point(503, 49);
+            this.txtDivisor.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDivisor.Name = "txtDivisor";
+            this.txtDivisor.Size = new System.Drawing.Size(52, 25);
+            this.txtDivisor.TabIndex = 16;
+            this.txtDivisor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(470, 83);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(25, 19);
+            this.label20.TabIndex = 15;
+            this.label20.Text = "%:";
+            // 
+            // txtPorcentaje
+            // 
+            this.txtPorcentaje.BackColor = System.Drawing.Color.White;
+            this.txtPorcentaje.ForeColor = System.Drawing.Color.Black;
+            this.txtPorcentaje.Location = new System.Drawing.Point(503, 80);
+            this.txtPorcentaje.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPorcentaje.Name = "txtPorcentaje";
+            this.txtPorcentaje.Size = new System.Drawing.Size(52, 25);
+            this.txtPorcentaje.TabIndex = 14;
+            this.txtPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtIgv
             // 
@@ -1225,48 +1267,6 @@
             this.label19.Text = "idcliente";
             this.label19.Visible = false;
             // 
-            // txtPorcentaje
-            // 
-            this.txtPorcentaje.BackColor = System.Drawing.Color.White;
-            this.txtPorcentaje.ForeColor = System.Drawing.Color.Black;
-            this.txtPorcentaje.Location = new System.Drawing.Point(503, 80);
-            this.txtPorcentaje.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPorcentaje.Name = "txtPorcentaje";
-            this.txtPorcentaje.Size = new System.Drawing.Size(52, 25);
-            this.txtPorcentaje.TabIndex = 14;
-            this.txtPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(470, 83);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(25, 19);
-            this.label20.TabIndex = 15;
-            this.label20.Text = "%:";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(470, 52);
-            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(18, 19);
-            this.label21.TabIndex = 17;
-            this.label21.Text = "/:";
-            // 
-            // txtDivisor
-            // 
-            this.txtDivisor.BackColor = System.Drawing.Color.White;
-            this.txtDivisor.ForeColor = System.Drawing.Color.Black;
-            this.txtDivisor.Location = new System.Drawing.Point(503, 49);
-            this.txtDivisor.Margin = new System.Windows.Forms.Padding(4);
-            this.txtDivisor.Name = "txtDivisor";
-            this.txtDivisor.Size = new System.Drawing.Size(52, 25);
-            this.txtDivisor.TabIndex = 16;
-            this.txtDivisor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1352,18 +1352,14 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnBusquedaProducto;
         private System.Windows.Forms.Button btnAgregar;
-        private System.Windows.Forms.TextBox txtCantidad;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtPVenta;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtStock;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtMarca;
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtIdVenta;
-        private System.Windows.Forms.TextBox txtIgv;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btnEliminarItem;
         private System.Windows.Forms.TextBox txtIdProducto;
@@ -1433,8 +1429,12 @@
         private System.Windows.Forms.CheckBox cbidentificacion;
         public System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox txtPorcentaje;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox txtDivisor;
+        public System.Windows.Forms.TextBox txtCantidad;
+        public System.Windows.Forms.TextBox txtPVenta;
+        public System.Windows.Forms.TextBox txtStock;
+        public System.Windows.Forms.TextBox txtIgv;
+        public System.Windows.Forms.TextBox txtPorcentaje;
+        public System.Windows.Forms.TextBox txtDivisor;
     }
 }

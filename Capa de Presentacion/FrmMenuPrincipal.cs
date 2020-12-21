@@ -20,10 +20,9 @@ namespace Capa_de_Presentacion
 		clsUsuarios U = new clsUsuarios();
 		private void FrmMenuPrincipal_Activated(object sender, EventArgs e)
 		{
-			frmListadoVentas V = new frmListadoVentas();
 			lblUsuario.Text = Program.NombreEmpleadoLogueado;
 			txtcargo.Text = Program.CargoEmpleadoLogueado;
-			textBox1.Text = Program.CargoEmpleadoLogueado1;
+            textBox1.Text = Program.CargoEmpleadoLogueado1;
 
 			if (Program.inventario == "Inventario")
 			{
@@ -58,8 +57,6 @@ namespace Capa_de_Presentacion
 					button1.Visible = true;
 					button3.Visible = true;
 					btnVer.Visible = true;
-
-					V.btnCancelar.Visible = false;
 				}
 				else
 				{
@@ -75,7 +72,7 @@ namespace Capa_de_Presentacion
 
 					button1.Visible = true;
 					button3.Visible = true;
-					btnVer.Visible = true;
+					btnVer.Visible = false;
 				}
 			}
 		}
@@ -113,6 +110,7 @@ namespace Capa_de_Presentacion
 				P.lblDir.Text = lblDir.Text;
 				P.btnNuevo.Enabled = false;
 				P.btnEditar.Enabled = false;
+				P.button2.Enabled = false;
 				P.Show();
 			}
 			else
@@ -126,6 +124,11 @@ namespace Capa_de_Presentacion
 		private void btnClientes_Click(object sender, EventArgs e)
 		{
 			FrmListadoClientes C = new FrmListadoClientes();
+			if (Program.CargoEmpleadoLogueado != "Administrador")
+			{
+				C.btnActualizar.Enabled = false;
+			}
+
 			C.Show();
 		}
 		private void btnVentas_Click(object sender, EventArgs e)
@@ -139,6 +142,15 @@ namespace Capa_de_Presentacion
 			V.lblTel2.Text = lblTel2.Text;
 			V.lblCorreo.Text = lblCorreo.Text;
 			V.lblrnc.Text = lblrnc.Text;
+
+			if (Program.CargoEmpleadoLogueado != "Administrador")
+			{
+				V.txtPVenta.Enabled = false;
+				V.txtIgv.Enabled = false;
+				V.txtDivisor.Enabled = false;
+				V.txtPorcentaje.Enabled = false;
+			}
+
 			V.Show();
 		}
 		private void btnUsuarios_Click(object sender, EventArgs e)
@@ -162,11 +174,12 @@ namespace Capa_de_Presentacion
 		private void btnEmpleados_Click(object sender, EventArgs e)
 		{
 			FrmListadoEmpleados E = new FrmListadoEmpleados();
+			if (Program.CargoEmpleadoLogueado != "Administrador")
+			{
+				E.btnActualizar.Enabled = false;
+			}
+
 			E.Show();
-		}
-		private void FrmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			
 		}
 
 		private void pictureBox1_Click(object sender, EventArgs e)
@@ -327,7 +340,6 @@ namespace Capa_de_Presentacion
 		}
 		private void button5_Click(object sender, EventArgs e)
 		{
-			FrmListadoProductos li = new FrmListadoProductos();
 			frmListadoVentas vt = new frmListadoVentas();
 			vt.lblLogo.Text = lblLogo.Text;
 			vt.lblDir.Text = lblDir.Text;

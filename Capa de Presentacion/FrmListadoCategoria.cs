@@ -43,6 +43,10 @@ namespace Capa_de_Presentacion
         {
             ListarElementos();
             dataGridView1.ClearSelection();
+            if (Program.CargoEmpleadoLogueado != "Administrador")
+            {
+                btnEditar.Enabled = false;
+            }
         }
 
         private void ListarElementos() {
@@ -125,7 +129,11 @@ namespace Capa_de_Presentacion
 
 		private void label2_Click(object sender, EventArgs e)
 		{
-			this.Close();
+            if (Program.CargoEmpleadoLogueado != "Administrador")
+            {
+                btnEditar.Enabled = false;
+            }
+            this.Close();
 		}
 	}
 }

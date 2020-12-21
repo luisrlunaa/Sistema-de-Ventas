@@ -426,7 +426,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtBuscarCliente;
         private System.Windows.Forms.Button btnNuevo;
-        private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
@@ -448,5 +447,6 @@
 		private System.Windows.Forms.Label label2;
 		public System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox textBox1;
-	}
+        public System.Windows.Forms.Button btnActualizar;
+    }
 }

@@ -26,7 +26,12 @@ namespace Capa_de_Presentacion
 			ListarClientes1();
 			dataGridView1.ClearSelection();
 			dataGridView2.ClearSelection();
-		}
+
+            if (Program.CargoEmpleadoLogueado != "Administrador")
+            {
+                btnActualizar.Enabled = false;
+            }
+        }
 
         private void ListarClientes() {
             DataTable dt = new DataTable();
@@ -312,7 +317,12 @@ namespace Capa_de_Presentacion
 
 		private void label2_Click(object sender, EventArgs e)
 		{
-			this.Close();
+            if (Program.CargoEmpleadoLogueado != "Administrador")
+            {
+                btnActualizar.Enabled = false;
+            }
+
+            this.Close();
 		}
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
