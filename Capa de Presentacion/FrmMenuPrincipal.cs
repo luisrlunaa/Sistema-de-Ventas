@@ -169,8 +169,10 @@ namespace Capa_de_Presentacion
 		{
 			var fecha = DateTime.Now.ToLocalTime();
 			string tempdia = "";
-			if(fecha.Hour > 12)
+			var hora = fecha.Hour;
+			if (hora > 12)
             {
+				hora = hora - 12;
 				tempdia = "PM";
             }
 			else if (fecha.Hour == 12)
@@ -183,7 +185,7 @@ namespace Capa_de_Presentacion
 			}
 
 			lblFecha.Text = fecha.Day+"/"+fecha.Month + "/" +fecha.Year;
-			lblHora.Text = fecha.Hour + " : " + fecha.Minute + " : " + fecha.Second + " " + tempdia;
+			lblHora.Text = hora + " : " + fecha.Minute + " : " + fecha.Second + " " + tempdia;
 		}
 
 		private void btnEmpleados_Click(object sender, EventArgs e)
