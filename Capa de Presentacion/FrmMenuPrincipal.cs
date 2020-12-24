@@ -167,8 +167,23 @@ namespace Capa_de_Presentacion
 		}
 		private void CapturarFechaSistema()
 		{
-			lblFecha.Text = DateTime.Now.ToShortDateString();
-			lblHora.Text = DateTime.Now.ToShortTimeString();
+			var fecha = DateTime.Now.ToLocalTime();
+			string tempdia = "";
+			if(fecha.Hour > 12)
+            {
+				tempdia = "PM";
+            }
+			else if (fecha.Hour == 12)
+			{
+				tempdia = "M";
+			}
+			else
+			{
+				tempdia = "AM";
+			}
+
+			lblFecha.Text = fecha.Day+"/"+fecha.Month + "/" +fecha.Year;
+			lblHora.Text = fecha.Hour + " : " + fecha.Minute + " : " + fecha.Second + " " + tempdia;
 		}
 
 		private void btnEmpleados_Click(object sender, EventArgs e)

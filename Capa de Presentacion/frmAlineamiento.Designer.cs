@@ -272,7 +272,7 @@
             // 
             this.lbltel.AutoSize = true;
             this.lbltel.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltel.Location = new System.Drawing.Point(409, 91);
+            this.lbltel.Location = new System.Drawing.Point(401, 91);
             this.lbltel.Name = "lbltel";
             this.lbltel.Size = new System.Drawing.Size(34, 19);
             this.lbltel.TabIndex = 53;
@@ -294,9 +294,9 @@
             this.label14.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.Location = new System.Drawing.Point(160, 91);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(145, 19);
+            this.label14.Size = new System.Drawing.Size(159, 19);
             this.label14.TabIndex = 51;
-            this.label14.Text = "Numero Telefonico :";
+            this.label14.Text = "Numeros Telefonicos :";
             // 
             // lbldir
             // 
@@ -312,7 +312,7 @@
             // 
             this.lblLogo.AutoSize = true;
             this.lblLogo.Font = new System.Drawing.Font("Open Sans", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLogo.Location = new System.Drawing.Point(218, 36);
+            this.lblLogo.Location = new System.Drawing.Point(178, 38);
             this.lblLogo.Name = "lblLogo";
             this.lblLogo.Size = new System.Drawing.Size(62, 33);
             this.lblLogo.TabIndex = 49;

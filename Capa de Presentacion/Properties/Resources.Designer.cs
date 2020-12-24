@@ -93,6 +93,16 @@ namespace Capa_de_Presentacion.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CefletCepedaImport {
+            get {
+                object obj = ResourceManager.GetObject("CefletCepedaImport", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ferreteria {
             get {
                 object obj = ResourceManager.GetObject("ferreteria", resourceCulture);
