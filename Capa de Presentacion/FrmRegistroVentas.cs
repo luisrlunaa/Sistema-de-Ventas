@@ -993,7 +993,7 @@ namespace Capa_de_Presentacion
 					cedula = txtDocIdentidad.Text;
 				}
 
-				doc.Add(new Paragraph("                                                                                                                                                                                                                                                     " + envio, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC)));
+				doc.Add(new Paragraph("                                                                                                                                                                                                                 " + envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC)));
 				doc.Add(image1);
 				doc.Add(new Paragraph(chunk));
 				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
