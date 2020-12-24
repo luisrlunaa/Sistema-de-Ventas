@@ -297,6 +297,24 @@
   <data name="tipoGOma.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <metadata name="Pmin.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Pmin.HeaderText" xml:space="preserve">
+    <value>Precio Minimo</value>
+  </data>
+  <data name="Pmin.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <metadata name="Pmax.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Pmax.HeaderText" xml:space="preserve">
+    <value>Precio Maximo</value>
+  </data>
+  <data name="Pmax.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
   <data name="dataGridView1.Location" type="System.Drawing.Point, System.Drawing">
     <value>-1, -1</value>
   </data>
@@ -4832,6 +4850,18 @@
     <value>tipoGOma</value>
   </data>
   <data name="&gt;&gt;tipoGOma.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Pmin.Name" xml:space="preserve">
+    <value>Pmin</value>
+  </data>
+  <data name="&gt;&gt;Pmin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Pmax.Name" xml:space="preserve">
+    <value>Pmax</value>
+  </data>
+  <data name="&gt;&gt;Pmax.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

@@ -21,6 +21,16 @@ namespace Capa_de_Presentacion
             ListarElementos();
 			cargar_combo_Tipo(cbtipo);
 			cbtipo.SelectedIndex = 0;
+
+			if(txtPmin.Text.Trim() =="")
+            {
+				txtPmin.Text = "0";
+			}
+			if (txtPmax.Text.Trim() == "")
+			{
+				txtPmax.Text = "0";
+			}
+		
 		}
 
 		public void cargar_combo_Tipo(ComboBox tipo)
@@ -99,6 +109,8 @@ namespace Capa_de_Presentacion
 											cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
 											cmd.Parameters.Add("@FechaVencimiento", SqlDbType.Date).Value = dateTimePicker1.Text;
 											cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
+											cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
+											cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
 
 											DevComponents.DotNetBar.MessageBoxEx.Show("Se Registro Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -192,7 +204,8 @@ namespace Capa_de_Presentacion
 						if (txtPVenta.Text.Trim() != "")
 						{
 							if (txtStock.Text.Trim() != "")
-							{using (SqlConnection con = new SqlConnection(Cx.conet))
+							{
+								using (SqlConnection con = new SqlConnection(Cx.conet))
 									{
 										using (SqlCommand cmd = new SqlCommand("ActualizarProducto", con))
 										{
@@ -200,14 +213,16 @@ namespace Capa_de_Presentacion
 
 										cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
 										cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = txtIdP.Text;
-										cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text;
-										cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text;
+										cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
+										cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
 										cmd.Parameters.Add("@Stock", SqlDbType.Int).Value = txtStock.Text;
 										cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
 										cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
 										cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
 										cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
 										cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
+										cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
+										cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
 
 										DevComponents.DotNetBar.MessageBoxEx.Show("Se Actualizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 											

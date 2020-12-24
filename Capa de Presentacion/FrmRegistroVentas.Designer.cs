@@ -121,6 +121,8 @@
             this.txttotal = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
+            this.txtpmin = new System.Windows.Forms.TextBox();
+            this.txtpmax = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -1217,12 +1219,30 @@
             this.label19.Text = "idcliente";
             this.label19.Visible = false;
             // 
+            // txtpmin
+            // 
+            this.txtpmin.Location = new System.Drawing.Point(1154, 96);
+            this.txtpmin.Margin = new System.Windows.Forms.Padding(4);
+            this.txtpmin.Name = "txtpmin";
+            this.txtpmin.Size = new System.Drawing.Size(67, 22);
+            this.txtpmin.TabIndex = 96;
+            // 
+            // txtpmax
+            // 
+            this.txtpmax.Location = new System.Drawing.Point(1154, 64);
+            this.txtpmax.Margin = new System.Windows.Forms.Padding(4);
+            this.txtpmax.Name = "txtpmax";
+            this.txtpmax.Size = new System.Drawing.Size(67, 22);
+            this.txtpmax.TabIndex = 95;
+            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RoyalBlue;
-            this.ClientSize = new System.Drawing.Size(904, 762);
+            this.ClientSize = new System.Drawing.Size(902, 762);
+            this.Controls.Add(this.txtpmin);
+            this.Controls.Add(this.txtpmax);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.txttotal);
@@ -1382,5 +1402,7 @@
         public System.Windows.Forms.Label label19;
         public System.Windows.Forms.TextBox txtPVenta;
         public System.Windows.Forms.TextBox txtIgv;
+        private System.Windows.Forms.TextBox txtpmin;
+        private System.Windows.Forms.TextBox txtpmax;
     }
 }

@@ -39,7 +39,6 @@ namespace Capa_de_Presentacion
 
 			if (Program.CargoEmpleadoLogueado != "Administrador")
 			{
-				txtPVenta.Enabled = false;
 				txtIgv.Enabled = false;
 			}
 
@@ -218,7 +217,9 @@ namespace Capa_de_Presentacion
 			txttotal.Text = Program.total + "";
 			lblsubt.Text = Program.ST + "";
 			lbligv.Text = Program.igv + "";
-			
+			txtpmax.Text = Program.Pmax + "";
+			txtpmin.Text = Program.Pmin + "";
+
 			if (Program.Esabono != "" && Program.Esabono != null && Program.pagoRealizado >= 0 && Program.realizopago == true)
 			{
 				button2.Visible = true;
@@ -323,34 +324,34 @@ namespace Capa_de_Presentacion
 			P.Show();
         }
 
-		private void btnAgregar_Click(object sender, EventArgs e)
-		{
+		private void agregarproductoGrid()
+        {
 			clsVenta V = new clsVenta();
 
-				if (txtDescripcion.Text.Trim() != "")
+			if (txtDescripcion.Text.Trim() != "")
+			{
+				if (txtCantidad.Text.Trim() != "")
 				{
-					if (txtCantidad.Text.Trim() != "")
+					if (Convert.ToInt32(txtCantidad.Text) >= 0)
 					{
-						if (Convert.ToInt32(txtCantidad.Text) >= 0)
+						if (Convert.ToInt32(txtCantidad.Text) <= Convert.ToInt32(txtStock.Text))
 						{
-							if (Convert.ToInt32(txtCantidad.Text) <= Convert.ToInt32(txtStock.Text))
+							V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
+							V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
+							V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).Trim();
+							V.Cantidad = Convert.ToInt32(txtCantidad.Text);
+
+							if (Convert.ToDecimal(txtIgv.Text) > 0)
 							{
-								V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
-								V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
-								V.Descripcion = (txtDescripcion.Text+ "-"+txtMarca.Text).Trim();
-								V.Cantidad = Convert.ToInt32(txtCantidad.Text);
+								V.Igv = Convert.ToDecimal(txtIgv.Text);
+							}
 
-								if (Convert.ToDecimal(txtIgv.Text) > 0)
-								{
-									V.Igv = Convert.ToDecimal(txtIgv.Text);
-								}
+							V.PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
 
-								V.PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
-
-								V.SubTotal = Math.Round((Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text))* Convert.ToInt32(txtCantidad.Text), 2);
-								btnAgregar.Visible = false;
-								lst.Add(V);
-								LlenarGri();
+							V.SubTotal = Math.Round((Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text)) * Convert.ToInt32(txtCantidad.Text), 2);
+							btnAgregar.Visible = false;
+							lst.Add(V);
+							LlenarGri();
 
 							if (cbidentificacion.Checked == false && txtDatos.Text != "" && Program.IdCliente == 0)
 							{
@@ -359,29 +360,60 @@ namespace Capa_de_Presentacion
 							}
 
 							Limpiar();
-							}
-							else
-							{
-								DevComponents.DotNetBar.MessageBoxEx.Show("Stock Insuficiente para Realizar la Venta.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-							}
 						}
 						else
 						{
-							DevComponents.DotNetBar.MessageBoxEx.Show("Cantidad Ingresada no Válida.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-							txtCantidad.Clear();
-							txtCantidad.Focus();
+							DevComponents.DotNetBar.MessageBoxEx.Show("Stock Insuficiente para Realizar la Venta.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
 						}
 					}
 					else
 					{
-						DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese Cantidad a Vender.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+						DevComponents.DotNetBar.MessageBoxEx.Show("Cantidad Ingresada no Válida.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+						txtCantidad.Clear();
 						txtCantidad.Focus();
 					}
 				}
 				else
 				{
-					DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor buscar un Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese Cantidad a Vender.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					txtCantidad.Focus();
 				}
+			}
+			else
+			{
+				DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor buscar un Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+			}
+		}
+
+		private void btnAgregar_Click(object sender, EventArgs e)
+		{
+			if (Program.CargoEmpleadoLogueado != "Administrador")
+			{
+				var precioventa = Convert.ToDecimal(txtPVenta.Text);
+				var preciominimo = Convert.ToDecimal(txtpmax.Text);
+				var preciomaximo  = Convert.ToDecimal(txtpmin.Text);
+
+				if (precioventa  < preciomaximo)
+				{
+					if (precioventa  > preciominimo)
+					{
+						agregarproductoGrid();
+					}
+					else
+					{
+						MessageBox.Show("El precio minimo de Venta de este Producto es: " + preciominimo);
+					}
+				}
+				else
+                {
+					MessageBox.Show("El precio maximo de Venta de este Producto es: " + preciomaximo);
+				}
+			}
+			else
+            {
+				agregarproductoGrid();
+			}
+	
 		}
 		private void LlenarGri() {
             Decimal SumaSubTotal = 0; Decimal SumaIgv=0; Decimal SumaTotal=0;

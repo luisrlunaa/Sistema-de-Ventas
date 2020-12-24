@@ -142,7 +142,6 @@ namespace Capa_de_Presentacion
 
 			if (Program.CargoEmpleadoLogueado != "Administrador")
 			{
-				V.txtPVenta.Enabled = false;
 				V.txtIgv.Enabled = false;
 			}
 

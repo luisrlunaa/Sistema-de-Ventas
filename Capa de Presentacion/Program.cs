@@ -57,6 +57,8 @@ namespace Capa_de_Presentacion
         public static int Stock;
 		public static decimal itbis;
 		public static decimal PrecioVenta;
+		public static decimal Pmax;
+		public static decimal Pmin;
 		public static string tipogoma;
 
 		//Datos del Empleado

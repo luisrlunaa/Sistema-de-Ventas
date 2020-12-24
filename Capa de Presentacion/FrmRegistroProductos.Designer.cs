@@ -56,6 +56,10 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.cbtipo = new System.Windows.Forms.ComboBox();
+            this.txtPmin = new System.Windows.Forms.TextBox();
+            this.lblPmin = new System.Windows.Forms.Label();
+            this.txtPmax = new System.Windows.Forms.TextBox();
+            this.lblPMax = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -115,7 +119,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(290, 284);
+            this.label4.Location = new System.Drawing.Point(285, 284);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 20);
             this.label4.TabIndex = 6;
@@ -134,7 +138,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(49, 324);
+            this.label5.Location = new System.Drawing.Point(49, 364);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(70, 20);
             this.label5.TabIndex = 8;
@@ -142,7 +146,7 @@
             // 
             // txtStock
             // 
-            this.txtStock.Location = new System.Drawing.Point(154, 321);
+            this.txtStock.Location = new System.Drawing.Point(154, 361);
             this.txtStock.Name = "txtStock";
             this.txtStock.Size = new System.Drawing.Size(111, 25);
             this.txtStock.TabIndex = 9;
@@ -218,7 +222,7 @@
             // 
             // txtitbis
             // 
-            this.txtitbis.Location = new System.Drawing.Point(389, 322);
+            this.txtitbis.Location = new System.Drawing.Point(389, 362);
             this.txtitbis.Name = "txtitbis";
             this.txtitbis.Size = new System.Drawing.Size(111, 25);
             this.txtitbis.TabIndex = 74;
@@ -229,7 +233,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(290, 324);
+            this.label9.Location = new System.Drawing.Point(290, 364);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(43, 20);
             this.label9.TabIndex = 73;
@@ -266,7 +270,7 @@
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_actualizar;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(365, 375);
+            this.button1.Location = new System.Drawing.Point(370, 422);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(135, 41);
             this.button1.TabIndex = 71;
@@ -307,7 +311,7 @@
             this.btnGuardar.ForeColor = System.Drawing.Color.Black;
             this.btnGuardar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_guardar;
             this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardar.Location = new System.Drawing.Point(365, 375);
+            this.btnGuardar.Location = new System.Drawing.Point(370, 422);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(135, 41);
             this.btnGuardar.TabIndex = 12;
@@ -339,12 +343,52 @@
             this.cbtipo.Size = new System.Drawing.Size(126, 26);
             this.cbtipo.TabIndex = 15;
             // 
+            // txtPmin
+            // 
+            this.txtPmin.Location = new System.Drawing.Point(154, 318);
+            this.txtPmin.Name = "txtPmin";
+            this.txtPmin.Size = new System.Drawing.Size(111, 25);
+            this.txtPmin.TabIndex = 81;
+            this.txtPmin.TabStop = false;
+            // 
+            // lblPmin
+            // 
+            this.lblPmin.AutoSize = true;
+            this.lblPmin.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPmin.Location = new System.Drawing.Point(49, 323);
+            this.lblPmin.Name = "lblPmin";
+            this.lblPmin.Size = new System.Drawing.Size(80, 20);
+            this.lblPmin.TabIndex = 80;
+            this.lblPmin.Text = "P. Minimo";
+            // 
+            // txtPmax
+            // 
+            this.txtPmax.Location = new System.Drawing.Point(374, 318);
+            this.txtPmax.Name = "txtPmax";
+            this.txtPmax.Size = new System.Drawing.Size(126, 25);
+            this.txtPmax.TabIndex = 83;
+            this.txtPmax.TabStop = false;
+            // 
+            // lblPMax
+            // 
+            this.lblPMax.AutoSize = true;
+            this.lblPMax.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPMax.Location = new System.Drawing.Point(285, 323);
+            this.lblPMax.Name = "lblPMax";
+            this.lblPMax.Size = new System.Drawing.Size(83, 20);
+            this.lblPMax.TabIndex = 82;
+            this.lblPMax.Text = "P. Maximo";
+            // 
             // FrmRegistroProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RoyalBlue;
-            this.ClientSize = new System.Drawing.Size(517, 428);
+            this.ClientSize = new System.Drawing.Size(517, 487);
+            this.Controls.Add(this.txtPmax);
+            this.Controls.Add(this.lblPMax);
+            this.Controls.Add(this.txtPmin);
+            this.Controls.Add(this.lblPmin);
             this.Controls.Add(this.cbtipo);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -412,5 +456,9 @@
 		public System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         public System.Windows.Forms.ComboBox cbtipo;
+        public System.Windows.Forms.TextBox txtPmin;
+        private System.Windows.Forms.Label lblPmin;
+        public System.Windows.Forms.TextBox txtPmax;
+        private System.Windows.Forms.Label lblPMax;
     }
 }
