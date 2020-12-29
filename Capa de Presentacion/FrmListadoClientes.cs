@@ -19,16 +19,16 @@ namespace Capa_de_Presentacion
 
         private void FrmListadoClientes_Load(object sender, EventArgs e)
         {
-            button1.Enabled = false;
             timer1.Start();
             timer1.Interval = 5000;
             ListarClientes();
 			ListarClientes1();
 			dataGridView1.ClearSelection();
 			dataGridView2.ClearSelection();
-
+            button1.Enabled = false;
             if (Program.CargoEmpleadoLogueado != "Administrador")
             {
+                
                 btnActualizar.Enabled = false;
             }
         }
@@ -325,15 +325,36 @@ namespace Capa_de_Presentacion
             this.Close();
 		}
 
-        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView2_Click(object sender, EventArgs e)
         {
-                if (dataGridView1.Rows.Count > 0)
-                {
-                    dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
-                }
+            button1.Enabled = true;
         }
 
-        private void dataGridView2_Click(object sender, EventArgs e)
+        private void dataGridView2_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView2.Rows.Count > 0)
+            {
+                dataGridView2.Rows[dataGridView2.CurrentRow.Index].Selected = true;
+            }
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.Rows.Count > 0)
+            {
+                dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
+            }
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.Rows.Count > 0)
+            {
+                dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
+            }
+        }
+
+        private void dataGridView1_Click(object sender, EventArgs e)
         {
             button1.Enabled = true;
         }
