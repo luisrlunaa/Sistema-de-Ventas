@@ -301,7 +301,7 @@
     <value>True</value>
   </metadata>
   <data name="Pmin.HeaderText" xml:space="preserve">
-    <value>Precio Minimo</value>
+    <value>P. Maximo</value>
   </data>
   <data name="Pmin.MinimumWidth" type="System.Int32, mscorlib">
     <value>6</value>
@@ -310,7 +310,7 @@
     <value>True</value>
   </metadata>
   <data name="Pmax.HeaderText" xml:space="preserve">
-    <value>Precio Maximo</value>
+    <value>P. Minimo</value>
   </data>
   <data name="Pmax.MinimumWidth" type="System.Int32, mscorlib">
     <value>6</value>
