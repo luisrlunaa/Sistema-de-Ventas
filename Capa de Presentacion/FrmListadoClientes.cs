@@ -299,9 +299,7 @@ namespace Capa_de_Presentacion
                             cmd1.CommandType = CommandType.StoredProcedure;
                             cmd1.Parameters.Add("@id", SqlDbType.Int).Value = Program.IdCliente;
 
-                            Cx.conexion.Open();
                             cmd1.ExecuteNonQuery();
-                            Cx.conexion.Close();
                             ListarClientes();
                             ListarClientes1();
                         }
