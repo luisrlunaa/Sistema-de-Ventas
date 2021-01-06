@@ -78,7 +78,7 @@ namespace Capa_de_Presentacion
                                                 cmd.Parameters.Add("@Direccion", SqlDbType.NVarChar).Value = txtDireccion.Text;
                                                 cmd.Parameters.Add("@EstadoCivil", SqlDbType.Char).Value = EstadoCivil;
                                                 cmd.Parameters.Add("@Sexo", SqlDbType.Char).Value = rbnMasculino.Checked == true ? 'M' : 'F';
-                                                cmd.Parameters.Add("@FechaNac", SqlDbType.NVarChar).Value = Convert.ToDateTime(dateTimePicker1.Value);
+                                                cmd.Parameters.Add("@FechaNac", SqlDbType.Date).Value = dateTimePicker1.Text;
 
                                                 DevComponents.DotNetBar.MessageBoxEx.Show("Se Realizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
