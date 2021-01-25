@@ -30,7 +30,45 @@ namespace Capa_de_Presentacion
         {
             InitializeComponent();
         }
-		frmPagar pa = new frmPagar();
+
+        public string idCaja;
+        bool tienefila = false;
+        public void llenar_data()
+        {
+            //declaramos la cadena  de conexion
+            string cadenaconexion = Cx.conet;
+            //variable de tipo Sqlconnection
+            SqlConnection con = new SqlConnection();
+            //variable de tipo Sqlcommand
+            SqlCommand comando = new SqlCommand();
+            //variable SqlDataReader para leer los datos
+            SqlDataReader dr;
+            con.ConnectionString = cadenaconexion;
+            comando.Connection = con;
+            //declaramos el comando para realizar la busqueda
+            comando.CommandText = "SELECT id_caja, monto_inicial,fecha  FROM Caja where monto_final =0 AND fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
+            //especificamos que es de tipo Text
+            comando.CommandType = CommandType.Text;
+            //se abre la conexion
+            con.Open();
+            //limpiamos los renglones de la datagridview
+            dgvCaja.Rows.Clear();
+            //a la variable DataReader asignamos  el la variable de tipo SqlCommand
+            dr = comando.ExecuteReader();
+            while (dr.Read())
+            {
+                //variable de tipo entero para ir enumerando los la filas del datagridview
+                int renglon = dgvCaja.Rows.Add();
+                // especificamos en que fila se mostrará cada registro
+                // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+
+                dgvCaja.Rows[renglon].Cells["id_caja"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_caja")));
+                dgvCaja.Rows[renglon].Cells["monto"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto_inicial")).ToString("C2"));
+                dgvCaja.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
+
+                tienefila = true;
+            }
+        }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes) {
@@ -65,13 +103,40 @@ namespace Capa_de_Presentacion
                         }
                         else
                         {
-                            DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-						pa.gbPagar.Visible = false;
-						pa.btnCerrar.Visible = false;
-						pa.Show();
+                        DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                        FrmMenuPrincipal MP = new FrmMenuPrincipal();
 
-						this.Hide();
-						RecuperarDatosSesion();
+                        if (tienefila)
+                        {
+                            MP.Show();
+                            this.Hide();
+                            RecuperarDatosSesion();
+                        }
+                        else
+                        {
+                            using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
+                            {
+                                string id_var = "";
+                                if (idCaja == "")
+                                    id_var = "0";
+                                else
+                                    id_var = idCaja;
+
+                                cmd.CommandType = CommandType.StoredProcedure;
+
+                                cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
+                                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = 0;
+                                cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
+
+                                Cx.conexion.Open();
+                                cmd.ExecuteNonQuery();
+                                Cx.conexion.Close();
+                            }
+                            llenar_data();
+                            MP.Show();
+                            this.Hide();
+                            RecuperarDatosSesion();
+                        }
 					}
 				}
 				else {
@@ -83,7 +148,21 @@ namespace Capa_de_Presentacion
                 txtUser.Focus();
                 }
         }
+        public void llenarid()
+        {
+            string cadSql = "select top(1) id_caja  from Caja order by id_caja desc";
 
+            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+            Cx.conexion.Open();
+
+            SqlDataReader leer = comando.ExecuteReader();
+
+            if (leer.Read() == true)
+            {
+                idCaja = leer["id_caja"].ToString();
+            }
+            Cx.conexion.Close();
+        }
         public void RecuperarDatosSesion() {
             DataRow row;
             DataTable dt = new DataTable();
@@ -141,5 +220,11 @@ namespace Capa_de_Presentacion
                 Cx.conexion.Close();
             }
 		}
-	}
+
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+            llenarid();
+            llenar_data();
+        }
+    }
 }

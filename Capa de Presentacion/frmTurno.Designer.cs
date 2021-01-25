@@ -50,7 +50,7 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.DarkGray;
+            this.button1.BackColor = System.Drawing.Color.Khaki;
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.OrangeRed;
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -123,7 +123,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.RoyalBlue;
+            this.BackColor = System.Drawing.Color.Firebrick;
             this.ClientSize = new System.Drawing.Size(397, 405);
             this.Controls.Add(this.lblLogo);
             this.Controls.Add(this.label2);

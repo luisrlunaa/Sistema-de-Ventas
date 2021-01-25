@@ -35,13 +35,13 @@ namespace Capa_de_Presentacion
 			if (textBox1.Text != "")
 			{
 				//declaramos el comando para realizar la busqueda
-				comando.CommandText = "select * from AlineamientoYBalanceo where vehiculo like '%" + textBox1.Text.ToUpper() + "%' and fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
+				comando.CommandText = "select * from Taller where Datos like '%" + textBox1.Text.ToUpper() + "%' and fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
 				comando.Parameters.AddWithValue("@fecha", dtpfecha1.Value);
 			}
 			else
 			{
 				//declaramos el comando para realizar la busqueda
-				comando.CommandText = "select * from AlineamientoYBalanceo";
+				comando.CommandText = "select * from Taller";
 			}
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
@@ -60,8 +60,10 @@ namespace Capa_de_Presentacion
 				// nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 				dataGridView1.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
 				dataGridView1.Rows[renglon].Cells["tipoDeTrabajo"].Value = dr.GetString(dr.GetOrdinal("tipoDeTrabajo"));
-				dataGridView1.Rows[renglon].Cells["vehiculo"].Value = dr.GetString(dr.GetOrdinal("vehiculo"));
-				dataGridView1.Rows[renglon].Cells["AroGoma"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("AroGoma")));
+				dataGridView1.Rows[renglon].Cells["cliente"].Value = dr.GetString(dr.GetOrdinal("cliente"));
+				dataGridView1.Rows[renglon].Cells["marca"].Value = dr.GetString(dr.GetOrdinal("Marca"));
+				dataGridView1.Rows[renglon].Cells["modelo"].Value = dr.GetString(dr.GetOrdinal("Datos"));
+				dataGridView1.Rows[renglon].Cells["averia"].Value = dr.GetString(dr.GetOrdinal("averia"));
 				dataGridView1.Rows[renglon].Cells["precio"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("precio")));
 				dataGridView1.Rows[renglon].Cells["nota"].Value = dr.GetString(dr.GetOrdinal("nota"));
 				dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
@@ -74,15 +76,17 @@ namespace Capa_de_Presentacion
 
 		private void dataGridView1_DoubleClick(object sender, EventArgs e)
 		{
-			var marca = dataGridView1.CurrentRow.Cells["vehiculo"].Value.ToString();
+			var marca = dataGridView1.CurrentRow.Cells["modelo"].Value.ToString();
 			string cadena = marca;
-			char delimitador = ' ';
+			char delimitador = '.';
 			string[] valores = cadena.Split(delimitador);
 
 			Program.descripcion = dataGridView1.CurrentRow.Cells["tipoDeTrabajo"].Value.ToString();
-			Program.marca = valores[0].Trim();
-			Program.modelo = valores[1].Trim();
-			Program.Aros = dataGridView1.CurrentRow.Cells["AroGoma"].Value.ToString();
+			Program.marca = dataGridView1.CurrentRow.Cells["marca"].Value.ToString();
+			Program.averia = dataGridView1.CurrentRow.Cells["averia"].Value.ToString();
+			Program.NombreCliente = dataGridView1.CurrentRow.Cells["cliente"].Value.ToString();
+			Program.Imei = valores[1].Trim();
+			Program.Modelo = valores[0].Trim();
 			Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["precio"].Value.ToString());
 			Program.nota = dataGridView1.CurrentRow.Cells["nota"].Value.ToString();
 			Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
@@ -100,7 +104,7 @@ namespace Capa_de_Presentacion
 		}
 		public void cargar_combo_Tipo(ComboBox tipo)
 		{
-			SqlCommand cm = new SqlCommand("CARGARcomboTipotrabajo", Cx.conexion);
+			SqlCommand cm = new SqlCommand("CARGARcombotrabajoTipo", Cx.conexion);
 			cm.CommandType = CommandType.StoredProcedure;
 			SqlDataAdapter da = new SqlDataAdapter(cm);
 			DataTable dt = new DataTable();
@@ -130,7 +134,7 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "select * from AlineamientoYBalanceo where fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
+			comando.CommandText = "select * from Taller where fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
 			comando.Parameters.AddWithValue("@fecha", dtpfecha1.Value);
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
@@ -149,8 +153,10 @@ namespace Capa_de_Presentacion
 				// nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 				dataGridView1.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
 				dataGridView1.Rows[renglon].Cells["tipoDeTrabajo"].Value = dr.GetString(dr.GetOrdinal("tipoDeTrabajo"));
-				dataGridView1.Rows[renglon].Cells["vehiculo"].Value = dr.GetString(dr.GetOrdinal("vehiculo"));
-				dataGridView1.Rows[renglon].Cells["AroGoma"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("AroGoma")));
+				dataGridView1.Rows[renglon].Cells["cliente"].Value = dr.GetString(dr.GetOrdinal("cliente"));
+				dataGridView1.Rows[renglon].Cells["marca"].Value = dr.GetString(dr.GetOrdinal("Marca"));
+				dataGridView1.Rows[renglon].Cells["modelo"].Value = dr.GetString(dr.GetOrdinal("Datos"));
+				dataGridView1.Rows[renglon].Cells["averia"].Value = dr.GetString(dr.GetOrdinal("averia"));
 				dataGridView1.Rows[renglon].Cells["precio"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("precio")));
 				dataGridView1.Rows[renglon].Cells["nota"].Value = dr.GetString(dr.GetOrdinal("nota"));
 				dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
@@ -175,7 +181,7 @@ namespace Capa_de_Presentacion
 		{
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
+			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("Logo.png");
 			image1.ScaleAbsoluteWidth(100);
 			image1.ScaleAbsoluteHeight(50);
 			saveFileDialog1.InitialDirectory = @"C:";
@@ -208,7 +214,7 @@ namespace Capa_de_Presentacion
 				doc.Add(new Paragraph(chunk));
 				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("                       "));
-				doc.Add(new Paragraph("Reporte de Listado de Alineaciones y Balanceos                       "));
+				doc.Add(new Paragraph("Reporte de Listado de Celulares en Reparacion                       "));
 				doc.Add(new Paragraph("                       "));
 				GenerarDocumento(doc);
 				doc.AddCreationDate();
@@ -279,7 +285,7 @@ namespace Capa_de_Presentacion
 			conexion.ConnectionString = cadenaconexion;
 			comando.Connection = conexion;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "select * from AlineamientoYBalanceo where tipoDeTrabajo like '%" + cbtipo.Text + "%' AND fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
+			comando.CommandText = "select * from taller where tipoDeTrabajo like '%" + cbtipo.Text + "%' AND fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
 			comando.Parameters.AddWithValue("@fecha", dtpfecha1.Value);
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
@@ -298,8 +304,10 @@ namespace Capa_de_Presentacion
 				// nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 				dataGridView1.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
 				dataGridView1.Rows[renglon].Cells["tipoDeTrabajo"].Value = dr.GetString(dr.GetOrdinal("tipoDeTrabajo"));
-				dataGridView1.Rows[renglon].Cells["vehiculo"].Value = dr.GetString(dr.GetOrdinal("vehiculo"));
-				dataGridView1.Rows[renglon].Cells["AroGoma"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("AroGoma")));
+				dataGridView1.Rows[renglon].Cells["cliente"].Value = dr.GetString(dr.GetOrdinal("cliente"));
+				dataGridView1.Rows[renglon].Cells["marca"].Value = dr.GetString(dr.GetOrdinal("Marca"));
+				dataGridView1.Rows[renglon].Cells["modelo"].Value = dr.GetString(dr.GetOrdinal("Datos"));
+				dataGridView1.Rows[renglon].Cells["averia"].Value = dr.GetString(dr.GetOrdinal("averia"));
 				dataGridView1.Rows[renglon].Cells["precio"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("precio")));
 				dataGridView1.Rows[renglon].Cells["nota"].Value = dr.GetString(dr.GetOrdinal("nota"));
 				dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));

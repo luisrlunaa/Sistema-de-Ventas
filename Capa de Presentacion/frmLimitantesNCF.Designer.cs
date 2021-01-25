@@ -128,7 +128,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.RoyalBlue;
+            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
             this.groupBox2.Controls.Add(this.lblcomp);
             this.groupBox2.Controls.Add(this.txtid);
             this.groupBox2.Controls.Add(this.label6);
@@ -154,8 +154,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblcomp.AutoEllipsis = true;
             this.lblcomp.AutoSize = true;
+            this.lblcomp.BackColor = System.Drawing.Color.Firebrick;
             this.lblcomp.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lblcomp.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Bold);
+            this.lblcomp.ForeColor = System.Drawing.Color.White;
             this.lblcomp.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblcomp.Location = new System.Drawing.Point(85, 42);
             this.lblcomp.Margin = new System.Windows.Forms.Padding(0);
@@ -177,6 +179,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(43, 107);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 19);
@@ -224,6 +227,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(43, 286);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(125, 19);
@@ -233,6 +237,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(43, 341);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(117, 19);
@@ -242,6 +247,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(43, 221);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 19);
@@ -251,6 +257,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(43, 170);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 19);
@@ -259,7 +266,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.data_ncf);
             this.groupBox1.Font = new System.Drawing.Font("Open Sans", 7.8F);
             this.groupBox1.Location = new System.Drawing.Point(24, 111);
@@ -360,6 +367,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Open Sans", 13.8F, System.Drawing.FontStyle.Bold);
+            this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(345, 44);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(297, 33);
@@ -370,7 +378,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.RoyalBlue;
+            this.BackColor = System.Drawing.Color.Firebrick;
             this.ClientSize = new System.Drawing.Size(1027, 746);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);

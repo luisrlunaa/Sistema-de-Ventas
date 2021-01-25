@@ -172,9 +172,10 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.panel1.BackColor = System.Drawing.Color.Firebrick;
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Location = new System.Drawing.Point(104, 205);
+            this.panel1.ForeColor = System.Drawing.Color.White;
+            this.panel1.Location = new System.Drawing.Point(110, 205);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(327, 146);
             this.panel1.TabIndex = 84;
@@ -197,7 +198,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.RoyalBlue;
+            this.BackColor = System.Drawing.Color.Firebrick;
             this.ClientSize = new System.Drawing.Size(550, 397);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtUsuarioCed);
@@ -212,6 +213,7 @@
             this.Controls.Add(this.txtUsu);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtCed);
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmRecuperar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

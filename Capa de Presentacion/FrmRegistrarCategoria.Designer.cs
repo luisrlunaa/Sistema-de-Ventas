@@ -83,7 +83,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.BackColor = System.Drawing.Color.Firebrick;
+            this.btnCancelar.BackColor = System.Drawing.Color.Red;
             this.btnCancelar.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnCancelar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.btnCancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
@@ -151,7 +151,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.RoyalBlue;
+            this.BackColor = System.Drawing.Color.Firebrick;
             this.ClientSize = new System.Drawing.Size(413, 251);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.linkLabel1);
@@ -162,6 +162,7 @@
             this.Controls.Add(this.txtCategoria);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;

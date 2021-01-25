@@ -482,8 +482,6 @@ namespace Capa_de_Presentacion
 			Program.igv = Convert.ToDecimal(lbligv.Text);
 			Program.ST = Convert.ToDecimal(lblsubt.Text);
 			pa.txtmonto.Text = txttotal.Text;
-			pa.gbAbrir.Visible = false;
-			pa.btnCerrar.Visible = false;
 			pa.Show();
 
 			Program.tipo = cbtipofactura.Text;
@@ -945,7 +943,7 @@ namespace Capa_de_Presentacion
 			string cedula = "";
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            Image image1 = Image.GetInstance("ferreteria.png");
+            Image image1 = Image.GetInstance("Logo.png");
             image1.ScaleAbsoluteWidth(100);
             image1.ScaleAbsoluteHeight(50);
             saveFileDialog1.InitialDirectory = @"C:";

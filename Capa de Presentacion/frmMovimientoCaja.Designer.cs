@@ -171,6 +171,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(23, 57);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
@@ -207,7 +208,6 @@
             this.btnimprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnimprimir.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnimprimir.ForeColor = System.Drawing.Color.Black;
-            //this.btnimprimir.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
             this.btnimprimir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnimprimir.Location = new System.Drawing.Point(964, 602);
             this.btnimprimir.Margin = new System.Windows.Forms.Padding(4);
@@ -236,6 +236,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Open Sans Semibold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(469, 9);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(258, 33);
@@ -246,6 +247,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(12, 558);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
@@ -257,6 +259,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(319, 558);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
@@ -268,6 +271,7 @@
             // 
             this.lblgastos.AutoSize = true;
             this.lblgastos.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblgastos.ForeColor = System.Drawing.Color.White;
             this.lblgastos.Location = new System.Drawing.Point(638, 558);
             this.lblgastos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblgastos.Name = "lblgastos";
@@ -279,6 +283,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(932, 558);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
@@ -409,16 +414,15 @@
             this.agregargasto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.agregargasto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
             this.agregargasto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.agregargasto.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.agregargasto.ForeColor = System.Drawing.Color.Black;
-          //  this.agregargasto.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_agregar;
+            this.agregargasto.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.agregargasto.ForeColor = System.Drawing.Color.White;
             this.agregargasto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.agregargasto.Location = new System.Drawing.Point(1101, 133);
+            this.agregargasto.Location = new System.Drawing.Point(1064, 133);
             this.agregargasto.Margin = new System.Windows.Forms.Padding(4);
             this.agregargasto.Name = "agregargasto";
-            this.agregargasto.Size = new System.Drawing.Size(55, 33);
+            this.agregargasto.Size = new System.Drawing.Size(92, 33);
             this.agregargasto.TabIndex = 90;
-            this.agregargasto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.agregargasto.Text = "Agregar";
             this.agregargasto.UseVisualStyleBackColor = false;
             this.agregargasto.Click += new System.EventHandler(this.agregargasto_Click);
             // 
@@ -446,6 +450,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(720, 102);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
@@ -457,6 +462,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(720, 141);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
@@ -468,6 +474,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Open Sans Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(861, 58);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
@@ -486,7 +493,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.RoyalBlue;
+            this.BackColor = System.Drawing.Color.Firebrick;
             this.ClientSize = new System.Drawing.Size(1183, 652);
             this.Controls.Add(this.txtmonto_inicial);
             this.Controls.Add(this.label5);

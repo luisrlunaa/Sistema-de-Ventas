@@ -72,9 +72,10 @@
             this.ckbback = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.usuario.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -84,7 +85,7 @@
             // 
             // lblLogo
             // 
-            this.lblLogo.BackColor = System.Drawing.Color.SteelBlue;
+            this.lblLogo.BackColor = System.Drawing.Color.Crimson;
             this.lblLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblLogo.Font = new System.Drawing.Font("Open Sans Semibold", 28.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLogo.ForeColor = System.Drawing.Color.White;
@@ -99,7 +100,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.SteelBlue;
+            this.label2.BackColor = System.Drawing.Color.Crimson;
             this.label2.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(931, 59);
@@ -111,7 +112,7 @@
             // 
             // lblFecha
             // 
-            this.lblFecha.BackColor = System.Drawing.Color.SteelBlue;
+            this.lblFecha.BackColor = System.Drawing.Color.Crimson;
             this.lblFecha.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFecha.ForeColor = System.Drawing.Color.White;
             this.lblFecha.Location = new System.Drawing.Point(1025, 61);
@@ -124,7 +125,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.SteelBlue;
+            this.label3.BackColor = System.Drawing.Color.Crimson;
             this.label3.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(931, 91);
@@ -136,7 +137,7 @@
             // 
             // lblHora
             // 
-            this.lblHora.BackColor = System.Drawing.Color.SteelBlue;
+            this.lblHora.BackColor = System.Drawing.Color.Crimson;
             this.lblHora.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHora.ForeColor = System.Drawing.Color.White;
             this.lblHora.Location = new System.Drawing.Point(1025, 93);
@@ -148,7 +149,8 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.SteelBlue;
+            this.panel1.BackColor = System.Drawing.Color.Crimson;
+            this.panel1.Controls.Add(this.button7);
             this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.button1);
@@ -164,20 +166,20 @@
             this.panel1.Location = new System.Drawing.Point(0, 121);
             this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(240, 665);
+            this.panel1.Size = new System.Drawing.Size(240, 517);
             this.panel1.TabIndex = 5;
             // 
             // button6
             // 
-            this.button6.BackColor = System.Drawing.Color.Transparent;
-            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(60)))), ((int)(((byte)(93)))));
-            this.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.button6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(182)))));
+            this.button6.BackColor = System.Drawing.Color.Firebrick;
+            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.button6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Font = new System.Drawing.Font("Open Sans Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.ForeColor = System.Drawing.Color.White;
             this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(4, 323);
+            this.button6.Location = new System.Drawing.Point(4, 369);
             this.button6.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(233, 41);
@@ -189,16 +191,16 @@
             // 
             // button5
             // 
-            this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(60)))), ((int)(((byte)(93)))));
-            this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(182)))));
+            this.button5.BackColor = System.Drawing.Color.Firebrick;
+            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.Color.White;
             this.button5.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_lista_resumen_40;
             this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(4, 150);
+            this.button5.Location = new System.Drawing.Point(4, 196);
             this.button5.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(233, 43);
@@ -210,10 +212,10 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.SteelBlue;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(60)))), ((int)(((byte)(93)))));
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(182)))));
+            this.button1.BackColor = System.Drawing.Color.Firebrick;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Open Sans Semibold", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
@@ -229,9 +231,10 @@
             // 
             // button3
             // 
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(60)))), ((int)(((byte)(93)))));
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(182)))));
+            this.button3.BackColor = System.Drawing.Color.Firebrick;
+            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Open Sans Semibold", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.White;
@@ -243,15 +246,15 @@
             this.button3.TabIndex = 13;
             this.button3.Text = "Cambiar Usuario";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // btnVer
             // 
-            this.btnVer.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnVer.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(60)))), ((int)(((byte)(93)))));
-            this.btnVer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnVer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(182)))));
+            this.btnVer.BackColor = System.Drawing.Color.Firebrick;
+            this.btnVer.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.btnVer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.btnVer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.btnVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVer.Font = new System.Drawing.Font("Open Sans Semibold", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVer.ForeColor = System.Drawing.Color.White;
@@ -268,16 +271,16 @@
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(60)))), ((int)(((byte)(93)))));
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(182)))));
+            this.button2.BackColor = System.Drawing.Color.Firebrick;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_bloqueador_40;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(5, 195);
+            this.button2.Location = new System.Drawing.Point(5, 241);
             this.button2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(233, 41);
@@ -289,16 +292,16 @@
             // 
             // btnEmpleados
             // 
-            this.btnEmpleados.BackColor = System.Drawing.Color.Transparent;
-            this.btnEmpleados.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(60)))), ((int)(((byte)(93)))));
-            this.btnEmpleados.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnEmpleados.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(182)))));
+            this.btnEmpleados.BackColor = System.Drawing.Color.Firebrick;
+            this.btnEmpleados.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.btnEmpleados.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.btnEmpleados.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.btnEmpleados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEmpleados.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEmpleados.ForeColor = System.Drawing.Color.White;
             this.btnEmpleados.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_profesor_hirring_40;
             this.btnEmpleados.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEmpleados.Location = new System.Drawing.Point(4, 280);
+            this.btnEmpleados.Location = new System.Drawing.Point(4, 326);
             this.btnEmpleados.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnEmpleados.Name = "btnEmpleados";
             this.btnEmpleados.Size = new System.Drawing.Size(233, 41);
@@ -310,10 +313,10 @@
             // 
             // btnVentas
             // 
-            this.btnVentas.BackColor = System.Drawing.Color.Transparent;
-            this.btnVentas.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(60)))), ((int)(((byte)(93)))));
-            this.btnVentas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(182)))));
+            this.btnVentas.BackColor = System.Drawing.Color.Firebrick;
+            this.btnVentas.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.btnVentas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.btnVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVentas.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVentas.ForeColor = System.Drawing.Color.White;
@@ -331,16 +334,16 @@
             // 
             // btnUsuarios
             // 
-            this.btnUsuarios.BackColor = System.Drawing.Color.Transparent;
-            this.btnUsuarios.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(60)))), ((int)(((byte)(93)))));
-            this.btnUsuarios.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnUsuarios.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(182)))));
+            this.btnUsuarios.BackColor = System.Drawing.Color.Firebrick;
+            this.btnUsuarios.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.btnUsuarios.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.btnUsuarios.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.btnUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUsuarios.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUsuarios.ForeColor = System.Drawing.Color.White;
             this.btnUsuarios.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_grupos_de_usuarios_40;
             this.btnUsuarios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUsuarios.Location = new System.Drawing.Point(4, 237);
+            this.btnUsuarios.Location = new System.Drawing.Point(4, 283);
             this.btnUsuarios.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnUsuarios.Name = "btnUsuarios";
             this.btnUsuarios.Size = new System.Drawing.Size(233, 41);
@@ -352,10 +355,10 @@
             // 
             // btnClientes
             // 
-            this.btnClientes.BackColor = System.Drawing.Color.Transparent;
-            this.btnClientes.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(60)))), ((int)(((byte)(93)))));
-            this.btnClientes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnClientes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(182)))));
+            this.btnClientes.BackColor = System.Drawing.Color.Firebrick;
+            this.btnClientes.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.btnClientes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.btnClientes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClientes.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClientes.ForeColor = System.Drawing.Color.White;
@@ -373,10 +376,10 @@
             // 
             // btnProductos
             // 
-            this.btnProductos.BackColor = System.Drawing.Color.Transparent;
-            this.btnProductos.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(60)))), ((int)(((byte)(93)))));
-            this.btnProductos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnProductos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(182)))));
+            this.btnProductos.BackColor = System.Drawing.Color.Firebrick;
+            this.btnProductos.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.btnProductos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.btnProductos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.btnProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProductos.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProductos.ForeColor = System.Drawing.Color.White;
@@ -395,7 +398,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.SteelBlue;
+            this.label4.BackColor = System.Drawing.Color.Crimson;
             this.label4.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(11, 5);
@@ -407,7 +410,7 @@
             // 
             // lblUsuario
             // 
-            this.lblUsuario.BackColor = System.Drawing.Color.SteelBlue;
+            this.lblUsuario.BackColor = System.Drawing.Color.Crimson;
             this.lblUsuario.Font = new System.Drawing.Font("Open Sans Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUsuario.ForeColor = System.Drawing.Color.White;
             this.lblUsuario.Location = new System.Drawing.Point(11, 31);
@@ -555,7 +558,7 @@
             // 
             // usuario
             // 
-            this.usuario.BackColor = System.Drawing.Color.SteelBlue;
+            this.usuario.BackColor = System.Drawing.Color.Firebrick;
             this.usuario.Controls.Add(this.label1);
             this.usuario.Controls.Add(this.button4);
             this.usuario.Controls.Add(this.label6);
@@ -636,10 +639,19 @@
             this.label7.Text = "X";
             this.label7.Click += new System.EventHandler(this.label7_Click_1);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(248, 589);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(241, 16);
+            this.label8.TabIndex = 37;
+            this.label8.Text = "@Copyright by LunasSystem-2020";
+            // 
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.White;
-            this.pictureBox2.Image = global::Capa_de_Presentacion.Properties.Resources.ferreteria;
+            this.pictureBox2.Image = global::Capa_de_Presentacion.Properties.Resources.smartphones;
             this.pictureBox2.Location = new System.Drawing.Point(245, 179);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(948, 365);
@@ -649,24 +661,37 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.SteelBlue;
-            this.pictureBox1.Image = global::Capa_de_Presentacion.Properties.Resources.x_30465_960_720;
-            this.pictureBox1.Location = new System.Drawing.Point(1181, 12);
+            this.pictureBox1.BackColor = System.Drawing.Color.Crimson;
+            this.pictureBox1.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_cerrar;
+            this.pictureBox1.Location = new System.Drawing.Point(1170, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 24);
+            this.pictureBox1.Size = new System.Drawing.Size(27, 28);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Tag = "";
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // label8
+            // button7
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(248, 589);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(241, 16);
-            this.label8.TabIndex = 37;
-            this.label8.Text = "@Copyright by LunasSystem-2020";
+            this.button7.BackColor = System.Drawing.Color.Firebrick;
+            this.button7.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.button7.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.button7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.ForeColor = System.Drawing.Color.White;
+            this.button7.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_herramientas_40;
+            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button7.Location = new System.Drawing.Point(3, 149);
+            this.button7.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(233, 45);
+            this.button7.TabIndex = 17;
+            this.button7.Text = "Taller";
+            this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // FrmMenuPrincipal
             // 
@@ -759,5 +784,6 @@
         public System.Windows.Forms.Label lblCorreo;
         public System.Windows.Forms.Label lblrnc;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
     }
 }

@@ -34,8 +34,9 @@ namespace Capa_de_Presentacion
 		public static string nombres;
 		public static string descripcion;
 		public static string marca;
-		public static string modelo;
-		public static string Aros;
+		public static string averia;
+		public static string Imei;
+		public static string Modelo;
 		public static decimal precio;
 		public static decimal pago;
 		public static decimal total;

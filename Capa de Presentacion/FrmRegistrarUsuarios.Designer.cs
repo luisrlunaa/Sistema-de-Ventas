@@ -53,7 +53,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.lblDni);
             this.groupBox1.Controls.Add(this.lblCargo);
             this.groupBox1.Controls.Add(this.lblEmpleado);
@@ -135,7 +135,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.RoyalBlue;
+            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
             this.groupBox2.Controls.Add(this.txtPassword);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.txtUser);
@@ -213,7 +213,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Open Sans Semibold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(321, 35);
+            this.label11.Location = new System.Drawing.Point(241, 48);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(216, 33);
             this.label11.TabIndex = 79;
@@ -251,7 +251,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.RoyalBlue;
+            this.BackColor = System.Drawing.Color.Firebrick;
             this.ClientSize = new System.Drawing.Size(678, 403);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtEmp);
@@ -260,6 +260,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.DoubleBuffered = true;
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;

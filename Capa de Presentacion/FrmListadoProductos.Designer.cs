@@ -40,6 +40,19 @@
             this.txtBuscarProducto = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombres = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaVencimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechamodificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itbis = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoGOma = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pmin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pmax = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.rbfechamod = new System.Windows.Forms.RadioButton();
@@ -86,19 +99,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.lbltotalproductos = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IdC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombres = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FechaVencimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechamodificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itbis = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoGOma = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Pmin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Pmax = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -109,6 +109,7 @@
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Name = "label1";
             // 
             // txtBuscarProducto
@@ -170,9 +171,97 @@
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
             // 
+            // Column1
+            // 
+            resources.ApplyResources(this.Column1, "Column1");
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // IdC
+            // 
+            resources.ApplyResources(this.IdC, "IdC");
+            this.IdC.Name = "IdC";
+            this.IdC.ReadOnly = true;
+            // 
+            // description
+            // 
+            resources.ApplyResources(this.description, "description");
+            this.description.Name = "description";
+            this.description.ReadOnly = true;
+            // 
+            // marca
+            // 
+            this.marca.FillWeight = 56.27266F;
+            resources.ApplyResources(this.marca, "marca");
+            this.marca.Name = "marca";
+            this.marca.ReadOnly = true;
+            // 
+            // Nombres
+            // 
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Nombres.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Nombres.FillWeight = 56.27266F;
+            resources.ApplyResources(this.Nombres, "Nombres");
+            this.Nombres.Name = "Nombres";
+            this.Nombres.ReadOnly = true;
+            // 
+            // pVenta
+            // 
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.pVenta.DefaultCellStyle = dataGridViewCellStyle3;
+            this.pVenta.FillWeight = 56.27266F;
+            resources.ApplyResources(this.pVenta, "pVenta");
+            this.pVenta.Name = "pVenta";
+            this.pVenta.ReadOnly = true;
+            // 
+            // cantidad
+            // 
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.cantidad.DefaultCellStyle = dataGridViewCellStyle4;
+            this.cantidad.FillWeight = 56.27266F;
+            resources.ApplyResources(this.cantidad, "cantidad");
+            this.cantidad.Name = "cantidad";
+            this.cantidad.ReadOnly = true;
+            // 
+            // FechaVencimiento
+            // 
+            this.FechaVencimiento.FillWeight = 56.27266F;
+            resources.ApplyResources(this.FechaVencimiento, "FechaVencimiento");
+            this.FechaVencimiento.Name = "FechaVencimiento";
+            // 
+            // fechamodificacion
+            // 
+            this.fechamodificacion.FillWeight = 56.27266F;
+            resources.ApplyResources(this.fechamodificacion, "fechamodificacion");
+            this.fechamodificacion.Name = "fechamodificacion";
+            // 
+            // itbis
+            // 
+            this.itbis.FillWeight = 56.27266F;
+            resources.ApplyResources(this.itbis, "itbis");
+            this.itbis.Name = "itbis";
+            // 
+            // tipoGOma
+            // 
+            resources.ApplyResources(this.tipoGOma, "tipoGOma");
+            this.tipoGOma.Name = "tipoGOma";
+            // 
+            // Pmin
+            // 
+            resources.ApplyResources(this.Pmin, "Pmin");
+            this.Pmin.Name = "Pmin";
+            // 
+            // Pmax
+            // 
+            resources.ApplyResources(this.Pmax, "Pmax");
+            this.Pmax.Name = "Pmax";
+            // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.txttotalG);
             this.groupBox1.Controls.Add(this.label5);
@@ -187,12 +276,13 @@
             this.groupBox1.Controls.Add(this.rdmedia);
             this.groupBox1.Controls.Add(this.rbCero);
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
             // groupBox3
             // 
-            this.groupBox3.BackColor = System.Drawing.Color.RoyalBlue;
+            this.groupBox3.BackColor = System.Drawing.Color.Transparent;
             this.groupBox3.Controls.Add(this.rbfechamod);
             this.groupBox3.Controls.Add(this.rbfechaing);
             this.groupBox3.Controls.Add(this.label12);
@@ -264,6 +354,7 @@
             // txtRep
             // 
             resources.ApplyResources(this.txtRep, "txtRep");
+            this.txtRep.ForeColor = System.Drawing.Color.Black;
             this.txtRep.Name = "txtRep";
             this.txtRep.ReadOnly = true;
             // 
@@ -275,6 +366,7 @@
             // cbxCategoria
             // 
             resources.ApplyResources(this.cbxCategoria, "cbxCategoria");
+            this.cbxCategoria.ForeColor = System.Drawing.Color.Black;
             this.cbxCategoria.FormattingEnabled = true;
             this.cbxCategoria.Name = "cbxCategoria";
             this.cbxCategoria.SelectedIndexChanged += new System.EventHandler(this.cbxCategoria_SelectedIndexChanged);
@@ -282,6 +374,7 @@
             // txtMrep
             // 
             resources.ApplyResources(this.txtMrep, "txtMrep");
+            this.txtMrep.ForeColor = System.Drawing.Color.Black;
             this.txtMrep.Name = "txtMrep";
             this.txtMrep.ReadOnly = true;
             // 
@@ -431,6 +524,7 @@
             // label13
             // 
             resources.ApplyResources(this.label13, "label13");
+            this.label13.ForeColor = System.Drawing.Color.White;
             this.label13.Name = "label13";
             // 
             // button2
@@ -501,6 +595,7 @@
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Name = "label2";
             // 
             // cbTipoGoma
@@ -525,99 +620,11 @@
             resources.ApplyResources(this.textBox5, "textBox5");
             this.textBox5.Name = "textBox5";
             // 
-            // Column1
-            // 
-            resources.ApplyResources(this.Column1, "Column1");
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // IdC
-            // 
-            resources.ApplyResources(this.IdC, "IdC");
-            this.IdC.Name = "IdC";
-            this.IdC.ReadOnly = true;
-            // 
-            // description
-            // 
-            resources.ApplyResources(this.description, "description");
-            this.description.Name = "description";
-            this.description.ReadOnly = true;
-            // 
-            // marca
-            // 
-            this.marca.FillWeight = 56.27266F;
-            resources.ApplyResources(this.marca, "marca");
-            this.marca.Name = "marca";
-            this.marca.ReadOnly = true;
-            // 
-            // Nombres
-            // 
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.Nombres.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Nombres.FillWeight = 56.27266F;
-            resources.ApplyResources(this.Nombres, "Nombres");
-            this.Nombres.Name = "Nombres";
-            this.Nombres.ReadOnly = true;
-            // 
-            // pVenta
-            // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.pVenta.DefaultCellStyle = dataGridViewCellStyle3;
-            this.pVenta.FillWeight = 56.27266F;
-            resources.ApplyResources(this.pVenta, "pVenta");
-            this.pVenta.Name = "pVenta";
-            this.pVenta.ReadOnly = true;
-            // 
-            // cantidad
-            // 
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.cantidad.DefaultCellStyle = dataGridViewCellStyle4;
-            this.cantidad.FillWeight = 56.27266F;
-            resources.ApplyResources(this.cantidad, "cantidad");
-            this.cantidad.Name = "cantidad";
-            this.cantidad.ReadOnly = true;
-            // 
-            // FechaVencimiento
-            // 
-            this.FechaVencimiento.FillWeight = 56.27266F;
-            resources.ApplyResources(this.FechaVencimiento, "FechaVencimiento");
-            this.FechaVencimiento.Name = "FechaVencimiento";
-            // 
-            // fechamodificacion
-            // 
-            this.fechamodificacion.FillWeight = 56.27266F;
-            resources.ApplyResources(this.fechamodificacion, "fechamodificacion");
-            this.fechamodificacion.Name = "fechamodificacion";
-            // 
-            // itbis
-            // 
-            this.itbis.FillWeight = 56.27266F;
-            resources.ApplyResources(this.itbis, "itbis");
-            this.itbis.Name = "itbis";
-            // 
-            // tipoGOma
-            // 
-            resources.ApplyResources(this.tipoGOma, "tipoGOma");
-            this.tipoGOma.Name = "tipoGOma";
-            // 
-            // Pmin
-            // 
-            resources.ApplyResources(this.Pmin, "Pmin");
-            this.Pmin.Name = "Pmin";
-            // 
-            // Pmax
-            // 
-            resources.ApplyResources(this.Pmax, "Pmax");
-            this.Pmax.Name = "Pmax";
-            // 
             // FrmListadoProductos
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.RoyalBlue;
+            this.BackColor = System.Drawing.Color.Firebrick;
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.lbltotalproductos);
             this.Controls.Add(this.label14);

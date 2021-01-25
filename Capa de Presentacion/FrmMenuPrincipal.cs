@@ -379,8 +379,14 @@ namespace Capa_de_Presentacion
 			}
 		}
 
-		private void btnAyB_Click(object sender, EventArgs e)
+		private void button6_Click(object sender, EventArgs e)
 		{
+			frmMovimientoCaja move = new frmMovimientoCaja();
+			move.Show();
+		}
+
+        private void button7_Click(object sender, EventArgs e)
+        {
 			frmAlineamiento V = new frmAlineamiento();
 			V.txtUsu.Text = lblUsuario.Text;
 			V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
@@ -392,12 +398,6 @@ namespace Capa_de_Presentacion
 			V.lblrnc.Text = lblrnc.Text;
 			V.Show();
 		}
-
-		private void button6_Click(object sender, EventArgs e)
-		{
-			frmMovimientoCaja move = new frmMovimientoCaja();
-			move.Show();
-		}
-	}
+    }
 }
 

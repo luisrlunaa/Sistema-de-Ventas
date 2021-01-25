@@ -18,7 +18,7 @@ namespace Capa_de_Presentacion
 		clsCx Cx = new clsCx();
 		public void cargar_combo_Tipo(ComboBox tipo)
 		{
-			SqlCommand cm = new SqlCommand("CARGARcomboTipotrabajo", Cx.conexion);
+			SqlCommand cm = new SqlCommand("CARGARcombotrabajoTipo", Cx.conexion);
 			cm.CommandType = CommandType.StoredProcedure;
 			SqlDataAdapter da = new SqlDataAdapter(cm);
 			DataTable dt = new DataTable();
@@ -34,18 +34,22 @@ namespace Capa_de_Presentacion
 		{
 			Program.pagoRealizado = 0;
 			Program.Id = 0;
-			Program.Aros = "";
+			Program.Modelo = "";
 			Program.total = 0;
 			Program.nota = "";
 			Program.descripcion = "";
 			Program.marca = "";
-			Program.modelo = "";
+			Program.Imei = "";
+			Program.NombreCliente = "";
+			Program.averia = "";
 
-			txtaros.Clear();
-			txtTotal.Clear();
+			txtModelo.Clear();
+			txtprecio.Clear();
 			txtnota.Clear();
 			txtMarca.Clear();
-			txtmodelo.Clear();
+			txtImei.Clear();
+			txtCliente.Clear();
+			txtAveria.Clear();
 			Program.realizopago = false;
 		}
 
@@ -57,21 +61,36 @@ namespace Capa_de_Presentacion
 
 		private void frmTaller_Activated(object sender, EventArgs e)
 		{
+			txtCliente.Text = Program.NombreCliente.ToUpper();
 			txtMarca.Text = Program.marca;
-			txtmodelo.Text = Program.modelo;
+			txtImei.Text = Program.Imei;
 			cbtipo.Text = Program.descripcion;
-;			txtaros.Text=	Program.Aros;
-			txtTotal.Text= Convert.ToString(Program.total);
+;			txtModelo.Text=	Program.Modelo;
+			txtprecio.Text= Convert.ToString(Program.total);
 			txtnota.Text=	Program.nota;
 			lblidAliBal.Text = Program.Id+"";
+			txtAveria.Text=Program.averia.ToUpper();
 
-			if(Program.Id>0)
+			if (Program.Id>0 && Program.descripcion.ToLower()=="entrada")
+            {
+				btnpagar.Show();
+				button1.Hide();
+			}
+
+			if(Program.Id > 0 && Program.descripcion.ToLower() == "salida" && Program.pagoRealizado == 0)
             {
 				btnpagar.Hide();
 				button1.Show();
 				button1.Text = "Imprimir";
 				button1.BackColor = Color.Khaki;
 			}
+
+			if (Program.Id > 0 && Program.descripcion.ToLower() == "salida" && Program.pagoRealizado > 0)
+			{
+				btnpagar.Hide();
+				button1.Show();
+			}
+
 		}
 
 
@@ -97,13 +116,14 @@ namespace Capa_de_Presentacion
 			ticket.lineasGuio();
 
 			ticket.TextoIzquierda("TIPO DE TRABAJO: " + cbtipo.Text);
+			ticket.TextoIzquierda("CLIENTE: " + txtCliente.Text);
 			ticket.TextoIzquierda("MARCA: " + txtMarca.Text);
-			ticket.TextoIzquierda("MODELO: " + txtmodelo.Text);
-			ticket.TextoIzquierda("AROS No.: " + txtaros.Text);
+			ticket.TextoIzquierda("IMEI: " + txtImei.Text);
+			ticket.TextoIzquierda("MODELO.: " + txtModelo.Text);
 			ticket.TextoIzquierda("NOTA: " + txtnota.Text);
 			ticket.TextoIzquierda("");
 			//resumen de la venta
-			ticket.AgregarTotales("       COSTO TOTAL DEL SERVICIO : ", decimal.Parse(txtTotal.Text));
+			ticket.AgregarTotales("       COSTO TOTAL DEL SERVICIO : ", decimal.Parse(txtprecio.Text));
 
 			//TEXTO FINAL DEL TICKET
 			ticket.TextoIzquierda("EXTRA");
@@ -132,7 +152,7 @@ namespace Capa_de_Presentacion
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-			if (Program.Id > 0)
+			if (Program.Id > 0 && Program.descripcion.ToLower() == "salida" && Program.pagoRealizado == 0)
 			{
 				tickEstiloP();
 			}
@@ -140,15 +160,18 @@ namespace Capa_de_Presentacion
             {
 				using (SqlConnection con = new SqlConnection(Cx.conet))
 				{
-					using (SqlCommand cmd = new SqlCommand("RegistrarAlineamientoBalanceo", con))
+					using (SqlCommand cmd = new SqlCommand("Registrartaller", con))
 					{
 						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(Program.Id);
 						cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = Convert.ToInt32(txtidEmp.Text);
+						cmd.Parameters.Add("@cliente", SqlDbType.NVarChar).Value = txtCliente.Text.ToLower();
+						cmd.Parameters.Add("@averia", SqlDbType.NVarChar).Value = txtAveria.Text.ToLower();
 						cmd.Parameters.Add("@tipoDeTrabajo", SqlDbType.VarChar).Value = cbtipo.Text.ToUpper();
-						cmd.Parameters.Add("@vehiculo", SqlDbType.NVarChar).Value = (txtMarca.Text + " " + txtmodelo.Text).ToUpper();
-						cmd.Parameters.Add("@AroGoma", SqlDbType.Int).Value = Convert.ToInt32(txtaros.Text);
+						cmd.Parameters.Add("@Datos", SqlDbType.NVarChar).Value = (txtModelo.Text + "." + txtImei.Text).ToUpper();
+						cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text;
 						cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(dtpFecha.Text);
-						cmd.Parameters.Add("@precio", SqlDbType.Decimal).Value = Convert.ToDecimal(txtTotal.Text);
+						cmd.Parameters.Add("@precio", SqlDbType.Decimal).Value = Convert.ToDecimal(txtprecio.Text);
 						cmd.Parameters.Add("@nota", SqlDbType.NVarChar).Value = txtnota.Text;
 
 						con.Open();
@@ -156,32 +179,40 @@ namespace Capa_de_Presentacion
 						cmd.Parameters.Clear();
 						con.Close();
 
-						using (SqlCommand cmd2 = new SqlCommand("pagos_re", con))
-						{
-							cmd2.CommandType = CommandType.StoredProcedure;
-
-							//Tabla de pago
-							cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
-							cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
-							cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
-							cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
-							if (Program.Devuelta > 0)
+						if(cbtipo.Text.ToLower()=="salida")
+                        {
+							using (SqlCommand cmd2 = new SqlCommand("pagos_re", con))
 							{
-								cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
-							}
-							else
-							{
-								cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = 0;
-							}
-							cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
-							cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = 0;
+								cmd2.CommandType = CommandType.StoredProcedure;
 
-							con.Open();
-							cmd2.ExecuteNonQuery();
-							con.Close();
+								//Tabla de pago
+								cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
+								cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
+								cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
+								cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
+								if (Program.Devuelta > 0)
+								{
+									cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
+								}
+								else
+								{
+									cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = 0;
+								}
+								cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
+								cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = 0;
+
+								con.Open();
+								cmd2.ExecuteNonQuery();
+								con.Close();
+								MessageBox.Show("Salida Registrada y Pago Confirmado");
+							}
 						}
+                        else
+                        {
+							MessageBox.Show("Guardado en Taller");
+						}
+
 						Program.pagoRealizado = 0;
-						MessageBox.Show(cbtipo.Text + "Registrada y Pago Confirmado");
 						tickEstiloP();
 						clean();
 					}
@@ -194,11 +225,6 @@ namespace Capa_de_Presentacion
 			clean();
 			this.Close();
 		}
-
-        private void txtmodelo_KeyPress(object sender, KeyPressEventArgs e)
-        {
-			validar.solonumeros(e);
-        }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -217,25 +243,37 @@ namespace Capa_de_Presentacion
         {
 			cargar_combo_Tipo(cbtipo);
 			cbtipo.SelectedIndex = 0;
-			button1.Hide();
+			if (Program.Id == 0 && cbtipo.Text.ToLower() == "entrada")
+			{
+				btnpagar.Hide();
+				button1.Show();
+				button1.Text = "Guardar";
+			}
+
+			clean();
 		}
 
         private void btnpagar_Click(object sender, EventArgs e)
         {
 			frmPagar pa = new frmPagar();
-			pa.txtmonto.Text = txtTotal.Text;
-			pa.gbAbrir.Visible = false;
-			pa.btnCerrar.Visible = false;
+			pa.txtmonto.Text = txtprecio.Text;
 			button1.Show();
 
-			Program.modelo = txtmodelo.Text;
+			Program.averia = txtAveria.Text;
+			Program.NombreCliente = txtCliente.Text;
+			Program.Imei = txtImei.Text;
 			Program.descripcion = cbtipo.Text;
 			Program.marca = txtMarca.Text;
-			Program.Aros = txtaros.Text;
-			Program.total = Convert.ToDecimal(txtTotal.Text);
+			Program.Modelo = txtModelo.Text;
+			Program.total = Convert.ToDecimal(txtprecio.Text);
 			Program.nota = txtnota.Text;
 
 			pa.Show();
 		}
+
+        private void txtprecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+			validar.solonumeros(e);
+        }
     }
 }
