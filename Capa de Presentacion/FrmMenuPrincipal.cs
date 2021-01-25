@@ -36,6 +36,7 @@ namespace Capa_de_Presentacion
 				btnUsuarios.Visible = false;
 				btnEmpleados.Visible = false;
 
+				button6.Visible = false;
 				button1.Visible = false;
 				button3.Visible = false;
 				btnVer.Visible = false;
