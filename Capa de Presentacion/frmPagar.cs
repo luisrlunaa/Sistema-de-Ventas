@@ -155,14 +155,6 @@ namespace Capa_de_Presentacion
 			this.Hide();
 		}
 
-        private void button4_Click_1(object sender, EventArgs e)
-        {
-			FrmMenuPrincipal MP = new FrmMenuPrincipal();
-			Program.inventario = "Inventario";
-			MP.Show();
-			this.Hide();
-		}
-
         private void txtFinal_KeyPress(object sender, KeyPressEventArgs e)
         {
 			validar.solonumeros(e);

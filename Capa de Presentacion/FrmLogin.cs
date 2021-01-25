@@ -226,5 +226,13 @@ namespace Capa_de_Presentacion
             llenarid();
             llenar_data();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FrmMenuPrincipal MP = new FrmMenuPrincipal();
+            Program.inventario = "Inventario";
+            MP.Show();
+            this.Hide();
+        }
     }
 }
