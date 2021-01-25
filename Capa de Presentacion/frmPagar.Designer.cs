@@ -76,7 +76,7 @@
             this.gbAbrir.Controls.Add(this.txtCaja);
             this.gbAbrir.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbAbrir.ForeColor = System.Drawing.Color.Black;
-            this.gbAbrir.Location = new System.Drawing.Point(14, 17);
+            this.gbAbrir.Location = new System.Drawing.Point(836, 13);
             this.gbAbrir.Margin = new System.Windows.Forms.Padding(4);
             this.gbAbrir.Name = "gbAbrir";
             this.gbAbrir.Padding = new System.Windows.Forms.Padding(4);
@@ -97,15 +97,14 @@
             this.button4.ForeColor = System.Drawing.Color.Black;
             this.button4.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_producto_30;
             this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(397, 238);
+            this.button4.Location = new System.Drawing.Point(400, 238);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(291, 42);
+            this.button4.Size = new System.Drawing.Size(291, 40);
             this.button4.TabIndex = 6;
             this.button4.Text = "Entrar a Inventario";
             this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
             // dgvCaja
             // 
@@ -143,7 +142,6 @@
             this.dgvCaja.RowTemplate.Height = 24;
             this.dgvCaja.Size = new System.Drawing.Size(665, 112);
             this.dgvCaja.TabIndex = 5;
-            this.dgvCaja.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCaja_CellDoubleClick);
             // 
             // Id_caja
             // 
@@ -221,7 +219,6 @@
             this.button1.Text = "Abrir Caja";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnCerrar
             // 
@@ -303,7 +300,7 @@
             this.gbPagar.Controls.Add(this.txtCaja1);
             this.gbPagar.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbPagar.ForeColor = System.Drawing.Color.Black;
-            this.gbPagar.Location = new System.Drawing.Point(14, 326);
+            this.gbPagar.Location = new System.Drawing.Point(13, 13);
             this.gbPagar.Margin = new System.Windows.Forms.Padding(4);
             this.gbPagar.Name = "gbPagar";
             this.gbPagar.Padding = new System.Windows.Forms.Padding(4);
@@ -462,7 +459,7 @@
             // txtIdp
             // 
             this.txtIdp.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIdp.Location = new System.Drawing.Point(941, 284);
+            this.txtIdp.Location = new System.Drawing.Point(941, 415);
             this.txtIdp.Margin = new System.Windows.Forms.Padding(4);
             this.txtIdp.Name = "txtIdp";
             this.txtIdp.Size = new System.Drawing.Size(78, 22);
@@ -484,7 +481,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkCyan;
-            this.ClientSize = new System.Drawing.Size(732, 539);
+            this.ClientSize = new System.Drawing.Size(732, 231);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.txtIdp);
             this.Controls.Add(this.txtId);
