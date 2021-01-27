@@ -108,9 +108,9 @@ namespace Capa_de_Presentacion
 
                         if (tienefila)
                         {
+                            RecuperarDatosSesion();
                             MP.Show();
                             this.Hide();
-                            RecuperarDatosSesion();
                         }
                         else
                         {
@@ -133,9 +133,9 @@ namespace Capa_de_Presentacion
                                 Cx.conexion.Close();
                             }
                             llenar_data();
+                            RecuperarDatosSesion();
                             MP.Show();
                             this.Hide();
-                            RecuperarDatosSesion();
                         }
                     }
 				}
