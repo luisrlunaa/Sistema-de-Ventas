@@ -65,13 +65,13 @@ namespace Capa_de_Presentacion
                         }
                         else
                         {
-                            DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-						pa.gbPagar.Visible = false;
+                        DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                        RecuperarDatosSesion();
+                        pa.gbPagar.Visible = false;
 						pa.btnCerrar.Visible = false;
 						pa.Show();
 
 						this.Hide();
-						RecuperarDatosSesion();
 					}
 				}
 				else {

@@ -217,7 +217,7 @@
     <value>Descripción</value>
   </data>
   <data name="description.MinimumWidth" type="System.Int32, mscorlib">
-    <value>100</value>
+    <value>112</value>
   </data>
   <metadata name="marca.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -226,7 +226,7 @@
     <value>Marca</value>
   </data>
   <data name="marca.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>90</value>
   </data>
   <metadata name="Nombres.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -235,7 +235,7 @@
     <value>P. Compra</value>
   </data>
   <data name="Nombres.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>90</value>
   </data>
   <metadata name="pVenta.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -244,7 +244,7 @@
     <value>P. Venta</value>
   </data>
   <data name="pVenta.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>90</value>
   </data>
   <metadata name="cantidad.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -253,7 +253,7 @@
     <value>Cantidad</value>
   </data>
   <data name="cantidad.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>80</value>
   </data>
   <metadata name="FechaVencimiento.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -262,7 +262,10 @@
     <value>Fec.Ing</value>
   </data>
   <data name="FechaVencimiento.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>80</value>
+  </data>
+  <data name="FechaVencimiento.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <metadata name="fechamodificacion.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -271,7 +274,10 @@
     <value>Fec.Mod</value>
   </data>
   <data name="fechamodificacion.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>80</value>
+  </data>
+  <data name="fechamodificacion.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <metadata name="itbis.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -301,19 +307,19 @@
     <value>True</value>
   </metadata>
   <data name="Pmin.HeaderText" xml:space="preserve">
-    <value>P. Maximo</value>
+    <value>P. Max</value>
   </data>
   <data name="Pmin.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>40</value>
   </data>
   <metadata name="Pmax.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="Pmax.HeaderText" xml:space="preserve">
-    <value>P. Minimo</value>
+    <value>P. Min</value>
   </data>
   <data name="Pmax.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>40</value>
   </data>
   <data name="dataGridView1.Location" type="System.Drawing.Point, System.Drawing">
     <value>-1, -1</value>
