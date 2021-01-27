@@ -99,6 +99,8 @@ namespace Capa_de_Presentacion
 											cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
 											cmd.Parameters.Add("@FechaVencimiento", SqlDbType.Date).Value = dateTimePicker1.Text;
 											cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
+											cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = 0;
+											cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = 0;
 
 											DevComponents.DotNetBar.MessageBoxEx.Show("Se Registro Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -208,6 +210,8 @@ namespace Capa_de_Presentacion
 										cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
 										cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
 										cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
+										cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = 0;
+										cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = 0;
 
 										DevComponents.DotNetBar.MessageBoxEx.Show("Se Actualizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 											
