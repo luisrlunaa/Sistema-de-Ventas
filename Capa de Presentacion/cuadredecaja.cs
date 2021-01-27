@@ -506,7 +506,7 @@ namespace Capa_de_Presentacion
 			{
 				var faltantes = cuadre - total;
 				lblmensaje.Text = "Cuadre defectuoso, Faltan : \n" + faltantes + " Pesos";
-				lblmensaje.ForeColor = Color.Red;
+				lblmensaje.ForeColor = Color.Yellow;
 			}
 
 			lblmontocuadre.Text = total.ToString();

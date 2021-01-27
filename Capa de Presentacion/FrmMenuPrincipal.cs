@@ -102,22 +102,33 @@ namespace Capa_de_Presentacion
 		}
 		private void btnProductos_Click(object sender, EventArgs e)
 		{
-			if (txtcargo.Text.Trim() != "Administrador")
-			{
-				FrmListadoProductos P = new FrmListadoProductos();
-				P.lblLogo.Text = lblLogo.Text;
-				P.lblDir.Text = lblDir.Text;
-				P.btnNuevo.Enabled = false;
-				P.btnEditar.Enabled = false;
-				P.button2.Enabled = false;
-				P.Show();
+			if(Program.inventario == "Inventario")
+            {
+					FrmListadoProductos P = new FrmListadoProductos();
+					P.lblLogo.Text = lblLogo.Text;
+					P.lblDir.Text = lblDir.Text;
+					P.button2.Enabled = false;
+					P.Show();
 			}
 			else
 			{
-				FrmListadoProductos P = new FrmListadoProductos();
-				P.lblLogo.Text = lblLogo.Text;
-				P.lblDir.Text = lblDir.Text;
-				P.Show();
+				if (txtcargo.Text.Trim() != "Administrador")
+				{
+					FrmListadoProductos P = new FrmListadoProductos();
+					P.lblLogo.Text = lblLogo.Text;
+					P.lblDir.Text = lblDir.Text;
+					P.btnNuevo.Enabled = false;
+					P.btnEditar.Enabled = false;
+					P.button2.Enabled = false;
+					P.Show();
+				}
+				else
+                {
+					FrmListadoProductos P = new FrmListadoProductos();
+					P.lblLogo.Text = lblLogo.Text;
+					P.lblDir.Text = lblDir.Text;
+					P.Show();
+				}
 			}
 		}
 		private void btnClientes_Click(object sender, EventArgs e)
