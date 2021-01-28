@@ -40,6 +40,19 @@
             this.txtBuscarProducto = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombres = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaVencimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechamodificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itbis = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoGOma = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pmin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pmax = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.rbfechamod = new System.Windows.Forms.RadioButton();
@@ -86,19 +99,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.lbltotalproductos = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IdC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombres = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FechaVencimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechamodificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itbis = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoGOma = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Pmin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Pmax = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -170,6 +170,89 @@
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
+            // 
+            // Column1
+            // 
+            resources.ApplyResources(this.Column1, "Column1");
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // IdC
+            // 
+            resources.ApplyResources(this.IdC, "IdC");
+            this.IdC.Name = "IdC";
+            this.IdC.ReadOnly = true;
+            // 
+            // description
+            // 
+            resources.ApplyResources(this.description, "description");
+            this.description.Name = "description";
+            // 
+            // marca
+            // 
+            this.marca.FillWeight = 56.27266F;
+            resources.ApplyResources(this.marca, "marca");
+            this.marca.Name = "marca";
+            // 
+            // Nombres
+            // 
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Nombres.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Nombres.FillWeight = 56.27266F;
+            resources.ApplyResources(this.Nombres, "Nombres");
+            this.Nombres.Name = "Nombres";
+            // 
+            // pVenta
+            // 
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.pVenta.DefaultCellStyle = dataGridViewCellStyle3;
+            this.pVenta.FillWeight = 56.27266F;
+            resources.ApplyResources(this.pVenta, "pVenta");
+            this.pVenta.Name = "pVenta";
+            // 
+            // cantidad
+            // 
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.cantidad.DefaultCellStyle = dataGridViewCellStyle4;
+            this.cantidad.FillWeight = 56.27266F;
+            resources.ApplyResources(this.cantidad, "cantidad");
+            this.cantidad.Name = "cantidad";
+            // 
+            // FechaVencimiento
+            // 
+            this.FechaVencimiento.FillWeight = 56.27266F;
+            resources.ApplyResources(this.FechaVencimiento, "FechaVencimiento");
+            this.FechaVencimiento.Name = "FechaVencimiento";
+            // 
+            // fechamodificacion
+            // 
+            this.fechamodificacion.FillWeight = 56.27266F;
+            resources.ApplyResources(this.fechamodificacion, "fechamodificacion");
+            this.fechamodificacion.Name = "fechamodificacion";
+            // 
+            // itbis
+            // 
+            this.itbis.FillWeight = 56.27266F;
+            resources.ApplyResources(this.itbis, "itbis");
+            this.itbis.Name = "itbis";
+            // 
+            // tipoGOma
+            // 
+            resources.ApplyResources(this.tipoGOma, "tipoGOma");
+            this.tipoGOma.Name = "tipoGOma";
+            // 
+            // Pmin
+            // 
+            resources.ApplyResources(this.Pmin, "Pmin");
+            this.Pmin.Name = "Pmin";
+            // 
+            // Pmax
+            // 
+            resources.ApplyResources(this.Pmax, "Pmax");
+            this.Pmax.Name = "Pmax";
             // 
             // groupBox1
             // 
@@ -531,89 +614,6 @@
             // 
             resources.ApplyResources(this.textBox5, "textBox5");
             this.textBox5.Name = "textBox5";
-            // 
-            // Column1
-            // 
-            resources.ApplyResources(this.Column1, "Column1");
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // IdC
-            // 
-            resources.ApplyResources(this.IdC, "IdC");
-            this.IdC.Name = "IdC";
-            this.IdC.ReadOnly = true;
-            // 
-            // description
-            // 
-            resources.ApplyResources(this.description, "description");
-            this.description.Name = "description";
-            // 
-            // marca
-            // 
-            this.marca.FillWeight = 56.27266F;
-            resources.ApplyResources(this.marca, "marca");
-            this.marca.Name = "marca";
-            // 
-            // Nombres
-            // 
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.Nombres.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Nombres.FillWeight = 56.27266F;
-            resources.ApplyResources(this.Nombres, "Nombres");
-            this.Nombres.Name = "Nombres";
-            // 
-            // pVenta
-            // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.pVenta.DefaultCellStyle = dataGridViewCellStyle3;
-            this.pVenta.FillWeight = 56.27266F;
-            resources.ApplyResources(this.pVenta, "pVenta");
-            this.pVenta.Name = "pVenta";
-            // 
-            // cantidad
-            // 
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.cantidad.DefaultCellStyle = dataGridViewCellStyle4;
-            this.cantidad.FillWeight = 56.27266F;
-            resources.ApplyResources(this.cantidad, "cantidad");
-            this.cantidad.Name = "cantidad";
-            // 
-            // FechaVencimiento
-            // 
-            this.FechaVencimiento.FillWeight = 56.27266F;
-            resources.ApplyResources(this.FechaVencimiento, "FechaVencimiento");
-            this.FechaVencimiento.Name = "FechaVencimiento";
-            // 
-            // fechamodificacion
-            // 
-            this.fechamodificacion.FillWeight = 56.27266F;
-            resources.ApplyResources(this.fechamodificacion, "fechamodificacion");
-            this.fechamodificacion.Name = "fechamodificacion";
-            // 
-            // itbis
-            // 
-            this.itbis.FillWeight = 56.27266F;
-            resources.ApplyResources(this.itbis, "itbis");
-            this.itbis.Name = "itbis";
-            // 
-            // tipoGOma
-            // 
-            resources.ApplyResources(this.tipoGOma, "tipoGOma");
-            this.tipoGOma.Name = "tipoGOma";
-            // 
-            // Pmin
-            // 
-            resources.ApplyResources(this.Pmin, "Pmin");
-            this.Pmin.Name = "Pmin";
-            // 
-            // Pmax
-            // 
-            resources.ApplyResources(this.Pmax, "Pmax");
-            this.Pmax.Name = "Pmax";
             // 
             // FrmListadoProductos
             // 

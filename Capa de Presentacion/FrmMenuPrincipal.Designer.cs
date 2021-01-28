@@ -38,6 +38,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblHora = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -75,7 +76,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button7 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.usuario.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -168,6 +168,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(240, 517);
             this.panel1.TabIndex = 5;
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.Firebrick;
+            this.button7.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.button7.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.button7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.ForeColor = System.Drawing.Color.White;
+            this.button7.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_herramientas_40;
+            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button7.Location = new System.Drawing.Point(3, 149);
+            this.button7.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(233, 45);
+            this.button7.TabIndex = 17;
+            this.button7.Text = "Taller";
+            this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button6
             // 
@@ -671,27 +692,6 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Tag = "";
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // button7
-            // 
-            this.button7.BackColor = System.Drawing.Color.Firebrick;
-            this.button7.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
-            this.button7.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
-            this.button7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_herramientas_40;
-            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.Location = new System.Drawing.Point(3, 149);
-            this.button7.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(233, 45);
-            this.button7.TabIndex = 17;
-            this.button7.Text = "Taller";
-            this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // FrmMenuPrincipal
             // 
