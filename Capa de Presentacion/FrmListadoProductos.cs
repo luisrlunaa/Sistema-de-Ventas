@@ -268,7 +268,7 @@ namespace Capa_de_Presentacion
 			DataTable dt = new DataTable();
 			try
 			{
-				P.Marca = txtBuscarProducto.Text;
+				P.Marca = (txtBuscarProducto.Text).ToUpper();
 				dt = P.BusquedaProductos(P.Marca);
 				dataGridView1.Rows.Clear();
 				for (int i = 0; i < dt.Rows.Count; i++)
@@ -715,8 +715,9 @@ namespace Capa_de_Presentacion
 		{
 			id.Text = "";
 			cbxCategoria.Text = "";
-			CargarListado();
 			clear();
+			txtBuscarProducto.Text = "";
+			CargarListado();
 			Refresh();
 		}
 
