@@ -450,7 +450,7 @@
             this.lblDir.AutoSize = true;
             this.lblDir.Font = new System.Drawing.Font("Open Sans Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDir.ForeColor = System.Drawing.Color.Black;
-            this.lblDir.Location = new System.Drawing.Point(559, 123);
+            this.lblDir.Location = new System.Drawing.Point(368, 123);
             this.lblDir.Name = "lblDir";
             this.lblDir.Size = new System.Drawing.Size(86, 23);
             this.lblDir.TabIndex = 25;
@@ -497,7 +497,7 @@
             // lblrnc
             // 
             this.lblrnc.AutoSize = true;
-            this.lblrnc.Location = new System.Drawing.Point(359, 135);
+            this.lblrnc.Location = new System.Drawing.Point(289, 151);
             this.lblrnc.Name = "lblrnc";
             this.lblrnc.Size = new System.Drawing.Size(39, 16);
             this.lblrnc.TabIndex = 32;

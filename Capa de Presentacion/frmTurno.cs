@@ -68,7 +68,7 @@ namespace Capa_de_Presentacion
 			ticket.TextoCentro(textBox1.Text);
 			ticket.TextoCentro("!GRACIAS POR SU PACIENCIA!");
 			ticket.CortaTicket();
-			ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
+			ticket.ImprimirTicket("POS80 Printer");//NOMBRE DE LA IMPRESORA
 		}
 
 	}

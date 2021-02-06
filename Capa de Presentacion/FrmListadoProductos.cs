@@ -154,6 +154,7 @@ namespace Capa_de_Presentacion
 			rbfechaing.Checked = false;
 			rbfechamod.Checked = false;
 			txtdesc.Text = "";
+			txtBuscarProducto.Text = "";
 			CargarListado();
 		}
 		public void CargarListado()
@@ -272,7 +273,7 @@ namespace Capa_de_Presentacion
 			DataTable dt = new DataTable();
 			try
 			{
-				P.Marca = txtBuscarProducto.Text;
+				P.Marca = (txtBuscarProducto.Text).ToUpper();
 				dt = P.BusquedaProductos(P.Marca);
 				dataGridView1.Rows.Clear();
 				for (int i = 0; i < dt.Rows.Count; i++)
