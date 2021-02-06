@@ -24,6 +24,7 @@ namespace Capa_de_Presentacion
 			llenar_data();
 			llenar_data_V();
 			buscarprod();
+			gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
 		}
 		public void llenar_data_V()
 		{
@@ -152,7 +153,14 @@ namespace Capa_de_Presentacion
 		}
 		private void btnCancelar_Click(object sender, EventArgs e)
 		{
-			To_pdf();
+			if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte \n Si=Especifico \n No=General ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+			{
+				To_pdf1();
+			}
+			else
+			{
+				To_pdf();
+			}
 		}
 		private void txtBuscarCliente_TextChanged(object sender, EventArgs e)
 		{
@@ -227,7 +235,57 @@ namespace Capa_de_Presentacion
 			}
 			Cx.conexion.Close();
 		}
+		private void To_pdf1()
+		{
+			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
+			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
+			image1.ScaleAbsoluteWidth(100);
+			image1.ScaleAbsoluteHeight(50);
+			saveFileDialog1.InitialDirectory = @"C:";
+			saveFileDialog1.Title = "Guardar Reporte";
+			saveFileDialog1.DefaultExt = "pdf";
+			saveFileDialog1.Filter = "pdf Files (*.pdf)|*.pdf| All Files (*.*)|*.*";
+			saveFileDialog1.FilterIndex = 2;
+			saveFileDialog1.RestoreDirectory = true;
+			string filename = "Reporte" + DateTime.Now.ToString();
+			if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+			{
+				filename = saveFileDialog1.FileName;
+			}
 
+			if (filename.Trim() != "")
+			{
+				FileStream file = new FileStream(filename,
+				FileMode.OpenOrCreate,
+				FileAccess.ReadWrite,
+				FileShare.ReadWrite);
+				PdfWriter.GetInstance(doc, file);
+				doc.Open();
+				string remito = lblLogo.Text;
+				string ubicado = lblDir.Text;
+				string envio = "Fecha : " + DateTime.Now.ToString();
+
+				Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
+				doc.Add(new Paragraph("                                                                                                                                                                                                                                                     " + envio, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC)));
+				doc.Add(image1);
+				doc.Add(new Paragraph(chunk));
+				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
+				doc.Add(new Paragraph("Reporte Especifico de Ventas Realizadas"));
+				doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString()));
+				doc.Add(new Paragraph("                       "));
+				GenerarDocumento1(doc);
+				doc.AddCreationDate();
+				doc.Add(new Paragraph("                       "));
+				doc.Add(new Paragraph("Total de Ventas      : " + txttotalventaespecifica.Text));
+				doc.Add(new Paragraph("                       "));
+				doc.Add(new Paragraph("                       "));
+				doc.Add(new Paragraph("____________________________________"));
+				doc.Add(new Paragraph("                         Firma              "));
+				doc.Close();
+				Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
+			}
+		}
 		private void To_pdf()
 		{
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
@@ -264,14 +322,16 @@ namespace Capa_de_Presentacion
 				doc.Add(image1);
 				doc.Add(new Paragraph(chunk));
 				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
-				doc.Add(new Paragraph("                       "));
-				doc.Add(new Paragraph("Reporte de Listado de Ventas Realizadas                       "));
+				doc.Add(new Paragraph("Reporte de General de Ventas Realizadas"));
+				doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day+"/"+ dtpfecha1.Value.Month+"/"+ dtpfecha1.Value.Year).ToString() +", " +"Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("                       "));
 				GenerarDocumento(doc);
 				doc.AddCreationDate();
+				GenerarDocumento1(doc);
 				doc.Add(new Paragraph("                       "));
 				doc.Add(new Paragraph("Total de Ventas      : " + txtTtal.Text));
 				doc.Add(new Paragraph("Producto Mas Vendido : " + txtRepi.Text));
+				doc.Add(new Paragraph("                       "));
 				doc.Add(new Paragraph("                       "));
 				doc.Add(new Paragraph("                       "));
 				doc.Add(new Paragraph("____________________________________"));
@@ -280,19 +340,47 @@ namespace Capa_de_Presentacion
 				Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
 			}
 		}
+		public void GenerarDocumento1(Document document)
+		{
+			int i, j;
+			PdfPTable datatable = new PdfPTable(dataGridView3.ColumnCount);
+			datatable.DefaultCell.Padding = 2;
+			float[] headerwidths = GetTamañoColumnas(dataGridView3);
+			datatable.SetWidths(headerwidths);
+			datatable.WidthPercentage = 100;
+			datatable.DefaultCell.BorderWidth = 1;
+			datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
+			for (i = 0; i < dataGridView3.ColumnCount; i++)
+			{
+				datatable.AddCell(new Phrase(dataGridView3.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
+			}
+			datatable.HeaderRows = 1;
+			datatable.DefaultCell.BorderWidth = 1;
+			for (i = 0; i < dataGridView3.Rows.Count; i++)
+			{
+				for (j = 0; j < dataGridView3.Columns.Count; j++)
+				{
+					if (dataGridView3[j, i].Value != null)
+					{
+						datatable.AddCell(new Phrase(dataGridView3[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+					}
+				}
+				datatable.CompleteRow();
+			}
+			document.Add(datatable);
+		}
 		public void GenerarDocumento(Document document)
 		{
 			int i, j;
 			PdfPTable datatable = new PdfPTable(dataGridView1.ColumnCount);
-			datatable.DefaultCell.Padding = 3;
 			float[] headerwidths = GetTamañoColumnas(dataGridView1);
 			datatable.SetWidths(headerwidths);
 			datatable.WidthPercentage = 100;
 			datatable.DefaultCell.BorderWidth = 1;
-			datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+			datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
 			for (i = 0; i < dataGridView1.ColumnCount; i++)
 			{
-				datatable.AddCell(dataGridView1.Columns[i].HeaderText);
+				datatable.AddCell(new Phrase(dataGridView1.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
 			}
 			datatable.HeaderRows = 1;
 			datatable.DefaultCell.BorderWidth = 1;
@@ -302,7 +390,7 @@ namespace Capa_de_Presentacion
 				{
 					if (dataGridView1[j, i].Value != null)
 					{
-						datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+						datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
 					}
 				}
 				datatable.CompleteRow();
@@ -392,6 +480,8 @@ namespace Capa_de_Presentacion
 
 				txtTtal.Text = Convert.ToString(Math.Round(total,2));
 			}
+			dataGridView3.ClearSelection();
+			gridforcategoryandquantity(dtpfecha1.Value, dtpfecha2.Value);
 			con.Close();
 		}
 		private void button2_Click(object sender, EventArgs e)
@@ -406,6 +496,64 @@ namespace Capa_de_Presentacion
 			FrmRegistroVentas V = new FrmRegistroVentas();
 			V.btnSalir.Visible = false;
 			this.Close();
+		}
+
+
+		private void gridforcategoryandquantity(DateTime fecha1, DateTime fecha2)
+        {
+			decimal total = 0;
+			//declaramos la cadena  de conexion
+			string cadenaconexion = Cx.conet;
+			//variable de tipo Sqlconnection
+			SqlConnection con = new SqlConnection();
+			//variable de tipo Sqlcommand
+			SqlCommand comando = new SqlCommand();
+			//variable SqlDataReader para leer los datos
+			SqlDataReader dr;
+			con.ConnectionString = cadenaconexion;
+			comando.Connection = con;
+
+			if(fecha1 != DateTime.MinValue && fecha2 != DateTime.MinValue)
+            {
+				//declaramos el comando para realizar la busqueda
+				comando.CommandText = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.PrecioUnitario) AS PrecioOfProducts" +
+					" FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
+					"INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta  where venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) AND " +
+					"convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103) group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
+				comando.Parameters.AddWithValue("@fecha1", fecha1);
+				comando.Parameters.AddWithValue("@fecha2", fecha2);
+			}
+			else
+            {
+				//declaramos el comando para realizar la busqueda
+				comando.CommandText = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.PrecioUnitario) AS PrecioOfProducts" +
+					" FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
+					"INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
+			}
+			//especificamos que es de tipo Text
+			comando.CommandType = CommandType.Text;
+			//se abre la conexion
+			con.Open();
+			//limpiamos los renglones de la datagridview
+			dataGridView3.Rows.Clear();
+			//a la variable DataReader asignamos  el la variable de tipo SqlCommand
+			dr = comando.ExecuteReader();
+			//el ciclo while se ejecutará mientras lea registros en la tabla
+			while (dr.Read())
+			{
+				//variable de tipo entero para ir enumerando los la filas del datagridview
+				int renglon = dataGridView3.Rows.Add();
+				// especificamos en que fila se mostrará cada registro
+
+				dataGridView3.Rows[renglon].Cells["PrecioOfProducts"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioOfProducts")));
+				dataGridView3.Rows[renglon].Cells["CantidadOfProducts"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("CantidadOfProducts")));
+				dataGridView3.Rows[renglon].Cells["CategoryOfProducts"].Value = dr.GetString(dr.GetOrdinal("CategoryOfProducts"));
+
+				total += Convert.ToDecimal(dataGridView3.Rows[renglon].Cells["PrecioOfProducts"].Value);
+
+				txttotalventaespecifica.Text = Convert.ToString(Math.Round(total, 2));
+			}
+			con.Close();
 		}
     }
 }
