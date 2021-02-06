@@ -33,6 +33,22 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombrecliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idcliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idEm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.can = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.igv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.restante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
+            this.NCF = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nroComprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtBuscarid = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -62,22 +78,6 @@
             this.dtpfecha1 = new System.Windows.Forms.DateTimePicker();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombrecliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idcliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idEm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.can = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.igv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.restante = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
-            this.NCF = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nroComprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -134,6 +134,154 @@
             this.dataGridView1.Size = new System.Drawing.Size(1040, 345);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "Id Venta";
+            this.id.MinimumWidth = 6;
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Width = 95;
+            // 
+            // nombrecliente
+            // 
+            this.nombrecliente.HeaderText = "Nombre Cliente";
+            this.nombrecliente.MinimumWidth = 6;
+            this.nombrecliente.Name = "nombrecliente";
+            this.nombrecliente.Visible = false;
+            this.nombrecliente.Width = 145;
+            // 
+            // idcliente
+            // 
+            this.idcliente.HeaderText = "Id Cliente";
+            this.idcliente.MinimumWidth = 6;
+            this.idcliente.Name = "idcliente";
+            this.idcliente.Visible = false;
+            this.idcliente.Width = 104;
+            // 
+            // Tipo
+            // 
+            this.Tipo.HeaderText = "Tipo Factura";
+            this.Tipo.MinimumWidth = 6;
+            this.Tipo.Name = "Tipo";
+            this.Tipo.Width = 127;
+            // 
+            // idEm
+            // 
+            this.idEm.HeaderText = "Id Empleado";
+            this.idEm.MinimumWidth = 6;
+            this.idEm.Name = "idEm";
+            this.idEm.Visible = false;
+            this.idEm.Width = 124;
+            // 
+            // idp
+            // 
+            this.idp.HeaderText = "Id Producto";
+            this.idp.MinimumWidth = 6;
+            this.idp.Name = "idp";
+            this.idp.ReadOnly = true;
+            this.idp.Visible = false;
+            this.idp.Width = 120;
+            // 
+            // can
+            // 
+            this.can.HeaderText = "Cantidad";
+            this.can.MinimumWidth = 6;
+            this.can.Name = "can";
+            this.can.ReadOnly = true;
+            this.can.Width = 101;
+            // 
+            // descripcion
+            // 
+            this.descripcion.HeaderText = "Descripcion Producto";
+            this.descripcion.MinimumWidth = 6;
+            this.descripcion.Name = "descripcion";
+            this.descripcion.Width = 190;
+            // 
+            // pre
+            // 
+            this.pre.HeaderText = "Precio Por Unidad";
+            this.pre.MinimumWidth = 6;
+            this.pre.Name = "pre";
+            this.pre.ReadOnly = true;
+            this.pre.Width = 164;
+            // 
+            // igv
+            // 
+            this.igv.HeaderText = "ITBIS";
+            this.igv.MinimumWidth = 6;
+            this.igv.Name = "igv";
+            this.igv.Width = 75;
+            // 
+            // subtotal
+            // 
+            this.subtotal.HeaderText = "Sub-total";
+            this.subtotal.MinimumWidth = 6;
+            this.subtotal.Name = "subtotal";
+            this.subtotal.Width = 102;
+            // 
+            // restante
+            // 
+            this.restante.HeaderText = "Restante";
+            this.restante.MinimumWidth = 6;
+            this.restante.Name = "restante";
+            // 
+            // total
+            // 
+            this.total.HeaderText = "Total";
+            this.total.MinimumWidth = 6;
+            this.total.Name = "total";
+            this.total.Width = 74;
+            // 
+            // fecha
+            // 
+            // 
+            // 
+            // 
+            this.fecha.BackgroundStyle.Class = "DataGridViewDateTimeBorder";
+            this.fecha.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.fecha.HeaderText = "Fecha de Venta";
+            this.fecha.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
+            this.fecha.MinimumWidth = 6;
+            // 
+            // 
+            // 
+            this.fecha.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.fecha.MonthCalendar.BackgroundStyle.Class = "";
+            this.fecha.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.fecha.MonthCalendar.CommandsBackgroundStyle.Class = "";
+            this.fecha.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.fecha.MonthCalendar.DisplayMonth = new System.DateTime(2019, 7, 1, 0, 0, 0, 0);
+            this.fecha.MonthCalendar.MarkedDates = new System.DateTime[0];
+            this.fecha.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.fecha.MonthCalendar.NavigationBackgroundStyle.Class = "";
+            this.fecha.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.fecha.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
+            this.fecha.Name = "fecha";
+            this.fecha.Width = 145;
+            // 
+            // NCF
+            // 
+            this.NCF.HeaderText = "Tipo Comprobante";
+            this.NCF.MinimumWidth = 6;
+            this.NCF.Name = "NCF";
+            this.NCF.Width = 168;
+            // 
+            // nroComprobante
+            // 
+            this.nroComprobante.HeaderText = "Numero de Comprobante";
+            this.nroComprobante.MinimumWidth = 6;
+            this.nroComprobante.Name = "nroComprobante";
+            this.nroComprobante.Width = 212;
             // 
             // txtBuscarid
             // 
@@ -364,7 +512,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.BackColor = System.Drawing.Color.SeaGreen;
+            this.groupBox3.BackColor = System.Drawing.Color.RoyalBlue;
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.label11);
@@ -470,159 +618,11 @@
             this.label3.TabIndex = 112;
             this.label3.Text = "Listado de Ventas Realizadas";
             // 
-            // id
-            // 
-            this.id.HeaderText = "Id Venta";
-            this.id.MinimumWidth = 6;
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Width = 95;
-            // 
-            // nombrecliente
-            // 
-            this.nombrecliente.HeaderText = "Nombre Cliente";
-            this.nombrecliente.MinimumWidth = 6;
-            this.nombrecliente.Name = "nombrecliente";
-            this.nombrecliente.Visible = false;
-            this.nombrecliente.Width = 145;
-            // 
-            // idcliente
-            // 
-            this.idcliente.HeaderText = "Id Cliente";
-            this.idcliente.MinimumWidth = 6;
-            this.idcliente.Name = "idcliente";
-            this.idcliente.Visible = false;
-            this.idcliente.Width = 104;
-            // 
-            // Tipo
-            // 
-            this.Tipo.HeaderText = "Tipo Factura";
-            this.Tipo.MinimumWidth = 6;
-            this.Tipo.Name = "Tipo";
-            this.Tipo.Width = 127;
-            // 
-            // idEm
-            // 
-            this.idEm.HeaderText = "Id Empleado";
-            this.idEm.MinimumWidth = 6;
-            this.idEm.Name = "idEm";
-            this.idEm.Visible = false;
-            this.idEm.Width = 124;
-            // 
-            // idp
-            // 
-            this.idp.HeaderText = "Id Producto";
-            this.idp.MinimumWidth = 6;
-            this.idp.Name = "idp";
-            this.idp.ReadOnly = true;
-            this.idp.Visible = false;
-            this.idp.Width = 120;
-            // 
-            // can
-            // 
-            this.can.HeaderText = "Cantidad";
-            this.can.MinimumWidth = 6;
-            this.can.Name = "can";
-            this.can.ReadOnly = true;
-            this.can.Width = 101;
-            // 
-            // descripcion
-            // 
-            this.descripcion.HeaderText = "Descripcion Producto";
-            this.descripcion.MinimumWidth = 6;
-            this.descripcion.Name = "descripcion";
-            this.descripcion.Width = 190;
-            // 
-            // pre
-            // 
-            this.pre.HeaderText = "Precio Por Unidad";
-            this.pre.MinimumWidth = 6;
-            this.pre.Name = "pre";
-            this.pre.ReadOnly = true;
-            this.pre.Width = 164;
-            // 
-            // igv
-            // 
-            this.igv.HeaderText = "ITBIS";
-            this.igv.MinimumWidth = 6;
-            this.igv.Name = "igv";
-            this.igv.Width = 75;
-            // 
-            // subtotal
-            // 
-            this.subtotal.HeaderText = "Sub-total";
-            this.subtotal.MinimumWidth = 6;
-            this.subtotal.Name = "subtotal";
-            this.subtotal.Width = 102;
-            // 
-            // restante
-            // 
-            this.restante.HeaderText = "Restante";
-            this.restante.MinimumWidth = 6;
-            this.restante.Name = "restante";
-            // 
-            // total
-            // 
-            this.total.HeaderText = "Total";
-            this.total.MinimumWidth = 6;
-            this.total.Name = "total";
-            this.total.Width = 74;
-            // 
-            // fecha
-            // 
-            // 
-            // 
-            // 
-            this.fecha.BackgroundStyle.Class = "DataGridViewDateTimeBorder";
-            this.fecha.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.fecha.HeaderText = "Fecha de Venta";
-            this.fecha.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
-            this.fecha.MinimumWidth = 6;
-            // 
-            // 
-            // 
-            this.fecha.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.fecha.MonthCalendar.BackgroundStyle.Class = "";
-            this.fecha.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.fecha.MonthCalendar.CommandsBackgroundStyle.Class = "";
-            this.fecha.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.fecha.MonthCalendar.DisplayMonth = new System.DateTime(2019, 7, 1, 0, 0, 0, 0);
-            this.fecha.MonthCalendar.MarkedDates = new System.DateTime[0];
-            this.fecha.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.fecha.MonthCalendar.NavigationBackgroundStyle.Class = "";
-            this.fecha.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.fecha.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
-            this.fecha.Name = "fecha";
-            this.fecha.Width = 145;
-            // 
-            // NCF
-            // 
-            this.NCF.HeaderText = "Tipo Comprobante";
-            this.NCF.MinimumWidth = 6;
-            this.NCF.Name = "NCF";
-            this.NCF.Width = 168;
-            // 
-            // nroComprobante
-            // 
-            this.nroComprobante.HeaderText = "Numero de Comprobante";
-            this.nroComprobante.MinimumWidth = 6;
-            this.nroComprobante.Name = "nroComprobante";
-            this.nroComprobante.Width = 212;
-            // 
             // frmListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
+            this.BackColor = System.Drawing.Color.RoyalBlue;
             this.ClientSize = new System.Drawing.Size(1078, 690);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox3);
