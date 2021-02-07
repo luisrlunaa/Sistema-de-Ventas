@@ -391,29 +391,35 @@ namespace Capa_de_Presentacion
 			{
 				var precioventa = Convert.ToDecimal(txtPVenta.Text);
 				var preciominimo = Convert.ToDecimal(txtpmax.Text);
-				var preciomaximo  = Convert.ToDecimal(txtpmin.Text);
+				var preciomaximo = Convert.ToDecimal(txtpmin.Text);
 
-				if (precioventa  < preciomaximo)
+				if (preciominimo > 0 && preciomaximo > 0)
 				{
-					if (precioventa  > preciominimo)
+					if (precioventa < preciomaximo)
 					{
-						agregarproductoGrid();
+						if (precioventa > preciominimo)
+						{
+							agregarproductoGrid();
+						}
+						else
+						{
+							MessageBox.Show("El precio minimo de Venta de este Producto es: " + preciominimo);
+						}
 					}
 					else
 					{
-						MessageBox.Show("El precio minimo de Venta de este Producto es: " + preciominimo);
+						MessageBox.Show("El precio maximo de Venta de este Producto es: " + preciomaximo);
 					}
 				}
 				else
-                {
-					MessageBox.Show("El precio maximo de Venta de este Producto es: " + preciomaximo);
+				{
+					agregarproductoGrid();
 				}
 			}
 			else
-            {
+			{
 				agregarproductoGrid();
 			}
-	
 		}
 		private void LlenarGri() {
             Decimal SumaSubTotal = 0; Decimal SumaIgv=0; Decimal SumaTotal=0;
