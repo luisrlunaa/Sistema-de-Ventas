@@ -272,7 +272,7 @@ namespace Capa_de_Presentacion
 				doc.Add(new Paragraph(chunk));
 				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("Reporte Especifico de Ventas Realizadas"));
-				doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString()));
+				doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + ", " + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("                       "));
 				GenerarDocumento1(doc);
 				doc.AddCreationDate();
@@ -327,6 +327,8 @@ namespace Capa_de_Presentacion
 				doc.Add(new Paragraph("                       "));
 				GenerarDocumento(doc);
 				doc.AddCreationDate();
+				doc.Add(new Paragraph("                       "));
+				doc.Add(new Paragraph("Reporte Especifico de Ventas Realizadas"));
 				GenerarDocumento1(doc);
 				doc.Add(new Paragraph("                       "));
 				doc.Add(new Paragraph("Total de Ventas      : " + txtTtal.Text));
