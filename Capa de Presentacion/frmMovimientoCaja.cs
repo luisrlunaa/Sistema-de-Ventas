@@ -204,58 +204,18 @@ namespace Capa_de_Presentacion
 				Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
 			}
 		}
-		public void GenerarDocumentogastos(Document document)
-		{
-			int i, j;
-			PdfPTable datatable = new PdfPTable(dataGridView2.ColumnCount);
-			datatable.DefaultCell.Padding = 3;
-			float[] headerwidths = GetTamañoColumnasgastos(dataGridView2);
-			datatable.SetWidths(headerwidths);
-			datatable.WidthPercentage = 100;
-			datatable.DefaultCell.BorderWidth = 1;
-			datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
-			for (i = 0; i < dataGridView2.ColumnCount; i++)
-			{
-				datatable.AddCell(dataGridView2.Columns[i].HeaderText);
-			}
-			datatable.HeaderRows = 1;
-			datatable.DefaultCell.BorderWidth = 1;
-			for (i = 0; i < dataGridView2.Rows.Count; i++)
-			{
-				for (j = 0; j < dataGridView2.Columns.Count; j++)
-				{
-					if (dataGridView2[j, i].Value != null)
-					{
-						datatable.AddCell(new Phrase(dataGridView2[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
-					}
-				}
-				datatable.CompleteRow();
-			}
-			document.Add(datatable);
-		}
-		public float[] GetTamañoColumnasgastos(DataGridView dg)
-		{
-			float[] values = new float[dg.ColumnCount];
-			for (int i = 0; i < dg.ColumnCount; i++)
-			{
-				values[i] = (float)dg.Columns[i].Width;
-			}
-			return values;
-		}
-
 		public void GenerarDocumento(Document document)
 		{
 			int i, j;
 			PdfPTable datatable = new PdfPTable(dataGridView1.ColumnCount);
-			datatable.DefaultCell.Padding = 3;
 			float[] headerwidths = GetTamañoColumnas(dataGridView1);
 			datatable.SetWidths(headerwidths);
 			datatable.WidthPercentage = 100;
 			datatable.DefaultCell.BorderWidth = 1;
-			datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+			datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
 			for (i = 0; i < dataGridView1.ColumnCount; i++)
 			{
-				datatable.AddCell(dataGridView1.Columns[i].HeaderText);
+				datatable.AddCell(new Phrase(dataGridView1.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
 			}
 			datatable.HeaderRows = 1;
 			datatable.DefaultCell.BorderWidth = 1;
@@ -265,7 +225,35 @@ namespace Capa_de_Presentacion
 				{
 					if (dataGridView1[j, i].Value != null)
 					{
-						datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+						datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+					}
+				}
+				datatable.CompleteRow();
+			}
+			document.Add(datatable);
+		}
+		public void GenerarDocumentogastos(Document document)
+		{
+			int i, j;
+			PdfPTable datatable = new PdfPTable(dataGridView2.ColumnCount);
+			float[] headerwidths = GetTamañoColumnas(dataGridView2);
+			datatable.SetWidths(headerwidths);
+			datatable.WidthPercentage = 100;
+			datatable.DefaultCell.BorderWidth = 1;
+			datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
+			for (i = 0; i < dataGridView2.ColumnCount; i++)
+			{
+				datatable.AddCell(new Phrase(dataGridView2.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
+			}
+			datatable.HeaderRows = 1;
+			datatable.DefaultCell.BorderWidth = 1;
+			for (i = 0; i < dataGridView2.Rows.Count; i++)
+			{
+				for (j = 0; j < dataGridView2.Columns.Count; j++)
+				{
+					if (dataGridView2[j, i].Value != null)
+					{
+						datatable.AddCell(new Phrase(dataGridView2[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
 					}
 				}
 				datatable.CompleteRow();
