@@ -279,7 +279,7 @@ namespace Capa_de_Presentacion
                         caracterActual += 20;
                     }
 
-                    linea.AppendLine(articulo.Substring(caracterActual, articulo.Length - caracterActual));\
+                    linea.AppendLine(articulo.Substring(caracterActual, articulo.Length - caracterActual));
 
                     for (int longitudTexto = imei.Length; longitudTexto > 24; longitudTexto -= 24)
                     {
