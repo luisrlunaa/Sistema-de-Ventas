@@ -223,10 +223,10 @@ namespace Capa_de_Presentacion
         }
 
         // agregar los articulos a la factura
-        public void AgregaArticulo(string articulo, int cant, decimal precio, decimal importe)
+        public void AgregaArticulo(string articulo, int cant, decimal precio, decimal importe, string imei)
         {
             // valida que cant precio e importe esten dentro del rango
-            if (cant.ToString().Length <= 7 && precio.ToString().Length <= 12 && importe.ToString().Length <= 8)
+            if (cant.ToString().Length <= 5 && precio.ToString().Length <= 12 && importe.ToString().Length <= 8)
             {
                 string elemento = "", espacios = "";
                 bool bandera = false;
