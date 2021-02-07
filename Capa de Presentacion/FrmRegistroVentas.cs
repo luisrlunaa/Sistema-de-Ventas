@@ -1034,15 +1034,14 @@ namespace Capa_de_Presentacion
 		{
 			int i, j;
 			PdfPTable datatable = new PdfPTable(dgvVenta.ColumnCount);
-			datatable.DefaultCell.Padding = 3;
 			float[] headerwidths = GetTamañoColumnas(dgvVenta);
 			datatable.SetWidths(headerwidths);
 			datatable.WidthPercentage = 100;
 			datatable.DefaultCell.BorderWidth = 1;
-			datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+			datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
 			for (i = 0; i < dgvVenta.ColumnCount; i++)
 			{
-				datatable.AddCell(dgvVenta.Columns[i].HeaderText);
+				datatable.AddCell(new Phrase(dgvVenta.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
 			}
 			datatable.HeaderRows = 1;
 			datatable.DefaultCell.BorderWidth = 1;
@@ -1052,13 +1051,14 @@ namespace Capa_de_Presentacion
 				{
 					if (dgvVenta[j, i].Value != null)
 					{
-						datatable.AddCell(new Phrase(dgvVenta[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+						datatable.AddCell(new Phrase(dgvVenta[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
 					}
 				}
 				datatable.CompleteRow();
 			}
 			document.Add(datatable);
 		}
+
 		public float[] GetTamañoColumnas(DataGridView dg)
 		{
 			float[] values = new float[dg.ColumnCount];
