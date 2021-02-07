@@ -279,7 +279,22 @@ namespace Capa_de_Presentacion
                         caracterActual += 20;
                     }
 
-                    linea.AppendLine(articulo.Substring(caracterActual, articulo.Length - caracterActual));
+                    linea.AppendLine(articulo.Substring(caracterActual, articulo.Length - caracterActual));\
+
+                    for (int longitudTexto = imei.Length; longitudTexto > 24; longitudTexto -= 24)
+                    {
+                        if (bandera == false)
+                        {
+                            linea.AppendLine(imei.Substring(caracterActual, 24) + elemento);
+                            bandera = true;
+                        }
+                        else//-----------------------
+
+                            linea.AppendLine(imei.Substring(caracterActual, 24));
+                        caracterActual += 20;
+                    }
+
+                    linea.AppendLine(imei.Substring(caracterActual, imei.Length - caracterActual));
                 }
                 else
                 {
@@ -288,6 +303,12 @@ namespace Capa_de_Presentacion
                         espacios += " ";
                     }
                     elemento = articulo + espacios;
+
+                    for (int i = 0; i < (20 - imei.Length); i++)
+                    {
+                        espacios += " ";
+                    }
+                    elemento = imei + espacios;
 
                     //colocar la cantidad a la derecha
                     nroEspacios = (5 - cant.ToString().Length);
