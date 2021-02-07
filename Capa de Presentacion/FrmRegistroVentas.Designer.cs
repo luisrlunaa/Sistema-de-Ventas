@@ -82,13 +82,6 @@
             this.txtidCli = new System.Windows.Forms.TextBox();
             this.txtIdV = new System.Windows.Forms.TextBox();
             this.dgvVenta = new System.Windows.Forms.DataGridView();
-            this.IdD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescripcionP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidadP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecioU = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IGV = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubtoTal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dtpFf = new System.Windows.Forms.DateTimePicker();
@@ -123,6 +116,16 @@
             this.btnEliminarItem = new System.Windows.Forms.Button();
             this.btnRegistrarVenta = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.txtImei = new System.Windows.Forms.TextBox();
+            this.IMEI = new System.Windows.Forms.Label();
+            this.IdD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescripcionP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidadP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecioU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IGV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubtoTal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ImeiC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -334,6 +337,8 @@
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox4.Controls.Add(this.IMEI);
+            this.groupBox4.Controls.Add(this.txtImei);
             this.groupBox4.Controls.Add(this.txtIgv);
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.btnBusquedaProducto);
@@ -354,7 +359,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(861, 118);
+            this.groupBox4.Size = new System.Drawing.Size(861, 147);
             this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Producto";
@@ -595,7 +600,7 @@
             this.lblsubt.AutoSize = true;
             this.lblsubt.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblsubt.ForeColor = System.Drawing.Color.White;
-            this.lblsubt.Location = new System.Drawing.Point(383, 682);
+            this.lblsubt.Location = new System.Drawing.Point(383, 710);
             this.lblsubt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblsubt.Name = "lblsubt";
             this.lblsubt.Size = new System.Drawing.Size(25, 23);
@@ -607,7 +612,7 @@
             this.lbligv.AutoSize = true;
             this.lbligv.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbligv.ForeColor = System.Drawing.Color.White;
-            this.lbligv.Location = new System.Drawing.Point(559, 682);
+            this.lbligv.Location = new System.Drawing.Point(559, 710);
             this.lbligv.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbligv.Name = "lbligv";
             this.lbligv.Size = new System.Drawing.Size(25, 23);
@@ -619,7 +624,7 @@
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.White;
-            this.label15.Location = new System.Drawing.Point(653, 682);
+            this.label15.Location = new System.Drawing.Point(653, 710);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(61, 23);
@@ -631,7 +636,7 @@
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.White;
-            this.label16.Location = new System.Drawing.Point(270, 682);
+            this.label16.Location = new System.Drawing.Point(270, 710);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(95, 23);
@@ -643,7 +648,7 @@
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.White;
-            this.label17.Location = new System.Drawing.Point(494, 682);
+            this.label17.Location = new System.Drawing.Point(494, 710);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(62, 23);
@@ -744,7 +749,8 @@
             this.cantidadP,
             this.PrecioU,
             this.IGV,
-            this.SubtoTal});
+            this.SubtoTal,
+            this.ImeiC});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightSteelBlue;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -755,7 +761,7 @@
             this.dgvVenta.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvVenta.EnableHeadersVisualStyles = false;
             this.dgvVenta.GridColor = System.Drawing.Color.MidnightBlue;
-            this.dgvVenta.Location = new System.Drawing.Point(17, 463);
+            this.dgvVenta.Location = new System.Drawing.Point(17, 491);
             this.dgvVenta.Margin = new System.Windows.Forms.Padding(0);
             this.dgvVenta.Name = "dgvVenta";
             this.dgvVenta.ReadOnly = true;
@@ -778,62 +784,6 @@
             this.dgvVenta.Size = new System.Drawing.Size(861, 217);
             this.dgvVenta.TabIndex = 43;
             this.dgvVenta.Click += new System.EventHandler(this.dgvVenta_Click);
-            // 
-            // IdD
-            // 
-            this.IdD.FillWeight = 78.35892F;
-            this.IdD.HeaderText = "ID Venta";
-            this.IdD.MinimumWidth = 25;
-            this.IdD.Name = "IdD";
-            this.IdD.ReadOnly = true;
-            // 
-            // IDP
-            // 
-            this.IDP.HeaderText = "IDP";
-            this.IDP.MinimumWidth = 10;
-            this.IDP.Name = "IDP";
-            this.IDP.ReadOnly = true;
-            this.IDP.Visible = false;
-            // 
-            // DescripcionP
-            // 
-            this.DescripcionP.FillWeight = 127.5433F;
-            this.DescripcionP.HeaderText = "Descripcion";
-            this.DescripcionP.MinimumWidth = 60;
-            this.DescripcionP.Name = "DescripcionP";
-            this.DescripcionP.ReadOnly = true;
-            // 
-            // cantidadP
-            // 
-            this.cantidadP.FillWeight = 80.21391F;
-            this.cantidadP.HeaderText = "Cantidad";
-            this.cantidadP.MinimumWidth = 25;
-            this.cantidadP.Name = "cantidadP";
-            this.cantidadP.ReadOnly = true;
-            // 
-            // PrecioU
-            // 
-            this.PrecioU.FillWeight = 113.4559F;
-            this.PrecioU.HeaderText = "Precio";
-            this.PrecioU.MinimumWidth = 35;
-            this.PrecioU.Name = "PrecioU";
-            this.PrecioU.ReadOnly = true;
-            // 
-            // IGV
-            // 
-            this.IGV.FillWeight = 72.88459F;
-            this.IGV.HeaderText = "ITBIS";
-            this.IGV.MinimumWidth = 20;
-            this.IGV.Name = "IGV";
-            this.IGV.ReadOnly = true;
-            // 
-            // SubtoTal
-            // 
-            this.SubtoTal.FillWeight = 127.5433F;
-            this.SubtoTal.HeaderText = "Importe";
-            this.SubtoTal.MinimumWidth = 30;
-            this.SubtoTal.Name = "SubtoTal";
-            this.SubtoTal.ReadOnly = true;
             // 
             // groupBox2
             // 
@@ -1087,7 +1037,7 @@
             this.txttotal.AutoSize = true;
             this.txttotal.Font = new System.Drawing.Font("Open Sans", 10.2F);
             this.txttotal.ForeColor = System.Drawing.Color.White;
-            this.txttotal.Location = new System.Drawing.Point(721, 682);
+            this.txttotal.Location = new System.Drawing.Point(721, 710);
             this.txttotal.Name = "txttotal";
             this.txttotal.Size = new System.Drawing.Size(25, 23);
             this.txttotal.TabIndex = 92;
@@ -1130,7 +1080,7 @@
             this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_dinero_24;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(563, 711);
+            this.button2.Location = new System.Drawing.Point(563, 739);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(199, 39);
@@ -1151,7 +1101,7 @@
             this.btnImprimir.ForeColor = System.Drawing.Color.Black;
             this.btnImprimir.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
             this.btnImprimir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImprimir.Location = new System.Drawing.Point(563, 711);
+            this.btnImprimir.Location = new System.Drawing.Point(563, 739);
             this.btnImprimir.Margin = new System.Windows.Forms.Padding(4);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(199, 39);
@@ -1172,7 +1122,7 @@
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_limpiar;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(251, 711);
+            this.button1.Location = new System.Drawing.Point(251, 739);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(128, 39);
@@ -1204,7 +1154,7 @@
             this.btnEliminarItem.ForeColor = System.Drawing.Color.Black;
             this.btnEliminarItem.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_eliminar;
             this.btnEliminarItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEliminarItem.Location = new System.Drawing.Point(387, 711);
+            this.btnEliminarItem.Location = new System.Drawing.Point(387, 739);
             this.btnEliminarItem.Margin = new System.Windows.Forms.Padding(4);
             this.btnEliminarItem.Name = "btnEliminarItem";
             this.btnEliminarItem.Size = new System.Drawing.Size(167, 39);
@@ -1225,7 +1175,7 @@
             this.btnRegistrarVenta.ForeColor = System.Drawing.Color.Black;
             this.btnRegistrarVenta.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_dinero_24;
             this.btnRegistrarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRegistrarVenta.Location = new System.Drawing.Point(563, 711);
+            this.btnRegistrarVenta.Location = new System.Drawing.Point(563, 739);
             this.btnRegistrarVenta.Margin = new System.Windows.Forms.Padding(4);
             this.btnRegistrarVenta.Name = "btnRegistrarVenta";
             this.btnRegistrarVenta.Size = new System.Drawing.Size(199, 39);
@@ -1246,7 +1196,7 @@
             this.btnSalir.ForeColor = System.Drawing.Color.Black;
             this.btnSalir.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_recibir_efectivo;
             this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSalir.Location = new System.Drawing.Point(770, 711);
+            this.btnSalir.Location = new System.Drawing.Point(770, 739);
             this.btnSalir.Margin = new System.Windows.Forms.Padding(4);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(111, 39);
@@ -1256,12 +1206,98 @@
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
+            // txtImei
+            // 
+            this.txtImei.BackColor = System.Drawing.Color.White;
+            this.txtImei.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtImei.ForeColor = System.Drawing.Color.Black;
+            this.txtImei.Location = new System.Drawing.Point(125, 115);
+            this.txtImei.Margin = new System.Windows.Forms.Padding(4);
+            this.txtImei.Name = "txtImei";
+            this.txtImei.Size = new System.Drawing.Size(411, 25);
+            this.txtImei.TabIndex = 14;
+            this.txtImei.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // IMEI
+            // 
+            this.IMEI.AutoSize = true;
+            this.IMEI.ForeColor = System.Drawing.Color.White;
+            this.IMEI.Location = new System.Drawing.Point(14, 117);
+            this.IMEI.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.IMEI.Name = "IMEI";
+            this.IMEI.Size = new System.Drawing.Size(42, 19);
+            this.IMEI.TabIndex = 15;
+            this.IMEI.Text = "IMEI:";
+            // 
+            // IdD
+            // 
+            this.IdD.FillWeight = 78.35892F;
+            this.IdD.HeaderText = "ID Venta";
+            this.IdD.MinimumWidth = 25;
+            this.IdD.Name = "IdD";
+            this.IdD.ReadOnly = true;
+            // 
+            // IDP
+            // 
+            this.IDP.HeaderText = "IDP";
+            this.IDP.MinimumWidth = 10;
+            this.IDP.Name = "IDP";
+            this.IDP.ReadOnly = true;
+            this.IDP.Visible = false;
+            // 
+            // DescripcionP
+            // 
+            this.DescripcionP.FillWeight = 127.5433F;
+            this.DescripcionP.HeaderText = "Descripcion";
+            this.DescripcionP.MinimumWidth = 60;
+            this.DescripcionP.Name = "DescripcionP";
+            this.DescripcionP.ReadOnly = true;
+            // 
+            // cantidadP
+            // 
+            this.cantidadP.FillWeight = 80.21391F;
+            this.cantidadP.HeaderText = "Cantidad";
+            this.cantidadP.MinimumWidth = 25;
+            this.cantidadP.Name = "cantidadP";
+            this.cantidadP.ReadOnly = true;
+            // 
+            // PrecioU
+            // 
+            this.PrecioU.FillWeight = 113.4559F;
+            this.PrecioU.HeaderText = "Precio";
+            this.PrecioU.MinimumWidth = 35;
+            this.PrecioU.Name = "PrecioU";
+            this.PrecioU.ReadOnly = true;
+            // 
+            // IGV
+            // 
+            this.IGV.FillWeight = 72.88459F;
+            this.IGV.HeaderText = "ITBIS";
+            this.IGV.MinimumWidth = 20;
+            this.IGV.Name = "IGV";
+            this.IGV.ReadOnly = true;
+            // 
+            // SubtoTal
+            // 
+            this.SubtoTal.FillWeight = 127.5433F;
+            this.SubtoTal.HeaderText = "Importe";
+            this.SubtoTal.MinimumWidth = 30;
+            this.SubtoTal.Name = "SubtoTal";
+            this.SubtoTal.ReadOnly = true;
+            // 
+            // ImeiC
+            // 
+            this.ImeiC.HeaderText = "IMEI";
+            this.ImeiC.MinimumWidth = 6;
+            this.ImeiC.Name = "ImeiC";
+            this.ImeiC.ReadOnly = true;
+            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Firebrick;
-            this.ClientSize = new System.Drawing.Size(902, 762);
+            this.ClientSize = new System.Drawing.Size(902, 801);
             this.Controls.Add(this.txtpmin);
             this.Controls.Add(this.txtpmax);
             this.Controls.Add(this.label19);
@@ -1411,13 +1447,6 @@
         public System.Windows.Forms.Button btnRegistrarVenta;
         private System.Windows.Forms.CheckBox chkComprobante;
         public System.Windows.Forms.Label txttotal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdD;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IDP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DescripcionP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cantidadP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrecioU;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IGV;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubtoTal;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox cbidentificacion;
         public System.Windows.Forms.Label label19;
@@ -1425,5 +1454,15 @@
         public System.Windows.Forms.TextBox txtIgv;
         private System.Windows.Forms.TextBox txtpmin;
         private System.Windows.Forms.TextBox txtpmax;
+        private System.Windows.Forms.Label IMEI;
+        private System.Windows.Forms.TextBox txtImei;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DescripcionP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cantidadP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrecioU;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IGV;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubtoTal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ImeiC;
     }
 }

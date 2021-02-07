@@ -348,6 +348,11 @@ namespace Capa_de_Presentacion
 
 							V.PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
 
+							if(txtImei.Text!="")
+                            {
+								V.imei = txtImei.Text;
+                            }
+
 							V.SubTotal = Math.Round((Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text)) * Convert.ToInt32(txtCantidad.Text), 2);
 							btnAgregar.Visible = false;
 							lst.Add(V);
@@ -434,7 +439,8 @@ namespace Capa_de_Presentacion
 				dgvVenta.Rows[i].Cells["PrecioU"].Value = lst[i].PrecioVenta;
                 dgvVenta.Rows[i].Cells["SubtoTal"].Value = lst[i].SubTotal;
                 dgvVenta.Rows[i].Cells["IDP"].Value = lst[i].IdProducto;
-				
+				dgvVenta.Rows[i].Cells["ImeiC"].Value = lst[i].imei;
+
 				SumaSubTotal += Convert.ToDecimal(dgvVenta.Rows[i].Cells["SubtoTal"].Value);
                 SumaIgv += Convert.ToDecimal(dgvVenta.Rows[i].Cells["IGV"].Value);
 				SumaTotal =Math.Round(SumaSubTotal,2);
@@ -452,7 +458,9 @@ namespace Capa_de_Presentacion
             txtCantidad.Clear();
             txtCantidad.Focus();
 			txtIgv.Clear();
+			txtImei.Clear();
 			txtIgv.Text = "";
+			txtImei.Text = "";
 			Program.Descripcion = "";
             Program.Stock = 0;
             Program.Marca = "";
@@ -575,7 +583,6 @@ namespace Capa_de_Presentacion
 					{
 						cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = 0;
 					}
-
 					cmd.Parameters.Add("@Serie", SqlDbType.Int).Value = Convert.ToInt32(txtid.Text);
 					cmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = txtNCF.Text;
 					cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
@@ -601,6 +608,7 @@ namespace Capa_de_Presentacion
 						cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
 						cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IDP"].Value);
 						cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
+						cmd1.Parameters.Add("@imei", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["ImeiC"].Value);
 
 						con.Open();
 						cmd1.ExecuteNonQuery();
@@ -797,6 +805,10 @@ namespace Capa_de_Presentacion
 
 			//ARTICULOS A VENDER.
 			ticket.EncabezadoVenta();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
+			if (txtImei.Text != null || txtImei.Text != "")
+			{
+				ticket.TextoIzquierda("IMEI del Producto: " + txtImei.Text);
+			}
 			ticket.lineasGuio();
 			//SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
 			foreach (DataGridViewRow fila in dgvVenta.Rows)
@@ -1004,6 +1016,10 @@ namespace Capa_de_Presentacion
 				doc.Add(new Paragraph("Numero de Comprobante: " + txtNCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+				if(txtImei.Text !=null || txtImei.Text != "")
+				{
+					doc.Add(new Paragraph("IMEI del Producto: " + txtImei.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+				}
 				doc.Add(new Paragraph(" "));
 				GenerarDocumento(doc);
 				doc.AddCreationDate();
