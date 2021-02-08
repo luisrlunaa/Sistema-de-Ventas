@@ -68,6 +68,7 @@ namespace Capa_de_Presentacion
 
                 tienefila = true;
             }
+            con.Close();
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -160,6 +161,7 @@ namespace Capa_de_Presentacion
             if (leer.Read() == true)
             {
                 idCaja = leer["id_caja"].ToString();
+                Cx.conexion.Close();
             }
             Cx.conexion.Close();
         }
@@ -217,6 +219,7 @@ namespace Capa_de_Presentacion
        
                     Cx.conexion.Close();
                 }
+
                 Cx.conexion.Close();
             }
 		}
