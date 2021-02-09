@@ -949,9 +949,9 @@ namespace Capa_de_Presentacion
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             Image image1 = Image.GetInstance("LogoCepeda.png");
-            image1.ScaleAbsoluteWidth(100);
-            image1.ScaleAbsoluteHeight(50);
-            saveFileDialog1.InitialDirectory = @"C:";
+            image1.ScaleAbsoluteWidth(140);
+            image1.ScaleAbsoluteHeight(70);
+			saveFileDialog1.InitialDirectory = @"C:";
 			saveFileDialog1.Title = "Factura para " + txtDatos.Text;
 			saveFileDialog1.DefaultExt = "pdf";
 			saveFileDialog1.Filter = "pdf Files (*.pdf)|*.pdf| All Files (*.*)|*.*";
@@ -992,11 +992,22 @@ namespace Capa_de_Presentacion
 					cedula = txtDocIdentidad.Text;
 				}
 
-				doc.Add(new Paragraph("                                                                                                                                                                                                                 " + envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC)));
+				var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+
+				fecha.Alignment = Element.ALIGN_RIGHT;
+				doc.Add(fecha);
+				image1.Alignment = Image.TEXTWRAP | Image.ALIGN_CENTER;
 				doc.Add(image1);
-				doc.Add(new Paragraph(chunk));
-				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
-				doc.Add(new Paragraph("Tel: " + lblTel1.Text + " / " + lblTel2.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+				var chuckalign= new Paragraph(chunk);
+				chuckalign.Alignment = Element.ALIGN_CENTER;
+				doc.Add(chuckalign);
+				var ubicacionalign = new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL));
+				ubicacionalign.Alignment = Element.ALIGN_CENTER;
+				doc.Add(ubicacionalign);
+				var telefonos = new Paragraph("Tel: " + lblTel1.Text + " / " + lblTel2.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL));
+				telefonos.Alignment = Element.ALIGN_CENTER;
+				doc.Add(telefonos);
+
 				doc.Add(new Paragraph(" "));
 				doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("Tipo de Factura: "  + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
@@ -1050,7 +1061,7 @@ namespace Capa_de_Presentacion
 				{
 					if (dgvVenta[j, i].Value != null)
 					{
-						datatable.AddCell(new Phrase(dgvVenta[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+						datatable.AddCell(new Phrase(dgvVenta[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
 					}
 				}
 				datatable.CompleteRow();

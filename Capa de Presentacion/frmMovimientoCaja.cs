@@ -154,8 +154,8 @@ namespace Capa_de_Presentacion
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
-			image1.ScaleAbsoluteWidth(100);
-			image1.ScaleAbsoluteHeight(50);
+			image1.ScaleAbsoluteWidth(140);
+			image1.ScaleAbsoluteHeight(70);
 			saveFileDialog1.InitialDirectory = @"C:";
 			saveFileDialog1.Title = "Guardar Reporte";
 			saveFileDialog1.DefaultExt = "pdf";
@@ -225,7 +225,7 @@ namespace Capa_de_Presentacion
 				{
 					if (dataGridView1[j, i].Value != null)
 					{
-						datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+						datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
 					}
 				}
 				datatable.CompleteRow();
@@ -253,7 +253,7 @@ namespace Capa_de_Presentacion
 				{
 					if (dataGridView2[j, i].Value != null)
 					{
-						datatable.AddCell(new Phrase(dataGridView2[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+						datatable.AddCell(new Phrase(dataGridView2[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
 					}
 				}
 				datatable.CompleteRow();

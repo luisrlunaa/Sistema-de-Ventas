@@ -240,8 +240,8 @@ namespace Capa_de_Presentacion
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
-			image1.ScaleAbsoluteWidth(100);
-			image1.ScaleAbsoluteHeight(50);
+			image1.ScaleAbsoluteWidth(140);
+			image1.ScaleAbsoluteHeight(70);
 			saveFileDialog1.InitialDirectory = @"C:";
 			saveFileDialog1.Title = "Guardar Reporte";
 			saveFileDialog1.DefaultExt = "pdf";
@@ -267,10 +267,19 @@ namespace Capa_de_Presentacion
 				string envio = "Fecha : " + DateTime.Now.ToString();
 
 				Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
-				doc.Add(new Paragraph("                                                                                                                                                                                                                                                     " + envio, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC)));
+				var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+
+				fecha.Alignment = Element.ALIGN_RIGHT;
+				doc.Add(fecha);
+				image1.Alignment = Image.TEXTWRAP | Image.ALIGN_CENTER;
 				doc.Add(image1);
-				doc.Add(new Paragraph(chunk));
-				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
+				var chuckalign = new Paragraph(chunk);
+				chuckalign.Alignment = Element.ALIGN_CENTER;
+				doc.Add(chuckalign);
+				var ubicacionalign = new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL));
+				ubicacionalign.Alignment = Element.ALIGN_CENTER;
+				doc.Add(ubicacionalign);
+
 				doc.Add(new Paragraph("Reporte Especifico de Ventas Realizadas"));
 				doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + ", " + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("                       "));
@@ -291,8 +300,8 @@ namespace Capa_de_Presentacion
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
-			image1.ScaleAbsoluteWidth(100);
-			image1.ScaleAbsoluteHeight(50);
+			image1.ScaleAbsoluteWidth(140);
+			image1.ScaleAbsoluteHeight(70);
 			saveFileDialog1.InitialDirectory = @"C:";
 			saveFileDialog1.Title = "Guardar Reporte";
 			saveFileDialog1.DefaultExt = "pdf";
@@ -318,10 +327,19 @@ namespace Capa_de_Presentacion
 				string envio = "Fecha : " + DateTime.Now.ToString();
 
 				Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
-				doc.Add(new Paragraph("                                                                                                                                                                                                                                                     " + envio, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC)));
+				var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+
+				fecha.Alignment = Element.ALIGN_RIGHT;
+				doc.Add(fecha);
+				image1.Alignment = Image.TEXTWRAP | Image.ALIGN_CENTER;
 				doc.Add(image1);
-				doc.Add(new Paragraph(chunk));
-				doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
+				var chuckalign = new Paragraph(chunk);
+				chuckalign.Alignment = Element.ALIGN_CENTER;
+				doc.Add(chuckalign);
+				var ubicacionalign = new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL));
+				ubicacionalign.Alignment = Element.ALIGN_CENTER;
+				doc.Add(ubicacionalign);
+
 				doc.Add(new Paragraph("Reporte de General de Ventas Realizadas"));
 				doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day+"/"+ dtpfecha1.Value.Month+"/"+ dtpfecha1.Value.Year).ToString() +", " +"Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("                       "));
@@ -364,7 +382,7 @@ namespace Capa_de_Presentacion
 				{
 					if (dataGridView3[j, i].Value != null)
 					{
-						datatable.AddCell(new Phrase(dataGridView3[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+						datatable.AddCell(new Phrase(dataGridView3[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
 					}
 				}
 				datatable.CompleteRow();
@@ -392,7 +410,7 @@ namespace Capa_de_Presentacion
 				{
 					if (dataGridView1[j, i].Value != null)
 					{
-						datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+						datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
 					}
 				}
 				datatable.CompleteRow();
