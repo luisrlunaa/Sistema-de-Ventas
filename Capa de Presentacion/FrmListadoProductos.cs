@@ -213,8 +213,10 @@ namespace Capa_de_Presentacion
 						dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
 						dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
 						dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
+						dataGridView1.Rows[renglon].Cells[11].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmax")));
+						dataGridView1.Rows[renglon].Cells[12].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmin")));
 
-						compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
+					compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
 						ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
 						totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
 						total = ventas - compras;
