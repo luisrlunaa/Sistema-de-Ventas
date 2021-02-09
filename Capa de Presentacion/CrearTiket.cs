@@ -11,7 +11,7 @@ namespace Capa_de_Presentacion
         private Image headerImage = null;
         //Creamos una variable para almacenar el numero maximo de caracteres que permitiremos en el ticket.
         int maxCar = 48, cortar;//Para una impresora ticketera que imprime a 40 columnas. La variable cortar cortara el texto cuando rebase el limte.
-      
+
         public Image HeaderImage
         {
             get { return headerImage; }
@@ -191,7 +191,7 @@ namespace Capa_de_Presentacion
         public void EncabezadoVenta()
         {
             //Escribimos los espacios para mostrar el articulo. En total tienen que ser 40 caracteres
-            linea.AppendLine("ARTICULOS             | CANT | PRECIO | IMPORTE");
+            linea.AppendLine("ARTICULOS            | CANT | PRECIO | IMPORTE");
         }
 
         //Metodo para agregar los totales d ela venta
@@ -230,14 +230,13 @@ namespace Capa_de_Presentacion
             {
                 string elemento = "", espacios = "";
                 bool bandera = false;
-                int nroEspacios = 0;
 
                 if (articulo.Length > 24)
                 {
                     //colocar la cantidad a la derecha
-                    nroEspacios = (7 - cant.ToString().Length);
+
                     espacios = "";
-                    for (int i = 0; i < nroEspacios; i++)
+                    for (int i = 0; i < 2; i++)
                     {
                         espacios += " ";
                     }
@@ -245,9 +244,9 @@ namespace Capa_de_Presentacion
                     elemento += espacios + cant.ToString();
 
                     //colocar el precio a la derecha.
-                    nroEspacios = (12 - precio.ToString().Length);
+
                     espacios = "";
-                    for (int i = 0; i < nroEspacios; i++)
+                    for (int i = 0; i < 3; i++)
                     {
                         espacios += " ";
                     }
@@ -256,9 +255,9 @@ namespace Capa_de_Presentacion
                     elemento += espacios + precio.ToString();
 
                     //colocar el importe a la derecha
-                    nroEspacios = (8 - importe.ToString().Length);
-                    espacios = " ";
-                    for (int i = 0; i < nroEspacios; i++)
+
+                    espacios = "";
+                    for (int i = 0; i < 3; i++)
                     {
                         espacios += " ";
                     }
@@ -283,16 +282,11 @@ namespace Capa_de_Presentacion
                 }
                 else
                 {
-                    for (int i = 0; i < (20 - articulo.Length); i++)
-                    {
-                        espacios += " ";
-                    }
-                    elemento = articulo + espacios;
+                    elemento = articulo;
 
                     //colocar la cantidad a la derecha
-                    nroEspacios = (5 - cant.ToString().Length);
-                    espacios = " ";
-                    for (int i = 0; i < nroEspacios; i++)
+                    espacios = "";
+                    for (int i = 0; i < 4; i++)
                     {
                         espacios += " ";
                     }
@@ -300,9 +294,8 @@ namespace Capa_de_Presentacion
                     elemento += espacios + cant.ToString();
 
                     //colocar el precio a la derecha
-                    nroEspacios = (7 - cant.ToString().Length);
-                    espacios = " ";
-                    for (int i = 0; i < nroEspacios; i++)
+                    espacios = "";
+                    for (int i = 0; i < 3; i++)
                     {
                         espacios += " ";
                     }
@@ -310,14 +303,14 @@ namespace Capa_de_Presentacion
                     elemento += espacios + precio.ToString();
 
                     //colocar el importe a la derecha
-                    nroEspacios = (8 - cant.ToString().Length);
-                    espacios = " ";
-                    for (int i = 0; i < nroEspacios; i++)
+                    espacios = "";
+                    for (int i = 0; i < 3; i++)
                     {
                         espacios += " ";
                     }
 
                     elemento += espacios + importe.ToString();
+
                     linea.AppendLine(elemento); // se agrega el elemento
                 }
             }
@@ -403,7 +396,7 @@ namespace Capa_de_Presentacion
 
             di.pDocName = "Ticket de Venta";//Este es el nombre con el que guarda el archivo en caso de no imprimir a la impresora fisica.
             di.pDataType = "RAW";//de tipo texto plano
-            //di.pOutputFile = "D:\\ticket.txt";
+                                 //di.pOutputFile = "D:\\ticket.txt";
 
             // Open the printer.
             if (OpenPrinter(szPrinterName.Normalize(), out hPrinter, IntPtr.Zero))
@@ -446,4 +439,5 @@ namespace Capa_de_Presentacion
             return true;
         }
     }
+
 }
