@@ -117,7 +117,7 @@ namespace Capa_de_Presentacion
 					FrmListadoProductos P = new FrmListadoProductos();
 					P.lblLogo.Text = lblLogo.Text;
 					P.lblDir.Text = lblDir.Text;
-					P.btnNuevo.Enabled = false;
+					P.btnNuevo.Enabled = true;
 					P.btnEditar.Enabled = false;
 					P.button2.Enabled = false;
 					P.Show();

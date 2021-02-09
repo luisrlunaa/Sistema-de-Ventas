@@ -106,7 +106,7 @@ namespace Capa_de_Presentacion
 			SqlDataReader dr;
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
-			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0), " +
+			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P,ISNULL(dbo.DetalleVenta.imei, 'Sin Imei') AS imei, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0), " +
 			"dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto, " +
 			"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
 			"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta " +
@@ -143,6 +143,7 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
 				dataGridView1.Rows[renglon].Cells["idcliente"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCliente")));
 				dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
+				dataGridView1.Rows[renglon].Cells["imei"].Value = dr.GetString(dr.GetOrdinal("imei"));
 
 				total += Convert.ToDouble(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
 
@@ -191,6 +192,7 @@ namespace Capa_de_Presentacion
 			Program.igv += Convert.ToDecimal(dataGridView1.CurrentRow.Cells["igv"].Value.ToString());
 			Program.fecha = dataGridView1.CurrentRow.Cells["fecha"].Value.ToString();
 			Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
+			Program.Imei = dataGridView1.CurrentRow.Cells["imei"].Value.ToString();
 
 			if (Program.tipo != "Credito")
 			{
@@ -347,7 +349,7 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0), " +
+			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P,ISNULL(dbo.DetalleVenta.imei, 'Sin Imei') AS imei, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0), " +
 			"dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto, " +
 			"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
 				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta " +
@@ -386,6 +388,7 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
 				dataGridView1.Rows[renglon].Cells["idcliente"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCliente")));
 				dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
+				dataGridView1.Rows[renglon].Cells["imei"].Value = dr.GetString(dr.GetOrdinal("imei"));
 
 				total += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
 

@@ -289,7 +289,9 @@ namespace Capa_de_Presentacion
 				con.ConnectionString = cadenaconexion;
 				comando.Connection = con;
 				//declaramos el comando para realizar la busqueda
-				comando.CommandText = "SELECT * from DetalleVenta WHERE IdVenta  like '%" + txtIdV.Text + "%'";
+				comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P,ISNULL(dbo.DetalleVenta.imei, 'Sin Imei') AS imei, dbo.DetalleVenta.SubTotal," +
+					"dbo.DetalleVenta.IdVenta, dbo.DetalleVenta.Cantidad,dbo.DetalleVenta.PrecioUnitario,dbo.DetalleVenta.idProducto,dbo.DetalleVenta.Igv" +
+					" from DetalleVenta WHERE IdVenta  like '%" + txtIdV.Text + "%'";
 				//especificamos que es de tipo Text
 				comando.CommandType = CommandType.Text;
 				//se abre la conexion
@@ -312,6 +314,7 @@ namespace Capa_de_Presentacion
 					dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
 					dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
 					dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+					dgvVenta.Rows[renglon].Cells["ImeiC"].Value = dr.GetString(dr.GetOrdinal("imei"));
 				}
 				con.Close();
 			}
@@ -352,6 +355,10 @@ namespace Capa_de_Presentacion
                             {
 								V.imei = txtImei.Text;
                             }
+							else
+                            {
+								V.imei = "Sin Imei";
+							}
 
 							V.SubTotal = Math.Round((Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text)) * Convert.ToInt32(txtCantidad.Text), 2);
 							btnAgregar.Visible = false;
@@ -803,14 +810,26 @@ namespace Capa_de_Presentacion
 			ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Text);
 			ticket.TextoIzquierda("Hora: " + DateTime.Now.ToShortTimeString());
 
+
+
 			//ARTICULOS A VENDER.
 			ticket.EncabezadoVenta();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
 			ticket.lineasGuio();
 			//SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
 			foreach (DataGridViewRow fila in dgvVenta.Rows)
 			{
+				var imeiproducto = "";
+				if ((fila.Cells["ImeiC"].Value.ToString()).Trim() is null)
+				{
+					imeiproducto = "Sin Imei";
+				}
+				else
+				{
+					imeiproducto = (fila.Cells["ImeiC"].Value.ToString()).Trim();
+				}
+
 				ticket.AgregaArticulo((fila.Cells["DescripcionP"].Value.ToString()).Trim(), int.Parse((fila.Cells["cantidadP"].Value.ToString()).Trim()),
-				decimal.Parse((fila.Cells["SubtoTal"].Value.ToString()).Trim()), decimal.Parse((fila.Cells["IGV"].Value.ToString()).Trim()), (fila.Cells["ImeiC"].Value.ToString()).Trim());
+				decimal.Parse((fila.Cells["SubtoTal"].Value.ToString()).Trim()), decimal.Parse((fila.Cells["IGV"].Value.ToString()).Trim()),imeiproducto);
 			}
 			ticket.TextoIzquierda(" ");
 			//resumen de la venta
@@ -820,22 +839,25 @@ namespace Capa_de_Presentacion
 			ticket.TextoCentro("__________________________________");
 
 			//TEXTO FINAL DEL TICKET
-			ticket.TextoIzquierda("EXTRA");
+			ticket.TextoIzquierda(" ");
+			ticket.TextoCentro("EXTRA");
 			ticket.TextoIzquierda("FAVOR REVISE SU MERCANCIA AL RECIBIRLA");
+			ticket.TextoIzquierda(" ");
+			ticket.TextoIzquierda("Los equipos tienen 30 dias de garantia, la misma aplica con la factura y el equipo encendido");
+			ticket.TextoIzquierda(" ");
+			ticket.TextoIzquierda("No hacemos devolucion de efectivo");
+			ticket.TextoIzquierda(" ");
+			ticket.TextoIzquierda("No cubrimos garantia de pantalla, touch, pin de carga o equipos mojados");
+			ticket.TextoIzquierda(" ");
+			ticket.TextoIzquierda("El Tiempo de espera en caso de inconvenientes es de 24 a 48 horas dias laborales");
+			ticket.TextoIzquierda(" ");
 			ticket.TextoCentro("!GRACIAS POR SU COMPRA!");
-
-			ticket.TextoIzquierda("");
-			ticket.TextoIzquierda("");
-			ticket.TextoIzquierda("");
-			ticket.TextoIzquierda("");
-			ticket.TextoIzquierda("");
-			ticket.TextoIzquierda("");
 			ticket.TextoIzquierda("");
 			ticket.TextoIzquierda("");
 			ticket.TextoIzquierda("");
 			ticket.TextoIzquierda("");
 			ticket.CortaTicket();//CORTAR TICKET
-			ticket.ImprimirTicket("POS80 Printer");//NOMBRE DE LA IMPRESORA
+			ticket.ImprimirTicket("POS80 Printer");//NOMBRE DE LA IMPRESORA ;
 		}
 
 		private void txtPVenta_KeyPress(object sender, KeyPressEventArgs e)
@@ -1021,7 +1043,7 @@ namespace Capa_de_Presentacion
 				doc.AddCreationDate();
 				if(dgvVenta.Rows.Count>=1)
                 {
-					int filas = 22 - dgvVenta.Rows.Count;
+					int filas = 17 - dgvVenta.Rows.Count;
 					if(filas>1)
                     {
 						for (int i = 1; i < filas; i++)
@@ -1036,7 +1058,12 @@ namespace Capa_de_Presentacion
 				doc.Add(new Paragraph("_________________________" + "                                                                                                                                                 " + "_________________________", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("      Facturado Por      " + "                                                                                                                                                                         " + "     Recibido Por  ", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("                       "));
-				doc.Add(new Paragraph("Nota: Los productos con garantia pierden su garantia si deja perder la factura.", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC,color: BaseColor.RED)));
+				doc.Add(new Paragraph("FAVOR REVISE SU MERCANCIA AL RECIBIRLA", FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
+				doc.Add(new Paragraph("Los equipos tienen 30 dias de garantia, la misma aplica con la factura y el equipo encendido", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
+				doc.Add(new Paragraph("No hacemos devolucion de efectivo", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
+				doc.Add(new Paragraph("No cubrimos garantía de pantalla, touch, pin de carga o equipos mojados", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
+				doc.Add(new Paragraph("El Tiempo de espera en caso de inconvenientes es de 24 a 48 horas dias laborales", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
+				doc.Add(new Paragraph("!GRACIAS POR SU COMPRA!", FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
 				doc.Close();
 				Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
 			}

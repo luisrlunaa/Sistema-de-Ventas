@@ -11,7 +11,7 @@ namespace Capa_de_Presentacion
         private Image headerImage = null;
         //Creamos una variable para almacenar el numero maximo de caracteres que permitiremos en el ticket.
         int maxCar = 48, cortar;//Para una impresora ticketera que imprime a 40 columnas. La variable cortar cortara el texto cuando rebase el limte.
-      
+
         public Image HeaderImage
         {
             get { return headerImage; }
@@ -191,7 +191,7 @@ namespace Capa_de_Presentacion
         public void EncabezadoVenta()
         {
             //Escribimos los espacios para mostrar el articulo. En total tienen que ser 40 caracteres
-            linea.AppendLine("ARTICULOS             | CANT | PRECIO | IMPORTE");
+            linea.AppendLine("ARTICULOS    |CANT |PRECIO |IMPORTE |IMEI   ");
         }
 
         //Metodo para agregar los totales d ela venta
@@ -226,7 +226,7 @@ namespace Capa_de_Presentacion
         public void AgregaArticulo(string articulo, int cant, decimal precio, decimal importe, string imei)
         {
             // valida que cant precio e importe esten dentro del rango
-            if (cant.ToString().Length <= 5 && precio.ToString().Length <= 12 && importe.ToString().Length <= 8)
+            if (cant.ToString().Length <= 7 && precio.ToString().Length <= 12 && importe.ToString().Length <= 8)
             {
                 string elemento = "", espacios = "";
                 bool bandera = false;
@@ -235,9 +235,9 @@ namespace Capa_de_Presentacion
                 if (articulo.Length > 24)
                 {
                     //colocar la cantidad a la derecha
-                    nroEspacios = (7 - cant.ToString().Length);
+                   
                     espacios = "";
-                    for (int i = 0; i < nroEspacios; i++)
+                    for (int i = 0; i < 2; i++)
                     {
                         espacios += " ";
                     }
@@ -245,9 +245,9 @@ namespace Capa_de_Presentacion
                     elemento += espacios + cant.ToString();
 
                     //colocar el precio a la derecha.
-                    nroEspacios = (12 - precio.ToString().Length);
+                   
                     espacios = "";
-                    for (int i = 0; i < nroEspacios; i++)
+                    for (int i = 0; i < 3; i++)
                     {
                         espacios += " ";
                     }
@@ -256,9 +256,9 @@ namespace Capa_de_Presentacion
                     elemento += espacios + precio.ToString();
 
                     //colocar el importe a la derecha
-                    nroEspacios = (8 - importe.ToString().Length);
-                    espacios = " ";
-                    for (int i = 0; i < nroEspacios; i++)
+                  
+                    espacios = "";
+                    for (int i = 0; i < 3; i++)
                     {
                         espacios += " ";
                     }
@@ -281,49 +281,38 @@ namespace Capa_de_Presentacion
 
                     linea.AppendLine(articulo.Substring(caracterActual, articulo.Length - caracterActual));
 
+                    int caracterActual1 = 0;
                     for (int longitudTexto = imei.Length; longitudTexto > 24; longitudTexto -= 24)
                     {
                         if (bandera == false)
                         {
-                            linea.AppendLine(imei.Substring(caracterActual, 24) + elemento);
+                            linea.AppendLine(imei.Substring(caracterActual1, 24) + elemento);
                             bandera = true;
                         }
                         else//-----------------------
 
-                            linea.AppendLine(imei.Substring(caracterActual, 24));
-                        caracterActual += 20;
+                            linea.AppendLine(imei.Substring(caracterActual1, 24));
+                        caracterActual1 += 20;
                     }
 
-                    linea.AppendLine(imei.Substring(caracterActual, imei.Length - caracterActual));
+                    linea.AppendLine(imei.Substring(caracterActual1, imei.Length - caracterActual1));
                 }
                 else
                 {
-                    for (int i = 0; i < (20 - articulo.Length); i++)
-                    {
-                        espacios += " ";
-                    }
-                    elemento = articulo + espacios;
-
-                    for (int i = 0; i < (20 - imei.Length); i++)
-                    {
-                        espacios += " ";
-                    }
-                    elemento = imei + espacios;
+                    elemento = articulo;
 
                     //colocar la cantidad a la derecha
-                    nroEspacios = (5 - cant.ToString().Length);
-                    espacios = " ";
-                    for (int i = 0; i < nroEspacios; i++)
+                    espacios = "";
+                    for (int i = 0; i < 2; i++)
                     {
                         espacios += " ";
                     }
 
-                    elemento += espacios + cant.ToString();
+                    elemento += espacios+cant.ToString();
 
                     //colocar el precio a la derecha
-                    nroEspacios = (7 - cant.ToString().Length);
-                    espacios = " ";
-                    for (int i = 0; i < nroEspacios; i++)
+                    espacios = "";
+                    for (int i = 0; i < 2; i++)
                     {
                         espacios += " ";
                     }
@@ -331,14 +320,21 @@ namespace Capa_de_Presentacion
                     elemento += espacios + precio.ToString();
 
                     //colocar el importe a la derecha
-                    nroEspacios = (8 - cant.ToString().Length);
-                    espacios = " ";
-                    for (int i = 0; i < nroEspacios; i++)
+                    espacios = "";
+                    for (int i = 0; i < 3; i++)
                     {
                         espacios += " ";
                     }
 
                     elemento += espacios + importe.ToString();
+
+                    espacios = "";
+                    for (int i = 0; i < 3; i++)
+                    {
+                        espacios += " ";
+                    }
+                    elemento += espacios + imei;
+
                     linea.AppendLine(elemento); // se agrega el elemento
                 }
             }
