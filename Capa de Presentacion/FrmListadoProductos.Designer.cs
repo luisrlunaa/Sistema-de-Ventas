@@ -113,7 +113,7 @@
             // 
             resources.ApplyResources(this.txtBuscarProducto, "txtBuscarProducto");
             this.txtBuscarProducto.Name = "txtBuscarProducto";
-            this.txtBuscarProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscarProducto_KeyPress);
+            this.txtBuscarProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscarProducto_KeyUp);
             // 
             // panel1
             // 
