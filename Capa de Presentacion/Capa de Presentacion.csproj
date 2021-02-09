@@ -112,12 +112,6 @@
     <Compile Include="frmLimitantesNCF.Designer.cs">
       <DependentUpon>frmLimitantesNCF.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmBuscarAlineacionyBalanceo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmBuscarAlineacionyBalanceo.Designer.cs">
-      <DependentUpon>frmBuscarAlineacionyBalanceo.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmListadoUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,12 +226,6 @@
     <Compile Include="FrmRegistroVentas.Designer.cs">
       <DependentUpon>FrmRegistroVentas.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAlineamiento.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmAlineamiento.Designer.cs">
-      <DependentUpon>frmAlineamiento.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmTurno.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,9 +244,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmLimitantesNCF.resx">
       <DependentUpon>frmLimitantesNCF.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmBuscarAlineacionyBalanceo.resx">
-      <DependentUpon>frmBuscarAlineacionyBalanceo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmListadoProductos.aa.resx">
       <DependentUpon>FrmListadoProductos.cs</DependentUpon>
@@ -322,9 +307,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRegistroVentas.resx">
       <DependentUpon>FrmRegistroVentas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAlineamiento.resx">
-      <DependentUpon>frmAlineamiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTurno.resx">
       <DependentUpon>frmTurno.cs</DependentUpon>

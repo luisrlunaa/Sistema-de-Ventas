@@ -491,8 +491,6 @@ namespace Capa_de_Presentacion
 			Program.igv = Convert.ToDecimal(lbligv.Text);
 			Program.ST = Convert.ToDecimal(lblsubt.Text);
 			pa.txtmonto.Text = txttotal.Text;
-			pa.gbAbrir.Visible = false;
-			pa.btnCerrar.Visible = false;
 			pa.Show();
 
 			Program.tipo = cbtipofactura.Text;
