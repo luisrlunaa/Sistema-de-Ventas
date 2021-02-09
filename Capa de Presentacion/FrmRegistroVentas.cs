@@ -24,6 +24,7 @@ namespace Capa_de_Presentacion
 		private void FrmVentas_Load(object sender, EventArgs e)
 		{
 			txtidCli.Text = null;
+			txtdireccion.Text = "";
 			Program.IdCliente = 0;
 			cbidentificacion.Checked = false;
 			if (cbidentificacion.Checked == true)
@@ -210,6 +211,7 @@ namespace Capa_de_Presentacion
 			txtIdProducto.Text = Program.IdProducto + "";
 			txtDescripcion.Text = Program.Descripcion;
 			txtMarca.Text = Program.Marca;
+			txtdireccion.Text = Program.Direccion;
 			txtStock.Text = Program.Stock + "";
 			txtPVenta.Text = Program.PrecioVenta + "";
 			txtIgv.Text = Program.itbis + "";
@@ -583,6 +585,7 @@ namespace Capa_de_Presentacion
 					cmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = txtNCF.Text;
 					cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
 					cmd.Parameters.Add("@TipoDocumento", SqlDbType.VarChar).Value = combo_tipo_NCF.Text;
+					cmd.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = txtdireccion.Text;
 					cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dateTimePicker1.Text;
 					cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
 
@@ -754,6 +757,7 @@ namespace Capa_de_Presentacion
 			txtNCF.Clear();
 			lst.Clear();
 			txtIgv.Text = "";
+			txtdireccion.Text = "";
 			Program.realizopago = false;
 		}
 
@@ -768,6 +772,7 @@ namespace Capa_de_Presentacion
 			{
 				ticket.TextoDerecha(Program.ReImpresion);
 			}
+
 			ticket.TextoCentro(lblLogo.Text);
 			ticket.TextoIzquierda("");
 			ticket.TextoIzquierda(lblDir.Text);
@@ -791,9 +796,15 @@ namespace Capa_de_Presentacion
 				cedula = Program.DocumentoIdentidad;
 			}
 
+			if(txtdireccion.Text=="")
+            {
+				txtdireccion.Text = "Entrega Personal";
+			}
+
 			//SUB CABECERA.
 			ticket.TextoIzquierda("Atendido Por: " + txtUsu.Text);
 			ticket.TextoIzquierda("Cliente: " + nombre);
+			ticket.TextoIzquierda("Direccion de la Entrega: " + txtdireccion.Text);
 			ticket.TextoIzquierda("Documento de Identificación: "+ cedula);
 			ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Text);
 			ticket.TextoIzquierda("Hora: " + DateTime.Now.ToShortTimeString());
@@ -996,6 +1007,11 @@ namespace Capa_de_Presentacion
 					cedula = txtDocIdentidad.Text;
 				}
 
+				if (txtdireccion.Text == "")
+				{
+					txtdireccion.Text = "Entrega Personal";
+				}
+
 				var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
 				fecha.Alignment = Element.ALIGN_RIGHT;
 				doc.Add(fecha);
@@ -1017,6 +1033,7 @@ namespace Capa_de_Presentacion
 				doc.Add(new Paragraph("Tipo de Comprobante: " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("Numero de Comprobante: " + txtNCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+				doc.Add(new Paragraph("Direccion de la Entrega: " + txtdireccion.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph(" "));
 				GenerarDocumento(doc);

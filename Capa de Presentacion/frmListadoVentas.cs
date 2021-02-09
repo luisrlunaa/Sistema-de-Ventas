@@ -109,7 +109,7 @@ namespace Capa_de_Presentacion
 			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0), " +
 			"dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto, " +
 			"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-			"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta " +
+			"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta " +
 			"inner join dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta " +
 			"WHERE dbo.DetalleVenta.IdVenta  like '%" + txtBuscarid.Text + "%'";
 			//especificamos que es de tipo Text
@@ -130,6 +130,7 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
 				dataGridView1.Rows[renglon].Cells["idEm"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdEmpleado")));
 				dataGridView1.Rows[renglon].Cells["NCF"].Value = dr.GetString(dr.GetOrdinal("TipoDocumento"));
+				dataGridView1.Rows[renglon].Cells["Direccion"].Value = dr.GetString(dr.GetOrdinal("Direccion"));
 				dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = dr.GetString(dr.GetOrdinal("NroDocumento"));
 				dataGridView1.Rows[renglon].Cells["descripcion"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
 				dataGridView1.Rows[renglon].Cells["idp"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
@@ -191,6 +192,7 @@ namespace Capa_de_Presentacion
 			Program.igv += Convert.ToDecimal(dataGridView1.CurrentRow.Cells["igv"].Value.ToString());
 			Program.fecha = dataGridView1.CurrentRow.Cells["fecha"].Value.ToString();
 			Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
+			Program.Direccion= dataGridView1.CurrentRow.Cells["Direccion"].Value.ToString();
 
 			if (Program.tipo != "Credito")
 			{
@@ -358,7 +360,7 @@ namespace Capa_de_Presentacion
 			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0), " +
 			"dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto, " +
 			"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta " +
+				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta " +
 				"inner join dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta " +
 				"where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103)";
 			comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
@@ -381,6 +383,7 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
 				dataGridView1.Rows[renglon].Cells["idEm"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdEmpleado")));
 				dataGridView1.Rows[renglon].Cells["NCF"].Value = dr.GetString(dr.GetOrdinal("TipoDocumento"));
+				dataGridView1.Rows[renglon].Cells["Direccion"].Value = dr.GetString(dr.GetOrdinal("Direccion"));
 				dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = dr.GetString(dr.GetOrdinal("NroDocumento"));
 				dataGridView1.Rows[renglon].Cells["descripcion"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
 				dataGridView1.Rows[renglon].Cells["idp"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));

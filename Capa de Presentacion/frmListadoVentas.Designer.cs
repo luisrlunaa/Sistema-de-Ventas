@@ -78,6 +78,7 @@
             this.dtpfecha1 = new System.Windows.Forms.DateTimePicker();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.Direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -124,7 +125,8 @@
             this.total,
             this.fecha,
             this.NCF,
-            this.nroComprobante});
+            this.nroComprobante,
+            this.Direccion});
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(0, -1);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
@@ -618,6 +620,13 @@
             this.label3.TabIndex = 112;
             this.label3.Text = "Listado de Ventas Realizadas";
             // 
+            // Direccion
+            // 
+            this.Direccion.HeaderText = "Direccion";
+            this.Direccion.MinimumWidth = 6;
+            this.Direccion.Name = "Direccion";
+            this.Direccion.Width = 105;
+            // 
             // frmListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -711,5 +720,6 @@
         private DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn NCF;
         private System.Windows.Forms.DataGridViewTextBoxColumn nroComprobante;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Direccion;
     }
 }
