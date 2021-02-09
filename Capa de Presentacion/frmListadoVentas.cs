@@ -518,7 +518,7 @@ namespace Capa_de_Presentacion
 			if(fecha1 != DateTime.MinValue && fecha2 != DateTime.MinValue)
             {
 				//declaramos el comando para realizar la busqueda
-				comando.CommandText = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.PrecioUnitario) AS PrecioOfProducts" +
+				comando.CommandText = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.SubTotal) AS PrecioOfProducts" +
 					" FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
 					"INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta  where venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) AND " +
 					"convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103) group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
@@ -528,7 +528,7 @@ namespace Capa_de_Presentacion
 			else
             {
 				//declaramos el comando para realizar la busqueda
-				comando.CommandText = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.PrecioUnitario) AS PrecioOfProducts" +
+				comando.CommandText = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.SubTotal) AS PrecioOfProducts" +
 					" FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
 					"INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
 			}
