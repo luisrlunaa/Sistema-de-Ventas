@@ -230,7 +230,6 @@ namespace Capa_de_Presentacion
             {
                 string elemento = "", espacios = "";
                 bool bandera = false;
-                int nroEspacios = 0;
 
                 if (articulo.Length > 24)
                 {
