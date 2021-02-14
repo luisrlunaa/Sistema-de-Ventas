@@ -85,6 +85,9 @@
             this.CantidadOfProducts = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PrecioOfProducts = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txttotalventaespecifica = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtGanancias = new System.Windows.Forms.TextBox();
+            this.PrecioCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -133,7 +136,8 @@
             this.total,
             this.fecha,
             this.NCF,
-            this.nroComprobante});
+            this.nroComprobante,
+            this.PrecioCompra});
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(0, -1);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
@@ -328,11 +332,11 @@
             // 
             // txtMontvend
             // 
-            this.txtMontvend.Location = new System.Drawing.Point(287, 561);
+            this.txtMontvend.Location = new System.Drawing.Point(287, 582);
             this.txtMontvend.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMontvend.Name = "txtMontvend";
             this.txtMontvend.ReadOnly = true;
-            this.txtMontvend.Size = new System.Drawing.Size(100, 22);
+            this.txtMontvend.Size = new System.Drawing.Size(113, 22);
             this.txtMontvend.TabIndex = 97;
             // 
             // dataGridView2
@@ -374,18 +378,18 @@
             // 
             // txtCantvend
             // 
-            this.txtCantvend.Location = new System.Drawing.Point(287, 639);
+            this.txtCantvend.Location = new System.Drawing.Point(287, 643);
             this.txtCantvend.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCantvend.Name = "txtCantvend";
             this.txtCantvend.ReadOnly = true;
-            this.txtCantvend.Size = new System.Drawing.Size(100, 22);
+            this.txtCantvend.Size = new System.Drawing.Size(113, 22);
             this.txtCantvend.TabIndex = 99;
             // 
             // lblV
             // 
             this.lblV.AutoSize = true;
             this.lblV.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblV.Location = new System.Drawing.Point(11, 561);
+            this.lblV.Location = new System.Drawing.Point(11, 582);
             this.lblV.Name = "lblV";
             this.lblV.Size = new System.Drawing.Size(176, 20);
             this.lblV.TabIndex = 100;
@@ -403,7 +407,7 @@
             // 
             this.lblTV.AutoSize = true;
             this.lblTV.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTV.Location = new System.Drawing.Point(11, 639);
+            this.lblTV.Location = new System.Drawing.Point(11, 643);
             this.lblTV.Name = "lblTV";
             this.lblTV.Size = new System.Drawing.Size(246, 20);
             this.lblTV.TabIndex = 102;
@@ -413,7 +417,7 @@
             // 
             this.lblPV.AutoSize = true;
             this.lblPV.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPV.Location = new System.Drawing.Point(11, 598);
+            this.lblPV.Location = new System.Drawing.Point(11, 613);
             this.lblPV.Name = "lblPV";
             this.lblPV.Size = new System.Drawing.Size(238, 20);
             this.lblPV.TabIndex = 104;
@@ -421,7 +425,7 @@
             // 
             // txtprod
             // 
-            this.txtprod.Location = new System.Drawing.Point(287, 598);
+            this.txtprod.Location = new System.Drawing.Point(287, 613);
             this.txtprod.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtprod.Name = "txtprod";
             this.txtprod.ReadOnly = true;
@@ -444,7 +448,7 @@
             this.txtTtal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTtal.Name = "txtTtal";
             this.txtTtal.ReadOnly = true;
-            this.txtTtal.Size = new System.Drawing.Size(100, 22);
+            this.txtTtal.Size = new System.Drawing.Size(113, 22);
             this.txtTtal.TabIndex = 105;
             // 
             // btnCancelar
@@ -698,12 +702,42 @@
             this.txttotalventaespecifica.TabIndex = 114;
             this.txttotalventaespecifica.Visible = false;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(12, 552);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(147, 20);
+            this.label4.TabIndex = 116;
+            this.label4.Text = "Total de Ganancias :";
+            // 
+            // txtGanancias
+            // 
+            this.txtGanancias.Location = new System.Drawing.Point(287, 552);
+            this.txtGanancias.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtGanancias.Name = "txtGanancias";
+            this.txtGanancias.ReadOnly = true;
+            this.txtGanancias.Size = new System.Drawing.Size(113, 22);
+            this.txtGanancias.TabIndex = 115;
+            // 
+            // PrecioCompra
+            // 
+            this.PrecioCompra.HeaderText = "Precio de Compra";
+            this.PrecioCompra.MinimumWidth = 6;
+            this.PrecioCompra.Name = "PrecioCompra";
+            this.PrecioCompra.Visible = false;
+            this.PrecioCompra.Width = 162;
+            // 
             // frmListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(1371, 690);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtGanancias);
             this.Controls.Add(this.txttotalventaespecifica);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label3);
@@ -801,5 +835,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CantidadOfProducts;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioOfProducts;
         public System.Windows.Forms.TextBox txttotalventaespecifica;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.TextBox txtGanancias;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrecioCompra;
     }
 }
