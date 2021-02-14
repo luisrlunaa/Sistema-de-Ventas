@@ -94,7 +94,6 @@ namespace Capa_de_Presentacion
 			ticket.TextoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
 
 			//ARTICULOS A VENDER.
-			ticket.EncabezadoVenta();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
 			ticket.lineasGuio();
 
 			ticket.TextoIzquierda("TIPO DE TRABAJO: " + cbtipo.Text);
@@ -154,7 +153,6 @@ namespace Capa_de_Presentacion
 
 						con.Open();
 						cmd.ExecuteNonQuery();
-						cmd.Parameters.Clear();
 						con.Close();
 
 						using (SqlCommand cmd2 = new SqlCommand("pagos_re", con))
