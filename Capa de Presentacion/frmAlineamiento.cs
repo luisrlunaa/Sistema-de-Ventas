@@ -112,18 +112,17 @@ namespace Capa_de_Presentacion
 			ticket.TextoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
 
 			//ARTICULOS A VENDER.
-			ticket.EncabezadoVenta();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
 			ticket.lineasGuio();
 
 			ticket.TextoIzquierda("TIPO DE TRABAJO: " + cbtipo.Text);
 			ticket.TextoIzquierda("CLIENTE: " + txtCliente.Text);
 			ticket.TextoIzquierda("MARCA: " + txtMarca.Text);
 			ticket.TextoIzquierda("IMEI: " + txtImei.Text);
-			ticket.TextoIzquierda("MODELO.: " + txtModelo.Text);
+			ticket.TextoIzquierda("MODELO: " + txtModelo.Text);
 			ticket.TextoIzquierda("NOTA: " + txtnota.Text);
 			ticket.TextoIzquierda("");
 			//resumen de la venta
-			ticket.AgregarTotales("       COSTO TOTAL DEL SERVICIO : ", decimal.Parse(txtprecio.Text));
+			ticket.AgregarTotales("COSTO TOTAL DEL SERVICIO : ", decimal.Parse(txtprecio.Text));
 
 			//TEXTO FINAL DEL TICKET
 			ticket.TextoIzquierda("EXTRA");
@@ -176,7 +175,6 @@ namespace Capa_de_Presentacion
 
 						con.Open();
 						cmd.ExecuteNonQuery();
-						cmd.Parameters.Clear();
 						con.Close();
 
 						if(cbtipo.Text.ToLower()=="salida")
