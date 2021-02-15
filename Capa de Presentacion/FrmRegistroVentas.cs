@@ -1024,6 +1024,9 @@ namespace Capa_de_Presentacion
 				var telefonos = new Paragraph("Tel: " + lblTel1.Text + " / " + lblTel2.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL));
 				telefonos.Alignment = Element.ALIGN_CENTER;
 				doc.Add(telefonos);
+				var RNC = new Paragraph("RNC: " + lblrnc.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL));
+				RNC.Alignment = Element.ALIGN_CENTER;
+				doc.Add(RNC);
 
 				doc.Add(new Paragraph(" "));
 				doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
