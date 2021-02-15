@@ -95,7 +95,7 @@ namespace Capa_de_Presentacion
 		}
 		public void llenar_data()
 		{
-			double total = 0;
+			decimal total = 0; decimal preciocompra = 0; decimal ganancias = 0;
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection
@@ -106,12 +106,12 @@ namespace Capa_de_Presentacion
 			SqlDataReader dr;
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
-			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0), " +
-			"dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto, " +
-			"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-			"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta " +
-			"inner join dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta " +
-			"WHERE dbo.DetalleVenta.IdVenta  like '%" + txtBuscarid.Text + "%'";
+			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
+				"dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
+				"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total,dbo.Venta.Direccion," +
+				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
+				"dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
+				"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta  like '%" + txtBuscarid.Text + "%'";
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -144,10 +144,14 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
 				dataGridView1.Rows[renglon].Cells["idcliente"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCliente")));
 				dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
+				dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 
-				total += Convert.ToDouble(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
+				total += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
+				preciocompra += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value);
+				ganancias = total - preciocompra;
 
-				txtTtal.Text = Convert.ToString(total);
+				txtGanancias.Text = Convert.ToString(Math.Round(ganancias, 2));
+				txtTtal.Text = Convert.ToString(Math.Round(total, 2));
 			}
 			con.Close();
 		}
@@ -234,7 +238,7 @@ namespace Capa_de_Presentacion
 		{
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("ferreteria.png");
+			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
 			image1.ScaleAbsoluteWidth(140);
 			image1.ScaleAbsoluteHeight(70);
 			saveFileDialog1.InitialDirectory = @"C:";
@@ -263,6 +267,7 @@ namespace Capa_de_Presentacion
 
 				Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
 				var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+
 				fecha.Alignment = Element.ALIGN_RIGHT;
 				doc.Add(fecha);
 				image1.Alignment = Image.TEXTWRAP | Image.ALIGN_CENTER;
@@ -274,14 +279,16 @@ namespace Capa_de_Presentacion
 				ubicacionalign.Alignment = Element.ALIGN_CENTER;
 				doc.Add(ubicacionalign);
 
-				doc.Add(new Paragraph("                       "));
-				doc.Add(new Paragraph("Reporte de Listado de Ventas Realizadas                       "));
+				doc.Add(new Paragraph("Reporte de Ventas Realizadas"));
+				doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + ", " + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
 				doc.Add(new Paragraph("                       "));
 				GenerarDocumento(doc);
 				doc.AddCreationDate();
 				doc.Add(new Paragraph("                       "));
 				doc.Add(new Paragraph("Total de Ventas      : " + txtTtal.Text));
+				doc.Add(new Paragraph("Total de Ganancias   : " + txtGanancias.Text));
 				doc.Add(new Paragraph("Producto Mas Vendido : " + txtRepi.Text));
+				doc.Add(new Paragraph("                       "));
 				doc.Add(new Paragraph("                       "));
 				doc.Add(new Paragraph("                       "));
 				doc.Add(new Paragraph("____________________________________"));
@@ -345,7 +352,7 @@ namespace Capa_de_Presentacion
 		}
 		private void button1_Click(object sender, EventArgs e)
 		{
-			decimal total = 0;
+			decimal total = 0; decimal preciocompra = 0; decimal ganancias = 0;
 			//declaramos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection
@@ -357,12 +364,12 @@ namespace Capa_de_Presentacion
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
 			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0), " +
-			"dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto, " +
-			"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta " +
-				"inner join dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta " +
-				"where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103)";
+			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
+				"dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
+				"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total,dbo.Venta.Direccion," +
+				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
+				"dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
+				"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103)";
 			comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
 			comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
 			//especificamos que es de tipo Text
@@ -397,9 +404,13 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
 				dataGridView1.Rows[renglon].Cells["idcliente"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCliente")));
 				dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
+				dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 
 				total += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
+				preciocompra += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value);
+				ganancias = total - preciocompra;
 
+				txtGanancias.Text = Convert.ToString(Math.Round(ganancias, 2));
 				txtTtal.Text = Convert.ToString(Math.Round(total, 2));
 			}
 			con.Close();

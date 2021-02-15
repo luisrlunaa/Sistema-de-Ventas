@@ -49,6 +49,7 @@
             this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
             this.NCF = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nroComprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtBuscarid = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -78,7 +79,8 @@
             this.dtpfecha1 = new System.Windows.Forms.DateTimePicker();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.Direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtGanancias = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -285,6 +287,13 @@
             this.nroComprobante.Name = "nroComprobante";
             this.nroComprobante.Width = 212;
             // 
+            // Direccion
+            // 
+            this.Direccion.HeaderText = "Direccion";
+            this.Direccion.MinimumWidth = 6;
+            this.Direccion.Name = "Direccion";
+            this.Direccion.Width = 105;
+            // 
             // txtBuscarid
             // 
             this.txtBuscarid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -321,7 +330,7 @@
             // 
             // txtMontvend
             // 
-            this.txtMontvend.Location = new System.Drawing.Point(287, 558);
+            this.txtMontvend.Location = new System.Drawing.Point(287, 581);
             this.txtMontvend.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMontvend.Name = "txtMontvend";
             this.txtMontvend.ReadOnly = true;
@@ -367,7 +376,7 @@
             // 
             // txtCantvend
             // 
-            this.txtCantvend.Location = new System.Drawing.Point(287, 636);
+            this.txtCantvend.Location = new System.Drawing.Point(287, 648);
             this.txtCantvend.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCantvend.Name = "txtCantvend";
             this.txtCantvend.ReadOnly = true;
@@ -378,7 +387,7 @@
             // 
             this.lblV.AutoSize = true;
             this.lblV.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblV.Location = new System.Drawing.Point(11, 561);
+            this.lblV.Location = new System.Drawing.Point(11, 584);
             this.lblV.Name = "lblV";
             this.lblV.Size = new System.Drawing.Size(176, 20);
             this.lblV.TabIndex = 100;
@@ -396,7 +405,7 @@
             // 
             this.lblTV.AutoSize = true;
             this.lblTV.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTV.Location = new System.Drawing.Point(11, 639);
+            this.lblTV.Location = new System.Drawing.Point(11, 651);
             this.lblTV.Name = "lblTV";
             this.lblTV.Size = new System.Drawing.Size(246, 20);
             this.lblTV.TabIndex = 102;
@@ -406,7 +415,7 @@
             // 
             this.lblPV.AutoSize = true;
             this.lblPV.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPV.Location = new System.Drawing.Point(11, 598);
+            this.lblPV.Location = new System.Drawing.Point(11, 617);
             this.lblPV.Name = "lblPV";
             this.lblPV.Size = new System.Drawing.Size(238, 20);
             this.lblPV.TabIndex = 104;
@@ -414,7 +423,7 @@
             // 
             // txtprod
             // 
-            this.txtprod.Location = new System.Drawing.Point(287, 596);
+            this.txtprod.Location = new System.Drawing.Point(287, 615);
             this.txtprod.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtprod.Name = "txtprod";
             this.txtprod.ReadOnly = true;
@@ -620,12 +629,25 @@
             this.label3.TabIndex = 112;
             this.label3.Text = "Listado de Ventas Realizadas";
             // 
-            // Direccion
+            // label4
             // 
-            this.Direccion.HeaderText = "Direccion";
-            this.Direccion.MinimumWidth = 6;
-            this.Direccion.Name = "Direccion";
-            this.Direccion.Width = 105;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(11, 551);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(147, 20);
+            this.label4.TabIndex = 118;
+            this.label4.Text = "Total de Ganancias :";
+            // 
+            // txtGanancias
+            // 
+            this.txtGanancias.Location = new System.Drawing.Point(286, 551);
+            this.txtGanancias.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtGanancias.Name = "txtGanancias";
+            this.txtGanancias.ReadOnly = true;
+            this.txtGanancias.Size = new System.Drawing.Size(113, 22);
+            this.txtGanancias.TabIndex = 117;
             // 
             // frmListadoVentas
             // 
@@ -633,6 +655,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RoyalBlue;
             this.ClientSize = new System.Drawing.Size(1078, 690);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtGanancias);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.button2);
@@ -721,5 +745,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NCF;
         private System.Windows.Forms.DataGridViewTextBoxColumn nroComprobante;
         private System.Windows.Forms.DataGridViewTextBoxColumn Direccion;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.TextBox txtGanancias;
     }
 }
