@@ -37,6 +37,7 @@ namespace Capa_de_Presentacion
 		public static string averia;
 		public static string Imei;
 		public static string Modelo;
+		public static string telefono;
 		public static decimal precio;
 		public static decimal pago;
 		public static decimal total;

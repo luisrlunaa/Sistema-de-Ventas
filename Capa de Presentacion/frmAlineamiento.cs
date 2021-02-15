@@ -42,7 +42,9 @@ namespace Capa_de_Presentacion
 			Program.Imei = "";
 			Program.NombreCliente = "";
 			Program.averia = "";
+			Program.telefono = "";
 
+			txtTelefono.Clear();
 			txtModelo.Clear();
 			txtprecio.Clear();
 			txtnota.Clear();
@@ -70,6 +72,7 @@ namespace Capa_de_Presentacion
 			txtnota.Text=	Program.nota;
 			lblidAliBal.Text = Program.Id+"";
 			txtAveria.Text=Program.averia.ToUpper();
+			txtTelefono.Text = Program.telefono;
 
 			if (Program.Id>0 && Program.descripcion.ToLower()=="entrada")
             {
@@ -116,6 +119,7 @@ namespace Capa_de_Presentacion
 
 			ticket.TextoIzquierda("TIPO DE TRABAJO: " + cbtipo.Text);
 			ticket.TextoIzquierda("CLIENTE: " + txtCliente.Text);
+			ticket.TextoIzquierda("NUMERO: " + txtTelefono.Text);
 			ticket.TextoIzquierda("MARCA: " + txtMarca.Text);
 			ticket.TextoIzquierda("IMEI: " + txtImei.Text);
 			ticket.TextoIzquierda("MODELO: " + txtModelo.Text);
@@ -164,7 +168,7 @@ namespace Capa_de_Presentacion
 						cmd.CommandType = CommandType.StoredProcedure;
 						cmd.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(Program.Id);
 						cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = Convert.ToInt32(txtidEmp.Text);
-						cmd.Parameters.Add("@cliente", SqlDbType.NVarChar).Value = txtCliente.Text.ToLower();
+						cmd.Parameters.Add("@cliente", SqlDbType.NVarChar).Value = (txtCliente.Text + "." + txtTelefono.Text).ToLower();
 						cmd.Parameters.Add("@averia", SqlDbType.NVarChar).Value = txtAveria.Text.ToLower();
 						cmd.Parameters.Add("@tipoDeTrabajo", SqlDbType.VarChar).Value = cbtipo.Text.ToUpper();
 						cmd.Parameters.Add("@Datos", SqlDbType.NVarChar).Value = (txtModelo.Text + "." + txtImei.Text).ToUpper();
@@ -263,6 +267,7 @@ namespace Capa_de_Presentacion
 			Program.descripcion = cbtipo.Text;
 			Program.marca = txtMarca.Text;
 			Program.Modelo = txtModelo.Text;
+			Program.telefono = txtTelefono.Text;
 			Program.total = Convert.ToDecimal(txtprecio.Text);
 			Program.nota = txtnota.Text;
 

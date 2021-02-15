@@ -64,6 +64,8 @@
             this.label18 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.lblidAliBal = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtTelefono = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
@@ -94,6 +96,8 @@
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox4.Controls.Add(this.txtTelefono);
+            this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.txtCliente);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.txtAveria);
@@ -126,7 +130,7 @@
             this.txtCliente.Location = new System.Drawing.Point(76, 40);
             this.txtCliente.Margin = new System.Windows.Forms.Padding(4);
             this.txtCliente.Name = "txtCliente";
-            this.txtCliente.Size = new System.Drawing.Size(517, 25);
+            this.txtCliente.Size = new System.Drawing.Size(278, 25);
             this.txtCliente.TabIndex = 95;
             this.txtCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -439,7 +443,7 @@
             // 
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.LinkColor = System.Drawing.Color.White;
-            this.linkLabel1.Location = new System.Drawing.Point(341, 188);
+            this.linkLabel1.Location = new System.Drawing.Point(342, 188);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(156, 19);
             this.linkLabel1.TabIndex = 92;
@@ -456,6 +460,27 @@
             this.lblidAliBal.TabIndex = 93;
             this.lblidAliBal.Text = "idAliBal";
             this.lblidAliBal.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(362, 41);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(73, 20);
+            this.label6.TabIndex = 96;
+            this.label6.Text = "Telefono:";
+            // 
+            // txtTelefono
+            // 
+            this.txtTelefono.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTelefono.Location = new System.Drawing.Point(437, 41);
+            this.txtTelefono.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(156, 25);
+            this.txtTelefono.TabIndex = 97;
+            this.txtTelefono.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // frmAlineamiento
             // 
@@ -532,5 +557,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtTelefono;
+        private System.Windows.Forms.Label label6;
     }
 }
