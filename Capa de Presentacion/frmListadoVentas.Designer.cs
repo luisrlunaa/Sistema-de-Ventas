@@ -81,6 +81,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtGanancias = new System.Windows.Forms.TextBox();
+            this.PrecioCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -128,7 +129,8 @@
             this.fecha,
             this.NCF,
             this.nroComprobante,
-            this.Direccion});
+            this.Direccion,
+            this.PrecioCompra});
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(0, -1);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
@@ -649,6 +651,14 @@
             this.txtGanancias.Size = new System.Drawing.Size(113, 22);
             this.txtGanancias.TabIndex = 117;
             // 
+            // PrecioCompra
+            // 
+            this.PrecioCompra.HeaderText = "Precio de Compra";
+            this.PrecioCompra.MinimumWidth = 6;
+            this.PrecioCompra.Name = "PrecioCompra";
+            this.PrecioCompra.Visible = false;
+            this.PrecioCompra.Width = 162;
+            // 
             // frmListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -747,5 +757,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Direccion;
         public System.Windows.Forms.Label label4;
         public System.Windows.Forms.TextBox txtGanancias;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrecioCompra;
     }
 }
