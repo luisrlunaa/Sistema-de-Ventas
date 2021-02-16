@@ -322,10 +322,14 @@ namespace Capa_de_Presentacion
 		}
         private void btnBusquedaProducto_Click(object sender, EventArgs e)
         {
-            FrmListadoProductos P = new FrmListadoProductos();
-			btnAgregar.Visible = true;
-			Program.datoscliente = txtDatos.Text;
-			P.Show();
+			if (Program.abiertosecundario == false)
+			{
+				FrmListadoProductos P = new FrmListadoProductos();
+				btnAgregar.Visible = true;
+				Program.datoscliente = txtDatos.Text;
+				Program.abiertosecundario = true;
+				P.Show();
+			}
         }
 
 		private void agregarproductoGrid()
@@ -784,9 +788,9 @@ namespace Capa_de_Presentacion
 				ticket.TextoDerecha(Program.ReImpresion);
 			}
 
-            System.Drawing.Image img = System.Drawing.Image.FromFile("Logo.png");
-			ticket.HeaderImage = img;
-			//ticket.TextoCentro(lblLogo.Text);
+			//System.Drawing.Image img = System.Drawing.Image.FromFile("Logo.png");
+			//ticket.HeaderImage = img;
+			ticket.TextoCentro(lblLogo.Text);
 			ticket.TextoIzquierda("");
 			ticket.TextoIzquierda(lblDir.Text);
 			ticket.TextoIzquierda("Tel: " + lblTel1.Text + "/" + lblTel2.Text);
@@ -872,9 +876,14 @@ namespace Capa_de_Presentacion
 		}
 
 		private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
-		{	frmListadoVentas F = new frmListadoVentas();
-			F.btnCancelar.Visible = false;
-			F.Show();
+		{	
+			if(Program.abiertosecundario==false)
+            {
+				frmListadoVentas F = new frmListadoVentas();
+				F.btnCancelar.Visible = false;
+				Program.abiertosecundario = true;
+				F.Show();
+			}
 		}
 
 		public void buscarid()

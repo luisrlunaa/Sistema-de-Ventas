@@ -12,6 +12,7 @@ namespace Capa_de_Presentacion
 		/// Punto de entrada principal para la aplicación.      
 		/// </summary>
 
+		public static bool abiertosecundario;
 		public static bool abierto;
 		public static int Evento;
 		public static int Eid;

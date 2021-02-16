@@ -301,6 +301,7 @@ namespace Capa_de_Presentacion
 		}
 		private void dataGridView1_DoubleClick(object sender, EventArgs e)
 		{
+			Program.abiertosecundario = false;
 			Program.IdProducto = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Column1"].Value.ToString());
 			Program.Descripcion = dataGridView1.CurrentRow.Cells["description"].Value.ToString();
 			Program.Marca = dataGridView1.CurrentRow.Cells["marca"].Value.ToString();
@@ -1073,6 +1074,7 @@ namespace Capa_de_Presentacion
 
         private void txtBuscarProducto_KeyUp(object sender, KeyEventArgs e)
         {
+			if (txtBuscarProducto.Text.Length >= 3)
 				CargarListado(txtBuscarProducto.Text);
 		}
 

@@ -430,6 +430,7 @@ namespace Capa_de_Presentacion
 
 		private void dataGridView1_DoubleClick(object sender, EventArgs e)
 		{
+			Program.abiertosecundario = false;
 			seleccion_data();
 			FrmRegistroVentas V = new FrmRegistroVentas();
 			V.btnSalir.Visible = false;
