@@ -23,7 +23,7 @@ namespace Capa_de_Presentacion
 		{
 			txtde5.Text = "";
 			txtde10.Text = "";
-			txtde25.Text = "";
+            txtde25.Text = "";
 			txtde50.Text = "";
 			txtde100.Text = "";
 			txtde200.Text = "";
@@ -281,7 +281,7 @@ namespace Capa_de_Presentacion
 		{
 			Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-			iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
+			Image image1 = Image.GetInstance("LogoCepeda.png");
 			image1.ScaleAbsoluteWidth(140);
 			image1.ScaleAbsoluteHeight(70);
 			saveFileDialog1.InitialDirectory = @"C:";
@@ -504,22 +504,24 @@ namespace Capa_de_Presentacion
 				var sobrantes = total - cuadre;
 				lblmensaje.Text = "Cuadre excitoso Sobran : \n" + sobrantes + " Pesos";
 				lblmensaje.ForeColor = System.Drawing.Color.White;
+				btnregistrar.Enabled = true;
 			}
 
 			else if (cuadre == total)
 			{
 				lblmensaje.Text = "Cuadre exacto";
 				lblmensaje.ForeColor = System.Drawing.Color.MidnightBlue;
+				btnregistrar.Enabled = true;
 			}
 			else
 			{
 				var faltantes = cuadre - total;
 				lblmensaje.Text = "Cuadre defectuoso, Faltan : \n" + faltantes + " Pesos";
-				lblmensaje.ForeColor = System.Drawing.Color.Red;
+				lblmensaje.ForeColor = System.Drawing.Color.Yellow;
+				btnregistrar.Enabled = false;
 			}
 
 			lblmontocuadre.Text = total.ToString();
-			btnregistrar.Enabled = true;
 		}
 	}
 }

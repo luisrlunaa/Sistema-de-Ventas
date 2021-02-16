@@ -1054,6 +1054,7 @@ namespace Capa_de_Presentacion
 
         private void FrmListadoProductos_FormClosed(object sender, FormClosedEventArgs e)
         {
+			Program.abierto = false;
 			if (Program.CargoEmpleadoLogueado != "Administrador")
 			{
 				btnEditar.Enabled = false;
@@ -1062,6 +1063,7 @@ namespace Capa_de_Presentacion
 
         private void FrmListadoProductos_FormClosing(object sender, FormClosingEventArgs e)
         {
+			Program.abierto = false;
 			if (Program.CargoEmpleadoLogueado != "Administrador")
 			{
 				btnEditar.Enabled = false;

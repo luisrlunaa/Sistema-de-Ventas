@@ -42,6 +42,7 @@ namespace Capa_de_Presentacion
 
 		private void label2_Click(object sender, EventArgs e)
 		{
+			Program.abierto = false;
 			textBox2.Text = Program.turno + "";
 			this.Close();
 		}
@@ -52,7 +53,9 @@ namespace Capa_de_Presentacion
 			CrearTiket ticket = new CrearTiket();
 
 			//cabecera del ticket.
-			ticket.TextoCentro(lblLogo.Text);
+			Image img = Image.FromFile("LogoCepeda.png");
+			ticket.HeaderImage = img;
+			//ticket.TextoCentro(lblLogo.Text);
 			ticket.TextoIzquierda("");
 			ticket.lineasGuio();
 

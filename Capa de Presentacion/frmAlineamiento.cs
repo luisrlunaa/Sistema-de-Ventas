@@ -81,7 +81,9 @@ namespace Capa_de_Presentacion
 			CrearTiket ticket = new CrearTiket();
 
 			//cabecera del ticket.
-			ticket.TextoCentro(lblLogo.Text);
+			Image img =Image.FromFile("LogoCepeda.png");
+			ticket.HeaderImage = img;
+			//ticket.TextoCentro(lblLogo.Text);
 			ticket.TextoIzquierda(lbldir.Text);
 			ticket.TextoIzquierda("TELEFONOS:" + lbltel.Text + "/" + lblTel2.Text);
 			ticket.TextoIzquierda("RNC: " + lblrnc.Text);
@@ -190,6 +192,7 @@ namespace Capa_de_Presentacion
 
         private void label18_Click(object sender, EventArgs e)
         {
+			Program.abierto = false;
 			clean();
 			this.Close();
 		}

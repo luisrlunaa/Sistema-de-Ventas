@@ -178,7 +178,8 @@ namespace Capa_de_Presentacion
 
 		private void label6_Click(object sender, EventArgs e)
 		{
-			this.Close();
+            Program.abierto = false;
+            this.Close();
 		}
 
 		//private void button2_Click_1(object sender, EventArgs e)

@@ -8,10 +8,13 @@ namespace Capa_de_Presentacion
 {
     public static class Program
     {
-        /// <summary>
-        /// Punto de entrada principal para la aplicación.      
-        /// </summary>
-        public static int Evento;
+		/// <summary>
+		/// Punto de entrada principal para la aplicación.      
+		/// </summary>
+		/// 
+		public static bool abierto;
+		public static bool abiertosecundarias;
+		public static int Evento;
 		public static int Eid;
 		public static int idgastos;
 		public static string inventario;

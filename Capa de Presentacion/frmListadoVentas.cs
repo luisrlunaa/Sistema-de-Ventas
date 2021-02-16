@@ -220,6 +220,8 @@ namespace Capa_de_Presentacion
 
 		private void label2_Click(object sender, EventArgs e)
 		{
+			Program.abierto = false;
+			Program.abiertosecundarias = false;
 			FrmRegistroVentas V = new FrmRegistroVentas();
 			V.txtidEmp.Text=Convert.ToString(Program.IdEmpleadoLogueado);
 			this.Close();

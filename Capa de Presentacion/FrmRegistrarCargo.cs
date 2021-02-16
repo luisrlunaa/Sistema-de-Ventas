@@ -28,10 +28,8 @@ namespace Capa_de_Presentacion
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo,MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-                this.Close();
-            }
+            Program.abierto = false;
+            this.Close();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -78,7 +76,8 @@ namespace Capa_de_Presentacion
 
 		private void label2_Click(object sender, EventArgs e)
 		{
-			this.Close();
+            Program.abierto = true;
+            this.Close();
 		}
 
 		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

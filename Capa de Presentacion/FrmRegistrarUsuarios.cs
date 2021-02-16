@@ -71,7 +71,8 @@ namespace Capa_de_Presentacion
         }
 		private void label9_Click(object sender, EventArgs e)
 		{
-			this.Close();
+            Program.abierto = false;
+            this.Close();
 		}
        // bool activo;
 		//private void FrmRegistrarUsuarios_Activated(object sender, EventArgs e)
