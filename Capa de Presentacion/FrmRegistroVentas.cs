@@ -761,9 +761,9 @@ namespace Capa_de_Presentacion
 				ticket.TextoDerecha(Program.ReImpresion);
 			}
 
-			System.Drawing.Image img = System.Drawing.Image.FromFile("LogoCepeda.png");
-			ticket.HeaderImage = img;
-			//ticket.TextoCentro(lblLogo.Text);
+			//System.Drawing.Image img = System.Drawing.Image.FromFile("LogoCepeda.png");
+			//ticket.HeaderImage = img;
+			ticket.TextoCentro(lblLogo.Text);
 			ticket.TextoIzquierda("");
 			ticket.TextoIzquierda(lblDir.Text);
 			ticket.TextoIzquierda("Tel: " + lblTel1.Text + "/" + lblTel2.Text);
