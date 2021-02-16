@@ -3,7 +3,6 @@ using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using CapaLogicaNegocio;
-using System.Collections.Generic;
 using System.Drawing;
 
 namespace Capa_de_Presentacion
@@ -102,7 +101,9 @@ namespace Capa_de_Presentacion
 			CrearTiket ticket = new CrearTiket();
 
 			//cabecera del ticket.
-			ticket.TextoCentro(lblLogo.Text);
+			Image img = Image.FromFile("Logo.png");
+			ticket.HeaderImage = img;
+			//ticket.TextoCentro(lblLogo.Text);
 			ticket.TextoIzquierda(lbldir.Text);
 			ticket.TextoIzquierda("TELEFONOS:" + lbltel.Text + "/" + lblTel2.Text);
 			ticket.TextoIzquierda("RNC: " + lblrnc.Text);
@@ -192,6 +193,8 @@ namespace Capa_de_Presentacion
 								cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
 								cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
 								cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
+								cmd2.Parameters.Add("@idVenta", SqlDbType.Int).Value = Convert.ToInt32(Program.Id);
+
 								if (Program.Devuelta > 0)
 								{
 									cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
@@ -200,6 +203,7 @@ namespace Capa_de_Presentacion
 								{
 									cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = 0;
 								}
+
 								cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
 								cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = 0;
 
@@ -224,6 +228,7 @@ namespace Capa_de_Presentacion
 
         private void label18_Click(object sender, EventArgs e)
         {
+			Program.abierto = false;
 			clean();
 			this.Close();
 		}

@@ -644,6 +644,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "FrmListadoProductos";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmListadoProductos_FormClosed);
             this.Load += new System.EventHandler(this.FrmProductos_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

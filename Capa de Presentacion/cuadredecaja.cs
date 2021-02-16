@@ -502,22 +502,24 @@ namespace Capa_de_Presentacion
 				var sobrantes = total - cuadre;
 				lblmensaje.Text = "Cuadre excitoso Sobran : \n" + sobrantes + " Pesos";
 				lblmensaje.ForeColor = System.Drawing.Color.White;
+				btnregistrar.Enabled = true;
 			}
 
 			else if (cuadre == total)
 			{
 				lblmensaje.Text = "Cuadre exacto";
 				lblmensaje.ForeColor = System.Drawing.Color.MidnightBlue;
+				btnregistrar.Enabled = true;
 			}
 			else
 			{
 				var faltantes = cuadre - total;
 				lblmensaje.Text = "Cuadre defectuoso, Faltan : \n" + faltantes + " Pesos";
 				lblmensaje.ForeColor = System.Drawing.Color.Yellow;
+				btnregistrar.Enabled = false;
 			}
 
 			lblmontocuadre.Text = total.ToString();
-			btnregistrar.Enabled = true;
 		}
 	}
 }

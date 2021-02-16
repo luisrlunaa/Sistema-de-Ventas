@@ -102,68 +102,86 @@ namespace Capa_de_Presentacion
 		}
 		private void btnProductos_Click(object sender, EventArgs e)
 		{
-			if(Program.inventario == "Inventario")
+			if(Program.abierto==false)
             {
-					FrmListadoProductos P = new FrmListadoProductos();
-					P.lblLogo.Text = lblLogo.Text;
-					P.lblDir.Text = lblDir.Text;
-					P.button2.Enabled = false;
-					P.Show();
-			}
-			else
-			{
-				if (txtcargo.Text.Trim() != "Administrador")
+				if(Program.inventario == "Inventario")
 				{
-					FrmListadoProductos P = new FrmListadoProductos();
-					P.lblLogo.Text = lblLogo.Text;
-					P.lblDir.Text = lblDir.Text;
-					P.btnNuevo.Enabled = true;
-					P.btnEditar.Enabled = false;
-					P.button2.Enabled = false;
-					P.Show();
+						FrmListadoProductos P = new FrmListadoProductos();
+						P.lblLogo.Text = lblLogo.Text;
+						P.lblDir.Text = lblDir.Text;
+						P.button2.Enabled = false;
+						Program.abierto = true;
+						P.Show();
 				}
 				else
-                {
-					FrmListadoProductos P = new FrmListadoProductos();
-					P.lblLogo.Text = lblLogo.Text;
-					P.lblDir.Text = lblDir.Text;
-					P.Show();
+				{
+					if (txtcargo.Text.Trim() != "Administrador")
+					{
+						FrmListadoProductos P = new FrmListadoProductos();
+						P.lblLogo.Text = lblLogo.Text;
+						P.lblDir.Text = lblDir.Text;
+						P.btnNuevo.Enabled = true;
+						P.btnEditar.Enabled = false;
+						P.button2.Enabled = false;
+						Program.abierto = true;
+						P.Show();
+					}
+					else
+					{
+						FrmListadoProductos P = new FrmListadoProductos();
+						P.lblLogo.Text = lblLogo.Text;
+						P.lblDir.Text = lblDir.Text;
+						Program.abierto = true;
+						P.Show();
+					}
 				}
-			}
+				
+            }
 		}
 		private void btnClientes_Click(object sender, EventArgs e)
 		{
-			FrmListadoClientes C = new FrmListadoClientes();
-			if (Program.CargoEmpleadoLogueado != "Administrador")
+			if (Program.abierto == false)
 			{
-				C.btnActualizar.Enabled = false;
+				FrmListadoClientes C = new FrmListadoClientes();
+				if (Program.CargoEmpleadoLogueado != "Administrador")
+				{
+					C.btnActualizar.Enabled = false;
+				}
+				Program.abierto = true;
+				C.Show();
 			}
-
-			C.Show();
 		}
 		private void btnVentas_Click(object sender, EventArgs e)
 		{
-			FrmRegistroVentas V = new FrmRegistroVentas();
-			V.txtUsu.Text = lblUsuario.Text;
-			V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
-			V.lblLogo.Text = lblLogo.Text;
-			V.lblDir.Text = lblDir.Text;
-			V.lblTel1.Text = lblTel1.Text;
-			V.lblTel2.Text = lblTel2.Text;
-			V.lblCorreo.Text = lblCorreo.Text;
-			V.lblrnc.Text = lblrnc.Text;
-
-			if (Program.CargoEmpleadoLogueado != "Administrador")
+			if (Program.abierto == false)
 			{
-				V.txtIgv.Enabled = false;
-			}
+				FrmRegistroVentas V = new FrmRegistroVentas();
+				V.txtUsu.Text = lblUsuario.Text;
+				V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
+				V.lblLogo.Text = lblLogo.Text;
+				V.lblDir.Text = lblDir.Text;
+				V.lblTel1.Text = lblTel1.Text;
+				V.lblTel2.Text = lblTel2.Text;
+				V.lblCorreo.Text = lblCorreo.Text;
+				V.lblrnc.Text = lblrnc.Text;
 
-			V.Show();
+				if (Program.CargoEmpleadoLogueado != "Administrador")
+				{
+					V.txtIgv.Enabled = false;
+				}
+				Program.abierto = true;
+				V.Show();
+			}
+			
 		}
 		private void btnUsuarios_Click(object sender, EventArgs e)
 		{
-			FrmListadoUsuario U = new FrmListadoUsuario();
-			U.Show();
+			if (Program.abierto == false)
+			{
+				FrmListadoUsuario U = new FrmListadoUsuario();
+				Program.abierto = true;
+				U.Show();
+			}
 		}
 		private void timer1_Tick(object sender, EventArgs e)
 		{
@@ -180,13 +198,16 @@ namespace Capa_de_Presentacion
 
 		private void btnEmpleados_Click(object sender, EventArgs e)
 		{
-			FrmListadoEmpleados E = new FrmListadoEmpleados();
-			if (Program.CargoEmpleadoLogueado != "Administrador")
+			if (Program.abierto == false)
 			{
-				E.btnActualizar.Enabled = false;
+				FrmListadoEmpleados E = new FrmListadoEmpleados();
+				if (Program.CargoEmpleadoLogueado != "Administrador")
+				{
+					E.btnActualizar.Enabled = false;
+				}
+				Program.abierto = true;
+				E.Show();
 			}
-
-			E.Show();
 		}
 
 		private void pictureBox1_Click(object sender, EventArgs e)
@@ -247,20 +268,34 @@ namespace Capa_de_Presentacion
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			frmTurno Tu = new frmTurno();
-			Tu.lblLogo.Text = lblLogo.Text;
-			Tu.textBox2.Text = Program.turno + "";
-			Tu.Show();
+			if (Program.abierto == false)
+			{
+				frmTurno Tu = new frmTurno();
+				Tu.lblLogo.Text = lblLogo.Text;
+				Tu.textBox2.Text = Program.turno + "";
+				Program.abierto = true;
+				Tu.Show();
+			}
 		}
 		private void button2_Click(object sender, EventArgs e)
 		{
-			frmLimitantesNCF limi = new frmLimitantesNCF();
-			limi.Show();
+			if (Program.abierto == false)
+			{
+				frmLimitantesNCF limi = new frmLimitantesNCF();
+				Program.abierto = true;
+				limi.Show();
+			}
+			
 		}
 		private void button3_Click(object sender, EventArgs e)
 		{
-			frmCambiarUsu Ca = new frmCambiarUsu();
-			Ca.Show();
+			if (Program.abierto == false)
+			{
+				frmCambiarUsu Ca = new frmCambiarUsu();
+				Program.abierto = true;
+				Ca.Show();
+			}
+			
 		}
 		private void ckbLimite_CheckedChanged(object sender, EventArgs e)
 		{
@@ -347,10 +382,14 @@ namespace Capa_de_Presentacion
 		}
 		private void button5_Click(object sender, EventArgs e)
 		{
-			frmListadoVentas vt = new frmListadoVentas();
-			vt.lblLogo.Text = lblLogo.Text;
-			vt.lblDir.Text = lblDir.Text;
-			vt.Show();
+			if (Program.abierto == false)
+			{
+				frmListadoVentas vt = new frmListadoVentas();
+				vt.lblLogo.Text = lblLogo.Text;
+				vt.lblDir.Text = lblDir.Text;
+				vt.Show();
+			}
+			
 		}
 
 		private void txtClave_KeyPress(object sender, KeyPressEventArgs e)
@@ -400,16 +439,21 @@ namespace Capa_de_Presentacion
 
         private void button7_Click(object sender, EventArgs e)
         {
-			frmAlineamiento V = new frmAlineamiento();
-			V.txtUsu.Text = lblUsuario.Text;
-			V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
-			V.lblLogo.Text = lblLogo.Text;
-			V.lbldir.Text = lblDir.Text;
-			V.lbltel1.Text = lblTel1.Text;
-			V.lbltel.Text = lblTel2.Text;
-			V.lblCorreo.Text = lblCorreo.Text;
-			V.lblrnc.Text = lblrnc.Text;
-			V.Show();
+			if (Program.abierto == false)
+			{
+				frmAlineamiento V = new frmAlineamiento();
+				V.txtUsu.Text = lblUsuario.Text;
+				V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
+				V.lblLogo.Text = lblLogo.Text;
+				V.lbldir.Text = lblDir.Text;
+				V.lbltel1.Text = lblTel1.Text;
+				V.lbltel.Text = lblTel2.Text;
+				V.lblCorreo.Text = lblCorreo.Text;
+				V.lblrnc.Text = lblrnc.Text;
+				Program.abierto = true;
+				V.Show();
+			}
+			
 		}
     }
 }

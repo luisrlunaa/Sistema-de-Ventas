@@ -24,6 +24,11 @@ namespace Capa_de_Presentacion
 			llenar_data();
 			llenar_data_V();
 			buscarprod();
+
+			if(Program.CargoEmpleadoLogueado != "Administrador")
+            {
+				button3.Enabled = false;
+			}
 		}
 		public void llenar_data_V()
 		{
@@ -93,7 +98,7 @@ namespace Capa_de_Presentacion
 			V.Show();
 			Hide();
 		}
-
+	
 		public void llenar_data()
 		{
 			decimal total = 0; decimal ganancias = 0; decimal preciocompra = 0;
@@ -216,6 +221,7 @@ namespace Capa_de_Presentacion
 
 		private void label2_Click(object sender, EventArgs e)
 		{
+			Program.abierto = false;
 			FrmRegistroVentas V = new FrmRegistroVentas();
 			V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
 			this.Close();
@@ -429,5 +435,70 @@ namespace Capa_de_Presentacion
 			V.btnSalir.Visible = false;
 			this.Close();
 		}
-	}
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+			Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
+			Program.tipo = dataGridView1.CurrentRow.Cells["Tipo"].Value.ToString();
+			if (Program.Id > 0)
+			{
+				decimal caja = 0, monto = 0, montoingresos=0;
+				Cx.conexion.Open();
+				string sql = "select * FROM pagos where idVenta=" + Program.Id;
+				SqlCommand cmd1 = new SqlCommand(sql, Cx.conexion);
+				SqlDataReader reade = cmd1.ExecuteReader();
+				if (reade.Read())
+				{
+					caja = Convert.ToInt32(reade["id_caja"]);
+					if(Program.tipo !="Debito")
+                    {
+						decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
+						decimal egresos = Convert.ToDecimal(reade["egresos"]);
+						monto = Convert.ToDecimal(reade["monto"]);
+
+						montoingresos = ingresos- egresos;
+					}
+					else
+                    {
+						decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
+						decimal egresos = Convert.ToDecimal(reade["egresos"]);
+
+						monto = ingresos - egresos;
+					}
+				}
+				Cx.conexion.Close();
+
+				if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar esta Venta?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+				{
+					using (SqlCommand cmd = new SqlCommand("eliminarVenta", Cx.conexion))
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.Id;
+						cmd.Parameters.Add("@monto", SqlDbType.Int).Value = monto;
+						cmd.Parameters.Add("@ingresos", SqlDbType.Int).Value = montoingresos;
+						cmd.Parameters.Add("@idCaja", SqlDbType.Int).Value = caja;
+						cmd.Parameters.Add("@tipoFactura", SqlDbType.NVarChar).Value = Program.tipo;
+						Cx.conexion.Open();
+						cmd.ExecuteNonQuery();
+						Cx.conexion.Close();
+						Program.Id = 0;
+						Program.tipo = "";
+					}
+				}
+				llenar_data();
+			}
+			else
+			{
+				MessageBox.Show("Por Favor Seleccione una venta antes de eliminarla");
+			}
+		}
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+			if (dataGridView1.Rows.Count > 0)
+			{
+				dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
+			}
+		}
+    }
 }

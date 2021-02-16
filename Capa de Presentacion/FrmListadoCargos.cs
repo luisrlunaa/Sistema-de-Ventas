@@ -187,6 +187,7 @@ namespace Capa_de_Presentacion
 
 		private void label2_Click(object sender, EventArgs e)
 		{
+            Program.abierto = false;
             if (Program.CargoEmpleadoLogueado != "Administrador")
             {
                 btnEditar.Enabled = false;

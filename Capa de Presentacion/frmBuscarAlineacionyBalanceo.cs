@@ -101,6 +101,7 @@ namespace Capa_de_Presentacion
 
 		private void label2_Click(object sender, EventArgs e)
 		{
+			Program.abierto = false;
 			this.Close();
 		}
 
@@ -328,6 +329,63 @@ namespace Capa_de_Presentacion
 		{
 			cargardata();
 		}
-	}
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+			if (dataGridView1.Rows.Count > 0)
+			{
+				dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
+			}
+		}
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+			Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
+			Program.tipogoma = dataGridView1.CurrentRow.Cells["tipoDeTrabajo"].Value.ToString();
+			if (Program.Id > 0)
+			{
+				decimal caja = 0, monto = 0;
+				if (Program.tipogoma.ToUpper() == "SALIDA")
+				{
+					Cx.conexion.Open();
+					string sql = "select * FROM pagos where idVenta=" + Program.Id;
+					SqlCommand cmd1 = new SqlCommand(sql, Cx.conexion);
+					SqlDataReader reade = cmd1.ExecuteReader();
+					if (reade.Read())
+					{
+						caja = Convert.ToInt32(reade["id_caja"]);
+
+						decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
+						decimal egresos = Convert.ToDecimal(reade["egresos"]);
+						monto = ingresos - egresos;
+					}
+					Cx.conexion.Close();
+				}
+
+				if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+				{
+					using (SqlCommand cmd = new SqlCommand("eliminarTaller", Cx.conexion))
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.Id;
+						cmd.Parameters.Add("@idCaja", SqlDbType.Int).Value = caja;
+						cmd.Parameters.Add("@monto", SqlDbType.Int).Value = monto;
+						cmd.Parameters.Add("@tipoDeTrabajo", SqlDbType.NVarChar).Value = Program.tipogoma;
+
+						Cx.conexion.Open();
+						cmd.ExecuteNonQuery();
+						Cx.conexion.Close();
+						Program.Id = 0;
+						Program.tipogoma = "";
+					}
+				}
+				cargardata();
+			}
+			else
+			{
+				MessageBox.Show("Por Favor Seleccione una fila antes de eliminarla");
+			}
+		}
+    }
 }
 

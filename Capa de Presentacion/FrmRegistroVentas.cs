@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using CapaLogicaNegocio;
-using System.Diagnostics;
+using System.Collections.Generic;
+using iTextSharp.text;
 using System.IO;
+using iTextSharp.text.pdf;
+using Image = iTextSharp.text.Image;
+using System.Diagnostics;
 
 namespace Capa_de_Presentacion
 {
@@ -577,7 +578,7 @@ namespace Capa_de_Presentacion
                     {
 						cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = Program.datoscliente;
 					}
-
+					
 					cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
 					cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
 
@@ -650,6 +651,8 @@ namespace Capa_de_Presentacion
 					cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
 					cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
 					cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
+					cmd2.Parameters.Add("@idVenta", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
+
 					if (Program.Devuelta > 0)
 					{
 						cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
@@ -780,7 +783,10 @@ namespace Capa_de_Presentacion
 			{
 				ticket.TextoDerecha(Program.ReImpresion);
 			}
-			ticket.TextoCentro(lblLogo.Text);
+
+            System.Drawing.Image img = System.Drawing.Image.FromFile("Logo.png");
+			ticket.HeaderImage = img;
+			//ticket.TextoCentro(lblLogo.Text);
 			ticket.TextoIzquierda("");
 			ticket.TextoIzquierda(lblDir.Text);
 			ticket.TextoIzquierda("Tel: " + lblTel1.Text + "/" + lblTel2.Text);
@@ -940,6 +946,7 @@ namespace Capa_de_Presentacion
 
 		private void label18_Click(object sender, EventArgs e)
 		{
+			Program.abierto = false;
 			btnImprimir.Visible = false;
 			btnAgregar.Visible = false;
 			Program.pagoRealizado = 0;

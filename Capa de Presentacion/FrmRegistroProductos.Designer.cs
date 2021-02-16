@@ -76,7 +76,7 @@
             // 
             this.txtProducto.Location = new System.Drawing.Point(53, 146);
             this.txtProducto.Name = "txtProducto";
-            this.txtProducto.Size = new System.Drawing.Size(432, 25);
+            this.txtProducto.Size = new System.Drawing.Size(447, 25);
             this.txtProducto.TabIndex = 1;
             // 
             // label2
@@ -93,7 +93,7 @@
             // 
             this.txtMarca.Location = new System.Drawing.Point(53, 194);
             this.txtMarca.Name = "txtMarca";
-            this.txtMarca.Size = new System.Drawing.Size(432, 25);
+            this.txtMarca.Size = new System.Drawing.Size(447, 25);
             this.txtMarca.TabIndex = 3;
             // 
             // label3
@@ -291,7 +291,7 @@
             this.btnCategoria.ForeColor = System.Drawing.Color.Black;
             this.btnCategoria.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_categoria_24;
             this.btnCategoria.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCategoria.Location = new System.Drawing.Point(359, 88);
+            this.btnCategoria.Location = new System.Drawing.Point(374, 88);
             this.btnCategoria.Name = "btnCategoria";
             this.btnCategoria.Size = new System.Drawing.Size(126, 41);
             this.btnCategoria.TabIndex = 16;

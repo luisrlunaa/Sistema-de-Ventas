@@ -148,6 +148,7 @@ namespace Capa_de_Presentacion
 
 		private void btnC_Click(object sender, EventArgs e)
 		{
+			Program.abierto = false;
 			FrmRegistroVentas venta = new FrmRegistroVentas();
 			venta.txttotal.Text = Program.total+"";
 			venta.lbligv.Text= Program.igv+"";

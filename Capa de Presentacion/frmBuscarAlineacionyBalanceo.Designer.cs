@@ -30,8 +30,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoDeTrabajo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.averia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nota = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cbtipo = new System.Windows.Forms.ComboBox();
@@ -48,15 +57,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoDeTrabajo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.averia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nota = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,14 +66,14 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.ColumnHeadersHeight = 29;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -91,7 +92,102 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(902, 435);
             this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.MinimumWidth = 6;
+            this.id.Name = "id";
+            this.id.Visible = false;
+            this.id.Width = 125;
+            // 
+            // cliente
+            // 
+            this.cliente.HeaderText = "cliente";
+            this.cliente.MinimumWidth = 6;
+            this.cliente.Name = "cliente";
+            this.cliente.Width = 125;
+            // 
+            // tipoDeTrabajo
+            // 
+            this.tipoDeTrabajo.HeaderText = "Tipo de Trabajo";
+            this.tipoDeTrabajo.MinimumWidth = 6;
+            this.tipoDeTrabajo.Name = "tipoDeTrabajo";
+            this.tipoDeTrabajo.Width = 125;
+            // 
+            // marca
+            // 
+            this.marca.HeaderText = "Marca";
+            this.marca.MinimumWidth = 6;
+            this.marca.Name = "marca";
+            this.marca.Width = 125;
+            // 
+            // modelo
+            // 
+            this.modelo.HeaderText = "Modelo";
+            this.modelo.MinimumWidth = 6;
+            this.modelo.Name = "modelo";
+            this.modelo.Width = 125;
+            // 
+            // averia
+            // 
+            this.averia.HeaderText = "Averia";
+            this.averia.MinimumWidth = 6;
+            this.averia.Name = "averia";
+            this.averia.Width = 125;
+            // 
+            // precio
+            // 
+            this.precio.HeaderText = "Precio";
+            this.precio.MinimumWidth = 6;
+            this.precio.Name = "precio";
+            this.precio.Width = 125;
+            // 
+            // nota
+            // 
+            this.nota.HeaderText = "Nota";
+            this.nota.MinimumWidth = 10;
+            this.nota.Name = "nota";
+            this.nota.Visible = false;
+            this.nota.Width = 135;
+            // 
+            // fecha
+            // 
+            // 
+            // 
+            // 
+            this.fecha.BackgroundStyle.Class = "DataGridViewDateTimeBorder";
+            this.fecha.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.fecha.HeaderText = "Fecha";
+            this.fecha.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
+            this.fecha.MinimumWidth = 6;
+            // 
+            // 
+            // 
+            this.fecha.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.fecha.MonthCalendar.BackgroundStyle.Class = "";
+            this.fecha.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.fecha.MonthCalendar.CommandsBackgroundStyle.Class = "";
+            this.fecha.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.fecha.MonthCalendar.DisplayMonth = new System.DateTime(2019, 7, 1, 0, 0, 0, 0);
+            this.fecha.MonthCalendar.MarkedDates = new System.DateTime[0];
+            this.fecha.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.fecha.MonthCalendar.NavigationBackgroundStyle.Class = "";
+            this.fecha.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.fecha.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
+            this.fecha.Name = "fecha";
+            this.fecha.Width = 125;
             // 
             // label2
             // 
@@ -294,99 +390,27 @@
             this.label1.TabIndex = 127;
             this.label1.Text = "Buscar Por Nombre:";
             // 
-            // id
+            // button3
             // 
-            this.id.HeaderText = "ID";
-            this.id.MinimumWidth = 6;
-            this.id.Name = "id";
-            this.id.Visible = false;
-            this.id.Width = 125;
-            // 
-            // cliente
-            // 
-            this.cliente.HeaderText = "cliente";
-            this.cliente.MinimumWidth = 6;
-            this.cliente.Name = "cliente";
-            this.cliente.Width = 125;
-            // 
-            // tipoDeTrabajo
-            // 
-            this.tipoDeTrabajo.HeaderText = "Tipo de Trabajo";
-            this.tipoDeTrabajo.MinimumWidth = 6;
-            this.tipoDeTrabajo.Name = "tipoDeTrabajo";
-            this.tipoDeTrabajo.Width = 125;
-            // 
-            // marca
-            // 
-            this.marca.HeaderText = "Marca";
-            this.marca.MinimumWidth = 6;
-            this.marca.Name = "marca";
-            this.marca.Width = 125;
-            // 
-            // modelo
-            // 
-            this.modelo.HeaderText = "Modelo";
-            this.modelo.MinimumWidth = 6;
-            this.modelo.Name = "modelo";
-            this.modelo.Width = 125;
-            // 
-            // averia
-            // 
-            this.averia.HeaderText = "Averia";
-            this.averia.MinimumWidth = 6;
-            this.averia.Name = "averia";
-            this.averia.Width = 125;
-            // 
-            // precio
-            // 
-            this.precio.HeaderText = "Precio";
-            this.precio.MinimumWidth = 6;
-            this.precio.Name = "precio";
-            this.precio.Width = 125;
-            // 
-            // nota
-            // 
-            this.nota.HeaderText = "Nota";
-            this.nota.MinimumWidth = 10;
-            this.nota.Name = "nota";
-            this.nota.Visible = false;
-            this.nota.Width = 135;
-            // 
-            // fecha
-            // 
-            // 
-            // 
-            // 
-            this.fecha.BackgroundStyle.Class = "DataGridViewDateTimeBorder";
-            this.fecha.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.fecha.HeaderText = "Fecha";
-            this.fecha.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
-            this.fecha.MinimumWidth = 6;
-            // 
-            // 
-            // 
-            this.fecha.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.fecha.MonthCalendar.BackgroundStyle.Class = "";
-            this.fecha.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.fecha.MonthCalendar.CommandsBackgroundStyle.Class = "";
-            this.fecha.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.fecha.MonthCalendar.DisplayMonth = new System.DateTime(2019, 7, 1, 0, 0, 0, 0);
-            this.fecha.MonthCalendar.MarkedDates = new System.DateTime[0];
-            this.fecha.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.fecha.MonthCalendar.NavigationBackgroundStyle.Class = "";
-            this.fecha.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.fecha.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
-            this.fecha.Name = "fecha";
-            this.fecha.Width = 125;
+            this.button3.BackColor = System.Drawing.Color.Firebrick;
+            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Open Sans", 10.2F);
+            this.button3.ForeColor = System.Drawing.Color.Black;
+            this.button3.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_eliminar;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.button3.Location = new System.Drawing.Point(634, 612);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(144, 39);
+            this.button3.TabIndex = 128;
+            this.button3.Text = "Eliminar";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // FrmBuscarAlineacionyBalanceo
             // 
@@ -394,6 +418,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Firebrick;
             this.ClientSize = new System.Drawing.Size(942, 662);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label6);
@@ -453,6 +478,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn precio;
         private System.Windows.Forms.DataGridViewTextBoxColumn nota;
         private DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn fecha;
+        public System.Windows.Forms.Button button3;
 #pragma warning restore CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
     }
 }
