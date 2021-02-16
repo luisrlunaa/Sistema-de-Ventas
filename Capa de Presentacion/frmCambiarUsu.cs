@@ -81,6 +81,7 @@ namespace Capa_de_Presentacion
 
 		private void btnCancelar_Click(object sender, EventArgs e)
 		{
+			Program.abiertosecundario = false;
 			Program.abierto = false;
 			Hide();
 		}

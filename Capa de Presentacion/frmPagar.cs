@@ -16,26 +16,9 @@ namespace Capa_de_Presentacion
 
 		clsCx Cx = new clsCx();
 		Correo c = new Correo();
-
-		public void llenar()
-		{
-			string cadSql = "select top(1) montoactual from Caja order by id_caja desc";
-
-			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-			Cx.conexion.Open();
-
-			SqlDataReader leer = comando.ExecuteReader();
-
-			if(leer.Read() == true)
-			{
-				txtCaja1.Text = leer["montoactual"].ToString();
-			}
-			Cx.conexion.Close();
-		}
-
 		public void llenaridP()
 		{
-			string cadSql = "select top(1) id_caja from Caja order by id_caja desc";
+			string cadSql = "select top(1) id_caja,montoactual from Caja order by id_caja desc";
 
 			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
 			Cx.conexion.Open();
@@ -45,6 +28,7 @@ namespace Capa_de_Presentacion
 			if (leer.Read() == true)
 			{
 				txtId.Text = leer["id_caja"].ToString();
+				txtCaja1.Text = leer["montoactual"].ToString();
 			}
 			Cx.conexion.Close();
 		}
@@ -94,7 +78,6 @@ namespace Capa_de_Presentacion
 		}
 		private void frmPagar_Load_1(object sender, EventArgs e)
 		{
-			llenar();
 			llenaridP();
         }
 
@@ -148,6 +131,7 @@ namespace Capa_de_Presentacion
 
 		private void btnC_Click(object sender, EventArgs e)
 		{
+			Program.abiertosecundario = false;
 			Program.abierto = false;
 			FrmRegistroVentas venta = new FrmRegistroVentas();
 			venta.txttotal.Text = Program.total+"";

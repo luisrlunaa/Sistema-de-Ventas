@@ -172,7 +172,6 @@ namespace Capa_de_Presentacion
 				Program.abierto = true;
 				V.Show();
 			}
-			
 		}
 		private void btnUsuarios_Click(object sender, EventArgs e)
 		{
@@ -285,7 +284,6 @@ namespace Capa_de_Presentacion
 				Program.abierto = true;
 				limi.Show();
 			}
-			
 		}
 		private void button3_Click(object sender, EventArgs e)
 		{
@@ -295,7 +293,6 @@ namespace Capa_de_Presentacion
 				Program.abierto = true;
 				Ca.Show();
 			}
-			
 		}
 		private void ckbLimite_CheckedChanged(object sender, EventArgs e)
 		{
@@ -389,7 +386,6 @@ namespace Capa_de_Presentacion
 				vt.lblDir.Text = lblDir.Text;
 				vt.Show();
 			}
-			
 		}
 
 		private void txtClave_KeyPress(object sender, KeyPressEventArgs e)
@@ -453,7 +449,6 @@ namespace Capa_de_Presentacion
 				Program.abierto = true;
 				V.Show();
 			}
-			
 		}
     }
 }
