@@ -298,6 +298,7 @@ namespace Capa_de_Presentacion
 		}
 		private void dataGridView1_DoubleClick(object sender, EventArgs e)
 		{
+			Program.abiertosecundarias = false;
 			Program.IdProducto = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Column1"].Value.ToString());
 			Program.Descripcion = dataGridView1.CurrentRow.Cells["description"].Value.ToString();
 			Program.Marca = dataGridView1.CurrentRow.Cells["marca"].Value.ToString();
@@ -1053,7 +1054,8 @@ namespace Capa_de_Presentacion
 		}
 
         private void FrmListadoProductos_FormClosed(object sender, FormClosedEventArgs e)
-        {
+		{
+			Program.abiertosecundarias = false;
 			Program.abierto = false;
 			if (Program.CargoEmpleadoLogueado != "Administrador")
 			{
@@ -1062,7 +1064,8 @@ namespace Capa_de_Presentacion
 		}
 
         private void FrmListadoProductos_FormClosing(object sender, FormClosingEventArgs e)
-        {
+		{
+			Program.abiertosecundarias = false;
 			Program.abierto = false;
 			if (Program.CargoEmpleadoLogueado != "Administrador")
 			{

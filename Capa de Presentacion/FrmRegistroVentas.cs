@@ -326,10 +326,15 @@ namespace Capa_de_Presentacion
 		}
         private void btnBusquedaProducto_Click(object sender, EventArgs e)
         {
-            FrmListadoProductos P = new FrmListadoProductos();
-			btnAgregar.Visible = true;
-			Program.datoscliente = txtDatos.Text;
-			P.Show();
+			if (Program.abiertosecundarias == false)
+			{
+				FrmListadoProductos P = new FrmListadoProductos();
+				btnAgregar.Visible = true;
+				Program.datoscliente = txtDatos.Text;
+				Program.abiertosecundarias = true;
+				P.Show();
+			}
+			
         }
 
 		private void btnAgregar_Click(object sender, EventArgs e)
