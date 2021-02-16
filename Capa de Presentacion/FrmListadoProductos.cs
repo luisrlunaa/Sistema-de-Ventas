@@ -1079,8 +1079,15 @@ namespace Capa_de_Presentacion
 		}
 
         private void FrmListadoProductos_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			Program.abiertosecundario = false;
+			Program.abierto = false;
+		}
+
+        private void FrmListadoProductos_FormClosing(object sender, FormClosingEventArgs e)
         {
 			Program.abierto = false;
+			Program.abiertosecundario = false;
 		}
     }
 }
