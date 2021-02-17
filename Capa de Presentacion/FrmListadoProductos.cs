@@ -1075,6 +1075,7 @@ namespace Capa_de_Presentacion
 
         private void txtBuscarProducto_KeyUp(object sender, KeyEventArgs e)
         {
+			if(txtBuscarProducto.Text.Length >=3)
 				CargarListado(txtBuscarProducto.Text);
 		}
 
