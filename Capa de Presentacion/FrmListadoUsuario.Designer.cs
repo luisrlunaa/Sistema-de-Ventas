@@ -81,8 +81,6 @@
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.Size = new System.Drawing.Size(420, 430);
             this.dataGridView1.TabIndex = 3;
-//            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
- //           this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
             // 
             // IdUs
             // 
@@ -128,7 +126,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Black", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(404, 5);
+            this.label2.Location = new System.Drawing.Point(448, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(23, 24);
             this.label2.TabIndex = 11;

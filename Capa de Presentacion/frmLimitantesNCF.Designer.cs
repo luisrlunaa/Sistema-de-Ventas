@@ -50,12 +50,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.data_ncf = new System.Windows.Forms.DataGridView();
-            this.btnAplicar = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.id_ncf = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Activo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnAplicar = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.data_comprobante)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -301,6 +301,27 @@
             this.data_ncf.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.data_ncf_CellFormatting);
             this.data_ncf.DoubleClick += new System.EventHandler(this.data_ncf_DoubleClick);
             // 
+            // id_ncf
+            // 
+            this.id_ncf.FillWeight = 50.17418F;
+            this.id_ncf.HeaderText = "ID NCF";
+            this.id_ncf.MinimumWidth = 45;
+            this.id_ncf.Name = "id_ncf";
+            // 
+            // tipo
+            // 
+            this.tipo.FillWeight = 177.6333F;
+            this.tipo.HeaderText = "Tipo De NCF";
+            this.tipo.MinimumWidth = 6;
+            this.tipo.Name = "tipo";
+            // 
+            // Activo
+            // 
+            this.Activo.FillWeight = 72.19251F;
+            this.Activo.HeaderText = "Activo";
+            this.Activo.MinimumWidth = 45;
+            this.Activo.Name = "Activo";
+            // 
             // btnAplicar
             // 
             this.btnAplicar.BackColor = System.Drawing.Color.SpringGreen;
@@ -326,7 +347,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Black", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(978, 9);
+            this.label5.Location = new System.Drawing.Point(992, 9);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(23, 24);
             this.label5.TabIndex = 73;
@@ -342,27 +363,6 @@
             this.label7.Size = new System.Drawing.Size(297, 33);
             this.label7.TabIndex = 113;
             this.label7.Text = "Limitaciones de los NCF";
-            // 
-            // id_ncf
-            // 
-            this.id_ncf.FillWeight = 50.17418F;
-            this.id_ncf.HeaderText = "ID NCF";
-            this.id_ncf.MinimumWidth = 45;
-            this.id_ncf.Name = "id_ncf";
-            // 
-            // tipo
-            // 
-            this.tipo.FillWeight = 177.6333F;
-            this.tipo.HeaderText = "Tipo De NCF";
-            this.tipo.MinimumWidth = 6;
-            this.tipo.Name = "tipo";
-            // 
-            // Activo
-            // 
-            this.Activo.FillWeight = 72.19251F;
-            this.Activo.HeaderText = "Activo";
-            this.Activo.MinimumWidth = 45;
-            this.Activo.Name = "Activo";
             // 
             // frmLimitantesNCF
             // 
