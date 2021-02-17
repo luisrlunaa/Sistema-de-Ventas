@@ -213,6 +213,8 @@ namespace Capa_de_Presentacion
 
 		private void label5_Click(object sender, EventArgs e)
 		{
+			Program.abiertosecundarias = false;
+			Program.abierto = false;
 			this.Close();
 		}
 

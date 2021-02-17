@@ -40,8 +40,11 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FrmRegistrarCargo C = new FrmRegistrarCargo();
-            C.Show();
+            if (Program.abiertosecundarias == false)
+            {   FrmRegistrarCargo C = new FrmRegistrarCargo();
+                Program.abiertosecundarias = true;
+                C.Show();
+            }
         }
 
         private void btnGrabar_Click(object sender, EventArgs e)
@@ -154,7 +157,9 @@ namespace Capa_de_Presentacion
 		}
 		private void label9_Click(object sender, EventArgs e)
 		{
-			this.Close();
+            Program.abiertosecundarias = false;
+            Program.abierto = false;
+            this.Close();
 		}
 		//private void button2_Click(object sender, EventArgs e)
 		//{

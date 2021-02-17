@@ -325,7 +325,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Arial Black", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Red;
-            this.label9.Location = new System.Drawing.Point(634, 9);
+            this.label9.Location = new System.Drawing.Point(646, 9);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(23, 24);
             this.label9.TabIndex = 3;

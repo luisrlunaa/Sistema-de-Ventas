@@ -320,10 +320,14 @@ namespace Capa_de_Presentacion
 		}
         private void btnBusquedaProducto_Click(object sender, EventArgs e)
         {
-            FrmListadoProductos P = new FrmListadoProductos();
-			btnAgregar.Visible = true;
-			Program.datoscliente = txtDatos.Text;
-			P.Show();
+			if (Program.abiertosecundarias == false)
+			{
+				FrmListadoProductos P = new FrmListadoProductos();
+				btnAgregar.Visible = true;
+				Program.datoscliente = txtDatos.Text;
+				Program.abiertosecundarias = true;
+				P.Show();
+			}
         }
 
 		private void agregarproductoGrid()
@@ -848,9 +852,14 @@ namespace Capa_de_Presentacion
 		}
 
 		private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
-		{	frmListadoVentas F = new frmListadoVentas();
-			F.btnCancelar.Visible = false;
-			F.Show();
+		{	
+			if(Program.abiertosecundarias==false)
+            {
+				frmListadoVentas F = new frmListadoVentas();
+				F.btnCancelar.Visible = false;
+				Program.abiertosecundarias = true;
+				F.Show();
+            }
 		}
 
 		public void buscarid()
@@ -922,6 +931,8 @@ namespace Capa_de_Presentacion
 
 		private void label18_Click(object sender, EventArgs e)
 		{
+			Program.abiertosecundarias = false;
+			Program.abierto = false;
 			btnImprimir.Visible = false;
 			btnAgregar.Visible = false;
 			Program.pagoRealizado = 0;

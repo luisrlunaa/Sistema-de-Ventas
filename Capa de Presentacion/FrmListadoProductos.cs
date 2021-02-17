@@ -1077,5 +1077,17 @@ namespace Capa_de_Presentacion
         {
 				CargarListado(txtBuscarProducto.Text);
 		}
+
+        private void FrmListadoProductos_FormClosed(object sender, FormClosedEventArgs e)
+        {
+			Program.abiertosecundarias = false;
+			Program.abierto = false;
+		}
+
+        private void FrmListadoProductos_FormClosing(object sender, FormClosingEventArgs e)
+        {
+			Program.abiertosecundarias = false;
+			Program.abierto = false;
+		}
     }
 }

@@ -19,6 +19,8 @@ namespace Capa_de_Presentacion
 		public static string Esabono;
 
 		//Datos del Cliente
+		public static bool abiertosecundarias;
+		public static bool abierto;
 		public static int IdCliente;
         public static string DocumentoIdentidad;
 		public static string Direccion;

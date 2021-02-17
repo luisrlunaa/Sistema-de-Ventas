@@ -159,8 +159,12 @@ namespace Capa_de_Presentacion
 
         private void btnCategoria_Click(object sender, EventArgs e)
         {
-            FrmRegistrarCategoria C = new FrmRegistrarCategoria();
-            C.Show();
+			if (Program.abiertosecundarias == false)
+			{
+				FrmRegistrarCategoria C = new FrmRegistrarCategoria();	
+				Program.abiertosecundarias = true;
+				C.Show();
+			}
         }
 
         private void Limpiar() {
@@ -268,6 +272,8 @@ namespace Capa_de_Presentacion
 
 		private void label8_Click(object sender, EventArgs e)
 		{
+			Program.abiertosecundarias = false;
+			Program.abierto = false;
 			this.Close();
 		}
 
