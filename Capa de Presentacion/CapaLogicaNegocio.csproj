@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B7008032-AC5E-4216-9234-54B3E6CA3BDA}</ProjectGuid>
+    <ProjectGuid>{8087117A-5BEA-4EB0-925A-407B17AB7983}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CapaEnlaceDatos</RootNamespace>
-    <AssemblyName>CapaEnlaceDatos</AssemblyName>
+    <RootNamespace>CapaLogicaNegocio</RootNamespace>
+    <AssemblyName>CapaLogicaNegocio</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
@@ -60,10 +60,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsManejador.cs" />
-    <Compile Include="clsParametro.cs" />
+    <Compile Include="clsCargo.cs" />
+    <Compile Include="clsCategoria.cs" />
+    <Compile Include="clsCliente.cs" />
+    <Compile Include="clsCx.cs" />
+    <Compile Include="clsDetalleVenta.cs" />
+    <Compile Include="clsEmpleado.cs" />
+    <Compile Include="clsProducto.cs" />
+    <Compile Include="clsUsuarios.cs" />
+    <Compile Include="clsVentas.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CapaEnlaceDatos\CapaEnlaceDatos.csproj">
+      <Project>{b7008032-ac5e-4216-9234-54b3e6ca3bda}</Project>
+      <Name>CapaEnlaceDatos</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
