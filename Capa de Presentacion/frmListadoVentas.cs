@@ -21,7 +21,7 @@ namespace Capa_de_Presentacion
 		private void frmListadoVentas_Load(object sender, EventArgs e)
 		{
 			repetitivo();
-			llenar_data();
+			llenar_data("");
 			llenar_data_V();
 			buscarprod();
 			gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
@@ -94,7 +94,7 @@ namespace Capa_de_Presentacion
 			V.Show();
 			Hide();
 		}
-		public void llenar_data()
+		public void llenar_data(string id)
 		{
 			decimal total = 0; decimal preciocompra = 0; decimal ganancias = 0;
 			//declaramos la cadena  de conexion
@@ -107,12 +107,25 @@ namespace Capa_de_Presentacion
 			SqlDataReader dr;
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
-			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-				"dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-				"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
-				"dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-				"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta  like '%" + txtBuscarid.Text + "%'";
+			if (id != null && id != "")
+			{
+				comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
+					"dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
+					"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
+					"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
+					"dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
+					"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta  LIKE '%" + id + "%' OR DetalleVenta.detalles_P LIKE '%" + id + "%'";
+			}
+			else
+			{
+
+				comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
+					"dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
+					"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
+					"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
+					"dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
+					"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta";
+			}
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -168,7 +181,7 @@ namespace Capa_de_Presentacion
 		}
 		private void txtBuscarCliente_TextChanged(object sender, EventArgs e)
 		{
-			llenar_data();
+			llenar_data("");
 		}
 
 		public void seleccion_data()
@@ -520,7 +533,7 @@ namespace Capa_de_Presentacion
 		{
 			txtBuscarid.Clear();
 			gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
-			llenar_data();
+			llenar_data("");
 		}
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -588,6 +601,11 @@ namespace Capa_de_Presentacion
 				txttotalventaespecifica.Text = Convert.ToString(Math.Round(total, 2));
 			}
 			con.Close();
+		}
+
+        private void txtBuscarid_KeyUp(object sender, KeyEventArgs e)
+        {
+			llenar_data(txtBuscarid.Text);
 		}
     }
 }

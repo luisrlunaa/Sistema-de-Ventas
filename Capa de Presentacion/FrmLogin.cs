@@ -117,7 +117,7 @@ namespace Capa_de_Presentacion
                             using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
                             {
                                 string id_var = "";
-                                if (idCaja == "")
+                                if (idCaja == "" || idCaja ==null)
                                     id_var = "0";
                                 else
                                     id_var = idCaja;
