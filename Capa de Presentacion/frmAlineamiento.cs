@@ -62,7 +62,15 @@ namespace Capa_de_Presentacion
 
 		private void frmTaller_Activated(object sender, EventArgs e)
 		{
-			txtCliente.Text = Program.NombreCliente.ToUpper();
+			if(txtCliente.Text !=null && txtCliente.Text != "")
+			{
+				txtCliente.Text = Program.NombreCliente.ToUpper();
+			}
+			if(txtAveria.Text != null && txtAveria.Text != "")
+            {
+				txtAveria.Text = Program.averia.ToUpper();
+			}
+
 			txtMarca.Text = Program.marca;
 			txtImei.Text = Program.Imei;
 			cbtipo.Text = Program.descripcion;
@@ -70,7 +78,6 @@ namespace Capa_de_Presentacion
 			txtprecio.Text= Convert.ToString(Program.total);
 			txtnota.Text=	Program.nota;
 			lblidAliBal.Text = Program.Id+"";
-			txtAveria.Text=Program.averia.ToUpper();
 			txtTelefono.Text = Program.telefono;
 
 			if (Program.Id>0 && Program.descripcion.ToLower()=="entrada")
@@ -92,7 +99,6 @@ namespace Capa_de_Presentacion
 				btnpagar.Hide();
 				button1.Show();
 			}
-
 		}
 
 
@@ -156,6 +162,16 @@ namespace Capa_de_Presentacion
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+			Program.averia = txtAveria.Text;
+			Program.NombreCliente = txtCliente.Text;
+			Program.Imei = txtImei.Text;
+			Program.descripcion = cbtipo.Text;
+			Program.marca = txtMarca.Text;
+			Program.Modelo = txtModelo.Text;
+			Program.telefono = txtTelefono.Text;
+			Program.total = Convert.ToDecimal(txtprecio.Text);
+			Program.nota = txtnota.Text;
+
 			if (Program.Id > 0 && Program.descripcion.ToLower() == "salida" && Program.pagoRealizado == 0)
 			{
 				tickEstiloP();
@@ -210,19 +226,20 @@ namespace Capa_de_Presentacion
 								con.Open();
 								cmd2.ExecuteNonQuery();
 								con.Close();
+								tickEstiloP();
 								MessageBox.Show("Salida Registrada y Pago Confirmado");
 							}
 						}
                         else
                         {
+							tickEstiloP();
 							MessageBox.Show("Guardado en Taller");
 						}
 
 						Program.pagoRealizado = 0;
-						tickEstiloP();
-						clean();
 					}
 				}
+				clean();
 			}
 		}
 
@@ -257,8 +274,6 @@ namespace Capa_de_Presentacion
 				button1.Show();
 				button1.Text = "Guardar";
 			}
-
-			clean();
 		}
 
         private void btnpagar_Click(object sender, EventArgs e)

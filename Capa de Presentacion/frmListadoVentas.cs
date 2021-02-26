@@ -21,7 +21,7 @@ namespace Capa_de_Presentacion
 		private void frmListadoVentas_Load(object sender, EventArgs e)
 		{
 			repetitivo();
-			llenar_data();
+			llenar_data("");
 			llenar_data_V();
 			buscarprod();
 
@@ -99,7 +99,7 @@ namespace Capa_de_Presentacion
 			Hide();
 		}
 	
-		public void llenar_data()
+		public void llenar_data(string id)
 		{
 			decimal total = 0; decimal ganancias = 0; decimal preciocompra = 0;
 			//declaramos la cadena  de conexion
@@ -112,12 +112,25 @@ namespace Capa_de_Presentacion
 			SqlDataReader dr;
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
-			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P,ISNULL(dbo.DetalleVenta.imei, 'Sin Imei') AS imei, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
+			if (id != null && id != "")
+			{
+				comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P,ISNULL(dbo.DetalleVenta.imei, 'Sin Imei') AS imei, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
 				"dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
 				"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
 				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
 				"dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-				"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta  like '%" + txtBuscarid.Text + "%'";
+				"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta  LIKE '%" + txtBuscarid.Text + "%' OR DetalleVenta.detalles_P LIKE '%" + txtBuscarid.Text + "%'";
+			}
+			else
+			{
+				comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P,ISNULL(dbo.DetalleVenta.imei, 'Sin Imei') AS imei, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
+				"dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
+				"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
+				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
+				"dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
+				"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto";
+			}
+
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
@@ -168,7 +181,7 @@ namespace Capa_de_Presentacion
 		}
 		private void txtBuscarCliente_TextChanged(object sender, EventArgs e)
 		{
-			llenar_data();
+			llenar_data("");
 		}
 
 		public void seleccion_data()
@@ -426,7 +439,7 @@ namespace Capa_de_Presentacion
 		private void button2_Click(object sender, EventArgs e)
 		{
 			txtBuscarid.Clear();
-			llenar_data();
+			llenar_data("");
 		}
 
 		private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -487,7 +500,7 @@ namespace Capa_de_Presentacion
 						Program.tipo = "";
 					}
 				}
-				llenar_data();
+				llenar_data("");
 			}
 			else
 			{
@@ -501,6 +514,11 @@ namespace Capa_de_Presentacion
 			{
 				dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
 			}
+		}
+
+        private void txtBuscarid_KeyUp(object sender, KeyEventArgs e)
+        {
+			llenar_data(txtBuscarid.Text);
 		}
     }
 }
