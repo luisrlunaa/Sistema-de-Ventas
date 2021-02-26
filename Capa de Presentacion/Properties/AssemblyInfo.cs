@@ -1,16 +1,15 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // La información general sobre un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos atributos para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("Capa de Presentacion")]
+[assembly: AssemblyTitle("David Smartphone")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Capa de Presentacion")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCompany("LunasSystem")]
+[assembly: AssemblyProduct("Sistema de Facturacion e Inventario")]
+[assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
