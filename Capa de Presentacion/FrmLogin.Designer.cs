@@ -48,8 +48,10 @@
             this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.rbNCF = new System.Windows.Forms.RadioButton();
+            this.rbVentas = new System.Windows.Forms.RadioButton();
+            this.rbInventario = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaja)).BeginInit();
@@ -106,7 +108,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel1.LinkColor = System.Drawing.Color.White;
-            this.linkLabel1.Location = new System.Drawing.Point(260, 362);
+            this.linkLabel1.Location = new System.Drawing.Point(297, 362);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(160, 16);
             this.linkLabel1.TabIndex = 6;
@@ -117,6 +119,9 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Firebrick;
+            this.groupBox1.Controls.Add(this.rbNCF);
+            this.groupBox1.Controls.Add(this.rbVentas);
+            this.groupBox1.Controls.Add(this.rbInventario);
             this.groupBox1.Controls.Add(this.pictureBox2);
             this.groupBox1.Controls.Add(this.linkLabel1);
             this.groupBox1.Controls.Add(this.btnCancelar);
@@ -158,7 +163,7 @@
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
             this.btnCancelar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_salir_de_24;
             this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelar.Location = new System.Drawing.Point(347, 302);
+            this.btnCancelar.Location = new System.Drawing.Point(384, 302);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(134, 40);
@@ -179,7 +184,7 @@
             this.btnIngresar.ForeColor = System.Drawing.Color.Black;
             this.btnIngresar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_entrar;
             this.btnIngresar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnIngresar.Location = new System.Drawing.Point(191, 302);
+            this.btnIngresar.Location = new System.Drawing.Point(228, 302);
             this.btnIngresar.Margin = new System.Windows.Forms.Padding(4);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(134, 40);
@@ -287,30 +292,11 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(546, 440);
+            this.label3.Location = new System.Drawing.Point(584, 440);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 17);
             this.label3.TabIndex = 7;
             this.label3.Text = "Version 1.1";
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Brown;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Crimson;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkRed;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_producto_30;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(8, 414);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(235, 39);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Entrar Inventario";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // pictureBox1
             // 
@@ -323,13 +309,48 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
+            // rbNCF
+            // 
+            this.rbNCF.AutoSize = true;
+            this.rbNCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbNCF.Location = new System.Drawing.Point(22, 358);
+            this.rbNCF.Name = "rbNCF";
+            this.rbNCF.Size = new System.Drawing.Size(133, 22);
+            this.rbNCF.TabIndex = 13;
+            this.rbNCF.TabStop = true;
+            this.rbNCF.Text = "Configurar NCF";
+            this.rbNCF.UseVisualStyleBackColor = true;
+            // 
+            // rbVentas
+            // 
+            this.rbVentas.AutoSize = true;
+            this.rbVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbVentas.Location = new System.Drawing.Point(22, 330);
+            this.rbVentas.Name = "rbVentas";
+            this.rbVentas.Size = new System.Drawing.Size(155, 22);
+            this.rbVentas.TabIndex = 12;
+            this.rbVentas.TabStop = true;
+            this.rbVentas.Text = "Revisión de Ventas";
+            this.rbVentas.UseVisualStyleBackColor = true;
+            // 
+            // rbInventario
+            // 
+            this.rbInventario.AutoSize = true;
+            this.rbInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbInventario.Location = new System.Drawing.Point(22, 302);
+            this.rbInventario.Name = "rbInventario";
+            this.rbInventario.Size = new System.Drawing.Size(136, 22);
+            this.rbInventario.TabIndex = 11;
+            this.rbInventario.TabStop = true;
+            this.rbInventario.Text = "Entrar Inventario";
+            this.rbInventario.UseVisualStyleBackColor = true;
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Crimson;
             this.ClientSize = new System.Drawing.Size(907, 465);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dgvCaja);
             this.Controls.Add(this.pictureBox1);
@@ -371,6 +392,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn monto;
         private DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn fecha;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RadioButton rbNCF;
+        private System.Windows.Forms.RadioButton rbVentas;
+        private System.Windows.Forms.RadioButton rbInventario;
     }
 }

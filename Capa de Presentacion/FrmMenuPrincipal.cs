@@ -24,7 +24,7 @@ namespace Capa_de_Presentacion
 			txtcargo.Text = Program.CargoEmpleadoLogueado;
 			textBox1.Text = Program.CargoEmpleadoLogueado1;
 
-			if (Program.inventario == "Inventario")
+			if (Program.LoginStatus == "Inventario")
 			{
 				btnProductos.Visible = true;
 				btnClientes.Visible = false;
@@ -32,6 +32,40 @@ namespace Capa_de_Presentacion
 
 				button5.Visible = false;
 				button2.Visible = false;
+				btnUsuarios.Visible = false;
+				btnEmpleados.Visible = false;
+
+				button6.Visible = false;
+				button7.Visible = false;
+				button1.Visible = false;
+				button3.Visible = false;
+				btnVer.Visible = false;
+			}
+			else if (Program.LoginStatus == "Ventas")
+			{
+				btnProductos.Visible = false;
+				btnClientes.Visible = false;
+				btnVentas.Visible = false;
+
+				button5.Visible = true;
+				button2.Visible = false;
+				btnUsuarios.Visible = false;
+				btnEmpleados.Visible = false;
+
+				button6.Visible = true;
+				button7.Visible = false;
+				button1.Visible = false;
+				button3.Visible = false;
+				btnVer.Visible = false;
+			}
+			else if (Program.LoginStatus == "NCF")
+			{
+				btnProductos.Visible = false;
+				btnClientes.Visible = false;
+				btnVentas.Visible = false;
+
+				button5.Visible = false;
+				button2.Visible = true;
 				btnUsuarios.Visible = false;
 				btnEmpleados.Visible = false;
 
@@ -104,7 +138,7 @@ namespace Capa_de_Presentacion
 		{
 			if(Program.abierto==false)
             {
-				if(Program.inventario == "Inventario")
+				if(Program.LoginStatus == "Inventario")
 				{
 						FrmListadoProductos P = new FrmListadoProductos();
 						P.lblLogo.Text = lblLogo.Text;
@@ -211,9 +245,9 @@ namespace Capa_de_Presentacion
 
 		private void pictureBox1_Click(object sender, EventArgs e)
 		{
-			if (Program.inventario == "Inventario")
+			if (Program.LoginStatus == "Inventario")
 			{
-				Program.inventario = "";
+				Program.LoginStatus = "";
 
 				if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
 				{
