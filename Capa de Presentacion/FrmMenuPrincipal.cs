@@ -15,7 +15,6 @@ namespace Capa_de_Presentacion
 			InitializeComponent();
 		}
 
-		Correo c = new Correo();
 		clsCx Cx = new clsCx();
 		clsUsuarios U = new clsUsuarios();
 		private void FrmMenuPrincipal_Activated(object sender, EventArgs e)
@@ -245,45 +244,11 @@ namespace Capa_de_Presentacion
 
 		private void pictureBox1_Click(object sender, EventArgs e)
 		{
-			if (Program.LoginStatus == "Inventario")
+			if (Program.LoginStatus !=""|| Program.LoginStatus != null)
 			{
-				Program.LoginStatus = "";
-
-				if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-				{
-
-					////////////////////Borrar copia de seguridad de base de datos anterior
-					string direccion = @"C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Backup\SalesSystem.bak";
-					File.Delete(direccion);
-
-					////////////////////Creando copia de seguridad de base de datos nueva
-					string comand_query = "BACKUP DATABASE [SalesSystem] TO  DISK = N'C:\\Program Files\\Microsoft SQL Server\\MSSQL12.MSSQLSERVER\\MSSQL\\Backup\\SalesSystem.bak'WITH NOFORMAT, NOINIT,  NAME = N'SalesSystem-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
-					SqlCommand comando = new SqlCommand(comand_query, Cx.conexion);
-					try
-					{
-						Cx.conexion.Open();
-						comando.ExecuteNonQuery();
-
-						////////////////////Enviando al correo copia de seguridad de base de datos nueva
-						c.enviarCorreo("sendingsystembackup@gmail.com", "evitarperdidadedatos/0", "Realizando la creación diaria de respaldo de base de datos para evitar perdidas de datos en caso de algún problema con el equipo.",
-							"Backup de base de datos" + DateTime.Now, "ferreteriaalmontekm13@gmail.com", direccion);
-					}
-					catch (Exception ex)
-					{
-						MessageBox.Show(ex.Message);
-						throw;
-					}
-					finally
-					{
-						Cx.conexion.Close();
-						Cx.conexion.Dispose();
-						Application.Exit();
-					}
-				}
-				else
-				{
-					Application.Exit();
-				}
+				FrmLogin Login = new FrmLogin();
+				Login.Show();
+				this.Hide();
 			}
 			else
 			{
