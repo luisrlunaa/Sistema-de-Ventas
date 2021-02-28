@@ -14,7 +14,7 @@ namespace Capa_de_Presentacion
         public static int Evento;
 		public static int Eid;
 		public static int idgastos;
-		public static string inventario;
+		public static string LoginStatus;
 		public static string ReImpresion;
 		public static string Esabono;
 

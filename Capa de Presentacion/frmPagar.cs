@@ -175,7 +175,7 @@ namespace Capa_de_Presentacion
         private void button4_Click_1(object sender, EventArgs e)
         {
 			FrmMenuPrincipal MP = new FrmMenuPrincipal();
-			Program.inventario = "Inventario";
+			Program.LoginStatus = "Inventario";
 			MP.Show();
 			this.Hide();
 		}

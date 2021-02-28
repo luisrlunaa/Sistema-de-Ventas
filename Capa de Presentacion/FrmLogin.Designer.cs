@@ -30,8 +30,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -47,8 +47,10 @@
             this.Id_caja = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
-            this.button4 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.rbNCF = new System.Windows.Forms.RadioButton();
+            this.rbVentas = new System.Windows.Forms.RadioButton();
+            this.rbInventario = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -80,6 +82,9 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.SteelBlue;
+            this.groupBox1.Controls.Add(this.rbNCF);
+            this.groupBox1.Controls.Add(this.rbVentas);
+            this.groupBox1.Controls.Add(this.rbInventario);
             this.groupBox1.Controls.Add(this.pictureBox2);
             this.groupBox1.Controls.Add(this.linkLabel1);
             this.groupBox1.Controls.Add(this.btnCancelar);
@@ -114,7 +119,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel1.LinkColor = System.Drawing.Color.White;
-            this.linkLabel1.Location = new System.Drawing.Point(216, 378);
+            this.linkLabel1.Location = new System.Drawing.Point(274, 376);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(160, 16);
             this.linkLabel1.TabIndex = 6;
@@ -133,7 +138,7 @@
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
             this.btnCancelar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_salir_de_24;
             this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelar.Location = new System.Drawing.Point(317, 309);
+            this.btnCancelar.Location = new System.Drawing.Point(361, 315);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(134, 40);
@@ -154,7 +159,7 @@
             this.btnIngresar.ForeColor = System.Drawing.Color.Black;
             this.btnIngresar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_entrar;
             this.btnIngresar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnIngresar.Location = new System.Drawing.Point(161, 309);
+            this.btnIngresar.Location = new System.Drawing.Point(205, 315);
             this.btnIngresar.Margin = new System.Windows.Forms.Padding(4);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(134, 40);
@@ -205,14 +210,14 @@
             this.dgvCaja.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCaja.BackgroundColor = System.Drawing.Color.White;
             this.dgvCaja.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCaja.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCaja.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCaja.ColumnHeadersHeight = 25;
             this.dgvCaja.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id_caja,
@@ -226,11 +231,11 @@
             this.dgvCaja.ReadOnly = true;
             this.dgvCaja.RowHeadersVisible = false;
             this.dgvCaja.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.dgvCaja.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.dgvCaja.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvCaja.RowTemplate.Height = 24;
             this.dgvCaja.Size = new System.Drawing.Size(665, 112);
             this.dgvCaja.TabIndex = 6;
@@ -291,39 +296,53 @@
             this.fecha.ReadOnly = true;
             this.fecha.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.SteelBlue;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.button4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.Black;
-            this.button4.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_producto_30;
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(13, 418);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(255, 42);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Entrar a Inventario";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click_1);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(558, 440);
+            this.label3.Location = new System.Drawing.Point(614, 442);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 18);
             this.label3.TabIndex = 8;
             this.label3.Text = "Version 1.1";
+            // 
+            // rbNCF
+            // 
+            this.rbNCF.AutoSize = true;
+            this.rbNCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbNCF.Location = new System.Drawing.Point(20, 352);
+            this.rbNCF.Name = "rbNCF";
+            this.rbNCF.Size = new System.Drawing.Size(133, 22);
+            this.rbNCF.TabIndex = 16;
+            this.rbNCF.TabStop = true;
+            this.rbNCF.Text = "Configurar NCF";
+            this.rbNCF.UseVisualStyleBackColor = true;
+            // 
+            // rbVentas
+            // 
+            this.rbVentas.AutoSize = true;
+            this.rbVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbVentas.Location = new System.Drawing.Point(20, 324);
+            this.rbVentas.Name = "rbVentas";
+            this.rbVentas.Size = new System.Drawing.Size(155, 22);
+            this.rbVentas.TabIndex = 15;
+            this.rbVentas.TabStop = true;
+            this.rbVentas.Text = "Revisión de Ventas";
+            this.rbVentas.UseVisualStyleBackColor = true;
+            // 
+            // rbInventario
+            // 
+            this.rbInventario.AutoSize = true;
+            this.rbInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbInventario.Location = new System.Drawing.Point(20, 296);
+            this.rbInventario.Name = "rbInventario";
+            this.rbInventario.Size = new System.Drawing.Size(136, 22);
+            this.rbInventario.TabIndex = 14;
+            this.rbInventario.TabStop = true;
+            this.rbInventario.Text = "Entrar Inventario";
+            this.rbInventario.UseVisualStyleBackColor = true;
             // 
             // FrmLogin
             // 
@@ -332,7 +351,6 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(229)))));
             this.ClientSize = new System.Drawing.Size(880, 473);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.dgvCaja);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox1);
@@ -371,7 +389,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Id_caja;
         private System.Windows.Forms.DataGridViewTextBoxColumn monto;
         private DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn fecha;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RadioButton rbNCF;
+        private System.Windows.Forms.RadioButton rbVentas;
+        private System.Windows.Forms.RadioButton rbInventario;
     }
 }
