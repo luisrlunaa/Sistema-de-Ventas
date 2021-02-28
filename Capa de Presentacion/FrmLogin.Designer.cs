@@ -49,7 +49,9 @@
             this.Id_caja = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
-            this.button4 = new System.Windows.Forms.Button();
+            this.rbInventario = new System.Windows.Forms.RadioButton();
+            this.rbVentas = new System.Windows.Forms.RadioButton();
+            this.rbNCF = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -81,6 +83,9 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.DarkCyan;
+            this.groupBox1.Controls.Add(this.rbNCF);
+            this.groupBox1.Controls.Add(this.rbVentas);
+            this.groupBox1.Controls.Add(this.rbInventario);
             this.groupBox1.Controls.Add(this.pictureBox2);
             this.groupBox1.Controls.Add(this.linkLabel1);
             this.groupBox1.Controls.Add(this.btnCancelar);
@@ -116,7 +121,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel1.LinkColor = System.Drawing.Color.White;
-            this.linkLabel1.Location = new System.Drawing.Point(231, 385);
+            this.linkLabel1.Location = new System.Drawing.Point(282, 395);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(160, 16);
             this.linkLabel1.TabIndex = 6;
@@ -135,7 +140,7 @@
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
             this.btnCancelar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_salir_de_24;
             this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelar.Location = new System.Drawing.Point(325, 314);
+            this.btnCancelar.Location = new System.Drawing.Point(376, 324);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(134, 40);
@@ -156,7 +161,7 @@
             this.btnIngresar.ForeColor = System.Drawing.Color.Black;
             this.btnIngresar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_entrar;
             this.btnIngresar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnIngresar.Location = new System.Drawing.Point(166, 314);
+            this.btnIngresar.Location = new System.Drawing.Point(217, 324);
             this.btnIngresar.Margin = new System.Windows.Forms.Padding(4);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(134, 40);
@@ -205,7 +210,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(522, 473);
+            this.label3.Location = new System.Drawing.Point(581, 470);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 17);
             this.label3.TabIndex = 4;
@@ -304,27 +309,41 @@
             this.fecha.ReadOnly = true;
             this.fecha.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // button4
+            // rbInventario
             // 
-            this.button4.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(229)))));
-            this.button4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.CornflowerBlue;
-            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_producto_30;
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(13, 443);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(231, 40);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Entrar a Inventario";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.rbInventario.AutoSize = true;
+            this.rbInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbInventario.Location = new System.Drawing.Point(19, 324);
+            this.rbInventario.Name = "rbInventario";
+            this.rbInventario.Size = new System.Drawing.Size(136, 22);
+            this.rbInventario.TabIndex = 8;
+            this.rbInventario.TabStop = true;
+            this.rbInventario.Text = "Entrar Inventario";
+            this.rbInventario.UseVisualStyleBackColor = true;
+            // 
+            // rbVentas
+            // 
+            this.rbVentas.AutoSize = true;
+            this.rbVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbVentas.Location = new System.Drawing.Point(19, 352);
+            this.rbVentas.Name = "rbVentas";
+            this.rbVentas.Size = new System.Drawing.Size(155, 22);
+            this.rbVentas.TabIndex = 9;
+            this.rbVentas.TabStop = true;
+            this.rbVentas.Text = "Revisión de Ventas";
+            this.rbVentas.UseVisualStyleBackColor = true;
+            // 
+            // rbNCF
+            // 
+            this.rbNCF.AutoSize = true;
+            this.rbNCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbNCF.Location = new System.Drawing.Point(19, 380);
+            this.rbNCF.Name = "rbNCF";
+            this.rbNCF.Size = new System.Drawing.Size(133, 22);
+            this.rbNCF.TabIndex = 10;
+            this.rbNCF.TabStop = true;
+            this.rbNCF.Text = "Configurar NCF";
+            this.rbNCF.UseVisualStyleBackColor = true;
             // 
             // FrmLogin
             // 
@@ -332,7 +351,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(229)))));
             this.ClientSize = new System.Drawing.Size(894, 496);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.dgvCaja);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.pictureBox1);
@@ -374,6 +392,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Id_caja;
         private System.Windows.Forms.DataGridViewTextBoxColumn monto;
         private DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn fecha;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.RadioButton rbVentas;
+        private System.Windows.Forms.RadioButton rbInventario;
+        private System.Windows.Forms.RadioButton rbNCF;
     }
 }

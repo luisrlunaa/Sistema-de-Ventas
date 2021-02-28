@@ -124,7 +124,7 @@ namespace Capa_de_Presentacion
 					"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
 					"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
 					"dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-					"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta";
+					"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto";
 			}
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
