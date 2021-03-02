@@ -338,14 +338,14 @@ namespace Capa_de_Presentacion
 			{
 				if (txtCantidad.Text.Trim() != "")
 				{
-					if (Convert.ToInt32(txtCantidad.Text) >= 0)
+					if (Convert.ToDecimal(txtCantidad.Text) >= 0)
 					{
-						if (Convert.ToInt32(txtCantidad.Text) <= Convert.ToInt32(txtStock.Text))
+						if (Convert.ToDecimal(txtCantidad.Text) <= Convert.ToDecimal(txtStock.Text))
 						{
 							V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
 							V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
 							V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).Trim();
-							V.Cantidad = Convert.ToInt32(txtCantidad.Text);
+							V.Cantidad = Convert.ToDecimal(txtCantidad.Text);
 
 							if (Convert.ToDecimal(txtIgv.Text) > 0)
 							{
@@ -354,7 +354,7 @@ namespace Capa_de_Presentacion
 
 							V.PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
 
-							V.SubTotal = Math.Round((Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text)) * Convert.ToInt32(txtCantidad.Text), 2);
+							V.SubTotal = Math.Round((Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text)) * Convert.ToDecimal(txtCantidad.Text), 2);
 							btnAgregar.Visible = false;
 							lst.Add(V);
 							LlenarGri();
@@ -603,7 +603,7 @@ namespace Capa_de_Presentacion
 
 						//Tabla detalles ventas
 						cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IdD"].Value);
-						cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
+						cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
 						cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
 						cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
 						cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
@@ -625,7 +625,7 @@ namespace Capa_de_Presentacion
 						cmd3.CommandType = CommandType.StoredProcedure;
 
 						//UpdateStock
-						cmd3.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
+						cmd3.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
 						cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IDP"].Value);
 
 						con.Open();

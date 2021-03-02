@@ -9,7 +9,7 @@ namespace Capa_de_Presentacion
    public class clsVenta
     {
 		public int IdVenta { get; set; }
-		public int Cantidad { get; set; }
+		public decimal Cantidad { get; set; }
 		public string Descripcion { get; set; }
 		public decimal PrecioVenta { get; set; }
 		public int IdProducto { get; set; }
