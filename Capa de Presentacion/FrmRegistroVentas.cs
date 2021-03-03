@@ -630,6 +630,7 @@ namespace Capa_de_Presentacion
 					cmd2.CommandType = CommandType.StoredProcedure;
 
 					//Tabla de pago
+					cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
 					cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
 					cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
 					cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
@@ -1129,6 +1130,7 @@ namespace Capa_de_Presentacion
 					cmd2.CommandType = CommandType.StoredProcedure;
 
 					//Tabla de pago
+					cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Program.Id;
 					cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
 					cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
 					cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
