@@ -20,7 +20,7 @@ namespace CapaLogicaNegocio
         private String m_Producto;
         private String m_Marca;
         private String m_tipoGoma;
-        private Int32 m_Stock;
+        private decimal m_Stock;
         private decimal m_PrecioCompra;
         private decimal m_PrecioVenta;
         private decimal m_itbis;
@@ -55,7 +55,7 @@ namespace CapaLogicaNegocio
             set { m_tipoGoma = value; }
         }
 
-        public Int32 Stock
+        public decimal Stock
         {
             get { return m_Stock; }
             set { m_Stock = value; }

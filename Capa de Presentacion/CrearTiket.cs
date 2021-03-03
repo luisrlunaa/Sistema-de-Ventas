@@ -223,7 +223,7 @@ namespace Capa_de_Presentacion
         }
 
         // agregar los articulos a la factura
-        public void AgregaArticulo(string articulo, int cant, decimal precio, decimal importe)
+        public void AgregaArticulo(string articulo, decimal cant, decimal precio, decimal importe)
         {
             // valida que cant precio e importe esten dentro del rango
             if (cant.ToString().Length <= 7 && precio.ToString().Length <= 12 && importe.ToString().Length <= 8)

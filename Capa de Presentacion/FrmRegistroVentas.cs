@@ -308,7 +308,7 @@ namespace Capa_de_Presentacion
 					// nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 
 					dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-					dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
+					dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Cantidad")));
 					dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
 					dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
 					dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
@@ -484,6 +484,11 @@ namespace Capa_de_Presentacion
 				}
 			}
 
+			if(txtdireccion.Text=="")
+            {
+				txtdireccion.Text = "Entregado en el establecimiento";
+			}
+
 			if(cbidentificacion.Checked == false && Program.IdCliente==0)
             {
 				txtDatos.Text = Program.datoscliente;
@@ -494,6 +499,7 @@ namespace Capa_de_Presentacion
 			Program.total = Convert.ToDecimal(txttotal.Text);
 			Program.igv = Convert.ToDecimal(lbligv.Text);
 			Program.ST = Convert.ToDecimal(lblsubt.Text);
+			Program.Direccion = txtdireccion.Text;
 			pa.txtmonto.Text = txttotal.Text;
 			pa.Show();
 
@@ -587,7 +593,7 @@ namespace Capa_de_Presentacion
 					cmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = txtNCF.Text;
 					cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
 					cmd.Parameters.Add("@TipoDocumento", SqlDbType.VarChar).Value = combo_tipo_NCF.Text;
-					cmd.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = txtdireccion.Text;
+					cmd.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = Program.Direccion;
 					cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dateTimePicker1.Text;
 					cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
 
@@ -603,7 +609,7 @@ namespace Capa_de_Presentacion
 
 						//Tabla detalles ventas
 						cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IdD"].Value);
-						cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
+						cmd1.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
 						cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
 						cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
 						cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
@@ -625,7 +631,7 @@ namespace Capa_de_Presentacion
 						cmd3.CommandType = CommandType.StoredProcedure;
 
 						//UpdateStock
-						cmd3.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
+						cmd3.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
 						cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IDP"].Value);
 
 						con.Open();
@@ -640,6 +646,7 @@ namespace Capa_de_Presentacion
 
 					//Tabla de pago
 					cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
+					cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
 					cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
 					cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
 					cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
@@ -800,7 +807,7 @@ namespace Capa_de_Presentacion
 
 			if(txtdireccion.Text=="")
             {
-				txtdireccion.Text = "Entrega Personal";
+				txtdireccion.Text = "Entregado en el establecimiento";
 			}
 
 			//SUB CABECERA.
@@ -817,7 +824,7 @@ namespace Capa_de_Presentacion
 			//SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
 			foreach (DataGridViewRow fila in dgvVenta.Rows)
 			{
-				ticket.AgregaArticulo((fila.Cells["DescripcionP"].Value.ToString()).Trim(), int.Parse((fila.Cells["cantidadP"].Value.ToString()).Trim()),
+				ticket.AgregaArticulo((fila.Cells["DescripcionP"].Value.ToString()).Trim(), decimal.Parse((fila.Cells["cantidadP"].Value.ToString()).Trim()),
 				decimal.Parse((fila.Cells["PrecioU"].Value.ToString()).Trim()), decimal.Parse((fila.Cells["IGV"].Value.ToString()).Trim()));
 			}
 			ticket.TextoIzquierda(" ");
@@ -1144,6 +1151,7 @@ namespace Capa_de_Presentacion
 
 					//Tabla de pago
 					cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
+					cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Program.Id;
 					cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
 					cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
 					cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;

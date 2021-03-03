@@ -207,7 +207,7 @@ namespace Capa_de_Presentacion
 						dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
 						dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 						dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-						dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
+						dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
 						dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 						dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
 						dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
@@ -306,7 +306,7 @@ namespace Capa_de_Presentacion
 			Program.Descripcion = dataGridView1.CurrentRow.Cells["description"].Value.ToString();
 			Program.Marca = dataGridView1.CurrentRow.Cells["marca"].Value.ToString();
 			Program.PrecioVenta = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["pVenta"].Value.ToString());
-			Program.Stock = Convert.ToInt32(dataGridView1.CurrentRow.Cells["cantidad"].Value.ToString());
+			Program.Stock = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["cantidad"].Value.ToString());
 			Program.IdCategoria = Convert.ToInt32(dataGridView1.CurrentRow.Cells["IdC"].Value.ToString());
 			Program.itbis = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["itbis"].Value.ToString());
 			Program.tipo = dataGridView1.CurrentRow.Cells["tipoGOma"].Value.ToString();
@@ -357,7 +357,7 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
 					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
+					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
 					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
 					dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
@@ -417,7 +417,7 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
 					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
+					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
 					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
@@ -479,7 +479,7 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
 					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
+					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
 					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
@@ -540,7 +540,7 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
 					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
+					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
 					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
@@ -607,7 +607,7 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
 					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
+					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
 					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
@@ -633,25 +633,25 @@ namespace Capa_de_Presentacion
 		{
 			if (this.dataGridView1.Columns[e.ColumnIndex].Name == "cantidad")
 			{
-				if (Convert.ToInt32(e.Value) == 0)
+				if (Convert.ToDecimal(e.Value) == 0)
 				{
 					e.CellStyle.ForeColor = System.Drawing.Color.White;
 					e.CellStyle.BackColor = System.Drawing.Color.Red;
 				}
 
-				if (Convert.ToInt32(e.Value) > 0 && Convert.ToInt32(e.Value) < 5)
+				if (Convert.ToDecimal(e.Value) > 0 && Convert.ToDecimal(e.Value) < 5)
 				{
 					e.CellStyle.ForeColor = System.Drawing.Color.Black;
 					e.CellStyle.BackColor = System.Drawing.Color.Yellow;
 				}
 
-				if (Convert.ToInt32(e.Value) > 4 && Convert.ToInt32(e.Value) < 11)
+				if (Convert.ToDecimal(e.Value) > 4 && Convert.ToDecimal(e.Value) < 11)
 				{
 					e.CellStyle.ForeColor = System.Drawing.Color.Black;
 					e.CellStyle.BackColor = System.Drawing.Color.LightGreen;
 				}
 
-				if (Convert.ToInt32(e.Value) > 10)
+				if (Convert.ToDecimal(e.Value) > 10)
 				{
 					e.CellStyle.ForeColor = System.Drawing.Color.Black;
 					e.CellStyle.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -899,7 +899,7 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
 				dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 				dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-				dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
+				dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
 				dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 				dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
 				dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
@@ -959,7 +959,7 @@ namespace Capa_de_Presentacion
 				dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
 				dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 				dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-				dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
+				dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
 				dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 				dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
 				dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
@@ -1045,7 +1045,7 @@ namespace Capa_de_Presentacion
 					dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
 					dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 					dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Stock")));
+					dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
 					dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
 					dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
 					dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));

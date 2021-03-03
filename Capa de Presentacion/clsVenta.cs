@@ -25,7 +25,7 @@ namespace Capa_de_Presentacion
 			Igv = 0;
 			SubTotal = 0;
 		}
-		public clsVenta(int objIdVenta, int objCantidad, string objDescripcion, string objimei, decimal objPVenta,
+		public clsVenta(int objIdVenta, decimal objCantidad, string objDescripcion, string objimei, decimal objPVenta,
 			int objIdProducto, decimal objIgv, decimal objSubTotal)
 		{
 			IdVenta = objIdVenta;
