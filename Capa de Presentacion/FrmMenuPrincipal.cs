@@ -243,6 +243,7 @@ namespace Capa_de_Presentacion
 		{
 			if (Program.LoginStatus !=""|| Program.LoginStatus != null)
 			{
+				Program.LoginStatus = "";
 				FrmLogin Login = new FrmLogin();
 				Login.Show();
 				this.Hide();
