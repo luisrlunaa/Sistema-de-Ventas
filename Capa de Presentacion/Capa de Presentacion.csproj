@@ -230,6 +230,12 @@
     <Compile Include="frmAlineamiento.Designer.cs">
       <DependentUpon>frmAlineamiento.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmRenovar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRenovar.Designer.cs">
+      <DependentUpon>frmRenovar.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTurno.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -317,6 +323,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAlineamiento.resx">
       <DependentUpon>frmAlineamiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRenovar.resx">
+      <DependentUpon>frmRenovar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTurno.resx">
       <DependentUpon>frmTurno.cs</DependentUpon>
