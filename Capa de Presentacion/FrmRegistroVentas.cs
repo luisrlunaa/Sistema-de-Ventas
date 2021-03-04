@@ -1174,7 +1174,8 @@ namespace Capa_de_Presentacion
 					cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
 					cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
 					cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
-					if(Program.Devuelta>0)
+					cmd2.Parameters.Add("@idVenta", SqlDbType.Int).Value = Program.Id;
+					if (Program.Devuelta>0)
                     {
 						cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
 					}
