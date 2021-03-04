@@ -36,6 +36,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbNCF = new System.Windows.Forms.RadioButton();
+            this.rbVentas = new System.Windows.Forms.RadioButton();
+            this.rbInventario = new System.Windows.Forms.RadioButton();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -49,9 +52,6 @@
             this.Id_caja = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
-            this.rbInventario = new System.Windows.Forms.RadioButton();
-            this.rbVentas = new System.Windows.Forms.RadioButton();
-            this.rbNCF = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -104,6 +104,42 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Iniciar Sesión";
+            // 
+            // rbNCF
+            // 
+            this.rbNCF.AutoSize = true;
+            this.rbNCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbNCF.Location = new System.Drawing.Point(19, 380);
+            this.rbNCF.Name = "rbNCF";
+            this.rbNCF.Size = new System.Drawing.Size(133, 22);
+            this.rbNCF.TabIndex = 10;
+            this.rbNCF.TabStop = true;
+            this.rbNCF.Text = "Configurar NCF";
+            this.rbNCF.UseVisualStyleBackColor = true;
+            // 
+            // rbVentas
+            // 
+            this.rbVentas.AutoSize = true;
+            this.rbVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbVentas.Location = new System.Drawing.Point(19, 352);
+            this.rbVentas.Name = "rbVentas";
+            this.rbVentas.Size = new System.Drawing.Size(155, 22);
+            this.rbVentas.TabIndex = 9;
+            this.rbVentas.TabStop = true;
+            this.rbVentas.Text = "Revisión de Ventas";
+            this.rbVentas.UseVisualStyleBackColor = true;
+            // 
+            // rbInventario
+            // 
+            this.rbInventario.AutoSize = true;
+            this.rbInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbInventario.Location = new System.Drawing.Point(19, 324);
+            this.rbInventario.Name = "rbInventario";
+            this.rbInventario.Size = new System.Drawing.Size(136, 22);
+            this.rbInventario.TabIndex = 8;
+            this.rbInventario.TabStop = true;
+            this.rbInventario.Text = "Entrar Inventario";
+            this.rbInventario.UseVisualStyleBackColor = true;
             // 
             // pictureBox2
             // 
@@ -214,7 +250,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 17);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Version 1.1";
+            this.label3.Text = "Version 1.2";
             // 
             // dgvCaja
             // 
@@ -308,42 +344,6 @@
             this.fecha.Name = "fecha";
             this.fecha.ReadOnly = true;
             this.fecha.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // rbInventario
-            // 
-            this.rbInventario.AutoSize = true;
-            this.rbInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbInventario.Location = new System.Drawing.Point(19, 324);
-            this.rbInventario.Name = "rbInventario";
-            this.rbInventario.Size = new System.Drawing.Size(136, 22);
-            this.rbInventario.TabIndex = 8;
-            this.rbInventario.TabStop = true;
-            this.rbInventario.Text = "Entrar Inventario";
-            this.rbInventario.UseVisualStyleBackColor = true;
-            // 
-            // rbVentas
-            // 
-            this.rbVentas.AutoSize = true;
-            this.rbVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbVentas.Location = new System.Drawing.Point(19, 352);
-            this.rbVentas.Name = "rbVentas";
-            this.rbVentas.Size = new System.Drawing.Size(155, 22);
-            this.rbVentas.TabIndex = 9;
-            this.rbVentas.TabStop = true;
-            this.rbVentas.Text = "Revisión de Ventas";
-            this.rbVentas.UseVisualStyleBackColor = true;
-            // 
-            // rbNCF
-            // 
-            this.rbNCF.AutoSize = true;
-            this.rbNCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbNCF.Location = new System.Drawing.Point(19, 380);
-            this.rbNCF.Name = "rbNCF";
-            this.rbNCF.Size = new System.Drawing.Size(133, 22);
-            this.rbNCF.TabIndex = 10;
-            this.rbNCF.TabStop = true;
-            this.rbNCF.Text = "Configurar NCF";
-            this.rbNCF.UseVisualStyleBackColor = true;
             // 
             // FrmLogin
             // 

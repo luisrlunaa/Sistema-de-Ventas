@@ -1,22 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing.Imaging;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using iTextSharp.text.html;
-using iTextSharp.text.html.simpleparser;
-using System.Diagnostics;
-using System.IO;
 using System.Data.SqlClient;
-using DevComponents.DotNetBar;
-using DevComponents.WinForms.Drawing;
 using CapaLogicaNegocio;
 
 namespace Capa_de_Presentacion
