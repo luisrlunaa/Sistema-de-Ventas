@@ -21,6 +21,12 @@ namespace Capa_de_Presentacion
         }
 
         public string empresa, proveedor, palabraclave, secuenciaini, secuenciacent, secuenciafin;
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         public string licenciaAnterior="";
         private void btnGrabar_Click(object sender, EventArgs e)
         {
