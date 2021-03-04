@@ -267,7 +267,7 @@ namespace Capa_de_Presentacion
 
 		private void pictureBox1_Click(object sender, EventArgs e)
 		{
-			if (Program.LoginStatus !="" || Program.LoginStatus != null)
+			if (Program.LoginStatus !="" && Program.LoginStatus != null)
 			{
 				Program.LoginStatus = "";
 				FrmLogin login = new FrmLogin();
