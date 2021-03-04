@@ -17,6 +17,7 @@ namespace Capa_de_Presentacion
         }
 
         public string idCaja;
+        public DateTime FechaVenc;
         bool tienefila = false;
         public void llenar_data()
         {
@@ -91,69 +92,81 @@ namespace Capa_de_Presentacion
                         {
                         DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                         FrmMenuPrincipal MP = new FrmMenuPrincipal();
-                        if (rbInventario.Checked)
+
+                        if (FechaVenc == DateTime.Today)
                         {
-                            Program.LoginStatus = "Inventario";
-                            RecuperarDatosSesion();
-                            MP.Show();
-                            this.Hide();
-                        }
-                        else if (rbVentas.Checked)
-                        {
-                            Program.LoginStatus = "Ventas";
-                            RecuperarDatosSesion();
-                            MP.Show();
-                            this.Hide();
-                        }
-                        else if (rbNCF.Checked)
-                        {
-                            RecuperarDatosSesion();
-                            if (Program.CargoEmpleadoLogueado == "Administrador")
+                            if (DevComponents.DotNetBar.MessageBoxEx.Show("Licencia del producto ha Cadudado, Favor ponerse en contacto con su suplidor para Renovar la misma, Desea Renovar Ahora?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                             {
-                                Program.LoginStatus = "NCF";
-                                MP.Show();
-                                this.Hide();
-                            }
-                            else
-                            {
-                                DevComponents.DotNetBar.MessageBoxEx.Show("No tiene Cargo de Administrador para poder usar esa función.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                frmRenovar renovar = new frmRenovar();
+                                renovar.Show();
                             }
                         }
                         else
                         {
-                            if (tienefila)
+                            if (rbInventario.Checked)
                             {
+                                Program.LoginStatus = "Inventario";
                                 RecuperarDatosSesion();
                                 MP.Show();
                                 this.Hide();
+                            }
+                            else if (rbVentas.Checked)
+                            {
+                                Program.LoginStatus = "Ventas";
+                                RecuperarDatosSesion();
+                                MP.Show();
+                                this.Hide();
+                            }
+                            else if (rbNCF.Checked)
+                            {
+                                RecuperarDatosSesion();
+                                if (Program.CargoEmpleadoLogueado == "Administrador")
+                                {
+                                    Program.LoginStatus = "NCF";
+                                    MP.Show();
+                                    this.Hide();
+                                }
+                                else
+                                {
+                                    DevComponents.DotNetBar.MessageBoxEx.Show("No tiene Cargo de Administrador para poder usar esa función.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
                             else
                             {
-                                using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
+                                if (tienefila)
                                 {
-                                    string id_var = "";
-                                    if (idCaja == "" || idCaja == null)
-                                        id_var = "0";
-                                    else
-                                        id_var = idCaja;
-
-                                    cmd.CommandType = CommandType.StoredProcedure;
-
-                                    cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
-                                    cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = 0;
-                                    cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
-
-                                    Cx.conexion.Open();
-                                    cmd.ExecuteNonQuery();
-                                    Cx.conexion.Close();
+                                    RecuperarDatosSesion();
+                                    MP.Show();
+                                    this.Hide();
                                 }
-                                llenar_data();
-                                RecuperarDatosSesion();
-                                MP.Show();
-                                this.Hide();
+                                else
+                                {
+                                    using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
+                                    {
+                                        string id_var = "";
+                                        if (idCaja == "" || idCaja == null)
+                                            id_var = "0";
+                                        else
+                                            id_var = idCaja;
+
+                                        cmd.CommandType = CommandType.StoredProcedure;
+
+                                        cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
+                                        cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = 0;
+                                        cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
+
+                                        Cx.conexion.Open();
+                                        cmd.ExecuteNonQuery();
+                                        Cx.conexion.Close();
+                                    }
+                                    llenar_data();
+                                    RecuperarDatosSesion();
+                                    MP.Show();
+                                    this.Hide();
+                                }
                             }
                         }
-					}
+                    }
 				}
 				else {
                     DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese su Contraseña.","Sistema de Ventas.",MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -238,9 +251,24 @@ namespace Capa_de_Presentacion
                 Cx.conexion.Close();
             }
 		}
+        public void fechaVenc()
+        {
+            string cadSql = "select top(1) FechaVenc  from NomEmp order by idEmp desc";
 
+            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+            Cx.conexion.Open();
+
+            SqlDataReader leer = comando.ExecuteReader();
+
+            if (leer.Read() == true)
+            {
+                FechaVenc = Convert.ToDateTime(leer["FechaVenc"]);
+            }
+            Cx.conexion.Close();
+        }
         private void FrmLogin_Load(object sender, EventArgs e)
         {
+            fechaVenc();
             llenarid();
             llenar_data();
         }
