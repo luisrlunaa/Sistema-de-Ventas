@@ -559,7 +559,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "FrmRegistroProductos";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Registro Productos";
             this.Load += new System.EventHandler(this.FrmRegistroProductos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvimei)).EndInit();
