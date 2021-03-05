@@ -13,7 +13,9 @@ namespace Capa_de_Presentacion
 		/// </summary>
 
 		public static bool abiertosecundario;
+		public static bool abiertoimei;
 		public static bool abierto;
+
 		public static int Evento;
 		public static int Eid;
 		public static int idgastos;
@@ -39,6 +41,7 @@ namespace Capa_de_Presentacion
 		public static string marca;
 		public static string averia;
 		public static string Imei;
+		public static string idImei;
 		public static string Modelo;
 		public static string telefono;
 		public static decimal precio;

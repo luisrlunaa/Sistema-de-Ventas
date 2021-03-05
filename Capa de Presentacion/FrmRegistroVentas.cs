@@ -220,6 +220,19 @@ namespace Capa_de_Presentacion
 			lbligv.Text = Program.igv + "";
 			txtpmax.Text = Program.Pmax + "";
 			txtpmin.Text = Program.Pmin + "";
+			txtImei.Text = Program.Imei;
+
+			if (Program.IdProducto >0)
+            {
+				llenar_data(Program.IdProducto + "");
+			}
+
+			if(tienefila && Program.abiertoimei == true)
+            {
+				frmlistadoimei imei = new frmlistadoimei();
+				imei.txtIdP.Text = Program.IdProducto + "";
+				imei.Show();
+            }
 
 			if (Program.Esabono != "" && Program.Esabono != null && Program.pagoRealizado >= 0 && Program.realizopago == true)
 			{
@@ -325,7 +338,9 @@ namespace Capa_de_Presentacion
 			if (Program.abiertosecundario == false)
 			{
 				FrmListadoProductos P = new FrmListadoProductos();
+				tienefila = false;
 				btnAgregar.Visible = true;
+				Program.abiertoimei = true;
 				Program.datoscliente = txtDatos.Text;
 				Program.abiertosecundario = true;
 				P.Show();
@@ -473,6 +488,7 @@ namespace Capa_de_Presentacion
 			txtImei.Clear();
 			txtIgv.Text = "";
 			txtImei.Text = "";
+			Program.Imei = "";
 			Program.Descripcion = "";
             Program.Stock = 0;
             Program.Marca = "";
@@ -607,20 +623,38 @@ namespace Capa_de_Presentacion
 					con.Close();
 				}
 
-				using (SqlCommand cmd1 = new SqlCommand("RegistrarDetalleVenta", con))
+					using (SqlCommand cmd1 = new SqlCommand("RegistrarDetalleVenta", con))
 					foreach (DataGridViewRow row in dgvVenta.Rows)
 					{
 						cmd1.CommandType = CommandType.StoredProcedure;
 
 						//Tabla detalles ventas
 						cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IdD"].Value);
-						cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
+						cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
 						cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
 						cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
 						cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
 						cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IDP"].Value);
 						cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
 						cmd1.Parameters.Add("@imei", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["ImeiC"].Value);
+
+						
+						if (Convert.ToString(row.Cells["ImeiC"].Value)!= "Sin Imei")
+						{
+							using (SqlCommand cmd4 = new SqlCommand("Registrarimei", con))
+							{
+								cmd4.CommandType = CommandType.StoredProcedure;
+								cmd4.Parameters.Add("@idImei", SqlDbType.Int).Value = Convert.ToInt32(Program.idImei);
+								cmd4.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IDP"].Value);
+								cmd4.Parameters.Add("@IMEI", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["ImeiC"].Value);
+								cmd4.Parameters.Add("@activo", SqlDbType.Char).Value = 0;
+								cmd4.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
+
+								con.Open();
+								cmd4.ExecuteNonQuery();
+								con.Close();
+							}
+						}
 
 						con.Open();
 						cmd1.ExecuteNonQuery();
@@ -680,6 +714,7 @@ namespace Capa_de_Presentacion
 					cmd2.ExecuteNonQuery();
 					con.Close();
 				}
+
 				Program.pagoRealizado = 0;
 				MessageBox.Show("Venta Registrada y Pago Confirmado");
 			}
@@ -770,6 +805,8 @@ namespace Capa_de_Presentacion
 			Program.fecha = "";
 			Program.NroComprobante = "";
 			Program.NCF = "";
+			Program.abiertoimei = false;
+			Program.Imei = "";
 			txtNCF.Clear();
 			lst.Clear();
 			txtIgv.Text = "";
@@ -1222,5 +1259,37 @@ namespace Capa_de_Presentacion
 				txtDatos.ReadOnly = false;
 			}
 		}
-    }
+
+		bool tienefila = false;
+		public void llenar_data(string id)
+		{
+			if (id != "")
+			{
+				//declaramos la cadena  de conexion
+				string cadenaconexion = Cx.conet;
+				//variable de tipo Sqlconnection
+				SqlConnection con = new SqlConnection();
+				//variable de tipo Sqlcommand
+				SqlCommand comando = new SqlCommand();
+				//variable SqlDataReader para leer los datos
+				SqlDataReader dr;
+				con.ConnectionString = cadenaconexion;
+				comando.Connection = con;
+				//declaramos el comando para realizar la busqueda
+				comando.CommandText = "select* from ImeiList where IdProducto =" + id + "and activo=" + 1;
+				//especificamos que es de tipo Text
+				comando.CommandType = CommandType.Text;
+				//se abre la conexion
+				con.Open();
+				//limpiamos los renglones de la datagridview
+				//a la variable DataReader asignamos  el la variable de tipo SqlCommand
+				dr = comando.ExecuteReader();
+				while (dr.Read())
+				{
+					tienefila = true;
+				}
+				con.Close();
+			}
+		}
+	}
 }

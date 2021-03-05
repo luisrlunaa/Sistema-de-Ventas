@@ -109,6 +109,12 @@
     <Compile Include="frmBuscarAlineacionyBalanceo.Designer.cs">
       <DependentUpon>frmBuscarAlineacionyBalanceo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmlistadoimei.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmlistadoimei.Designer.cs">
+      <DependentUpon>frmlistadoimei.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmListadoUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,6 +262,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmBuscarAlineacionyBalanceo.resx">
       <DependentUpon>frmBuscarAlineacionyBalanceo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmlistadoimei.resx">
+      <DependentUpon>frmlistadoimei.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmListadoProductos.aa.resx">
       <DependentUpon>FrmListadoProductos.cs</DependentUpon>

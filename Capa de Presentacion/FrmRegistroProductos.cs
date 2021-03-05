@@ -3,6 +3,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using CapaLogicaNegocio;
+using System.Drawing;
 
 namespace Capa_de_Presentacion
 {
@@ -18,11 +19,13 @@ namespace Capa_de_Presentacion
 
 		private void FrmRegistroProductos_Load(object sender, EventArgs e)
         {
-            ListarElementos();
+			idProducto();
+			llenar_data(txtIdP.Text);
+			ListarElementos();
 			cargar_combo_Tipo(cbtipo);
 			cbtipo.SelectedIndex = 0;
-
-			if(txtPmin.Text.Trim() =="")
+			txtidImei.Text = "";
+			if (txtPmin.Text.Trim() =="")
             {
 				txtPmin.Text = "0";
 			}
@@ -30,7 +33,8 @@ namespace Capa_de_Presentacion
 			{
 				txtPmax.Text = "0";
 			}
-		
+
+			chkimei.Checked = tienefila;
 		}
 
 		public void cargar_combo_Tipo(ComboBox tipo)
@@ -45,6 +49,7 @@ namespace Capa_de_Presentacion
 			tipo.ValueMember = "id";
 			tipo.DataSource = dt;
 		}
+
 		public void ListarElementos() {
             if (IdC.Text.Trim() != "")
             {
@@ -177,8 +182,10 @@ namespace Capa_de_Presentacion
 			Program.itbis = 0;
 			Program.tipo ="";
 
+			txtidImei.Text = "";
 			txtProducto.Text = "";
-            txtMarca.Clear();
+			txtidImei.Clear();
+			txtMarca.Clear();
             txtPCompra.Clear();
             txtPVenta.Clear();
             IdC.Clear();
@@ -281,6 +288,176 @@ namespace Capa_de_Presentacion
         {
 			validar.solonumeros(e);
 		}
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+			if(e.KeyChar==(char)Keys.Enter)
+            {
+
+            }
+        }
+
+        private void chkimei_CheckedChanged(object sender, EventArgs e)
+        {
+			if (chkimei.Checked == true)
+            {
+				this.Size = new System.Drawing.Size(1033, 484);
+			}
+			else
+            {
+				this.Size = new System.Drawing.Size(524, 484);
+			}
+		}
+		bool tienefila = false;
+		public void llenar_data(string id)
+		{
+			if(id!="")
+            {
+				//declaramos la cadena  de conexion
+				string cadenaconexion = Cx.conet;
+				//variable de tipo Sqlconnection
+				SqlConnection con = new SqlConnection();
+				//variable de tipo Sqlcommand
+				SqlCommand comando = new SqlCommand();
+				//variable SqlDataReader para leer los datos
+				SqlDataReader dr;
+				con.ConnectionString = cadenaconexion;
+				comando.Connection = con;
+				//declaramos el comando para realizar la busqueda
+				comando.CommandText = "select * from ImeiList where IdProducto =" + id+"and activo="+1;
+				//especificamos que es de tipo Text
+				comando.CommandType = CommandType.Text;
+				//se abre la conexion
+				con.Open();
+				//limpiamos los renglones de la datagridview
+				dgvimei.Rows.Clear();
+				//a la variable DataReader asignamos  el la variable de tipo SqlCommand
+				dr = comando.ExecuteReader();
+				while (dr.Read())
+				{
+					//variable de tipo entero para ir enumerando los la filas del datagridview
+					int renglon = dgvimei.Rows.Add();
+					// especificamos en que fila se mostrará cada registro
+					// nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+
+					dgvimei.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("idproducto")));
+					dgvimei.Rows[renglon].Cells["IMEI"].Value = dr.GetString(dr.GetOrdinal("IMEI"));
+					dgvimei.Rows[renglon].Cells["idImei"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("idImei")));
+					dgvimei.Rows[renglon].Cells["Fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fechaingreso"));
+
+					tienefila = true;
+				}
+				con.Close();
+			}
+		}
+		
+		public void idProducto()
+		{
+			string cadSql = "select top(1) IdProducto from Producto order by IdProducto desc";
+
+			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+			Cx.conexion.Open();
+
+			SqlDataReader leer = comando.ExecuteReader();
+
+			if (leer.Read() == true)
+			{
+				txtIdPNew.Text = leer["IdProducto"].ToString();
+			}
+			Cx.conexion.Close();
+		}
+
+		public string newimeiID;
+		public void idIMEI(string id)
+		{
+			string cadSql = "select top(1) idImei from ImeiList where IdProducto ="+id+ "order by idImei desc";
+
+			SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+			Cx.conexion.Open();
+
+			SqlDataReader leer = comando.ExecuteReader();
+
+			if (leer.Read() == true)
+			{
+				if(leer["idImei"].ToString()!="" || leer["idImei"].ToString()!=null)
+				{
+					newimeiID = leer["idImei"].ToString();
+				}
+			}
+			else
+			{
+				newimeiID = "1";
+			}
+			Cx.conexion.Close();
+		}
+
+		private void dgvimei_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+			if (dgvimei.Rows.Count > 0)
+			{
+				dgvimei.Rows[dgvimei.CurrentRow.Index].Selected = true;
+
+				txtidImei.Text = dgvimei.CurrentRow.Cells["idImei"].Value.ToString();
+				txtIdP.Text = dgvimei.CurrentRow.Cells["id"].Value.ToString();
+
+				btnsuma.Text = "-";
+				btnsuma.ForeColor = Color.White;
+				btnsuma.BackColor = Color.Red;
+			}
+		}
+
+        private void btnsuma_Click(object sender, EventArgs e)
+        {
+			idIMEI(txtIdP.Text);
+			if(txtIdP.Text =="")
+            {
+				txtIdP.Text = txtIdPNew.Text;
+			}
+
+			if (txtidImei.Text!="")
+            {
+				if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este IMEI.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+				{
+					using (SqlConnection con = new SqlConnection(Cx.conet))
+					{
+						using (SqlCommand cmd = new SqlCommand("eliminarimei", con))
+						{
+							cmd.CommandType = CommandType.StoredProcedure;
+							cmd.Parameters.Add("@idImei", SqlDbType.Int).Value = Convert.ToInt32(txtidImei.Text);
+							cmd.Parameters.Add("@idproducto", SqlDbType.Int).Value = Convert.ToInt32(txtIdP.Text);
+
+							con.Open();
+							cmd.ExecuteNonQuery();
+							con.Close();
+							llenar_data(txtIdP.Text);
+						}
+					}
+				}
+			}
+			else
+            {
+				using (SqlConnection con = new SqlConnection(Cx.conet))
+				{
+					using (SqlCommand cmd = new SqlCommand("Registrarimei", con))
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@idImei", SqlDbType.Int).Value = Convert.ToInt32(newimeiID);
+						cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value =Convert.ToInt32(txtIdP.Text);
+						cmd.Parameters.Add("@IMEI", SqlDbType.NVarChar).Value = txtIMEI.Text;
+						cmd.Parameters.Add("@activo", SqlDbType.Char).Value = 1;
+						cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Value = DateTime.Now; 
+
+						con.Open();
+						cmd.ExecuteNonQuery();
+						con.Close();
+						llenar_data(txtIdP.Text);
+						ListarElementos();
+						Limpiar();
+					}
+				}
+			}
+        }
+
 
         //private void button2_Click(object sender, EventArgs e)
         //{
