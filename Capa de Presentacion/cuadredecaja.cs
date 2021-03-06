@@ -221,7 +221,7 @@ namespace Capa_de_Presentacion
 				if (Convert.ToInt32(dataGridView2.Rows[renglon].Cells["id_caja"].Value) == id)
 				{
 					pagos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["ingresos"].Value), 2);
-					devuelta += Math.Round(Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["egresos"].Value), 2);
+					devuelta += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["egresos"].Value), 2);
 				}
 			}
 
