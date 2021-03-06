@@ -184,7 +184,7 @@ namespace Capa_de_Presentacion
 		}
 		public void llenargridpagos(int id)
 		{
-			decimal pagos = 0;
+			decimal pagos = 0, devuelta = 0, total = 0;
 			//declar=0amos la cadena  de conexion
 			string cadenaconexion = Cx.conet;
 			//variable de tipo Sqlconnection
@@ -220,10 +220,12 @@ namespace Capa_de_Presentacion
 				if (Convert.ToInt32(dataGridView2.Rows[renglon].Cells["id_caja"].Value) == id)
 				{
 					pagos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["ingresos"].Value), 2);
+					devuelta += Math.Round(Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["egresos"].Value), 2);
 				}
-
-				lblmontoingreso.Text = pagos.ToString();
 			}
+
+			total = pagos - devuelta;
+			lblmontoingreso.Text = total.ToString();
 			con.Close();
 		}
 
