@@ -77,9 +77,9 @@ namespace Capa_de_Presentacion
 				dataGridView2.Rows[renglon].Cells["montogasto"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
 
 				gastos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["montogasto"].Value),2);
-
-				lbldeu.Text = gastos.ToString();
 			}
+
+			lbldeu.Text = gastos.ToString();
 			con.Close();
 		}
 		public void llenar_data()
@@ -125,11 +125,11 @@ namespace Capa_de_Presentacion
 
 					devuelta += Math.Round(Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["egresos"].Value),2);
 					pagos += Math.Round(Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["ingresos"].Value),2);
-
-				lblegr.Text = devuelta.ToString();
 			}
 
+			lblegr.Text = devuelta.ToString();
 			lbling.Text = pagos.ToString();
+
 			con.Close();
 		}
 
