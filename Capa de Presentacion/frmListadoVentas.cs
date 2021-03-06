@@ -20,11 +20,24 @@ namespace Capa_de_Presentacion
 		clsCx Cx = new clsCx();
 		private void frmListadoVentas_Load(object sender, EventArgs e)
 		{
+			cargar_combo_NCF(combo_tipo_NCF);
 			repetitivo();
 			llenar_data("");
 			llenar_data_V();
 			buscarprod();
 			gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
+		}
+		public void cargar_combo_NCF(ComboBox combo_tipo_NCF)
+		{
+			SqlCommand cm = new SqlCommand("CARGARcomboNCF", Cx.conexion);
+			cm.CommandType = CommandType.StoredProcedure;
+			SqlDataAdapter da = new SqlDataAdapter(cm);
+			DataTable dt = new DataTable();
+			da.Fill(dt);
+
+			combo_tipo_NCF.DisplayMember = "descripcion_ncf";
+			combo_tipo_NCF.ValueMember = "id_ncf";
+			combo_tipo_NCF.DataSource = dt;
 		}
 		public void llenar_data_V()
 		{
@@ -476,15 +489,35 @@ namespace Capa_de_Presentacion
 			SqlDataReader dr;
 			con.ConnectionString = cadenaconexion;
 			comando.Connection = con;
-			//declaramos el comando para realizar la busqueda
-			comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-				"dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-				"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-				"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta " +
-				"ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-				"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103)";
-			comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-			comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
+
+			if(cbtipodocumento.Checked==true)
+            {
+					//declaramos el comando para realizar la busqueda
+					comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
+					"dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
+					"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
+					"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta " +
+					"ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
+					"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+					"AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento";
+					comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
+					comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
+					comando.Parameters.AddWithValue("@TipoDocumento", combo_tipo_NCF.Text);
+			}
+			else
+            {
+					//declaramos el comando para realizar la busqueda
+					comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
+					"dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
+					"NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
+					"dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta " +
+					"ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
+					"dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+					"AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103)";
+					comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
+					comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
+			}
+
 			//especificamos que es de tipo Text
 			comando.CommandType = CommandType.Text;
 			//se abre la conexion
