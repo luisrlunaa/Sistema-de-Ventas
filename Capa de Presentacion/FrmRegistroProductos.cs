@@ -430,6 +430,10 @@ namespace Capa_de_Presentacion
 							cmd.ExecuteNonQuery();
 							con.Close();
 							llenar_data(txtIdP.Text);
+
+							btnsuma.Text = "+";
+							btnsuma.ForeColor = Color.White;
+							btnsuma.BackColor = Color.CornflowerBlue;
 						}
 					}
 				}
@@ -452,7 +456,7 @@ namespace Capa_de_Presentacion
 						con.Close();
 						llenar_data(txtIdP.Text);
 						ListarElementos();
-						Limpiar();
+						txtIMEI.Text = "";
 					}
 				}
 			}
