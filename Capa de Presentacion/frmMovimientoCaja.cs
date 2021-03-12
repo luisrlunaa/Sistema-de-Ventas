@@ -286,12 +286,26 @@ namespace Capa_de_Presentacion
         private void frmMovimientoCaja_Activated(object sender, EventArgs e)
         {
 			decimal gastos = 0;
-			decimal pagos = Convert.ToDecimal(lbling.Text);
-			if(lbldeu.Text!= "...")
+			decimal pagos = 0;
+			decimal devuelta= 0;
+			decimal total = 0;
+
+			if (lbling.Text != "...")
+			{
+				pagos = Convert.ToDecimal(lbling.Text);
+			}
+
+			if (lblegr.Text != "...")
+			{
+				devuelta = Convert.ToDecimal(lblegr.Text);
+			}
+
+			if (lbldeu.Text!= "...")
             {
 				gastos = Convert.ToDecimal(lbldeu.Text);
 			}
-			decimal total = pagos - gastos;
+
+			total = (pagos- devuelta) - gastos;
 
 			lbltotal.Text = total.ToString();
 		}
