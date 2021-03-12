@@ -405,8 +405,8 @@ namespace Capa_de_Presentacion
 					comando.ExecuteNonQuery();
 
 					////////////////////Enviando al correo copia de seguridad de base de datos nueva
-					c.enviarCorreo("sendingsystembackup@gmail.com", "evitarperdidadedatos/0", "Realizando la creación diaria de respaldo de base de datos para evitar perdidas de datos en caso de algún problema con el equipo.",
-						"Backup de base de datos " + DateTime.Now, "cepedaimport2715@hotmail.com", direccion);
+					//c.enviarCorreo("sendingsystembackup@gmail.com", "evitarperdidadedatos/0", "Realizando la creación diaria de respaldo de base de datos para evitar perdidas de datos en caso de algún problema con el equipo.",
+					//	"Backup de base de datos " + DateTime.Now, "cepedaimport2715@hotmail.com", direccion);
 				}
 				catch (Exception ex)
 				{
