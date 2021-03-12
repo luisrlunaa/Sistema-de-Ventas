@@ -30,9 +30,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtProducto = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -444,18 +444,18 @@
             // dgvimei
             // 
             this.dgvimei.AllowUserToAddRows = false;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            this.dgvimei.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.dgvimei.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvimei.BackgroundColor = System.Drawing.Color.White;
             this.dgvimei.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvimei.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvimei.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvimei.ColumnHeadersHeight = 29;
             this.dgvimei.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idImei,
@@ -466,8 +466,8 @@
             this.dgvimei.Location = new System.Drawing.Point(538, 133);
             this.dgvimei.Name = "dgvimei";
             this.dgvimei.RowHeadersWidth = 51;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            this.dgvimei.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            this.dgvimei.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvimei.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
             this.dgvimei.RowTemplate.Height = 24;
             this.dgvimei.Size = new System.Drawing.Size(472, 330);

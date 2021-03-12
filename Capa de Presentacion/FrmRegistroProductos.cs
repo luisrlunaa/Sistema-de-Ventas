@@ -64,7 +64,7 @@ namespace Capa_de_Presentacion
                 cbxCategoria.ValueMember = "IdCategoria";
                 cbxCategoria.DataSource = C.Listar();
             }
-        }
+		}
 
         private void btnGuardar_Click(object sender, EventArgs e)
 		{
@@ -182,6 +182,7 @@ namespace Capa_de_Presentacion
 			Program.itbis = 0;
 			Program.tipo ="";
 
+			txtIMEI.Text = "";
 			txtidImei.Text = "";
 			txtProducto.Text = "";
 			txtidImei.Clear();
@@ -308,6 +309,7 @@ namespace Capa_de_Presentacion
 				this.Size = new System.Drawing.Size(524, 484);
 			}
 		}
+
 		bool tienefila = false;
 		public void llenar_data(string id)
 		{
@@ -397,9 +399,6 @@ namespace Capa_de_Presentacion
 			{
 				dgvimei.Rows[dgvimei.CurrentRow.Index].Selected = true;
 
-				txtidImei.Text = dgvimei.CurrentRow.Cells["idImei"].Value.ToString();
-				txtIdP.Text = dgvimei.CurrentRow.Cells["id"].Value.ToString();
-
 				btnsuma.Text = "-";
 				btnsuma.ForeColor = Color.White;
 				btnsuma.BackColor = Color.Red;
@@ -414,8 +413,11 @@ namespace Capa_de_Presentacion
 				txtIdP.Text = txtIdPNew.Text;
 			}
 
-			if (txtidImei.Text!="")
+			if (btnsuma.Text == "-")
             {
+				txtidImei.Text = dgvimei.CurrentRow.Cells["idImei"].Value.ToString();
+				txtIdP.Text = dgvimei.CurrentRow.Cells["id"].Value.ToString();
+
 				if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este IMEI.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
 				{
 					using (SqlConnection con = new SqlConnection(Cx.conet))
@@ -431,6 +433,7 @@ namespace Capa_de_Presentacion
 							con.Close();
 							llenar_data(txtIdP.Text);
 
+							
 							btnsuma.Text = "+";
 							btnsuma.ForeColor = Color.White;
 							btnsuma.BackColor = Color.CornflowerBlue;
@@ -456,8 +459,10 @@ namespace Capa_de_Presentacion
 						con.Close();
 						llenar_data(txtIdP.Text);
 						ListarElementos();
-						txtIMEI.Text = "";
 					}
+
+					newimeiID = "";
+					txtIMEI.Text = "";
 				}
 			}
         }
