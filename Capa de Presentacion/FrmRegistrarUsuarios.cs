@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CapaLogicaNegocio;
+using System;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using DevComponents.DotNetBar;
-using System.IO;
-using CapaLogicaNegocio;
 
 
 namespace Capa_de_Presentacion
@@ -18,7 +9,7 @@ namespace Capa_de_Presentacion
 
     {
         clsUsuarios U = new clsUsuarios();
-		clsCx Cx = new clsCx();
+        clsCx Cx = new clsCx();
         public FrmRegistrarUsuarios()
         {
             InitializeComponent();
@@ -26,8 +17,8 @@ namespace Capa_de_Presentacion
 
         private void FrmRegistrarUsuarios_Load(object sender, EventArgs e)
         {
-			txtEmp.Text = Program.IdEmpleado + "";
-		}
+            txtEmp.Text = Program.IdEmpleado + "";
+        }
 
         private void btnGrabar_Click(object sender, EventArgs e)
         {
@@ -37,14 +28,15 @@ namespace Capa_de_Presentacion
                 {
                     if (Program.IdEmpleado != 0)
                     {
-							U.IdEmpleado = Program.IdEmpleado;
-							U.User = txtUser.Text;
-							U.Password = txtPassword.Text;
+                        U.IdEmpleado = Program.IdEmpleado;
+                        U.User = txtUser.Text;
+                        U.Password = txtPassword.Text;
 
-						DevComponents.DotNetBar.MessageBoxEx.Show(U.RegistrarUsuarios(), "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                        DevComponents.DotNetBar.MessageBoxEx.Show(U.RegistrarUsuarios(), "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                         Limpiar();
                     }
-                    else {
+                    else
+                    {
                         DevComponents.DotNetBar.MessageBoxEx.Show("Lo Sentimos, Pero Usted debe Eligir un \n Empleado para Crear una Cuenta de Usuario.\n \n G R A C I A S.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -54,13 +46,15 @@ namespace Capa_de_Presentacion
                     txtPassword.Focus();
                 }
             }
-            else {
+            else
+            {
                 DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese su Usuario.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtUser.Focus();
             }
         }
 
-        private void Limpiar() {
+        private void Limpiar()
+        {
             txtPassword.Clear();
             txtUser.Clear();
             Program.IdEmpleado = 0;
@@ -69,73 +63,73 @@ namespace Capa_de_Presentacion
             lblDni.Text = "";
             lblEmpleado.Text = "";
         }
-		private void label9_Click(object sender, EventArgs e)
-		{
+        private void label9_Click(object sender, EventArgs e)
+        {
             Program.abiertosecundario = false;
             Program.abierto = false;
             this.Close();
-		}
-       // bool activo;
-		//private void FrmRegistrarUsuarios_Activated(object sender, EventArgs e)
-		//{
-	
-  //          if (txtEmp.Text == "")
-  //          {
-  //              activo = true;
-  //          }
-  //          else
-  //          {
-  //              activo = false;
-  //          }
+        }
+        // bool activo;
+        //private void FrmRegistrarUsuarios_Activated(object sender, EventArgs e)
+        //{
 
-  //          if (activo == false)
-  //          {
-  //              SqlCommand command = new SqlCommand("SELECT dbo.Empleado.imagen FROM dbo.Empleado WHERE dbo.Empleado.imagen IS NOT NULL AND  dbo.Empleado.IdEmpleado = @Clave", Cx.conexion);
-  //              command.Parameters.AddWithValue("@Clave", txtEmp.Text);
+        //          if (txtEmp.Text == "")
+        //          {
+        //              activo = true;
+        //          }
+        //          else
+        //          {
+        //              activo = false;
+        //          }
 
-  //              Cx.conexion.Open();
-  //              SqlDataReader leer = command.ExecuteReader();
+        //          if (activo == false)
+        //          {
+        //              SqlCommand command = new SqlCommand("SELECT dbo.Empleado.imagen FROM dbo.Empleado WHERE dbo.Empleado.imagen IS NOT NULL AND  dbo.Empleado.IdEmpleado = @Clave", Cx.conexion);
+        //              command.Parameters.AddWithValue("@Clave", txtEmp.Text);
 
-  //              if (leer.Read() == false)
-  //              {
-  //                  pictureBox1.Image = null;
-  //              }
+        //              Cx.conexion.Open();
+        //              SqlDataReader leer = command.ExecuteReader();
 
-  //              else
-  //              {//Representa un set de comandos que es utilizado para llenar un DataSet
-  //                  SqlDataAdapter dp = new SqlDataAdapter(command);
-  //                  Cx.conexion.Close();
+        //              if (leer.Read() == false)
+        //              {
+        //                  pictureBox1.Image = null;
+        //              }
 
-  //                  //Representa un caché (un espacio) en memoria de los datos.
-  //                  DataSet ds = new DataSet("Empleado");
-                    
-  //                      //Arreglo de byte en donde se almacenara la foto en bytes
-  //                      byte[] MyData = new byte[0];
+        //              else
+        //              {//Representa un set de comandos que es utilizado para llenar un DataSet
+        //                  SqlDataAdapter dp = new SqlDataAdapter(command);
+        //                  Cx.conexion.Close();
 
-  //                      //Llenamosel DataSet con la tabla. 
-  //                      dp.Fill(ds, "Empleado");
+        //                  //Representa un caché (un espacio) en memoria de los datos.
+        //                  DataSet ds = new DataSet("Empleado");
 
-  //                      //Inicializamos una fila de datos en la cual se almacenaran todos los datos de la fila seleccionada
-  //                      DataRow myRow = ds.Tables["Empleado"].Rows[0];
+        //                      //Arreglo de byte en donde se almacenara la foto en bytes
+        //                      byte[] MyData = new byte[0];
 
-  //                  if (myRow["imagen"] != DBNull.Value)
-  //                  {
-  //                      //Se almacena el campo foto de la tabla en el arreglo de bytes
-  //                      MyData = (byte[])myRow["imagen"];
+        //                      //Llenamosel DataSet con la tabla. 
+        //                      dp.Fill(ds, "Empleado");
 
-  //                      //Se inicializa un flujo en memoria del arreglo de bytes
-  //                      MemoryStream stream = new MemoryStream(MyData);
+        //                      //Inicializamos una fila de datos en la cual se almacenaran todos los datos de la fila seleccionada
+        //                      DataRow myRow = ds.Tables["Empleado"].Rows[0];
 
-  //                      //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
-  //                      //el cual contiene el arreglo de bytes
-  //                      pictureBox1.Image = System.Drawing.Image.FromStream(stream);
-  //                  }
-  //                  else
-  //                  {
-  //                      pictureBox1.Image = null;
-  //                  }
-  //              }
-  //          }
-  //      }
-	}
+        //                  if (myRow["imagen"] != DBNull.Value)
+        //                  {
+        //                      //Se almacena el campo foto de la tabla en el arreglo de bytes
+        //                      MyData = (byte[])myRow["imagen"];
+
+        //                      //Se inicializa un flujo en memoria del arreglo de bytes
+        //                      MemoryStream stream = new MemoryStream(MyData);
+
+        //                      //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
+        //                      //el cual contiene el arreglo de bytes
+        //                      pictureBox1.Image = System.Drawing.Image.FromStream(stream);
+        //                  }
+        //                  else
+        //                  {
+        //                      pictureBox1.Image = null;
+        //                  }
+        //              }
+        //          }
+        //      }
+    }
 }

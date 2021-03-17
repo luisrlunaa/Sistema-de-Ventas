@@ -25,7 +25,7 @@ namespace Capa_de_Presentacion
                 server.ConnectType = SmtpConnectType.ConnectSSLAuto;
 
                 SmtpClient cliente = new SmtpClient();
-                cliente.SendMail(server,msg);
+                cliente.SendMail(server, msg);
             }
             catch (Exception ex)
             {

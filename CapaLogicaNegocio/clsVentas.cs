@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Data;
-using CapaEnlaceDatos;
+﻿using CapaEnlaceDatos;
+using System;
 
 namespace CapaLogicaNegocio
 {
-   public class clsVentas
+    public class clsVentas
     {
-       clsManejador M = new clsManejador();
+        clsManejador M = new clsManejador();
 
-       public int IdEmpleado { get; set; }
-       public int IdCliente { get; set; }
-       public string Serie { get; set; }
-       public string NroComprobante { get; set; }
-       public string TipoDocumento { get; set; }
-       public DateTime FechaVenta { get; set; }
-       public decimal Total { get; set; }
+        public int IdEmpleado { get; set; }
+        public int IdCliente { get; set; }
+        public string Serie { get; set; }
+        public string NroComprobante { get; set; }
+        public string TipoDocumento { get; set; }
+        public DateTime FechaVenta { get; set; }
+        public decimal Total { get; set; }
     }
 
 }

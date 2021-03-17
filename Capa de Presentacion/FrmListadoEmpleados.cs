@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using CapaLogicaNegocio;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SqlClient;
-using DevComponents.DotNetBar;
-using System.IO;
-using CapaLogicaNegocio;
+using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
 {
     public partial class FrmListadoEmpleados : DevComponents.DotNetBar.Metro.MetroForm
     {
         clsEmpleado E = new clsEmpleado();
-		clsCx Cx = new clsCx();
+        clsCx Cx = new clsCx();
         int Listado = 0;
         public FrmListadoEmpleados()
         {
@@ -36,7 +28,8 @@ namespace Capa_de_Presentacion
             }
         }
 
-        private void MostrarListadoEmpleados() {
+        private void MostrarListadoEmpleados()
+        {
             DataTable dt = new DataTable();
             dt = E.ListadoEmpleados();
             dataGridView1.Rows.Clear();
@@ -68,7 +61,8 @@ namespace Capa_de_Presentacion
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.Rows.Count > 0) {
+            if (dataGridView1.Rows.Count > 0)
+            {
                 if (dataGridView1.SelectedRows.Count > 0)
                 {
                     FrmRegistrarEmpleados E = new FrmRegistrarEmpleados();
@@ -83,8 +77,8 @@ namespace Capa_de_Presentacion
                         E.rbnMasculino.Checked = true;
                     else
                         E.rbnFemenino.Checked = true;
-                        E.dateTimePicker1.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells[6].Value.ToString());
-                        E.txtDireccion.Text = dataGridView1.CurrentRow.Cells[7].Value.ToString();
+                    E.dateTimePicker1.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells[6].Value.ToString());
+                    E.txtDireccion.Text = dataGridView1.CurrentRow.Cells[7].Value.ToString();
                     if (dataGridView1.CurrentRow.Cells[8].Value.ToString() == "S")
                         E.cbxEstadoCivil.SelectedIndex = 1;
                     else
@@ -95,9 +89,9 @@ namespace Capa_de_Presentacion
                         E.cbxEstadoCivil.SelectedIndex = 3;
                     else
                         E.cbxEstadoCivil.SelectedIndex = 4;
-                        E.Show();
+                    E.Show();
                 }
-                dataGridView1.ClearSelection(); 
+                dataGridView1.ClearSelection();
                 timer1.Start();
             }
         }
@@ -112,7 +106,8 @@ namespace Capa_de_Presentacion
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            switch(Listado){
+            switch (Listado)
+            {
                 case 0: MostrarListadoEmpleados(); break;
             }
         }
@@ -123,9 +118,9 @@ namespace Capa_de_Presentacion
             if (dataGridView1.RowCount > 0)
             {
                 dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
-				Program.Eid = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
-				textBox1.Text = Program.Eid + "";
-				timer1.Stop();
+                Program.Eid = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
+                textBox1.Text = Program.Eid + "";
+                timer1.Stop();
             }
         }
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -143,7 +138,7 @@ namespace Capa_de_Presentacion
         }
         private void txtDatos_TextChanged(object sender, EventArgs e)
         {
-            if (txtDatos.TextLength>0)
+            if (txtDatos.TextLength > 0)
             {
                 DataTable dt = new DataTable();
                 E.Nombres = txtDatos.Text;
@@ -178,8 +173,8 @@ namespace Capa_de_Presentacion
                 MostrarListadoEmpleados();
             }
         }
-		private void label2_Click(object sender, EventArgs e)
-		{
+        private void label2_Click(object sender, EventArgs e)
+        {
             Program.abiertosecundario = false;
             Program.abierto = false;
             if (Program.CargoEmpleadoLogueado != "Administrador")
@@ -187,7 +182,7 @@ namespace Capa_de_Presentacion
                 btnActualizar.Enabled = false;
             }
             this.Close();
-		}
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -204,7 +199,7 @@ namespace Capa_de_Presentacion
                         Cx.conexion.Open();
                         cmd.ExecuteNonQuery();
                         Cx.conexion.Close();
-                        
+
                         using (SqlCommand cmd1 = new SqlCommand("eliminarEmpleado", Cx.conexion))
                         {
                             cmd1.CommandType = CommandType.StoredProcedure;

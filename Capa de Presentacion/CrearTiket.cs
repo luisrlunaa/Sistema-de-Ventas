@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Capa_de_Presentacion
 {
@@ -234,7 +234,7 @@ namespace Capa_de_Presentacion
                 if (articulo.Length > 24)
                 {
                     //colocar la cantidad a la derecha
-                   
+
                     espacios = "";
                     for (int i = 0; i < 2; i++)
                     {
@@ -244,7 +244,7 @@ namespace Capa_de_Presentacion
                     elemento += espacios + cant.ToString();
 
                     //colocar el precio a la derecha.
-                   
+
                     espacios = "";
                     for (int i = 0; i < 3; i++)
                     {
@@ -255,7 +255,7 @@ namespace Capa_de_Presentacion
                     elemento += espacios + precio.ToString();
 
                     //colocar el importe a la derecha
-                  
+
                     espacios = "";
                     for (int i = 0; i < 3; i++)
                     {
@@ -307,7 +307,7 @@ namespace Capa_de_Presentacion
                         espacios += " ";
                     }
 
-                    elemento += espacios+cant.ToString();
+                    elemento += espacios + cant.ToString();
 
                     //colocar el precio a la derecha
                     espacios = "";

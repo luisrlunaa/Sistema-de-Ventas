@@ -27,7 +27,7 @@ namespace Capa_de_Presentacion
             this.Close();
         }
 
-        public string licenciaAnterior="";
+        public string licenciaAnterior = "";
         private void btnGrabar_Click(object sender, EventArgs e)
         {
             var nuevafecha = DateTime.Today.AddYears(1);
@@ -36,9 +36,9 @@ namespace Capa_de_Presentacion
                 licenciaAnterior = (new Guid()).ToString();
             }
 
-            if(txtrenovar.Text !="" && txtrenovar.Text !=null)
+            if (txtrenovar.Text != "" && txtrenovar.Text != null)
             {
-                if(txtrenovar.Text == txtlicencia.Text && licenciaAnterior != txtrenovar.Text)
+                if (txtrenovar.Text == txtlicencia.Text && licenciaAnterior != txtrenovar.Text)
                 {
                     using (SqlConnection con = new SqlConnection(Cx.conet))
                     {
@@ -62,13 +62,13 @@ namespace Capa_de_Presentacion
                 {
                     MessageBox.Show("Numero de Licencia Incorrecta");
                 }
-            }    
+            }
         }
 
         public void Licencia()
         {
             int num = 0;
-            string numfin="";
+            string numfin = "";
             string cadSql = "select * from Licencia";
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);

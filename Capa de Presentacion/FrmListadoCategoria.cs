@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using CapaLogicaNegocio;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using CapaLogicaNegocio;
 
 namespace Capa_de_Presentacion
 {
     public partial class FrmListadoCategoria : DevComponents.DotNetBar.Metro.MetroForm
-	{
+    {
         private clsCategoria C = new clsCategoria();
 
         public FrmListadoCategoria()
@@ -25,7 +18,7 @@ namespace Capa_de_Presentacion
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                MessageBox.Show("La Fila no debe Estar Seleccionada.","Sistema de Ventas.",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                MessageBox.Show("La Fila no debe Estar Seleccionada.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
@@ -49,22 +42,23 @@ namespace Capa_de_Presentacion
             }
         }
 
-        private void ListarElementos() {
+        private void ListarElementos()
+        {
             dataGridView1.ClearSelection();
             DataTable dt = new DataTable();
             dt = C.Listar();
             try
             {
                 dataGridView1.Rows.Clear();
-            for (int i = 0; i <dt.Rows.Count; i++)
-            {
-                dataGridView1.Rows.Add(dt.Rows[i][0]);
-                dataGridView1.Rows[i].Cells[0].Value = dt.Rows[i][0].ToString();
-                dataGridView1.Rows[i].Cells[1].Value = dt.Rows[i][1].ToString();
-            }
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    dataGridView1.Rows.Add(dt.Rows[i][0]);
+                    dataGridView1.Rows[i].Cells[0].Value = dt.Rows[i][0].ToString();
+                    dataGridView1.Rows[i].Cells[1].Value = dt.Rows[i][1].ToString();
+                }
             }
             catch (Exception ex)
-            {   
+            {
                 throw ex;
             }
 
@@ -81,25 +75,27 @@ namespace Capa_de_Presentacion
             {
                 ListarBusqueda();
             }
-            else {
+            else
+            {
                 ListarElementos();
             }
         }
 
-        private void ListarBusqueda(){
+        private void ListarBusqueda()
+        {
             try
             {
-            DataTable dt = new DataTable();
-            clsCategoria C = new clsCategoria();
-            C.Descripcion = txtBuscarCategoria.Text;
-            dt = C.BuscarCategoria(C.Descripcion);
-            dataGridView1.Rows.Clear();
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                dataGridView1.Rows.Add(dt.Rows[i][0]);
-                dataGridView1.Rows[i].Cells[0].Value = dt.Rows[i][0].ToString();
-                dataGridView1.Rows[i].Cells[1].Value = dt.Rows[i][1].ToString();
-            }
+                DataTable dt = new DataTable();
+                clsCategoria C = new clsCategoria();
+                C.Descripcion = txtBuscarCategoria.Text;
+                dt = C.BuscarCategoria(C.Descripcion);
+                dataGridView1.Rows.Clear();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    dataGridView1.Rows.Add(dt.Rows[i][0]);
+                    dataGridView1.Rows[i].Cells[0].Value = dt.Rows[i][0].ToString();
+                    dataGridView1.Rows[i].Cells[1].Value = dt.Rows[i][1].ToString();
+                }
             }
             catch (Exception ex)
             {
@@ -122,13 +118,14 @@ namespace Capa_de_Presentacion
                 dataGridView1.ClearSelection();
                 C.Show();
             }
-            else {
-                MessageBox.Show("Debe Seleccionar la Fila a Editar Datos.","Sistema de Ventas",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+            else
+            {
+                MessageBox.Show("Debe Seleccionar la Fila a Editar Datos.", "Sistema de Ventas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
-		private void label2_Click(object sender, EventArgs e)
-		{
+        private void label2_Click(object sender, EventArgs e)
+        {
             Program.abiertosecundario = false;
             Program.abierto = false;
             if (Program.CargoEmpleadoLogueado != "Administrador")
@@ -136,6 +133,6 @@ namespace Capa_de_Presentacion
                 btnEditar.Enabled = false;
             }
             this.Close();
-		}
-	}
+        }
+    }
 }
