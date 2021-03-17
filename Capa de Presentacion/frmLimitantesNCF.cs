@@ -220,15 +220,15 @@ namespace Capa_de_Presentacion
 
         private void data_ncf_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-			if (this.data_ncf.Columns[e.ColumnIndex].Name == "Activo")
+			if (data_ncf.Columns[e.ColumnIndex].Name == "Activo")
 			{
-				if (Convert.ToString(e.Value) == "No")
+				if (Convert.ToString(e.Value).ToLower() == "no")
 				{
 						e.CellStyle.ForeColor = Color.White;
 						e.CellStyle.BackColor = Color.Red;
 				}
 
-				if (Convert.ToString(e.Value) == "Si")
+				if (Convert.ToString(e.Value).ToLower() == "si")
 				{
 						e.CellStyle.ForeColor = Color.Black;
 						e.CellStyle.BackColor = Color.White;

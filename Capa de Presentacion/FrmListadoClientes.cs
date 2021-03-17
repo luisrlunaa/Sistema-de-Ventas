@@ -270,7 +270,7 @@ namespace Capa_de_Presentacion
 			Program.cedula = dataGridView2.CurrentRow.Cells[1].Value.ToString();
 			apellido = dataGridView2.CurrentRow.Cells[2].Value.ToString();
 			nombre = dataGridView2.CurrentRow.Cells[3].Value.ToString();
-			Program.nombres = apellido + "," + nombre;
+			Program.nombres = nombre + "," + apellido;
 			this.Close();
 		}
 

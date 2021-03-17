@@ -14,8 +14,6 @@ namespace Capa_de_Presentacion
 {
     public partial class FrmRegistroVentas : DevComponents.DotNetBar.Metro.MetroForm
     {
-        clsVentas Ventas = new clsVentas();
-        clsDetalleVenta Detalle = new clsDetalleVenta();
         private List<clsVenta> lst = new List<clsVenta>();
 		clsCx Cx = new clsCx();
 		public FrmRegistroVentas()
@@ -197,11 +195,11 @@ namespace Capa_de_Presentacion
 		bool activar;
 		private void FrmVentas_Activated(object sender, EventArgs e)
 		{
-			txtDocIdentidad.Text = Program.DocumentoIdentidad;
 			if(Program.IdCliente !=0)
             {
 				txtDatos.Text = Program.ApellidosCliente + " " + Program.NombreCliente;
 				txtidCli.Text = Program.IdCliente + "";
+				txtDocIdentidad.Text = Program.DocumentoIdentidad;
 			}
 			else
             {
@@ -384,13 +382,6 @@ namespace Capa_de_Presentacion
 							btnAgregar.Visible = false;
 							lst.Add(V);
 							LlenarGri();
-
-							if (cbidentificacion.Checked == false && txtDatos.Text != "" && Program.IdCliente == 0)
-							{
-								txtDocIdentidad.Text = "Sin identificacion";
-								txtDatos.Text = Program.datoscliente;
-							}
-
 							Limpiar();
 						}
 						else
@@ -516,7 +507,6 @@ namespace Capa_de_Presentacion
 			if(cbidentificacion.Checked == false && Program.IdCliente==0)
             {
 				txtDatos.Text = Program.datoscliente;
-				txtDocIdentidad.Text = "Sin Identificación";
 			}
 
 			frmPagar pa = new frmPagar();
@@ -847,7 +837,7 @@ namespace Capa_de_Presentacion
 			else
             {
 				nombre = txtDatos.Text;
-				cedula = Program.DocumentoIdentidad;
+				cedula = txtDocIdentidad.Text;
 			}
 
 			//SUB CABECERA.
