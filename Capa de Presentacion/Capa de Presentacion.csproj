@@ -416,7 +416,6 @@
     <None Include="Resources\icons8-eliminar.png" />
     <None Include="Resources\icons8-agregar.png" />
     <None Include="Resources\icons8-buscar.png" />
-    <None Include="Resources\49820ef9-c0be-4404-ba3a-ee7698a139e9.jpg" />
     <None Include="Resources\x-30465_960_720.png" />
   </ItemGroup>
   <ItemGroup>
