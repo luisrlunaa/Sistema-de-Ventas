@@ -507,5 +507,10 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
             }
         }
+
+        private void txtBuscarid_KeyUp(object sender, KeyEventArgs e)
+        {
+            llenar_data(txtBuscarid.Text);
+        }
     }
 }
