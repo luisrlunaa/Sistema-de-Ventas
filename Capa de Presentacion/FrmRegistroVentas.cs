@@ -829,7 +829,7 @@ namespace Capa_de_Presentacion
             foreach (DataGridViewRow fila in dgvVenta.Rows)
             {
                 ticket.AgregaArticulo((fila.Cells["DescripcionP"].Value.ToString()).Trim(), decimal.Parse((fila.Cells["cantidadP"].Value.ToString()).Trim()),
-                decimal.Parse((fila.Cells["PrecioU"].Value.ToString()).Trim()), decimal.Parse((fila.Cells["IGV"].Value.ToString()).Trim()));
+                decimal.Parse((fila.Cells["PrecioU"].Value.ToString()).Trim()), decimal.Parse((fila.Cells["SubtoTal"].Value.ToString()).Trim()));
             }
             ticket.TextoIzquierda(" ");
             //resumen de la venta
