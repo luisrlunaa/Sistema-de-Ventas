@@ -803,6 +803,7 @@ namespace Capa_de_Presentacion
             txtNCF.Clear();
             lst.Clear();
             txtIgv.Text = "";
+            Program.datoscliente = "";
             Program.realizopago = false;
         }
 
@@ -832,7 +833,7 @@ namespace Capa_de_Presentacion
             ticket.TextoExtremos("CAJA #1", "ID VENTA: " + txtIdVenta.Text);
             ticket.lineasGuio();
 
-            if (Program.datoscliente != "")
+            if (Program.datoscliente != "" && Program.IdCliente==0)
             {
                 nombre = Program.datoscliente;
                 cedula = "Sin Identificación";
