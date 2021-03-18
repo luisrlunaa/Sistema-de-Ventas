@@ -202,11 +202,11 @@ namespace Capa_de_Presentacion
         bool activar;
         private void FrmVentas_Activated(object sender, EventArgs e)
         {
-            txtDocIdentidad.Text = Program.DocumentoIdentidad;
             if (Program.IdCliente != 0)
             {
                 txtDatos.Text = Program.ApellidosCliente + " " + Program.NombreCliente;
                 txtidCli.Text = Program.IdCliente + "";
+                txtDocIdentidad.Text = Program.DocumentoIdentidad;
             }
             else
             {
@@ -387,7 +387,7 @@ namespace Capa_de_Presentacion
 
                             if (cbidentificacion.Checked == false && txtDatos.Text != "" && Program.IdCliente == 0)
                             {
-                                txtDocIdentidad.Text = "Sin identificacion";
+                                txtDocIdentidad.Text = "Sin identificación";
                                 txtDatos.Text = Program.datoscliente;
                             }
 
@@ -756,6 +756,7 @@ namespace Capa_de_Presentacion
             txtIgv.Text = "";
             Program.realizopago = false;
             Program.ReImpresion = "";
+            Program.datoscliente = "";
         }
 
         public void tickEstilo()
@@ -784,7 +785,7 @@ namespace Capa_de_Presentacion
             ticket.TextoExtremos("CAJA #1", "ID VENTA: " + txtIdVenta.Text);
             ticket.lineasGuio();
 
-            if (Program.datoscliente != "")
+            if (Program.datoscliente != "" && Program.IdCliente == 0)
             {
                 nombre = Program.datoscliente;
                 cedula = "Sin Identificación";
@@ -792,7 +793,7 @@ namespace Capa_de_Presentacion
             else
             {
                 nombre = txtDatos.Text;
-                cedula = Program.DocumentoIdentidad;
+                cedula = txtDocIdentidad.Text;
             }
 
             //SUB CABECERA.
