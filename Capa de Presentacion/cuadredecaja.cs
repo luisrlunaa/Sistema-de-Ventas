@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
-
 namespace Capa_de_Presentacion
 {
     public partial class cuadredecaja : Form
@@ -51,10 +50,9 @@ namespace Capa_de_Presentacion
         }
         private void btnregistrar_Click(object sender, EventArgs e)
         {
-            decimal montofinal = 0;
             if (!string.IsNullOrEmpty(lblmontocuadre.Text))
             {
-                montofinal = Convert.ToDecimal(lblmontocuadre.Text);
+                decimal montofinal = Convert.ToDecimal(lblmontocuadre.Text);
                 using (SqlConnection con = new SqlConnection(Cx.conet))
                 {
                     using (SqlCommand cmd = new SqlCommand("Registrarcuadre", con))
@@ -232,7 +230,7 @@ namespace Capa_de_Presentacion
 
         public void llenar(int id)
         {
-            string cadSql = "select montoactual from Caja where id_caja=" + id;
+            string cadSql = "select montoactual, monto_inicial from Caja where id_caja=" + id;
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
             Cx.conexion.Open();
@@ -243,6 +241,8 @@ namespace Capa_de_Presentacion
             {
                 decimal montogasto = 0;
                 var montoactual = leer["montoactual"].ToString();
+                lblmontoinicial.Text = leer["monto_inicial"].ToString();
+
                 if (lblmontogasto.Text != "")
                 {
                     montogasto = Convert.ToDecimal(lblmontogasto.Text);
@@ -283,7 +283,7 @@ namespace Capa_de_Presentacion
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            Image image1 = Image.GetInstance("LogoCepeda.png");
+            iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
@@ -312,7 +312,6 @@ namespace Capa_de_Presentacion
 
                 Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
                 var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
-
                 fecha.Alignment = Element.ALIGN_RIGHT;
                 doc.Add(fecha);
                 image1.Alignment = Image.TEXTWRAP | Image.ALIGN_CENTER;
@@ -406,7 +405,7 @@ namespace Capa_de_Presentacion
 
                     ////////////////////Enviando al correo copia de seguridad de base de datos nueva
                     //c.enviarCorreo("sendingsystembackup@gmail.com", "evitarperdidadedatos/0", "Realizando la creación diaria de respaldo de base de datos para evitar perdidas de datos en caso de algún problema con el equipo.",
-                    //	"Backup de base de datos " + DateTime.Now, "cepedaimport2715@hotmail.com", direccion);
+                    //    "Backup de base de datos" + DateTime.Now, "ferreteriaalmontekm13@gmail.com", direccion);
                 }
                 catch (Exception ex)
                 {
@@ -499,7 +498,7 @@ namespace Capa_de_Presentacion
 
             total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
                 (50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) + (500 * decimal.Parse(txtde500.Text)) +
-                (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)), 2);
+                (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)) + Convert.ToDecimal(lblmontoinicial.Text), 2);
 
             if (cuadre < total)
             {
