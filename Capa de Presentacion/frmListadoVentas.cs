@@ -25,10 +25,10 @@ namespace Capa_de_Presentacion
             llenar_data_V();
             buscarprod();
         }
+        public int borrado = 0;
         public void llenar_data_V()
         {
-            decimal montovendido = 0;
-            decimal Cantvendido = 0, idprod = 0;
+            decimal montovendido = 0,Cantvendido = 0, idprod = 0;
             //declaramos la cadena  de conexion
             string cadenaconexion = Cx.conet;
             //variable de tipo Sqlconnection
@@ -42,7 +42,7 @@ namespace Capa_de_Presentacion
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "SELECT dbo.DetalleVenta.IdProducto,Sum( Cantidad ) as total ," +
                 "SUM(dbo.DetalleVenta.SubTotal) as subt FROM dbo.DetalleVenta INNER JOIN dbo.Venta ON dbo.DetalleVenta.IdVenta = " +
-                "dbo.Venta.IdVenta where FechaVenta = convert(datetime,CONVERT(varchar(10), getdate(), 103),103) GROUP BY IdProducto ORDER BY total DESC";
+                "dbo.Venta.IdVenta where FechaVenta = convert(datetime,CONVERT(varchar(10), getdate(), 103),103) and dbo.Venta.borrado="+borrado+"GROUP BY IdProducto ORDER BY total DESC";
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
@@ -113,7 +113,7 @@ namespace Capa_de_Presentacion
                 "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' ')," +
                 "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
                 "dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta  LIKE '%" + id + "%' or  dbo.DetalleVenta.detalles_P LIKE '%" + id + "%'";
+                "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta  LIKE '%" + id + "%' or  dbo.DetalleVenta.detalles_P LIKE '%" + id + "%' and dbo.Venta.borrado="+ borrado;
             }
             else
             {
@@ -121,7 +121,7 @@ namespace Capa_de_Presentacion
                 "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
                 "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' ')," +
                 "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
-                "dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
+                "dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta and dbo.Venta.borrado="+ borrado + "inner join dbo.Producto ON " +
                 "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto";
             }
 
@@ -349,19 +349,20 @@ namespace Capa_de_Presentacion
             }
             return values;
         }
-        string repeto;
+        string repetido;
         public void repetitivo()
         {
             Cx.conexion.Open();
             string sql = "select top(1) Nombre, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta INNER JOIN " +
-                "dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto where Producto.IdProducto = " +
-                "DetalleVenta.IdProducto GROUP BY Nombre ORDER BY total DESC";
+                "dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto INNER JOIN dbo.Venta ON " +
+                "dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta where Producto.IdProducto = DetalleVenta.IdProducto " +
+                "and dbo.Venta.borrado="+borrado+"GROUP BY dbo.Producto.Nombre ORDER BY total DESC";
             SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
             SqlDataReader reade = cmd.ExecuteReader();
             if (reade.Read())
             {
-                repeto = reade["Nombre"].ToString();
-                txtRepi.Text = repeto;
+                repetido = reade["Nombre"].ToString();
+                txtRepi.Text = repetido;
             }
             Cx.conexion.Close();
         }
@@ -384,7 +385,7 @@ namespace Capa_de_Presentacion
                 "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' ')," +
                 "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
                 "dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103)";
+                "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where dbo.Venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado;
             comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
             comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
             //especificamos que es de tipo Text
@@ -511,6 +512,24 @@ namespace Capa_de_Presentacion
         private void txtBuscarid_KeyUp(object sender, KeyEventArgs e)
         {
             llenar_data(txtBuscarid.Text);
+        }
+
+        private void vereliminadas_CheckedChanged(object sender, EventArgs e)
+        {
+            if(vereliminadas.Checked)
+            {
+                borrado = 1;
+                repetitivo();
+                llenar_data("");
+                llenar_data_V();
+            }
+            else
+            {
+                borrado = 0;
+                repetitivo();
+                llenar_data("");
+                llenar_data_V();
+            }
         }
     }
 }
