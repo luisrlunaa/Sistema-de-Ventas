@@ -20,6 +20,7 @@ namespace Capa_de_Presentacion
         clsCx Cx = new clsCx();
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
+            button3.Enabled = false;
             cargar_combo_NCF(combo_tipo_NCF);
             repetitivo();
             llenar_data("");
@@ -27,6 +28,7 @@ namespace Capa_de_Presentacion
             buscarprod();
             gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
         }
+        public int borrado = 0;
         public void cargar_combo_NCF(ComboBox combo_tipo_NCF)
         {
             SqlCommand cm = new SqlCommand("CARGARcomboNCF", Cx.conexion);
@@ -127,7 +129,7 @@ namespace Capa_de_Presentacion
                     "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
                     "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
                     "dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta  LIKE '%" + id + "%' OR DetalleVenta.detalles_P LIKE '%" + id + "%'";
+                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta  LIKE '%" + id + "%' OR DetalleVenta.detalles_P LIKE '%" + id + "%' and dbo.Venta.borrado=" + borrado;
             }
             else
             {
@@ -136,7 +138,7 @@ namespace Capa_de_Presentacion
                     "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
                     "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
                     "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
-                    "dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
+                    "dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta and dbo.Venta.borrado=" + borrado+"inner join dbo.Producto ON " +
                     "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto";
             }
             //especificamos que es de tipo Text
@@ -460,22 +462,24 @@ namespace Capa_de_Presentacion
             }
             return values;
         }
-        string repeto;
+        string repetido;
         public void repetitivo()
         {
             Cx.conexion.Open();
             string sql = "select top(1) Nombre, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta INNER JOIN " +
-                "dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto where Producto.IdProducto = " +
-                "DetalleVenta.IdProducto GROUP BY Nombre ORDER BY total DESC";
+                "dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto INNER JOIN dbo.Venta ON " +
+                "dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta where Producto.IdProducto = DetalleVenta.IdProducto " +
+                "and dbo.Venta.borrado=" + borrado + "GROUP BY dbo.Producto.Nombre ORDER BY total DESC";
             SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
             SqlDataReader reade = cmd.ExecuteReader();
             if (reade.Read())
             {
-                repeto = reade["Nombre"].ToString();
-                txtRepi.Text = repeto;
+                repetido = reade["Nombre"].ToString();
+                txtRepi.Text = repetido;
             }
             Cx.conexion.Close();
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             decimal total = 0; decimal preciocompra = 0; decimal ganancias = 0;
@@ -499,7 +503,7 @@ namespace Capa_de_Presentacion
                 "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta " +
                 "ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
                 "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento";
+                "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado;
                 comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                 comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
                 comando.Parameters.AddWithValue("@TipoDocumento", combo_tipo_NCF.Text);
@@ -513,7 +517,7 @@ namespace Capa_de_Presentacion
                 "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta " +
                 "ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
                 "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103)";
+                "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado;
                 comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                 comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
             }
@@ -565,6 +569,9 @@ namespace Capa_de_Presentacion
         private void button2_Click(object sender, EventArgs e)
         {
             txtBuscarid.Clear();
+            button3.Enabled = false;
+            Program.Id = 0;
+            Program.tipo = "";
             gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
             llenar_data("");
         }
@@ -599,7 +606,7 @@ namespace Capa_de_Presentacion
                 comando.CommandText = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.SubTotal) AS PrecioOfProducts" +
                     " FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
                     "INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta  where venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) AND " +
-                    "convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103) group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
+                    "convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103) and dbo.Venta.borrado=" + borrado+"group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
                 comando.Parameters.AddWithValue("@fecha1", fecha1);
                 comando.Parameters.AddWithValue("@fecha2", fecha2);
             }
@@ -608,7 +615,7 @@ namespace Capa_de_Presentacion
                 //declaramos el comando para realizar la busqueda
                 comando.CommandText = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.SubTotal) AS PrecioOfProducts" +
                     " FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
-                    "INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
+                    "INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta and dbo.Venta.borrado=" + borrado+"group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
             }
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
@@ -688,6 +695,7 @@ namespace Capa_de_Presentacion
                         Cx.conexion.Close();
                         Program.Id = 0;
                         Program.tipo = "";
+                        button3.Enabled = false;
                     }
                 }
             }
@@ -703,6 +711,25 @@ namespace Capa_de_Presentacion
             if (dataGridView1.Rows.Count > 0)
             {
                 dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
+                button3.Enabled = true;
+            }
+        }
+
+        private void vereliminadas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (vereliminadas.Checked)
+            {
+                borrado = 1;
+                repetitivo();
+                llenar_data("");
+                llenar_data_V();
+            }
+            else
+            {
+                borrado = 0;
+                repetitivo();
+                llenar_data("");
+                llenar_data_V();
             }
         }
     }

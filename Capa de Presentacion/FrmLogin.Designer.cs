@@ -52,6 +52,10 @@
             this.Id_caja = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtmontoinicial = new System.Windows.Forms.TextBox();
+            this.panelmontoinicial = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -345,12 +349,54 @@
             this.fecha.ReadOnly = true;
             this.fecha.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(168, 66);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(56, 31);
+            this.button1.TabIndex = 21;
+            this.button1.Text = "Abrir";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
+            this.label4.Location = new System.Drawing.Point(41, 39);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(184, 24);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Monto Inicial de Caja";
+            // 
+            // txtmontoinicial
+            // 
+            this.txtmontoinicial.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtmontoinicial.Location = new System.Drawing.Point(45, 67);
+            this.txtmontoinicial.Margin = new System.Windows.Forms.Padding(4);
+            this.txtmontoinicial.Name = "txtmontoinicial";
+            this.txtmontoinicial.Size = new System.Drawing.Size(113, 28);
+            this.txtmontoinicial.TabIndex = 20;
+            this.txtmontoinicial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // panelmontoinicial
+            // 
+            this.panelmontoinicial.Location = new System.Drawing.Point(24, 12);
+            this.panelmontoinicial.Name = "panelmontoinicial";
+            this.panelmontoinicial.Size = new System.Drawing.Size(221, 100);
+            this.panelmontoinicial.TabIndex = 22;
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(229)))));
             this.ClientSize = new System.Drawing.Size(894, 496);
+            this.Controls.Add(this.panelmontoinicial);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtmontoinicial);
             this.Controls.Add(this.dgvCaja);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.pictureBox1);
@@ -395,5 +441,9 @@
         private System.Windows.Forms.RadioButton rbVentas;
         private System.Windows.Forms.RadioButton rbInventario;
         private System.Windows.Forms.RadioButton rbNCF;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtmontoinicial;
+        private System.Windows.Forms.Panel panelmontoinicial;
     }
 }

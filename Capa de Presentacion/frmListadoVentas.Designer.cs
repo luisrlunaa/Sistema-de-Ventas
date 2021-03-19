@@ -91,6 +91,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.combo_tipo_NCF = new System.Windows.Forms.ComboBox();
             this.cbtipodocumento = new System.Windows.Forms.CheckBox();
+            this.vereliminadas = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -777,12 +778,24 @@
             this.cbtipodocumento.TabIndex = 119;
             this.cbtipodocumento.UseVisualStyleBackColor = true;
             // 
+            // vereliminadas
+            // 
+            this.vereliminadas.AutoSize = true;
+            this.vereliminadas.Location = new System.Drawing.Point(1153, 97);
+            this.vereliminadas.Name = "vereliminadas";
+            this.vereliminadas.Size = new System.Drawing.Size(124, 21);
+            this.vereliminadas.TabIndex = 120;
+            this.vereliminadas.Text = "Ver Eliminadas";
+            this.vereliminadas.UseVisualStyleBackColor = true;
+            this.vereliminadas.CheckedChanged += new System.EventHandler(this.vereliminadas_CheckedChanged);
+            // 
             // frmListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(1371, 690);
+            this.Controls.Add(this.vereliminadas);
             this.Controls.Add(this.cbtipodocumento);
             this.Controls.Add(this.combo_tipo_NCF);
             this.Controls.Add(this.button3);
@@ -891,5 +904,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox combo_tipo_NCF;
         private System.Windows.Forms.CheckBox cbtipodocumento;
+        private System.Windows.Forms.CheckBox vereliminadas;
     }
 }
