@@ -20,6 +20,7 @@ namespace Capa_de_Presentacion
         clsCx Cx = new clsCx();
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
+            button3.Enabled = false;
             repetitivo();
             llenar_data("");
             llenar_data_V();
@@ -434,6 +435,9 @@ namespace Capa_de_Presentacion
         private void button2_Click(object sender, EventArgs e)
         {
             txtBuscarid.Clear();
+            button3.Enabled = false;
+            Program.Id = 0;
+            Program.tipo = "";
             llenar_data("");
         }
 
@@ -492,6 +496,7 @@ namespace Capa_de_Presentacion
                         Cx.conexion.Close();
                         Program.Id = 0;
                         Program.tipo = "";
+                        button3.Enabled = false;
                     }
                 }
             }
@@ -506,6 +511,7 @@ namespace Capa_de_Presentacion
             if (dataGridView1.Rows.Count > 0)
             {
                 dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
+                button3.Enabled = true;
             }
         }
 
