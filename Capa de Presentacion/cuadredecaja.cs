@@ -50,10 +50,9 @@ namespace Capa_de_Presentacion
         }
         private void btnregistrar_Click(object sender, EventArgs e)
         {
-            decimal montofinal = 0;
             if (!string.IsNullOrEmpty(lblmontocuadre.Text))
             {
-                montofinal = Convert.ToDecimal(lblmontocuadre.Text);
+                decimal montofinal = Convert.ToDecimal(lblmontocuadre.Text);
                 using (SqlConnection con = new SqlConnection(Cx.conet))
                 {
                     using (SqlCommand cmd = new SqlCommand("Registrarcuadre", con))
@@ -231,7 +230,7 @@ namespace Capa_de_Presentacion
 
         public void llenar(int id)
         {
-            string cadSql = "select montoactual from Caja where id_caja=" + id;
+            string cadSql = "select montoactual, monto_inicial from Caja where id_caja=" + id;
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
             Cx.conexion.Open();
@@ -242,6 +241,8 @@ namespace Capa_de_Presentacion
             {
                 decimal montogasto = 0;
                 var montoactual = leer["montoactual"].ToString();
+                lblmontoinicial.Text= leer["monto_inicial"].ToString();
+
                 if (lblmontogasto.Text != "")
                 {
                     montogasto = Convert.ToDecimal(lblmontogasto.Text);
@@ -497,7 +498,7 @@ namespace Capa_de_Presentacion
 
             total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
                 (50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) + (500 * decimal.Parse(txtde500.Text)) +
-                (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)), 2);
+                (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text))+Convert.ToDecimal(lblmontoinicial.Text), 2);
 
             if (cuadre < total)
             {
