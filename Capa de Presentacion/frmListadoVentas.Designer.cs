@@ -83,6 +83,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtGanancias = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.vereliminadas = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -691,12 +692,25 @@
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // vereliminadas
+            // 
+            this.vereliminadas.AutoSize = true;
+            this.vereliminadas.ForeColor = System.Drawing.Color.White;
+            this.vereliminadas.Location = new System.Drawing.Point(752, 94);
+            this.vereliminadas.Name = "vereliminadas";
+            this.vereliminadas.Size = new System.Drawing.Size(124, 21);
+            this.vereliminadas.TabIndex = 116;
+            this.vereliminadas.Text = "Ver Eliminadas";
+            this.vereliminadas.UseVisualStyleBackColor = true;
+            this.vereliminadas.CheckedChanged += new System.EventHandler(this.vereliminadas_CheckedChanged);
+            // 
             // frmListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Firebrick;
             this.ClientSize = new System.Drawing.Size(1078, 690);
+            this.Controls.Add(this.vereliminadas);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtGanancias);
@@ -792,5 +806,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn imei;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioCompra;
         public System.Windows.Forms.Button button3;
+        private System.Windows.Forms.CheckBox vereliminadas;
     }
 }

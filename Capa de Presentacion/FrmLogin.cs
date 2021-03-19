@@ -142,29 +142,40 @@ namespace Capa_de_Presentacion
                                 }
                                 else
                                 {
-                                    using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
+                                    if (panelmontoinicial.Visible)
                                     {
-                                        string id_var = "";
-                                        if (idCaja == "" || idCaja == null)
-                                            id_var = "0";
+                                        if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea ingresar Monto Inicial de Caja?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                                        {
+                                            panelmontoinicial.Visible = false;
+                                        }
                                         else
-                                            id_var = idCaja;
+                                        {
+                                            using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
+                                            {
+                                                string id_var = "";
+                                                if (idCaja == "" || idCaja == null)
+                                                    id_var = "0";
+                                                else
+                                                    id_var = idCaja;
 
-                                        cmd.CommandType = CommandType.StoredProcedure;
+                                                cmd.CommandType = CommandType.StoredProcedure;
 
-                                        cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
-                                        cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = 0;
-                                        cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
+                                                cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
+                                                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = 0;
+                                                cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
-                                        Cx.conexion.Open();
-                                        cmd.ExecuteNonQuery();
-                                        Cx.conexion.Close();
+                                                Cx.conexion.Open();
+                                                cmd.ExecuteNonQuery();
+                                                Cx.conexion.Close();
+                                            }
+                                            llenar_data();
+                                            RecuperarDatosSesion();
+                                            MP.Show();
+                                            this.Hide();
+                                        }
                                     }
-                                    llenar_data();
-                                    RecuperarDatosSesion();
-                                    MP.Show();
-                                    this.Hide();
                                 }
+
                             }
                         }
                     }
@@ -277,6 +288,33 @@ namespace Capa_de_Presentacion
             fechaVenc();
             llenarid();
             llenar_data();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FrmMenuPrincipal MP = new FrmMenuPrincipal();
+            using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
+            {
+                string id_var = "";
+                if (idCaja == "" || idCaja == null)
+                    id_var = "0";
+                else
+                    id_var = idCaja;
+
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
+                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontoinicial.Text);
+                cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
+
+                Cx.conexion.Open();
+                cmd.ExecuteNonQuery();
+                Cx.conexion.Close();
+            }
+            llenar_data();
+            RecuperarDatosSesion();
+            MP.Show();
+            this.Hide();
         }
     }
 }

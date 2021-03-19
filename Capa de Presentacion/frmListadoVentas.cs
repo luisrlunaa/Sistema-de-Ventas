@@ -24,12 +24,9 @@ namespace Capa_de_Presentacion
             llenar_data("");
             llenar_data_V();
             buscarprod();
-
-            if (Program.CargoEmpleadoLogueado != "Administrador")
-            {
-                button3.Enabled = false;
-            }
+            button3.Enabled = false;
         }
+        public int borrado = 0;
         public void llenar_data_V()
         {
             decimal montovendido = 0;
@@ -354,22 +351,24 @@ namespace Capa_de_Presentacion
             }
             return values;
         }
-        string repeto;
+        string repetido;
         public void repetitivo()
         {
             Cx.conexion.Open();
             string sql = "select top(1) Nombre, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta INNER JOIN " +
-                "dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto where Producto.IdProducto = " +
-                "DetalleVenta.IdProducto GROUP BY Nombre ORDER BY total DESC";
+                "dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto INNER JOIN dbo.Venta ON " +
+                "dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta where Producto.IdProducto = DetalleVenta.IdProducto " +
+                "and dbo.Venta.borrado=" + borrado + "GROUP BY dbo.Producto.Nombre ORDER BY total DESC";
             SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
             SqlDataReader reade = cmd.ExecuteReader();
             if (reade.Read())
             {
-                repeto = reade["Nombre"].ToString();
-                txtRepi.Text = repeto;
+                repetido = reade["Nombre"].ToString();
+                txtRepi.Text = repetido;
             }
             Cx.conexion.Close();
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             decimal total = 0; decimal ganancias = 0; decimal preciocompra = 0;
@@ -440,6 +439,9 @@ namespace Capa_de_Presentacion
         {
             txtBuscarid.Clear();
             llenar_data("");
+            button3.Enabled = false;
+            Program.Id = 0;
+            Program.tipo = "";
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -498,6 +500,7 @@ namespace Capa_de_Presentacion
                         Cx.conexion.Close();
                         Program.Id = 0;
                         Program.tipo = "";
+                        button3.Enabled = false;
                     }
                 }
                 llenar_data("");
@@ -513,12 +516,35 @@ namespace Capa_de_Presentacion
             if (dataGridView1.Rows.Count > 0)
             {
                 dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
+
+                if (Program.CargoEmpleadoLogueado != "Administrador")
+                {
+                    button3.Enabled = true;
+                }
             }
         }
 
         private void txtBuscarid_KeyUp(object sender, KeyEventArgs e)
         {
             llenar_data(txtBuscarid.Text);
+        }
+
+        private void vereliminadas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (vereliminadas.Checked)
+            {
+                borrado = 1;
+                repetitivo();
+                llenar_data("");
+                llenar_data_V();
+            }
+            else
+            {
+                borrado = 0;
+                repetitivo();
+                llenar_data("");
+                llenar_data_V();
+            }
         }
     }
 }
