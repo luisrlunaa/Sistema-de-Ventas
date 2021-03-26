@@ -517,7 +517,7 @@ namespace Capa_de_Presentacion
             {
                 dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
 
-                if (Program.CargoEmpleadoLogueado != "Administrador")
+                if (Program.CargoEmpleadoLogueado == "Administrador")
                 {
                     button3.Enabled = true;
                 }
