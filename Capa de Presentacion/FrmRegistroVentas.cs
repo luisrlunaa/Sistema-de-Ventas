@@ -329,7 +329,25 @@ namespace Capa_de_Presentacion
                     dgvVenta.Rows[renglon].Cells["ImeiC"].Value = dr.GetString(dr.GetOrdinal("imei"));
                 }
                 con.Close();
+                buscaridcaja();
             }
+        }
+        public int idcaja = 0;
+        public void buscaridcaja()
+        {
+            Cx.conexion.Close();
+            Cx.conexion.Open();
+            string sql = "select id_caja from Caja where fecha=@fecha";
+            SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+            cmd.Parameters.AddWithValue("@fecha", dateTimePicker1.Text);
+
+            SqlDataReader reade = cmd.ExecuteReader();
+            if (reade.Read())
+            {
+                idcaja = Convert.ToInt32(reade["id_caja"]);
+            }
+
+            Cx.conexion.Close();
         }
         private void btnBusquedaProducto_Click(object sender, EventArgs e)
         {
@@ -1201,11 +1219,12 @@ namespace Capa_de_Presentacion
                     cmd2.CommandType = CommandType.StoredProcedure;
 
                     //Tabla de pago
+                    cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Program.Id;
                     cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
                     cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
+                    cmd2.Parameters.Add("@id_cajaAnterior", SqlDbType.Int).Value = idcaja;
                     cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
                     cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
-                    cmd2.Parameters.Add("@idVenta", SqlDbType.Int).Value = Program.Id;
                     if (Program.Devuelta > 0)
                     {
                         cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
