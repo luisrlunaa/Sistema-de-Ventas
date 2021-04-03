@@ -725,48 +725,51 @@ namespace Capa_de_Presentacion
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 filename = saveFileDialog1.FileName;
+                if (filename.Trim() != "")
+                {
+                    FileStream file = new FileStream(filename,
+                    FileMode.OpenOrCreate,
+                    FileAccess.ReadWrite,
+                    FileShare.ReadWrite);
+                    PdfWriter.GetInstance(doc, file);
+                    doc.Open();
+                    string remito = lblLogo.Text;
+                    string ubicado = lblDir.Text;
+                    string envio = "Fecha : " + DateTime.Now.ToString();
+
+                    Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
+                    var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+
+                    fecha.Alignment = Element.ALIGN_RIGHT;
+                    doc.Add(fecha);
+                    image1.Alignment = Image.TEXTWRAP | Image.ALIGN_CENTER;
+                    doc.Add(image1);
+                    var chuckalign = new Paragraph(chunk);
+                    chuckalign.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(chuckalign);
+                    var ubicacionalign = new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL));
+                    ubicacionalign.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(ubicacionalign);
+
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("Reporte de Inventario de Productos   "));
+                    doc.Add(new Paragraph("                       "));
+                    GenerarDocumento(doc);
+                    doc.AddCreationDate();
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("Total de Productos = " + lbltotalproductos.Text));
+                    doc.Add(new Paragraph("Ganancias Total de Ventas= " + txttotalG.Text));
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("____________________________________"));
+                    doc.Add(new Paragraph("                         Firma              "));
+                    doc.Close();
+                    Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
+                }
             }
-
-            if (filename.Trim() != "")
+            else
             {
-                FileStream file = new FileStream(filename,
-                FileMode.OpenOrCreate,
-                FileAccess.ReadWrite,
-                FileShare.ReadWrite);
-                PdfWriter.GetInstance(doc, file);
-                doc.Open();
-                string remito = lblLogo.Text;
-                string ubicado = lblDir.Text;
-                string envio = "Fecha : " + DateTime.Now.ToString();
-
-                Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
-                var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
-
-                fecha.Alignment = Element.ALIGN_RIGHT;
-                doc.Add(fecha);
-                image1.Alignment = Image.TEXTWRAP | Image.ALIGN_CENTER;
-                doc.Add(image1);
-                var chuckalign = new Paragraph(chunk);
-                chuckalign.Alignment = Element.ALIGN_CENTER;
-                doc.Add(chuckalign);
-                var ubicacionalign = new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL));
-                ubicacionalign.Alignment = Element.ALIGN_CENTER;
-                doc.Add(ubicacionalign);
-
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("Reporte de Inventario de Productos   "));
-                doc.Add(new Paragraph("                       "));
-                GenerarDocumento(doc);
-                doc.AddCreationDate();
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("Total de Productos = " + lbltotalproductos.Text));
-                doc.Add(new Paragraph("Ganancias Total de Ventas= " + txttotalG.Text));
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("____________________________________"));
-                doc.Add(new Paragraph("                         Firma              "));
-                doc.Close();
-                Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
+                MessageBox.Show("No guardo el Archivo");
             }
         }
         public void GenerarDocumento(Document document)

@@ -166,42 +166,45 @@ namespace Capa_de_Presentacion
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 filename = saveFileDialog1.FileName;
+                if (filename.Trim() != "")
+                {
+                    FileStream file = new FileStream(filename,
+                    FileMode.OpenOrCreate,
+                    FileAccess.ReadWrite,
+                    FileShare.ReadWrite);
+                    PdfWriter.GetInstance(doc, file);
+                    doc.Open();
+                    string remito = lblLogo.Text;
+                    string ubicado = lblDir.Text;
+                    string envio = "Fecha : " + DateTime.Now.ToString();
+
+                    Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
+                    doc.Add(new Paragraph("                                                                                                                                                                                                                                                     " + envio, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC)));
+                    doc.Add(image1);
+                    doc.Add(new Paragraph(chunk));
+                    doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("Reporte de Movimientos de Caja                      "));
+                    doc.Add(new Paragraph("                       "));
+                    GenerarDocumento(doc);
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("Reporte de Gastos del Dia                           "));
+                    doc.Add(new Paragraph("                       "));
+                    GenerarDocumentogastos(doc);
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("Totales de Pagos :" + lbling.Text));
+                    doc.Add(new Paragraph("Totales de Gastos :" + lbldeu.Text));
+                    doc.Add(new Paragraph("Totales Final :" + lbltotal.Text));
+                    doc.AddCreationDate();
+                    doc.Close();
+                    Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
+                }
             }
-
-            if (filename.Trim() != "")
+            else
             {
-                FileStream file = new FileStream(filename,
-                FileMode.OpenOrCreate,
-                FileAccess.ReadWrite,
-                FileShare.ReadWrite);
-                PdfWriter.GetInstance(doc, file);
-                doc.Open();
-                string remito = lblLogo.Text;
-                string ubicado = lblDir.Text;
-                string envio = "Fecha : " + DateTime.Now.ToString();
-
-                Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
-                doc.Add(new Paragraph("                                                                                                                                                                                                                                                     " + envio, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC)));
-                doc.Add(image1);
-                doc.Add(new Paragraph(chunk));
-                doc.Add(new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL)));
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("Reporte de Movimientos de Caja                      "));
-                doc.Add(new Paragraph("                       "));
-                GenerarDocumento(doc);
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("Reporte de Gastos del Dia                           "));
-                doc.Add(new Paragraph("                       "));
-                GenerarDocumentogastos(doc);
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("Totales de Pagos :" + lbling.Text));
-                doc.Add(new Paragraph("Totales de Gastos :" + lbldeu.Text));
-                doc.Add(new Paragraph("Totales Final :" + lbltotal.Text));
-                doc.AddCreationDate();
-                doc.Close();
-                Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
+                MessageBox.Show("No guardo el Archivo");
             }
         }
         public void GenerarDocumento(Document document)
