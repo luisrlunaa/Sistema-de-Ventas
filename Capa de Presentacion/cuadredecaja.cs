@@ -296,56 +296,59 @@ namespace Capa_de_Presentacion
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 filename = saveFileDialog1.FileName;
+                if (filename.Trim() != "")
+                {
+                    FileStream file = new FileStream(filename,
+                    FileMode.OpenOrCreate,
+                    FileAccess.ReadWrite,
+                    FileShare.ReadWrite);
+                    PdfWriter.GetInstance(doc, file);
+                    doc.Open();
+                    string remito = lblLogo.Text;
+                    string ubicado = lblDir.Text;
+                    string envio = "Fecha : " + DateTime.Now.ToShortTimeString();
+
+                    Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
+                    var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+                    fecha.Alignment = Element.ALIGN_RIGHT;
+                    doc.Add(fecha);
+                    image1.Alignment = Image.TEXTWRAP | Image.ALIGN_CENTER;
+                    doc.Add(image1);
+                    var chuckalign = new Paragraph(chunk);
+                    chuckalign.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(chuckalign);
+                    var ubicacionalign = new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL));
+                    ubicacionalign.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(ubicacionalign);
+
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("Reporte de Cuadre de Caja"));
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("Total de Modenas de 5       : " + txtde5.Text));
+                    doc.Add(new Paragraph("Total de Modenas de 10     : " + txtde10.Text));
+                    doc.Add(new Paragraph("Total de Modenas de 25     : " + txtde25.Text));
+                    doc.Add(new Paragraph("Total de Billetes de 50        : " + txtde50.Text));
+                    doc.Add(new Paragraph("Total de Billetes de 100      : " + txtde100.Text));
+                    doc.Add(new Paragraph("Total de Billetes de 200      : " + txtde200.Text));
+                    doc.Add(new Paragraph("Total de Billetes de 500      : " + txtde500.Text));
+                    doc.Add(new Paragraph("Total de Billetes de 1000    : " + txtde1000.Text));
+                    doc.Add(new Paragraph("Total de Billetes de 2000    : " + txtde2000.Text));
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("Totales de Ingresos  : " + lblmontoingreso.Text));
+                    doc.Add(new Paragraph("Totales de Gastos    : " + lblmontogasto.Text));
+                    doc.Add(new Paragraph("Totales Final             : " + lblmontocuadre.Text));
+                    doc.Add(new Paragraph("Totales De Deudas del dia : " + lbldeudas.Text));
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph(lblmensaje.Text, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
+                    doc.AddCreationDate();
+                    doc.Close();
+                    Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
+                }
             }
-
-            if (filename.Trim() != "")
+            else
             {
-                FileStream file = new FileStream(filename,
-                FileMode.OpenOrCreate,
-                FileAccess.ReadWrite,
-                FileShare.ReadWrite);
-                PdfWriter.GetInstance(doc, file);
-                doc.Open();
-                string remito = lblLogo.Text;
-                string ubicado = lblDir.Text;
-                string envio = "Fecha : " + DateTime.Now.ToShortTimeString();
-
-                Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
-                var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
-                fecha.Alignment = Element.ALIGN_RIGHT;
-                doc.Add(fecha);
-                image1.Alignment = Image.TEXTWRAP | Image.ALIGN_CENTER;
-                doc.Add(image1);
-                var chuckalign = new Paragraph(chunk);
-                chuckalign.Alignment = Element.ALIGN_CENTER;
-                doc.Add(chuckalign);
-                var ubicacionalign = new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL));
-                ubicacionalign.Alignment = Element.ALIGN_CENTER;
-                doc.Add(ubicacionalign);
-
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("Reporte de Cuadre de Caja"));
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("Total de Modenas de 5       : " + txtde5.Text));
-                doc.Add(new Paragraph("Total de Modenas de 10     : " + txtde10.Text));
-                doc.Add(new Paragraph("Total de Modenas de 25     : " + txtde25.Text));
-                doc.Add(new Paragraph("Total de Billetes de 50        : " + txtde50.Text));
-                doc.Add(new Paragraph("Total de Billetes de 100      : " + txtde100.Text));
-                doc.Add(new Paragraph("Total de Billetes de 200      : " + txtde200.Text));
-                doc.Add(new Paragraph("Total de Billetes de 500      : " + txtde500.Text));
-                doc.Add(new Paragraph("Total de Billetes de 1000    : " + txtde1000.Text));
-                doc.Add(new Paragraph("Total de Billetes de 2000    : " + txtde2000.Text));
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph("Totales de Ingresos  : " + lblmontoingreso.Text));
-                doc.Add(new Paragraph("Totales de Gastos    : " + lblmontogasto.Text));
-                doc.Add(new Paragraph("Totales Final             : " + lblmontocuadre.Text));
-                doc.Add(new Paragraph("Totales De Deudas del dia : " + lbldeudas.Text));
-                doc.Add(new Paragraph("                       "));
-                doc.Add(new Paragraph(lblmensaje.Text, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
-                doc.AddCreationDate();
-                doc.Close();
-                Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
+                MessageBox.Show("No guardo el Archivo");
             }
         }
         public void llenarid()
