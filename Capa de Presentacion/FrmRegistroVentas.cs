@@ -268,20 +268,6 @@ namespace Capa_de_Presentacion
                 txtidEmp.Text = Program.IdEmpleado + "";
                 dateTimePicker1.Text = Program.fecha;
 
-                //if (txtidCli.Text == "0" || txtidCli.Text == null || Program.IdCliente + "" == null || Program.IdCliente + "" == "0")
-                //{
-                //	Cx.conexion.Open();
-                //	string sql = "select idCliente from Cliente where DNI=@DNI";
-                //	SqlCommand Command = new SqlCommand(sql, Cx.conexion);
-                //	Command.Parameters.AddWithValue("@DNI", Program.DocumentoIdentidad);
-                //	SqlDataReader reade = Command.ExecuteReader();
-                //	if (reade.Read())
-                //	{
-                //		txtidCli.Text = reade["idCliente"].ToString();
-                //	}
-                //	Cx.conexion.Close();
-                //}
-
                 //declaramos la cadena  de conexion
                 string cadenaconexion = Cx.conet;
                 //variable de tipo Sqlconnection
@@ -322,8 +308,28 @@ namespace Capa_de_Presentacion
                     }
                 }
                 con.Close();
+
+                buscaridcaja();
             }
         }
+        public int idcaja = 0;
+        public void buscaridcaja()
+        {
+            Cx.conexion.Close();
+            Cx.conexion.Open();
+            string sql = "select id_caja from Caja where fecha=@fecha";
+            SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+            cmd.Parameters.AddWithValue("@fecha", dateTimePicker1.Text);
+
+            SqlDataReader reade = cmd.ExecuteReader();
+            if (reade.Read())
+            {
+                idcaja = Convert.ToInt32(reade["id_caja"]);
+            }
+
+            Cx.conexion.Close();
+        }
+
         private void btnBusquedaProducto_Click(object sender, EventArgs e)
         {
             if (Program.abiertosecundarias == false)
@@ -801,7 +807,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Cliente: " + nombre);
             ticket.TextoIzquierda("Documento de Identificación: " + cedula);
             ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Text);
-            ticket.TextoIzquierda("Hora: " + DateTime.Now.ToShortTimeString());
+            //ticket.TextoIzquierda("Hora: " + DateTime.Now.ToShortTimeString());
 
             //ARTICULOS A VENDER.
             ticket.EncabezadoVenta();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
@@ -992,7 +998,7 @@ namespace Capa_de_Presentacion
                 doc.Open();
                 string remito = lblLogo.Text;
                 string ubicado = lblDir.Text;
-                string envio = "Fecha : " + DateTime.Now.ToString();
+                string envio = "Fecha : " + dateTimePicker1.Text;
 
                 Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
                 if (Program.ReImpresion != null)
@@ -1137,6 +1143,7 @@ namespace Capa_de_Presentacion
                     cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Program.Id;
                     cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
                     cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
+                    cmd2.Parameters.Add("@id_cajaAnterior", SqlDbType.Int).Value = idcaja;
                     cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
                     cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
                     if (Program.Devuelta > 0)
