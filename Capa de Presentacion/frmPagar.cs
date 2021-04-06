@@ -115,7 +115,6 @@ namespace Capa_de_Presentacion
                         Program.pagoRealizado = paga - dev;
                     }
 
-                    Program.pagoRealizado = Convert.ToDecimal(txtpaga.Text);
                     Program.realizopago = true;
                     MessageBox.Show("Pago Realizado");
                 }
@@ -143,53 +142,5 @@ namespace Capa_de_Presentacion
         {
             validar.solonumeros(e);
         }
-
-        //private void txtFinal_Leave(object sender, EventArgs e)
-        //{
-        //	if (txtFinal.Text == "")
-        //	{
-        //		MessageBox.Show("Debe Ingresar un Monto");
-        //	}
-        //	else
-        //	{
-        //		if (txtGa.Text == "")
-        //		{
-        //			decimal i = 0;
-        //			txtGa.Text = i.ToString();
-        //		}
-        //		if (txtPe.Text == "")
-        //		{
-        //			decimal i = 0;
-        //			txtPe.Text = i.ToString();
-        //		}
-
-        //		decimal actual = decimal.Parse(txtCaja2.Text);
-        //		decimal totales = decimal.Parse(txtFinal.Text);
-        //		decimal montocaja = totales - actual;
-
-        //		if (montocaja > 0)
-        //		{
-        //			txtGa.Text = montocaja.ToString();
-        //			lbNota.Text = "SUS GANANCIAS SON DE: " + montocaja + " Pesos";
-        //			lbNota.ForeColor = Color.GreenYellow;
-        //			txtPe.Clear();
-        //		}
-        //		else if (montocaja == 0)
-        //		{
-        //			montocaja = 0;
-        //			lbNota.Text = "NO HUBO PERDIDAS";
-        //			lbNota.ForeColor = Color.DeepSkyBlue;
-        //			txtPe.Clear();
-        //			txtGa.Clear();
-        //		}
-        //		else
-        //		{
-        //			txtPe.Text = montocaja.ToString();
-        //			lbNota.Text = "SUS PERDIDAS SON DE: " + montocaja + " Pesos";
-        //			lbNota.ForeColor = Color.MediumVioletRed;
-        //			txtGa.Clear();
-        //		}
-        //	}
-        //}
     }
 }
