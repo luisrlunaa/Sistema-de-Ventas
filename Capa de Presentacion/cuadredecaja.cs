@@ -183,7 +183,7 @@ namespace Capa_de_Presentacion
         }
         public void llenargridpagos(int id)
         {
-            decimal pagos = 0, devuelta = 0, total = 0;
+            decimal pagos = 0, devuelta = 0;
             //declar=0amos la cadena  de conexion
             string cadenaconexion = Cx.conet;
             //variable de tipo Sqlconnection
@@ -223,8 +223,7 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            total = pagos - devuelta;
-            lblmontoingreso.Text = total.ToString();
+            lblmontoingreso.Text = pagos.ToString();
             con.Close();
         }
 

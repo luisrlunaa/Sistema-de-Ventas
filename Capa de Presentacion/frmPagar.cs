@@ -192,7 +192,6 @@ namespace Capa_de_Presentacion
                         Program.pagoRealizado = paga - dev;
                     }
 
-                    Program.pagoRealizado = Convert.ToDecimal(txtpaga.Text);
                     Program.realizopago = true;
                     MessageBox.Show("Pago Realizado");
                 }
