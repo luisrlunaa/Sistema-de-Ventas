@@ -307,7 +307,7 @@ namespace Capa_de_Presentacion
                 gastos = Convert.ToDecimal(lbldeu.Text);
             }
 
-            total = (pagos - devuelta) - gastos;
+            total = pagos - gastos;
 
             lbltotal.Text = total.ToString();
         }
