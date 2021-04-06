@@ -241,7 +241,7 @@ namespace Capa_de_Presentacion
             {
                 decimal montogasto = 0;
                 var montoactual = leer["montoactual"].ToString();
-                lblmontoinicial.Text= leer["monto_inicial"].ToString();
+                lblmontoinicial.Text = leer["monto_inicial"].ToString();
 
                 if (lblmontogasto.Text != "")
                 {
@@ -501,7 +501,7 @@ namespace Capa_de_Presentacion
 
             total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
                 (50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) + (500 * decimal.Parse(txtde500.Text)) +
-                (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text))+Convert.ToDecimal(lblmontoinicial.Text), 2);
+                (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)) + Convert.ToDecimal(lblmontoinicial.Text), 2);
 
             if (cuadre < total)
             {

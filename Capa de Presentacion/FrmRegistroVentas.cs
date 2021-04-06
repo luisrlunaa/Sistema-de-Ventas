@@ -325,9 +325,9 @@ namespace Capa_de_Presentacion
         {
             Cx.conexion.Close();
             Cx.conexion.Open();
-            string sql = "select id_caja from Caja where fecha=@fecha";
+            string sql = "select id_caja from Caja where fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
             SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
-            cmd.Parameters.AddWithValue("@fecha", dateTimePicker1.Text);
+            cmd.Parameters.AddWithValue("@fecha", dateTimePicker1.Value);
 
             SqlDataReader reade = cmd.ExecuteReader();
             if (reade.Read())
@@ -620,6 +620,7 @@ namespace Capa_de_Presentacion
 
                     con.Open();
                     cmd.ExecuteNonQuery();
+                    MessageBox.Show("venta completada");
                     con.Close();
                 }
 
@@ -639,6 +640,7 @@ namespace Capa_de_Presentacion
 
                         con.Open();
                         cmd1.ExecuteNonQuery();
+                        MessageBox.Show("detalle venta completada");
                         cmd1.Parameters.Clear();
                         con.Close();
                     }
@@ -657,6 +659,7 @@ namespace Capa_de_Presentacion
 
                         con.Open();
                         cmd3.ExecuteNonQuery();
+                        MessageBox.Show("actualizacion producto completada");
                         con.Close();
                     }
                 }
