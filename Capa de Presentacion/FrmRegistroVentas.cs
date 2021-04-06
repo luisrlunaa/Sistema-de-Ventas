@@ -486,6 +486,7 @@ namespace Capa_de_Presentacion
                     chkComprobante.Checked = false;
                     txtNCF.Text = "Sin NCF";
                     combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                    txtid.Text = "0";
                 }
             }
 
