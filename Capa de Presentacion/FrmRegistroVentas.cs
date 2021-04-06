@@ -337,9 +337,9 @@ namespace Capa_de_Presentacion
         {
             Cx.conexion.Close();
             Cx.conexion.Open();
-            string sql = "select id_caja from Caja where fecha=@fecha";
+            string sql = "select id_caja from Caja where fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
             SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
-            cmd.Parameters.AddWithValue("@fecha", dateTimePicker1.Text);
+            cmd.Parameters.AddWithValue("@fecha", dateTimePicker1.Value);
 
             SqlDataReader reade = cmd.ExecuteReader();
             if (reade.Read())
@@ -521,6 +521,7 @@ namespace Capa_de_Presentacion
                     chkComprobante.Checked = false;
                     txtNCF.Text = "Sin NCF";
                     combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                    txtid.Text = "0";
                 }
             }
 
