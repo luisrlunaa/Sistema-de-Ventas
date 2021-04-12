@@ -45,6 +45,9 @@ namespace Capa_de_Presentacion
                 txtPorcentaje.Enabled = false;
             }
 
+            txtNCF.Text = "Sin NCF";
+            combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+            txtid.Text = "0";
             txtDivisor.Text = "1.18";
             txtPorcentaje.Text = "";
             Program.ReImpresion = "";
