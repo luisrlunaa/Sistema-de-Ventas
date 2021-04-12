@@ -41,6 +41,10 @@ namespace Capa_de_Presentacion
                 txtIgv.Enabled = false;
             }
 
+            txtNCF.Text = "Sin NCF";
+            combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+            txtid.Text = "0";
+
             Program.datoscliente = "";
             Program.realizopago = false;
             actualzarestadoscomprobantes();

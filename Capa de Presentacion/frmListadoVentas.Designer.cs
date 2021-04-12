@@ -84,6 +84,7 @@
             this.txtGanancias = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.vereliminadas = new System.Windows.Forms.CheckBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -704,12 +705,35 @@
             this.vereliminadas.UseVisualStyleBackColor = true;
             this.vereliminadas.CheckedChanged += new System.EventHandler(this.vereliminadas_CheckedChanged);
             // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.button4.ForeColor = System.Drawing.Color.Black;
+            this.button4.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_reestablecer;
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.button4.Location = new System.Drawing.Point(733, 623);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(144, 43);
+            this.button4.TabIndex = 117;
+            this.button4.Text = "Devolucion";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // frmListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Firebrick;
             this.ClientSize = new System.Drawing.Size(1078, 690);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.vereliminadas);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label4);
@@ -807,5 +831,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioCompra;
         public System.Windows.Forms.Button button3;
         private System.Windows.Forms.CheckBox vereliminadas;
+        public System.Windows.Forms.Button button4;
     }
 }

@@ -176,6 +176,7 @@ namespace Capa_de_Presentacion
         }
         private void frmBuscarAlineacionyBalanceo_Load(object sender, EventArgs e)
         {
+            limpiar();
             cargardata();
             cargar_combo_Tipo(cbtipo);
             cbtipo.SelectedIndex = 0;
@@ -386,6 +387,12 @@ namespace Capa_de_Presentacion
             {
                 MessageBox.Show("Por Favor Seleccione una fila antes de eliminarla");
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            limpiar();
+            textBox1.Text = "";
         }
     }
 }

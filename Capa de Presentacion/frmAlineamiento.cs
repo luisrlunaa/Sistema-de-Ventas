@@ -210,7 +210,6 @@ namespace Capa_de_Presentacion
                                 cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
                                 cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
                                 cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
-                                cmd2.Parameters.Add("@idVenta", SqlDbType.Int).Value = Convert.ToInt32(Program.Id);
 
                                 if (Program.Devuelta > 0)
                                 {
@@ -267,6 +266,7 @@ namespace Capa_de_Presentacion
 
         private void frmAlineamiento_Load(object sender, EventArgs e)
         {
+            Program.Id = 0;
             cargar_combo_Tipo(cbtipo);
             cbtipo.SelectedIndex = 0;
             if (Program.Id == 0 && cbtipo.Text.ToLower() == "entrada")
