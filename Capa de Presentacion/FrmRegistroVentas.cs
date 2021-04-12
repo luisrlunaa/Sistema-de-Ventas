@@ -27,6 +27,12 @@ namespace Capa_de_Presentacion
             txtdireccion.Text = "";
             Program.IdCliente = 0;
             cbidentificacion.Checked = false;
+            txtrcnClient.Text = "sin rcn del Cliente";
+            combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+            txtNCF.Text = "Sin NCF";
+            txtid.Text = "0";
+            chkComprobante.Checked = false;
+
             if (cbidentificacion.Checked == true)
             {
                 btnBuscar.Show();
@@ -43,6 +49,8 @@ namespace Capa_de_Presentacion
                 txtIgv.Enabled = false;
             }
 
+            txtrcnClient.Hide();
+            lblrcnClient.Hide();
             Program.datoscliente = "";
             Program.realizopago = false;
             actualzarestadoscomprobantes();
@@ -254,6 +262,11 @@ namespace Capa_de_Presentacion
                 btnImprimir.Visible = true;
             }
 
+            if(Program.rncClient!= "sin rcn del Cliente" && Program.rncClient != "" && Program.rncClient !=null)
+            {
+                chkComprobante.Checked = true;
+                txtrcnClient.Text = Program.rncClient;
+            }
 
             if (activar == true)
             {
@@ -265,20 +278,6 @@ namespace Capa_de_Presentacion
                 lbligv.Text = Program.igv + "";
                 txtidEmp.Text = Program.IdEmpleado + "";
                 dateTimePicker1.Text = Program.fecha;
-
-                //if (txtidCli.Text == "0" || txtidCli.Text == null || Program.IdCliente + "" == null || Program.IdCliente + "" == "0")
-                //{
-                //	Cx.conexion.Open();
-                //	string sql = "select idCliente from Cliente where DNI=@DNI";
-                //	SqlCommand Command = new SqlCommand(sql, Cx.conexion);
-                //	Command.Parameters.AddWithValue("@DNI", Program.DocumentoIdentidad);
-                //	SqlDataReader reade = Command.ExecuteReader();
-                //	if (reade.Read())
-                //	{
-                //		txtidCli.Text = reade["idCliente"].ToString();
-                //	}
-                //	Cx.conexion.Close();
-                //}
 
                 //declaramos la cadena  de conexion
                 string cadenaconexion = Cx.conet;
@@ -615,12 +614,12 @@ namespace Capa_de_Presentacion
                     cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
                     cmd.Parameters.Add("@TipoDocumento", SqlDbType.VarChar).Value = combo_tipo_NCF.Text;
                     cmd.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = Program.Direccion;
+                    cmd.Parameters.Add("@rcnClient", SqlDbType.VarChar).Value = txtrcnClient.Text;
                     cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dateTimePicker1.Text;
                     cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
 
                     con.Open();
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("venta completada");
                     con.Close();
                 }
 
@@ -640,7 +639,6 @@ namespace Capa_de_Presentacion
 
                         con.Open();
                         cmd1.ExecuteNonQuery();
-                        MessageBox.Show("detalle venta completada");
                         cmd1.Parameters.Clear();
                         con.Close();
                     }
@@ -659,7 +657,6 @@ namespace Capa_de_Presentacion
 
                         con.Open();
                         cmd3.ExecuteNonQuery();
-                        MessageBox.Show("actualizacion producto completada");
                         con.Close();
                     }
                 }
@@ -770,6 +767,7 @@ namespace Capa_de_Presentacion
             cbidentificacion.Visible = true;
             txtidCli.Text = "0";
             cbidentificacion.Checked = false;
+            chkComprobante.Checked = false;
             Program.Esabono = "";
             txtIgv.Clear();
             txtDocIdentidad.Clear();
@@ -786,8 +784,10 @@ namespace Capa_de_Presentacion
             Program.ST = 0;
             Program.igv = 0;
             Program.fecha = "";
+            Program.rncClient = "";
             Program.NroComprobante = "";
             Program.NCF = "";
+            txtrcnClient.Text = "sin rcn del Cliente";
             txtNCF.Clear();
             lst.Clear();
             txtIgv.Text = "";
@@ -841,6 +841,10 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Cliente: " + nombre);
             ticket.TextoIzquierda("Direccion de la Entrega: " + txtdireccion.Text);
             ticket.TextoIzquierda("Documento de Identificación: " + cedula);
+            if(txtrcnClient.Text!= "sin rcn del Cliente")
+            {
+                ticket.TextoIzquierda("RNC Cliente: " + txtrcnClient.Text);
+            }
             ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Text);
             ticket.TextoIzquierda("Hora: " + DateTime.Now.ToShortTimeString());
 
@@ -931,6 +935,8 @@ namespace Capa_de_Presentacion
                     txtNCF.Text = LectorSecuencia.GetString(2);
                     secuencia = LectorSecuencia.GetInt32(3);
                     txtNCF.Text = txtNCF.Text + secuencia.ToString("00000000");
+
+                    chkComprobante.Checked = true;
                 }
                 else
                 {
@@ -1075,6 +1081,10 @@ namespace Capa_de_Presentacion
                     doc.Add(new Paragraph("Tipo de Factura: " + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Tipo de Comprobante: " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Numero de Comprobante: " + txtNCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    if (txtrcnClient.Text != "sin rcn del Cliente")
+                    {
+                        doc.Add(new Paragraph("RNC Cliente: " + txtrcnClient.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    }
                     doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Direccion de la Entrega: " + txtdireccion.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
@@ -1230,6 +1240,24 @@ namespace Capa_de_Presentacion
             {
                 btnBuscar.Hide();
                 txtDatos.ReadOnly = false;
+            }
+        }
+
+        private void chkComprobante_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkComprobante.Checked)
+            {
+                txtrcnClient.Text = "";
+                txtrcnClient.Show();
+                lblrcnClient.Show();
+            }
+            else
+            {
+                txtrcnClient.Text = "sin rcn del Cliente";
+                txtrcnClient.Hide();
+                lblrcnClient.Hide();
+                txtNCF.Text = "Sin NCF";
+                combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
             }
         }
     }

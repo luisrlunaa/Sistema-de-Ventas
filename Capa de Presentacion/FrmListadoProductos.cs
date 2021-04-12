@@ -32,6 +32,7 @@ namespace Capa_de_Presentacion
             ListarElementostipo();
             clear();
         }
+        decimal montoTotalenInventario = 0;
         public void buscarid()
         {
             Cx.conexion.Open();
@@ -219,6 +220,7 @@ namespace Capa_de_Presentacion
                     ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
                     total = ventas - compras;
+                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     txttotalG.Text = Convert.ToString(total);
                     lbltotalproductos.Text = Convert.ToString(totalproducto);
                 }
@@ -368,6 +370,7 @@ namespace Capa_de_Presentacion
                     ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
                     lbltotalproductos.Text = Convert.ToString(totalproducto);
+                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     total = ventas - compras;
                     txttotalG.Text = Convert.ToString(total);
                 }
@@ -430,6 +433,7 @@ namespace Capa_de_Presentacion
                     totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
                     lbltotalproductos.Text = Convert.ToString(totalproducto);
                     total = ventas - compras;
+                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     txttotalG.Text = Convert.ToString(total);
                 }
                 con.Close();
@@ -491,6 +495,7 @@ namespace Capa_de_Presentacion
                     ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
                     lbltotalproductos.Text = Convert.ToString(totalproducto);
+                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     total = ventas - compras;
                     txttotalG.Text = Convert.ToString(total);
                 }
@@ -553,6 +558,7 @@ namespace Capa_de_Presentacion
                     totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
                     lbltotalproductos.Text = Convert.ToString(totalproducto);
                     total = ventas - compras;
+                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     txttotalG.Text = Convert.ToString(total);
                 }
                 con.Close();
@@ -619,6 +625,7 @@ namespace Capa_de_Presentacion
                     ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
                     lbltotalproductos.Text = Convert.ToString(totalproducto);
+                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     total = ventas - compras;
                     txttotalG.Text = Convert.ToString(total);
                 }
@@ -771,6 +778,7 @@ namespace Capa_de_Presentacion
                     GenerarDocumento(doc);
                     doc.AddCreationDate();
                     doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("Monto Total en Inventario = " + montoTotalenInventario.ToString()));
                     doc.Add(new Paragraph("Total de Productos = " + lbltotalproductos.Text));
                     doc.Add(new Paragraph("Ganancias Total de Ventas= " + txttotalG.Text));
                     doc.Add(new Paragraph("                       "));
@@ -916,6 +924,8 @@ namespace Capa_de_Presentacion
                 compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
                 ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
 
+                montoTotalenInventario= montoTotalenInventario+ Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
+
                 total = ventas - compras;
                 txttotalG.Text = Convert.ToString(total);
             }
@@ -975,7 +985,7 @@ namespace Capa_de_Presentacion
 
                 compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
                 ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-
+                montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                 total = ventas - compras;
                 txttotalG.Text = Convert.ToString(total);
             }
@@ -1060,6 +1070,7 @@ namespace Capa_de_Presentacion
                     ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
                     total = ventas - compras;
+                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     txttotalG.Text = Convert.ToString(total);
                     lbltotalproductos.Text = Convert.ToString(totalproducto);
                 }
