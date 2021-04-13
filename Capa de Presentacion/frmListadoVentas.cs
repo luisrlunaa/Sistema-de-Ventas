@@ -793,28 +793,27 @@ namespace Capa_de_Presentacion
 
                         if (i == dt.Rows.Count)
                         {
-
                             if(restanteDV != TotalDV)
                             {
                                 SqlCommand sqlCommand2 = new SqlCommand("DevolucionVenta", Cx.conexion);
                                 using (SqlCommand cmd4 = sqlCommand2)
                                 {
-                                    cmd3.CommandType = CommandType.StoredProcedure;
+                                    cmd4.CommandType = CommandType.StoredProcedure;
 
-                                    decimal cantidadDV1 = Convert.ToDecimal(data[0]);
+                                    decimal cantidadDV1 = 0;
                                     int idProductoDV1 = Convert.ToInt32(data[1]);
                                     string tipofacturaDV1 = "Debito";
                                     decimal subtotalDV1 = TotalDV- restanteDV;
                                     int idcajaDV1 = Convert.ToInt32(data[4]);
 
                                     //UpdateStock
-                                    cmd3.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV;
-                                    cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV;
-                                    cmd3.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV;
-                                    cmd3.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV;
-                                    cmd3.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV;
+                                    cmd4.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV1;
+                                    cmd4.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV1;
+                                    cmd4.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV1;
+                                    cmd4.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV1;
+                                    cmd4.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV1;
 
-                                    cmd3.ExecuteNonQuery();
+                                    cmd4.ExecuteNonQuery();
                                 }
                             }
 
