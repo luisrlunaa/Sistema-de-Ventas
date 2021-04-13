@@ -160,7 +160,7 @@ namespace Capa_de_Presentacion
                         {
                             cmd2.CommandType = CommandType.StoredProcedure;
 
-                            string idVenta = (Program.idcaja.ToString() + DateTime.Today.Day.ToString() + Program.IdEmpleadoLogueado.ToString());
+                            string idVenta = (Program.idcaja.ToString() + DateTime.Today.Second.ToString() + Program.IdEmpleadoLogueado.ToString());
                             //Tabla de pago
                             cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(idVenta);
                             cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
