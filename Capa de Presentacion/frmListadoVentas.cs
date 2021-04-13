@@ -753,7 +753,7 @@ namespace Capa_de_Presentacion
             {
                 Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
                 Cx.conexion.Open();
-                string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante from DetalleVenta" +
+                string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante,Venta.Total from DetalleVenta" +
                     " inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta inner join Caja on Caja.fecha=Venta.FechaVenta where DetalleVenta.IdVenta=" + Program.Id;
                 SqlCommand cmd1 = new SqlCommand(sql, Cx.conexion);
 
@@ -774,7 +774,8 @@ namespace Capa_de_Presentacion
                         string tipofacturaDV = data[2].ToString();
                         decimal subtotalDV = Convert.ToDecimal(data[3]);
                         int idcajaDV = Convert.ToInt32(data[4]);
-                        decimal restanteDV = Convert.ToInt32(data[5]);
+                        decimal restanteDV = Convert.ToDecimal(data[5]);
+                        decimal TotalDV = Convert.ToDecimal(data[6]);
 
                         if (tipofacturaDV.ToLower() == "credito")
                         {
@@ -792,6 +793,31 @@ namespace Capa_de_Presentacion
 
                         if (i == dt.Rows.Count)
                         {
+
+                            if(restanteDV != TotalDV)
+                            {
+                                SqlCommand sqlCommand2 = new SqlCommand("DevolucionVenta", Cx.conexion);
+                                using (SqlCommand cmd4 = sqlCommand2)
+                                {
+                                    cmd3.CommandType = CommandType.StoredProcedure;
+
+                                    decimal cantidadDV1 = Convert.ToDecimal(data[0]);
+                                    int idProductoDV1 = Convert.ToInt32(data[1]);
+                                    string tipofacturaDV1 = "Debito";
+                                    decimal subtotalDV1 = TotalDV- restanteDV;
+                                    int idcajaDV1 = Convert.ToInt32(data[4]);
+
+                                    //UpdateStock
+                                    cmd3.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV;
+                                    cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV;
+                                    cmd3.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV;
+                                    cmd3.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV;
+                                    cmd3.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV;
+
+                                    cmd3.ExecuteNonQuery();
+                                }
+                            }
+
                             SqlCommand sqlCommand1 = new SqlCommand("BorrarVentaDV", Cx.conexion);
                             using (SqlCommand cmd = sqlCommand1)
                             {
