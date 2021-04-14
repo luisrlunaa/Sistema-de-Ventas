@@ -115,7 +115,7 @@
             this.cbtipofactura = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.chkComprobante = new System.Windows.Forms.CheckBox();
-            this.txttotal = new System.Windows.Forms.Label();
+            this.lbltotal = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.txtpmin = new System.Windows.Forms.TextBox();
             this.txtpmax = new System.Windows.Forms.TextBox();
@@ -1118,16 +1118,16 @@
             this.chkComprobante.Text = "Con Comprobante";
             this.chkComprobante.UseVisualStyleBackColor = true;
             // 
-            // txttotal
+            // lbltotal
             // 
-            this.txttotal.AutoSize = true;
-            this.txttotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
-            this.txttotal.ForeColor = System.Drawing.Color.White;
-            this.txttotal.Location = new System.Drawing.Point(721, 710);
-            this.txttotal.Name = "txttotal";
-            this.txttotal.Size = new System.Drawing.Size(21, 20);
-            this.txttotal.TabIndex = 92;
-            this.txttotal.Text = "...";
+            this.lbltotal.AutoSize = true;
+            this.lbltotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.lbltotal.ForeColor = System.Drawing.Color.White;
+            this.lbltotal.Location = new System.Drawing.Point(721, 710);
+            this.lbltotal.Name = "lbltotal";
+            this.lbltotal.Size = new System.Drawing.Size(21, 20);
+            this.lbltotal.TabIndex = 92;
+            this.lbltotal.Text = "...";
             // 
             // label19
             // 
@@ -1302,7 +1302,7 @@
             this.Controls.Add(this.txtpmax);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.txttotal);
+            this.Controls.Add(this.lbltotal);
             this.Controls.Add(this.chkComprobante);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.cbtipofactura);
@@ -1446,7 +1446,7 @@
         public System.Windows.Forms.ComboBox cbtipofactura;
         public System.Windows.Forms.Button btnRegistrarVenta;
         private System.Windows.Forms.CheckBox chkComprobante;
-        public System.Windows.Forms.Label txttotal;
+        public System.Windows.Forms.Label lbltotal;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox cbidentificacion;
         public System.Windows.Forms.Label label19;

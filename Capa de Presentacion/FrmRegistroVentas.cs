@@ -58,7 +58,7 @@ namespace Capa_de_Presentacion
             llenar();
             btnEliminarItem.Enabled = false;
             frmPagar pa = new frmPagar();
-            txttotal.Text = Convert.ToString(pa.txtmonto.Text);
+            lbltotal.Text = Convert.ToString(pa.txtmonto.Text);
         }
 
         public void actualzarestadoscomprobantes()
@@ -217,7 +217,7 @@ namespace Capa_de_Presentacion
             txtPVenta.Text = Program.PrecioVenta + "";
             txtIgv.Text = Program.itbis + "";
             txtIdV.Text = Program.Id + "";
-            txttotal.Text = Program.total + "";
+            lbltotal.Text = Program.total + "";
             lblsubt.Text = Program.ST + "";
             lbligv.Text = Program.igv + "";
             txtpmax.Text = Program.Pmax + "";
@@ -274,25 +274,11 @@ namespace Capa_de_Presentacion
                 cbtipofactura.Text = Program.tipo;
                 combo_tipo_NCF.Text = Program.NCF;
                 txtNCF.Text = Program.NroComprobante;
-                txttotal.Text = Program.total + "";
+                lbltotal.Text = Program.total + "";
                 lblsubt.Text = Program.ST + "";
                 lbligv.Text = Program.igv + "";
                 txtidEmp.Text = Program.IdEmpleado + "";
                 dateTimePicker1.Text = Program.fecha;
-
-                //if (txtidCli.Text == "0" || txtidCli.Text == null || Program.IdCliente + "" == null || Program.IdCliente + "" == "0")
-                //{
-                //	Cx.conexion.Open();
-                //	string sql = "select idCliente from Cliente where DNI=@DNI";
-                //	SqlCommand Command = new SqlCommand(sql, Cx.conexion);
-                //	Command.Parameters.AddWithValue("@DNI", Program.DocumentoIdentidad);
-                //	SqlDataReader reade = Command.ExecuteReader();
-                //	if (reade.Read())
-                //	{
-                //		txtidCli.Text = reade["idCliente"].ToString();
-                //	}
-                //	Cx.conexion.Close();
-                //}
 
                 //declaramos la cadena  de conexion
                 string cadenaconexion = Cx.conet;
@@ -488,7 +474,11 @@ namespace Capa_de_Presentacion
 
                 lblsubt.Text = Convert.ToString(SumaSubTotal);
                 lbligv.Text = Convert.ToString(SumaIgv);
-                txttotal.Text = Convert.ToString(SumaTotal);
+                lbltotal.Text = Convert.ToString(SumaTotal);
+
+                Program.igv = Convert.ToDecimal(lbligv.Text);
+                Program.ST = Convert.ToDecimal(lblsubt.Text);
+                Program.total = Convert.ToDecimal(lbltotal.Text);
             }
         }
         private void Limpiar()
@@ -509,12 +499,11 @@ namespace Capa_de_Presentacion
             Program.Marca = "";
             Program.PrecioVenta = 0;
             Program.IdProducto = 0;
-            Program.igv = 0;
             Program.realizopago = false;
         }
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            if (chkComprobante.Checked == false && txtNCF.Text != "")
+            if (chkComprobante.Checked == false && txtNCF.Text == "Sin NCF")
             {
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea Agregar Comprobantes a la Factura?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
@@ -531,14 +520,11 @@ namespace Capa_de_Presentacion
 
             if (cbidentificacion.Checked == false && Program.IdCliente == 0)
             {
-                txtDatos.Text = Program.datoscliente;
+                Program.datoscliente= txtDatos.Text;
             }
 
             frmPagar pa = new frmPagar();
-            Program.total = Convert.ToDecimal(txttotal.Text);
-            Program.igv = Convert.ToDecimal(lbligv.Text);
-            Program.ST = Convert.ToDecimal(lblsubt.Text);
-            pa.txtmonto.Text = txttotal.Text;
+            pa.txtmonto.Text = lbltotal.Text;
             pa.Show();
 
             Program.tipo = cbtipofactura.Text;
@@ -619,7 +605,7 @@ namespace Capa_de_Presentacion
 
                     if (cbtipofactura.Text == "Credito")
                     {
-                        restante = Convert.ToDecimal(txttotal.Text) - Program.pagoRealizado;
+                        restante = Convert.ToDecimal(lbltotal.Text) - Program.pagoRealizado;
                         cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
                     }
                     else
@@ -631,7 +617,7 @@ namespace Capa_de_Presentacion
                     cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
                     cmd.Parameters.Add("@TipoDocumento", SqlDbType.VarChar).Value = combo_tipo_NCF.Text;
                     cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dateTimePicker1.Text;
-                    cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
+                    cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(lbltotal.Text);
 
                     con.Open();
                     cmd.ExecuteNonQuery();
@@ -702,7 +688,7 @@ namespace Capa_de_Presentacion
                     //Tabla de pago
                     cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
                     cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
-                    cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
+                    cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(lbltotal.Text);
                     cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
                     cmd2.Parameters.Add("@idVenta", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
 
@@ -897,7 +883,7 @@ namespace Capa_de_Presentacion
             }
             ticket.TextoIzquierda(" ");
             //resumen de la venta
-            ticket.AgregarTotales("TOTAL    : ", decimal.Parse(txttotal.Text));
+            ticket.AgregarTotales("TOTAL    : ", decimal.Parse(lbltotal.Text));
             ticket.AgregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
             ticket.TextoIzquierda(" ");
             ticket.TextoCentro("__________________________________");
@@ -1137,7 +1123,7 @@ namespace Capa_de_Presentacion
                             }
                         }
                     }
-                    doc.Add(new Paragraph("Total de Ventas   : " + txttotal.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Total de Ventas   : " + lbltotal.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Total de Restante : " + restante.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("_________________________" + "                                                                                                                                                 " + "_________________________", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
@@ -1209,7 +1195,7 @@ namespace Capa_de_Presentacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            restante = Convert.ToDecimal(txttotal.Text) - Program.pagoRealizado;
+            restante = Convert.ToDecimal(lbltotal.Text) - Program.pagoRealizado;
             using (SqlConnection con = new SqlConnection(Cx.conet))
             {
                 using (SqlCommand cmd = new SqlCommand("AbonaraVenta", con))

@@ -132,7 +132,7 @@ namespace Capa_de_Presentacion
             Program.abiertosecundario = false;
             Program.abierto = false;
             FrmRegistroVentas venta = new FrmRegistroVentas();
-            venta.txttotal.Text = Program.total + "";
+            venta.lbltotal.Text = Program.total + "";
             venta.lbligv.Text = Program.igv + "";
             venta.lblsubt.Text = Program.ST + "";
             this.Hide();
