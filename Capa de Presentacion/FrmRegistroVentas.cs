@@ -447,6 +447,10 @@ namespace Capa_de_Presentacion
                 lblsubt.Text = Convert.ToString(SumaSubTotal);
                 lbligv.Text = Convert.ToString(SumaIgv);
                 txttotal.Text = Convert.ToString(SumaTotal);
+
+                Program.igv = Convert.ToDecimal(lbligv.Text);
+                Program.ST = Convert.ToDecimal(lblsubt.Text);
+                Program.total = Convert.ToDecimal(txttotal.Text);
             }
         }
         private void Limpiar()
