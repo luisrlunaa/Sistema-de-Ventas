@@ -20,8 +20,6 @@ namespace Capa_de_Presentacion
         private void FrmListadoClientes_Load(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            timer1.Start();
-            timer1.Interval = 5000;
             ListarClientes();
             ListarClientes1();
             dataGridView1.ClearSelection();
@@ -123,98 +121,6 @@ namespace Capa_de_Presentacion
                 DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Seleccione la Fila a Editar.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            dataGridView1.ClearSelection();
-            if (e.KeyChar == 13)
-            {
-                DataTable dt = new DataTable();
-                C.Dni = txtBuscarCliente.Text;
-                dt = C.BuscarCliente(C.Dni);
-                try
-                {
-                    dataGridView1.Rows.Clear();
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        dataGridView1.Rows.Add(dt.Rows[i][0]);
-                        dataGridView1.Rows[i].Cells[0].Value = dt.Rows[i][0].ToString();
-                        dataGridView1.Rows[i].Cells[1].Value = dt.Rows[i][1].ToString();
-                        dataGridView1.Rows[i].Cells[2].Value = dt.Rows[i][2].ToString();
-                        dataGridView1.Rows[i].Cells[3].Value = dt.Rows[i][3].ToString();
-                        dataGridView1.Rows[i].Cells[4].Value = dt.Rows[i][4].ToString();
-                        dataGridView1.Rows[i].Cells[5].Value = dt.Rows[i][5].ToString();
-                    }
-                    dataGridView1.ClearSelection();
-                    timer1.Stop();
-                }
-                catch (Exception ex)
-                {
-                    DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
-                }
-            }
-            else
-            {
-                ListarClientes();
-                timer1.Start();
-            }
-        }
-
-        //    private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        //    {
-        //        if (dataGridView1.Rows.Count > 0)
-        //        {
-        //            dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
-        //Program.Eid = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
-
-        //textBox1.Text = Program.Eid + "";
-
-        //if (textBox1.Text is null)
-        //{
-        //                pictureBox1.Image = null;
-        //            }
-
-        //            if(textBox1.Text !=null)
-        //{
-        //                SqlCommand command = new SqlCommand("SELECT imagen FROM dbo.Cliente WHERE dbo.Cliente.IdCliente = @Clave", Cx.conexion);
-        //                command.Parameters.AddWithValue("@Clave", textBox1.Text);
-
-        //                //Representa un set de comandos que es utilizado para llenar un DataSet
-        //                SqlDataAdapter dp = new SqlDataAdapter(command);
-
-        //                //Representa un caché (un espacio) en memoria de los datos.
-        //                DataSet ds = new DataSet("Cliente");
-        //                    //Arreglo de byte en donde se almacenara la foto en bytes
-        //                    byte[] MyData = new byte[0];
-
-        //                    //Llenamosel DataSet con la tabla. 
-        //                    dp.Fill(ds, "Cliente");
-
-        //                    //Inicializamos una fila de datos en la cual se almacenaran todos los datos de la fila seleccionada
-        //                    DataRow myRow = ds.Tables["Cliente"].Rows[0];
-
-        //                if (myRow["imagen"] != DBNull.Value)
-        //                {
-        //                        //Se almacena el campo foto de la tabla en el arreglo de bytes
-        //                        MyData = (byte[])myRow["imagen"];
-
-        //                        //Se inicializa un flujo en memoria del arreglo de bytes
-        //                        MemoryStream stream = new MemoryStream(MyData);
-
-        //                        //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
-        //                        //el cual contiene el arreglo de bytes
-        //                        //pictureBox1.Image = System.Drawing.Image.FromStream(stream);
-        //                    }
-        //                else
-        //                {
-        //                   // pictureBox1.Image = null;
-        //                }                  
-        //            }
-
-        //timer1.Stop();
-        //        }
-        //    }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Sair.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -371,6 +277,41 @@ namespace Capa_de_Presentacion
             if (dataGridView2.Rows.Count > 0)
             {
                 dataGridView2.Rows[dataGridView2.CurrentRow.Index].Selected = true;
+            }
+        }
+
+        private void txtBuscarCliente_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txtBuscarCliente.Text.Length >= 3)
+            {
+                dataGridView1.ClearSelection();
+
+                DataTable dt = new DataTable();
+                C.Dni = txtBuscarCliente.Text;
+                dt = C.BuscarCliente(C.Dni);
+                try
+                {
+                    dataGridView1.Rows.Clear();
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        dataGridView1.Rows.Add(dt.Rows[i][0]);
+                        dataGridView1.Rows[i].Cells[0].Value = dt.Rows[i][0].ToString();
+                        dataGridView1.Rows[i].Cells[1].Value = dt.Rows[i][1].ToString();
+                        dataGridView1.Rows[i].Cells[2].Value = dt.Rows[i][2].ToString();
+                        dataGridView1.Rows[i].Cells[3].Value = dt.Rows[i][3].ToString();
+                        dataGridView1.Rows[i].Cells[4].Value = dt.Rows[i][4].ToString();
+                        dataGridView1.Rows[i].Cells[5].Value = dt.Rows[i][5].ToString();
+                    }
+                    dataGridView1.ClearSelection();
+                }
+                catch (Exception ex)
+                {
+                    DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
+                }
+            }
+            else
+            {
+                ListarClientes();
             }
         }
     }
