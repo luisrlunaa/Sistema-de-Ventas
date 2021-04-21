@@ -291,6 +291,7 @@ namespace Capa_de_Presentacion
             decimal pagos = 0;
             decimal devuelta = 0;
             decimal total = 0;
+            decimal montoinicial = 0;
 
             if (lbling.Text != "...")
             {
@@ -307,7 +308,12 @@ namespace Capa_de_Presentacion
                 gastos = Convert.ToDecimal(lbldeu.Text);
             }
 
-            total = pagos - gastos;
+            if (txtmonto_inicial.Text != "...")
+            {
+                montoinicial = Convert.ToDecimal(txtmonto_inicial.Text);
+            }
+
+            total = (pagos+montoinicial)- gastos;
 
             lbltotal.Text = total.ToString();
         }

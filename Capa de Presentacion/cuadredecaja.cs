@@ -247,7 +247,7 @@ namespace Capa_de_Presentacion
                     montogasto = Convert.ToDecimal(lblmontogasto.Text);
                 }
 
-                lblmontocaja.Text = (Math.Round(Convert.ToDecimal(montoactual) - montogasto, 2)).ToString();
+                lblmontocaja.Text = (Math.Round((Convert.ToDecimal(montoactual) + Convert.ToDecimal(lblmontoinicial.Text)) - montogasto, 2)).ToString();
             }
 
             Cx.conexion.Close();
@@ -441,8 +441,8 @@ namespace Capa_de_Presentacion
 
         private void btnsuma_Click(object sender, EventArgs e)
         {
-            decimal total = 0;
             decimal ingresos = 0;
+            decimal montoinicial = 0;
             decimal gastos = 0;
 
             if (lblmontogasto.Text != "...")
@@ -455,7 +455,12 @@ namespace Capa_de_Presentacion
                 ingresos = Convert.ToDecimal(lblmontoingreso.Text);
             }
 
-            decimal cuadre = ingresos - gastos;
+            if (lblmontoinicial.Text != "...")
+            {
+                montoinicial = Convert.ToDecimal(lblmontoinicial.Text);
+            }
+
+            decimal cuadre = (ingresos+ montoinicial) - gastos;
 
             if (lbldeudas.Text == "")
             {
@@ -498,9 +503,9 @@ namespace Capa_de_Presentacion
                 txtde2000.Text = "0";
             }
 
-            total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
+            decimal total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
                 (50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) + (500 * decimal.Parse(txtde500.Text)) +
-                (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)) + Convert.ToDecimal(lblmontoinicial.Text), 2);
+                (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)), 2);
 
             if (cuadre < total)
             {
