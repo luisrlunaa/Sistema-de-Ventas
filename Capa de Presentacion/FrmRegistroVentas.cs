@@ -213,13 +213,30 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                txtDatos.Text = Program.datoscliente;
+                if(txtDatos.Text != null && txtDatos.Text != "")
+                {
+                    Program.datoscliente = txtDatos.Text;
+                    
+                }
+                if (Program.datoscliente != null && Program.datoscliente != "")
+                {
+                    txtDatos.Text = Program.datoscliente;
+                }
             }
 
             txtIdProducto.Text = Program.IdProducto + "";
             txtDescripcion.Text = Program.Descripcion;
             txtMarca.Text = Program.Marca;
-            txtdireccion.Text = Program.Direccion;
+            if(txtdireccion.Text !="" && txtdireccion.Text !=null)
+            {
+                Program.Direccion = txtdireccion.Text;
+            }
+
+            if (Program.Direccion != "" && Program.Direccion != null)
+            {
+                txtdireccion.Text = Program.Direccion;
+            }
+
             txtStock.Text = Program.Stock + "";
             txtPVenta.Text = Program.PrecioVenta + "";
             txtIgv.Text = Program.itbis + "";
@@ -508,7 +525,7 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            if (txtdireccion.Text == "")
+            if (txtdireccion.Text == "" || txtdireccion.Text is null)
             {
                 txtdireccion.Text = "Entregado en el establecimiento";
             }
@@ -796,6 +813,7 @@ namespace Capa_de_Presentacion
             lst.Clear();
             txtIgv.Text = "";
             txtdireccion.Text = "";
+            Program.Direccion = "";
             Program.realizopago = false;
             Program.datoscliente = "";
         }
@@ -835,15 +853,10 @@ namespace Capa_de_Presentacion
                 cedula = txtDocIdentidad.Text;
             }
 
-            if (txtdireccion.Text == "")
-            {
-                txtdireccion.Text = "Entregado en el establecimiento";
-            }
-
             //SUB CABECERA.
             ticket.TextoIzquierda("Atendido Por: " + txtUsu.Text);
             ticket.TextoIzquierda("Cliente: " + nombre);
-            ticket.TextoIzquierda("Direccion de la Entrega: " + txtdireccion.Text);
+            ticket.TextoIzquierda("Direccion de la Entrega: " + Program.Direccion);
             ticket.TextoIzquierda("Documento de Identificación: " + cedula);
             if(txtrcnClient.Text!= "sin rcn del Cliente")
             {
@@ -1057,11 +1070,6 @@ namespace Capa_de_Presentacion
                         cedula = txtDocIdentidad.Text;
                     }
 
-                    if (txtdireccion.Text == "")
-                    {
-                        txtdireccion.Text = "Entrega Personal";
-                    }
-
                     var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
                     fecha.Alignment = Element.ALIGN_RIGHT;
                     doc.Add(fecha);
@@ -1090,7 +1098,7 @@ namespace Capa_de_Presentacion
                         doc.Add(new Paragraph("RNC Cliente: " + txtrcnClient.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
                     doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Direccion de la Entrega: " + txtdireccion.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Direccion de la Entrega: " + Program.Direccion, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph(" "));
                     GenerarDocumento(doc);
