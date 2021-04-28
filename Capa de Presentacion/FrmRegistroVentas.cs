@@ -307,7 +307,7 @@ namespace Capa_de_Presentacion
                 con.ConnectionString = cadenaconexion;
                 comando.Connection = con;
                 //declaramos el comando para realizar la busqueda
-                comando.CommandText = "SELECT * from DetalleVenta WHERE IdVenta  like '%" + txtIdV.Text + "%'";
+                comando.CommandText = "SELECT * from DetalleVenta WHERE DetalleVenta.IdVenta ='" + txtIdV.Text + "'";
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
@@ -323,13 +323,17 @@ namespace Capa_de_Presentacion
                     // especificamos en que fila se mostrará cada registro
                     // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 
-                    dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                    dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Cantidad")));
-                    dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
-                    dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
-                    dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
-                    dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                    dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+                    string idVenta = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
+                    if (idVenta == txtIdV.Text)
+                    {
+                        dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
+                        dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                        dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
+                        dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
+                        dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
+                        dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
+                        dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+                    }
                 }
                 con.Close();
                 buscaridcaja();
