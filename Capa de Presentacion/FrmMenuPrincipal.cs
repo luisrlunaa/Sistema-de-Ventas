@@ -243,6 +243,8 @@ namespace Capa_de_Presentacion
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            Program.abiertosecundario = false;
+            Program.abierto = false;
             if (Program.LoginStatus != "" && Program.LoginStatus != null)
             {
                 Program.LoginStatus = "";
@@ -266,14 +268,13 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (Program.abierto == false)
-            {
+
                 frmTurno Tu = new frmTurno();
                 Tu.lblLogo.Text = lblLogo.Text;
                 Tu.textBox2.Text = Program.turno + "";
-                Program.abierto = true;
-                Tu.Show();
-            }
+            Program.abiertosecundario = false;
+            Program.abierto = false;
+            Tu.Show();
         }
         private void button2_Click(object sender, EventArgs e)
         {
