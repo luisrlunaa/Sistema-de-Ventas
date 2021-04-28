@@ -870,7 +870,8 @@ namespace Capa_de_Presentacion
             {
                 frmListadoVentas F = new frmListadoVentas();
                 F.btnCancelar.Visible = false;
-                Program.abiertosecundarias = true;
+                Program.abiertosecundarias = false;
+                Program.abierto = false;
                 F.Show();
             }
         }

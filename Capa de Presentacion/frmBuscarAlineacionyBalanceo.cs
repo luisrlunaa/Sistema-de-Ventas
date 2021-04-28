@@ -86,6 +86,9 @@ namespace Capa_de_Presentacion
             Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["precio"].Value.ToString());
             Program.nota = dataGridView1.CurrentRow.Cells["nota"].Value.ToString();
             Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
+
+            Program.abiertosecundarias = false;
+            Program.abierto = false;
             this.Close();
         }
 
