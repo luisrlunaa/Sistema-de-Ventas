@@ -116,7 +116,7 @@ namespace Capa_de_Presentacion
                 "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' ')," +
                 "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
                 "dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta  LIKE '%" + id + "%' or  dbo.DetalleVenta.detalles_P LIKE '%" + id + "%' and dbo.Venta.borrado=" + borrado;
+                "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto WHERE dbo.DetalleVenta.IdVenta  LIKE '%" + id + "%' or  dbo.DetalleVenta.detalles_P LIKE '%" + id + "%' and dbo.Venta.borrado=" + borrado+ "ORDER BY dbo.Venta.FechaVenta";
             }
             else
             {
@@ -125,7 +125,7 @@ namespace Capa_de_Presentacion
                 "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' ')," +
                 "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
                 "dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta and dbo.Venta.borrado=" + borrado + "inner join dbo.Producto ON " +
-                "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto";
+                "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto ORDER BY dbo.Venta.FechaVenta";
             }
 
             //especificamos que es de tipo Text
@@ -398,7 +398,7 @@ namespace Capa_de_Presentacion
                 "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' ')," +
                 "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
                 "dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where dbo.Venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado;
+                "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where dbo.Venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado+"ORDER BY dbo.Venta.FechaVenta";
             comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
             comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
             //especificamos que es de tipo Text
