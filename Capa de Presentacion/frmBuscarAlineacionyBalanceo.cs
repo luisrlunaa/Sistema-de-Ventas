@@ -35,8 +35,9 @@ namespace Capa_de_Presentacion
             if (textBox1.Text != "")
             {
                 //declaramos el comando para realizar la busqueda
-                comando.CommandText = "select * from Taller where Datos like '%" + textBox1.Text.ToUpper() + "%' and fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
-                comando.Parameters.AddWithValue("@fecha", dtpfecha1.Value);
+                comando.CommandText = "select * from Taller where Datos like '%" + textBox1.Text.ToUpper() + "%' and fecha BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) ORDER BY fecha";
+                comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
+                comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
             }
             else
             {
@@ -145,8 +146,9 @@ namespace Capa_de_Presentacion
             con.ConnectionString = cadenaconexion;
             comando.Connection = con;
             //declaramos el comando para realizar la busqueda
-            comando.CommandText = "select * from Taller where fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
-            comando.Parameters.AddWithValue("@fecha", dtpfecha1.Value);
+            comando.CommandText = "select * from Taller where fecha BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) ORDER BY fecha";
+            comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
+            comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
@@ -297,8 +299,9 @@ namespace Capa_de_Presentacion
             conexion.ConnectionString = cadenaconexion;
             comando.Connection = conexion;
             //declaramos el comando para realizar la busqueda
-            comando.CommandText = "select * from taller where tipoDeTrabajo like '%" + cbtipo.Text + "%' AND fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
-            comando.Parameters.AddWithValue("@fecha", dtpfecha1.Value);
+            comando.CommandText = "select * from taller where tipoDeTrabajo like '%" + cbtipo.Text + "%' AND fecha BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) ORDER BY fecha";
+            comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
+            comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
