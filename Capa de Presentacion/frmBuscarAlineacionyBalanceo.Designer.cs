@@ -30,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipoDeTrabajo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,8 +46,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txttotalG = new System.Windows.Forms.TextBox();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.dtpfecha1 = new System.Windows.Forms.DateTimePicker();
-            this.label5 = new System.Windows.Forms.Label();
             this.lblDir = new System.Windows.Forms.Label();
             this.lblLogo = new System.Windows.Forms.Label();
             this.agregargasto = new System.Windows.Forms.Button();
@@ -55,6 +53,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dtpfecha2 = new System.Windows.Forms.DateTimePicker();
+            this.dtpfecha1 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,14 +65,14 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.ColumnHeadersHeight = 29;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -197,7 +199,7 @@
             this.cbtipo.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbtipo.ForeColor = System.Drawing.Color.MidnightBlue;
             this.cbtipo.FormattingEnabled = true;
-            this.cbtipo.Location = new System.Drawing.Point(199, 138);
+            this.cbtipo.Location = new System.Drawing.Point(153, 138);
             this.cbtipo.Margin = new System.Windows.Forms.Padding(4);
             this.cbtipo.Name = "cbtipo";
             this.cbtipo.Size = new System.Drawing.Size(173, 26);
@@ -209,7 +211,7 @@
             this.label11.BackColor = System.Drawing.Color.SeaGreen;
             this.label11.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(215, 117);
+            this.label11.Location = new System.Drawing.Point(169, 117);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(141, 19);
@@ -253,25 +255,6 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // dtpfecha1
-            // 
-            this.dtpfecha1.CustomFormat = "";
-            this.dtpfecha1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpfecha1.Location = new System.Drawing.Point(740, 137);
-            this.dtpfecha1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dtpfecha1.Name = "dtpfecha1";
-            this.dtpfecha1.Size = new System.Drawing.Size(121, 22);
-            this.dtpfecha1.TabIndex = 119;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(772, 114);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(51, 17);
-            this.label5.TabIndex = 120;
-            this.label5.Text = "Fecha:";
-            // 
             // lblDir
             // 
             this.lblDir.AutoSize = true;
@@ -306,7 +289,7 @@
             this.agregargasto.ForeColor = System.Drawing.Color.Black;
             this.agregargasto.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_buscar;
             this.agregargasto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.agregargasto.Location = new System.Drawing.Point(868, 132);
+            this.agregargasto.Location = new System.Drawing.Point(885, 132);
             this.agregargasto.Margin = new System.Windows.Forms.Padding(4);
             this.agregargasto.Name = "agregargasto";
             this.agregargasto.Size = new System.Drawing.Size(44, 33);
@@ -327,7 +310,7 @@
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_buscar;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(380, 132);
+            this.button1.Location = new System.Drawing.Point(334, 132);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(44, 33);
@@ -342,7 +325,7 @@
             this.label6.BackColor = System.Drawing.Color.SeaGreen;
             this.label6.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(28, 141);
+            this.label6.Location = new System.Drawing.Point(17, 141);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(128, 19);
@@ -351,20 +334,58 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(487, 139);
+            this.textBox1.Location = new System.Drawing.Point(391, 139);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(173, 22);
+            this.textBox1.Size = new System.Drawing.Size(200, 22);
             this.textBox1.TabIndex = 126;
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(503, 119);
+            this.label1.Location = new System.Drawing.Point(427, 119);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 17);
             this.label1.TabIndex = 127;
             this.label1.Text = "Buscar Por Nombre:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(787, 109);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(49, 17);
+            this.label12.TabIndex = 110;
+            this.label12.Text = "Hasta:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(648, 109);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 17);
+            this.label7.TabIndex = 109;
+            this.label7.Text = "Desde :";
+            // 
+            // dtpfecha2
+            // 
+            this.dtpfecha2.CustomFormat = "";
+            this.dtpfecha2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpfecha2.Location = new System.Drawing.Point(755, 139);
+            this.dtpfecha2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dtpfecha2.Name = "dtpfecha2";
+            this.dtpfecha2.Size = new System.Drawing.Size(121, 22);
+            this.dtpfecha2.TabIndex = 107;
+            // 
+            // dtpfecha1
+            // 
+            this.dtpfecha1.CustomFormat = "";
+            this.dtpfecha1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpfecha1.Location = new System.Drawing.Point(616, 139);
+            this.dtpfecha1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dtpfecha1.Name = "dtpfecha1";
+            this.dtpfecha1.Size = new System.Drawing.Size(121, 22);
+            this.dtpfecha1.TabIndex = 107;
             // 
             // FrmBuscarAlineacionyBalanceo
             // 
@@ -372,15 +393,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(942, 662);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.dtpfecha2);
             this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.dtpfecha1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.agregargasto);
             this.Controls.Add(this.lblDir);
             this.Controls.Add(this.lblLogo);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.dtpfecha1);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txttotalG);
@@ -420,8 +443,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txttotalG;
         public System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.DateTimePicker dtpfecha1;
-        private System.Windows.Forms.Label label5;
         public System.Windows.Forms.Label lblDir;
         public System.Windows.Forms.Label lblLogo;
         private System.Windows.Forms.Button agregargasto;
@@ -429,6 +450,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DateTimePicker dtpfecha2;
+        private System.Windows.Forms.DateTimePicker dtpfecha1;
 #pragma warning restore CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
     }
 }
