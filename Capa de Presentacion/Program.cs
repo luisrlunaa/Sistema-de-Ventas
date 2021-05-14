@@ -43,6 +43,7 @@ namespace Capa_de_Presentacion
         public static decimal igv;
         public static string nota;
         public static string fecha;
+        public static string ultimafechapago;
 
         //Datos del Comprobante
         public static string tipo;

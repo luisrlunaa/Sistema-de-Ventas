@@ -44,7 +44,7 @@ namespace Capa_de_Presentacion
                 txtDivisor.Enabled = false;
                 txtPorcentaje.Enabled = false;
             }
-
+           
             txtNCF.Text = "Sin NCF";
             combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
             txtid.Text = "0";
@@ -54,7 +54,7 @@ namespace Capa_de_Presentacion
             Program.datoscliente = "";
             Program.realizopago = false;
             actualzarestadoscomprobantes();
-            llenar_data_ncf();
+            //llenar_data_ncf();
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
             btnRegistrarVenta.Hide();
@@ -207,7 +207,7 @@ namespace Capa_de_Presentacion
         {
             if (Program.IdCliente != 0)
             {
-                txtDatos.Text = Program.ApellidosCliente + " " + Program.NombreCliente;
+                txtDatos.Text = Program.NombreCliente+" "+Program.ApellidosCliente;
                 txtidCli.Text = Program.IdCliente + "";
                 txtDocIdentidad.Text = Program.DocumentoIdentidad;
             }
@@ -251,11 +251,16 @@ namespace Capa_de_Presentacion
                 btnSalir.Visible = true;
             }
 
-            if (Program.Esabono != "" && Program.Esabono != null)
+            if (Program.Esabono != "" && Program.Esabono != null && Program.tipo.ToLower() == "credito")
             {
                 activar = true;
                 btnImprimir.Visible = false;
                 btnSalir.Visible = true;
+
+                lblabono.Visible = true;
+                lbltituloabono.Visible = true;
+                var fecha = Convert.ToDateTime(Program.ultimafechapago);
+                lblabono.Text = fecha.Day + "/" + fecha.Month + "/" + fecha.Year;
             }
             else if (Program.Id == 0)
             {
@@ -351,7 +356,6 @@ namespace Capa_de_Presentacion
                 Program.abiertosecundarias = true;
                 P.Show();
             }
-
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -389,14 +393,8 @@ namespace Capa_de_Presentacion
                             V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
                             V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).Trim();
                             V.Cantidad = Convert.ToInt32(txtCantidad.Text);
-
-                            if (Convert.ToDecimal(txtIgv.Text) > 0)
-                            {
-                                V.Igv = itbis;
-                            }
-
+                            V.Igv = itbis;
                             V.PrecioVenta = precio;
-
                             V.SubTotal = Math.Round((precio + itbis) * Convert.ToInt32(txtCantidad.Text), 2);
                             btnAgregar.Visible = false;
                             lst.Add(V);
@@ -448,9 +446,9 @@ namespace Capa_de_Presentacion
                 dgvVenta.Rows[i].Cells["SubtoTal"].Value = lst[i].SubTotal;
                 dgvVenta.Rows[i].Cells["IDP"].Value = lst[i].IdProducto;
 
-                SumaSubTotal += Convert.ToDecimal(dgvVenta.Rows[i].Cells["SubtoTal"].Value);
+                SumaSubTotal += Convert.ToDecimal(dgvVenta.Rows[i].Cells["PrecioU"].Value);
                 SumaIgv += Convert.ToDecimal(dgvVenta.Rows[i].Cells["IGV"].Value);
-                SumaTotal = Math.Round(SumaSubTotal, 2);
+                SumaTotal += Math.Round(Convert.ToDecimal(dgvVenta.Rows[i].Cells["SubtoTal"].Value), 2);
 
                 lblsubt.Text = Convert.ToString(SumaSubTotal);
                 lbligv.Text = Convert.ToString(SumaIgv);
@@ -476,7 +474,6 @@ namespace Capa_de_Presentacion
             Program.Marca = "";
             Program.PrecioVenta = 0;
             Program.IdProducto = 0;
-            Program.igv = 0;
             Program.itbis = 0;
             Program.realizopago = false;
         }
@@ -580,6 +577,7 @@ namespace Capa_de_Presentacion
                     if (Program.IdCliente != 0)
                     {
                         cmd.Parameters.Add("@IdCliente", SqlDbType.Int).Value = Convert.ToInt32(txtidCli.Text);
+                        cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
                     }
                     else
                     {
@@ -714,7 +712,7 @@ namespace Capa_de_Presentacion
                                 cmd.ExecuteNonQuery();
                                 con.Close();
 
-                                llenar_data_ncf();
+                                //llenar_data_ncf();
                                 buscarid();
                             }
                         }
@@ -779,6 +777,9 @@ namespace Capa_de_Presentacion
             Program.realizopago = false;
             Program.ReImpresion = "";
             Program.datoscliente = "";
+            lblabono.Visible = false;
+            lbltituloabono.Visible = false;
+            lblabono.Text = null;
         }
 
         public void tickEstilo()
@@ -822,12 +823,17 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Atendido Por: " + txtUsu.Text);
             ticket.TextoIzquierda("Cliente: " + nombre);
             ticket.TextoIzquierda("Documento de Identificación: " + cedula);
-            ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Text);
-            //ticket.TextoIzquierda("Hora: " + DateTime.Now.ToShortTimeString());
+            ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Value.Day+"/"+ dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year);
+            
+            if(cbtipofactura.Text.ToLower()=="credito" && Program.Esabono== "Es Abono")
+            {
+                ticket.TextoIzquierda("Fecha Abono: " + DateTime.Today.Day+"/" + DateTime.Today.Month + "/" +DateTime.Today.Year);
+            }
 
             //ARTICULOS A VENDER.
             ticket.EncabezadoVenta();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
             ticket.lineasGuio();
+
             //SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
             foreach (DataGridViewRow fila in dgvVenta.Rows)
             {
@@ -835,9 +841,17 @@ namespace Capa_de_Presentacion
                 decimal.Parse((fila.Cells["SubtoTal"].Value.ToString()).Trim()), decimal.Parse((fila.Cells["IGV"].Value.ToString()).Trim()));
             }
             ticket.TextoIzquierda(" ");
+
             //resumen de la venta
-            ticket.AgregarTotales("TOTAL    : ", decimal.Parse(txttotal.Text));
-            ticket.AgregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
+            ticket.AgregarTotales("SUB-TOTAL    : ", decimal.Parse(lblsubt.Text));
+            ticket.AgregarTotales("ITBIS     : ", decimal.Parse(lbligv.Text));
+            ticket.AgregarTotales("TOTAL A PAGAR    : ", decimal.Parse(txttotal.Text));
+
+            if (cbtipofactura.Text.ToLower() == "credito")
+            {
+                ticket.AgregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
+            }
+
             ticket.TextoIzquierda(" ");
             ticket.TextoCentro("__________________________________");
 
@@ -1016,7 +1030,7 @@ namespace Capa_de_Presentacion
                     doc.Open();
                     string remito = lblLogo.Text;
                     string ubicado = lblDir.Text;
-                    string envio = "Fecha : " + dateTimePicker1.Text;
+                    string envio = "Fecha : " + +dateTimePicker1.Value.Day + "/" + dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year;
 
                     Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
                     if (Program.ReImpresion != null)
@@ -1055,6 +1069,11 @@ namespace Capa_de_Presentacion
                     doc.Add(RNC);
 
                     doc.Add(new Paragraph(" "));
+                    if (cbtipofactura.Text.ToLower() == "credito" && Program.Esabono == "Es Abono")
+                    {
+                        var fechaabono = new Paragraph("Fecha Abono: " + DateTime.Today.Day+"/"+ DateTime.Today.Month + "/" + DateTime.Today.Year, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+                        doc.Add(fechaabono);
+                    }
                     doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Tipo de Factura: " + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Tipo de Comprobante: " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
@@ -1075,13 +1094,32 @@ namespace Capa_de_Presentacion
                             }
                         }
                     }
-                    doc.Add(new Paragraph("Total de Ventas   : " + txttotal.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Total de Restante : " + restante.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+
+                    doc.Add(new Paragraph("Sub-Total   : " + lblsubt.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("ITBIS   : " + lbligv.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Total a Pagar   : " + txttotal.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+
+                    if (cbtipofactura.Text.ToLower() == "credito")
+                    {
+                        doc.Add(new Paragraph("Total de Restante : " + restante.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    }
+
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("_________________________" + "                                                                                                                                                 " + "_________________________", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("      Facturado Por      " + "                                                                                                                                                                         " + "     Recibido Por  ", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("                       "));
-                    doc.Add(new Paragraph("Nota: Los productos con garantia pierden su garantia si deja perder la factura.", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
+
+                    var Nota = new Paragraph("Nota: Los productos con garantia pierden su garantia si deja perder la factura.", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED));
+                    Nota.Alignment = Element.ALIGN_RIGHT;
+                    var favor = new Paragraph("FAVOR REVISE SU MERCANCIA AL RECIBIRLA", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED));
+                    favor.Alignment = Element.ALIGN_RIGHT;
+                    var gracias = new Paragraph("!GRACIAS POR SU COMPRA!", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED));
+                    gracias.Alignment = Element.ALIGN_RIGHT;
+
+                    doc.Add(Nota);
+                    doc.Add(favor);
+                    doc.Add(gracias);
+
                     doc.Close();
                     Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
                 }

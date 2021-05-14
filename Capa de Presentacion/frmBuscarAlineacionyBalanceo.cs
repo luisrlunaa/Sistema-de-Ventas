@@ -209,7 +209,7 @@ namespace Capa_de_Presentacion
                 doc.Open();
                 string remito = lblLogo.Text;
                 string ubicado = lblDir.Text;
-                string envio = "Fecha : " + DateTime.Now.ToString();
+                string envio = "Fecha : " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
 
                 Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
                 doc.Add(new Paragraph("                                                                                                                                                                                                                                                     " + envio, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.ITALIC)));

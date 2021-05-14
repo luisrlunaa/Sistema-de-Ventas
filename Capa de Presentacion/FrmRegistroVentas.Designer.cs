@@ -126,6 +126,8 @@
             this.txttotal = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
+            this.lbltituloabono = new System.Windows.Forms.Label();
+            this.lblabono = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -885,7 +887,7 @@
             this.dateTimePicker1.CalendarForeColor = System.Drawing.Color.MidnightBlue;
             this.dateTimePicker1.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(39, 26);
+            this.dateTimePicker1.Location = new System.Drawing.Point(35, 26);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(223, 25);
@@ -1132,7 +1134,7 @@
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_limpiar;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(251, 711);
+            this.button1.Location = new System.Drawing.Point(234, 711);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(128, 39);
@@ -1164,10 +1166,10 @@
             this.btnEliminarItem.ForeColor = System.Drawing.Color.Black;
             this.btnEliminarItem.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_eliminar;
             this.btnEliminarItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEliminarItem.Location = new System.Drawing.Point(387, 711);
+            this.btnEliminarItem.Location = new System.Drawing.Point(370, 711);
             this.btnEliminarItem.Margin = new System.Windows.Forms.Padding(4);
             this.btnEliminarItem.Name = "btnEliminarItem";
-            this.btnEliminarItem.Size = new System.Drawing.Size(167, 39);
+            this.btnEliminarItem.Size = new System.Drawing.Size(184, 39);
             this.btnEliminarItem.TabIndex = 20;
             this.btnEliminarItem.Text = "Eliminar Item";
             this.btnEliminarItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1268,12 +1270,38 @@
             this.label19.Text = "idcliente";
             this.label19.Visible = false;
             // 
+            // lbltituloabono
+            // 
+            this.lbltituloabono.AutoSize = true;
+            this.lbltituloabono.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltituloabono.Location = new System.Drawing.Point(15, 682);
+            this.lbltituloabono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbltituloabono.Name = "lbltituloabono";
+            this.lbltituloabono.Size = new System.Drawing.Size(120, 23);
+            this.lbltituloabono.TabIndex = 95;
+            this.lbltituloabono.Text = "Fecha Abono: ";
+            this.lbltituloabono.Visible = false;
+            // 
+            // lblabono
+            // 
+            this.lblabono.AutoSize = true;
+            this.lblabono.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblabono.Location = new System.Drawing.Point(15, 705);
+            this.lblabono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblabono.Name = "lblabono";
+            this.lblabono.Size = new System.Drawing.Size(25, 23);
+            this.lblabono.TabIndex = 96;
+            this.lblabono.Text = "...";
+            this.lblabono.Visible = false;
+            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(904, 762);
+            this.Controls.Add(this.lblabono);
+            this.Controls.Add(this.lbltituloabono);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.txttotal);
@@ -1438,5 +1466,7 @@
         public System.Windows.Forms.TextBox txtIgv;
         public System.Windows.Forms.TextBox txtPorcentaje;
         public System.Windows.Forms.TextBox txtDivisor;
+        public System.Windows.Forms.Label lbltituloabono;
+        public System.Windows.Forms.Label lblabono;
     }
 }
