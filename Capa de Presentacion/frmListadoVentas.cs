@@ -94,8 +94,8 @@ namespace Capa_de_Presentacion
         public void llenar_data(string id)
         {
             decimal total = 0; decimal subtotal = 0; decimal preciocompra = 0; decimal cantidad = 0; decimal ganancias = 0;
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
+          //declaramos la cadena  de conexion
+          string cadenaconexion = Cx.conet;
             //variable de tipo Sqlconnection
             SqlConnection con = new SqlConnection();
             //variable de tipo Sqlcommand
@@ -158,12 +158,12 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
                 dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 
-                total += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["total"].Value);
                 subtotal = Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
                 cantidad = Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["can"].Value);
                 preciocompra = Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value);
 
-                ganancias += subtotal - (preciocompra* cantidad);
+                ganancias += subtotal - (preciocompra * cantidad);
+                total = total + subtotal;
             }
 
             txtGanancias.Text = Convert.ToString(Math.Round(ganancias, 2));
@@ -381,7 +381,6 @@ namespace Capa_de_Presentacion
         private void button1_Click(object sender, EventArgs e)
         {
             decimal total = 0; decimal subtotal = 0; decimal preciocompra = 0; decimal cantidad = 0; decimal ganancias = 0;
-
             //declaramos la cadena  de conexion
             string cadenaconexion = Cx.conet;
             //variable de tipo Sqlconnection
@@ -436,13 +435,12 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
                 dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 
-
-                total += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["total"].Value);
                 subtotal = Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
                 cantidad = Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["can"].Value);
                 preciocompra = Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value);
 
                 ganancias += subtotal - (preciocompra * cantidad);
+                total = total + subtotal;
             }
 
             txtGanancias.Text = Convert.ToString(Math.Round(ganancias, 2));
