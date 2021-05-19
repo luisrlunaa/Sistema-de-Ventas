@@ -54,13 +54,11 @@
             this.txtBuscarid = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtMontvend = new System.Windows.Forms.TextBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.id_p = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sub = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtCantvend = new System.Windows.Forms.TextBox();
-            this.lblV = new System.Windows.Forms.Label();
             this.txtidprod = new System.Windows.Forms.TextBox();
             this.lblTV = new System.Windows.Forms.Label();
             this.lblPV = new System.Windows.Forms.Label();
@@ -344,15 +342,6 @@
             this.label2.Text = "X";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // txtMontvend
-            // 
-            this.txtMontvend.Location = new System.Drawing.Point(287, 568);
-            this.txtMontvend.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtMontvend.Name = "txtMontvend";
-            this.txtMontvend.ReadOnly = true;
-            this.txtMontvend.Size = new System.Drawing.Size(112, 22);
-            this.txtMontvend.TabIndex = 97;
-            // 
             // dataGridView2
             // 
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -392,23 +381,12 @@
             // 
             // txtCantvend
             // 
-            this.txtCantvend.Location = new System.Drawing.Point(287, 646);
+            this.txtCantvend.Location = new System.Drawing.Point(286, 643);
             this.txtCantvend.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCantvend.Name = "txtCantvend";
             this.txtCantvend.ReadOnly = true;
             this.txtCantvend.Size = new System.Drawing.Size(112, 22);
             this.txtCantvend.TabIndex = 99;
-            // 
-            // lblV
-            // 
-            this.lblV.AutoSize = true;
-            this.lblV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblV.ForeColor = System.Drawing.Color.White;
-            this.lblV.Location = new System.Drawing.Point(11, 571);
-            this.lblV.Name = "lblV";
-            this.lblV.Size = new System.Drawing.Size(167, 18);
-            this.lblV.TabIndex = 100;
-            this.lblV.Text = "Total Vendido en el Dia :";
             // 
             // txtidprod
             // 
@@ -423,7 +401,7 @@
             this.lblTV.AutoSize = true;
             this.lblTV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTV.ForeColor = System.Drawing.Color.White;
-            this.lblTV.Location = new System.Drawing.Point(11, 646);
+            this.lblTV.Location = new System.Drawing.Point(10, 644);
             this.lblTV.Name = "lblTV";
             this.lblTV.Size = new System.Drawing.Size(239, 18);
             this.lblTV.TabIndex = 102;
@@ -434,7 +412,7 @@
             this.lblPV.AutoSize = true;
             this.lblPV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPV.ForeColor = System.Drawing.Color.White;
-            this.lblPV.Location = new System.Drawing.Point(11, 608);
+            this.lblPV.Location = new System.Drawing.Point(10, 606);
             this.lblPV.Name = "lblPV";
             this.lblPV.Size = new System.Drawing.Size(228, 18);
             this.lblPV.TabIndex = 104;
@@ -442,7 +420,7 @@
             // 
             // txtprod
             // 
-            this.txtprod.Location = new System.Drawing.Point(287, 606);
+            this.txtprod.Location = new System.Drawing.Point(286, 605);
             this.txtprod.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtprod.Name = "txtprod";
             this.txtprod.ReadOnly = true;
@@ -454,7 +432,7 @@
             this.lblT.AutoSize = true;
             this.lblT.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblT.ForeColor = System.Drawing.Color.White;
-            this.lblT.Location = new System.Drawing.Point(11, 500);
+            this.lblT.Location = new System.Drawing.Point(10, 534);
             this.lblT.Name = "lblT";
             this.lblT.Size = new System.Drawing.Size(106, 18);
             this.lblT.TabIndex = 106;
@@ -462,7 +440,7 @@
             // 
             // txtTtal
             // 
-            this.txtTtal.Location = new System.Drawing.Point(287, 496);
+            this.txtTtal.Location = new System.Drawing.Point(286, 533);
             this.txtTtal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTtal.Name = "txtTtal";
             this.txtTtal.ReadOnly = true;
@@ -656,7 +634,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(12, 535);
+            this.label4.Location = new System.Drawing.Point(11, 569);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(144, 18);
             this.label4.TabIndex = 114;
@@ -664,7 +642,7 @@
             // 
             // txtGanancias
             // 
-            this.txtGanancias.Location = new System.Drawing.Point(286, 533);
+            this.txtGanancias.Location = new System.Drawing.Point(286, 568);
             this.txtGanancias.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtGanancias.Name = "txtGanancias";
             this.txtGanancias.ReadOnly = true;
@@ -750,9 +728,7 @@
             this.Controls.Add(this.txtprod);
             this.Controls.Add(this.lblTV);
             this.Controls.Add(this.txtidprod);
-            this.Controls.Add(this.lblV);
             this.Controls.Add(this.txtCantvend);
-            this.Controls.Add(this.txtMontvend);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCancelar);
@@ -792,9 +768,7 @@
 		public System.Windows.Forms.Label lblDir;
 		public System.Windows.Forms.Label lblLogo;
 		public System.Windows.Forms.TextBox txtRepi;
-		public System.Windows.Forms.TextBox txtMontvend;
 		public System.Windows.Forms.TextBox txtCantvend;
-		public System.Windows.Forms.Label lblV;
 		public System.Windows.Forms.Label lblTV;
 		public System.Windows.Forms.Label lblPV;
 		public System.Windows.Forms.TextBox txtprod;
