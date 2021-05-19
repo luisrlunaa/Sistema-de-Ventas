@@ -43,8 +43,7 @@ namespace Capa_de_Presentacion
             con.ConnectionString = cadenaconexion;
             comando.Connection = con;
             //declaramos el comando para realizar la busqueda
-            comando.CommandText = "SELECT dbo.DetalleVenta.IdProducto,Sum( Cantidad ) as total ," +
-                "SUM(dbo.DetalleVenta.SubTotal) as subt FROM dbo.DetalleVenta INNER JOIN dbo.Venta ON dbo.DetalleVenta.IdVenta = " +
+            comando.CommandText = "SELECT dbo.DetalleVenta.IdProducto,Sum( Cantidad ) as total FROM dbo.DetalleVenta INNER JOIN dbo.Venta ON dbo.DetalleVenta.IdVenta = " +
                 "dbo.Venta.IdVenta where FechaVenta = convert(datetime,CONVERT(varchar(10), getdate(), 103),103) and dbo.Venta.borrado=" + borrado + "GROUP BY IdProducto ORDER BY total DESC";
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
@@ -73,11 +72,8 @@ namespace Capa_de_Presentacion
                 dataGridView2.CurrentCell = dataGridView2.Rows[0].Cells["id_p"];
                 idprod = Convert.ToInt32(dataGridView2.Rows[0].Cells["id_p"].Value);
 
-                montovendido += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["sub"].Value), 2);
-
                 txtidprod.Text = Convert.ToString(idprod);
                 txtCantvend.Text = Convert.ToString(Cantvendido);
-                txtMontvend.Text = Convert.ToString(montovendido);
             }
             con.Close();
         }
