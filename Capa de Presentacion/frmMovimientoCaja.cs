@@ -74,9 +74,9 @@ namespace Capa_de_Presentacion
                 // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
                 dataGridView2.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
                 dataGridView2.Rows[renglon].Cells["descripcion"].Value = dr.GetString(dr.GetOrdinal("descripcion"));
-                dataGridView2.Rows[renglon].Cells["montogasto"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
+                dataGridView2.Rows[renglon].Cells["montogasto"].Value = dr.GetDecimal(dr.GetOrdinal("monto")).ToString();
 
-                gastos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["montogasto"].Value), 2);
+                gastos += Math.Round(Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("monto"))), 2);
             }
 
             lbldeu.Text = gastos.ToString();
@@ -119,12 +119,12 @@ namespace Capa_de_Presentacion
                 //pagos
                 dataGridView1.Rows[renglon].Cells["id_caja"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_caja")));
                 dataGridView1.Rows[renglon].Cells["id_pago"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_pago")));
-                dataGridView1.Rows[renglon].Cells["monto"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
-                dataGridView1.Rows[renglon].Cells["ingresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("ingresos")));
-                dataGridView1.Rows[renglon].Cells["egresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("egresos")));
+                dataGridView1.Rows[renglon].Cells["monto"].Value = dr.GetDecimal(dr.GetOrdinal("monto")).ToString();
+                dataGridView1.Rows[renglon].Cells["ingresos"].Value = dr.GetDecimal(dr.GetOrdinal("ingresos")).ToString();
+                dataGridView1.Rows[renglon].Cells["egresos"].Value = dr.GetDecimal(dr.GetOrdinal("egresos")).ToString();
 
-                devuelta += Math.Round(Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["egresos"].Value), 2);
-                pagos += Math.Round(Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["ingresos"].Value), 2);
+                devuelta += Math.Round(dr.GetDecimal(dr.GetOrdinal("egresos")), 2);
+                pagos += Math.Round(dr.GetDecimal(dr.GetOrdinal("ingresos")), 2);
             }
 
             lblegr.Text = devuelta.ToString();

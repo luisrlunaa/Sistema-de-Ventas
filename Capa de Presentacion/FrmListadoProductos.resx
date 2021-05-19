@@ -228,14 +228,14 @@
   <data name="marca.MinimumWidth" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <metadata name="Nombres.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="pCompra.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="Nombres.HeaderText" xml:space="preserve">
+  <data name="pCompra.HeaderText" xml:space="preserve">
     <value>P. Compra</value>
   </data>
-  <data name="Nombres.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="pCompra.MinimumWidth" type="System.Int32, mscorlib">
+    <value>80</value>
   </data>
   <metadata name="pVenta.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -292,7 +292,7 @@
     <value>Tipo Goma</value>
   </data>
   <data name="tipoGOma.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>80</value>
   </data>
   <data name="dataGridView1.Location" type="System.Drawing.Point, System.Drawing">
     <value>-1, -1</value>
@@ -5543,10 +5543,10 @@
   <data name="&gt;&gt;marca.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Nombres.Name" xml:space="preserve">
-    <value>Nombres</value>
+  <data name="&gt;&gt;pCompra.Name" xml:space="preserve">
+    <value>pCompra</value>
   </data>
-  <data name="&gt;&gt;Nombres.Type" xml:space="preserve">
+  <data name="&gt;&gt;pCompra.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;pVenta.Name" xml:space="preserve">

@@ -304,6 +304,7 @@ namespace Capa_de_Presentacion
             Program.Descripcion = dataGridView1.CurrentRow.Cells["description"].Value.ToString();
             Program.Marca = dataGridView1.CurrentRow.Cells["marca"].Value.ToString();
             Program.PrecioVenta = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["pVenta"].Value.ToString());
+            Program.PrecioCompra = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["pCompra"].Value.ToString());
             Program.Stock = Convert.ToInt32(dataGridView1.CurrentRow.Cells["cantidad"].Value.ToString());
             Program.IdCategoria = Convert.ToInt32(dataGridView1.CurrentRow.Cells["IdC"].Value.ToString());
             Program.itbis = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["itbis"].Value.ToString());

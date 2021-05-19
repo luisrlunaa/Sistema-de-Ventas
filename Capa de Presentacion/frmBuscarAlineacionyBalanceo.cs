@@ -64,12 +64,12 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["tipoDeTrabajo"].Value = dr.GetString(dr.GetOrdinal("tipoDeTrabajo"));
                 dataGridView1.Rows[renglon].Cells["vehiculo"].Value = dr.GetString(dr.GetOrdinal("vehiculo"));
                 dataGridView1.Rows[renglon].Cells["AroGoma"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("AroGoma")));
-                dataGridView1.Rows[renglon].Cells["precio"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("precio")));
+                dataGridView1.Rows[renglon].Cells["precio"].Value = dr.GetDecimal(dr.GetOrdinal("precio")).ToString("C2");
                 dataGridView1.Rows[renglon].Cells["nota"].Value = dr.GetString(dr.GetOrdinal("nota"));
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
 
-                total += Convert.ToDouble(dataGridView1.Rows[renglon].Cells["precio"].Value);
-                txttotalG.Text = Convert.ToString(total);
+                total += Convert.ToDouble(dr.GetDecimal(dr.GetOrdinal("precio")));
+                txttotalG.Text = total.ToString("C2");
             }
             conexion.Close();
         }
@@ -160,12 +160,12 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["tipoDeTrabajo"].Value = dr.GetString(dr.GetOrdinal("tipoDeTrabajo"));
                 dataGridView1.Rows[renglon].Cells["vehiculo"].Value = dr.GetString(dr.GetOrdinal("vehiculo"));
                 dataGridView1.Rows[renglon].Cells["AroGoma"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("AroGoma")));
-                dataGridView1.Rows[renglon].Cells["precio"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("precio")));
+                dataGridView1.Rows[renglon].Cells["precio"].Value = dr.GetDecimal(dr.GetOrdinal("precio")).ToString("C2");
                 dataGridView1.Rows[renglon].Cells["nota"].Value = dr.GetString(dr.GetOrdinal("nota"));
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
 
-                total += Convert.ToDouble(dataGridView1.Rows[renglon].Cells["precio"].Value);
-                txttotalG.Text = Convert.ToString(total);
+                total += Convert.ToDouble(dr.GetDecimal(dr.GetOrdinal("precio")));
+                txttotalG.Text = total.ToString("C2");
             }
             con.Close();
         }
@@ -311,12 +311,12 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["tipoDeTrabajo"].Value = dr.GetString(dr.GetOrdinal("tipoDeTrabajo"));
                 dataGridView1.Rows[renglon].Cells["vehiculo"].Value = dr.GetString(dr.GetOrdinal("vehiculo"));
                 dataGridView1.Rows[renglon].Cells["AroGoma"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("AroGoma")));
-                dataGridView1.Rows[renglon].Cells["precio"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("precio")));
+                dataGridView1.Rows[renglon].Cells["precio"].Value = dr.GetDecimal(dr.GetOrdinal("precio")).ToString("C2");
                 dataGridView1.Rows[renglon].Cells["nota"].Value = dr.GetString(dr.GetOrdinal("nota"));
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
 
-                total += Convert.ToDouble(dataGridView1.Rows[renglon].Cells["precio"].Value);
-                txttotalG.Text = Convert.ToString(total);
+                total += Convert.ToDouble(dr.GetDecimal(dr.GetOrdinal("precio")));
+                txttotalG.Text = total.ToString("C2");
             }
             conexion.Close();
         }

@@ -173,7 +173,7 @@ namespace Capa_de_Presentacion
                 txtde1000.ReadOnly = true;
                 txtde2000.ReadOnly = true;
 
-                lblmontocuadre.Text = Convert.ToString(dataGridView1.Rows[renglon].Cells[2].Value);
+                lblmontocuadre.Text = dr.GetDecimal(dr.GetOrdinal("monto")).ToString();
 
                 btnregistrar.Visible = false;
                 btnimprimir.Visible = true;

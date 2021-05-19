@@ -74,7 +74,7 @@ namespace Capa_de_Presentacion
 
         public void llenar_data(string id)
         {
-            decimal total = 0; decimal preciocompra = 0; decimal ganancias = 0;
+            decimal total = 0; decimal ganancias = 0;
             //declaramos la cadena  de conexion
             string cadenaconexion = Cx.conet;
             //variable de tipo Sqlconnection
@@ -88,42 +88,19 @@ namespace Capa_de_Presentacion
 
             if (chkid.Checked && chkdescripcion.Checked == false && chknombre.Checked == false && id != null)
             {
-                comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0),dbo.Producto.PrecioCompra," +
-                    "dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente = COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,UltimaFechaPago = COALESCE(dbo.Venta.UltimaFechaPago, ' ')," +
-                    "dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total,dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento," +
-                    "dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND " +
-                    "dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto " +
-                    "WHERE dbo.DetalleVenta.IdVenta = " + id + " and dbo.Venta.borrado = " + borrado + " ORDER BY dbo.Venta.FechaVenta";
+                comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta WHERE dbo.DetalleVenta.IdVenta = " + id + " and dbo.Venta.borrado = " + borrado + " ORDER BY dbo.Venta.IdVenta";
             }
             else if (chkdescripcion.Checked && chknombre.Checked == false && chkid.Checked == false && id != null)
             {
-                comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0),dbo.Producto.PrecioCompra," +
-                    "dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente = COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,UltimaFechaPago = COALESCE(dbo.Venta.UltimaFechaPago, ' ')," +
-                    "dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total,dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento," +
-                    "dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND " +
-                    "dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto " +
-                    "WHERE dbo.Venta.NombreCliente LIKE '%" + id + "%' OR DetalleVenta.detalles_P LIKE '%" + id + "%' and dbo.Venta.borrado = " + borrado + " ORDER BY dbo.Venta.FechaVenta";
+                comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta WHERE dbo.Venta.NombreCliente LIKE '%" + id + "%' OR DetalleVenta.detalles_P LIKE '%" + id + "%' and dbo.Venta.borrado = " + borrado + " ORDER BY dbo.Venta.IdVenta";
             }
             else if (chknombre.Checked && chkid.Checked == false && chkdescripcion.Checked == false && id != null)
             {
-                comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0),dbo.Producto.PrecioCompra," +
-                    "dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente = COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,UltimaFechaPago = COALESCE(dbo.Venta.UltimaFechaPago, ' ')," +
-                    "dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total,dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento," +
-                    "dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND " +
-                    "dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto " +
-                    "WHERE dbo.Venta.NombreCliente LIKE '%" + id + "%' OR DetalleVenta.detalles_P LIKE '%" + id + "%' and dbo.Venta.borrado = " + borrado + " ORDER BY dbo.Venta.FechaVenta";
+                comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta WHERE dbo.Venta.NombreCliente LIKE '%" + id + "%' OR DetalleVenta.detalles_P LIKE '%" + id + "%' and dbo.Venta.borrado = " + borrado + " ORDER BY dbo.Venta.IdVenta";
             }
             else
             {
-                comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-                    "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,UltimaFechaPago=COALESCE(dbo.Venta.UltimaFechaPago, ' '),dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-                    "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta FROM  dbo.Venta inner join dbo.DetalleVenta ON " +
-                    "dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta and dbo.Venta.borrado=" + borrado + " inner join dbo.Producto ON " +
-                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto ORDER BY dbo.Venta.FechaVenta";
+                comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta ORDER BY dbo.Venta.IdVenta";
             }
 
             //especificamos que es de tipo Text
@@ -145,27 +122,20 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["idEm"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdEmpleado")));
                 dataGridView1.Rows[renglon].Cells["NCF"].Value = dr.GetString(dr.GetOrdinal("TipoDocumento"));
                 dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = dr.GetString(dr.GetOrdinal("NroDocumento"));
-                dataGridView1.Rows[renglon].Cells["descripcion"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
-                dataGridView1.Rows[renglon].Cells["idp"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                dataGridView1.Rows[renglon].Cells["can"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                dataGridView1.Rows[renglon].Cells["pre"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
-                dataGridView1.Rows[renglon].Cells["igv"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
-                dataGridView1.Rows[renglon].Cells["subtotal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
-                dataGridView1.Rows[renglon].Cells["total"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Total")));
+                dataGridView1.Rows[renglon].Cells["igv"].Value = dr.GetDecimal(dr.GetOrdinal("Igv")).ToString();
+                dataGridView1.Rows[renglon].Cells["subtotal"].Value = dr.GetDecimal(dr.GetOrdinal("SubTotal")).ToString();
+                dataGridView1.Rows[renglon].Cells["total"].Value = dr.GetDecimal(dr.GetOrdinal("Total")).ToString();
                 dataGridView1.Rows[renglon].Cells["Tipo"].Value = dr.GetString(dr.GetOrdinal("Tipofactura"));
-                dataGridView1.Rows[renglon].Cells["restante"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Restante")));
+                dataGridView1.Rows[renglon].Cells["restante"].Value = dr.GetDecimal(dr.GetOrdinal("Restante")).ToString();
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
-                dataGridView1.Rows[renglon].Cells["idcliente"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCliente")));
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
-                dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
 
-                total += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
-                preciocompra += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value);
-                ganancias = total - preciocompra;
+                total += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
+                ganancias += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("GananciaVenta")));
 
-                txtGanancias.Text = Convert.ToString(Math.Round(ganancias, 2));
-                txtTtal.Text = Convert.ToString(Math.Round(total, 2));
+                txtGanancias.Text = Math.Round(ganancias, 2).ToString("C2");
+                txtTtal.Text = Math.Round(total, 2).ToString("C2");
             }
             con.Close();
         }
@@ -181,9 +151,25 @@ namespace Capa_de_Presentacion
             }
         }
 
+        public void llenarid(int idventa)
+        {
+            string cadSql = "select IdCliente =COALESCE(dbo.Venta.IdCliente,0) from Venta where idventa="+ idventa;
+
+            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+            Cx.conexion.Open();
+
+            SqlDataReader leer = comando.ExecuteReader();
+
+            if (leer.Read() == true)
+            {
+                Program.IdCliente = Convert.ToInt32(leer["IdCliente"]);
+            }
+            Cx.conexion.Close();
+        }
         public void seleccion_data()
         {
-            Program.IdCliente = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idcliente"].Value.ToString());
+            Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
+            llenarid(Program.Id);
             if (Program.IdCliente > 0)
             {
                 Cx.conexion.Open();
@@ -207,7 +193,6 @@ namespace Capa_de_Presentacion
             Program.tipo = dataGridView1.CurrentRow.Cells["Tipo"].Value.ToString();
             Program.NCF = dataGridView1.CurrentRow.Cells["NCF"].Value.ToString();
             Program.NroComprobante = dataGridView1.CurrentRow.Cells["nroComprobante"].Value.ToString();
-            Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
             Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
             Program.ST += Convert.ToDecimal(dataGridView1.CurrentRow.Cells["subtotal"].Value.ToString());
             Program.igv += Convert.ToDecimal(dataGridView1.CurrentRow.Cells["igv"].Value.ToString());
@@ -459,7 +444,7 @@ namespace Capa_de_Presentacion
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            decimal total = 0; decimal preciocompra = 0; decimal ganancias = 0; decimal totalpendiente = 0;
+            decimal total = 0; decimal ganancias = 0; decimal totalpendiente = 0;
             //declaramos la cadena  de conexion
             string cadenaconexion = Cx.conet;
             //variable de tipo Sqlconnection
@@ -476,13 +461,8 @@ namespace Capa_de_Presentacion
                 if (cbtipodocumento.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-                    "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-                    "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta,dbo.Venta.UltimaFechaPago FROM  dbo.Venta inner join dbo.DetalleVenta " +
-                    "ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.FechaVenta";
+                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta  where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
                     comando.Parameters.AddWithValue("@TipoDocumento", combo_tipo_NCF.Text);
@@ -490,13 +470,8 @@ namespace Capa_de_Presentacion
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-                    "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-                    "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta,dbo.Venta.UltimaFechaPago FROM  dbo.Venta inner join dbo.DetalleVenta " +
-                    "ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.FechaVenta";
+                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta  where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
                     comando.Parameters.AddWithValue("@Tipofactura", cbtipofactura.Text);
@@ -504,26 +479,16 @@ namespace Capa_de_Presentacion
                 else if (cktipofactura.Checked == false && cbPendiente.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-                    "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-                    "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta,dbo.Venta.UltimaFechaPago FROM  dbo.Venta inner join dbo.DetalleVenta " +
-                    "ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " and dbo.Venta.Restante > " + 0 + " ORDER BY dbo.Venta.FechaVenta";
+                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " and dbo.Venta.Restante > " + 0 + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-                    "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-                    "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta,dbo.Venta.UltimaFechaPago FROM  dbo.Venta inner join dbo.DetalleVenta " +
-                    "ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.Restante > " + 0 + " and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.FechaVenta";
+                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.Restante > " + 0 + " and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
                     comando.Parameters.AddWithValue("@Tipofactura", cbtipofactura.Text);
@@ -531,13 +496,8 @@ namespace Capa_de_Presentacion
                 else
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-                    "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-                    "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta,dbo.Venta.UltimaFechaPago FROM  dbo.Venta inner join dbo.DetalleVenta " +
-                    "ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.FechaVenta";
+                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
                 }
@@ -547,13 +507,8 @@ namespace Capa_de_Presentacion
                 if (cbtipodocumento.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-                    "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-                    "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta,dbo.Venta.UltimaFechaPago FROM  dbo.Venta inner join dbo.DetalleVenta " +
-                    "ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.FechaVenta";
+                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
                     comando.Parameters.AddWithValue("@TipoDocumento", combo_tipo_NCF.Text);
@@ -561,14 +516,9 @@ namespace Capa_de_Presentacion
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-                    "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-                    "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta,dbo.Venta.UltimaFechaPago FROM  dbo.Venta inner join dbo.DetalleVenta " +
-                    "ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado +
-                    " and dbo.Venta.Restante > " + 0 + " ORDER BY dbo.Venta.FechaVenta";
+                    " and dbo.Venta.Restante > " + 0 + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
                     comando.Parameters.AddWithValue("@TipoDocumento", combo_tipo_NCF.Text);
@@ -576,13 +526,8 @@ namespace Capa_de_Presentacion
                 else if (cktipofactura.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-                    "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-                    "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta,dbo.Venta.UltimaFechaPago FROM  dbo.Venta inner join dbo.DetalleVenta " +
-                    "ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.FechaVenta";
+                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
                     comando.Parameters.AddWithValue("@Tipofactura", cbtipofactura.Text);
@@ -590,26 +535,16 @@ namespace Capa_de_Presentacion
                 else if (cktipofactura.Checked == false && cbtipodocumento.Checked == false && vereliminadas.Checked == false && cbPendiente.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-                    "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-                    "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta,dbo.Venta.UltimaFechaPago FROM  dbo.Venta inner join dbo.DetalleVenta " +
-                    "ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.Restante > " + 0 + " and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.FechaVenta";
+                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.Restante > " + 0 + " and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
                 }
                 else
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P, dbo.DetalleVenta.SubTotal,IdCliente =COALESCE(dbo.Venta.IdCliente,0)," +
-                    "dbo.Producto.PrecioCompra,dbo.DetalleVenta.PrecioUnitario, dbo.DetalleVenta.Igv,dbo.DetalleVenta.Cantidad, dbo.DetalleVenta.IdProducto," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '),dbo.Venta.IdVenta,dbo.Venta.Restante,dbo.Venta.Tipofactura,dbo.Venta.Total," +
-                    "dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta,dbo.Venta.UltimaFechaPago FROM  dbo.Venta inner join dbo.DetalleVenta " +
-                    "ON dbo.Venta.IdVenta = dbo.DetalleVenta.IdVenta AND dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta inner join dbo.Producto ON " +
-                    "dbo.DetalleVenta.IdProducto=dbo.Producto.IdProducto where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.FechaVenta";
+                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
                 }
@@ -634,34 +569,27 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["idEm"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdEmpleado")));
                 dataGridView1.Rows[renglon].Cells["NCF"].Value = dr.GetString(dr.GetOrdinal("TipoDocumento"));
                 dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = dr.GetString(dr.GetOrdinal("NroDocumento"));
-                dataGridView1.Rows[renglon].Cells["descripcion"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
-                dataGridView1.Rows[renglon].Cells["idp"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                dataGridView1.Rows[renglon].Cells["can"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                dataGridView1.Rows[renglon].Cells["pre"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
-                dataGridView1.Rows[renglon].Cells["igv"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
-                dataGridView1.Rows[renglon].Cells["subtotal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
-                dataGridView1.Rows[renglon].Cells["total"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Total")));
+                dataGridView1.Rows[renglon].Cells["igv"].Value = dr.GetDecimal(dr.GetOrdinal("Igv")).ToString();
+                dataGridView1.Rows[renglon].Cells["subtotal"].Value = dr.GetDecimal(dr.GetOrdinal("SubTotal")).ToString();
+                dataGridView1.Rows[renglon].Cells["total"].Value = dr.GetDecimal(dr.GetOrdinal("Total")).ToString();
                 dataGridView1.Rows[renglon].Cells["Tipo"].Value = dr.GetString(dr.GetOrdinal("Tipofactura"));
-                dataGridView1.Rows[renglon].Cells["restante"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Restante")));
+                dataGridView1.Rows[renglon].Cells["restante"].Value = dr.GetDecimal(dr.GetOrdinal("Restante")).ToString();
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
-                dataGridView1.Rows[renglon].Cells["idcliente"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCliente")));
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
-                dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
 
-                total += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
-                preciocompra += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value);
-                ganancias = total - preciocompra;
+                total += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
+                ganancias += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("GananciaVenta")));
 
-                txtGanancias.Text = Convert.ToString(Math.Round(ganancias, 2));
-                txtTtal.Text = Convert.ToString(Math.Round(total, 2));
+                txtGanancias.Text = Math.Round(ganancias, 2).ToString("C2");
+                txtTtal.Text = Math.Round(total, 2).ToString("C2");
 
                 if (cbPendiente.Checked == true)
                 {
                     label7.Visible = true;
                     txttotalpendiente.Visible = true;
-                    totalpendiente += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["restante"].Value);
-                    txttotalpendiente.Text = Convert.ToString(Math.Round(totalpendiente, 2));
+                    totalpendiente += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Restante")));
+                    txttotalpendiente.Text = Math.Round(totalpendiente, 2).ToString("C2");
                 }
                 else
                 {
@@ -747,13 +675,13 @@ namespace Capa_de_Presentacion
                 int renglon = dataGridView3.Rows.Add();
                 // especificamos en que fila se mostrará cada registro
 
-                dataGridView3.Rows[renglon].Cells["PrecioOfProducts"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioOfProducts")));
+                dataGridView3.Rows[renglon].Cells["PrecioOfProducts"].Value = dr.GetDecimal(dr.GetOrdinal("PrecioOfProducts")).ToString();
                 dataGridView3.Rows[renglon].Cells["CantidadOfProducts"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("CantidadOfProducts")));
                 dataGridView3.Rows[renglon].Cells["CategoryOfProducts"].Value = dr.GetString(dr.GetOrdinal("CategoryOfProducts"));
 
-                total += Convert.ToDecimal(dataGridView3.Rows[renglon].Cells["PrecioOfProducts"].Value);
+                total += dr.GetDecimal(dr.GetOrdinal("PrecioOfProducts"));
 
-                txttotalventaespecifica.Text = Convert.ToString(Math.Round(total, 2));
+                txttotalventaespecifica.Text = Math.Round(total, 2).ToString("C2");
             }
             con.Close();
         }

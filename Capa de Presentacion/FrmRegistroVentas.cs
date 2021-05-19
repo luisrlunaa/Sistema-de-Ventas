@@ -7,15 +7,21 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
 {
     public partial class FrmRegistroVentas : DevComponents.DotNetBar.Metro.MetroForm
     {
-        clsVentas Ventas = new clsVentas();
-        clsDetalleVenta Detalle = new clsDetalleVenta();
+        public class PrecioCompraProducto
+        {
+            public int ID;
+            public decimal Precio;
+        }
+
         private List<clsVenta> lst = new List<clsVenta>();
+        private List<PrecioCompraProducto> listProducts = new List<PrecioCompraProducto>();
         clsCx Cx = new clsCx();
         public FrmRegistroVentas()
         {
@@ -24,6 +30,7 @@ namespace Capa_de_Presentacion
         private void FrmVentas_Load(object sender, EventArgs e)
         {
             txtidCli.Text = null;
+            listProducts.Clear();
             Program.IdCliente = 0;
             cbidentificacion.Checked = false;
             if (cbidentificacion.Checked == true)
@@ -45,8 +52,6 @@ namespace Capa_de_Presentacion
                 txtPorcentaje.Enabled = false;
             }
            
-            txtNCF.Text = "Sin NCF";
-            combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
             txtid.Text = "0";
             txtDivisor.Text = "1.18";
             txtPorcentaje.Text = "";
@@ -65,6 +70,21 @@ namespace Capa_de_Presentacion
             btnEliminarItem.Enabled = false;
             frmPagar pa = new frmPagar();
             txttotal.Text = Convert.ToString(pa.txtmonto.Text);
+            
+            if (combo_tipo_NCF.Items.Count > 0)
+            {
+                combo_tipo_NCF.SelectedValue = 2;
+                var comconsumo = combo_tipo_NCF.SelectedValue;
+                if (comconsumo != null)
+                {
+                    comboselectNCF(2);
+                }
+                else
+                {
+                    txtNCF.Text = "Sin NCF";
+                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                }
+            }
         }
 
         public void actualzarestadoscomprobantes()
@@ -361,7 +381,7 @@ namespace Capa_de_Presentacion
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             clsVenta V = new clsVenta();
-
+            PrecioCompraProducto PCP = new PrecioCompraProducto();
             decimal precio = 0;
             decimal itbis = 0;
             if (txtPorcentaje.Text.Trim() != "" && txtPVenta.Text.Trim() != "")
@@ -393,11 +413,17 @@ namespace Capa_de_Presentacion
                             V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
                             V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).Trim();
                             V.Cantidad = Convert.ToInt32(txtCantidad.Text);
+                            V.PrecioCompra = Program.PrecioCompra;
                             V.Igv = itbis;
                             V.PrecioVenta = precio;
                             V.SubTotal = Math.Round((precio + itbis) * Convert.ToInt32(txtCantidad.Text), 2);
                             btnAgregar.Visible = false;
                             lst.Add(V);
+
+                            PCP.ID = Convert.ToInt32(txtIdProducto.Text);
+                            PCP.Precio = Program.PrecioCompra;
+                            listProducts.Add(PCP);
+
                             LlenarGri();
 
                             if (cbidentificacion.Checked == false && txtDatos.Text != "" && Program.IdCliente == 0)
@@ -431,6 +457,7 @@ namespace Capa_de_Presentacion
                 DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor buscar un Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
         }
+       
         private void LlenarGri()
         {
             Decimal SumaSubTotal = 0; Decimal SumaIgv = 0; Decimal SumaTotal = 0;
@@ -446,8 +473,13 @@ namespace Capa_de_Presentacion
                 dgvVenta.Rows[i].Cells["SubtoTal"].Value = lst[i].SubTotal;
                 dgvVenta.Rows[i].Cells["IDP"].Value = lst[i].IdProducto;
 
-                SumaSubTotal += Convert.ToDecimal(dgvVenta.Rows[i].Cells["PrecioU"].Value);
-                SumaIgv += Convert.ToDecimal(dgvVenta.Rows[i].Cells["IGV"].Value);
+                var preciounidad = Convert.ToDecimal(dgvVenta.Rows[i].Cells["PrecioU"].Value);
+                var cantidad = Convert.ToInt32(dgvVenta.Rows[i].Cells["cantidadP"].Value);
+                var igv = Convert.ToDecimal(dgvVenta.Rows[i].Cells["IGV"].Value);
+
+                SumaSubTotal += preciounidad * cantidad;
+                SumaIgv += igv* cantidad;
+
                 SumaTotal += Math.Round(Convert.ToDecimal(dgvVenta.Rows[i].Cells["SubtoTal"].Value), 2);
 
                 lblsubt.Text = Convert.ToString(SumaSubTotal);
@@ -457,6 +489,7 @@ namespace Capa_de_Presentacion
                 Program.igv = Convert.ToDecimal(lbligv.Text);
                 Program.ST = Convert.ToDecimal(lblsubt.Text);
                 Program.total = Convert.ToDecimal(txttotal.Text);
+                Program.PrecioCompra = 0;
             }
         }
         private void Limpiar()
@@ -515,6 +548,7 @@ namespace Capa_de_Presentacion
         private void btnEliminarItem_Click(object sender, EventArgs e)
         {
             List<clsVenta> lista = new List<clsVenta>();
+            List<PrecioCompraProducto> listapreciocompra = new List<PrecioCompraProducto>();
             Program.IdProducto = Convert.ToInt32(dgvVenta.CurrentRow.Cells["IDP"].Value.ToString());
             if (Program.IdProducto > 0)
             {
@@ -545,6 +579,19 @@ namespace Capa_de_Presentacion
                     lblsubt.Text = Convert.ToString(SumaSubTotal);
                     lst = lista;
                 }
+
+                foreach (var item in listProducts)
+                {
+                    if (item.ID != Program.IdProducto)
+                    {
+                        listapreciocompra.Add(item);
+                    }
+                    else
+                    {
+                        listapreciocompra.Remove(item);
+                    }
+                }
+
                 btnEliminarItem.Enabled = false;
                 dgvVenta.Rows.RemoveAt(dgvVenta.SelectedRows[0].Index);
             }
@@ -613,6 +660,11 @@ namespace Capa_de_Presentacion
                     foreach (DataGridViewRow row in dgvVenta.Rows)
                     {
                         cmd1.CommandType = CommandType.StoredProcedure;
+                        int idProducto = Convert.ToInt32(row.Cells["IDP"].Value);
+                        decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
+                        decimal subtotal = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
+                        int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
+                        decimal Ganancia = Math.Round(subtotal - (preciocompra* cantidad));
 
                         //Tabla detalles ventas
                         cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IdD"].Value);
@@ -620,9 +672,9 @@ namespace Capa_de_Presentacion
                         cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
                         cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
                         cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
-                        cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IDP"].Value);
+                        cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
                         cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
-
+                        cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
                         con.Open();
                         cmd1.ExecuteNonQuery();
                         cmd1.Parameters.Clear();
@@ -780,6 +832,7 @@ namespace Capa_de_Presentacion
             lblabono.Visible = false;
             lbltituloabono.Visible = false;
             lblabono.Text = null;
+            listProducts.Clear();
         }
 
         public void tickEstilo()
@@ -908,7 +961,7 @@ namespace Capa_de_Presentacion
             actualzarestadoscomprobantes();
         }
 
-        private void combo_tipo_NCF_SelectionChangeCommitted(object sender, EventArgs e)
+        private void comboselectNCF(int id_ncf)
         {
             int secuencia = 0;
             try
@@ -918,7 +971,7 @@ namespace Capa_de_Presentacion
                 Cx.conexion.Open();
                 SqlCommand Comando = new SqlCommand();
                 Comando.Connection = Cx.conexion;
-                Comando.CommandText = "Select * From ncf where id_ncf like '%" + combo_tipo_NCF.SelectedValue + "%'";
+                Comando.CommandText = "Select * From ncf where id_ncf like '%" + id_ncf + "%'";
                 LectorSecuencia = Comando.ExecuteReader();
 
                 if (LectorSecuencia.Read() == true)
@@ -946,6 +999,11 @@ namespace Capa_de_Presentacion
             {
                 Cx.conexion.Close();
             }
+        }
+
+        private void combo_tipo_NCF_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            comboselectNCF(Convert.ToInt32(combo_tipo_NCF.SelectedValue));
         }
 
         private void combo_tipo_NCF_SelectedIndexChanged(object sender, EventArgs e)
@@ -1085,7 +1143,7 @@ namespace Capa_de_Presentacion
                     doc.AddCreationDate();
                     if (dgvVenta.Rows.Count >= 1)
                     {
-                        int filas = 22 - dgvVenta.Rows.Count;
+                        int filas = 20 - dgvVenta.Rows.Count;
                         if (filas > 1)
                         {
                             for (int i = 1; i < filas; i++)
@@ -1095,13 +1153,17 @@ namespace Capa_de_Presentacion
                         }
                     }
 
-                    doc.Add(new Paragraph("Sub-Total   : " + lblsubt.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("ITBIS   : " + lbligv.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Total a Pagar   : " + txttotal.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    decimal Sub = Convert.ToDecimal(lblsubt.Text);
+                    decimal ITBIS = Convert.ToDecimal(lbligv.Text);
+                    decimal total = Convert.ToDecimal(txttotal.Text);
+
+                    doc.Add(new Paragraph("Sub-Total   : " + Sub.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("ITBIS   : " + ITBIS.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Total a Pagar   : " + total.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 
                     if (cbtipofactura.Text.ToLower() == "credito")
                     {
-                        doc.Add(new Paragraph("Total de Restante : " + restante.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Total de Restante : " + restante.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
 
                     doc.Add(new Paragraph("                       "));
