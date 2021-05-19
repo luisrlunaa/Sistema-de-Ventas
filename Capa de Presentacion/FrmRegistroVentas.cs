@@ -28,8 +28,6 @@ namespace Capa_de_Presentacion
             Program.IdCliente = 0;
             cbidentificacion.Checked = false;
             txtrcnClient.Text = "sin rcn del Cliente";
-            combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
-            txtNCF.Text = "Sin NCF";
             txtid.Text = "0";
             chkComprobante.Checked = false;
 
@@ -65,6 +63,21 @@ namespace Capa_de_Presentacion
             btnEliminarItem.Enabled = false;
             frmPagar pa = new frmPagar();
             txttotal.Text = Convert.ToString(pa.txtmonto.Text);
+
+            if (combo_tipo_NCF.Items.Count > 0)
+            {
+                combo_tipo_NCF.SelectedValue = 2;
+                var comconsumo = combo_tipo_NCF.SelectedValue;
+                if (comconsumo != null)
+                {
+                    comboselectNCF(2);
+                }
+                else
+                {
+                    txtNCF.Text = "Sin NCF";
+                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                }
+            }
         }
 
         public void actualzarestadoscomprobantes()
@@ -482,9 +495,14 @@ namespace Capa_de_Presentacion
                 dgvVenta.Rows[i].Cells["SubtoTal"].Value = lst[i].SubTotal;
                 dgvVenta.Rows[i].Cells["IDP"].Value = lst[i].IdProducto;
 
-                SumaSubTotal += Convert.ToDecimal(dgvVenta.Rows[i].Cells["SubtoTal"].Value);
-                SumaIgv += Convert.ToDecimal(dgvVenta.Rows[i].Cells["IGV"].Value);
-                SumaTotal = Math.Round(SumaSubTotal, 2);
+                var preciounidad = Convert.ToDecimal(dgvVenta.Rows[i].Cells["PrecioU"].Value);
+                var cantidad = Convert.ToInt32(dgvVenta.Rows[i].Cells["cantidadP"].Value);
+                var igv = Convert.ToDecimal(dgvVenta.Rows[i].Cells["IGV"].Value);
+
+                SumaSubTotal += preciounidad * cantidad;
+                SumaIgv += igv * cantidad;
+
+                SumaTotal += Math.Round(Convert.ToDecimal(dgvVenta.Rows[i].Cells["SubtoTal"].Value), 2);
 
                 lblsubt.Text = Convert.ToString(SumaSubTotal);
                 lbligv.Text = Convert.ToString(SumaIgv);
@@ -938,7 +956,7 @@ namespace Capa_de_Presentacion
             actualzarestadoscomprobantes();
         }
 
-        private void combo_tipo_NCF_SelectionChangeCommitted(object sender, EventArgs e)
+        private void comboselectNCF(int id_ncf)
         {
             int secuencia = 0;
             try
@@ -948,7 +966,7 @@ namespace Capa_de_Presentacion
                 Cx.conexion.Open();
                 SqlCommand Comando = new SqlCommand();
                 Comando.Connection = Cx.conexion;
-                Comando.CommandText = "Select * From ncf where id_ncf like '%" + combo_tipo_NCF.SelectedValue + "%'";
+                Comando.CommandText = "Select * From ncf where id_ncf like '%" + id_ncf + "%'";
                 LectorSecuencia = Comando.ExecuteReader();
 
                 if (LectorSecuencia.Read() == true)
@@ -977,6 +995,12 @@ namespace Capa_de_Presentacion
                 Cx.conexion.Close();
             }
         }
+
+        private void combo_tipo_NCF_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            comboselectNCF(Convert.ToInt32(combo_tipo_NCF.SelectedValue));
+        }
+
 
         private void combo_tipo_NCF_SelectedIndexChanged(object sender, EventArgs e)
         {
