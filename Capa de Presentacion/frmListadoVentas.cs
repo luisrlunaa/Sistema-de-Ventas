@@ -157,16 +157,16 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["imei"].Value = dr.GetString(dr.GetOrdinal("imei"));
                 dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 
-                total += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["total"].Value);
                 subtotal = Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
                 cantidad = Convert.ToInt32(dataGridView1.Rows[renglon].Cells["can"].Value);
                 preciocompra = Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value);
 
                 ganancias += subtotal - (preciocompra * cantidad);
+                total = total + subtotal;
 
+            }
                 txtGanancias.Text = Convert.ToString(Math.Round(ganancias, 2));
                 txtTtal.Text = Convert.ToString(Math.Round(total, 2));
-            }
             con.Close();
         }
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -425,16 +425,17 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["imei"].Value = dr.GetString(dr.GetOrdinal("imei"));
                 dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
 
-                total += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["total"].Value);
                 subtotal = Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["subtotal"].Value);
                 cantidad = Convert.ToInt32(dataGridView1.Rows[renglon].Cells["can"].Value);
                 preciocompra = Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["PrecioCompra"].Value);
 
                 ganancias += subtotal - (preciocompra * cantidad);
-
-                txtGanancias.Text = Convert.ToString(Math.Round(ganancias, 2));
-                txtTtal.Text = Convert.ToString(Math.Round(total, 2));
+                total = total + subtotal;
             }
+
+            txtGanancias.Text = Convert.ToString(Math.Round(ganancias, 2));
+            txtTtal.Text = Convert.ToString(Math.Round(total, 2));
+
             con.Close();
         }
         private void button2_Click(object sender, EventArgs e)
