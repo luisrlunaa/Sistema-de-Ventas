@@ -61,7 +61,6 @@ namespace Capa_de_Presentacion
                 // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 
                 dataGridView2.Rows[renglon].Cells["id_p"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                dataGridView2.Rows[renglon].Cells["sub"].Value = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("subt")));
                 dataGridView2.Rows[renglon].Cells["cant"].Value = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("total")));
 
                 dataGridView2.Rows[0].Selected = true;
