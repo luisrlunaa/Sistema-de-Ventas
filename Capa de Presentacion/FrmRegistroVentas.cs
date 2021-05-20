@@ -880,7 +880,7 @@ namespace Capa_de_Presentacion
             {
                 ticket.TextoIzquierda("RNC Cliente: " + txtrcnClient.Text);
             }
-            ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Text);
+            ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Value.Day + "/" + dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year);
             ticket.TextoIzquierda("Hora: " + DateTime.Now.ToShortTimeString());
 
             //ARTICULOS A VENDER.
@@ -1079,7 +1079,7 @@ namespace Capa_de_Presentacion
                     doc.Open();
                     string remito = lblLogo.Text;
                     string ubicado = lblDir.Text;
-                    string envio = "Fecha : " + dateTimePicker1.Text;
+                    string envio = "Fecha : " + dateTimePicker1.Value.Day + "/" + dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year;
 
                     Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
                     if (Program.ReImpresion != null)
