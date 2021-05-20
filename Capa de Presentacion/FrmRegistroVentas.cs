@@ -13,8 +13,6 @@ namespace Capa_de_Presentacion
 {
     public partial class FrmRegistroVentas : DevComponents.DotNetBar.Metro.MetroForm
     {
-        clsVentas Ventas = new clsVentas();
-        clsDetalleVenta Detalle = new clsDetalleVenta();
         private List<clsVenta> lst = new List<clsVenta>();
         clsCx Cx = new clsCx();
         public FrmRegistroVentas()
@@ -226,10 +224,10 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                if(txtDatos.Text != null && txtDatos.Text != "")
+                if (txtDatos.Text != null && txtDatos.Text != "")
                 {
                     Program.datoscliente = txtDatos.Text;
-                    
+
                 }
                 if (Program.datoscliente != null && Program.datoscliente != "")
                 {
@@ -240,7 +238,7 @@ namespace Capa_de_Presentacion
             txtIdProducto.Text = Program.IdProducto + "";
             txtDescripcion.Text = Program.Descripcion;
             txtMarca.Text = Program.Marca;
-            if(txtdireccion.Text !="" && txtdireccion.Text !=null)
+            if (txtdireccion.Text != "" && txtdireccion.Text != null)
             {
                 Program.Direccion = txtdireccion.Text;
             }
@@ -292,7 +290,7 @@ namespace Capa_de_Presentacion
                 btnImprimir.Visible = true;
             }
 
-            if(Program.rncClient!= "sin rcn del Cliente" && Program.rncClient != "" && Program.rncClient !=null)
+            if (Program.rncClient != "sin rcn del Cliente" && Program.rncClient != "" && Program.rncClient != null)
             {
                 chkComprobante.Checked = true;
                 txtrcnClient.Text = Program.rncClient;
@@ -320,7 +318,7 @@ namespace Capa_de_Presentacion
                 con.ConnectionString = cadenaconexion;
                 comando.Connection = con;
                 //declaramos el comando para realizar la busqueda
-                comando.CommandText = "SELECT * from DetalleVenta WHERE DetalleVenta.IdVenta ='" + txtIdV.Text + "'";
+                comando.CommandText = "SELECT * from DetalleVenta WHERE IdVenta =" + txtIdV.Text;
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
@@ -335,7 +333,6 @@ namespace Capa_de_Presentacion
                     int renglon = dgvVenta.Rows.Add();
                     // especificamos en que fila se mostrará cada registro
                     // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
                     string idVenta = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
                     if (idVenta == txtIdV.Text)
                     {
@@ -494,7 +491,6 @@ namespace Capa_de_Presentacion
                 dgvVenta.Rows[i].Cells["PrecioU"].Value = lst[i].PrecioVenta;
                 dgvVenta.Rows[i].Cells["SubtoTal"].Value = lst[i].SubTotal;
                 dgvVenta.Rows[i].Cells["IDP"].Value = lst[i].IdProducto;
-
                 var preciounidad = Convert.ToDecimal(dgvVenta.Rows[i].Cells["PrecioU"].Value);
                 var cantidad = Convert.ToInt32(dgvVenta.Rows[i].Cells["cantidadP"].Value);
                 var igv = Convert.ToDecimal(dgvVenta.Rows[i].Cells["IGV"].Value);
@@ -554,7 +550,7 @@ namespace Capa_de_Presentacion
 
             if (cbidentificacion.Checked == false && Program.IdCliente == 0)
             {
-                Program.datoscliente=txtDatos.Text;
+                Program.datoscliente = txtDatos.Text;
                 txtDocIdentidad.Text = "Sin Identificación";
             }
 
@@ -880,7 +876,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Cliente: " + nombre);
             ticket.TextoIzquierda("Direccion de la Entrega: " + Program.Direccion);
             ticket.TextoIzquierda("Documento de Identificación: " + cedula);
-            if(txtrcnClient.Text!= "sin rcn del Cliente")
+            if (txtrcnClient.Text != "sin rcn del Cliente")
             {
                 ticket.TextoIzquierda("RNC Cliente: " + txtrcnClient.Text);
             }
@@ -898,17 +894,22 @@ namespace Capa_de_Presentacion
             }
             ticket.TextoIzquierda(" ");
             //resumen de la venta
-            ticket.AgregarTotales("TOTAL    : ", decimal.Parse(txttotal.Text));
-            ticket.AgregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
+            ticket.AgregarTotales("SUBTOTAL : ", decimal.Parse(lblsubt.Text));
+            ticket.AgregarTotales("ITBIS : ", decimal.Parse(lbligv.Text));
+            ticket.AgregarTotales("TOTAL : ", decimal.Parse(txttotal.Text));
+            if(cbtipofactura.Text.ToLower()=="credito")
+            {
+                ticket.AgregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
+            }
+           
             ticket.TextoIzquierda(" ");
             ticket.TextoCentro("__________________________________");
 
             //TEXTO FINAL DEL TICKET
             ticket.TextoIzquierda("EXTRA");
+            ticket.TextoIzquierda("Nota: Los productos con garantia pierden su garantia si deja perder la factura");
             ticket.TextoIzquierda("FAVOR REVISE SU MERCANCIA AL RECIBIRLA");
             ticket.TextoCentro("!GRACIAS POR SU COMPRA!");
-
-            ticket.TextoIzquierda("");
             ticket.TextoIzquierda("");
             ticket.TextoIzquierda("");
             ticket.TextoIzquierda("");
@@ -1000,7 +1001,6 @@ namespace Capa_de_Presentacion
         {
             comboselectNCF(Convert.ToInt32(combo_tipo_NCF.SelectedValue));
         }
-
 
         private void combo_tipo_NCF_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1133,7 +1133,7 @@ namespace Capa_de_Presentacion
                     doc.AddCreationDate();
                     if (dgvVenta.Rows.Count >= 1)
                     {
-                        int filas = 22 - dgvVenta.Rows.Count;
+                        int filas = 20 - dgvVenta.Rows.Count;
                         if (filas > 1)
                         {
                             for (int i = 1; i < filas; i++)
@@ -1142,13 +1142,21 @@ namespace Capa_de_Presentacion
                             }
                         }
                     }
-                    doc.Add(new Paragraph("Total de Ventas   : " + txttotal.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Total de Restante : " + restante.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Total de SubTotal : " + lblsubt.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Total de ITBIS : " + lbligv.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Total de Ventas : " + txttotal.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    if(cbtipofactura.Text.ToLower()=="credito")
+                    {
+                        doc.Add(new Paragraph("Total de Restante : " + restante.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    }
+                    
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("_________________________" + "                                                                                                                                                 " + "_________________________", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("      Facturado Por      " + "                                                                                                                                                                         " + "     Recibido Por  ", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("Nota: Los productos con garantia pierden su garantia si deja perder la factura.", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
+                    doc.Add(new Paragraph("FAVOR REVISE SU MERCANCIA AL RECIBIRLA", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
+                    doc.Add(new Paragraph("!GRACIAS POR SU COMPRA!", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
                     doc.Close();
                     Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
                 }
@@ -1285,7 +1293,7 @@ namespace Capa_de_Presentacion
 
         private void chkComprobante_CheckedChanged(object sender, EventArgs e)
         {
-            if(chkComprobante.Checked)
+            if (chkComprobante.Checked)
             {
                 txtrcnClient.Text = "";
                 txtrcnClient.Show();

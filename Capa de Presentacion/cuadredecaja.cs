@@ -92,8 +92,7 @@ namespace Capa_de_Presentacion
 
             if (leer.Read() == true)
             {
-                var deuda = Math.Round(Convert.ToDecimal(leer["deuda"].ToString()));
-                lbldeudas.Text = deuda.ToString();
+                lbldeudas.Text = Math.Round(Convert.ToDecimal(leer["deuda"])).ToString();
             }
             Cx.conexion.Close();
         }
@@ -173,7 +172,7 @@ namespace Capa_de_Presentacion
                 txtde1000.ReadOnly = true;
                 txtde2000.ReadOnly = true;
 
-                lblmontocuadre.Text = dr.GetDecimal(dr.GetOrdinal("monto")).ToString();
+                lblmontocuadre.Text = Math.Round(Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[2].Value)).ToString();
 
                 btnregistrar.Visible = false;
                 btnimprimir.Visible = true;
@@ -219,12 +218,12 @@ namespace Capa_de_Presentacion
                 dataGridView2.Rows[renglon].Cells["egresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("egresos")));
                 if (Convert.ToInt32(dataGridView2.Rows[renglon].Cells["id_caja"].Value) == id)
                 {
-                    pagos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["ingresos"].Value), 2);
-                    devuelta += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["egresos"].Value), 2);
+                    pagos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["ingresos"].Value));
+                    devuelta += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["egresos"].Value));
                 }
             }
 
-            lblmontoingreso.Text = Math.Round(Convert.ToDecimal(pagos)).ToString();
+            lblmontoingreso.Text = pagos.ToString();
             con.Close();
         }
 
@@ -240,15 +239,15 @@ namespace Capa_de_Presentacion
             if (leer.Read() == true)
             {
                 decimal montogasto = 0;
-                var montoactual = Math.Round(Convert.ToDecimal(leer["montoactual"].ToString())).ToString();
-                lblmontoinicial.Text = Math.Round(Convert.ToDecimal(leer["monto_inicial"].ToString())).ToString();
+                var montoactual = leer["montoactual"].ToString();
+                lblmontoinicial.Text = leer["monto_inicial"].ToString();
 
                 if (lblmontogasto.Text != "")
                 {
                     montogasto = Math.Round(Convert.ToDecimal(lblmontogasto.Text));
                 }
 
-                lblmontocaja.Text = Math.Round(Convert.ToDecimal(montoactual) - montogasto).ToString();
+                lblmontocaja.Text = (Math.Round((Convert.ToDecimal(montoactual) + Convert.ToDecimal(lblmontoinicial.Text)) - montogasto)).ToString();
             }
 
             Cx.conexion.Close();
@@ -283,7 +282,7 @@ namespace Capa_de_Presentacion
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
+            iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("ferreteria.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
@@ -362,7 +361,7 @@ namespace Capa_de_Presentacion
 
             if (leer.Read() == true)
             {
-                lbldeudas.Text = Math.Round(Convert.ToDecimal(leer["deuda"])).ToString();
+                lbldeudas.Text = leer["deuda"].ToString();
                 lblidcaja.Text = leer["id_caja"].ToString();
             }
             Cx.conexion.Close();
@@ -392,8 +391,6 @@ namespace Capa_de_Presentacion
 
         private void label18_Click(object sender, EventArgs e)
         {
-            Program.abiertosecundarias = false;
-            Program.abierto = false;
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                 ////////////////////Borrar copia de seguridad de base de datos anterior
@@ -444,8 +441,8 @@ namespace Capa_de_Presentacion
 
         private void btnsuma_Click(object sender, EventArgs e)
         {
-            decimal total = 0;
             decimal ingresos = 0;
+            decimal montoinicial = 0;
             decimal gastos = 0;
 
             if (lblmontogasto.Text != "...")
@@ -458,7 +455,12 @@ namespace Capa_de_Presentacion
                 ingresos = Math.Round(Convert.ToDecimal(lblmontoingreso.Text));
             }
 
-            decimal cuadre = ingresos - gastos;
+            if (lblmontoinicial.Text != "...")
+            {
+                montoinicial = Math.Round(Convert.ToDecimal(lblmontoinicial.Text));
+            }
+
+            decimal cuadre = (ingresos + montoinicial) - gastos;
 
             if (lbldeudas.Text == "")
             {
@@ -501,9 +503,9 @@ namespace Capa_de_Presentacion
                 txtde2000.Text = "0";
             }
 
-            total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
+            decimal total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
                 (50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) + (500 * decimal.Parse(txtde500.Text)) +
-                (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)) + Convert.ToDecimal(lblmontoinicial.Text));
+                (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)));
 
             if (cuadre < total)
             {
