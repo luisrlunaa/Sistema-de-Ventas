@@ -886,10 +886,8 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Atendido Por: " + txtUsu.Text);
             ticket.TextoIzquierda("Cliente: " + nombre);
             ticket.TextoIzquierda("Documento de Identificación: " + cedula);
-            ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Text);
+            ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Value.Day+"/"+ dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year);
             ticket.TextoIzquierda("Hora: " + DateTime.Now.ToShortTimeString());
-
-
 
             //ARTICULOS A VENDER.
             ticket.EncabezadoVenta();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
@@ -912,8 +910,14 @@ namespace Capa_de_Presentacion
             }
             ticket.TextoIzquierda(" ");
             //resumen de la venta
+            ticket.AgregarTotales("SUBTOTAL : ", decimal.Parse(lblsubt.ToString()));
+            ticket.AgregarTotales("ITBIS : ", decimal.Parse(lbligv.ToString()));
             ticket.AgregarTotales("TOTAL    : ", decimal.Parse(lbltotal.Text));
-            ticket.AgregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
+            if(cbtipofactura.Text.ToLower()=="credito")
+            {
+                ticket.AgregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
+            }
+
             ticket.TextoIzquierda(" ");
             ticket.TextoCentro("__________________________________");
 
@@ -1095,7 +1099,7 @@ namespace Capa_de_Presentacion
                     doc.Open();
                     string remito = lblLogo.Text;
                     string ubicado = lblDir.Text;
-                    string envio = "Fecha : " + DateTime.Now.ToString();
+                    string envio = "Fecha : " +dateTimePicker1.Value.Day + "/" + dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year;
 
                     Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
                     if (Program.ReImpresion != null)
@@ -1157,8 +1161,14 @@ namespace Capa_de_Presentacion
                             }
                         }
                     }
+
+                    doc.Add(new Paragraph("Total de SubTotal   : " + lblsubt.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Total de ITBIS   : " + lbligv.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Total de Ventas   : " + lbltotal.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Total de Restante : " + restante.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    if(cbtipofactura.Text.ToLower()=="credito")
+                    {
+                        doc.Add(new Paragraph("Total de Restante : " + restante.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    }
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("_________________________" + "                                                                                                                                                 " + "_________________________", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("      Facturado Por      " + "                                                                                                                                                                         " + "     Recibido Por  ", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
