@@ -559,12 +559,14 @@ namespace Capa_de_Presentacion
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
             dr = comando.ExecuteReader();
             //el ciclo while se ejecutará mientras lea registros en la tabla
+
+            int idanterior = 0;
             while (dr.Read())
             {
                 //variable de tipo entero para ir enumerando los la filas del datagridview
                 int renglon = dataGridView1.Rows.Add();
                 // especificamos en que fila se mostrará cada registro
-
+                int idVentaactual = dr.GetInt32(dr.GetOrdinal("IdVenta"));
                 dataGridView1.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
                 dataGridView1.Rows[renglon].Cells["idEm"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdEmpleado")));
                 dataGridView1.Rows[renglon].Cells["NCF"].Value = dr.GetString(dr.GetOrdinal("TipoDocumento"));
@@ -588,8 +590,13 @@ namespace Capa_de_Presentacion
                 {
                     label7.Visible = true;
                     txttotalpendiente.Visible = true;
-                    totalpendiente += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Restante")));
-                    txttotalpendiente.Text = Math.Round(totalpendiente, 2).ToString("C2");
+
+                    if(idanterior != idVentaactual)
+                    {
+                        totalpendiente += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Restante")));
+                        txttotalpendiente.Text = Math.Round(totalpendiente, 2).ToString("C2");
+                        idanterior = idVentaactual;
+                    }
                 }
                 else
                 {
