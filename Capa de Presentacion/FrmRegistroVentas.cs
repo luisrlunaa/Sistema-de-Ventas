@@ -304,6 +304,9 @@ namespace Capa_de_Presentacion
                 txtidEmp.Text = Program.IdEmpleado + "";
                 dateTimePicker1.Text = Program.fecha;
 
+                decimal subtotal = 0;
+                decimal igv = 0;
+
                 //declaramos la cadena  de conexion
                 string cadenaconexion = Cx.conet;
                 //variable de tipo Sqlconnection
@@ -341,13 +344,21 @@ namespace Capa_de_Presentacion
                         dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
                         dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                         dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+
+                        subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
+                        igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
                     }
                 }
+
+                Program.ST = subtotal;
+                Program.igv = igv;
+
                 con.Close();
 
                 buscaridcaja();
             }
         }
+
         public int idcaja = 0;
         public void buscaridcaja()
         {

@@ -14,7 +14,7 @@ namespace Capa_de_Presentacion
         }
 
         clsCx Cx = new clsCx();
-        Correo c = new Correo();
+        //Correo c = new Correo();
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             FrmMenuPrincipal MP = new FrmMenuPrincipal();

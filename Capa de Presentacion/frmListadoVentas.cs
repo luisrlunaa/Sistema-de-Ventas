@@ -22,8 +22,10 @@ namespace Capa_de_Presentacion
         {
             button3.Enabled = false;
             button4.Enabled = false;
+            txtBuscarid.Enabled = false;
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
+            llenarganancia(DateTime.MinValue, DateTime.MinValue);
             //repetitivo();
             llenar_data("");
             //llenar_data_V();
@@ -43,7 +45,6 @@ namespace Capa_de_Presentacion
             combo_tipo_NCF.ValueMember = "id_ncf";
             combo_tipo_NCF.DataSource = dt;
         }
-
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             FrmMenuPrincipal menu = new FrmMenuPrincipal();
@@ -71,10 +72,9 @@ namespace Capa_de_Presentacion
             tipofactura.ValueMember = "id";
             tipofactura.DataSource = dt;
         }
-
         public void llenar_data(string id)
         {
-            decimal total = 0; decimal ganancias = 0;
+            decimal total = 0;
             //declaramos la cadena  de conexion
             string cadenaconexion = Cx.conet;
             //variable de tipo Sqlconnection
@@ -86,21 +86,17 @@ namespace Capa_de_Presentacion
             con.ConnectionString = cadenaconexion;
             comando.Connection = con;
 
-            if (chkid.Checked && chkdescripcion.Checked == false && chknombre.Checked == false && id != null)
+            if (chkid.Checked && chknombre.Checked == false && id != null)
             {
-                comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta WHERE dbo.DetalleVenta.IdVenta = " + id + " and dbo.Venta.borrado = " + borrado + " ORDER BY dbo.Venta.IdVenta";
+                comando.CommandText = "select * from venta WHERE IdVenta = " + id + " and dbo.Venta.borrado = " + borrado + " ORDER BY IdVenta";
             }
-            else if (chkdescripcion.Checked && chknombre.Checked == false && chkid.Checked == false && id != null)
+            else if (chknombre.Checked && chkid.Checked == false && id != null)
             {
-                comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta WHERE dbo.Venta.NombreCliente LIKE '%" + id + "%' OR DetalleVenta.detalles_P LIKE '%" + id + "%' and dbo.Venta.borrado = " + borrado + " ORDER BY dbo.Venta.IdVenta";
-            }
-            else if (chknombre.Checked && chkid.Checked == false && chkdescripcion.Checked == false && id != null)
-            {
-                comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta WHERE dbo.Venta.NombreCliente LIKE '%" + id + "%' OR DetalleVenta.detalles_P LIKE '%" + id + "%' and dbo.Venta.borrado = " + borrado + " ORDER BY dbo.Venta.IdVenta";
+                comando.CommandText = "select * from venta WHERE NombreCliente LIKE '%" + id + "%' and dbo.Venta.borrado = " + borrado + " ORDER BY IdVenta";
             }
             else
             {
-                comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta ORDER BY dbo.Venta.IdVenta";
+                comando.CommandText = "select * from venta ORDER BY IdVenta";
             }
 
             //especificamos que es de tipo Text
@@ -122,8 +118,6 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["idEm"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdEmpleado")));
                 dataGridView1.Rows[renglon].Cells["NCF"].Value = dr.GetString(dr.GetOrdinal("TipoDocumento"));
                 dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = dr.GetString(dr.GetOrdinal("NroDocumento"));
-                dataGridView1.Rows[renglon].Cells["igv"].Value = dr.GetDecimal(dr.GetOrdinal("Igv")).ToString();
-                dataGridView1.Rows[renglon].Cells["subtotal"].Value = dr.GetDecimal(dr.GetOrdinal("SubTotal")).ToString();
                 dataGridView1.Rows[renglon].Cells["total"].Value = dr.GetDecimal(dr.GetOrdinal("Total")).ToString();
                 dataGridView1.Rows[renglon].Cells["Tipo"].Value = dr.GetString(dr.GetOrdinal("Tipofactura"));
                 dataGridView1.Rows[renglon].Cells["restante"].Value = dr.GetDecimal(dr.GetOrdinal("Restante")).ToString();
@@ -131,10 +125,7 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
 
-                total += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
-                ganancias += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("GananciaVenta")));
-
-                txtGanancias.Text = Math.Round(ganancias, 2).ToString("C2");
+                total += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("total")));
                 txtTtal.Text = Math.Round(total, 2).ToString("C2");
             }
             con.Close();
@@ -150,10 +141,9 @@ namespace Capa_de_Presentacion
                 To_pdf();
             }
         }
-
         public void llenarid(int idventa)
         {
-            string cadSql = "select IdCliente =COALESCE(dbo.Venta.IdCliente,0) from Venta where idventa="+ idventa;
+            string cadSql = "select IdCliente =COALESCE(dbo.Venta.IdCliente,0) from Venta where idventa=" + idventa;
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
             Cx.conexion.Open();
@@ -163,6 +153,40 @@ namespace Capa_de_Presentacion
             if (leer.Read() == true)
             {
                 Program.IdCliente = Convert.ToInt32(leer["IdCliente"]);
+            }
+            Cx.conexion.Close();
+        }
+        public void llenarganancia(DateTime fecha1, DateTime fecha2)
+        {
+            string cadSql = "";
+            bool confecha = false;
+            if ((fecha1 != DateTime.MinValue && fecha2 != DateTime.MinValue) && (fecha2.Date != DateTime.Today || fecha1.Date != DateTime.Today))
+            {
+                cadSql = "select Sum(GananciaVenta) as ganancia from DetalleVenta inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta where Venta.FechaVenta " +
+                    "BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103)";
+                confecha = true;
+            }
+            else
+            {
+                cadSql = "select Sum(GananciaVenta) as ganancia from DetalleVenta";
+            }
+
+
+            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+            if (confecha)
+            {
+                comando.Parameters.AddWithValue("@fecha1", fecha1);
+                comando.Parameters.AddWithValue("@fecha2", fecha2);
+                comando.CommandType = CommandType.Text;
+            }
+
+            Cx.conexion.Open();
+
+            SqlDataReader leer = comando.ExecuteReader();
+
+            if (leer.Read() == true)
+            {
+                txtGanancias.Text = (Convert.ToDecimal(leer["ganancia"])).ToString("C2");
             }
             Cx.conexion.Close();
         }
@@ -194,8 +218,6 @@ namespace Capa_de_Presentacion
             Program.NCF = dataGridView1.CurrentRow.Cells["NCF"].Value.ToString();
             Program.NroComprobante = dataGridView1.CurrentRow.Cells["nroComprobante"].Value.ToString();
             Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
-            Program.ST += Convert.ToDecimal(dataGridView1.CurrentRow.Cells["subtotal"].Value.ToString());
-            Program.igv += Convert.ToDecimal(dataGridView1.CurrentRow.Cells["igv"].Value.ToString());
             Program.fecha = dataGridView1.CurrentRow.Cells["fecha"].Value.ToString();
             Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
 
@@ -213,7 +235,6 @@ namespace Capa_de_Presentacion
 
             Program.ReImpresion = "Copia Factura";
         }
-
         private void label2_Click(object sender, EventArgs e)
         {
             Program.abierto = false;
@@ -222,7 +243,6 @@ namespace Capa_de_Presentacion
             V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
             this.Close();
         }
-
         private void To_pdf1()
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
@@ -444,7 +464,7 @@ namespace Capa_de_Presentacion
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            decimal total = 0; decimal ganancias = 0; decimal totalpendiente = 0;
+            decimal total = 0; decimal totalpendiente = 0;
             //declaramos la cadena  de conexion
             string cadenaconexion = Cx.conet;
             //variable de tipo Sqlconnection
@@ -461,7 +481,7 @@ namespace Capa_de_Presentacion
                 if (cbtipodocumento.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta  where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    comando.CommandText = "select * from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -470,7 +490,7 @@ namespace Capa_de_Presentacion
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta  where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    comando.CommandText = "select * from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -479,7 +499,7 @@ namespace Capa_de_Presentacion
                 else if (cktipofactura.Checked == false && cbPendiente.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    comando.CommandText = "select * from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " and dbo.Venta.Restante > " + 0 + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -487,7 +507,7 @@ namespace Capa_de_Presentacion
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    comando.CommandText = "select * from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.Restante > " + 0 + " and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -496,7 +516,7 @@ namespace Capa_de_Presentacion
                 else
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    comando.CommandText = "select * from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -507,7 +527,7 @@ namespace Capa_de_Presentacion
                 if (cbtipodocumento.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    comando.CommandText = "select * from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -516,7 +536,7 @@ namespace Capa_de_Presentacion
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    comando.CommandText = "select * from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado +
                     " and dbo.Venta.Restante > " + 0 + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
@@ -526,7 +546,7 @@ namespace Capa_de_Presentacion
                 else if (cktipofactura.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    comando.CommandText = "select * from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -535,7 +555,7 @@ namespace Capa_de_Presentacion
                 else if (cktipofactura.Checked == false && cbtipodocumento.Checked == false && vereliminadas.Checked == false && cbPendiente.Checked == true)
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    comando.CommandText = "select * from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.Restante > " + 0 + " and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -543,7 +563,7 @@ namespace Capa_de_Presentacion
                 else
                 {
                     //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select * from venta inner join DetalleVenta on venta.IdVenta = DetalleVenta.IdVenta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    comando.CommandText = "select * from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -571,19 +591,14 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["idEm"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdEmpleado")));
                 dataGridView1.Rows[renglon].Cells["NCF"].Value = dr.GetString(dr.GetOrdinal("TipoDocumento"));
                 dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = dr.GetString(dr.GetOrdinal("NroDocumento"));
-                dataGridView1.Rows[renglon].Cells["igv"].Value = dr.GetDecimal(dr.GetOrdinal("Igv")).ToString();
-                dataGridView1.Rows[renglon].Cells["subtotal"].Value = dr.GetDecimal(dr.GetOrdinal("SubTotal")).ToString();
                 dataGridView1.Rows[renglon].Cells["total"].Value = dr.GetDecimal(dr.GetOrdinal("Total")).ToString();
                 dataGridView1.Rows[renglon].Cells["Tipo"].Value = dr.GetString(dr.GetOrdinal("Tipofactura"));
                 dataGridView1.Rows[renglon].Cells["restante"].Value = dr.GetDecimal(dr.GetOrdinal("Restante")).ToString();
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
-                dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
+                dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));    
 
-                total += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
-                ganancias += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("GananciaVenta")));
-
-                txtGanancias.Text = Math.Round(ganancias, 2).ToString("C2");
+                total += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Total")));
                 txtTtal.Text = Math.Round(total, 2).ToString("C2");
 
                 if (cbPendiente.Checked == true)
@@ -606,6 +621,7 @@ namespace Capa_de_Presentacion
             }
 
             dataGridView3.ClearSelection();
+            llenarganancia(dtpfecha1.Value, dtpfecha2.Value);
             gridforcategoryandquantity(dtpfecha1.Value, dtpfecha2.Value);
             con.Close();
         }
@@ -614,7 +630,6 @@ namespace Capa_de_Presentacion
             txtBuscarid.Clear();
             button3.Enabled = false;
             chkid.Checked = false;
-            chkdescripcion.Checked = false;
             chknombre.Checked = false;
             cktipofactura.Checked = false;
             cbtipodocumento.Checked = false;
@@ -625,7 +640,6 @@ namespace Capa_de_Presentacion
             gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
             llenar_data("");
         }
-
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
             Program.abiertosecundarias = false;
@@ -635,7 +649,6 @@ namespace Capa_de_Presentacion
             V.btnSalir.Visible = false;
             this.Close();
         }
-
         private void gridforcategoryandquantity(DateTime fecha1, DateTime fecha2)
         {
             decimal total = 0;
@@ -692,24 +705,16 @@ namespace Capa_de_Presentacion
             }
             con.Close();
         }
-
         private void txtBuscarid_KeyUp(object sender, KeyEventArgs e)
         {
-            if(chkid.Checked && chkdescripcion.Checked==false && chknombre.Checked==false)
+            if(chkid.Checked && chknombre.Checked==false)
             {
                 if (txtBuscarid.Text.Length >= 1 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
                     llenar_data(txtBuscarid.Text);
                 }
             }
-            else if(chkdescripcion.Checked && chknombre.Checked==false && chkid.Checked == false)
-            {
-                if (txtBuscarid.Text.Length >= 5 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
-                {
-                    llenar_data(txtBuscarid.Text);
-                }
-            }
-            else if(chknombre.Checked && chkid.Checked==false && chkdescripcion.Checked == false)
+            else if(chknombre.Checked && chkid.Checked==false)
             {
                 if (txtBuscarid.Text.Length >= 4 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
@@ -721,7 +726,6 @@ namespace Capa_de_Presentacion
                 llenar_data("");
             }
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
@@ -848,7 +852,6 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("Por Favor Seleccione una venta antes de eliminarla");
             }
         }
-
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.Rows.Count > 0)
@@ -862,7 +865,6 @@ namespace Capa_de_Presentacion
                 }
             }
         }
-
         private void vereliminadas_CheckedChanged(object sender, EventArgs e)
         {
             if (vereliminadas.Checked)
@@ -880,7 +882,6 @@ namespace Capa_de_Presentacion
                 //llenar_data_V();
             }
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             //devolucion de venta
@@ -971,94 +972,27 @@ namespace Capa_de_Presentacion
                 Cx.conexion.Close();
             }
         }
-
-        //public void llenar_data_V()
-        //{
-        //    decimal montovendido = 0;
-        //    int Cantvendido = 0, idprod = 0;
-        //    //declaramos la cadena  de conexion
-        //    string cadenaconexion = Cx.conet;
-        //    //variable de tipo Sqlconnection
-        //    SqlConnection con = new SqlConnection();
-        //    //variable de tipo Sqlcommand
-        //    SqlCommand comando = new SqlCommand();
-        //    //variable SqlDataReader para leer los datos
-        //    SqlDataReader dr;
-        //    con.ConnectionString = cadenaconexion;
-        //    comando.Connection = con;
-        //    //declaramos el comando para realizar la busqueda
-        //    comando.CommandText = "SELECT dbo.DetalleVenta.IdProducto,Sum( Cantidad ) as total ," +
-        //        "SUM(dbo.DetalleVenta.SubTotal) as subt FROM dbo.DetalleVenta INNER JOIN dbo.Venta ON dbo.DetalleVenta.IdVenta = " +
-        //        "dbo.Venta.IdVenta where FechaVenta = convert(datetime,CONVERT(varchar(10), getdate(), 103),103) GROUP BY IdProducto ORDER BY total DESC";
-        //    //especificamos que es de tipo Text
-        //    comando.CommandType = CommandType.Text;
-        //    //se abre la conexion
-        //    con.Open();
-        //    //limpiamos los renglones de la datagridview
-        //    dataGridView2.Rows.Clear();
-        //    //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-        //    dr = comando.ExecuteReader();
-        //    while (dr.Read())
-        //    {
-        //        //variable de tipo entero para ir enumerando los la filas del datagridview
-        //        int renglon = dataGridView2.Rows.Add();
-        //        // especificamos en que fila se mostrará cada registro
-        //        // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
-        //        dataGridView2.Rows[renglon].Cells["id_p"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-        //        dataGridView2.Rows[renglon].Cells["sub"].Value = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("subt")));
-        //        dataGridView2.Rows[renglon].Cells["cant"].Value = Convert.ToDouble(dr.GetInt32(dr.GetOrdinal("total")));
-
-        //        dataGridView2.Rows[0].Selected = true;
-        //        dataGridView2.CurrentCell = dataGridView2.Rows[0].Cells["cant"];
-        //        Cantvendido = Convert.ToInt32(dataGridView2.Rows[0].Cells["cant"].Value);
-
-        //        dataGridView2.Rows[0].Selected = true;
-        //        dataGridView2.CurrentCell = dataGridView2.Rows[0].Cells["id_p"];
-        //        idprod = Convert.ToInt32(dataGridView2.Rows[0].Cells["id_p"].Value);
-
-        //        montovendido += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["sub"].Value), 2);
-
-        //        txtidprod.Text = Convert.ToString(idprod);
-        //        txtCantvend.Text = Convert.ToString(Cantvendido);
-        //        txtMontvend.Text = Convert.ToString(montovendido);
-        //    }
-        //    con.Close();
-        //}
-        //private void txtBuscarCliente_TextChanged(object sender, EventArgs e)
-        //{
-        //    llenar_data("");
-        //}
-        //public void buscarprod()
-        //{
-        //    Cx.conexion.Open();
-        //    string sql = "select Nombre from Producto where IdProducto =@id";
-        //    SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
-        //    cmd.Parameters.AddWithValue("@id", txtidprod.Text);
-
-        //    SqlDataReader reade = cmd.ExecuteReader();
-        //    if (reade.Read())
-        //    {
-        //        txtprod.Text = Convert.ToString(reade["Nombre"]);
-        //    }
-        //    Cx.conexion.Close();
-        //}
-        //string repetido;
-        //public void repetitivo()
-        //{
-        //    Cx.conexion.Open();
-        //    string sql = "select top(1) Nombre, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta INNER JOIN " +
-        //        "dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto INNER JOIN dbo.Venta ON " +
-        //        "dbo.DetalleVenta.IdVenta = dbo.Venta.IdVenta where Producto.IdProducto = DetalleVenta.IdProducto " +
-        //        "and dbo.Venta.borrado=" + borrado + "GROUP BY dbo.Producto.Nombre ORDER BY total DESC";
-        //    SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
-        //    SqlDataReader reade = cmd.ExecuteReader();
-        //    if (reade.Read())
-        //    {
-        //        repetido = reade["Nombre"].ToString();
-        //        txtRepi.Text = repetido;
-        //    }
-        //    Cx.conexion.Close();
-        //}
+        private void chkid_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkid.Checked || chknombre.Checked)
+            {
+                txtBuscarid.Enabled = true;
+            }
+            else
+            {
+                txtBuscarid.Enabled = false;
+            }
+        }
+        private void chknombre_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chknombre.Checked || chkid.Checked)
+            {
+                txtBuscarid.Enabled = true;
+            }
+            else
+            {
+                txtBuscarid.Enabled = false;
+            }
+        }
     }
 }
