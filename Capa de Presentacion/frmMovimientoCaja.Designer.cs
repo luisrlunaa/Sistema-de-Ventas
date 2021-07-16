@@ -61,13 +61,13 @@
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.montogasto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.agregargasto = new System.Windows.Forms.Button();
             this.txtdescripciondegasto = new System.Windows.Forms.TextBox();
             this.txtmontogasto = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtmonto_inicial = new System.Windows.Forms.TextBox();
+            this.agregargasto = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -91,7 +91,7 @@
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -110,7 +110,7 @@
             this.dataGridView1.Name = "dataGridView1";
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.MidnightBlue;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -170,11 +170,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(23, 57);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(144, 20);
+            this.label1.Size = new System.Drawing.Size(141, 18);
             this.label1.TabIndex = 13;
             this.label1.Text = "Buscar por ID Caja :";
             // 
@@ -205,7 +205,7 @@
             this.btnimprimir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.btnimprimir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
             this.btnimprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnimprimir.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnimprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnimprimir.ForeColor = System.Drawing.Color.Black;
             this.btnimprimir.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
             this.btnimprimir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -235,102 +235,102 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Open Sans Semibold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(469, 9);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(258, 33);
+            this.label11.Size = new System.Drawing.Size(256, 29);
             this.label11.TabIndex = 79;
             this.label11.Text = "Movimientos en Caja";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(12, 558);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 20);
+            this.label3.Size = new System.Drawing.Size(112, 18);
             this.label3.TabIndex = 80;
             this.label3.Text = "Total de Pagos:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(319, 558);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(140, 20);
+            this.label4.Size = new System.Drawing.Size(134, 18);
             this.label4.TabIndex = 82;
             this.label4.Text = "Total de Devueltas:";
             // 
             // lblgastos
             // 
             this.lblgastos.AutoSize = true;
-            this.lblgastos.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblgastos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblgastos.Location = new System.Drawing.Point(638, 558);
             this.lblgastos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblgastos.Name = "lblgastos";
-            this.lblgastos.Size = new System.Drawing.Size(119, 20);
+            this.lblgastos.Size = new System.Drawing.Size(118, 18);
             this.lblgastos.TabIndex = 83;
             this.lblgastos.Text = "Total de Gastos:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(932, 558);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 20);
+            this.label6.Size = new System.Drawing.Size(80, 18);
             this.label6.TabIndex = 84;
             this.label6.Text = "Total Final:";
             // 
             // lbltotal
             // 
             this.lbltotal.AutoSize = true;
-            this.lbltotal.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltotal.ForeColor = System.Drawing.Color.MidnightBlue;
             this.lbltotal.Location = new System.Drawing.Point(1016, 558);
             this.lbltotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbltotal.Name = "lbltotal";
-            this.lbltotal.Size = new System.Drawing.Size(21, 20);
+            this.lbltotal.Size = new System.Drawing.Size(20, 18);
             this.lbltotal.TabIndex = 88;
             this.lbltotal.Text = "...";
             // 
             // lbldeu
             // 
             this.lbldeu.AutoSize = true;
-            this.lbldeu.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbldeu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbldeu.ForeColor = System.Drawing.Color.Gold;
             this.lbldeu.Location = new System.Drawing.Point(765, 558);
             this.lbldeu.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbldeu.Name = "lbldeu";
-            this.lbldeu.Size = new System.Drawing.Size(21, 20);
+            this.lbldeu.Size = new System.Drawing.Size(20, 18);
             this.lbldeu.TabIndex = 87;
             this.lbldeu.Text = "...";
             // 
             // lblegr
             // 
             this.lblegr.AutoSize = true;
-            this.lblegr.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblegr.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblegr.ForeColor = System.Drawing.Color.Red;
             this.lblegr.Location = new System.Drawing.Point(467, 558);
             this.lblegr.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblegr.Name = "lblegr";
-            this.lblegr.Size = new System.Drawing.Size(21, 20);
+            this.lblegr.Size = new System.Drawing.Size(20, 18);
             this.lblegr.TabIndex = 86;
             this.lblegr.Text = "...";
             // 
             // lbling
             // 
             this.lbling.AutoSize = true;
-            this.lbling.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbling.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbling.ForeColor = System.Drawing.Color.GreenYellow;
             this.lbling.Location = new System.Drawing.Point(133, 558);
             this.lbling.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbling.Name = "lbling";
-            this.lbling.Size = new System.Drawing.Size(21, 20);
+            this.lbling.Size = new System.Drawing.Size(20, 18);
             this.lbling.TabIndex = 85;
             this.lbling.Text = "...";
             // 
@@ -351,7 +351,7 @@
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -368,7 +368,7 @@
             this.dataGridView2.Name = "dataGridView2";
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.MidnightBlue;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -377,6 +377,7 @@
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.Size = new System.Drawing.Size(437, 351);
             this.dataGridView2.TabIndex = 0;
+            this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             this.dataGridView2.DoubleClick += new System.EventHandler(this.dataGridView2_DoubleClick);
             // 
             // id
@@ -402,26 +403,6 @@
             this.montogasto.ReadOnly = true;
             this.montogasto.Width = 120;
             // 
-            // agregargasto
-            // 
-            this.agregargasto.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.agregargasto.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.agregargasto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.agregargasto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.agregargasto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.agregargasto.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.agregargasto.ForeColor = System.Drawing.Color.Black;
-            this.agregargasto.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_agregar;
-            this.agregargasto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.agregargasto.Location = new System.Drawing.Point(1101, 133);
-            this.agregargasto.Margin = new System.Windows.Forms.Padding(4);
-            this.agregargasto.Name = "agregargasto";
-            this.agregargasto.Size = new System.Drawing.Size(55, 33);
-            this.agregargasto.TabIndex = 90;
-            this.agregargasto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.agregargasto.UseVisualStyleBackColor = false;
-            this.agregargasto.Click += new System.EventHandler(this.agregargasto_Click);
-            // 
             // txtdescripciondegasto
             // 
             this.txtdescripciondegasto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -445,33 +426,33 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(720, 102);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(98, 20);
+            this.label7.Size = new System.Drawing.Size(95, 18);
             this.label7.TabIndex = 93;
             this.label7.Text = "Descripcion :";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(720, 141);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(63, 20);
+            this.label8.Size = new System.Drawing.Size(59, 18);
             this.label8.TabIndex = 94;
             this.label8.Text = "Monto :";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Open Sans Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(861, 58);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(161, 23);
+            this.label5.Size = new System.Drawing.Size(172, 20);
             this.label5.TabIndex = 95;
             this.label5.Text = "Registro de Gastos";
             // 
@@ -482,19 +463,38 @@
             this.txtmonto_inicial.Size = new System.Drawing.Size(100, 22);
             this.txtmonto_inicial.TabIndex = 96;
             // 
+            // agregargasto
+            // 
+            this.agregargasto.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.agregargasto.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.agregargasto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.agregargasto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.agregargasto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.agregargasto.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.agregargasto.ForeColor = System.Drawing.Color.Black;
+            this.agregargasto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.agregargasto.Location = new System.Drawing.Point(1064, 137);
+            this.agregargasto.Margin = new System.Windows.Forms.Padding(4);
+            this.agregargasto.Name = "agregargasto";
+            this.agregargasto.Size = new System.Drawing.Size(92, 33);
+            this.agregargasto.TabIndex = 97;
+            this.agregargasto.Text = "Agregar";
+            this.agregargasto.UseVisualStyleBackColor = false;
+            this.agregargasto.Click += new System.EventHandler(this.agregargasto_Click_1);
+            // 
             // frmMovimientoCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(1183, 652);
+            this.Controls.Add(this.agregargasto);
             this.Controls.Add(this.txtmonto_inicial);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtmontogasto);
             this.Controls.Add(this.txtdescripciondegasto);
-            this.Controls.Add(this.agregargasto);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.lbltotal);
             this.Controls.Add(this.lbldeu);
@@ -513,6 +513,7 @@
             this.Controls.Add(this.txtBuscarCaja);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmMovimientoCaja";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -547,7 +548,6 @@
         private System.Windows.Forms.Label lbling;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.Button agregargasto;
         private System.Windows.Forms.TextBox txtdescripciondegasto;
         private System.Windows.Forms.TextBox txtmontogasto;
         private System.Windows.Forms.Label label7;
@@ -563,5 +563,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn monto;
         private System.Windows.Forms.DataGridViewTextBoxColumn ingresos;
         private System.Windows.Forms.DataGridViewTextBoxColumn egresos;
+        private System.Windows.Forms.Button agregargasto;
     }
 }

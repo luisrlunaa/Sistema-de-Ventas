@@ -5,6 +5,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -343,27 +344,70 @@ namespace Capa_de_Presentacion
             txtmontogasto.Text = "";
             dataGridView2.Rows.Clear();
         }
-        private void agregargasto_Click(object sender, EventArgs e)
+
+        private void agregargasto_Click_1(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(Cx.conet))
+            if(agregargasto.Text == "Eliminar")
             {
-                using (SqlCommand cmd = new SqlCommand("RegistrarGasto", con))
+                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este Gasto.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (SqlConnection con = new SqlConnection(Cx.conet))
+                    {
+                        using (SqlCommand cmd = new SqlCommand("EliminarGasto", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
 
-                    //tabla gastos
-                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
-                    cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtdescripciondegasto.Text;
-                    cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontogasto.Text);
-                    cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
+                            //tabla gastos
+                            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    limpiar();
-                    llenar_datagastos();
-                    MessageBox.Show("Gasto Registrado");
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                            con.Close();
+                            limpiar();
+                            llenar_datagastos();
+                        }
+                    }
                 }
+                else
+                {
+                    llenar_datagastos();
+                    agregargasto.Text = "Agregar";
+                    agregargasto.BackColor = Color.CornflowerBlue;
+                    agregargasto.ForeColor = Color.Black;
+                }
+            }
+            else
+            {
+                using (SqlConnection con = new SqlConnection(Cx.conet))
+                {
+                    using (SqlCommand cmd = new SqlCommand("RegistrarGasto", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        //tabla gastos
+                        cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
+                        cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtdescripciondegasto.Text;
+                        cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontogasto.Text);
+                        cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                        limpiar();
+                        llenar_datagastos();
+                    }
+                }
+            }
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Program.idgastos = Convert.ToInt32(dataGridView2.CurrentRow.Cells["id"].Value.ToString());
+            if (Program.idgastos > 0)
+            {
+                agregargasto.Text = "Eliminar";
+                agregargasto.BackColor = Color.Red;
+                agregargasto.ForeColor = Color.White;
             }
         }
     }
