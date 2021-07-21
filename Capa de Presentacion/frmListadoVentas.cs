@@ -972,27 +972,5 @@ namespace Capa_de_Presentacion
                 Cx.conexion.Close();
             }
         }
-        private void chkid_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkid.Checked || chknombre.Checked)
-            {
-                txtBuscarid.Enabled = true;
-            }
-            else
-            {
-                txtBuscarid.Enabled = false;
-            }
-        }
-        private void chknombre_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chknombre.Checked || chkid.Checked)
-            {
-                txtBuscarid.Enabled = true;
-            }
-            else
-            {
-                txtBuscarid.Enabled = false;
-            }
-        }
     }
 }
