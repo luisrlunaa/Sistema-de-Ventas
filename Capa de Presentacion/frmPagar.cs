@@ -14,7 +14,7 @@ namespace Capa_de_Presentacion
         }
 
         clsCx Cx = new clsCx();
-        Correo c = new Correo();
+        //Correo c = new Correo();
         public void llenaridP()
         {
             string cadSql = "select top(1) id_caja,montoactual from Caja order by id_caja desc";

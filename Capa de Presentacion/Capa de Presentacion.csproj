@@ -62,9 +62,6 @@
     <Reference Include="DevComponents.Instrumentation">
       <HintPath>..\..\DevComponents.Instrumentation.dll</HintPath>
     </Reference>
-    <Reference Include="EASendMail, Version=7.7.0.6, Culture=neutral, PublicKeyToken=88adb80ecd66540b, processorArchitecture=MSIL">
-      <HintPath>..\packages\EASendMail.7.7.0.6\lib\net40\EASendMail.dll</HintPath>
-    </Reference>
     <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
     </Reference>

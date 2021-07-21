@@ -74,9 +74,9 @@ namespace Capa_de_Presentacion
                 // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
                 dataGridView2.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
                 dataGridView2.Rows[renglon].Cells["descripcion"].Value = dr.GetString(dr.GetOrdinal("descripcion"));
-                dataGridView2.Rows[renglon].Cells["montogasto"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
+                dataGridView2.Rows[renglon].Cells["montogasto"].Value = dr.GetDecimal(dr.GetOrdinal("monto")).ToString();
 
-                gastos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["montogasto"].Value), 2);
+                gastos += Math.Round(Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("monto"))), 2);
             }
 
             lbldeu.Text = gastos.ToString();
@@ -119,16 +119,17 @@ namespace Capa_de_Presentacion
                 //pagos
                 dataGridView1.Rows[renglon].Cells["id_caja"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_caja")));
                 dataGridView1.Rows[renglon].Cells["id_pago"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_pago")));
-                dataGridView1.Rows[renglon].Cells["monto"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
-                dataGridView1.Rows[renglon].Cells["ingresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("ingresos")));
-                dataGridView1.Rows[renglon].Cells["egresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("egresos")));
+                dataGridView1.Rows[renglon].Cells["monto"].Value = dr.GetDecimal(dr.GetOrdinal("monto")).ToString();
+                dataGridView1.Rows[renglon].Cells["ingresos"].Value = dr.GetDecimal(dr.GetOrdinal("ingresos")).ToString();
+                dataGridView1.Rows[renglon].Cells["egresos"].Value = dr.GetDecimal(dr.GetOrdinal("egresos")).ToString();
 
-                devuelta += Math.Round(Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["egresos"].Value), 2);
-                pagos += Math.Round(Convert.ToDecimal(dataGridView1.Rows[renglon].Cells["ingresos"].Value), 2);
+                devuelta += Math.Round(dr.GetDecimal(dr.GetOrdinal("egresos")), 2);
+                pagos += Math.Round(dr.GetDecimal(dr.GetOrdinal("ingresos")), 2);
             }
 
             lblegr.Text = devuelta.ToString();
             lbling.Text = pagos.ToString();
+
             con.Close();
         }
 
@@ -165,7 +166,6 @@ namespace Capa_de_Presentacion
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 filename = saveFileDialog1.FileName;
-
                 if (filename.Trim() != "")
                 {
                     FileStream file = new FileStream(filename,
@@ -176,7 +176,7 @@ namespace Capa_de_Presentacion
                     doc.Open();
                     string remito = lblLogo.Text;
                     string ubicado = lblDir.Text;
-                    string envio = "Fecha : " + DateTime.Now.ToString();
+                    string envio = "Fecha : " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
 
                     Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
                     var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
@@ -190,7 +190,6 @@ namespace Capa_de_Presentacion
                     var ubicacionalign = new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL));
                     ubicacionalign.Alignment = Element.ALIGN_CENTER;
                     doc.Add(ubicacionalign);
-
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("Reporte de Movimientos de Caja                      "));
                     doc.Add(new Paragraph("                       "));
@@ -236,14 +235,13 @@ namespace Capa_de_Presentacion
                 {
                     if (dataGridView1[j, i].Value != null)
                     {
-                        datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+                        datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
                     }
                 }
                 datatable.CompleteRow();
             }
             document.Add(datatable);
         }
-
         public void GenerarDocumentogastos(Document document)
         {
             int i, j;
@@ -265,13 +263,24 @@ namespace Capa_de_Presentacion
                 {
                     if (dataGridView2[j, i].Value != null)
                     {
-                        datatable.AddCell(new Phrase(dataGridView2[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+                        datatable.AddCell(new Phrase(dataGridView2[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
                     }
                 }
                 datatable.CompleteRow();
             }
             document.Add(datatable);
         }
+
+        public float[] GetTamañoColumnasgastos(DataGridView dg)
+        {
+            float[] values = new float[dg.ColumnCount];
+            for (int i = 0; i < dg.ColumnCount; i++)
+            {
+                values[i] = (float)dg.Columns[i].Width;
+            }
+            return values;
+        }
+
         public float[] GetTamañoColumnas(DataGridView dg)
         {
             float[] values = new float[dg.ColumnCount];
@@ -341,27 +350,70 @@ namespace Capa_de_Presentacion
             txtmontogasto.Text = "";
             dataGridView2.Rows.Clear();
         }
+
         private void agregargasto_Click(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(Cx.conet))
+            if (agregargasto.Text == "Eliminar")
             {
-                using (SqlCommand cmd = new SqlCommand("RegistrarGasto", con))
+                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este Gasto.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (SqlConnection con = new SqlConnection(Cx.conet))
+                    {
+                        using (SqlCommand cmd = new SqlCommand("EliminarGasto", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
 
-                    //tabla gastos
-                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
-                    cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtdescripciondegasto.Text;
-                    cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontogasto.Text);
-                    cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
+                            //tabla gastos
+                            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    limpiar();
-                    llenar_datagastos();
-                    MessageBox.Show("Gasto Registrado");
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                            con.Close();
+                            limpiar();
+                            llenar_datagastos();
+                        }
+                    }
                 }
+                else
+                {
+                    llenar_datagastos();
+                    agregargasto.Text = "Agregar";
+                    agregargasto.BackColor = System.Drawing.Color.CornflowerBlue;
+                    agregargasto.ForeColor = System.Drawing.Color.Black;
+                }
+            }
+            else
+            {
+                using (SqlConnection con = new SqlConnection(Cx.conet))
+                {
+                    using (SqlCommand cmd = new SqlCommand("RegistrarGasto", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        //tabla gastos
+                        cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
+                        cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtdescripciondegasto.Text;
+                        cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontogasto.Text);
+                        cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                        limpiar();
+                        llenar_datagastos();
+                    }
+                }
+            }
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Program.idgastos = Convert.ToInt32(dataGridView2.CurrentRow.Cells["id"].Value.ToString());
+            if (Program.idgastos > 0)
+            {
+                agregargasto.Text = "Eliminar";
+                agregargasto.BackColor = System.Drawing.Color.Red;
+                agregargasto.ForeColor = System.Drawing.Color.White;
             }
         }
     }

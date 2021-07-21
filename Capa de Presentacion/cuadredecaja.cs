@@ -17,7 +17,7 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
         clsCx Cx = new clsCx();
-        Correo c = new Correo();
+        //Correo c = new Correo();
         public void limpiar()
         {
             txtde5.Text = "";
