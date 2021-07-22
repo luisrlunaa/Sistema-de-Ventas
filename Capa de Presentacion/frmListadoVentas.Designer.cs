@@ -30,10 +30,10 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.id_p = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,17 +46,17 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtBuscarid = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.nroComprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NCF = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
-            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.restante = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.igv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idEm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idcliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombrecliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombrecliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idcliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idEm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.restante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
+            this.NCF = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nroComprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ultimafecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -209,6 +209,7 @@
             this.txtBuscarid.Name = "txtBuscarid";
             this.txtBuscarid.Size = new System.Drawing.Size(270, 25);
             this.txtBuscarid.TabIndex = 8;
+            this.txtBuscarid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscarid_KeyPress);
             this.txtBuscarid.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscarid_KeyUp);
             // 
             // dataGridView1
@@ -217,14 +218,14 @@
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridView1.ColumnHeadersHeight = 29;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -232,12 +233,12 @@
             this.idcliente,
             this.Tipo,
             this.idEm,
-            this.igv,
             this.restante,
             this.total,
             this.fecha,
             this.NCF,
-            this.nroComprobante});
+            this.nroComprobante,
+            this.ultimafecha});
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(-2, 1);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
@@ -249,19 +250,56 @@
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
-            // nroComprobante
+            // id
             // 
-            this.nroComprobante.HeaderText = "Numero de Comprobante";
-            this.nroComprobante.MinimumWidth = 6;
-            this.nroComprobante.Name = "nroComprobante";
-            this.nroComprobante.Width = 212;
+            this.id.HeaderText = "Id Venta";
+            this.id.MinimumWidth = 6;
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Width = 95;
             // 
-            // NCF
+            // nombrecliente
             // 
-            this.NCF.HeaderText = "Tipo Comprobante";
-            this.NCF.MinimumWidth = 6;
-            this.NCF.Name = "NCF";
-            this.NCF.Width = 168;
+            this.nombrecliente.HeaderText = "Nombre Cliente";
+            this.nombrecliente.MinimumWidth = 6;
+            this.nombrecliente.Name = "nombrecliente";
+            this.nombrecliente.Width = 145;
+            // 
+            // idcliente
+            // 
+            this.idcliente.HeaderText = "Id Cliente";
+            this.idcliente.MinimumWidth = 6;
+            this.idcliente.Name = "idcliente";
+            this.idcliente.Visible = false;
+            this.idcliente.Width = 104;
+            // 
+            // Tipo
+            // 
+            this.Tipo.HeaderText = "Tipo Factura";
+            this.Tipo.MinimumWidth = 6;
+            this.Tipo.Name = "Tipo";
+            this.Tipo.Width = 127;
+            // 
+            // idEm
+            // 
+            this.idEm.HeaderText = "Id Empleado";
+            this.idEm.MinimumWidth = 6;
+            this.idEm.Name = "idEm";
+            this.idEm.Visible = false;
+            this.idEm.Width = 124;
+            // 
+            // restante
+            // 
+            this.restante.HeaderText = "Restante";
+            this.restante.MinimumWidth = 6;
+            this.restante.Name = "restante";
+            // 
+            // total
+            // 
+            this.total.HeaderText = "Total";
+            this.total.MinimumWidth = 6;
+            this.total.Name = "total";
+            this.total.Width = 74;
             // 
             // fecha
             // 
@@ -299,64 +337,55 @@
             this.fecha.Name = "fecha";
             this.fecha.Width = 145;
             // 
-            // total
+            // NCF
             // 
-            this.total.HeaderText = "Total";
-            this.total.MinimumWidth = 6;
-            this.total.Name = "total";
-            this.total.Width = 74;
+            this.NCF.HeaderText = "Tipo Comprobante";
+            this.NCF.MinimumWidth = 6;
+            this.NCF.Name = "NCF";
+            this.NCF.Width = 168;
             // 
-            // restante
+            // nroComprobante
             // 
-            this.restante.HeaderText = "Restante";
-            this.restante.MinimumWidth = 6;
-            this.restante.Name = "restante";
+            this.nroComprobante.HeaderText = "Numero de Comprobante";
+            this.nroComprobante.MinimumWidth = 6;
+            this.nroComprobante.Name = "nroComprobante";
+            this.nroComprobante.Width = 212;
             // 
-            // igv
+            // ultimafecha
             // 
-            this.igv.HeaderText = "ITBIS";
-            this.igv.MinimumWidth = 6;
-            this.igv.Name = "igv";
-            this.igv.Width = 75;
             // 
-            // idEm
             // 
-            this.idEm.HeaderText = "Id Empleado";
-            this.idEm.MinimumWidth = 6;
-            this.idEm.Name = "idEm";
-            this.idEm.Visible = false;
-            this.idEm.Width = 124;
             // 
-            // Tipo
+            this.ultimafecha.BackgroundStyle.Class = "DataGridViewDateTimeBorder";
+            this.ultimafecha.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ultimafecha.HeaderText = "Ultima Fecha Pago";
+            this.ultimafecha.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
+            this.ultimafecha.MinimumWidth = 6;
             // 
-            this.Tipo.HeaderText = "Tipo Factura";
-            this.Tipo.MinimumWidth = 6;
-            this.Tipo.Name = "Tipo";
-            this.Tipo.Width = 127;
             // 
-            // idcliente
             // 
-            this.idcliente.HeaderText = "Id Cliente";
-            this.idcliente.MinimumWidth = 6;
-            this.idcliente.Name = "idcliente";
-            this.idcliente.Visible = false;
-            this.idcliente.Width = 104;
+            this.ultimafecha.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
             // 
-            // nombrecliente
             // 
-            this.nombrecliente.HeaderText = "Nombre Cliente";
-            this.nombrecliente.MinimumWidth = 6;
-            this.nombrecliente.Name = "nombrecliente";
-            this.nombrecliente.Visible = false;
-            this.nombrecliente.Width = 145;
             // 
-            // id
+            this.ultimafecha.MonthCalendar.BackgroundStyle.Class = "";
+            this.ultimafecha.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
-            this.id.HeaderText = "Id Venta";
-            this.id.MinimumWidth = 6;
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Width = 95;
+            // 
+            // 
+            this.ultimafecha.MonthCalendar.CommandsBackgroundStyle.Class = "";
+            this.ultimafecha.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ultimafecha.MonthCalendar.DisplayMonth = new System.DateTime(2021, 7, 1, 0, 0, 0, 0);
+            this.ultimafecha.MonthCalendar.MarkedDates = new System.DateTime[0];
+            this.ultimafecha.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.ultimafecha.MonthCalendar.NavigationBackgroundStyle.Class = "";
+            this.ultimafecha.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ultimafecha.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
+            this.ultimafecha.Name = "ultimafecha";
+            this.ultimafecha.Width = 167;
             // 
             // panel1
             // 
@@ -378,10 +407,10 @@
             this.btnNuevo.ForeColor = System.Drawing.Color.Black;
             this.btnNuevo.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_nuevo;
             this.btnNuevo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNuevo.Location = new System.Drawing.Point(749, 532);
+            this.btnNuevo.Location = new System.Drawing.Point(734, 532);
             this.btnNuevo.Margin = new System.Windows.Forms.Padding(4);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(123, 39);
+            this.btnNuevo.Size = new System.Drawing.Size(138, 39);
             this.btnNuevo.TabIndex = 10;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -432,7 +461,7 @@
             this.button2.Location = new System.Drawing.Point(559, 532);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(128, 39);
+            this.button2.Size = new System.Drawing.Size(155, 39);
             this.button2.TabIndex = 111;
             this.button2.Text = "Limpiar";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -538,10 +567,10 @@
             this.button3.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_eliminar;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.button3.Location = new System.Drawing.Point(749, 645);
+            this.button3.Location = new System.Drawing.Point(734, 645);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(123, 43);
+            this.button3.Size = new System.Drawing.Size(138, 43);
             this.button3.TabIndex = 115;
             this.button3.Text = "Eliminar";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -575,7 +604,7 @@
             this.button4.Location = new System.Drawing.Point(559, 645);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(128, 43);
+            this.button4.Size = new System.Drawing.Size(155, 43);
             this.button4.TabIndex = 117;
             this.button4.Text = "Devolucion";
             this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -590,6 +619,7 @@
             this.chknombre.Size = new System.Drawing.Size(18, 17);
             this.chknombre.TabIndex = 191;
             this.chknombre.UseVisualStyleBackColor = true;
+            this.chknombre.CheckedChanged += new System.EventHandler(this.chknombre_CheckedChanged);
             // 
             // chkid
             // 
@@ -599,6 +629,7 @@
             this.chkid.Size = new System.Drawing.Size(18, 17);
             this.chkid.TabIndex = 190;
             this.chkid.UseVisualStyleBackColor = true;
+            this.chkid.CheckedChanged += new System.EventHandler(this.chkid_CheckedChanged);
             // 
             // label8
             // 
@@ -737,38 +768,38 @@
             this.dataGridView3.AllowUserToDeleteRows = false;
             this.dataGridView3.BackgroundColor = System.Drawing.Color.Firebrick;
             this.dataGridView3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView3.ColumnHeadersHeight = 29;
             this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CategoryOfProducts,
             this.CantidadOfProducts,
             this.PrecioOfProducts});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView3.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView3.DefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridView3.Location = new System.Drawing.Point(5, 4);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView3.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView3.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridView3.RowHeadersVisible = false;
             this.dataGridView3.RowHeadersWidth = 51;
             this.dataGridView3.RowTemplate.Height = 24;
@@ -847,7 +878,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Firebrick;
-            this.ClientSize = new System.Drawing.Size(1380, 765);
+            this.ClientSize = new System.Drawing.Size(1380, 749);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txttotalventaespecifica);
             this.Controls.Add(this.chknombre);
@@ -916,17 +947,6 @@
 		public System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtBuscarid;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombrecliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idcliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idEm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn igv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn restante;
-        private System.Windows.Forms.DataGridViewTextBoxColumn total;
-        private DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NCF;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nroComprobante;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnNuevo;
         public System.Windows.Forms.Button btnCancelar;
@@ -964,5 +984,16 @@
         private System.Windows.Forms.Label label15;
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox txttotalventaespecifica;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombrecliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idcliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idEm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn restante;
+        private System.Windows.Forms.DataGridViewTextBoxColumn total;
+        private DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NCF;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nroComprobante;
+        private DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn ultimafecha;
     }
 }

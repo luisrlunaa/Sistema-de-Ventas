@@ -126,6 +126,8 @@
             this.btnEliminarItem = new System.Windows.Forms.Button();
             this.btnRegistrarVenta = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.lblabono = new System.Windows.Forms.Label();
+            this.lbltituloabono = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -1292,12 +1294,40 @@
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
+            // lblabono
+            // 
+            this.lblabono.AutoSize = true;
+            this.lblabono.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblabono.ForeColor = System.Drawing.Color.White;
+            this.lblabono.Location = new System.Drawing.Point(13, 733);
+            this.lblabono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblabono.Name = "lblabono";
+            this.lblabono.Size = new System.Drawing.Size(21, 20);
+            this.lblabono.TabIndex = 100;
+            this.lblabono.Text = "...";
+            this.lblabono.Visible = false;
+            // 
+            // lbltituloabono
+            // 
+            this.lbltituloabono.AutoSize = true;
+            this.lbltituloabono.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltituloabono.ForeColor = System.Drawing.Color.White;
+            this.lbltituloabono.Location = new System.Drawing.Point(13, 710);
+            this.lbltituloabono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbltituloabono.Name = "lbltituloabono";
+            this.lbltituloabono.Size = new System.Drawing.Size(117, 20);
+            this.lbltituloabono.TabIndex = 99;
+            this.lbltituloabono.Text = "Fecha Abono: ";
+            this.lbltituloabono.Visible = false;
+            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Firebrick;
             this.ClientSize = new System.Drawing.Size(902, 801);
+            this.Controls.Add(this.lblabono);
+            this.Controls.Add(this.lbltituloabono);
             this.Controls.Add(this.txtpmin);
             this.Controls.Add(this.txtpmax);
             this.Controls.Add(this.label19);
@@ -1464,5 +1494,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn IGV;
         private System.Windows.Forms.DataGridViewTextBoxColumn SubtoTal;
         private System.Windows.Forms.DataGridViewTextBoxColumn ImeiC;
+        public System.Windows.Forms.Label lblabono;
+        public System.Windows.Forms.Label lbltituloabono;
     }
 }

@@ -223,7 +223,7 @@ namespace Capa_de_Presentacion
         {
             if (Program.IdCliente != 0)
             {
-                txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
+                txtDatos.Text = Program.ApellidosCliente + " " + Program.NombreCliente;
                 txtidCli.Text = Program.IdCliente + "";
                 txtDocIdentidad.Text = Program.DocumentoIdentidad;
             }
@@ -265,7 +265,6 @@ namespace Capa_de_Presentacion
                 imei.txtIdP.Text = Program.IdProducto + "";
                 imei.Show();
             }
-
 
             if (Program.Esabono != "" && Program.Esabono != null && Program.pagoRealizado >= 0 && Program.realizopago == true)
             {
@@ -330,7 +329,9 @@ namespace Capa_de_Presentacion
                 con.ConnectionString = cadenaconexion;
                 comando.Connection = con;
                 //declaramos el comando para realizar la busqueda
-                comando.CommandText = "SELECT * from DetalleVenta WHERE DetalleVenta.IdVenta ='" + txtIdV.Text + "'";
+                comando.CommandText = "SELECT dbo.DetalleVenta.detalles_P,ISNULL(dbo.DetalleVenta.imei, 'Sin Imei') AS imei, dbo.DetalleVenta.SubTotal," +
+                    "dbo.DetalleVenta.IdVenta, dbo.DetalleVenta.Cantidad,dbo.DetalleVenta.PrecioUnitario,dbo.DetalleVenta.idProducto,dbo.DetalleVenta.Igv" +
+                    " from DetalleVenta WHERE DetalleVenta.IdVenta ='" + txtIdV.Text + "'";
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
@@ -341,11 +342,9 @@ namespace Capa_de_Presentacion
                 dr = comando.ExecuteReader();
                 while (dr.Read())
                 {
-                    //variable de tipo entero para ir enumerando los la filas del datagridview
                     int renglon = dgvVenta.Rows.Add();
                     // especificamos en que fila se mostrará cada registro
                     // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
                     string idVenta = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
                     if (idVenta == txtIdV.Text)
                     {
@@ -356,9 +355,10 @@ namespace Capa_de_Presentacion
                         dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
                         dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                         dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+                        dgvVenta.Rows[renglon].Cells["ImeiC"].Value = dr.GetString(dr.GetOrdinal("imei"));
 
-                        subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
-                        igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
+                        subtotal += (dr.GetDecimal(dr.GetOrdinal("SubtoTal")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                        igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
                     }
                 }
 
@@ -535,8 +535,6 @@ namespace Capa_de_Presentacion
             Program.igv = Convert.ToDecimal(lbligv.Text);
             Program.ST = Convert.ToDecimal(lblsubt.Text);
             pa.txtmonto.Text = lbltotal.Text;
-            pa.gbAbrir.Visible = false;
-            pa.btnCerrar.Visible = false;
 
             if (chkComprobante.Checked == false && !string.IsNullOrEmpty(txtNCF.Text))
             {
@@ -693,6 +691,8 @@ namespace Capa_de_Presentacion
                         cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
                         cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
                         cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
+                        cmd1.Parameters.Add("@imei", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["ImeiC"].Value);
+
                         if (Convert.ToString(row.Cells["ImeiC"].Value) != "Sin Imei")
                         {
                             using (SqlCommand cmd4 = new SqlCommand("Registrarimei", con))
@@ -1364,10 +1364,13 @@ namespace Capa_de_Presentacion
         }
 
         bool tienefila = false;
+        string idAnterior = "";
         public void llenar_data(string id)
         {
-            if (id != "")
+            if ((id != "") && (idAnterior !=id))
             {
+                tienefila = false;
+                idAnterior = id;
                 //declaramos la cadena  de conexion
                 string cadenaconexion = Cx.conet;
                 //variable de tipo Sqlconnection
@@ -1379,7 +1382,7 @@ namespace Capa_de_Presentacion
                 con.ConnectionString = cadenaconexion;
                 comando.Connection = con;
                 //declaramos el comando para realizar la busqueda
-                comando.CommandText = "select* from ImeiList where IdProducto =" + id + "and activo=" + 1;
+                comando.CommandText = "select * from ImeiList where IdProducto =" + id + "and activo=" + 1;
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
@@ -1391,6 +1394,8 @@ namespace Capa_de_Presentacion
                 {
                     tienefila = true;
                 }
+
+                Program.abiertoimei = tienefila;
                 con.Close();
             }
         }

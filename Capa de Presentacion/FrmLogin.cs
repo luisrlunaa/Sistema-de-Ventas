@@ -270,7 +270,7 @@ namespace Capa_de_Presentacion
         }
         public void fechaVenc()
         {
-            string cadSql = "select top(1) FechaVenc  from NomEmp order by idEmp desc";
+            string cadSql = "select top(1) FechaVenc from NomEmp order by idEmp desc";
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
             Cx.conexion.Open();

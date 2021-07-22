@@ -16,6 +16,7 @@ namespace Capa_de_Presentacion
 
         private void frmlistadoimei_Load(object sender, EventArgs e)
         {
+            Program.abiertoimei = true;
             llenar_data(txtIdP.Text);
         }
         public void llenar_data(string id)
