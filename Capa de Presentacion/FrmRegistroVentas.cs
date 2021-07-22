@@ -882,7 +882,7 @@ namespace Capa_de_Presentacion
                 ticket.TextoDerecha(Program.ReImpresion);
             }
 
-            //System.Drawing.Image img = System.Drawing.Image.FromFile("LogoCepeda.png");
+            //System.Drawing.Image img = System.Drawing.Image.FromFile("Logo.png");
             //ticket.HeaderImage = img;
             ticket.TextoCentro(lblLogo.Text);
             ticket.TextoIzquierda("");
