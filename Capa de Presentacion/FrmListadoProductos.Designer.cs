@@ -99,6 +99,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.lbltotalproductos = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -616,11 +617,20 @@
             resources.ApplyResources(this.textBox5, "textBox5");
             this.textBox5.Name = "textBox5";
             // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Name = "label15";
+            this.label15.Click += new System.EventHandler(this.label15_Click);
+            // 
             // FrmListadoProductos
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Firebrick;
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.lbltotalproductos);
             this.Controls.Add(this.label14);
@@ -645,8 +655,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "FrmListadoProductos";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmListadoProductos_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmListadoProductos_FormClosed);
             this.Load += new System.EventHandler(this.FrmProductos_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmListadoProductos_MouseDown);
             this.panel1.ResumeLayout(false);
@@ -727,5 +735,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn tipoGOma;
         private System.Windows.Forms.DataGridViewTextBoxColumn Pmin;
         private System.Windows.Forms.DataGridViewTextBoxColumn Pmax;
+        private System.Windows.Forms.Label label15;
     }
 }

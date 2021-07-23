@@ -126,11 +126,12 @@ namespace Capa_de_Presentacion
             // label18
             // 
             this.label18.AutoSize = true;
+            this.label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label18.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.Crimson;
-            this.label18.Location = new System.Drawing.Point(625, 9);
+            this.label18.ForeColor = System.Drawing.Color.White;
+            this.label18.Location = new System.Drawing.Point(628, 9);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(22, 23);
+            this.label18.Size = new System.Drawing.Size(24, 25);
             this.label18.TabIndex = 161;
             this.label18.Text = "X";
             this.label18.Click += new System.EventHandler(this.label18_Click);

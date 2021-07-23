@@ -135,6 +135,8 @@ namespace Capa_de_Presentacion
         }
         private void btnProductos_Click(object sender, EventArgs e)
         {
+            panel1.Size = new System.Drawing.Size(64, 517);
+            button8.Text = ">>";
             if (Program.abierto == false)
             {
                 if (Program.LoginStatus == "Inventario")
@@ -173,6 +175,8 @@ namespace Capa_de_Presentacion
         }
         private void btnClientes_Click(object sender, EventArgs e)
         {
+            panel1.Size = new System.Drawing.Size(64, 517);
+            button8.Text = ">>";
             if (Program.abierto == false)
             {
                 FrmListadoClientes C = new FrmListadoClientes();
@@ -186,6 +190,8 @@ namespace Capa_de_Presentacion
         }
         private void btnVentas_Click(object sender, EventArgs e)
         {
+            panel1.Size = new System.Drawing.Size(64, 517);
+            button8.Text = ">>";
             if (Program.abierto == false)
             {
                 FrmRegistroVentas V = new FrmRegistroVentas();
@@ -208,6 +214,8 @@ namespace Capa_de_Presentacion
         }
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
+            panel1.Size = new System.Drawing.Size(64, 517);
+            button8.Text = ">>";
             if (Program.abierto == false)
             {
                 FrmListadoUsuario U = new FrmListadoUsuario();
@@ -230,6 +238,8 @@ namespace Capa_de_Presentacion
 
         private void btnEmpleados_Click(object sender, EventArgs e)
         {
+            panel1.Size = new System.Drawing.Size(64, 517);
+            button8.Text = ">>";
             if (Program.abierto == false)
             {
                 FrmListadoEmpleados E = new FrmListadoEmpleados();
@@ -242,35 +252,12 @@ namespace Capa_de_Presentacion
             }
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            Program.abiertosecundario = false;
-            Program.abierto = false;
-            if (Program.LoginStatus != "" && Program.LoginStatus != null)
-            {
-                Program.LoginStatus = "";
-                FrmLogin Login = new FrmLogin();
-                Login.Show();
-                this.Hide();
-            }
-            else
-            {
-                cuadredecaja cuadre = new cuadredecaja();
-                cuadre.lblLogo.Text = lblLogo.Text;
-                cuadre.lblDir.Text = lblDir.Text;
-                cuadre.lbltel1.Text = lblTel1.Text;
-                cuadre.lbltel.Text = lblTel2.Text;
-                cuadre.lblCorreo.Text = lblCorreo.Text;
-                cuadre.lblrnc.Text = lblrnc.Text;
-                cuadre.Show();
-                this.Hide();
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
+            panel1.Size = new System.Drawing.Size(64, 517);
+            button8.Text = ">>";
 
-                frmTurno Tu = new frmTurno();
+            frmTurno Tu = new frmTurno();
                 Tu.lblLogo.Text = lblLogo.Text;
                 Tu.textBox2.Text = Program.turno + "";
             Program.abiertosecundario = false;
@@ -279,6 +266,8 @@ namespace Capa_de_Presentacion
         }
         private void button2_Click(object sender, EventArgs e)
         {
+            panel1.Size = new System.Drawing.Size(64, 517);
+            button8.Text = ">>";
             if (Program.abierto == false)
             {
                 frmLimitantesNCF limi = new frmLimitantesNCF();
@@ -288,6 +277,8 @@ namespace Capa_de_Presentacion
         }
         private void button3_Click(object sender, EventArgs e)
         {
+            panel1.Size = new System.Drawing.Size(64, 517);
+            button8.Text = ">>";
             if (Program.abierto == false)
             {
                 frmCambiarUsu Ca = new frmCambiarUsu();
@@ -330,6 +321,8 @@ namespace Capa_de_Presentacion
         }
         private void btnVer_Click(object sender, EventArgs e)
         {
+            panel1.Size = new System.Drawing.Size(64, 517);
+            button8.Text = ">>";
             usuario.Show();
             btnVer.Hide();
         }
@@ -380,6 +373,8 @@ namespace Capa_de_Presentacion
         }
         private void button5_Click(object sender, EventArgs e)
         {
+            panel1.Size = new System.Drawing.Size(64, 517);
+            button8.Text = ">>";
             if (Program.abierto == false)
             {
                 frmListadoVentas vt = new frmListadoVentas();
@@ -430,12 +425,16 @@ namespace Capa_de_Presentacion
 
         private void button6_Click(object sender, EventArgs e)
         {
+            panel1.Size = new System.Drawing.Size(64, 517);
+            button8.Text = ">>";
             frmMovimientoCaja move = new frmMovimientoCaja();
             move.Show();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
+            panel1.Size = new System.Drawing.Size(64, 517);
+            button8.Text = ">>";
             if (Program.abierto == false)
             {
                 frmAlineamiento V = new frmAlineamiento();
@@ -457,12 +456,12 @@ namespace Capa_de_Presentacion
             if (panel1.Size == new System.Drawing.Size(240, 517))
             {
                 panel1.Size = new System.Drawing.Size(64, 517);
-                button8.Text = "-->";
+                button8.Text = ">>";
             }
             else
             {
                 panel1.Size = new System.Drawing.Size(240, 517);
-                button8.Text = "<--";
+                button8.Text = "<<";
             }
         }
 
@@ -475,6 +474,36 @@ namespace Capa_de_Presentacion
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+            Program.abiertosecundario = false;
+            Program.abierto = false;
+            if (Program.LoginStatus != "" && Program.LoginStatus != null)
+            {
+                Program.LoginStatus = "";
+                FrmLogin Login = new FrmLogin();
+                Login.Show();
+                this.Hide();
+            }
+            else
+            {
+                cuadredecaja cuadre = new cuadredecaja();
+                cuadre.lblLogo.Text = lblLogo.Text;
+                cuadre.lblDir.Text = lblDir.Text;
+                cuadre.lbltel1.Text = lblTel1.Text;
+                cuadre.lbltel.Text = lblTel2.Text;
+                cuadre.lblCorreo.Text = lblCorreo.Text;
+                cuadre.lblrnc.Text = lblrnc.Text;
+                cuadre.Show();
+                this.Hide();
+            }
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

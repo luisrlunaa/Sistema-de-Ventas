@@ -1082,17 +1082,6 @@ namespace Capa_de_Presentacion
                 CargarListado(txtBuscarProducto.Text);
         }
 
-        private void FrmListadoProductos_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Program.abiertosecundario = false;
-            Program.abierto = false;
-        }
-
-        private void FrmListadoProductos_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Program.abierto = false;
-            Program.abiertosecundario = false;
-        }
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
@@ -1101,6 +1090,13 @@ namespace Capa_de_Presentacion
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+            Program.abiertosecundario = false;
+            Program.abierto = false;
+            this.Close();
         }
     }
 }

@@ -226,11 +226,12 @@
             // 
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Font = new System.Drawing.Font("Arial Black", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Red;
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label8.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(493, 9);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(23, 24);
+            this.label8.Size = new System.Drawing.Size(24, 25);
             this.label8.TabIndex = 72;
             this.label8.Text = "X";
             this.label8.Click += new System.EventHandler(this.label8_Click);

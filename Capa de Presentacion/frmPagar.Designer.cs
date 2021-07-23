@@ -76,11 +76,11 @@
             this.btnC.FlatAppearance.BorderSize = 0;
             this.btnC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnC.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnC.ForeColor = System.Drawing.Color.Red;
-            this.btnC.Location = new System.Drawing.Point(662, 19);
+            this.btnC.ForeColor = System.Drawing.Color.White;
+            this.btnC.Location = new System.Drawing.Point(667, 18);
             this.btnC.Margin = new System.Windows.Forms.Padding(4);
             this.btnC.Name = "btnC";
-            this.btnC.Size = new System.Drawing.Size(29, 35);
+            this.btnC.Size = new System.Drawing.Size(22, 23);
             this.btnC.TabIndex = 18;
             this.btnC.Text = "X";
             this.btnC.UseVisualStyleBackColor = true;
