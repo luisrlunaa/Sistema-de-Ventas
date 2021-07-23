@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
@@ -347,7 +348,7 @@ namespace Capa_de_Presentacion
 
         private void agregargasto_Click_1(object sender, EventArgs e)
         {
-            if(agregargasto.Text == "Eliminar")
+            if (agregargasto.Text == "Eliminar")
             {
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este Gasto.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
@@ -409,6 +410,15 @@ namespace Capa_de_Presentacion
                 agregargasto.BackColor = Color.Red;
                 agregargasto.ForeColor = Color.White;
             }
+        }
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void frmMovimientoCaja_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }

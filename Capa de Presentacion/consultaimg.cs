@@ -6,7 +6,7 @@ namespace Capa_de_Presentacion
 {
     public class consultaimg
     {
-        SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=SalesSystem;Integrated Security=True");
+        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-9KOT2KP\SQLEXPRESS;Initial Catalog=SalesSystemGomera;Integrated Security=True");
         public void verimagen(PictureBox pb, string id)
         {
             con.Open();

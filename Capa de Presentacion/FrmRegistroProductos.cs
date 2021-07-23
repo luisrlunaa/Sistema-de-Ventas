@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
@@ -273,75 +274,14 @@ namespace Capa_de_Presentacion
         {
             validar.solonumeros(e);
         }
-
-        //private void button2_Click(object sender, EventArgs e)
-        //{
-        //	OpenFileDialog flg = new OpenFileDialog();
-        //	flg.InitialDirectory = "C:\\";
-        //	flg.Filter = "Archivos jpg (*.jpg)|*.jpg|Archivos png (*.png)|*.png";
-        //	if (flg.ShowDialog() == DialogResult.OK) pictureBox1.Load(flg.FileName);
-        //}
-
-        //bool activo;
-        //private void FrmRegistroProductos_Activated(object sender, EventArgs e)
-        //{
-        //    if (txtIdP.Text == "")
-        //    {
-        //        activo = true;
-        //    }
-        //    else
-        //    {
-        //        activo = false;
-        //    }
-
-        //    if (activo == false)
-        //    {
-        //        SqlCommand command = new SqlCommand("select imagen from Producto where imagen IS NOT NULL AND IdProducto= @Clave", Cx.conexion);
-        //        command.Parameters.AddWithValue("@Clave", txtIdP.Text);
-
-        //        Cx.conexion.Open();
-        //        SqlDataReader leer = command.ExecuteReader();
-
-        //        if (leer.Read() == false)
-        //        {
-        //            pictureBox1.Image = null;
-        //        }
-        //        else
-        //        {//Representa un set de comandos que es utilizado para llenar un DataSet
-        //            SqlDataAdapter dp = new SqlDataAdapter(command);
-        //            Cx.conexion.Close();
-
-        //            //Representa un caché (un espacio) en memoria de los datos.
-        //            DataSet ds = new DataSet("Producto");
-
-        //                //Arreglo de byte en donde se almacenara la foto en bytes
-        //                byte[] MyData = new byte[0];
-
-        //                //Llenamosel DataSet con la tabla. 
-        //                dp.Fill(ds, "Producto");
-
-        //                //Inicializamos una fila de datos en la cual se almacenaran todos los datos de la fila seleccionada
-        //                DataRow myRow = ds.Tables["Producto"].Rows[0];
-
-        //            if (myRow["imagen"] != DBNull.Value)
-        //            {
-        //                //Se almacena el campo foto de la tabla en el arreglo de bytes
-        //                MyData = (byte[])myRow["imagen"];
-
-        //                //Se inicializa un flujo en memoria del arreglo de bytes
-        //                MemoryStream stream = new MemoryStream(MyData);
-
-        //                //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
-        //                //el cual contiene el arreglo de bytes
-        //                pictureBox1.Image = System.Drawing.Image.FromStream(stream);
-        //            }
-        //            else
-        //            {
-        //                pictureBox1.Image = null;
-        //            }
-
-        //        }
-        //    }
-        //}
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void FrmRegistroProductos_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
     }
 }

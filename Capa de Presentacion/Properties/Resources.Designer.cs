@@ -103,26 +103,6 @@ namespace Capa_de_Presentacion.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cerrar {
-            get {
-                object obj = ResourceManager.GetObject("cerrar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap cuadricula {
-            get {
-                object obj = ResourceManager.GetObject("cuadricula", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap ferreteria {
             get {
                 object obj = ResourceManager.GetObject("ferreteria", resourceCulture);
@@ -206,6 +186,16 @@ namespace Capa_de_Presentacion.Properties {
         internal static System.Drawing.Bitmap icons8_caja_registradora {
             get {
                 object obj = ResourceManager.GetObject("icons8-caja-registradora", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_caja_registradora_30 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-caja-registradora-30", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -596,26 +586,6 @@ namespace Capa_de_Presentacion.Properties {
         internal static System.Drawing.Bitmap LogoCepeda1 {
             get {
                 object obj = ResourceManager.GetObject("LogoCepeda1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap maximizar {
-            get {
-                object obj = ResourceManager.GetObject("maximizar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap minimizar {
-            get {
-                object obj = ResourceManager.GetObject("minimizar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

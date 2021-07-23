@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
@@ -51,7 +52,7 @@ namespace Capa_de_Presentacion
                 txtDivisor.Enabled = false;
                 txtPorcentaje.Enabled = false;
             }
-           
+
             txtid.Text = "0";
             txtDivisor.Text = "1.18";
             txtPorcentaje.Text = "";
@@ -70,7 +71,7 @@ namespace Capa_de_Presentacion
             btnEliminarItem.Enabled = false;
             frmPagar pa = new frmPagar();
             txttotal.Text = Convert.ToString(pa.txtmonto.Text);
-            
+
             if (combo_tipo_NCF.Items.Count > 0)
             {
                 combo_tipo_NCF.SelectedValue = 2;
@@ -227,7 +228,7 @@ namespace Capa_de_Presentacion
         {
             if (Program.IdCliente != 0)
             {
-                txtDatos.Text = Program.NombreCliente+" "+Program.ApellidosCliente;
+                txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
                 txtidCli.Text = Program.IdCliente + "";
                 txtDocIdentidad.Text = Program.DocumentoIdentidad;
             }
@@ -468,7 +469,7 @@ namespace Capa_de_Presentacion
                 DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor buscar un Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
         }
-       
+
         private void LlenarGri()
         {
             Decimal SumaSubTotal = 0; Decimal SumaIgv = 0; Decimal SumaTotal = 0;
@@ -489,7 +490,7 @@ namespace Capa_de_Presentacion
                 var igv = Convert.ToDecimal(dgvVenta.Rows[i].Cells["IGV"].Value);
 
                 SumaSubTotal += preciounidad * cantidad;
-                SumaIgv += igv* cantidad;
+                SumaIgv += igv * cantidad;
 
                 SumaTotal += Math.Round(Convert.ToDecimal(dgvVenta.Rows[i].Cells["SubtoTal"].Value), 2);
 
@@ -675,7 +676,7 @@ namespace Capa_de_Presentacion
                         decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
                         decimal subtotal = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
                         int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
-                        decimal Ganancia = Math.Round(subtotal - (preciocompra* cantidad));
+                        decimal Ganancia = Math.Round(subtotal - (preciocompra * cantidad));
 
                         //Tabla detalles ventas
                         cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IdD"].Value);
@@ -887,11 +888,11 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Atendido Por: " + txtUsu.Text);
             ticket.TextoIzquierda("Cliente: " + nombre);
             ticket.TextoIzquierda("Documento de Identificación: " + cedula);
-            ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Value.Day+"/"+ dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year);
-            
-            if(cbtipofactura.Text.ToLower()=="credito" && Program.Esabono== "Es Abono")
+            ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Value.Day + "/" + dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year);
+
+            if (cbtipofactura.Text.ToLower() == "credito" && Program.Esabono == "Es Abono")
             {
-                ticket.TextoIzquierda("Fecha Abono: " + DateTime.Today.Day+"/" + DateTime.Today.Month + "/" +DateTime.Today.Year);
+                ticket.TextoIzquierda("Fecha Abono: " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year);
             }
 
             //ARTICULOS A VENDER.
@@ -1140,7 +1141,7 @@ namespace Capa_de_Presentacion
                     doc.Add(new Paragraph(" "));
                     if (cbtipofactura.Text.ToLower() == "credito" && Program.Esabono == "Es Abono")
                     {
-                        var fechaabono = new Paragraph("Fecha Abono: " + DateTime.Today.Day+"/"+ DateTime.Today.Month + "/" + DateTime.Today.Year, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+                        var fechaabono = new Paragraph("Fecha Abono: " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
                         doc.Add(fechaabono);
                     }
                     doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
@@ -1326,6 +1327,15 @@ namespace Capa_de_Presentacion
                 btnBuscar.Hide();
                 txtDatos.ReadOnly = false;
             }
+        }
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void FrmRegistroVentas_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }

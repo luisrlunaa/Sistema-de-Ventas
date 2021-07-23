@@ -40,6 +40,17 @@
             this.txtBuscarProducto = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaVencimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechamodificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itbis = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoGOma = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.rbfechamod = new System.Windows.Forms.RadioButton();
@@ -86,17 +97,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.lbltotalproductos = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IdC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FechaVencimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechamodificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itbis = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoGOma = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label15 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -130,7 +131,7 @@
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -151,7 +152,7 @@
             this.tipoGOma});
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -165,6 +166,84 @@
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
+            // 
+            // Column1
+            // 
+            resources.ApplyResources(this.Column1, "Column1");
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // IdC
+            // 
+            resources.ApplyResources(this.IdC, "IdC");
+            this.IdC.Name = "IdC";
+            this.IdC.ReadOnly = true;
+            // 
+            // description
+            // 
+            resources.ApplyResources(this.description, "description");
+            this.description.Name = "description";
+            this.description.ReadOnly = true;
+            // 
+            // marca
+            // 
+            this.marca.FillWeight = 56.27266F;
+            resources.ApplyResources(this.marca, "marca");
+            this.marca.Name = "marca";
+            this.marca.ReadOnly = true;
+            // 
+            // pCompra
+            // 
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.pCompra.DefaultCellStyle = dataGridViewCellStyle2;
+            this.pCompra.FillWeight = 56.27266F;
+            resources.ApplyResources(this.pCompra, "pCompra");
+            this.pCompra.Name = "pCompra";
+            this.pCompra.ReadOnly = true;
+            // 
+            // pVenta
+            // 
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.pVenta.DefaultCellStyle = dataGridViewCellStyle3;
+            this.pVenta.FillWeight = 56.27266F;
+            resources.ApplyResources(this.pVenta, "pVenta");
+            this.pVenta.Name = "pVenta";
+            this.pVenta.ReadOnly = true;
+            // 
+            // cantidad
+            // 
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.cantidad.DefaultCellStyle = dataGridViewCellStyle4;
+            this.cantidad.FillWeight = 56.27266F;
+            resources.ApplyResources(this.cantidad, "cantidad");
+            this.cantidad.Name = "cantidad";
+            this.cantidad.ReadOnly = true;
+            // 
+            // FechaVencimiento
+            // 
+            this.FechaVencimiento.FillWeight = 56.27266F;
+            resources.ApplyResources(this.FechaVencimiento, "FechaVencimiento");
+            this.FechaVencimiento.Name = "FechaVencimiento";
+            // 
+            // fechamodificacion
+            // 
+            this.fechamodificacion.FillWeight = 56.27266F;
+            resources.ApplyResources(this.fechamodificacion, "fechamodificacion");
+            this.fechamodificacion.Name = "fechamodificacion";
+            // 
+            // itbis
+            // 
+            this.itbis.FillWeight = 56.27266F;
+            resources.ApplyResources(this.itbis, "itbis");
+            this.itbis.Name = "itbis";
+            // 
+            // tipoGOma
+            // 
+            resources.ApplyResources(this.tipoGOma, "tipoGOma");
+            this.tipoGOma.Name = "tipoGOma";
             // 
             // groupBox1
             // 
@@ -521,89 +600,20 @@
             resources.ApplyResources(this.textBox5, "textBox5");
             this.textBox5.Name = "textBox5";
             // 
-            // Column1
+            // label15
             // 
-            resources.ApplyResources(this.Column1, "Column1");
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // IdC
-            // 
-            resources.ApplyResources(this.IdC, "IdC");
-            this.IdC.Name = "IdC";
-            this.IdC.ReadOnly = true;
-            // 
-            // description
-            // 
-            resources.ApplyResources(this.description, "description");
-            this.description.Name = "description";
-            this.description.ReadOnly = true;
-            // 
-            // marca
-            // 
-            this.marca.FillWeight = 56.27266F;
-            resources.ApplyResources(this.marca, "marca");
-            this.marca.Name = "marca";
-            this.marca.ReadOnly = true;
-            // 
-            // pCompra
-            // 
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.pCompra.DefaultCellStyle = dataGridViewCellStyle2;
-            this.pCompra.FillWeight = 56.27266F;
-            resources.ApplyResources(this.pCompra, "pCompra");
-            this.pCompra.Name = "pCompra";
-            this.pCompra.ReadOnly = true;
-            // 
-            // pVenta
-            // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.pVenta.DefaultCellStyle = dataGridViewCellStyle3;
-            this.pVenta.FillWeight = 56.27266F;
-            resources.ApplyResources(this.pVenta, "pVenta");
-            this.pVenta.Name = "pVenta";
-            this.pVenta.ReadOnly = true;
-            // 
-            // cantidad
-            // 
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.cantidad.DefaultCellStyle = dataGridViewCellStyle4;
-            this.cantidad.FillWeight = 56.27266F;
-            resources.ApplyResources(this.cantidad, "cantidad");
-            this.cantidad.Name = "cantidad";
-            this.cantidad.ReadOnly = true;
-            // 
-            // FechaVencimiento
-            // 
-            this.FechaVencimiento.FillWeight = 56.27266F;
-            resources.ApplyResources(this.FechaVencimiento, "FechaVencimiento");
-            this.FechaVencimiento.Name = "FechaVencimiento";
-            // 
-            // fechamodificacion
-            // 
-            this.fechamodificacion.FillWeight = 56.27266F;
-            resources.ApplyResources(this.fechamodificacion, "fechamodificacion");
-            this.fechamodificacion.Name = "fechamodificacion";
-            // 
-            // itbis
-            // 
-            this.itbis.FillWeight = 56.27266F;
-            resources.ApplyResources(this.itbis, "itbis");
-            this.itbis.Name = "itbis";
-            // 
-            // tipoGOma
-            // 
-            resources.ApplyResources(this.tipoGOma, "tipoGOma");
-            this.tipoGOma.Name = "tipoGOma";
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label15.ForeColor = System.Drawing.Color.Red;
+            this.label15.Name = "label15";
+            this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // FrmListadoProductos
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.lbltotalproductos);
             this.Controls.Add(this.label14);
@@ -625,12 +635,11 @@
             this.Controls.Add(this.txtBuscarProducto);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "FrmListadoProductos";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmListadoProductos_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmListadoProductos_FormClosed);
             this.Load += new System.EventHandler(this.FrmProductos_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmListadoProductos_MouseDown);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -707,5 +716,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn fechamodificacion;
         private System.Windows.Forms.DataGridViewTextBoxColumn itbis;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipoGOma;
+        private System.Windows.Forms.Label label15;
     }
 }

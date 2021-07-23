@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 
@@ -573,7 +574,7 @@ namespace Capa_de_Presentacion
                 con.ConnectionString = cadenaconexion;
                 comando.Connection = con;
                 //declaramos el comando para realizar la busqueda
-                comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where IdCategoria=" + id.Text+ "ORDER BY IdProducto";
+                comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where IdCategoria=" + id.Text + "ORDER BY IdProducto";
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
@@ -703,7 +704,7 @@ namespace Capa_de_Presentacion
                 var fecha1 = Convert.ToDateTime(dtpfecha1.Text);
                 var fecha2 = Convert.ToDateTime(dtpfecha2.Text);
                 Reporte = "Inventario de Fecha de Ingreso \n" +
-                    "Desde " + fecha1.Day+"/" + fecha1.Month+"/"+ fecha1.Year+ "\n" +
+                    "Desde " + fecha1.Day + "/" + fecha1.Month + "/" + fecha1.Year + "\n" +
                     "Hasta " + fecha2.Day + "/" + fecha2.Month + "/" + fecha2.Year;
             }
 
@@ -1062,30 +1063,31 @@ namespace Capa_de_Presentacion
             button2.Enabled = true;
         }
 
-        private void FrmListadoProductos_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Program.abiertosecundarias = false;
-            Program.abierto = false;
-            if (Program.CargoEmpleadoLogueado != "Administrador")
-            {
-                btnEditar.Enabled = false;
-            }
-        }
-
-        private void FrmListadoProductos_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Program.abiertosecundarias = false;
-            Program.abierto = false;
-            if (Program.CargoEmpleadoLogueado != "Administrador")
-            {
-                btnEditar.Enabled = false;
-            }
-        }
-
         private void txtBuscarProducto_KeyUp(object sender, KeyEventArgs e)
         {
             if (txtBuscarProducto.Text.Length >= 3)
                 CargarListado(txtBuscarProducto.Text);
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+            Program.abiertosecundarias = false;
+            Program.abierto = false;
+            if (Program.CargoEmpleadoLogueado != "Administrador")
+            {
+                btnEditar.Enabled = false;
+            }
+            this.Close();
+        }
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+
+        private void FrmListadoProductos_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }

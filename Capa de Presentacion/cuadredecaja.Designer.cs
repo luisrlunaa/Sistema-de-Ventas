@@ -640,11 +640,12 @@
             // label18
             // 
             this.label18.AutoSize = true;
+            this.label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label18.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.Crimson;
-            this.label18.Location = new System.Drawing.Point(637, 9);
+            this.label18.Location = new System.Drawing.Point(648, 9);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(22, 23);
+            this.label18.Size = new System.Drawing.Size(24, 25);
             this.label18.TabIndex = 146;
             this.label18.Text = "X";
             this.label18.Click += new System.EventHandler(this.label18_Click);
@@ -652,11 +653,12 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label7.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Blue;
-            this.label7.Location = new System.Drawing.Point(592, 9);
+            this.label7.Location = new System.Drawing.Point(624, 9);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(22, 23);
+            this.label7.Size = new System.Drawing.Size(24, 25);
             this.label7.TabIndex = 147;
             this.label7.Text = "<";
             this.label7.Click += new System.EventHandler(this.label7_Click);
@@ -883,6 +885,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "cuadredecaja";
             this.Load += new System.EventHandler(this.cuadredecaja_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cuadredecaja_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);

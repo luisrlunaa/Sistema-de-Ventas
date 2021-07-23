@@ -374,11 +374,12 @@
             // label18
             // 
             this.label18.AutoSize = true;
+            this.label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label18.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.Crimson;
-            this.label18.Location = new System.Drawing.Point(619, 9);
+            this.label18.Location = new System.Drawing.Point(621, 9);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(22, 23);
+            this.label18.Size = new System.Drawing.Size(24, 25);
             this.label18.TabIndex = 91;
             this.label18.Text = "X";
             this.label18.Click += new System.EventHandler(this.label18_Click);
@@ -436,6 +437,7 @@
             this.Text = "Alineacion y Balanceo";
             this.Activated += new System.EventHandler(this.frmTaller_Activated);
             this.Load += new System.EventHandler(this.frmAlineamiento_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmAlineamiento_MouseDown);
             this.groupBox2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();

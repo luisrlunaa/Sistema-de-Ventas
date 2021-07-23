@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
@@ -596,7 +597,7 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["restante"].Value = dr.GetDecimal(dr.GetOrdinal("Restante")).ToString();
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
-                dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));    
+                dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
 
                 total += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Total")));
                 txtTtal.Text = Math.Round(total, 2).ToString("C2");
@@ -606,7 +607,7 @@ namespace Capa_de_Presentacion
                     label7.Visible = true;
                     txttotalpendiente.Visible = true;
 
-                    if(idanterior != idVentaactual)
+                    if (idanterior != idVentaactual)
                     {
                         totalpendiente += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Restante")));
                         txttotalpendiente.Text = Math.Round(totalpendiente, 2).ToString("C2");
@@ -707,14 +708,14 @@ namespace Capa_de_Presentacion
         }
         private void txtBuscarid_KeyUp(object sender, KeyEventArgs e)
         {
-            if(chkid.Checked && chknombre.Checked==false)
+            if (chkid.Checked && chknombre.Checked == false)
             {
                 if (txtBuscarid.Text.Length >= 1 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
                     llenar_data(txtBuscarid.Text);
                 }
             }
-            else if(chknombre.Checked && chkid.Checked==false)
+            else if (chknombre.Checked && chkid.Checked == false)
             {
                 if (txtBuscarid.Text.Length >= 4 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
@@ -981,18 +982,29 @@ namespace Capa_de_Presentacion
             else
             {
                 txtBuscarid.Enabled = false;
+                txtBuscarid.Text = "";
             }
         }
         private void chknombre_CheckedChanged(object sender, EventArgs e)
         {
-            if(chknombre.Checked || chkid.Checked)
+            if (chknombre.Checked || chkid.Checked)
             {
                 txtBuscarid.Enabled = true;
             }
             else
             {
                 txtBuscarid.Enabled = false;
+                txtBuscarid.Text = "";
             }
+        }
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void frmListadoVentas_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }
