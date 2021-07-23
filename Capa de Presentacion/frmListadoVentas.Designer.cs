@@ -922,6 +922,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Listado de Ventas";
             this.Load += new System.EventHandler(this.frmListadoVentas_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmListadoVentas_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);

@@ -562,6 +562,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Registro Productos";
             this.Load += new System.EventHandler(this.FrmRegistroProductos_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmRegistroProductos_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgvimei)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

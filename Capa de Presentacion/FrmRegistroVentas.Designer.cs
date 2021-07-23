@@ -1387,6 +1387,7 @@
             this.Text = "Registro de Ventas";
             this.Activated += new System.EventHandler(this.FrmVentas_Activated);
             this.Load += new System.EventHandler(this.FrmVentas_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmRegistroVentas_MouseDown);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);

@@ -150,6 +150,7 @@ namespace Capa_de_Presentacion
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmlistadoimei";
             this.Load += new System.EventHandler(this.frmlistadoimei_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmlistadoimei_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgvimei)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

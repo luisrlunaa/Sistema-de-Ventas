@@ -514,6 +514,7 @@
             this.Text = "Alineacion y Balanceo";
             this.Activated += new System.EventHandler(this.frmTaller_Activated);
             this.Load += new System.EventHandler(this.frmAlineamiento_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmAlineamiento_MouseDown);
             this.groupBox2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();

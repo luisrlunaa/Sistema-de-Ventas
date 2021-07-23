@@ -642,12 +642,13 @@
             this.Controls.Add(this.txtBuscarProducto);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "FrmListadoProductos";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmListadoProductos_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmListadoProductos_FormClosed);
             this.Load += new System.EventHandler(this.FrmProductos_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmListadoProductos_MouseDown);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);

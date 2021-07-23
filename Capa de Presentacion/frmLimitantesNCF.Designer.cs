@@ -32,7 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.data_comprobante = new System.Windows.Forms.DataGridView();
             this.id_comprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.secuenciai = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,13 +51,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnAplicar = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.data_ncf = new System.Windows.Forms.DataGridView();
             this.id_ncf = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Activo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnAplicar = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.data_comprobante)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -283,6 +282,68 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Elige el NCF que vas a Limitar";
             // 
+            // data_ncf
+            // 
+            this.data_ncf.AllowUserToAddRows = false;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            this.data_ncf.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.data_ncf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.data_ncf.BackgroundColor = System.Drawing.Color.White;
+            this.data_ncf.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.data_ncf.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.data_ncf.ColumnHeadersHeight = 29;
+            this.data_ncf.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id_ncf,
+            this.tipo,
+            this.Activo});
+            this.data_ncf.EnableHeadersVisualStyles = false;
+            this.data_ncf.GridColor = System.Drawing.Color.Black;
+            this.data_ncf.Location = new System.Drawing.Point(8, 25);
+            this.data_ncf.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.data_ncf.Name = "data_ncf";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.data_ncf.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.data_ncf.RowHeadersVisible = false;
+            this.data_ncf.RowHeadersWidth = 51;
+            this.data_ncf.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            this.data_ncf.RowTemplate.Height = 24;
+            this.data_ncf.Size = new System.Drawing.Size(506, 304);
+            this.data_ncf.TabIndex = 114;
+            // 
+            // id_ncf
+            // 
+            this.id_ncf.FillWeight = 50.17418F;
+            this.id_ncf.HeaderText = "ID NCF";
+            this.id_ncf.MinimumWidth = 45;
+            this.id_ncf.Name = "id_ncf";
+            // 
+            // tipo
+            // 
+            this.tipo.FillWeight = 177.6333F;
+            this.tipo.HeaderText = "Tipo De NCF";
+            this.tipo.MinimumWidth = 6;
+            this.tipo.Name = "tipo";
+            // 
+            // Activo
+            // 
+            this.Activo.FillWeight = 72.19251F;
+            this.Activo.HeaderText = "Activo";
+            this.Activo.MinimumWidth = 45;
+            this.Activo.Name = "Activo";
+            // 
             // btnAplicar
             // 
             this.btnAplicar.BackColor = System.Drawing.Color.SpringGreen;
@@ -326,76 +387,6 @@
             this.label7.TabIndex = 113;
             this.label7.Text = "Limitaciones de los NCF";
             // 
-            // data_ncf
-            // 
-            this.data_ncf.AllowUserToAddRows = false;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            this.data_ncf.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.data_ncf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.data_ncf.BackgroundColor = System.Drawing.Color.White;
-            this.data_ncf.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.data_ncf.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.data_ncf.ColumnHeadersHeight = 29;
-            this.data_ncf.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id_ncf,
-            this.tipo,
-            this.Activo});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.data_ncf.DefaultCellStyle = dataGridViewCellStyle4;
-            this.data_ncf.EnableHeadersVisualStyles = false;
-            this.data_ncf.GridColor = System.Drawing.Color.Black;
-            this.data_ncf.Location = new System.Drawing.Point(8, 25);
-            this.data_ncf.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.data_ncf.Name = "data_ncf";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.data_ncf.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.data_ncf.RowHeadersVisible = false;
-            this.data_ncf.RowHeadersWidth = 51;
-            this.data_ncf.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
-            this.data_ncf.RowTemplate.Height = 24;
-            this.data_ncf.Size = new System.Drawing.Size(506, 304);
-            this.data_ncf.TabIndex = 114;
-            // 
-            // id_ncf
-            // 
-            this.id_ncf.FillWeight = 50.17418F;
-            this.id_ncf.HeaderText = "ID NCF";
-            this.id_ncf.MinimumWidth = 45;
-            this.id_ncf.Name = "id_ncf";
-            // 
-            // tipo
-            // 
-            this.tipo.FillWeight = 177.6333F;
-            this.tipo.HeaderText = "Tipo De NCF";
-            this.tipo.MinimumWidth = 6;
-            this.tipo.Name = "tipo";
-            // 
-            // Activo
-            // 
-            this.Activo.FillWeight = 72.19251F;
-            this.Activo.HeaderText = "Activo";
-            this.Activo.MinimumWidth = 45;
-            this.Activo.Name = "Activo";
-            // 
             // frmLimitantesNCF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -414,6 +405,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Limitantes NCF";
             this.Load += new System.EventHandler(this.frmLimitantesNCF_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmLimitantesNCF_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.data_comprobante)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
