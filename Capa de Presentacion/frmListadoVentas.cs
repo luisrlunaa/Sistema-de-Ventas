@@ -91,19 +91,19 @@ namespace Capa_de_Presentacion
             {
                 comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta WHERE IdVenta = " + id + " and dbo.Venta.borrado = " + borrado + " ORDER BY IdVenta";
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta WHERE IdVenta = " + id + " and dbo.Venta.borrado = " + borrado + " ORDER BY IdVenta";
             }
             else if (chknombre.Checked && chkid.Checked == false && id != null)
             {
                 comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta WHERE NombreCliente LIKE '%" + id + "%' and dbo.Venta.borrado = " + borrado + " ORDER BY IdVenta";
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta WHERE NombreCliente LIKE '%" + id + "%' and dbo.Venta.borrado = " + borrado + " ORDER BY IdVenta";
             }
             else
             {
                 comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta ORDER BY IdVenta";
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta ORDER BY IdVenta";
             }
 
             //especificamos que es de tipo Text
@@ -496,7 +496,7 @@ namespace Capa_de_Presentacion
                     //declaramos el comando para realizar la busqueda
                     comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -507,7 +507,7 @@ namespace Capa_de_Presentacion
                     //declaramos el comando para realizar la busqueda
                     comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -518,7 +518,7 @@ namespace Capa_de_Presentacion
                     //declaramos el comando para realizar la busqueda
                     comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " and dbo.Venta.Restante > " + 0 + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -528,7 +528,7 @@ namespace Capa_de_Presentacion
                     //declaramos el comando para realizar la busqueda
                     comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.Restante > " + 0 + " and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -539,7 +539,7 @@ namespace Capa_de_Presentacion
                     //declaramos el comando para realizar la busqueda
                     comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -552,7 +552,7 @@ namespace Capa_de_Presentacion
                     //declaramos el comando para realizar la busqueda
                     comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -563,7 +563,7 @@ namespace Capa_de_Presentacion
                     //declaramos el comando para realizar la busqueda
                     comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado +
                     " and dbo.Venta.Restante > " + 0 + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
@@ -575,7 +575,7 @@ namespace Capa_de_Presentacion
                     //declaramos el comando para realizar la busqueda
                     comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -586,7 +586,7 @@ namespace Capa_de_Presentacion
                     //declaramos el comando para realizar la busqueda
                     comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.Restante > " + 0 + " and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -596,7 +596,7 @@ namespace Capa_de_Presentacion
                     //declaramos el comando para realizar la busqueda
                     comando.CommandText = "select dbo.Venta.IdVenta,rcnClient=COALESCE(dbo.Venta.rcnClient, 'Sin rnc cliente'),dbo.Venta.Restante,dbo.Venta.Tipofactura," +
                     "dbo.Venta.Total,Direccion=COALESCE(dbo.Venta.Direccion, ' '),dbo.Venta.IdEmpleado,dbo.Venta.TipoDocumento,dbo.Venta.NroDocumento,dbo.Venta.FechaVenta," +
-                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' ') from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
+                    "NombreCliente=COALESCE(dbo.Venta.NombreCliente, ' '), UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                     "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
                     comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
                     comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
@@ -1005,27 +1005,65 @@ namespace Capa_de_Presentacion
                 Cx.conexion.Close();
             }
         }
+
+        private void txtBuscarid_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (chkid.Checked && chknombre.Checked == false)
+            {
+                validar.solonumeros(e);
+            }
+
+            if (chkid.Checked == false && chknombre.Checked)
+            {
+                validar.sololetras(e);
+            }
+        }
+
         private void chkid_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkid.Checked || chknombre.Checked)
+            if (chkid.Checked && chknombre.Checked == false)
             {
                 txtBuscarid.Enabled = true;
+                txtBuscarid.Text = "";
+            }
+            else
+            {
+                txtBuscarid.Enabled = false;
+            }
+
+            if (chkid.Checked == false && chknombre.Checked)
+            {
+                txtBuscarid.Enabled = true;
+                txtBuscarid.Text = "";
             }
             else
             {
                 txtBuscarid.Enabled = false;
             }
         }
+
         private void chknombre_CheckedChanged(object sender, EventArgs e)
         {
-            if (chknombre.Checked || chkid.Checked)
+            if (chkid.Checked && chknombre.Checked == false)
             {
                 txtBuscarid.Enabled = true;
+                txtBuscarid.Text = "";
             }
             else
             {
                 txtBuscarid.Enabled = false;
             }
+
+            if (chkid.Checked == false && chknombre.Checked)
+            {
+                txtBuscarid.Enabled = true;
+                txtBuscarid.Text = "";
+            }
+            else
+            {
+                txtBuscarid.Enabled = false;
+            }
+
         }
     }
 }
