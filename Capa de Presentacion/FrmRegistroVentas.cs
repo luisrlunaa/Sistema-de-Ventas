@@ -558,8 +558,6 @@ namespace Capa_de_Presentacion
             Program.ST = Convert.ToDecimal(lblsubt.Text);
             Program.Direccion = txtdireccion.Text;
             pa.txtmonto.Text = txttotal.Text;
-            pa.gbAbrir.Visible = false;
-            pa.btnCerrar.Visible = false;
             pa.Show();
 
             Program.tipo = cbtipofactura.Text;
@@ -684,7 +682,7 @@ namespace Capa_de_Presentacion
                         int idProducto = Convert.ToInt32(row.Cells["IDP"].Value);
                         decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
                         decimal subtotal = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
-                        int cantidad = Convert.ToDecimal(row.Cells["cantidadP"].Value);
+                        decimal cantidad = Convert.ToDecimal(row.Cells["cantidadP"].Value);
                         decimal Ganancia = Math.Round(subtotal - (preciocompra * cantidad));
 
                         //Tabla detalles ventas
