@@ -75,7 +75,7 @@
             // 
             this.btnC.FlatAppearance.BorderSize = 0;
             this.btnC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnC.Font = new System.Drawing.Font("Open Sans Semibold", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnC.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnC.ForeColor = System.Drawing.Color.Red;
             this.btnC.Location = new System.Drawing.Point(662, 19);
             this.btnC.Margin = new System.Windows.Forms.Padding(4);
@@ -142,7 +142,7 @@
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Open Sans", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_dinero_241;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -235,12 +235,12 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(941, 364);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(150, 25);
+            this.dateTimePicker1.Size = new System.Drawing.Size(150, 22);
             this.dateTimePicker1.TabIndex = 18;
             // 
             // frmPagar
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
             this.ClientSize = new System.Drawing.Size(732, 223);
@@ -249,7 +249,7 @@
             this.Controls.Add(this.txtId);
             this.Controls.Add(this.gbPagar);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Open Sans", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmPagar";

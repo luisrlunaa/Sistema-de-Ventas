@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
@@ -729,7 +730,7 @@ namespace Capa_de_Presentacion
                 // especificamos en que fila se mostrará cada registro
 
                 dataGridView3.Rows[renglon].Cells["PrecioOfProducts"].Value = dr.GetDecimal(dr.GetOrdinal("PrecioOfProducts")).ToString();
-                dataGridView3.Rows[renglon].Cells["CantidadOfProducts"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("CantidadOfProducts")));
+                dataGridView3.Rows[renglon].Cells["CantidadOfProducts"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("CantidadOfProducts")));
                 dataGridView3.Rows[renglon].Cells["CategoryOfProducts"].Value = dr.GetString(dr.GetOrdinal("CategoryOfProducts"));
 
                 total += dr.GetDecimal(dr.GetOrdinal("PrecioOfProducts"));
@@ -1030,7 +1031,10 @@ namespace Capa_de_Presentacion
             {
                 txtBuscarid.Enabled = false;
             }
+        }
 
+        private void chknombre_CheckedChanged(object sender, EventArgs e)
+        {
             if (chkid.Checked == false && chknombre.Checked)
             {
                 txtBuscarid.Enabled = true;
@@ -1041,29 +1045,14 @@ namespace Capa_de_Presentacion
                 txtBuscarid.Enabled = false;
             }
         }
-
-        private void chknombre_CheckedChanged(object sender, EventArgs e)
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void frmListadoVentas_MouseDown(object sender, MouseEventArgs e)
         {
-            if (chkid.Checked && chknombre.Checked == false)
-            {
-                txtBuscarid.Enabled = true;
-                txtBuscarid.Text = "";
-            }
-            else
-            {
-                txtBuscarid.Enabled = false;
-            }
-
-            if (chkid.Checked == false && chknombre.Checked)
-            {
-                txtBuscarid.Enabled = true;
-                txtBuscarid.Text = "";
-            }
-            else
-            {
-                txtBuscarid.Enabled = false;
-            }
-
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }

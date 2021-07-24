@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
@@ -590,7 +591,7 @@ namespace Capa_de_Presentacion
                 con.ConnectionString = cadenaconexion;
                 comando.Connection = con;
                 //declaramos el comando para realizar la busqueda
-                comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where IdCategoria=" + id.Text+ "ORDER BY IdProducto";
+                comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where IdCategoria=" + id.Text + "ORDER BY IdProducto";
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
@@ -924,7 +925,7 @@ namespace Capa_de_Presentacion
                 compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
                 ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
 
-                montoTotalenInventario= montoTotalenInventario+ Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
+                montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
 
                 total = ventas - compras;
                 txttotalG.Text = Convert.ToString(total);
@@ -1103,6 +1104,20 @@ namespace Capa_de_Presentacion
         {
             Program.abiertosecundarias = false;
             Program.abierto = false;
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void FrmListadoProductos_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }

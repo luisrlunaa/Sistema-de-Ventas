@@ -48,11 +48,12 @@ namespace Capa_de_Presentacion
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Black", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label6.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Red;
             this.label6.Location = new System.Drawing.Point(520, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(23, 24);
+            this.label6.Size = new System.Drawing.Size(24, 25);
             this.label6.TabIndex = 88;
             this.label6.Text = "X";
             this.label6.Click += new System.EventHandler(this.label6_Click);

@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
@@ -846,7 +847,7 @@ namespace Capa_de_Presentacion
             Program.NCF = "";
             txtNCF.Clear();
             lst.Clear();
-            txtIgv.Text = ""; 
+            txtIgv.Text = "";
             txtdireccion.Text = "";
             Program.Direccion = "";
             Program.realizopago = false;
@@ -1359,6 +1360,15 @@ namespace Capa_de_Presentacion
                 txtNCF.Text = "Sin NCF";
                 combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
             }
+        }
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void FrmRegistroVentas_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }
