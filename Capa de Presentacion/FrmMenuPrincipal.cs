@@ -14,7 +14,7 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        Correo c = new Correo();
+        //Correo c = new Correo();
         clsCx Cx = new clsCx();
         clsUsuarios U = new clsUsuarios();
         private void FrmMenuPrincipal_Activated(object sender, EventArgs e)

@@ -7,13 +7,21 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
 {
     public partial class FrmRegistroVentas : DevComponents.DotNetBar.Metro.MetroForm
     {
+        public class PrecioCompraProducto
+        {
+            public int ID;
+            public decimal Precio;
+        }
+
         private List<clsVenta> lst = new List<clsVenta>();
+        private List<PrecioCompraProducto> listProducts = new List<PrecioCompraProducto>();
         clsCx Cx = new clsCx();
         public FrmRegistroVentas()
         {
@@ -22,13 +30,13 @@ namespace Capa_de_Presentacion
         private void FrmVentas_Load(object sender, EventArgs e)
         {
             txtidCli.Text = null;
+            listProducts.Clear();
             txtdireccion.Text = "";
             Program.IdCliente = 0;
             cbidentificacion.Checked = false;
             txtrcnClient.Text = "sin rcn del Cliente";
             txtid.Text = "0";
             chkComprobante.Checked = false;
-
             if (cbidentificacion.Checked == true)
             {
                 btnBuscar.Show();
@@ -42,15 +50,17 @@ namespace Capa_de_Presentacion
 
             if (Program.CargoEmpleadoLogueado != "Administrador")
             {
+                txtPVenta.Enabled = false;
                 txtIgv.Enabled = false;
             }
-
             txtrcnClient.Hide();
             lblrcnClient.Hide();
+            txtid.Text = "0";
+            Program.ReImpresion = "";
             Program.datoscliente = "";
             Program.realizopago = false;
             actualzarestadoscomprobantes();
-            llenar_data_ncf();
+            //llenar_data_ncf();
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
             btnRegistrarVenta.Hide();
@@ -218,7 +228,7 @@ namespace Capa_de_Presentacion
         {
             if (Program.IdCliente != 0)
             {
-                txtDatos.Text = Program.ApellidosCliente + " " + Program.NombreCliente;
+                txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
                 txtidCli.Text = Program.IdCliente + "";
                 txtDocIdentidad.Text = Program.DocumentoIdentidad;
             }
@@ -274,11 +284,16 @@ namespace Capa_de_Presentacion
                 btnSalir.Visible = true;
             }
 
-            if (Program.Esabono != "" && Program.Esabono != null)
+            if (Program.Esabono != "" && Program.Esabono != null && Program.tipo.ToLower() == "credito")
             {
                 activar = true;
                 btnImprimir.Visible = false;
                 btnSalir.Visible = true;
+
+                lblabono.Visible = true;
+                lbltituloabono.Visible = true;
+                var fecha = Convert.ToDateTime(Program.ultimafechapago);
+                lblabono.Text = fecha.Day + "/" + fecha.Month + "/" + fecha.Year;
             }
             else if (Program.Id == 0)
             {
@@ -307,6 +322,9 @@ namespace Capa_de_Presentacion
                 txtidEmp.Text = Program.IdEmpleado + "";
                 dateTimePicker1.Text = Program.fecha;
 
+                decimal subtotal = 0;
+                decimal igv = 0;
+
                 //declaramos la cadena  de conexion
                 string cadenaconexion = Cx.conet;
                 //variable de tipo Sqlconnection
@@ -333,6 +351,7 @@ namespace Capa_de_Presentacion
                     int renglon = dgvVenta.Rows.Add();
                     // especificamos en que fila se mostrará cada registro
                     // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+
                     string idVenta = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
                     if (idVenta == txtIdV.Text)
                     {
@@ -343,9 +362,17 @@ namespace Capa_de_Presentacion
                         dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
                         dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                         dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+
+                        subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
+                        igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
                     }
                 }
+
+                Program.ST = subtotal;
+                Program.igv = igv;
+
                 con.Close();
+
                 buscaridcaja();
             }
         }
@@ -367,6 +394,7 @@ namespace Capa_de_Presentacion
 
             Cx.conexion.Close();
         }
+
         private void btnBusquedaProducto_Click(object sender, EventArgs e)
         {
             if (Program.abiertosecundarias == false)
@@ -379,9 +407,10 @@ namespace Capa_de_Presentacion
             }
         }
 
-        private void agregarproductoGrid()
+        private void btnAgregar_Click(object sender, EventArgs e)
         {
             clsVenta V = new clsVenta();
+            PrecioCompraProducto PCP = new PrecioCompraProducto();
 
             if (txtDescripcion.Text.Trim() != "")
             {
@@ -400,12 +429,17 @@ namespace Capa_de_Presentacion
                             {
                                 V.Igv = Convert.ToDecimal(txtIgv.Text);
                             }
-
+                            V.PrecioCompra = Program.PrecioCompra;
                             V.PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
 
                             V.SubTotal = Math.Round((Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text)) * Convert.ToDecimal(txtCantidad.Text), 2);
                             btnAgregar.Visible = false;
                             lst.Add(V);
+
+                            PCP.ID = Convert.ToInt32(txtIdProducto.Text);
+                            PCP.Precio = Program.PrecioCompra;
+                            listProducts.Add(PCP);
+
                             LlenarGri();
 
                             if (cbidentificacion.Checked == false && txtDatos.Text != "" && Program.IdCliente == 0)
@@ -440,43 +474,6 @@ namespace Capa_de_Presentacion
             }
         }
 
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            if (Program.CargoEmpleadoLogueado != "Administrador")
-            {
-                var precioventa = Convert.ToDecimal(txtPVenta.Text);
-                var preciominimo = Convert.ToDecimal(txtpmax.Text);
-                var preciomaximo = Convert.ToDecimal(txtpmin.Text);
-
-                if (preciominimo > 0 && preciomaximo > 0)
-                {
-                    if (precioventa < preciomaximo)
-                    {
-                        if (precioventa > preciominimo)
-                        {
-                            agregarproductoGrid();
-                        }
-                        else
-                        {
-                            MessageBox.Show("El precio minimo de Venta de este Producto es: " + preciominimo);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("El precio maximo de Venta de este Producto es: " + preciomaximo);
-                    }
-                }
-                else
-                {
-                    agregarproductoGrid();
-                }
-            }
-            else
-            {
-                agregarproductoGrid();
-            }
-
-        }
         private void LlenarGri()
         {
             Decimal SumaSubTotal = 0; Decimal SumaIgv = 0; Decimal SumaTotal = 0;
@@ -492,7 +489,7 @@ namespace Capa_de_Presentacion
                 dgvVenta.Rows[i].Cells["SubtoTal"].Value = lst[i].SubTotal;
                 dgvVenta.Rows[i].Cells["IDP"].Value = lst[i].IdProducto;
                 var preciounidad = Convert.ToDecimal(dgvVenta.Rows[i].Cells["PrecioU"].Value);
-                var cantidad = Convert.ToInt32(dgvVenta.Rows[i].Cells["cantidadP"].Value);
+                var cantidad = Convert.ToDecimal(dgvVenta.Rows[i].Cells["cantidadP"].Value);
                 var igv = Convert.ToDecimal(dgvVenta.Rows[i].Cells["IGV"].Value);
 
                 SumaSubTotal += preciounidad * cantidad;
@@ -507,6 +504,7 @@ namespace Capa_de_Presentacion
                 Program.igv = Convert.ToDecimal(lbligv.Text);
                 Program.ST = Convert.ToDecimal(lblsubt.Text);
                 Program.total = Convert.ToDecimal(txttotal.Text);
+                Program.PrecioCompra = 0;
             }
         }
         private void Limpiar()
@@ -529,7 +527,7 @@ namespace Capa_de_Presentacion
         }
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            if (chkComprobante.Checked == false && txtNCF.Text != "")
+            if (chkComprobante.Checked == false && !string.IsNullOrEmpty(txtNCF.Text))
             {
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea Agregar Comprobantes a la Factura?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
@@ -540,6 +538,7 @@ namespace Capa_de_Presentacion
                     chkComprobante.Checked = false;
                     txtNCF.Text = "Sin NCF";
                     combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                    txtid.Text = "0";
                 }
             }
 
@@ -547,10 +546,9 @@ namespace Capa_de_Presentacion
             {
                 txtdireccion.Text = "Entregado en el establecimiento";
             }
-
             if (cbidentificacion.Checked == false && Program.IdCliente == 0)
             {
-                Program.datoscliente = txtDatos.Text;
+                txtDatos.Text = Program.datoscliente;
                 txtDocIdentidad.Text = "Sin Identificación";
             }
 
@@ -560,6 +558,8 @@ namespace Capa_de_Presentacion
             Program.ST = Convert.ToDecimal(lblsubt.Text);
             Program.Direccion = txtdireccion.Text;
             pa.txtmonto.Text = txttotal.Text;
+            pa.gbAbrir.Visible = false;
+            pa.btnCerrar.Visible = false;
             pa.Show();
 
             Program.tipo = cbtipofactura.Text;
@@ -567,6 +567,7 @@ namespace Capa_de_Presentacion
         private void btnEliminarItem_Click(object sender, EventArgs e)
         {
             List<clsVenta> lista = new List<clsVenta>();
+            List<PrecioCompraProducto> listapreciocompra = new List<PrecioCompraProducto>();
             Program.IdProducto = Convert.ToInt32(dgvVenta.CurrentRow.Cells["IDP"].Value.ToString());
             if (Program.IdProducto > 0)
             {
@@ -597,6 +598,19 @@ namespace Capa_de_Presentacion
                     lblsubt.Text = Convert.ToString(SumaSubTotal);
                     lst = lista;
                 }
+
+                foreach (var item in listProducts)
+                {
+                    if (item.ID != Program.IdProducto)
+                    {
+                        listapreciocompra.Add(item);
+                    }
+                    else
+                    {
+                        listapreciocompra.Remove(item);
+                    }
+                }
+
                 btnEliminarItem.Enabled = false;
                 dgvVenta.Rows.RemoveAt(dgvVenta.SelectedRows[0].Index);
             }
@@ -629,6 +643,7 @@ namespace Capa_de_Presentacion
                     if (Program.IdCliente != 0)
                     {
                         cmd.Parameters.Add("@IdCliente", SqlDbType.Int).Value = Convert.ToInt32(txtidCli.Text);
+                        cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
                     }
                     else
                     {
@@ -666,6 +681,11 @@ namespace Capa_de_Presentacion
                     foreach (DataGridViewRow row in dgvVenta.Rows)
                     {
                         cmd1.CommandType = CommandType.StoredProcedure;
+                        int idProducto = Convert.ToInt32(row.Cells["IDP"].Value);
+                        decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
+                        decimal subtotal = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
+                        int cantidad = Convert.ToDecimal(row.Cells["cantidadP"].Value);
+                        decimal Ganancia = Math.Round(subtotal - (preciocompra * cantidad));
 
                         //Tabla detalles ventas
                         cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IdD"].Value);
@@ -673,9 +693,9 @@ namespace Capa_de_Presentacion
                         cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
                         cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
                         cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
-                        cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IDP"].Value);
+                        cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
                         cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
-
+                        cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
                         con.Open();
                         cmd1.ExecuteNonQuery();
                         cmd1.Parameters.Clear();
@@ -705,8 +725,8 @@ namespace Capa_de_Presentacion
                     cmd2.CommandType = CommandType.StoredProcedure;
 
                     //Tabla de pago
-                    cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
                     cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
+                    cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
                     cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
                     cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
                     cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
@@ -765,7 +785,7 @@ namespace Capa_de_Presentacion
                                 cmd.ExecuteNonQuery();
                                 con.Close();
 
-                                llenar_data_ncf();
+                                //llenar_data_ncf();
                                 buscarid();
                             }
                         }
@@ -826,14 +846,18 @@ namespace Capa_de_Presentacion
             Program.rncClient = "";
             Program.NroComprobante = "";
             Program.NCF = "";
-            txtrcnClient.Text = "sin rcn del Cliente";
             txtNCF.Clear();
             lst.Clear();
-            txtIgv.Text = "";
+            txtIgv.Text = ""; 
             txtdireccion.Text = "";
             Program.Direccion = "";
             Program.realizopago = false;
+            Program.ReImpresion = "";
             Program.datoscliente = "";
+            lblabono.Visible = false;
+            lbltituloabono.Visible = false;
+            lblabono.Text = null;
+            listProducts.Clear();
         }
 
         public void tickEstilo()
@@ -843,11 +867,13 @@ namespace Capa_de_Presentacion
             CrearTiket ticket = new CrearTiket();
 
             //cabecera del ticket.
-            if (Program.ReImpresion != null)
+            if (Program.ReImpresion != "")
             {
                 ticket.TextoDerecha(Program.ReImpresion);
             }
 
+            //System.Drawing.Image img = System.Drawing.Image.FromFile("LogoCepeda.png");
+            //ticket.HeaderImage = img;
             ticket.TextoCentro(lblLogo.Text);
             ticket.TextoIzquierda("");
             ticket.TextoIzquierda(lblDir.Text);
@@ -881,7 +907,11 @@ namespace Capa_de_Presentacion
                 ticket.TextoIzquierda("RNC Cliente: " + txtrcnClient.Text);
             }
             ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Value.Day + "/" + dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year);
-            ticket.TextoIzquierda("Hora: " + DateTime.Now.ToShortTimeString());
+
+            if (cbtipofactura.Text.ToLower() == "credito" && Program.Esabono == "Es Abono")
+            {
+                ticket.TextoIzquierda("Fecha Abono: " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year);
+            }
 
             //ARTICULOS A VENDER.
             ticket.EncabezadoVenta();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
@@ -894,14 +924,15 @@ namespace Capa_de_Presentacion
             }
             ticket.TextoIzquierda(" ");
             //resumen de la venta
-            ticket.AgregarTotales("SUBTOTAL : ", decimal.Parse(lblsubt.Text));
-            ticket.AgregarTotales("ITBIS : ", decimal.Parse(lbligv.Text));
-            ticket.AgregarTotales("TOTAL : ", decimal.Parse(txttotal.Text));
-            if(cbtipofactura.Text.ToLower()=="credito")
+            ticket.AgregarTotales("SUB-TOTAL    : ", decimal.Parse(lblsubt.Text));
+            ticket.AgregarTotales("ITBIS     : ", decimal.Parse(lbligv.Text));
+            ticket.AgregarTotales("TOTAL A PAGAR    : ", decimal.Parse(txttotal.Text));
+
+            if (cbtipofactura.Text.ToLower() == "credito")
             {
                 ticket.AgregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
             }
-           
+
             ticket.TextoIzquierda(" ");
             ticket.TextoCentro("__________________________________");
 
@@ -934,7 +965,8 @@ namespace Capa_de_Presentacion
             {
                 frmListadoVentas F = new frmListadoVentas();
                 F.btnCancelar.Visible = false;
-                Program.abiertosecundarias = true;
+                Program.abiertosecundarias = false;
+                Program.abierto = false;
                 F.Show();
             }
         }
@@ -1022,11 +1054,13 @@ namespace Capa_de_Presentacion
             Program.pagoRealizado = 0;
             Limpiar();
             Limpiar1();
+
             if (Program.CargoEmpleadoLogueado != "Administrador")
             {
                 txtPVenta.Enabled = false;
                 txtIgv.Enabled = false;
             }
+
             this.Close();
         }
 
@@ -1117,6 +1151,11 @@ namespace Capa_de_Presentacion
                     doc.Add(RNC);
 
                     doc.Add(new Paragraph(" "));
+                    if (cbtipofactura.Text.ToLower() == "credito" && Program.Esabono == "Es Abono")
+                    {
+                        var fechaabono = new Paragraph("Fecha Abono: " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+                        doc.Add(fechaabono);
+                    }
                     doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Tipo de Factura: " + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Tipo de Comprobante: " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
@@ -1142,21 +1181,36 @@ namespace Capa_de_Presentacion
                             }
                         }
                     }
-                    doc.Add(new Paragraph("Total de SubTotal : " + lblsubt.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Total de ITBIS : " + lbligv.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Total de Ventas : " + txttotal.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    if(cbtipofactura.Text.ToLower()=="credito")
+
+                    decimal Sub = Convert.ToDecimal(lblsubt.Text);
+                    decimal ITBIS = Convert.ToDecimal(lbligv.Text);
+                    decimal total = Convert.ToDecimal(txttotal.Text);
+
+                    doc.Add(new Paragraph("Sub-Total   : " + Sub.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("ITBIS   : " + ITBIS.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Total a Pagar   : " + total.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+
+                    if (cbtipofactura.Text.ToLower() == "credito")
                     {
-                        doc.Add(new Paragraph("Total de Restante : " + restante.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Total de Restante : " + restante.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
-                    
+
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("_________________________" + "                                                                                                                                                 " + "_________________________", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("      Facturado Por      " + "                                                                                                                                                                         " + "     Recibido Por  ", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("                       "));
-                    doc.Add(new Paragraph("Nota: Los productos con garantia pierden su garantia si deja perder la factura.", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
-                    doc.Add(new Paragraph("FAVOR REVISE SU MERCANCIA AL RECIBIRLA", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
-                    doc.Add(new Paragraph("!GRACIAS POR SU COMPRA!", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED)));
+
+                    var Nota = new Paragraph("Nota: Los productos con garantia pierden su garantia si deja perder la factura.", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED));
+                    Nota.Alignment = Element.ALIGN_RIGHT;
+                    var favor = new Paragraph("FAVOR REVISE SU MERCANCIA AL RECIBIRLA", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED));
+                    favor.Alignment = Element.ALIGN_RIGHT;
+                    var gracias = new Paragraph("!GRACIAS POR SU COMPRA!", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED));
+                    gracias.Alignment = Element.ALIGN_RIGHT;
+
+                    doc.Add(Nota);
+                    doc.Add(favor);
+                    doc.Add(gracias);
+
                     doc.Close();
                     Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
                 }

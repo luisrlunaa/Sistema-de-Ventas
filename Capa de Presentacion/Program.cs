@@ -38,6 +38,7 @@ namespace Capa_de_Presentacion
         public static string modelo;
         public static string Aros;
         public static decimal precio;
+        public static decimal PrecioCompra;
         public static decimal pago;
         public static decimal total;
         public static decimal ST;
@@ -61,6 +62,7 @@ namespace Capa_de_Presentacion
         public static decimal Pmax;
         public static decimal Pmin;
         public static string tipogoma;
+        public static string ultimafechapago;
 
         //Datos del Empleado
         public static int IdCargo;
