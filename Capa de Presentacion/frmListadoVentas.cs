@@ -2,6 +2,7 @@
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -26,7 +27,7 @@ namespace Capa_de_Presentacion
             txtBuscarid.Enabled = false;
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
-            llenarganancia(DateTime.MinValue, DateTime.MinValue);
+            llenarganancia();
             //repetitivo();
             llenar_data("");
             //llenar_data_V();
@@ -75,6 +76,7 @@ namespace Capa_de_Presentacion
         }
         public void llenar_data(string id)
         {
+            idsVentas = new List<int>();
             decimal total = 0;
             //declaramos la cadena  de conexion
             string cadenaconexion = Cx.conet;
@@ -133,7 +135,11 @@ namespace Capa_de_Presentacion
 
                 total += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("total")));
                 txtTtal.Text = Math.Round(total, 2).ToString("C2");
+
+                idsVentas.Add(dr.GetInt32(dr.GetOrdinal("IdVenta")));
             }
+
+            llenarganancia();
             con.Close();
         }
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -162,39 +168,32 @@ namespace Capa_de_Presentacion
             }
             Cx.conexion.Close();
         }
-        public void llenarganancia(DateTime fecha1, DateTime fecha2)
+        public void llenarganancia()
         {
-            string cadSql = "";
-            bool confecha = false;
-            if ((fecha1 != DateTime.MinValue && fecha2 != DateTime.MinValue) && (fecha2.Date != DateTime.Today || fecha1.Date != DateTime.Today))
+            if(idsVentas is null)
             {
-                cadSql = "select Sum(GananciaVenta) as ganancia from DetalleVenta inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta where Venta.FechaVenta " +
-                    "BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103)";
-                confecha = true;
-            }
-            else
-            {
-                cadSql = "select Sum(GananciaVenta) as ganancia from DetalleVenta";
+                idsVentas = new List<int>();
             }
 
-
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            if (confecha)
+            decimal ganancia = 0;
+            foreach(var item in idsVentas)
             {
-                comando.Parameters.AddWithValue("@fecha1", fecha1);
-                comando.Parameters.AddWithValue("@fecha2", fecha2);
-                comando.CommandType = CommandType.Text;
+                string cadSql = "select Sum(GananciaVenta) as ganancia from DetalleVenta where DetalleVenta.IdVenta=" +item+ "group by DetalleVenta.IdVenta";
+
+                SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+
+                Cx.conexion.Open();
+
+                SqlDataReader leer = comando.ExecuteReader();
+
+                if (leer.Read() == true)
+                {
+                    ganancia+=(Convert.ToDecimal(leer["ganancia"]));
+                }
+                Cx.conexion.Close();
             }
 
-            Cx.conexion.Open();
-
-            SqlDataReader leer = comando.ExecuteReader();
-
-            if (leer.Read() == true)
-            {
-                txtGanancias.Text = (Convert.ToDecimal(leer["ganancia"])).ToString("C2");
-            }
-            Cx.conexion.Close();
+            txtGanancias.Text = ganancia.ToString("C2");
         }
         public void seleccion_data()
         {
@@ -468,8 +467,12 @@ namespace Capa_de_Presentacion
             }
             return values;
         }
+
+        public List<int> idsVentas { get; set; }
+
         private void button1_Click(object sender, EventArgs e)
         {
+            idsVentas = new List<int>();
             decimal total = 0; decimal totalpendiente = 0;
             //declaramos la cadena  de conexion
             string cadenaconexion = Cx.conet;
@@ -632,11 +635,17 @@ namespace Capa_de_Presentacion
                 {
                     label7.Visible = false;
                     txttotalpendiente.Visible = false;
+
+                    if (idanterior != idVentaactual)
+                    {
+                        idanterior = idVentaactual;
+                        idsVentas.Add(idVentaactual);
+                    }
                 }
             }
 
             dataGridView3.ClearSelection();
-            llenarganancia(dtpfecha1.Value, dtpfecha2.Value);
+            llenarganancia();
             gridforcategoryandquantity(dtpfecha1.Value, dtpfecha2.Value);
             con.Close();
         }

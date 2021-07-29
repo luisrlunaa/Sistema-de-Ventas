@@ -849,6 +849,7 @@ namespace Capa_de_Presentacion
             Program.IdCliente = 0;
             txtIdProducto.Clear();
             Program.pagoRealizado = 0;
+            Program.PrecioCompra = 0;
             Program.DocumentoIdentidad = "";
             Program.ApellidosCliente = "";
             Program.NombreCliente = "";

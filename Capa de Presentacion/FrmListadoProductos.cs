@@ -313,6 +313,7 @@ namespace Capa_de_Presentacion
             Program.tipo = dataGridView1.CurrentRow.Cells["tipoGOma"].Value.ToString();
             Program.Pmax = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Pmax"].Value.ToString());
             Program.Pmin = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Pmin"].Value.ToString());
+            Program.PrecioCompra = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Nombres"].Value.ToString());
             this.Close();
         }
         private void label2_Click(object sender, EventArgs e)
