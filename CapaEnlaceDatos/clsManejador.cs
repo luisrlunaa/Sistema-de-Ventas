@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Data;
 using System.Data.SqlClient;
 
@@ -8,7 +7,7 @@ namespace CapaEnlaceDatos
 {
     public class clsManejador
     {
-        public SqlConnection conexion = new SqlConnection(@"Data Source=DESKTOP-9KOT2KP\SQLEXPRESS;Initial Catalog=SalesSystemCelular;Integrated Security=True");
+        public SqlConnection conexion = new SqlConnection("Data Source=.;Initial Catalog=SalesSystem;Integrated Security=True");
         public void Conectar()
         {
             if (conexion.State == ConnectionState.Closed)
