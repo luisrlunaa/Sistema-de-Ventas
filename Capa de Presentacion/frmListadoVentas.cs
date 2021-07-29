@@ -765,7 +765,7 @@ namespace Capa_de_Presentacion
 
                         decimal cantidadDV = Convert.ToDecimal(data[0]);
                         int idProductoDV = Convert.ToInt32(data[1]);
-                        string tipofacturaDV = data[2].ToString();
+                        string tipofacturaDV = data[2].ToString().ToLower();
                         decimal subtotalDV = Convert.ToDecimal(data[3]);
                         int idcajaDV = Convert.ToInt32(data[4]);
                         decimal restanteDV = Convert.ToDecimal(data[5]);
@@ -817,8 +817,9 @@ namespace Capa_de_Presentacion
 
                             decimal caja = 0, monto = 0, montoingresos = 0;
                             string sql1 = "select * FROM pagos where idVenta=" + Program.Id;
+                            Cx.conexion.Open();
                             SqlCommand cmd2 = new SqlCommand(sql1, Cx.conexion);
-                            SqlDataReader reade = cmd1.ExecuteReader();
+                            SqlDataReader reade = cmd2.ExecuteReader();
                             if (reade.Read())
                             {
                                 caja = Convert.ToInt32(reade["id_caja"]);
@@ -838,6 +839,7 @@ namespace Capa_de_Presentacion
                                     monto = ingresos - egresos;
                                 }
                             }
+                            Cx.conexion.Close();
 
                             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar esta Venta?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                             {
@@ -849,6 +851,7 @@ namespace Capa_de_Presentacion
                                     cmd.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = montoingresos;
                                     cmd.Parameters.Add("@idCaja", SqlDbType.Int).Value = caja;
                                     cmd.Parameters.Add("@tipoFactura", SqlDbType.NVarChar).Value = Program.tipo;
+                                    
                                     Cx.conexion.Open();
                                     cmd.ExecuteNonQuery();
                                     Cx.conexion.Close();
