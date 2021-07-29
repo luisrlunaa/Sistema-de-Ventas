@@ -45,11 +45,11 @@ namespace Capa_de_Presentacion
                 txtDatos.ReadOnly = false;
             }
 
-            if (Program.CargoEmpleadoLogueado != "Administrador")
-            {
-                txtPVenta.Enabled = false;
-                txtIgv.Enabled = false;
-            }
+            //if (Program.CargoEmpleadoLogueado != "Administrador")
+            //{
+            //    txtPVenta.Enabled = false;
+            //    txtIgv.Enabled = false;
+            //}
 
             txtid.Text = "0";
             Program.ReImpresion = "";
@@ -1080,11 +1080,11 @@ namespace Capa_de_Presentacion
             Limpiar();
             Limpiar1();
 
-            if (Program.CargoEmpleadoLogueado != "Administrador")
-            {
-                txtPVenta.Enabled = false;
-                txtIgv.Enabled = false;
-            }
+            //if (Program.CargoEmpleadoLogueado != "Administrador")
+            //{
+            //    txtPVenta.Enabled = false;
+            //    txtIgv.Enabled = false;
+            //}
 
             this.Close();
         }
