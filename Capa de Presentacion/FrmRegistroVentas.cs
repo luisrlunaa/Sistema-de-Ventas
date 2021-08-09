@@ -225,81 +225,75 @@ namespace Capa_de_Presentacion
         bool entro = false;
         private void FrmVentas_Activated(object sender, EventArgs e)
         {
-            if (Program.realizopago == true)
+            if (Program.IdCliente != 0)
             {
+                txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
+                txtidCli.Text = Program.IdCliente + "";
+                txtDocIdentidad.Text = Program.DocumentoIdentidad;
+            }
+            else
+            {
+                if (txtDatos.Text != null && txtDatos.Text != "")
+                {
+                    Program.datoscliente = txtDatos.Text;
+
+                }
+                if (Program.datoscliente != null && Program.datoscliente != "")
+                {
+                    txtDatos.Text = Program.datoscliente;
+                }
+            }
+
+            txtIdProducto.Text = Program.IdProducto + "";
+            txtDescripcion.Text = Program.Descripcion;
+            txtMarca.Text = Program.Marca;
+            txtStock.Text = Program.Stock + "";
+            txtPVenta.Text = Program.PrecioVenta + "";
+            txtIgv.Text = Program.itbis + "";
+            txtIdV.Text = Program.Id + "";
+            txttotal.Text = Program.total + "";
+            lblsubt.Text = Program.ST + "";
+            lbligv.Text = Program.igv + "";
+
+            if (Program.Esabono != "" && Program.Esabono != null && Program.pagoRealizado >= 0 && Program.realizopago == true)
+            {
+                button2.Visible = true;
                 btnSalir.Visible = false;
-                btnRegistrarVenta.Show();
+            }
+            else if (Program.pagoRealizado >= 0 && Program.realizopago == true)
+            {
+                btnRegistrarVenta.Visible = true;
+                btnSalir.Visible = false;
+            }
+            else
+            {
+                btnRegistrarVenta.Visible = false;
+                btnSalir.Visible = true;
+            }
+
+            if (Program.Esabono != "" && Program.Esabono != null && Program.tipo.ToLower() == "credito")
+            {
+                activar = true;
+                btnImprimir.Visible = false;
+                btnSalir.Visible = true;
+
+                lblabono.Visible = true;
+                lbltituloabono.Visible = true;
+                var fecha = Convert.ToDateTime(Program.ultimafechapago);
+                lblabono.Text = fecha.Day + "/" + fecha.Month + "/" + fecha.Year;
+            }
+            else if (Program.Id == 0)
+            {
+                activar = false;
+            }
+            else
+            {
+                activar = true;
+                btnImprimir.Visible = true;
             }
 
             if (Program.whoCallme == "Ventas")
             {
-                if (Program.IdCliente != 0)
-                {
-                    txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
-                    txtidCli.Text = Program.IdCliente + "";
-                    txtDocIdentidad.Text = Program.DocumentoIdentidad;
-                }
-                else
-                {
-                    if (txtDatos.Text != null && txtDatos.Text != "")
-                    {
-                        Program.datoscliente = txtDatos.Text;
-
-                    }
-                    if (Program.datoscliente != null && Program.datoscliente != "")
-                    {
-                        txtDatos.Text = Program.datoscliente;
-                    }
-                }
-
-                txtIdProducto.Text = Program.IdProducto + "";
-                txtDescripcion.Text = Program.Descripcion;
-                txtMarca.Text = Program.Marca;
-                txtStock.Text = Program.Stock + "";
-                txtPVenta.Text = Program.PrecioVenta + "";
-                txtIgv.Text = Program.itbis + "";
-                txtIdV.Text = Program.Id + "";
-                txttotal.Text = Program.total + "";
-                lblsubt.Text = Program.ST + "";
-                lbligv.Text = Program.igv + "";
-
-                if (Program.Esabono != "" && Program.Esabono != null && Program.pagoRealizado >= 0 && Program.realizopago == true)
-                {
-                    button2.Visible = true;
-                    btnSalir.Visible = false;
-                }
-                else if (Program.pagoRealizado >= 0 && Program.realizopago == true)
-                {
-                    btnRegistrarVenta.Visible = true;
-                    btnSalir.Visible = false;
-                }
-                else
-                {
-                    btnRegistrarVenta.Visible = false;
-                    btnSalir.Visible = true;
-                }
-
-                if (Program.Esabono != "" && Program.Esabono != null && Program.tipo.ToLower() == "credito")
-                {
-                    activar = true;
-                    btnImprimir.Visible = false;
-                    btnSalir.Visible = true;
-
-                    lblabono.Visible = true;
-                    lbltituloabono.Visible = true;
-                    var fecha = Convert.ToDateTime(Program.ultimafechapago);
-                    lblabono.Text = fecha.Day + "/" + fecha.Month + "/" + fecha.Year;
-                }
-                else if (Program.Id == 0)
-                {
-                    activar = false;
-                }
-                else
-                {
-                    activar = true;
-                    btnImprimir.Visible = true;
-                }
-
                 if (activar == true && entro == false)
                 {
                     entro = true;
@@ -369,43 +363,6 @@ namespace Capa_de_Presentacion
 
             if (Program.whoCallme == "Vender Cotizacion")
             {
-                if (Program.IdCliente != 0)
-                {
-                    txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
-                    txtidCli.Text = Program.IdCliente + "";
-                    txtDocIdentidad.Text = Program.DocumentoIdentidad;
-                }
-                else
-                {
-                    if (txtDatos.Text != null && txtDatos.Text != "")
-                    {
-                        Program.datoscliente = txtDatos.Text;
-                    }
-                    if (Program.datoscliente != null && Program.datoscliente != "")
-                    {
-                        txtDatos.Text = Program.datoscliente;
-                    }
-                }
-
-                txtIdProducto.Text = Program.IdProducto + "";
-                txtDescripcion.Text = Program.Descripcion;
-                txtMarca.Text = Program.Marca;
-                txtStock.Text = Program.Stock + "";
-                txtPVenta.Text = Program.PrecioVenta + "";
-                txtIgv.Text = Program.itbis + "";
-                txttotal.Text = Program.total + "";
-                lblsubt.Text = Program.ST + "";
-                lbligv.Text = Program.igv + "";
-
-                if (Program.Id == 0)
-                {
-                    activar = false;
-                }
-                else
-                {
-                    activar = true;
-                }
-
                 if (activar == true && entro == false)
                 {
                     entro = true;
