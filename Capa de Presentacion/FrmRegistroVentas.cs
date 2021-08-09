@@ -32,7 +32,6 @@ namespace Capa_de_Presentacion
         {
             txtidCli.Text = null;
             listProducts.Clear();
-            Program.IdCliente = 0;
             cbidentificacion.Checked = false;
             if (cbidentificacion.Checked == true)
             {
@@ -57,10 +56,8 @@ namespace Capa_de_Presentacion
             txtDivisor.Text = "1.18";
             txtPorcentaje.Text = "";
             Program.ReImpresion = "";
-            Program.datoscliente = "";
             Program.realizopago = false;
             actualzarestadoscomprobantes();
-            //llenar_data_ncf();
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
             btnRegistrarVenta.Hide();
@@ -220,143 +217,260 @@ namespace Capa_de_Presentacion
         private void btnBusqueda_Click(object sender, EventArgs e)
         {
             FrmListadoClientes C = new FrmListadoClientes();
+            Program.whoCallme = "Ventas";
             C.Show();
         }
 
         bool activar;
+        bool entro = false;
         private void FrmVentas_Activated(object sender, EventArgs e)
         {
-            if (Program.IdCliente != 0)
+            if (Program.realizopago == true)
             {
-                txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
-                txtidCli.Text = Program.IdCliente + "";
-                txtDocIdentidad.Text = Program.DocumentoIdentidad;
-            }
-            else
-            {
-                if (txtDatos.Text != null && txtDatos.Text != "")
-                {
-                    Program.datoscliente = txtDatos.Text;
-
-                }
-                if (Program.datoscliente != null && Program.datoscliente != "")
-                {
-                    txtDatos.Text = Program.datoscliente;
-                }
-            }
-
-            txtIdProducto.Text = Program.IdProducto + "";
-            txtDescripcion.Text = Program.Descripcion;
-            txtMarca.Text = Program.Marca;
-            txtStock.Text = Program.Stock + "";
-            txtPVenta.Text = Program.PrecioVenta + "";
-            txtIgv.Text = Program.itbis + "";
-            txtIdV.Text = Program.Id + "";
-            txttotal.Text = Program.total + "";
-            lblsubt.Text = Program.ST + "";
-            lbligv.Text = Program.igv + "";
-
-            if (Program.Esabono != "" && Program.Esabono != null && Program.pagoRealizado >= 0 && Program.realizopago == true)
-            {
-                button2.Visible = true;
                 btnSalir.Visible = false;
-            }
-            else if (Program.pagoRealizado >= 0 && Program.realizopago == true)
-            {
-                btnRegistrarVenta.Visible = true;
-                btnSalir.Visible = false;
-            }
-            else
-            {
-                btnRegistrarVenta.Visible = false;
-                btnSalir.Visible = true;
+                btnRegistrarVenta.Show();
             }
 
-            if (Program.Esabono != "" && Program.Esabono != null && Program.tipo.ToLower() == "credito")
+            if (Program.whoCallme == "Ventas")
             {
-                activar = true;
-                btnImprimir.Visible = false;
-                btnSalir.Visible = true;
-
-                lblabono.Visible = true;
-                lbltituloabono.Visible = true;
-                var fecha = Convert.ToDateTime(Program.ultimafechapago);
-                lblabono.Text = fecha.Day + "/" + fecha.Month + "/" + fecha.Year;
-            }
-            else if (Program.Id == 0)
-            {
-                activar = false;
-            }
-            else
-            {
-                activar = true;
-                btnImprimir.Visible = true;
-            }
-
-
-            if (activar == true)
-            {
-                cbtipofactura.Text = Program.tipo;
-                combo_tipo_NCF.Text = Program.NCF;
-                txtNCF.Text = Program.NroComprobante;
-                txttotal.Text = Program.total + "";
-                lblsubt.Text = Program.ST + "";
-                lbligv.Text = Program.igv + "";
-                txtidEmp.Text = Program.IdEmpleado + "";
-                dateTimePicker1.Text = Program.fecha;
-
-                decimal subtotal = 0;
-                decimal igv = 0;
-
-                //declaramos la cadena  de conexion
-                string cadenaconexion = Cx.conet;
-                //variable de tipo Sqlconnection
-                SqlConnection con = new SqlConnection();
-                //variable de tipo Sqlcommand
-                SqlCommand comando = new SqlCommand();
-                //variable SqlDataReader para leer los datos
-                SqlDataReader dr;
-                con.ConnectionString = cadenaconexion;
-                comando.Connection = con;
-                //declaramos el comando para realizar la busqueda
-                comando.CommandText = "SELECT * from DetalleVenta WHERE DetalleVenta.IdVenta ='" + txtIdV.Text + "'";
-                //especificamos que es de tipo Text
-                comando.CommandType = CommandType.Text;
-                //se abre la conexion
-                con.Open();
-                //limpiamos los renglones de la datagridview
-                dgvVenta.Rows.Clear();
-                //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-                dr = comando.ExecuteReader();
-                while (dr.Read())
+                if (Program.IdCliente != 0)
                 {
-                    //variable de tipo entero para ir enumerando los la filas del datagridview
-                    int renglon = dgvVenta.Rows.Add();
-                    // especificamos en que fila se mostrará cada registro
-                    // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
-                    string idVenta = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                    if (idVenta == txtIdV.Text)
+                    txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
+                    txtidCli.Text = Program.IdCliente + "";
+                    txtDocIdentidad.Text = Program.DocumentoIdentidad;
+                }
+                else
+                {
+                    if (txtDatos.Text != null && txtDatos.Text != "")
                     {
-                        dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                        dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                        dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
-                        dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
-                        dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
-                        dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                        dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+                        Program.datoscliente = txtDatos.Text;
 
-                        subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
-                        igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
+                    }
+                    if (Program.datoscliente != null && Program.datoscliente != "")
+                    {
+                        txtDatos.Text = Program.datoscliente;
                     }
                 }
 
-                Program.ST = subtotal;
-                Program.igv = igv;
+                txtIdProducto.Text = Program.IdProducto + "";
+                txtDescripcion.Text = Program.Descripcion;
+                txtMarca.Text = Program.Marca;
+                txtStock.Text = Program.Stock + "";
+                txtPVenta.Text = Program.PrecioVenta + "";
+                txtIgv.Text = Program.itbis + "";
+                txtIdV.Text = Program.Id + "";
+                txttotal.Text = Program.total + "";
+                lblsubt.Text = Program.ST + "";
+                lbligv.Text = Program.igv + "";
 
-                con.Close();
+                if (Program.Esabono != "" && Program.Esabono != null && Program.pagoRealizado >= 0 && Program.realizopago == true)
+                {
+                    button2.Visible = true;
+                    btnSalir.Visible = false;
+                }
+                else if (Program.pagoRealizado >= 0 && Program.realizopago == true)
+                {
+                    btnRegistrarVenta.Visible = true;
+                    btnSalir.Visible = false;
+                }
+                else
+                {
+                    btnRegistrarVenta.Visible = false;
+                    btnSalir.Visible = true;
+                }
 
-                buscaridcaja();
+                if (Program.Esabono != "" && Program.Esabono != null && Program.tipo.ToLower() == "credito")
+                {
+                    activar = true;
+                    btnImprimir.Visible = false;
+                    btnSalir.Visible = true;
+
+                    lblabono.Visible = true;
+                    lbltituloabono.Visible = true;
+                    var fecha = Convert.ToDateTime(Program.ultimafechapago);
+                    lblabono.Text = fecha.Day + "/" + fecha.Month + "/" + fecha.Year;
+                }
+                else if (Program.Id == 0)
+                {
+                    activar = false;
+                }
+                else
+                {
+                    activar = true;
+                    btnImprimir.Visible = true;
+                }
+
+                if (activar == true && entro == false)
+                {
+                    entro = true;
+                    cbtipofactura.Text = Program.tipo;
+                    combo_tipo_NCF.Text = Program.NCF;
+                    txtNCF.Text = Program.NroComprobante;
+                    txttotal.Text = Program.total + "";
+                    lblsubt.Text = Program.ST + "";
+                    lbligv.Text = Program.igv + "";
+                    txtidEmp.Text = Program.IdEmpleado + "";
+                    dateTimePicker1.Text = Program.fecha;
+
+                    decimal subtotal = 0;
+                    decimal igv = 0;
+
+                    //declaramos la cadena  de conexion
+                    string cadenaconexion = Cx.conet;
+                    //variable de tipo Sqlconnection
+                    SqlConnection con = new SqlConnection();
+                    //variable de tipo Sqlcommand
+                    SqlCommand comando = new SqlCommand();
+                    //variable SqlDataReader para leer los datos
+                    SqlDataReader dr;
+                    con.ConnectionString = cadenaconexion;
+                    comando.Connection = con;
+                    //declaramos el comando para realizar la busqueda
+                    comando.CommandText = "SELECT * from DetalleVenta WHERE DetalleVenta.IdVenta ='" + txtIdV.Text + "'";
+                    //especificamos que es de tipo Text
+                    comando.CommandType = CommandType.Text;
+                    //se abre la conexion
+                    con.Open();
+                    //limpiamos los renglones de la datagridview
+                    dgvVenta.Rows.Clear();
+                    //a la variable DataReader asignamos  el la variable de tipo SqlCommand
+                    dr = comando.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        //variable de tipo entero para ir enumerando los la filas del datagridview
+                        int renglon = dgvVenta.Rows.Add();
+                        // especificamos en que fila se mostrará cada registro
+                        // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+
+                        string idVenta = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
+                        if (idVenta == txtIdV.Text)
+                        {
+                            dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
+                            dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
+                            dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
+                            dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
+                            dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
+                            dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+
+                            subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                        }
+                    }
+
+                    Program.ST = subtotal;
+                    Program.igv = igv;
+
+                    con.Close();
+
+                    buscaridcaja();
+                }
+            }
+
+            if (Program.whoCallme == "Vender Cotizacion")
+            {
+                if (Program.IdCliente != 0)
+                {
+                    txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
+                    txtidCli.Text = Program.IdCliente + "";
+                    txtDocIdentidad.Text = Program.DocumentoIdentidad;
+                }
+                else
+                {
+                    if (txtDatos.Text != null && txtDatos.Text != "")
+                    {
+                        Program.datoscliente = txtDatos.Text;
+                    }
+                    if (Program.datoscliente != null && Program.datoscliente != "")
+                    {
+                        txtDatos.Text = Program.datoscliente;
+                    }
+                }
+
+                txtIdProducto.Text = Program.IdProducto + "";
+                txtDescripcion.Text = Program.Descripcion;
+                txtMarca.Text = Program.Marca;
+                txtStock.Text = Program.Stock + "";
+                txtPVenta.Text = Program.PrecioVenta + "";
+                txtIgv.Text = Program.itbis + "";
+                txttotal.Text = Program.total + "";
+                lblsubt.Text = Program.ST + "";
+                lbligv.Text = Program.igv + "";
+
+                if (Program.Id == 0)
+                {
+                    activar = false;
+                }
+                else
+                {
+                    activar = true;
+                }
+
+                if (activar == true && entro == false)
+                {
+                    entro = true;
+                    txtIdV.Text = Program.Id + "";
+                    txttotal.Text = Program.total + "";
+                    lblsubt.Text = Program.ST + "";
+                    lbligv.Text = Program.igv + "";
+                    txtidEmp.Text = Program.IdEmpleado + "";
+
+                    decimal subtotal = 0;
+                    decimal igv = 0;
+
+                    //declaramos la cadena  de conexion
+                    string cadenaconexion = Cx.conet;
+                    //variable de tipo Sqlconnection
+                    SqlConnection con = new SqlConnection();
+                    //variable de tipo Sqlcommand
+                    SqlCommand comando = new SqlCommand();
+                    //variable SqlDataReader para leer los datos
+                    SqlDataReader dr;
+                    con.ConnectionString = cadenaconexion;
+                    comando.Connection = con;
+                    //declaramos el comando para realizar la busqueda
+                    comando.CommandText = "SELECT * from DetalleCotizacion WHERE DetalleCotizacion.IdCotizacion ='" + txtIdV.Text + "'";
+                    //especificamos que es de tipo Text
+                    comando.CommandType = CommandType.Text;
+                    //se abre la conexion
+                    con.Open();
+                    //limpiamos los renglones de la datagridview
+                    dgvVenta.Rows.Clear();
+                    //a la variable DataReader asignamos  el la variable de tipo SqlCommand
+                    dr = comando.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        //variable de tipo entero para ir enumerando los la filas del datagridview
+                        int renglon = dgvVenta.Rows.Add();
+                        // especificamos en que fila se mostrará cada registro
+                        // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+
+                        string idVenta = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCotizacion")));
+                        if (idVenta == txtIdV.Text)
+                        {
+                            dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCotizacion")));
+                            dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
+                            dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
+                            dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
+                            dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
+                            dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+
+                            subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+
+                            PrecioCompraProducto PCP = new PrecioCompraProducto();
+                            PCP.ID = dr.GetInt32(dr.GetOrdinal("IdProducto"));
+                            PCP.Precio = dr.GetDecimal(dr.GetOrdinal("GananciaVenta"));
+                            listProducts.Add(PCP);
+                        }
+                    }
+
+                    Program.ST = subtotal;
+                    Program.igv = igv;
+
+                    con.Close();
+                }
             }
         }
 
@@ -386,6 +500,7 @@ namespace Capa_de_Presentacion
                 btnAgregar.Visible = true;
                 Program.datoscliente = txtDatos.Text;
                 Program.abiertosecundarias = true;
+                Program.whoCallme = "Ventas";
                 P.Show();
             }
         }
@@ -504,6 +619,7 @@ namespace Capa_de_Presentacion
                 Program.PrecioCompra = 0;
             }
         }
+
         private void Limpiar()
         {
             txtDescripcion.Clear();
@@ -588,7 +704,6 @@ namespace Capa_de_Presentacion
                         lista.Remove(item);
                     }
 
-                    lblsubt.Text = Convert.ToString(SumaSubTotal);
                     lst = lista;
                 }
 
@@ -603,6 +718,10 @@ namespace Capa_de_Presentacion
                         listapreciocompra.Remove(item);
                     }
                 }
+
+                lblsubt.Text = Convert.ToString(SumaSubTotal);
+                txtIgv.Text = Convert.ToString(SumaIgv);
+                txttotal.Text = Convert.ToString(SumaTotal);
 
                 btnEliminarItem.Enabled = false;
                 dgvVenta.Rows.RemoveAt(dgvVenta.SelectedRows[0].Index);
@@ -672,14 +791,27 @@ namespace Capa_de_Presentacion
                     foreach (DataGridViewRow row in dgvVenta.Rows)
                     {
                         cmd1.CommandType = CommandType.StoredProcedure;
+
+                        decimal Ganancia = 0;
                         int idProducto = Convert.ToInt32(row.Cells["IDP"].Value);
-                        decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                        decimal subtotal = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
-                        int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
-                        decimal Ganancia = Math.Round(subtotal - (preciocompra * cantidad));
+                        int idventa = 0;
+
+                        if (Program.whoCallme == "Vender Cotizacion")
+                        {
+                            Ganancia = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
+                            idventa = Convert.ToInt32(txtIdVenta.Text);
+                        }
+                        else
+                        {
+                            decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
+                            decimal subtotal = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
+                            int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
+                            Ganancia = Math.Round(subtotal - (preciocompra * cantidad));
+                            idventa = Convert.ToInt32(row.Cells["IdD"].Value);
+                        }
 
                         //Tabla detalles ventas
-                        cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IdD"].Value);
+                        cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
                         cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
                         cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
                         cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
@@ -745,7 +877,6 @@ namespace Capa_de_Presentacion
                     con.Close();
                 }
                 Program.pagoRealizado = 0;
-                MessageBox.Show("Venta Registrada y Pago Confirmado");
             }
         }
 
@@ -791,7 +922,7 @@ namespace Capa_de_Presentacion
                 }
 
                 VentaRealizada();
-
+                Program.whoCallme = "";
 
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de factura desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
@@ -1027,6 +1158,11 @@ namespace Capa_de_Presentacion
         {
             Limpiar();
             Limpiar1();
+
+            btnRegistrarVenta.Hide();
+            btnImprimir.Visible = false;
+            btnAgregar.Visible = false;
+            button2.Visible = false;
         }
 
         private void label18_Click(object sender, EventArgs e)
@@ -1203,6 +1339,7 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("No guardo el Archivo");
             }
         }
+
         public void GenerarDocumento(Document document)
         {
             int i, j;
@@ -1296,8 +1433,9 @@ namespace Capa_de_Presentacion
                     cmd2.ExecuteNonQuery();
                     con.Close();
                 }
+
+                Program.whoCallme = "";
                 Program.pagoRealizado = 0;
-                MessageBox.Show("Abono Registrado y Pago Confirmado");
 
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de factura desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
@@ -1328,6 +1466,7 @@ namespace Capa_de_Presentacion
                 txtDatos.ReadOnly = false;
             }
         }
+
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]

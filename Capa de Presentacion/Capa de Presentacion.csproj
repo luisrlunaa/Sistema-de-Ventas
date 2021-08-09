@@ -83,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsVenta.cs" />
-    <Compile Include="consultaimg.cs" />
     <Compile Include="Correo.cs" />
     <Compile Include="CrearTiket.cs" />
     <Compile Include="cuadredecaja.cs">
@@ -91,6 +90,18 @@
     </Compile>
     <Compile Include="cuadredecaja.Designer.cs">
       <DependentUpon>cuadredecaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmlistadodecotizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmlistadodecotizacion.Designer.cs">
+      <DependentUpon>frmlistadodecotizacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCotizar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCotizar.Designer.cs">
+      <DependentUpon>frmCotizar.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCambiarUsu.cs">
       <SubType>Form</SubType>
@@ -249,6 +260,9 @@
     <EmbeddedResource Include="cuadredecaja.resx">
       <DependentUpon>cuadredecaja.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCotizar.resx">
+      <DependentUpon>frmCotizar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCambiarUsu.resx">
       <DependentUpon>frmCambiarUsu.cs</DependentUpon>
     </EmbeddedResource>
@@ -257,6 +271,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmBuscarAlineacionyBalanceo.resx">
       <DependentUpon>frmBuscarAlineacionyBalanceo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmlistadodecotizacion.resx">
+      <DependentUpon>frmlistadodecotizacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmListadoProductos.aa.resx">
       <DependentUpon>FrmListadoProductos.cs</DependentUpon>

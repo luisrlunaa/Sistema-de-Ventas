@@ -17,6 +17,7 @@ namespace Capa_de_Presentacion
 
         clsCx Cx = new clsCx();
         clsUsuarios U = new clsUsuarios();
+
         private void FrmMenuPrincipal_Activated(object sender, EventArgs e)
         {
             lblUsuario.Text = Program.NombreEmpleadoLogueado;
@@ -112,11 +113,11 @@ namespace Capa_de_Presentacion
         }
         private void FrmMenuPrincipal_Load(object sender, EventArgs e)
         {
-            timer1.Interval = 500;
-            timer1.Start();
             llenar();
+            panel3.Hide();
+            panel1.Size = new System.Drawing.Size(61, 606);
+            button7.Text = ">>";
         }
-
 
         public void llenar()
         {
@@ -137,7 +138,7 @@ namespace Capa_de_Presentacion
         }
         private void btnProductos_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 537);
+            panel1.Size = new System.Drawing.Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -177,7 +178,7 @@ namespace Capa_de_Presentacion
         }
         private void btnClientes_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 537);
+            panel1.Size = new System.Drawing.Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -189,38 +190,24 @@ namespace Capa_de_Presentacion
                 Program.abierto = true;
                 C.Show();
             }
-
         }
+
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 537);
-            button7.Text = ">>";
-            if (Program.abierto == false)
+            if(Program.openpanel == 1)
             {
-                FrmRegistroVentas V = new FrmRegistroVentas();
-                V.txtUsu.Text = lblUsuario.Text;
-                V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
-                V.lblLogo.Text = lblLogo.Text;
-                V.lblDir.Text = lblDir.Text;
-                V.lblTel1.Text = lblTel1.Text;
-                V.lblTel2.Text = lblTel2.Text;
-                V.lblCorreo.Text = lblCorreo.Text;
-                V.lblrnc.Text = lblrnc.Text;
-
-                if (Program.CargoEmpleadoLogueado != "Administrador")
-                {
-                    V.txtPVenta.Enabled = false;
-                    V.txtIgv.Enabled = false;
-                    V.txtDivisor.Enabled = false;
-                    V.txtPorcentaje.Enabled = false;
-                }
-                Program.abierto = true;
-                V.Show();
+                panel3.Hide();
+                Program.openpanel = 0;
+            }
+            else
+            {
+                panel3.Show();
+                Program.openpanel = 1;
             }
         }
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 537);
+            panel1.Size = new System.Drawing.Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -261,7 +248,7 @@ namespace Capa_de_Presentacion
 
         private void btnEmpleados_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 537);
+            panel1.Size = new System.Drawing.Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -277,7 +264,7 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 537);
+            panel1.Size = new System.Drawing.Size(61, 606);
             button7.Text = ">>";
             frmTurno Tu = new frmTurno();
             Tu.lblLogo.Text = lblLogo.Text;
@@ -287,7 +274,7 @@ namespace Capa_de_Presentacion
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 537);
+            panel1.Size = new System.Drawing.Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -298,7 +285,7 @@ namespace Capa_de_Presentacion
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 537);
+            panel1.Size = new System.Drawing.Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -342,7 +329,7 @@ namespace Capa_de_Presentacion
         }
         private void btnVer_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 537);
+            panel1.Size = new System.Drawing.Size(61, 606);
             button7.Text = ">>";
             usuario.Show();
             btnVer.Hide();
@@ -394,7 +381,7 @@ namespace Capa_de_Presentacion
         }
         private void button5_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 537);
+            panel1.Size = new System.Drawing.Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -447,7 +434,7 @@ namespace Capa_de_Presentacion
 
         private void btnAyB_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 537);
+            panel1.Size = new System.Drawing.Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -467,7 +454,7 @@ namespace Capa_de_Presentacion
 
         private void button6_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 537);
+            panel1.Size = new System.Drawing.Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -509,15 +496,15 @@ namespace Capa_de_Presentacion
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if (panel1.Size == new System.Drawing.Size(240, 537))
+            if (panel1.Size == new System.Drawing.Size(240, 606))
             {
 
-                panel1.Size = new System.Drawing.Size(61, 537);
+                panel1.Size = new System.Drawing.Size(61, 606);
                 button7.Text = ">>";
             }
             else
             {
-                panel1.Size = new System.Drawing.Size(240, 537);
+                panel1.Size = new System.Drawing.Size(240, 606);
                 button7.Text = "<<";
             }
         }
@@ -531,6 +518,68 @@ namespace Capa_de_Presentacion
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Program.openpanel = 0;
+            panel1.Size = new System.Drawing.Size(61, 606);
+            button7.Text = ">>";
+            if (Program.abierto == false)
+            {
+                FrmRegistroVentas V = new FrmRegistroVentas();
+                V.txtUsu.Text = lblUsuario.Text;
+                V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
+                V.lblLogo.Text = lblLogo.Text;
+                V.lblDir.Text = lblDir.Text;
+                V.lblTel1.Text = lblTel1.Text;
+                V.lblTel2.Text = lblTel2.Text;
+                V.lblCorreo.Text = lblCorreo.Text;
+                V.lblrnc.Text = lblrnc.Text;
+
+                if (Program.CargoEmpleadoLogueado != "Administrador")
+                {
+                    V.txtPVenta.Enabled = false;
+                    V.txtIgv.Enabled = false;
+                    V.txtDivisor.Enabled = false;
+                    V.txtPorcentaje.Enabled = false;
+                }
+
+                Program.abierto = true;
+                panel3.Hide();
+                V.Show();
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Program.openpanel = 0;
+            panel1.Size = new System.Drawing.Size(61, 606);
+            button7.Text = ">>";
+            if (Program.abierto == false)
+            {
+                frmCotizar V = new frmCotizar();
+                V.txtUsu.Text = lblUsuario.Text;
+                V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
+                V.lblLogo.Text = lblLogo.Text;
+                V.lblDir.Text = lblDir.Text;
+                V.lblTel1.Text = lblTel1.Text;
+                V.lblTel2.Text = lblTel2.Text;
+                V.lblCorreo.Text = lblCorreo.Text;
+                V.lblrnc.Text = lblrnc.Text;
+
+                if (Program.CargoEmpleadoLogueado != "Administrador")
+                {
+                    V.txtPVenta.Enabled = false;
+                    V.txtIgv.Enabled = false;
+                    V.txtDivisor.Enabled = false;
+                    V.txtPorcentaje.Enabled = false;
+                }
+
+                Program.abierto = true;
+                panel3.Hide();
+                V.Show();
+            }
         }
     }
 }

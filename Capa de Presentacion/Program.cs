@@ -12,11 +12,13 @@ namespace Capa_de_Presentacion
         public static bool abierto;
         public static bool abiertosecundarias;
         public static int Evento;
+        public static int openpanel;
         public static int Eid;
         public static int idgastos;
         public static string LoginStatus;
         public static string ReImpresion;
         public static string Esabono;
+        public static string whoCallme;
 
         //Datos del Cliente
         public static int IdCliente;

@@ -184,7 +184,6 @@ namespace Capa_de_Presentacion
                             con.Close();
                         }
                         Program.pagoRealizado = 0;
-                        MessageBox.Show(cbtipo.Text + "Registrada y Pago Confirmado");
                         tickEstiloP();
                         clean();
                     }

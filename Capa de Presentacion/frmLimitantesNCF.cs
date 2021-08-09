@@ -184,7 +184,6 @@ namespace Capa_de_Presentacion
                 cmd.ExecuteNonQuery();
                 Cx.conexion.Close();
 
-                MessageBox.Show("Aplicado Correctamente");
                 llenar_data_comprobante();
                 llenar_data_ncf();
             }

@@ -25,15 +25,16 @@ namespace Capa_de_Presentacion
             button3.Enabled = false;
             button4.Enabled = false;
             txtBuscarid.Enabled = false;
+
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
+
             llenarganancia();
-            //repetitivo();
             llenar_data("");
-            //llenar_data_V();
-            //buscarprod();
+
             gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
         }
+
         public int borrado = 0;
         public void cargar_combo_NCF(ComboBox combo_tipo_NCF)
         {
@@ -47,6 +48,7 @@ namespace Capa_de_Presentacion
             combo_tipo_NCF.ValueMember = "id_ncf";
             combo_tipo_NCF.DataSource = dt;
         }
+
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             FrmMenuPrincipal menu = new FrmMenuPrincipal();
@@ -62,6 +64,7 @@ namespace Capa_de_Presentacion
             V.Show();
             Hide();
         }
+
         public void cargar_combo_Tipofactura(ComboBox tipofactura)
         {
             SqlCommand cm = new SqlCommand("CARGARcomboTipoFactura", Cx.conexion);
@@ -74,6 +77,7 @@ namespace Capa_de_Presentacion
             tipofactura.ValueMember = "id";
             tipofactura.DataSource = dt;
         }
+
         public void llenar_data(string id)
         {
             idsVentas = new List<int>();
@@ -142,6 +146,7 @@ namespace Capa_de_Presentacion
             llenarganancia();
             con.Close();
         }
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte \n Si=Especifico \n No=General ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -153,6 +158,7 @@ namespace Capa_de_Presentacion
                 To_pdf();
             }
         }
+
         public void llenarid(int idventa)
         {
             string cadSql = "select IdCliente =COALESCE(dbo.Venta.IdCliente,0) from Venta where idventa=" + idventa;
@@ -168,6 +174,7 @@ namespace Capa_de_Presentacion
             }
             Cx.conexion.Close();
         }
+
         public void llenarganancia()
         {
             if (idsVentas is null)
@@ -195,6 +202,7 @@ namespace Capa_de_Presentacion
 
             txtGanancias.Text = ganancia.ToString("C2");
         }
+
         public void seleccion_data()
         {
             Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
@@ -240,6 +248,7 @@ namespace Capa_de_Presentacion
 
             Program.ReImpresion = "Copia Factura";
         }
+
         private void label2_Click(object sender, EventArgs e)
         {
             Program.abierto = false;
@@ -248,6 +257,7 @@ namespace Capa_de_Presentacion
             V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
             this.Close();
         }
+
         private void To_pdf1()
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
@@ -401,6 +411,7 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("No guardo el Archivo");
             }
         }
+
         public void GenerarDocumento1(Document document)
         {
             int i, j;
@@ -469,7 +480,6 @@ namespace Capa_de_Presentacion
         }
 
         public List<int> idsVentas { get; set; }
-
         private void button1_Click(object sender, EventArgs e)
         {
             idsVentas = new List<int>();
@@ -650,6 +660,7 @@ namespace Capa_de_Presentacion
             gridforcategoryandquantity(dtpfecha1.Value, dtpfecha2.Value);
             con.Close();
         }
+
         private void button2_Click(object sender, EventArgs e)
         {
             txtBuscarid.Clear();
@@ -665,6 +676,7 @@ namespace Capa_de_Presentacion
             gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
             llenar_data("");
         }
+
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
             Program.abiertosecundarias = false;
@@ -674,6 +686,7 @@ namespace Capa_de_Presentacion
             V.btnSalir.Visible = false;
             this.Close();
         }
+
         private void gridforcategoryandquantity(DateTime fecha1, DateTime fecha2)
         {
             decimal total = 0;
@@ -705,6 +718,7 @@ namespace Capa_de_Presentacion
                     " FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
                     "INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta and dbo.Venta.borrado=" + borrado + "group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
             }
+
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
@@ -730,6 +744,7 @@ namespace Capa_de_Presentacion
             }
             con.Close();
         }
+
         private void txtBuscarid_KeyUp(object sender, KeyEventArgs e)
         {
             if (chkid.Checked && chknombre.Checked == false)
@@ -751,6 +766,7 @@ namespace Capa_de_Presentacion
                 llenar_data("");
             }
         }
+
         private void button3_Click(object sender, EventArgs e)
         {
             Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
@@ -880,6 +896,7 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("Por Favor Seleccione una venta antes de eliminarla");
             }
         }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.Rows.Count > 0)
@@ -893,23 +910,21 @@ namespace Capa_de_Presentacion
                 }
             }
         }
+
         private void vereliminadas_CheckedChanged(object sender, EventArgs e)
         {
             if (vereliminadas.Checked)
             {
                 borrado = 1;
-                //repetitivo();
                 llenar_data("");
-                //llenar_data_V();
             }
             else
             {
                 borrado = 0;
-                //repetitivo();
                 llenar_data("");
-                //llenar_data_V();
             }
         }
+
         private void button4_Click(object sender, EventArgs e)
         {
             //devolucion de venta
@@ -1028,7 +1043,16 @@ namespace Capa_de_Presentacion
             }
         }
 
-        private void txtBuscarid_KeyPress(object sender, KeyPressEventArgs e)
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void frmListadoVentas_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+        private void txtBuscarid_KeyPress_1(object sender, KeyPressEventArgs e)
         {
             if (isallowNumber)
             {
@@ -1038,15 +1062,6 @@ namespace Capa_de_Presentacion
             {
                 validar.sololetras(e);
             }
-        }
-        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
-        private extern static void ReleaseCapture();
-        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
-        private void frmListadoVentas_MouseDown(object sender, MouseEventArgs e)
-        {
-            ReleaseCapture();
-            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }
