@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CapaLogicaNegocio;
+using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
@@ -9,6 +11,7 @@ namespace Capa_de_Presentacion
         /// Punto de entrada principal para la aplicación.      
         /// </summary>
         /// 
+        public static List<Venta> listVentas;
         public static bool abierto;
         public static bool abiertosecundarias;
         public static int Evento;

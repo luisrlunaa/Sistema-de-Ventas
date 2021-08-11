@@ -3,10 +3,12 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -14,14 +16,21 @@ namespace Capa_de_Presentacion
 {
     public partial class frmListadoVentas : DevComponents.DotNetBar.Metro.MetroForm
     {
+        
         public frmListadoVentas()
         {
             InitializeComponent();
         }
 
+        clsVentas V = new clsVentas();
         clsCx Cx = new clsCx();
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
+            if(Program.listVentas is null)
+            {
+                Program.listVentas = new List<Venta>();
+            }
+
             button3.Enabled = false;
             button4.Enabled = false;
             txtBuscarid.Enabled = false;
@@ -29,8 +38,7 @@ namespace Capa_de_Presentacion
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
 
-            llenarganancia();
-            llenar_data("");
+            GetAllVentas();
 
             gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
         }
@@ -78,73 +86,103 @@ namespace Capa_de_Presentacion
             tipofactura.DataSource = dt;
         }
 
-        public void llenar_data(string id)
+        public void GetAllVentas()
         {
             idsVentas = new List<int>();
+            DataTable dt = new DataTable();
+            dt = V.Listado();
+
+            try
+            {
+                foreach (DataRow reader in dt.Rows)
+                {
+                    Venta venta = new Venta();
+
+                    venta.IdVenta = Convert.ToInt32(reader["IdVenta"]);
+                    venta.IdEmpleado = Convert.ToInt32(reader["IdEmpleado"]);
+                    venta.TipoDocumento = reader["TipoDocumento"].ToString();
+                    venta.NroComprobante = reader["NroDocumento"].ToString();
+                    venta.Total = Convert.ToDecimal(reader["Total"]);
+                    venta.Tipofactura = reader["Tipofactura"].ToString();
+                    venta.Restante = Convert.ToDecimal(reader["Restante"]);
+                    venta.FechaVenta = Convert.ToDateTime(reader["FechaVenta"]);
+                    venta.NombreCliente = reader["NombreCliente"].ToString();
+                    venta.UltimaFechaPago = Convert.ToDateTime(reader["UltimaFechaPago"]);
+                    venta.borrador = Convert.ToInt32(reader["borrado"]);
+
+                    Program.listVentas.Add(venta);
+                    idsVentas.Add(venta.IdVenta);
+                }
+
+                llenar_data(Program.listVentas);
+            }
+            catch (Exception ex)
+            {
+                DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
+            }
+
+            //string sql = @"select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
+            //        "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta";
+
+            //using (SqlConnection conn = new SqlConnection(Cx.conet))
+            //{
+            //    SqlCommand command = new SqlCommand(sql, conn);
+            //    conn.Open();
+
+            //    SqlDataReader reader = command.ExecuteReader();
+            //    while (reader.Read())
+            //    {
+            //        Program.listVentas.Add(Loadventa(reader));
+            //    }
+
+            //    conn.Close();
+            //    return Program.listVentas;
+            //}
+        }
+
+        //private clsVentas Loadventa(IDataReader reader)
+        //{
+        //    clsVentas venta = new clsVentas();
+
+        //    venta.IdVenta =reader.GetInt32(reader.GetOrdinal("IdVenta"));
+        //    venta.IdEmpleado = reader.GetInt32(reader.GetOrdinal("IdEmpleado"));
+        //    venta.TipoDocumento = reader.GetString(reader.GetOrdinal("TipoDocumento"));
+        //    venta.NroComprobante = reader.GetString(reader.GetOrdinal("NroDocumento"));
+        //    venta.Total = reader.GetDecimal(reader.GetOrdinal("Total"));
+        //    venta.Tipofactura = reader.GetString(reader.GetOrdinal("Tipofactura"));
+        //    venta.Restante = reader.GetDecimal(reader.GetOrdinal("Restante"));
+        //    venta.FechaVenta = reader.GetDateTime(reader.GetOrdinal("FechaVenta"));
+        //    venta.NombreCliente = reader.GetString(reader.GetOrdinal("NombreCliente"));
+        //    venta.UltimaFechaPago = reader.GetDateTime(reader.GetOrdinal("UltimaFechaPago"));
+
+        //    idsVentas.Add(venta.IdVenta);
+        //    return venta;
+        //}
+
+        public void llenar_data(List<Venta> listaventas)
+        {
             decimal total = 0;
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
-            //variable de tipo Sqlcommand
-            SqlCommand comando = new SqlCommand();
-            //variable SqlDataReader para leer los datos
-            SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
-
-            if (chkid.Checked && chknombre.Checked == false && id != null)
-            {
-                comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta WHERE " +
-                    "IdVenta = " + id + " and dbo.Venta.borrado = " + borrado + " ORDER BY IdVenta";
-            }
-            else if (chknombre.Checked && chkid.Checked == false && id != null)
-            {
-                comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta WHERE " +
-                    "NombreCliente LIKE '%" + id + "%' and dbo.Venta.borrado = " + borrado + " ORDER BY IdVenta";
-            }
-            else
-            {
-                comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta ORDER BY IdVenta";
-            }
-
-            //especificamos que es de tipo Text
-            comando.CommandType = CommandType.Text;
-            //se abre la conexion
-            con.Open();
-            //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
-            //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-            dr = comando.ExecuteReader();
-            while (dr.Read())
+            foreach (var item in listaventas)
             {
-                //variable de tipo entero para ir enumerando los la filas del datagridview
                 int renglon = dataGridView1.Rows.Add();
-                // especificamos en que fila se mostrará cada registro
-                // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 
-                dataGridView1.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                dataGridView1.Rows[renglon].Cells["idEm"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdEmpleado")));
-                dataGridView1.Rows[renglon].Cells["NCF"].Value = dr.GetString(dr.GetOrdinal("TipoDocumento"));
-                dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = dr.GetString(dr.GetOrdinal("NroDocumento"));
-                dataGridView1.Rows[renglon].Cells["total"].Value = dr.GetDecimal(dr.GetOrdinal("Total")).ToString();
-                dataGridView1.Rows[renglon].Cells["Tipo"].Value = dr.GetString(dr.GetOrdinal("Tipofactura"));
-                dataGridView1.Rows[renglon].Cells["restante"].Value = dr.GetDecimal(dr.GetOrdinal("Restante")).ToString();
-                dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
-                dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
-                dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
+                dataGridView1.Rows[renglon].Cells["id"].Value = item.IdVenta.ToString();
+                dataGridView1.Rows[renglon].Cells["idEm"].Value = item.IdEmpleado.ToString();
+                dataGridView1.Rows[renglon].Cells["NCF"].Value = item.TipoDocumento.ToString();
+                dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = item.NroComprobante.ToString();
+                dataGridView1.Rows[renglon].Cells["total"].Value = item.Total.ToString();
+                dataGridView1.Rows[renglon].Cells["Tipo"].Value =item.Tipofactura.ToString();
+                dataGridView1.Rows[renglon].Cells["restante"].Value = item.Restante.ToString();
+                dataGridView1.Rows[renglon].Cells["fecha"].Value = item.FechaVenta;
+                dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = item.NombreCliente.ToString();
+                dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = item.UltimaFechaPago;
 
-                total += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("total")));
+                total += item.Total;
                 txtTtal.Text = Math.Round(total, 2).ToString("C2");
-
-                idsVentas.Add(dr.GetInt32(dr.GetOrdinal("IdVenta")));
             }
 
             llenarganancia();
-            con.Close();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -482,183 +520,97 @@ namespace Capa_de_Presentacion
         public List<int> idsVentas { get; set; }
         private void button1_Click(object sender, EventArgs e)
         {
-            idsVentas = new List<int>();
-            decimal total = 0; decimal totalpendiente = 0;
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
-            //variable de tipo Sqlcommand
-            SqlCommand comando = new SqlCommand();
-            //variable SqlDataReader para leer los datos
-            SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            var newlist = new List<Venta>();
 
             if (txtBuscarid.Text != "" && txtBuscarid.Text != null)
             {
-                if (cbtipodocumento.Checked == true)
+                if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
-                    comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-                    comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
-                    comando.Parameters.AddWithValue("@TipoDocumento", combo_tipo_NCF.Text);
+                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta<= dtpfecha2.Value 
+                    && x.TipoDocumento== combo_tipo_NCF.Text && x.borrador==borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
+                    llenar_data(newlist);
+                }
+                else if(cbtipodocumento.Checked == true && cbPendiente.Checked == true)
+                {
+                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text) && x.Restante>0).ToList();
+                    llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
-                    comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-                    comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
-                    comando.Parameters.AddWithValue("@Tipofactura", cbtipofactura.Text);
-                }
-                else if (cktipofactura.Checked == false && cbPendiente.Checked == true)
-                {
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " and dbo.Venta.Restante > " + 0 + " ORDER BY dbo.Venta.IdVenta";
-                    comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-                    comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
+                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value 
+                    && x.Tipofactura == cbtipofactura.Text && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
+                    llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.Restante > " + 0 + " and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
-                    comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-                    comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
-                    comando.Parameters.AddWithValue("@Tipofactura", cbtipofactura.Text);
+                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    && x.Tipofactura == cbtipofactura.Text &&x.Restante>0 && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
+                    llenar_data(newlist);
+                }
+                else if (cbPendiente.Checked == true)
+                {
+                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text) && x.Restante > 0).ToList();
+                    llenar_data(newlist);
                 }
                 else
                 {
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where NombreCliente  LIKE '%" + txtBuscarid.Text + "%' and FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
-                    comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-                    comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
+                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
+                    llenar_data(newlist);
                 }
             }
             else
             {
-                if (cbtipodocumento.Checked == true)
+                if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
-                    comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-                    comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
-                    comando.Parameters.AddWithValue("@TipoDocumento", combo_tipo_NCF.Text);
+                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado).ToList();
+                    llenar_data(newlist);
                 }
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.TipoDocumento = @TipoDocumento and dbo.Venta.borrado=" + borrado +
-                    " and dbo.Venta.Restante > " + 0 + " ORDER BY dbo.Venta.IdVenta";
-                    comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-                    comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
-                    comando.Parameters.AddWithValue("@TipoDocumento", combo_tipo_NCF.Text);
+                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.Restante > 0).ToList();
+                    llenar_data(newlist);
                 }
-                else if (cktipofactura.Checked == true)
+                else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) AND dbo.Venta.Tipofactura = @Tipofactura and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
-                    comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-                    comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
-                    comando.Parameters.AddWithValue("@Tipofactura", cbtipofactura.Text);
+                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    && x.Tipofactura == cbtipofactura.Text && x.borrador == borrado ).ToList();
+                    llenar_data(newlist);
                 }
-                else if (cktipofactura.Checked == false && cbtipodocumento.Checked == false && vereliminadas.Checked == false && cbPendiente.Checked == true)
+                else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.Restante > " + 0 + " and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
-                    comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-                    comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
+                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    && x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado).ToList();
+                    llenar_data(newlist);
+                }
+                else if (cbPendiente.Checked == true)
+                {
+                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    && x.borrador == borrado && x.Restante > 0).ToList();
+                    llenar_data(newlist);
                 }
                 else
                 {
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "select IdVenta,IdCliente,Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
-                    "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
-                    "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + " ORDER BY dbo.Venta.IdVenta";
-                    comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-                    comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
+                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    && x.borrador == borrado).ToList();
+                    llenar_data(newlist);
                 }
             }
 
-            //especificamos que es de tipo Text
-            comando.CommandType = CommandType.Text;
-            //se abre la conexion
-            con.Open();
-            //limpiamos los renglones de la datagridview
-            dataGridView1.Rows.Clear();
-            //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-            dr = comando.ExecuteReader();
-            //el ciclo while se ejecutará mientras lea registros en la tabla
-
-            int idanterior = 0;
-            while (dr.Read())
-            {
-                //variable de tipo entero para ir enumerando los la filas del datagridview
-                int renglon = dataGridView1.Rows.Add();
-                // especificamos en que fila se mostrará cada registro
-                int idVentaactual = dr.GetInt32(dr.GetOrdinal("IdVenta"));
-                dataGridView1.Rows[renglon].Cells["id"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                dataGridView1.Rows[renglon].Cells["idEm"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdEmpleado")));
-                dataGridView1.Rows[renglon].Cells["NCF"].Value = dr.GetString(dr.GetOrdinal("TipoDocumento"));
-                dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = dr.GetString(dr.GetOrdinal("NroDocumento"));
-                dataGridView1.Rows[renglon].Cells["total"].Value = dr.GetDecimal(dr.GetOrdinal("Total")).ToString();
-                dataGridView1.Rows[renglon].Cells["Tipo"].Value = dr.GetString(dr.GetOrdinal("Tipofactura"));
-                dataGridView1.Rows[renglon].Cells["restante"].Value = dr.GetDecimal(dr.GetOrdinal("Restante")).ToString();
-                dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
-                dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
-                dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
-
-                total += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Total")));
-                txtTtal.Text = Math.Round(total, 2).ToString("C2");
-
-                if (cbPendiente.Checked == true)
-                {
-                    label7.Visible = true;
-                    txttotalpendiente.Visible = true;
-
-                    if (idanterior != idVentaactual)
-                    {
-                        totalpendiente += Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Restante")));
-                        txttotalpendiente.Text = Math.Round(totalpendiente, 2).ToString("C2");
-                        idanterior = idVentaactual;
-                    }
-                }
-                else
-                {
-                    label7.Visible = false;
-                    txttotalpendiente.Visible = false;
-
-                    if (idanterior != idVentaactual)
-                    {
-                        idanterior = idVentaactual;
-                        idsVentas.Add(idVentaactual);
-                    }
-                }
-            }
-
-            dataGridView3.ClearSelection();
-            llenarganancia();
             gridforcategoryandquantity(dtpfecha1.Value, dtpfecha2.Value);
-            con.Close();
+
+            if (cbPendiente.Checked == true)
+            {
+                label7.Visible = true;
+                txttotalpendiente.Visible = true;
+
+                var totalpendiente =newlist.Sum(x => x.Restante);
+                txttotalpendiente.Text = Math.Round(totalpendiente, 2).ToString("C2");
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -674,7 +626,7 @@ namespace Capa_de_Presentacion
             Program.Id = 0;
             Program.tipo = "";
             gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
-            llenar_data("");
+            llenar_data(Program.listVentas);
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -751,19 +703,23 @@ namespace Capa_de_Presentacion
             {
                 if (txtBuscarid.Text.Length >= 1 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
-                    llenar_data(txtBuscarid.Text);
+                    int id = Convert.ToInt32(txtBuscarid.Text);
+                    var newlist=Program.listVentas.Where(x=>x.IdVenta== id).ToList();
+                    llenar_data(newlist);
                 }
             }
             else if (chknombre.Checked && chkid.Checked == false)
             {
                 if (txtBuscarid.Text.Length >= 4 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
-                    llenar_data(txtBuscarid.Text);
+                    string name = txtBuscarid.Text;
+                    var newlist = Program.listVentas.Where(x => x.NombreCliente.Contains(name)).ToList();
+                    llenar_data(newlist);
                 }
             }
             else
             {
-                llenar_data("");
+                llenar_data(Program.listVentas);
             }
         }
 
@@ -916,12 +872,12 @@ namespace Capa_de_Presentacion
             if (vereliminadas.Checked)
             {
                 borrado = 1;
-                llenar_data("");
+                llenar_data(Program.listVentas);
             }
             else
             {
                 borrado = 0;
-                llenar_data("");
+                llenar_data(Program.listVentas);
             }
         }
 
