@@ -26,9 +26,9 @@ namespace Capa_de_Presentacion
         clsCx Cx = new clsCx();
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
-            if(Program.listVentas is null)
+            if(clsGenericList.listVentas is null)
             {
-                Program.listVentas = new List<Venta>();
+                clsGenericList.listVentas = new List<Venta>();
             }
 
             button3.Enabled = false;
@@ -88,38 +88,46 @@ namespace Capa_de_Presentacion
 
         public void GetAllVentas()
         {
-            idsVentas = new List<int>();
-            DataTable dt = new DataTable();
-            dt = V.Listado();
-
-            try
+            if(clsGenericList.listVentas.Count>0)
             {
-                foreach (DataRow reader in dt.Rows)
+                llenar_data(clsGenericList.listVentas);
+            }
+            else
+            {
+                idsVentas = new List<int>();
+                DataTable dt = new DataTable();
+                dt = V.Listado();
+
+                try
                 {
-                    Venta venta = new Venta();
+                    foreach (DataRow reader in dt.Rows)
+                    {
+                        Venta venta = new Venta();
 
-                    venta.IdVenta = Convert.ToInt32(reader["IdVenta"]);
-                    venta.IdEmpleado = Convert.ToInt32(reader["IdEmpleado"]);
-                    venta.TipoDocumento = reader["TipoDocumento"].ToString();
-                    venta.NroComprobante = reader["NroDocumento"].ToString();
-                    venta.Total = Convert.ToDecimal(reader["Total"]);
-                    venta.Tipofactura = reader["Tipofactura"].ToString();
-                    venta.Restante = Convert.ToDecimal(reader["Restante"]);
-                    venta.FechaVenta = Convert.ToDateTime(reader["FechaVenta"]);
-                    venta.NombreCliente = reader["NombreCliente"].ToString();
-                    venta.UltimaFechaPago = Convert.ToDateTime(reader["UltimaFechaPago"]);
-                    venta.borrador = Convert.ToInt32(reader["borrado"]);
+                        venta.IdVenta = Convert.ToInt32(reader["IdVenta"]);
+                        venta.IdEmpleado = Convert.ToInt32(reader["IdEmpleado"]);
+                        venta.TipoDocumento = reader["TipoDocumento"].ToString();
+                        venta.NroComprobante = reader["NroDocumento"].ToString();
+                        venta.Total = Convert.ToDecimal(reader["Total"]);
+                        venta.Tipofactura = reader["Tipofactura"].ToString();
+                        venta.Restante = Convert.ToDecimal(reader["Restante"]);
+                        venta.FechaVenta = Convert.ToDateTime(reader["FechaVenta"]);
+                        venta.NombreCliente = reader["NombreCliente"].ToString();
+                        venta.UltimaFechaPago = Convert.ToDateTime(reader["UltimaFechaPago"]);
+                        venta.borrador = Convert.ToInt32(reader["borrado"]);
 
-                    Program.listVentas.Add(venta);
-                    idsVentas.Add(venta.IdVenta);
+                        clsGenericList.listVentas.Add(venta);
+                        idsVentas.Add(venta.IdVenta);
+                    }
+
+                    llenar_data(clsGenericList.listVentas);
                 }
-
-                llenar_data(Program.listVentas);
+                catch (Exception ex)
+                {
+                    DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
-            }
+           
 
             //string sql = @"select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante," +
             //        "TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta";
@@ -526,37 +534,37 @@ namespace Capa_de_Presentacion
             {
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta<= dtpfecha2.Value 
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta<= dtpfecha2.Value 
                     && x.TipoDocumento== combo_tipo_NCF.Text && x.borrador==borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
                     llenar_data(newlist);
                 }
                 else if(cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text) && x.Restante>0).ToList();
                     llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value 
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value 
                     && x.Tipofactura == cbtipofactura.Text && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
                     llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
                     && x.Tipofactura == cbtipofactura.Text &&x.Restante>0 && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
                     llenar_data(newlist);
                 }
                 else if (cbPendiente.Checked == true)
                 {
-                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
                     && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text) && x.Restante > 0).ToList();
                     llenar_data(newlist);
                 }
                 else
                 {
-                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
                     && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
                     llenar_data(newlist);
                 }
@@ -565,37 +573,37 @@ namespace Capa_de_Presentacion
             {
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado).ToList();
                     llenar_data(newlist);
                 }
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.Restante > 0).ToList();
                     llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
                     && x.Tipofactura == cbtipofactura.Text && x.borrador == borrado ).ToList();
                     llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
                     && x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado).ToList();
                     llenar_data(newlist);
                 }
                 else if (cbPendiente.Checked == true)
                 {
-                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
                     && x.borrador == borrado && x.Restante > 0).ToList();
                     llenar_data(newlist);
                 }
                 else
                 {
-                    newlist = Program.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
                     && x.borrador == borrado).ToList();
                     llenar_data(newlist);
                 }
@@ -626,7 +634,7 @@ namespace Capa_de_Presentacion
             Program.Id = 0;
             Program.tipo = "";
             gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
-            llenar_data(Program.listVentas);
+            llenar_data(clsGenericList.listVentas);
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -704,7 +712,7 @@ namespace Capa_de_Presentacion
                 if (txtBuscarid.Text.Length >= 1 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
                     int id = Convert.ToInt32(txtBuscarid.Text);
-                    var newlist=Program.listVentas.Where(x=>x.IdVenta== id).ToList();
+                    var newlist= clsGenericList.listVentas.Where(x=>x.IdVenta== id).ToList();
                     llenar_data(newlist);
                 }
             }
@@ -713,13 +721,13 @@ namespace Capa_de_Presentacion
                 if (txtBuscarid.Text.Length >= 4 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
                     string name = txtBuscarid.Text;
-                    var newlist = Program.listVentas.Where(x => x.NombreCliente.Contains(name)).ToList();
+                    var newlist = clsGenericList.listVentas.Where(x => x.NombreCliente.Contains(name)).ToList();
                     llenar_data(newlist);
                 }
             }
             else
             {
-                llenar_data(Program.listVentas);
+                llenar_data(clsGenericList.listVentas);
             }
         }
 
@@ -837,6 +845,10 @@ namespace Capa_de_Presentacion
                                     Cx.conexion.Open();
                                     cmd.ExecuteNonQuery();
                                     Cx.conexion.Close();
+
+                                    var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
+                                    clsGenericList.listVentas.Remove(venta);
+
                                     Program.Id = 0;
                                     Program.tipo = "";
                                     button3.Enabled = false;
@@ -872,12 +884,14 @@ namespace Capa_de_Presentacion
             if (vereliminadas.Checked)
             {
                 borrado = 1;
-                llenar_data(Program.listVentas);
+                var newlist = clsGenericList.listVentas.Where(x => x.borrador== borrado).ToList();
+                llenar_data(newlist);
             }
             else
             {
                 borrado = 0;
-                llenar_data(Program.listVentas);
+                var newlist = clsGenericList.listVentas.Where(x => x.borrador == borrado).ToList();
+                llenar_data(newlist);
             }
         }
 
@@ -966,6 +980,10 @@ namespace Capa_de_Presentacion
                         }
                         i = i + 1;
                     }
+
+                    var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
+                    clsGenericList.listVentas.Remove(venta);
+
                 }
 
                 Cx.conexion.Close();

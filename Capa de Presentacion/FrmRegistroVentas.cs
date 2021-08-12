@@ -742,6 +742,20 @@ namespace Capa_de_Presentacion
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
+
+                    Venta venta = new Venta();
+
+                    venta.IdVenta = Convert.ToInt32(txtIdVenta.Text);
+                    venta.IdEmpleado = Convert.ToInt32(txtidEmp.Text);
+                    venta.TipoDocumento = combo_tipo_NCF.Text;
+                    venta.NroComprobante = txtNCF.Text;
+                    venta.Total = Convert.ToDecimal(txttotal.Text);
+                    venta.Tipofactura = cbtipofactura.Text;
+                    venta.Restante = restante;
+                    venta.FechaVenta = dateTimePicker1.Value;
+                    venta.NombreCliente = Program.datoscliente;
+                    venta.borrador = 0;
+                    clsGenericList.listVentas.Add(venta);
                 }
 
                 using (SqlCommand cmd1 = new SqlCommand("RegistrarDetalleVenta", con))
@@ -1362,6 +1376,16 @@ namespace Capa_de_Presentacion
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
+
+                    var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
+                    venta.Restante = restante;
+
+                    Venta ventaup = new Venta();
+                    ventaup = venta;
+
+                    clsGenericList.listVentas.Remove(venta);
+                    clsGenericList.listVentas.Add(ventaup);
+
                 }
 
                 using (SqlCommand cmd2 = new SqlCommand("Actualizarpagos_re", con))

@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -75,15 +76,8 @@ namespace Capa_de_Presentacion
                                 {
                                     using (SqlCommand cmd = new SqlCommand("RegistrarProducto", con))
                                     {
-
-                                        Cx.conexion.Open();
-                                        string sql = "Select * From Producto Where Nombre =@Nombre and Marca=@Marca";
-                                        SqlCommand Command = new SqlCommand(sql, Cx.conexion);
-                                        Command.Parameters.AddWithValue("@Nombre", txtProducto.Text.ToUpper());
-                                        Command.Parameters.AddWithValue("@Marca", txtMarca.Text.ToUpper());
-
-                                        SqlDataReader reade = Command.ExecuteReader();
-                                        if (reade.Read())
+                                        var exist = clsGenericList.listProducto.FirstOrDefault(x => x.m_Producto == txtProducto.Text.ToUpper() && x.m_Marca == txtMarca.Text.ToUpper());
+                                        if (exist != null)
                                         {
                                             DevComponents.DotNetBar.MessageBoxEx.Show("El producto ya existe", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                             Cx.conexion.Close();
@@ -104,11 +98,23 @@ namespace Capa_de_Presentacion
                                             cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = 0;
                                             cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = 0;
 
-                                            DevComponents.DotNetBar.MessageBoxEx.Show("Se Registro Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                                             con.Open();
                                             cmd.ExecuteNonQuery();
                                             con.Close();
+
+                                            Producto product = new Producto();
+                                            int idP = clsGenericList.listProducto.Count + 1;
+                                            product.m_IdP = idP;
+                                            product.m_IdCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
+                                            product.m_Producto = txtProducto.Text;
+                                            product.m_tipoGoma = cbtipo.Text;
+                                            product.m_itbis = Convert.ToDecimal(txtitbis.Text);
+                                            product.m_PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
+                                            product.m_PrecioCompra = Convert.ToDecimal(txtPCompra.Text);
+                                            product.m_Stock = Convert.ToInt32(txtStock.Text);
+                                            product.m_FechaModificacion = dateTimePicker1.Value;
+
+                                            clsGenericList.listProducto.Add(product);
 
                                             P.Listar();
                                             ListarElementos();
@@ -221,13 +227,27 @@ namespace Capa_de_Presentacion
                                         cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = 0;
                                         cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = 0;
 
-                                        DevComponents.DotNetBar.MessageBoxEx.Show("Se Actualizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                                         con.Open();
                                         cmd.ExecuteNonQuery();
                                         con.Close();
                                         ListarElementos();
-                                        LP.CargarListado();
+
+                                        var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Convert.ToInt32(txtIdP.Text));
+                                        
+                                        Producto product = new Producto();
+                                        product.m_IdCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
+                                        product.m_Producto = txtProducto.Text;
+                                        product.m_tipoGoma = cbtipo.Text;
+                                        product.m_itbis = Convert.ToDecimal(txtitbis.Text);
+                                        product.m_PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
+                                        product.m_PrecioCompra = Convert.ToDecimal(txtPCompra.Text);
+                                        product.m_Stock = Convert.ToInt32(txtStock.Text);
+                                        product.m_FechaModificacion = dateTimePicker1.Value;
+
+                                        clsGenericList.listProducto.Remove(producto);
+                                        clsGenericList.listProducto.Add(product);
+
+                                        LP.CargarListado(clsGenericList.listProducto);
                                         Limpiar();
                                     }
                                 }
