@@ -57,10 +57,10 @@
       <HintPath>..\packages\Portable.BouncyCastle.1.8.10\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.DotNetBar2">
-      <HintPath>..\packages\DevComponents.DotNetBar2.dll</HintPath>
+      <HintPath>..\..\..\..\..\OneDrive\Pictures\Estilos de Sistema de Ventas\DevComponents.DotNetBar\DevComponents.DotNetBar2.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.Instrumentation">
-      <HintPath>..\packages\DevComponents.Instrumentation.dll</HintPath>
+      <HintPath>..\..\..\..\..\OneDrive\Pictures\Estilos de Sistema de Ventas\DevComponents.DotNetBar\DevComponents.Instrumentation.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>

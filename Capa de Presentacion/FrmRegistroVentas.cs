@@ -811,6 +811,15 @@ namespace Capa_de_Presentacion
                         con.Open();
                         cmd3.ExecuteNonQuery();
                         con.Close();
+
+                        var producto=clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Convert.ToInt32(row.Cells["IDP"].Value));
+                        producto.m_Stock = producto.m_Stock - Convert.ToInt32(row.Cells["cantidadP"].Value);
+                        
+                        Producto updateproducto = new Producto();
+                        updateproducto = producto;
+
+                        clsGenericList.listProducto.Remove(producto);
+                        clsGenericList.listProducto.Add(updateproducto);
                     }
                 }
 
