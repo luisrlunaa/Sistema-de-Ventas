@@ -111,8 +111,12 @@ namespace Capa_de_Presentacion
                                             product.m_itbis = Convert.ToDecimal(txtitbis.Text);
                                             product.m_PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
                                             product.m_PrecioCompra = Convert.ToDecimal(txtPCompra.Text);
+                                            product.m_Preciomax = 0;
+                                            product.m_Preciomin = 0;
                                             product.m_Stock = Convert.ToInt32(txtStock.Text);
+                                            product.m_Marca = txtMarca.Text;
                                             product.m_FechaModificacion = dateTimePicker1.Value;
+                                            product.m_FechaVencimiento = dateTimePicker1.Value;
 
                                             clsGenericList.listProducto.Add(product);
 
@@ -232,23 +236,30 @@ namespace Capa_de_Presentacion
                                         con.Close();
                                         ListarElementos();
 
-                                        var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Convert.ToInt32(txtIdP.Text));
+                                        var idp = Convert.ToInt32(txtIdP.Text);
+                                        var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idp);
                                         
                                         Producto product = new Producto();
+                                        product.m_IdP = idp;
                                         product.m_IdCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
                                         product.m_Producto = txtProducto.Text;
                                         product.m_tipoGoma = cbtipo.Text;
                                         product.m_itbis = Convert.ToDecimal(txtitbis.Text);
                                         product.m_PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
                                         product.m_PrecioCompra = Convert.ToDecimal(txtPCompra.Text);
+                                        product.m_Preciomax =0;
+                                        product.m_Preciomin = 0;
                                         product.m_Stock = Convert.ToInt32(txtStock.Text);
+                                        product.m_Marca = txtMarca.Text;
                                         product.m_FechaModificacion = dateTimePicker1.Value;
+                                        product.m_FechaVencimiento = producto.m_FechaVencimiento;
 
                                         clsGenericList.listProducto.Remove(producto);
                                         clsGenericList.listProducto.Add(product);
 
                                         LP.CargarListado(clsGenericList.listProducto);
                                         Limpiar();
+                                        this.Close();
                                     }
                                 }
                             }
