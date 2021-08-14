@@ -746,6 +746,10 @@ namespace Capa_de_Presentacion
                     Venta venta = new Venta();
 
                     venta.IdVenta = Convert.ToInt32(txtIdVenta.Text);
+                    if(txtidCli.Text != "" && txtidCli.Text != null)
+                    {
+                        venta.IdCliente = Convert.ToInt32(txtidCli.Text);
+                    }
                     venta.IdEmpleado = Convert.ToInt32(txtidEmp.Text);
                     venta.TipoDocumento = combo_tipo_NCF.Text;
                     venta.NroComprobante = txtNCF.Text;
@@ -753,6 +757,7 @@ namespace Capa_de_Presentacion
                     venta.Tipofactura = cbtipofactura.Text;
                     venta.Restante = restante;
                     venta.FechaVenta = dateTimePicker1.Value;
+                    venta.UltimaFechaPago = dateTimePicker1.Value;
                     venta.NombreCliente = Program.datoscliente;
                     venta.borrador = 0;
                     clsGenericList.listVentas.Add(venta);
