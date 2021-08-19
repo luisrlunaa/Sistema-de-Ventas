@@ -10,7 +10,6 @@ namespace Capa_de_Presentacion
 
     {
         clsUsuarios U = new clsUsuarios();
-        clsCx Cx = new clsCx();
         public FrmRegistrarUsuarios()
         {
             InitializeComponent();

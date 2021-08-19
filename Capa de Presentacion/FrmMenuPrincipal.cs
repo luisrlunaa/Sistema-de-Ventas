@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -15,7 +16,7 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        clsCx Cx = new clsCx();
+        clsManejador M = new clsManejador();
         clsUsuarios U = new clsUsuarios();
 
         private void FrmMenuPrincipal_Activated(object sender, EventArgs e)
@@ -121,9 +122,10 @@ namespace Capa_de_Presentacion
 
         public void llenar()
         {
+            M.Desconectar();
             string cadSql = "select * from NomEmp";
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+            M.Conectar();
             SqlDataReader leer = comando.ExecuteReader();
             if (leer.Read() == true)
             {
@@ -134,7 +136,7 @@ namespace Capa_de_Presentacion
                 lblCorreo.Text = leer["Correo"].ToString();
                 lblrnc.Text = leer["RNC"].ToString();
             }
-            Cx.conexion.Close();
+            M.Desconectar();
         }
         private void btnProductos_Click(object sender, EventArgs e)
         {
@@ -194,7 +196,7 @@ namespace Capa_de_Presentacion
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            if(Program.openpanel == 1)
+            if (Program.openpanel == 1)
             {
                 panel3.Hide();
                 Program.openpanel = 0;

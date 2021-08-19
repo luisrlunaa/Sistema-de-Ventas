@@ -1,16 +1,11 @@
-﻿using System;
-using System.Windows.Forms;
-
-#pragma warning disable CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
+﻿using CapaLogicaNegocio;
 using DevComponents.DotNetBar;
-#pragma warning restore CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
-using CapaLogicaNegocio;
+using System;
+using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
 {
-#pragma warning disable CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
     public partial class FrmRegistrarCategoria : DevComponents.DotNetBar.Metro.MetroForm
-#pragma warning restore CS0246 // El nombre del tipo o del espacio de nombres 'DevComponents' no se encontró (¿falta una directiva using o una referencia de ensamblado?)
     {
         private clsCategoria C = new clsCategoria();
 
@@ -32,6 +27,7 @@ namespace Capa_de_Presentacion
             FrmRegistroProductos product = new FrmRegistroProductos();
             clsCategoria C = new clsCategoria();
             String Mensaje = "";
+
             try
             {
                 if (txtCategoria.Text.Trim() != "")
@@ -51,7 +47,6 @@ namespace Capa_de_Presentacion
                             product.Refresh();
                             Limpiar();
                         }
-
                     }
                     else
                     {
@@ -73,7 +68,6 @@ namespace Capa_de_Presentacion
                 MessageBoxEx.Show(ex.Message);
             }
         }
-
 
         private void Limpiar()
         {

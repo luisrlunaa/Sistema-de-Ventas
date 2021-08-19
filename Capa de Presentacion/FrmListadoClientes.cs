@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,7 +11,7 @@ namespace Capa_de_Presentacion
     public partial class FrmListadoClientes : DevComponents.DotNetBar.Metro.MetroForm
     {
         private clsCliente C = new clsCliente();
-        clsCx Cx = new clsCx();
+        clsManejador M = new clsManejador();
         int Listado = 0;
 
         public FrmListadoClientes()
@@ -194,12 +195,13 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            M.Desconectar();
             Program.IdCliente = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
             if (Program.IdCliente > 0)
             {
-                Cx.conexion.Open();
+                M.Conectar();
                 string sql = "select IdCliente from Venta where IdCliente =@id";
-                SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+                SqlCommand cmd = new SqlCommand(sql, M.conexion);
                 cmd.Parameters.AddWithValue("@id", Program.IdCliente);
 
                 SqlDataReader reade = cmd.ExecuteReader();
@@ -211,7 +213,7 @@ namespace Capa_de_Presentacion
                 {
                     if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este Cliente.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     {
-                        using (SqlCommand cmd1 = new SqlCommand("eliminarCliente", Cx.conexion))
+                        using (SqlCommand cmd1 = new SqlCommand("eliminarCliente", M.conexion))
                         {
                             cmd1.CommandType = CommandType.StoredProcedure;
                             cmd1.Parameters.Add("@id", SqlDbType.Int).Value = Program.IdCliente;
@@ -222,7 +224,7 @@ namespace Capa_de_Presentacion
                         }
                     }
                 }
-                Cx.conexion.Close();
+                M.Desconectar();
             }
             else
             {

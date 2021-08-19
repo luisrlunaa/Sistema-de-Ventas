@@ -1,13 +1,11 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
@@ -19,20 +17,20 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        clsCx Cx = new clsCx();
+        clsManejador M = new clsManejador();
         private void button3_Click(object sender, EventArgs e)
         {
             Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar esta Cotizacion?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                using (SqlCommand cmd = new SqlCommand("eliminarcotizacion", Cx.conexion))
+                using (SqlCommand cmd = new SqlCommand("eliminarcotizacion", M.conexion))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.Id;
 
-                    Cx.conexion.Open();
+                    M.conexion.Open();
                     cmd.ExecuteNonQuery();
-                    Cx.conexion.Close();
+                    M.conexion.Close();
                     Program.Id = 0;
                     button3.Enabled = false;
                 }
@@ -130,17 +128,11 @@ namespace Capa_de_Presentacion
 
         public void llenar_data(string id)
         {
-            decimal total = 0;
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
-            //variable de tipo Sqlcommand
+            M.Desconectar();
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = M.conexion;
 
             if (chkid.Checked && chknombre.Checked == false && id != null)
             {
@@ -163,7 +155,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            M.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -182,7 +174,7 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
             }
 
-            con.Close();
+            M.Desconectar();
         }
 
         public void seleccion_data()
@@ -191,9 +183,10 @@ namespace Capa_de_Presentacion
             llenarid(Program.Id);
             if (Program.IdCliente > 0)
             {
-                Cx.conexion.Open();
+                M.Desconectar();
+                M.Conectar();
                 string sql = "SELECT DNI,Apellidos,Nombres from Cliente where IdCliente = '" + Program.IdCliente + "'";
-                SqlCommand comando = new SqlCommand(sql, Cx.conexion);
+                SqlCommand comando = new SqlCommand(sql, M.conexion);
                 SqlDataReader dr = comando.ExecuteReader();
                 if (dr.Read())
                 {
@@ -201,7 +194,7 @@ namespace Capa_de_Presentacion
                     Program.NombreCliente = dr.GetString(dr.GetOrdinal("Nombres"));
                     Program.ApellidosCliente = dr.GetString(dr.GetOrdinal("Apellidos"));
                 }
-                Cx.conexion.Close();
+                M.Desconectar();
             }
             else
             {
@@ -216,10 +209,10 @@ namespace Capa_de_Presentacion
 
         public void llenarid(int idventa)
         {
+            M.Desconectar();
             string cadSql = "select IdCliente =COALESCE(dbo.Cotizacion.IdCliente,0) from Cotizacion where idCotizacion=" + idventa;
-
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            M.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -227,7 +220,7 @@ namespace Capa_de_Presentacion
             {
                 Program.IdCliente = Convert.ToInt32(leer["IdCliente"]);
             }
-            Cx.conexion.Close();
+            M.Desconectar();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -239,16 +232,12 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
+            M.Desconectar();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = M.conexion;
 
             if (txtBuscarid.Text != "" && txtBuscarid.Text != null)
             {
@@ -275,7 +264,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            M.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -294,12 +283,12 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("FechaCotizacion"));
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = dr.GetString(dr.GetOrdinal("NombreCliente"));
             }
-            con.Close();
+            M.Desconectar();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-           To_pdf();
+            To_pdf();
         }
 
         private void To_pdf()
@@ -345,19 +334,19 @@ namespace Capa_de_Presentacion
                     ubicacionalign.Alignment = Element.ALIGN_CENTER;
                     doc.Add(ubicacionalign);
 
-                        doc.Add(new Paragraph("Reporte de General de Ventas Realizadas"));
-                        doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + ", " 
-                            + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
-                        doc.Add(new Paragraph("                       "));
-                        GenerarDocumento(doc);
-                        doc.AddCreationDate();
-                        doc.Add(new Paragraph("                       "));
-                        doc.Add(new Paragraph("                       "));
-                        doc.Add(new Paragraph("                       "));
-                        doc.Add(new Paragraph("                       "));
-                        doc.Add(new Paragraph("____________________________________"));
-                        doc.Add(new Paragraph("                         Firma              "));
-                        doc.Close();
+                    doc.Add(new Paragraph("Reporte de General de Ventas Realizadas"));
+                    doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + ", "
+                        + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("                       "));
+                    GenerarDocumento(doc);
+                    doc.AddCreationDate();
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("____________________________________"));
+                    doc.Add(new Paragraph("                         Firma              "));
+                    doc.Close();
 
                     Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
                 }

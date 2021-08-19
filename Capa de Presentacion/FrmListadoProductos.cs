@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -19,7 +20,7 @@ namespace Capa_de_Presentacion
     {
         private clsProducto P = new clsProducto();
         private clsCategoria C = new clsCategoria();
-        clsCx Cx = new clsCx();
+        clsManejador M = new clsManejador();
         public FrmListadoProductos()
         {
             InitializeComponent();
@@ -47,9 +48,10 @@ namespace Capa_de_Presentacion
         }
         public void buscarid()
         {
-            Cx.conexion.Open();
+            M.Desconectar();
+            M.Conectar();
             string sql = "select IdCategoria from Categoria where Descripcion =@id";
-            SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+            SqlCommand cmd = new SqlCommand(sql, M.conexion);
             cmd.Parameters.AddWithValue("@id", cbxCategoria.Text);
 
             SqlDataReader reade = cmd.ExecuteReader();
@@ -63,14 +65,15 @@ namespace Capa_de_Presentacion
                 rbtodos.Checked = false;
                 radioButton1.Checked = false;
             }
-            Cx.conexion.Close();
+            M.Desconectar();
         }
 
         public void buscardesc()
         {
-            Cx.conexion.Open();
+            M.Desconectar();
+            M.Conectar();
             string sql = "select descripcion from tipoGOma where id =@id";
-            SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+            SqlCommand cmd = new SqlCommand(sql, M.conexion);
             cmd.Parameters.AddWithValue("@id", cbTipoGoma.SelectedValue);
             if (cbTipoGoma.SelectedValue != null)
             {
@@ -87,7 +90,7 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            Cx.conexion.Close();
+            M.Desconectar();
         }
 
         private void ListarElementostipo()
@@ -143,7 +146,7 @@ namespace Capa_de_Presentacion
 
         public void GetAllProduct()
         {
-            if(clsGenericList.listProducto.Count>0)
+            if (clsGenericList.listProducto.Count > 0)
             {
                 CargarListado(clsGenericList.listProducto);
             }
@@ -188,7 +191,7 @@ namespace Capa_de_Presentacion
             try
             {
                 decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-               
+
                 dataGridView1.Rows.Clear();
                 foreach (var item in listaproductos)
                 {
@@ -207,7 +210,7 @@ namespace Capa_de_Presentacion
                     dataGridView1.Rows[renglon].Cells[10].Value = item.m_tipoGoma.ToString();
                 }
 
-                compras = listaproductos.Sum(x=>x.m_PrecioCompra);
+                compras = listaproductos.Sum(x => x.m_PrecioCompra);
                 ventas = listaproductos.Sum(x => x.m_PrecioVenta);
                 totalproducto = listaproductos.Sum(x => x.m_Stock);
                 total = ventas - compras;
@@ -302,7 +305,7 @@ namespace Capa_de_Presentacion
         {
             this.Close();
         }
-        
+
         string Reporte;
         private void To_pdf()
         {
@@ -472,29 +475,31 @@ namespace Capa_de_Presentacion
 
         public void repetitivo()
         {
-            Cx.conexion.Open();
+            M.Desconectar();
+            M.Conectar();
             string sql = "select top(1) detalles_P, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta GROUP BY detalles_P ORDER BY total DESC";
-            SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+            SqlCommand cmd = new SqlCommand(sql, M.conexion);
             SqlDataReader reade = cmd.ExecuteReader();
             if (reade.Read())
             {
                 txtRep.Text = reade["detalles_P"].ToString();
 
             }
-            Cx.conexion.Close();
+            M.Desconectar();
         }
 
         public void Mrepetitivo()
         {
-            Cx.conexion.Open();
+            M.Desconectar();
+            M.Conectar();
             string sql = "select top(1) detalles_P, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta GROUP BY detalles_P ORDER BY total ASC";
-            SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+            SqlCommand cmd = new SqlCommand(sql, M.conexion);
             SqlDataReader reade = cmd.ExecuteReader();
             if (reade.Read())
             {
                 txtMrep.Text = reade["detalles_P"].ToString();
             }
-            Cx.conexion.Close();
+            M.Desconectar();
         }
 
         #region radiobutton area
@@ -504,14 +509,14 @@ namespace Capa_de_Presentacion
             if (rbCero.Checked == true)
             {
                 var newlist = clsGenericList.listProducto.Where(x => x.m_Stock == 0).ToList();
-                    CargarListado(newlist);
+                CargarListado(newlist);
 
-                    compras = newlist.Sum(x => x.m_PrecioCompra);
-                    ventas = newlist.Sum(x => x.m_PrecioVenta); ;
-                    totalproducto = newlist.Sum(x => x.m_Stock);
-                    lbltotalproductos.Text = Convert.ToString(totalproducto);
-                    total = ventas - compras;
-                    txttotalG.Text = Convert.ToString(total);
+                compras = newlist.Sum(x => x.m_PrecioCompra);
+                ventas = newlist.Sum(x => x.m_PrecioVenta); ;
+                totalproducto = newlist.Sum(x => x.m_Stock);
+                lbltotalproductos.Text = Convert.ToString(totalproducto);
+                total = ventas - compras;
+                txttotalG.Text = Convert.ToString(total);
             }
             else
             {
@@ -523,15 +528,15 @@ namespace Capa_de_Presentacion
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
             if (rdmedia.Checked == true)
             {
-                    var newlist = clsGenericList.listProducto.Where(x => x.m_Stock > 4 && x.m_Stock<15).ToList();
-                    CargarListado(newlist);
+                var newlist = clsGenericList.listProducto.Where(x => x.m_Stock > 4 && x.m_Stock < 15).ToList();
+                CargarListado(newlist);
 
-                    compras = newlist.Sum(x => x.m_PrecioCompra);
-                    ventas = newlist.Sum(x => x.m_PrecioVenta); ;
-                    totalproducto = newlist.Sum(x => x.m_Stock);
-                    lbltotalproductos.Text = Convert.ToString(totalproducto);
-                    total = ventas - compras;
-                    txttotalG.Text = Convert.ToString(total);               
+                compras = newlist.Sum(x => x.m_PrecioCompra);
+                ventas = newlist.Sum(x => x.m_PrecioVenta); ;
+                totalproducto = newlist.Sum(x => x.m_Stock);
+                lbltotalproductos.Text = Convert.ToString(totalproducto);
+                total = ventas - compras;
+                txttotalG.Text = Convert.ToString(total);
             }
             else
             {
@@ -563,7 +568,7 @@ namespace Capa_de_Presentacion
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
             if (radioButton1.Checked == true)
             {
-                var newlist = clsGenericList.listProducto.Where(x => x.m_Stock > 0 && x.m_Stock<5).ToList();
+                var newlist = clsGenericList.listProducto.Where(x => x.m_Stock > 0 && x.m_Stock < 5).ToList();
                 CargarListado(newlist);
 
                 compras = newlist.Sum(x => x.m_PrecioCompra);
@@ -621,7 +626,7 @@ namespace Capa_de_Presentacion
                 decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
                 if (id.Text != "")
                 {
-                    var newlist = clsGenericList.listProducto.Where(x => x.m_IdCategoria==Convert.ToInt32(id.Text)).ToList();
+                    var newlist = clsGenericList.listProducto.Where(x => x.m_IdCategoria == Convert.ToInt32(id.Text)).ToList();
                     CargarListado(newlist);
 
                     compras = newlist.Sum(x => x.m_PrecioCompra);
@@ -704,19 +709,20 @@ namespace Capa_de_Presentacion
 
         private void button2_Click_1(object sender, EventArgs e)
         {
+            M.Desconectar();
             Program.IdProducto = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
             if (Program.IdProducto > 0)
             {
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este Producto.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    using (SqlCommand cmd = new SqlCommand("eliminarProducto", Cx.conexion))
+                    using (SqlCommand cmd = new SqlCommand("eliminarProducto", M.conexion))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Program.IdProducto;
 
-                        Cx.conexion.Open();
+                        M.Conectar();
                         cmd.ExecuteNonQuery();
-                        Cx.conexion.Close();
+                        M.Desconectar();
 
                         var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Program.IdProducto);
                         clsGenericList.listProducto.Remove(producto);
@@ -770,7 +776,7 @@ namespace Capa_de_Presentacion
 
         private void cbtipogomafiltro_CheckedChanged(object sender, EventArgs e)
         {
-            if(cbtipogomafiltro.Checked)
+            if (cbtipogomafiltro.Checked)
             {
                 cbTipoGoma.Enabled = true;
             }
@@ -782,7 +788,7 @@ namespace Capa_de_Presentacion
 
         private void cbcategoriafiltro_CheckedChanged(object sender, EventArgs e)
         {
-            if(cbcategoriafiltro.Checked)
+            if (cbcategoriafiltro.Checked)
             {
                 cbxCategoria.Enabled = true;
             }

@@ -1,6 +1,4 @@
-﻿using CapaLogicaNegocio;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion

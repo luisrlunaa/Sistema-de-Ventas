@@ -1,4 +1,4 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -18,21 +18,17 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        clsCx Cx = new clsCx();
+        clsManejador M = new clsManejador();
         public void cargardata()
         {
+            M.Desconectar();
             double total = 0;
             limpiar();
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection conexion = new SqlConnection();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            conexion.ConnectionString = cadenaconexion;
-            comando.Connection = conexion;
+            comando.Connection = M.conexion;
             if (textBox1.Text != "")
             {
                 //declaramos el comando para realizar la busqueda
@@ -49,7 +45,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            conexion.Open();
+            M.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -72,7 +68,7 @@ namespace Capa_de_Presentacion
                 total += Convert.ToDouble(dr.GetDecimal(dr.GetOrdinal("precio")));
                 txttotalG.Text = total.ToString("C2");
             }
-            conexion.Close();
+            M.Desconectar();
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -108,7 +104,8 @@ namespace Capa_de_Presentacion
         }
         public void cargar_combo_Tipo(ComboBox tipo)
         {
-            SqlCommand cm = new SqlCommand("CARGARcomboTipotrabajo", Cx.conexion);
+            M.Desconectar();
+            SqlCommand cm = new SqlCommand("CARGARcomboTipotrabajo", M.conexion);
             cm.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cm);
             DataTable dt = new DataTable();
@@ -125,18 +122,14 @@ namespace Capa_de_Presentacion
 
         public void buscarporfecha()
         {
+            M.Desconectar();
             double total = 0;
             limpiar();
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = M.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "select * from AlineamientoYBalanceo where fecha BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                 "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) ORDER BY fecha";
@@ -145,7 +138,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            M.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -168,7 +161,7 @@ namespace Capa_de_Presentacion
                 total += Convert.ToDouble(dr.GetDecimal(dr.GetOrdinal("precio")));
                 txttotalG.Text = total.ToString("C2");
             }
-            con.Close();
+            M.Desconectar();
         }
         private void frmBuscarAlineacionyBalanceo_Load(object sender, EventArgs e)
         {
@@ -185,7 +178,7 @@ namespace Capa_de_Presentacion
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
+            Image image1 = Image.GetInstance("LogoCepeda.png");
             image1.ScaleAbsoluteWidth(100);
             image1.ScaleAbsoluteHeight(50);
             saveFileDialog1.InitialDirectory = @"C:";
@@ -277,17 +270,13 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            M.Desconectar();
             double total = 0;
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection conexion = new SqlConnection();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            conexion.ConnectionString = cadenaconexion;
-            comando.Connection = conexion;
+            comando.Connection = M.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "select * from AlineamientoYBalanceo where tipoDeTrabajo like '%" + cbtipo.Text + "%' AND fecha BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) " +
                 "AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) ORDER BY fecha";
@@ -296,7 +285,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            conexion.Open();
+            M.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -319,7 +308,7 @@ namespace Capa_de_Presentacion
                 total += Convert.ToDouble(dr.GetDecimal(dr.GetOrdinal("precio")));
                 txttotalG.Text = total.ToString("C2");
             }
-            conexion.Close();
+            M.Desconectar();
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)

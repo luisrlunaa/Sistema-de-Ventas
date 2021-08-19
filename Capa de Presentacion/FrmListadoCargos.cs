@@ -47,8 +47,6 @@ namespace Capa_de_Presentacion
 
         private void FrmListadoCargos_Load(object sender, EventArgs e)
         {
-            timer1.Start();
-            timer1.Interval = 5000;
             ListarElementos();
             dataGridView1.ClearSelection();
             if (Program.CargoEmpleadoLogueado != "Administrador")
@@ -133,7 +131,7 @@ namespace Capa_de_Presentacion
             {
                 if (e.KeyChar == 13)
                 {
-                    DialogResult Resultado = new System.Windows.Forms.DialogResult();
+                    DialogResult Resultado = new DialogResult();
                     Resultado = DevComponents.DotNetBar.MessageBoxEx.Show("Está Seguro que Desea Editar Está Fila.", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                     if (Resultado == DialogResult.Yes)
                     {
@@ -153,46 +151,6 @@ namespace Capa_de_Presentacion
                 }
             }
         }
-
-        //private void btnNuevo_MouseDown(object sender, MouseEventArgs e)
-        //{
-        //    btnNuevo.BackgroundImage = Capa_de_Presentacion.Properties.Resources._1button_click;
-        //}
-
-        //private void btnNuevo_MouseEnter(object sender, EventArgs e)
-        //{
-        //    btnNuevo.BackgroundImage = Capa_de_Presentacion.Properties.Resources._1button_hover;
-        //}
-
-        //private void btnNuevo_MouseLeave(object sender, EventArgs e)
-        //{
-        //    btnNuevo.BackgroundImage = Capa_de_Presentacion.Properties.Resources._1button;
-        //}
-
-        //private void btnNuevo_MouseUp(object sender, MouseEventArgs e)
-        //{
-        //    btnNuevo.BackgroundImage = Capa_de_Presentacion.Properties.Resources._1button_hover;
-        //}
-
-        //private void btnEditar_MouseDown(object sender, MouseEventArgs e)
-        //{
-        //    btnEditar.BackgroundImage=Capa_de_Presentacion.Properties.Resources._1button_click;
-        //}
-
-        //private void btnEditar_MouseEnter(object sender, EventArgs e)
-        //{
-        //    btnEditar.BackgroundImage = Capa_de_Presentacion.Properties.Resources._1button_hover;
-        //}
-
-        //private void btnEditar_MouseLeave(object sender, EventArgs e)
-        //{
-        //    btnEditar.BackgroundImage = Capa_de_Presentacion.Properties.Resources._1button;
-        //}
-
-        //private void btnEditar_MouseUp(object sender, MouseEventArgs e)
-        //{
-        //    btnEditar.BackgroundImage = Capa_de_Presentacion.Properties.Resources._1button_hover;
-        //}
 
         private void timer1_Tick(object sender, EventArgs e)
         {

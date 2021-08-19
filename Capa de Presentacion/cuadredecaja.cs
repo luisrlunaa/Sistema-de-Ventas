@@ -1,4 +1,4 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -17,7 +17,8 @@ namespace Capa_de_Presentacion
         {
             InitializeComponent();
         }
-        clsCx Cx = new clsCx();
+
+        clsManejador M = new clsManejador();
         //Correo c = new Correo();
         public void limpiar()
         {
@@ -51,30 +52,31 @@ namespace Capa_de_Presentacion
         }
         private void btnregistrar_Click(object sender, EventArgs e)
         {
+            M.Desconectar();
             if (!string.IsNullOrEmpty(lblmontocuadre.Text))
             {
+
                 decimal montofinal = Convert.ToDecimal(lblmontocuadre.Text);
-                using (SqlConnection con = new SqlConnection(Cx.conet))
+
+                using (SqlCommand cmd = new SqlCommand("Registrarcuadre", M.conexion))
                 {
-                    using (SqlCommand cmd = new SqlCommand("Registrarcuadre", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        //tabla cuadre
-                        cmd.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(lblidcaja.Text);
-                        cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtde5.Text + "," + txtde10.Text + "," + txtde25.Text + ","
-                            + txtde50.Text + "," + txtde100.Text + "," + txtde200.Text + "," + txtde500.Text + "," + txtde1000.Text + "," + txtde2000.Text;
-                        cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = montofinal;
-                        cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
+                    //tabla cuadre
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(lblidcaja.Text);
+                    cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtde5.Text + "," + txtde10.Text + "," + txtde25.Text + ","
+                        + txtde50.Text + "," + txtde100.Text + "," + txtde200.Text + "," + txtde500.Text + "," + txtde1000.Text + "," + txtde2000.Text;
+                    cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = montofinal;
+                    cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                        To_pdf();
-                        limpiar();
-                        label18.Enabled = true;
-                        MessageBox.Show("Cuadre Registrado");
-                    }
+                    M.Conectar();
+                    cmd.ExecuteNonQuery();
+                    M.Desconectar();
+
+                    To_pdf();
+                    limpiar();
+                    label18.Enabled = true;
+                    MessageBox.Show("Cuadre Registrado");
                 }
             }
             else
@@ -84,10 +86,11 @@ namespace Capa_de_Presentacion
         }
         public void llenardeudas(int id)
         {
+            M.Desconectar();
             string cadSql = "select deuda from Caja where id_caja =" + id;
+            M.Conectar();
 
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -96,28 +99,24 @@ namespace Capa_de_Presentacion
                 var deuda = Math.Round(Convert.ToDecimal(leer["deuda"].ToString()));
                 lbldeudas.Text = deuda.ToString();
             }
-            Cx.conexion.Close();
+            M.Desconectar();
         }
         private void agregargasto_Click(object sender, EventArgs e)
         {
+            M.Desconectar();
             limpiar();
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = M.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "Select * From Cuadre where fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
             comando.Parameters.AddWithValue("@fecha", dpkfechacuadre.Value);
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            M.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -181,27 +180,23 @@ namespace Capa_de_Presentacion
                 btnsuma.Visible = false;
             }
 
-            con.Close();
+            M.Desconectar();
         }
         public void llenargridpagos(int id)
         {
+            M.Desconectar();
             decimal pagos = 0, devuelta = 0;
-            //declar=0amos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = M.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "select id_caja,id_pago,monto,ingresos,egresos From Pagos WHERE id_caja =" + id;
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            M.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView2.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -226,15 +221,16 @@ namespace Capa_de_Presentacion
             }
 
             lblmontoingreso.Text = Math.Round(Convert.ToDecimal(pagos)).ToString();
-            con.Close();
+            M.Desconectar();
         }
 
         public void llenar(int id)
         {
+            M.Desconectar();
             string cadSql = "select montoactual, monto_inicial from Caja where id_caja=" + id;
 
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            M.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -252,16 +248,17 @@ namespace Capa_de_Presentacion
                 lblmontocaja.Text = Math.Round(Convert.ToDecimal(montoactual) - montogasto).ToString();
             }
 
-            Cx.conexion.Close();
+            M.Desconectar();
         }
 
         public void llenargastos()
         {
+            M.Desconectar();
             decimal totalgasto = 0;
             string cadSql = "select * from Gastos where fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+            M.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
             comando.Parameters.AddWithValue("@fecha", dpkfechacuadre.Value);
-            Cx.conexion.Open();
 
             SqlDataReader leer = comando.ExecuteReader();
             while (leer.Read())
@@ -272,7 +269,7 @@ namespace Capa_de_Presentacion
 
             lblmontogasto.Text = Math.Round(totalgasto).ToString();
 
-            Cx.conexion.Close();
+            M.Desconectar();
         }
 
         private void btnimprimir_Click(object sender, EventArgs e)
@@ -280,11 +277,12 @@ namespace Capa_de_Presentacion
             To_pdf();
             limpiar();
         }
+
         private void To_pdf()
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("LogoCepeda.png");
+            Image image1 = Image.GetInstance("LogoCepeda.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
@@ -354,10 +352,11 @@ namespace Capa_de_Presentacion
         }
         public void llenarid()
         {
+            M.Desconectar();
             string cadSql = "select top(1) id_caja,deuda from Caja order by id_caja desc";
 
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            M.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -366,7 +365,7 @@ namespace Capa_de_Presentacion
                 lbldeudas.Text = Math.Round(Convert.ToDecimal(leer["deuda"])).ToString();
                 lblidcaja.Text = leer["id_caja"].ToString();
             }
-            Cx.conexion.Close();
+            M.Desconectar();
         }
         private void cuadredecaja_Load(object sender, EventArgs e)
         {
@@ -393,6 +392,7 @@ namespace Capa_de_Presentacion
 
         private void label18_Click(object sender, EventArgs e)
         {
+            M.Desconectar();
             Program.abiertosecundarias = false;
             Program.abierto = false;
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -403,10 +403,10 @@ namespace Capa_de_Presentacion
 
                 ////////////////////Creando copia de seguridad de base de datos nueva
                 string comand_query = "BACKUP DATABASE [SalesSystem] TO  DISK = N'C:\\Program Files\\Microsoft SQL Server\\MSSQL12.MSSQLSERVER\\MSSQL\\Backup\\SalesSystem.bak'WITH NOFORMAT, NOINIT,  NAME = N'SalesSystem-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
-                SqlCommand comando = new SqlCommand(comand_query, Cx.conexion);
+                SqlCommand comando = new SqlCommand(comand_query, M.conexion);
                 try
                 {
-                    Cx.conexion.Open();
+                    M.Conectar();
                     comando.ExecuteNonQuery();
 
                     ////////////////////Enviando al correo copia de seguridad de base de datos nueva
@@ -420,8 +420,7 @@ namespace Capa_de_Presentacion
                 }
                 finally
                 {
-                    Cx.conexion.Close();
-                    Cx.conexion.Dispose();
+                    M.Desconectar();
                     Application.Exit();
                 }
             }

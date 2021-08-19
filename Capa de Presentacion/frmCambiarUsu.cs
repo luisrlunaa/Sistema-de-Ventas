@@ -24,6 +24,7 @@ namespace Capa_de_Presentacion
                     U.Password = txtPassword.Text;
                     Program.CargoEmpleadoLogueado = "";
                     Program.NombreEmpleadoLogueado = "";
+
                     Mensaje = U.IniciarSesion();
                     if (Mensaje == "Su Contraseña es Incorrecta.")
                     {

@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,7 +11,7 @@ namespace Capa_de_Presentacion
     public partial class FrmListadoEmpleados : DevComponents.DotNetBar.Metro.MetroForm
     {
         clsEmpleado E = new clsEmpleado();
-        clsCx Cx = new clsCx();
+        clsManejador M = new clsManejador();
         int Listado = 0;
         public FrmListadoEmpleados()
         {
@@ -20,8 +21,6 @@ namespace Capa_de_Presentacion
         private void FrmListadoEmpleados_Load(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            timer1.Start();
-            timer1.Interval = 1000;
             MostrarListadoEmpleados();
             if (Program.CargoEmpleadoLogueado != "Administrador")
             {
@@ -93,7 +92,6 @@ namespace Capa_de_Presentacion
                     E.Show();
                 }
                 dataGridView1.ClearSelection();
-                timer1.Start();
             }
         }
 
@@ -119,7 +117,6 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
                 Program.Eid = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
                 textBox1.Text = Program.Eid + "";
-                timer1.Stop();
             }
         }
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -186,28 +183,30 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            M.Desconectar();
             Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
             if (Program.IdEmpleado > 0)
             {
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este Empleado.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    using (SqlCommand cmd = new SqlCommand("eliminarUsuario", Cx.conexion))
+                    using (SqlCommand cmd = new SqlCommand("eliminarUsuario", M.conexion))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = Program.IdEmpleado;
 
-                        Cx.conexion.Open();
+                        M.Conectar();
                         cmd.ExecuteNonQuery();
-                        Cx.conexion.Close();
+                        M.Desconectar();
 
-                        using (SqlCommand cmd1 = new SqlCommand("eliminarEmpleado", Cx.conexion))
+                        using (SqlCommand cmd1 = new SqlCommand("eliminarEmpleado", M.conexion))
                         {
                             cmd1.CommandType = CommandType.StoredProcedure;
                             cmd1.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = Program.IdEmpleado;
 
-                            Cx.conexion.Open();
+                            M.Conectar();
                             cmd1.ExecuteNonQuery();
-                            Cx.conexion.Close();
+                            M.Desconectar();
+
                             MostrarListadoEmpleados();
                         }
                     }
@@ -218,6 +217,7 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("Por Favor Seleccione un producto antes de eliminarlo");
             }
         }
+
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]

@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,7 +10,7 @@ namespace Capa_de_Presentacion
     public partial class FrmLogin : DevComponents.DotNetBar.Metro.MetroForm
     {
         clsUsuarios U = new clsUsuarios();
-        clsCx Cx = new clsCx();
+        clsManejador M = new clsManejador();
 
         public FrmLogin()
         {
@@ -21,22 +22,18 @@ namespace Capa_de_Presentacion
         bool tienefila = false;
         public void llenar_data()
         {
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
+            M.Desconectar();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = M.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "SELECT id_caja, monto_inicial,fecha  FROM Caja where monto_final =0 AND fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            M.Conectar();
             //limpiamos los renglones de la datagridview
             dgvCaja.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -54,6 +51,7 @@ namespace Capa_de_Presentacion
 
                 tienefila = true;
             }
+            M.Desconectar();
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -149,7 +147,8 @@ namespace Capa_de_Presentacion
                                         }
                                         else
                                         {
-                                            using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
+                                            M.Desconectar();
+                                            using (SqlCommand cmd = new SqlCommand("abrir_caja", M.conexion))
                                             {
                                                 string id_var = "";
                                                 if (idCaja == "" || idCaja == null)
@@ -163,12 +162,14 @@ namespace Capa_de_Presentacion
                                                 cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = 0;
                                                 cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
-                                                Cx.conexion.Open();
+                                                M.Conectar();
                                                 cmd.ExecuteNonQuery();
-                                                Cx.conexion.Close();
+                                                M.Desconectar();
                                             }
+
                                             llenar_data();
                                             RecuperarDatosSesion();
+
                                             MP.Show();
                                             this.Hide();
                                         }
@@ -192,10 +193,10 @@ namespace Capa_de_Presentacion
         }
         public void llenarid()
         {
+            M.Desconectar();
             string cadSql = "select top(1) id_caja  from Caja order by id_caja desc";
-
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            M.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -203,15 +204,16 @@ namespace Capa_de_Presentacion
             {
                 idCaja = leer["id_caja"].ToString();
             }
-            Cx.conexion.Close();
+            M.Desconectar();
         }
 
         public void fechaVenc()
         {
+            M.Desconectar();
             string cadSql = "select top(1) FechaVenc  from NomEmp order by idEmp desc";
 
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+            M.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -219,7 +221,7 @@ namespace Capa_de_Presentacion
             {
                 FechaVenc = Convert.ToDateTime(leer["FechaVenc"]);
             }
-            Cx.conexion.Close();
+            M.Desconectar();
         }
         public void RecuperarDatosSesion()
         {
@@ -261,12 +263,13 @@ namespace Capa_de_Presentacion
 
             if (activo == false)
             {
+                M.Desconectar();
                 SqlCommand command = new SqlCommand("SELECT * FROM dbo.Empleado INNER JOIN " +
                 "dbo.Usuario ON dbo.Empleado.IdEmpleado = dbo.Usuario.IdEmpleado AND dbo.Empleado.IdEmpleado = " +
-                "dbo.Usuario.IdEmpleado WHERE dbo.Usuario.Usuario = @Clave", Cx.conexion);
+                "dbo.Usuario.IdEmpleado WHERE dbo.Usuario.Usuario = @Clave", M.conexion);
                 command.Parameters.AddWithValue("@Clave", txtUser.Text);
 
-                Cx.conexion.Open();
+                M.Conectar();
                 SqlDataReader leer = command.ExecuteReader();
 
                 if (leer.Read() == false)
@@ -275,9 +278,9 @@ namespace Capa_de_Presentacion
                     txtUser.Clear();
                     txtUser.Focus();
 
-                    Cx.conexion.Close();
+                    M.conexion.Close();
                 }
-                Cx.conexion.Close();
+                M.Desconectar();
             }
         }
 
@@ -298,8 +301,9 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            M.Desconectar();
             FrmMenuPrincipal MP = new FrmMenuPrincipal();
-            using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
+            using (SqlCommand cmd = new SqlCommand("abrir_caja", M.conexion))
             {
                 string id_var = "";
                 if (idCaja == "" || idCaja == null)
@@ -313,10 +317,11 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontoinicial.Text);
                 cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
-                Cx.conexion.Open();
+                M.Conectar();
                 cmd.ExecuteNonQuery();
-                Cx.conexion.Close();
+                M.Desconectar();
             }
+
             llenar_data();
             RecuperarDatosSesion();
             MP.Show();

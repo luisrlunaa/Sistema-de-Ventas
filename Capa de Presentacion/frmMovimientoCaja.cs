@@ -1,4 +1,4 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -19,7 +19,7 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        clsCx Cx = new clsCx();
+        clsManejador M = new clsManejador();
         private void frmMovimientoCaja_Load(object sender, EventArgs e)
         {
             llenarid();
@@ -30,10 +30,11 @@ namespace Capa_de_Presentacion
 
         public void llenarid()
         {
+            M.Desconectar();
             string cadSql = "select top(1) id_caja,monto_inicial from Caja order by id_caja desc";
 
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+            M.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -42,28 +43,24 @@ namespace Capa_de_Presentacion
                 txtmonto_inicial.Text = leer["monto_inicial"].ToString();
                 txtBuscarCaja.Text = leer["id_caja"].ToString();
             }
-            Cx.conexion.Close();
+            M.Desconectar();
         }
 
         public void llenar_datagastos()
         {
+            M.Desconectar();
             decimal gastos = 0;
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = M.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "select id,monto,descripcion,fecha from Gastos WHERE fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            M.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView2.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -82,32 +79,29 @@ namespace Capa_de_Presentacion
             }
 
             lbldeu.Text = gastos.ToString();
-            con.Close();
+            M.Desconectar();
         }
         public void llenar_data()
         {
+            M.Desconectar();
             decimal devuelta = 0, pagos = 0;
             int idcajaActual = 0;
             if (txtBuscarCaja.Text != "")
             {
                 idcajaActual = Convert.ToInt32(txtBuscarCaja.Text);
             }
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
+
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = M.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "select id_caja,id_pago,monto,ingresos,egresos from Pagos WHERE dbo.Pagos.id_caja =" + idcajaActual;
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            M.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -132,15 +126,16 @@ namespace Capa_de_Presentacion
             lblegr.Text = devuelta.ToString();
             lbling.Text = pagos.ToString();
 
-            con.Close();
+            M.Desconectar();
         }
 
         public void llenar()
         {
+            M.Desconectar();
             string cadSql = "select * from NomEmp";
 
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+            M.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -149,7 +144,7 @@ namespace Capa_de_Presentacion
                 lblDir.Text = leer["DirEmp"].ToString();
                 lblLogo.Text = leer["NombreEmp"].ToString();
             }
-            Cx.conexion.Close();
+            M.Desconectar();
         }
         private void To_pdf()
         {
@@ -348,25 +343,24 @@ namespace Capa_de_Presentacion
 
         private void agregargasto_Click_1(object sender, EventArgs e)
         {
+            M.Desconectar();
             if (agregargasto.Text == "Eliminar")
             {
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este Gasto.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    using (SqlConnection con = new SqlConnection(Cx.conet))
+                    using (SqlCommand cmd = new SqlCommand("EliminarGasto", M.conexion))
                     {
-                        using (SqlCommand cmd = new SqlCommand("EliminarGasto", con))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                            //tabla gastos
-                            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
+                        //tabla gastos
+                        cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
 
-                            con.Open();
-                            cmd.ExecuteNonQuery();
-                            con.Close();
-                            limpiar();
-                            llenar_datagastos();
-                        }
+                        M.Conectar();
+                        cmd.ExecuteNonQuery();
+                        M.Desconectar();
+
+                        limpiar();
+                        llenar_datagastos();
                     }
                 }
                 else
@@ -379,24 +373,21 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                using (SqlConnection con = new SqlConnection(Cx.conet))
+                using (SqlCommand cmd = new SqlCommand("RegistrarGasto", M.conexion))
                 {
-                    using (SqlCommand cmd = new SqlCommand("RegistrarGasto", con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        //tabla gastos
-                        cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
-                        cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtdescripciondegasto.Text;
-                        cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontogasto.Text);
-                        cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
+                    //tabla gastos
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
+                    cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtdescripciondegasto.Text;
+                    cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontogasto.Text);
+                    cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                        limpiar();
-                        llenar_datagastos();
-                    }
+                    M.Conectar();
+                    cmd.ExecuteNonQuery();
+                    M.Desconectar();
+                    limpiar();
+                    llenar_datagastos();
                 }
             }
         }

@@ -82,8 +82,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsVenta.cs" />
-    <Compile Include="Correo.cs" />
     <Compile Include="CrearTiket.cs" />
     <Compile Include="cuadredecaja.cs">
       <SubType>Form</SubType>
@@ -322,6 +320,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmListadoProductos.resx">
       <DependentUpon>FrmListadoProductos.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRegistrarEmpleados.resx">
       <DependentUpon>FrmRegistrarEmpleados.cs</DependentUpon>
@@ -372,6 +371,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CapaEnlaceDatos\CapaEnlaceDatos.csproj">
+      <Project>{B7008032-AC5E-4216-9234-54B3E6CA3BDA}</Project>
+      <Name>CapaEnlaceDatos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CapaLogicaNegocio\CapaLogicaNegocio.csproj">
       <Project>{8087117a-5bea-4eb0-925a-407b17ab7983}</Project>
       <Name>CapaLogicaNegocio</Name>

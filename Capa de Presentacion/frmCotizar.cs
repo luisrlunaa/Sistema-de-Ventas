@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -21,9 +22,9 @@ namespace Capa_de_Presentacion
             public decimal Precio;
         }
 
-        private List<clsVenta> lst = new List<clsVenta>();
+        private List<clsVentas> lst = new List<clsVentas>();
         private List<PrecioCompraProducto> listProducts = new List<PrecioCompraProducto>();
-        clsCx Cx = new clsCx();
+        clsManejador M = new clsManejador();
 
         public frmCotizar()
         {
@@ -79,10 +80,11 @@ namespace Capa_de_Presentacion
 
         public void llenar()
         {
+            M.Desconectar();
             string cadSql = "select top(1) IdCotizacion from Cotizacion order by IdCotizacion desc";
+            M.Conectar();
 
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -97,7 +99,7 @@ namespace Capa_de_Presentacion
             {
                 txtIdVenta.Text = "1";
             }
-            Cx.conexion.Close();
+            M.Desconectar();
         }
 
         private void btnBusquedaProducto_Click(object sender, EventArgs e)
@@ -115,10 +117,11 @@ namespace Capa_de_Presentacion
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            clsVenta V = new clsVenta();
+            clsVentas V = new clsVentas();
             PrecioCompraProducto PCP = new PrecioCompraProducto();
             decimal precio = 0;
             decimal itbis = 0;
+
             if (txtPorcentaje.Text.Trim() != "" && txtPVenta.Text.Trim() != "")
             {
                 decimal precioreal = Convert.ToDecimal(txtPVenta.Text);
@@ -195,7 +198,7 @@ namespace Capa_de_Presentacion
         }
         private void LlenarGri()
         {
-            Decimal SumaSubTotal = 0; Decimal SumaIgv = 0; Decimal SumaTotal = 0;
+            decimal SumaSubTotal = 0; decimal SumaIgv = 0; decimal SumaTotal = 0;
             dgvVenta.Rows.Clear();
             for (int i = 0; i < lst.Count; i++)
             {
@@ -229,7 +232,7 @@ namespace Capa_de_Presentacion
         }
         private void btnEliminarItem_Click(object sender, EventArgs e)
         {
-            List<clsVenta> lista = new List<clsVenta>();
+            List<clsVentas> lista = new List<clsVentas>();
 
             Program.IdProducto = Convert.ToInt32(dgvVenta.CurrentRow.Cells["IDP"].Value.ToString());
             if (Program.IdProducto > 0)
@@ -275,7 +278,7 @@ namespace Capa_de_Presentacion
         {
             Limpiar();
             Limpiar1();
-           
+
             button2.Show();
             button3.Hide();
         }
@@ -328,7 +331,7 @@ namespace Capa_de_Presentacion
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            if(dgvVenta.Rows.Count>0)
+            if (dgvVenta.Rows.Count > 0)
             {
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de Cotizacion desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
@@ -704,22 +707,17 @@ namespace Capa_de_Presentacion
                     decimal subtotal = 0;
                     decimal igv = 0;
 
-                    //declaramos la cadena  de conexion
-                    string cadenaconexion = Cx.conet;
-                    //variable de tipo Sqlconnection
-                    SqlConnection con = new SqlConnection();
-                    //variable de tipo Sqlcommand
+                    M.Desconectar();
                     SqlCommand comando = new SqlCommand();
                     //variable SqlDataReader para leer los datos
                     SqlDataReader dr;
-                    con.ConnectionString = cadenaconexion;
-                    comando.Connection = con;
+                    comando.Connection = M.conexion;
                     //declaramos el comando para realizar la busqueda
                     comando.CommandText = "SELECT * from DetalleCotizacion WHERE DetalleCotizacion.IdCotizacion ='" + txtIdV.Text + "'";
                     //especificamos que es de tipo Text
                     comando.CommandType = CommandType.Text;
                     //se abre la conexion
-                    con.Open();
+                    M.Conectar();
                     //limpiamos los renglones de la datagridview
                     dgvVenta.Rows.Clear();
                     //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -750,13 +748,14 @@ namespace Capa_de_Presentacion
                     Program.ST = subtotal;
                     Program.igv = igv;
 
-                    con.Close();
+                    M.Desconectar();
                 }
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            M.Desconectar();
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de Cotizacion desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                 tickEstilo();
@@ -769,67 +768,66 @@ namespace Capa_de_Presentacion
             Program.whoCallme = "Cotizar";
 
             string procedure = "";
-            using (SqlConnection con = new SqlConnection(Cx.conet))
+
+            if (Program.IdCliente > 0)
             {
-                if (Program.IdCliente > 0)
+                procedure = "RegistrarCotizacion";
+            }
+            else
+            {
+                procedure = "RegistrarCotizacionsinIDcliente";
+            }
+
+            using (SqlCommand cmd = new SqlCommand(procedure, M.conexion))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                //tabla Ventas
+                if (Program.IdCliente != 0)
                 {
-                    procedure = "RegistrarCotizacion";
+                    cmd.Parameters.Add("@IdCliente", SqlDbType.Int).Value = Convert.ToInt32(txtidCli.Text);
+                    cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
                 }
                 else
                 {
-                    procedure = "RegistrarCotizacionsinIDcliente";
+                    cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = Program.datoscliente;
                 }
 
-                using (SqlCommand cmd = new SqlCommand(procedure, con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
+                cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
+                cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
 
-                    //tabla Ventas
-                    if (Program.IdCliente != 0)
-                    {
-                        cmd.Parameters.Add("@IdCliente", SqlDbType.Int).Value = Convert.ToInt32(txtidCli.Text);
-                        cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
-                    }
-                    else
-                    {
-                        cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = Program.datoscliente;
-                    }
-
-                    cmd.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
-                    cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
-                    cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
-
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-
-                using (SqlCommand cmd1 = new SqlCommand("RegistrarDetalleCotizacion", con))
-                    foreach (DataGridViewRow row in dgvVenta.Rows)
-                    {
-                        cmd1.CommandType = CommandType.StoredProcedure;
-                        int idProducto = Convert.ToInt32(row.Cells["IDP"].Value);
-                        decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                        decimal subtotal = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
-                        int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
-                        decimal Ganancia = Math.Round(subtotal - (preciocompra * cantidad));
-
-                        //Tabla detalles ventas
-                        cmd1.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IdD"].Value);
-                        cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
-                        cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
-                        cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
-                        cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
-                        cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
-                        cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
-                        cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
-                        con.Open();
-                        cmd1.ExecuteNonQuery();
-                        cmd1.Parameters.Clear();
-                        con.Close();
-                    }
-                Program.pagoRealizado = 0;
+                M.Conectar();
+                cmd.ExecuteNonQuery();
+                M.Desconectar();
             }
+
+            using (SqlCommand cmd1 = new SqlCommand("RegistrarDetalleCotizacion", M.conexion))
+                foreach (DataGridViewRow row in dgvVenta.Rows)
+                {
+                    cmd1.CommandType = CommandType.StoredProcedure;
+                    int idProducto = Convert.ToInt32(row.Cells["IDP"].Value);
+                    decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
+                    decimal subtotal = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
+                    int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
+                    decimal Ganancia = Math.Round(subtotal - (preciocompra * cantidad));
+
+                    //Tabla detalles ventas
+                    cmd1.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IdD"].Value);
+                    cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
+                    cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
+                    cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
+                    cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
+                    cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
+                    cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
+                    cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
+
+                    M.Conectar();
+                    cmd1.ExecuteNonQuery();
+                    cmd1.Parameters.Clear();
+                    M.Desconectar();
+                }
+            Program.pagoRealizado = 0;
 
             Limpiar();
             Limpiar1();
@@ -858,17 +856,17 @@ namespace Capa_de_Presentacion
         private void button3_Click(object sender, EventArgs e)
         {
             Program.whoCallme = "Vender Cotizacion";
-            Program.itbis=Convert.ToDecimal(txtIgv.Text);
-            Program.total=Convert.ToDecimal(txttotal.Text);
-            Program.ST=Convert.ToDecimal(lblsubt.Text);
-            Program.igv=Convert.ToDecimal(lbligv.Text);
+            Program.itbis = Convert.ToDecimal(txtIgv.Text);
+            Program.total = Convert.ToDecimal(txttotal.Text);
+            Program.ST = Convert.ToDecimal(lblsubt.Text);
+            Program.igv = Convert.ToDecimal(lbligv.Text);
 
             if (txtidCli.Text != "")
             {
                 Program.IdCliente = Convert.ToInt32(txtidCli.Text);
                 Program.DocumentoIdentidad = txtDocIdentidad.Text;
             }
-    
+
             Program.datoscliente = txtDatos.Text;
 
             FrmRegistroVentas V = new FrmRegistroVentas();
