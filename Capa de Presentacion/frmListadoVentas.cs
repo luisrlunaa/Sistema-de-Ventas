@@ -119,7 +119,6 @@ namespace Capa_de_Presentacion
                         venta.borrador = Convert.ToInt32(reader["borrado"]);
 
                         clsGenericList.listVentas.Add(venta);
-                        idsVentas.Add(venta.IdVenta);
                     }
 
                     llenar_data(clsGenericList.listVentas);
@@ -152,6 +151,8 @@ namespace Capa_de_Presentacion
 
                 total += item.Total;
                 txtTtal.Text = Math.Round(total, 2).ToString("C2");
+                
+                idsVentas.Add(item.IdVenta);
             }
 
             llenarganancia();
@@ -169,7 +170,7 @@ namespace Capa_de_Presentacion
             }
         }
 
-        public void llenarid(int idventa)
+        public void llenaridCliente(int idventa)
         {
             M.Desconectar();
             string cadSql = "select IdCliente =COALESCE(dbo.Venta.IdCliente,0) from Venta where idventa=" + idventa;
@@ -217,7 +218,7 @@ namespace Capa_de_Presentacion
         {
             M.Desconectar();
             Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
-            llenarid(Program.Id);
+            llenaridCliente(Program.Id);
 
             if (Program.IdCliente > 0)
             {

@@ -210,7 +210,7 @@
             this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label8.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Red;
-            this.label8.Location = new System.Drawing.Point(482, 9);
+            this.label8.Location = new System.Drawing.Point(495, 9);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(24, 25);
             this.label8.TabIndex = 72;
@@ -344,7 +344,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
-            this.ClientSize = new System.Drawing.Size(517, 428);
+            this.ClientSize = new System.Drawing.Size(531, 439);
             this.Controls.Add(this.cbtipo);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);

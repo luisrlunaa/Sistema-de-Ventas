@@ -20,43 +20,36 @@ namespace Capa_de_Presentacion
         }
 
         clsManejador M = new clsManejador();
+        public int idcajaanterior = 0;
+        public int idcajaactual = 0;
         private void frmMovimientoCaja_Load(object sender, EventArgs e)
         {
-            llenarid();
             llenar_data();
-            llenar_datagastos();
-            llenar();
-        }
 
-        public void llenarid()
-        {
-            M.Desconectar();
-            string cadSql = "select top(1) id_caja,monto_inicial from Caja order by id_caja desc";
-
-            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
-            M.Conectar();
-
-            SqlDataReader leer = comando.ExecuteReader();
-
-            if (leer.Read() == true)
-            {
-                txtmonto_inicial.Text = leer["monto_inicial"].ToString();
-                txtBuscarCaja.Text = leer["id_caja"].ToString();
-            }
-            M.Desconectar();
+            txtmonto_inicial.Text = Program.MontoInicial.ToString();
+            txtBuscarCaja.Text = Program.idcaja.ToString();
         }
 
         public void llenar_datagastos()
         {
             M.Desconectar();
             decimal gastos = 0;
+            decimal pagos = 0;
+            decimal total = 0;
+            int idcajaActual = 0;
+
+            if (txtBuscarCaja.Text != "")
+            {
+                idcajaActual = Convert.ToInt32(txtBuscarCaja.Text);
+            }
+
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
             comando.Connection = M.conexion;
             //declaramos el comando para realizar la busqueda
-            comando.CommandText = "select id,monto,descripcion,fecha from Gastos WHERE fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
+            comando.CommandText = "select G.id,G.monto,G.descripcion,G.fecha from Gastos G inner join Caja C on G.fecha= C.fecha where C.id_caja=" + idcajaActual;
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
@@ -79,18 +72,34 @@ namespace Capa_de_Presentacion
             }
 
             lbldeu.Text = gastos.ToString();
+
+            if (lbling.Text != "...")
+            {
+                pagos = Convert.ToDecimal(lbling.Text);
+            }
+
+            if (lbldeu.Text != "...")
+            {
+                gastos = Convert.ToDecimal(lbldeu.Text);
+            }
+
+            total = pagos - gastos;
+
+            lbltotal.Text = total.ToString();
+
             M.Desconectar();
         }
+
         public void llenar_data()
         {
             M.Desconectar();
             decimal devuelta = 0, pagos = 0;
             int idcajaActual = 0;
+
             if (txtBuscarCaja.Text != "")
             {
                 idcajaActual = Convert.ToInt32(txtBuscarCaja.Text);
             }
-
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
@@ -126,25 +135,7 @@ namespace Capa_de_Presentacion
             lblegr.Text = devuelta.ToString();
             lbling.Text = pagos.ToString();
 
-            M.Desconectar();
-        }
-
-        public void llenar()
-        {
-            M.Desconectar();
-            string cadSql = "select * from NomEmp";
-
-            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
-            M.Conectar();
-
-            SqlDataReader leer = comando.ExecuteReader();
-
-            if (leer.Read() == true)
-            {
-                lblDir.Text = leer["DirEmp"].ToString();
-                lblLogo.Text = leer["NombreEmp"].ToString();
-            }
-            M.Desconectar();
+            llenar_datagastos();
         }
         private void To_pdf()
         {
@@ -288,29 +279,7 @@ namespace Capa_de_Presentacion
 
         private void frmMovimientoCaja_Activated(object sender, EventArgs e)
         {
-            decimal gastos = 0;
-            decimal pagos = 0;
-            decimal devuelta = 0;
-            decimal total = 0;
-
-            if (lbling.Text != "...")
-            {
-                pagos = Convert.ToDecimal(lbling.Text);
-            }
-
-            if (lblegr.Text != "...")
-            {
-                devuelta = Convert.ToDecimal(lblegr.Text);
-            }
-
-            if (lbldeu.Text != "...")
-            {
-                gastos = Convert.ToDecimal(lbldeu.Text);
-            }
-
-            total = pagos - gastos;
-
-            lbltotal.Text = total.ToString();
+ 
         }
 
         private void dataGridView2_DoubleClick(object sender, EventArgs e)
@@ -319,6 +288,7 @@ namespace Capa_de_Presentacion
             txtdescripciondegasto.Text = dataGridView2.CurrentRow.Cells["descripcion"].Value.ToString();
             txtmontogasto.Text = dataGridView2.CurrentRow.Cells["montogasto"].Value.ToString();
         }
+
 
         private void txtBuscarCaja_TextChanged(object sender, EventArgs e)
         {

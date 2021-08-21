@@ -17,7 +17,6 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        public string idCaja;
         public DateTime FechaVenc;
         bool tienefila = false;
         public void llenar_data()
@@ -151,10 +150,10 @@ namespace Capa_de_Presentacion
                                             using (SqlCommand cmd = new SqlCommand("abrir_caja", M.conexion))
                                             {
                                                 string id_var = "";
-                                                if (idCaja == "" || idCaja == null)
+                                                if (Program.idcaja.ToString() == "" || Program.idcaja.ToString() == null)
                                                     id_var = "0";
                                                 else
-                                                    id_var = idCaja;
+                                                    id_var = Program.idcaja.ToString();
 
                                                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -194,7 +193,7 @@ namespace Capa_de_Presentacion
         public void llenarid()
         {
             M.Desconectar();
-            string cadSql = "select top(1) id_caja  from Caja order by id_caja desc";
+            string cadSql = "select top(1) id_caja,monto_inicial  from Caja order by id_caja desc";
             M.Conectar();
             SqlCommand comando = new SqlCommand(cadSql, M.conexion);
 
@@ -202,7 +201,8 @@ namespace Capa_de_Presentacion
 
             if (leer.Read() == true)
             {
-                idCaja = leer["id_caja"].ToString();
+                Program.idcaja = Convert.ToInt32(leer["id_caja"]);
+                Program.MontoInicial = Convert.ToDecimal(leer["monto_inicial"]);
             }
             M.Desconectar();
         }
@@ -306,10 +306,10 @@ namespace Capa_de_Presentacion
             using (SqlCommand cmd = new SqlCommand("abrir_caja", M.conexion))
             {
                 string id_var = "";
-                if (idCaja == "" || idCaja == null)
+                if (Program.idcaja.ToString() == "" || Program.idcaja.ToString() == null)
                     id_var = "0";
                 else
-                    id_var = idCaja;
+                    id_var = Program.idcaja.ToString();
 
                 cmd.CommandType = CommandType.StoredProcedure;
 

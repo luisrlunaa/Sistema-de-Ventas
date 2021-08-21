@@ -89,6 +89,7 @@ namespace Capa_de_Presentacion
         public static decimal Caja;
         public static int idPago;
         public static int idcaja;
+        public static decimal MontoInicial;
         public static string Fechapago;
 
         [STAThread]

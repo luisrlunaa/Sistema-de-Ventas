@@ -62,7 +62,7 @@ namespace Capa_de_Presentacion
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(175, 53);
+            this.label11.Location = new System.Drawing.Point(173, 51);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(214, 29);
             this.label11.TabIndex = 87;

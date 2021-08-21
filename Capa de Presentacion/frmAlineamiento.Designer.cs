@@ -311,10 +311,10 @@
             // lblLogo
             // 
             this.lblLogo.AutoSize = true;
-            this.lblLogo.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLogo.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold);
             this.lblLogo.Location = new System.Drawing.Point(178, 38);
             this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(61, 29);
+            this.lblLogo.Size = new System.Drawing.Size(65, 29);
             this.lblLogo.TabIndex = 49;
             this.lblLogo.Text = "logo";
             // 

@@ -15,7 +15,8 @@ namespace Capa_de_Presentacion
         {
 
         }
-        Double B;
+
+        double B;
         private void button1_Click(object sender, EventArgs e)
         {
             B = Program.turno + 1;

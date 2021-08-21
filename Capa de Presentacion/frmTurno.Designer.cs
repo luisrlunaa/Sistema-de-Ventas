@@ -59,7 +59,7 @@
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(113, 307);
+            this.button1.Location = new System.Drawing.Point(116, 309);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(166, 66);
             this.button1.TabIndex = 2;

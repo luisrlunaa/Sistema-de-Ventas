@@ -461,6 +461,8 @@ namespace Capa_de_Presentacion
             if (Program.abierto == false)
             {
                 frmMovimientoCaja move = new frmMovimientoCaja();
+                move.lblLogo.Text = lblLogo.Text;
+                move.lblDir.Text = lblDir.Text;
                 Program.abierto = true;
                 move.Show();
             }

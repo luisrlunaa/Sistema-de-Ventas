@@ -180,7 +180,7 @@ namespace Capa_de_Presentacion
         public void seleccion_data()
         {
             Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
-            llenarid(Program.Id);
+            llenaridCliente(Program.Id);
             if (Program.IdCliente > 0)
             {
                 M.Desconectar();
@@ -207,7 +207,7 @@ namespace Capa_de_Presentacion
             Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
         }
 
-        public void llenarid(int idventa)
+        public void llenaridCliente(int idventa)
         {
             M.Desconectar();
             string cadSql = "select IdCliente =COALESCE(dbo.Cotizacion.IdCliente,0) from Cotizacion where idCotizacion=" + idventa;

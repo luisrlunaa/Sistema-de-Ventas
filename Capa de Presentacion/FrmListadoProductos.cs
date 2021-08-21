@@ -477,7 +477,7 @@ namespace Capa_de_Presentacion
         {
             M.Desconectar();
             M.Conectar();
-            string sql = "select top(1) detalles_P, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta GROUP BY detalles_P ORDER BY total DESC";
+            string sql = "select top(1) detalles_P, Sum(Cantidad) AS total FROM  dbo.DetalleVenta GROUP BY detalles_P ORDER BY total DESC";
             SqlCommand cmd = new SqlCommand(sql, M.conexion);
             SqlDataReader reade = cmd.ExecuteReader();
             if (reade.Read())

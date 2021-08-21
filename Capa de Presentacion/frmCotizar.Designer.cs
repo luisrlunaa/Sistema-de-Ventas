@@ -53,6 +53,8 @@ namespace Capa_de_Presentacion
             this.txtPorcentaje = new System.Windows.Forms.TextBox();
             this.txtIgv = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.btnBusquedaProducto = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
             this.txtCantidad = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtPVenta = new System.Windows.Forms.TextBox();
@@ -66,6 +68,7 @@ namespace Capa_de_Presentacion
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbidentificacion = new System.Windows.Forms.CheckBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.txtDocIdentidad = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtDatos = new System.Windows.Forms.TextBox();
@@ -104,9 +107,6 @@ namespace Capa_de_Presentacion
             this.btnImprimir = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnEliminarItem = new System.Windows.Forms.Button();
-            this.btnBusquedaProducto = new System.Windows.Forms.Button();
-            this.btnAgregar = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -234,10 +234,10 @@ namespace Capa_de_Presentacion
             // lblLogo
             // 
             this.lblLogo.AutoSize = true;
-            this.lblLogo.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLogo.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold);
             this.lblLogo.Location = new System.Drawing.Point(262, 9);
             this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(61, 29);
+            this.lblLogo.Size = new System.Drawing.Size(65, 29);
             this.lblLogo.TabIndex = 103;
             this.lblLogo.Text = "logo";
             // 
@@ -335,6 +335,48 @@ namespace Capa_de_Presentacion
             this.label12.Size = new System.Drawing.Size(45, 17);
             this.label12.TabIndex = 12;
             this.label12.Text = "ITBIS:";
+            // 
+            // btnBusquedaProducto
+            // 
+            this.btnBusquedaProducto.BackColor = System.Drawing.Color.DarkGray;
+            this.btnBusquedaProducto.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnBusquedaProducto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnBusquedaProducto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btnBusquedaProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBusquedaProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBusquedaProducto.ForeColor = System.Drawing.Color.Black;
+            this.btnBusquedaProducto.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_buscar;
+            this.btnBusquedaProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBusquedaProducto.Location = new System.Drawing.Point(400, 87);
+            this.btnBusquedaProducto.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBusquedaProducto.Name = "btnBusquedaProducto";
+            this.btnBusquedaProducto.Size = new System.Drawing.Size(125, 37);
+            this.btnBusquedaProducto.TabIndex = 11;
+            this.btnBusquedaProducto.Text = "Buscar";
+            this.btnBusquedaProducto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnBusquedaProducto.UseVisualStyleBackColor = false;
+            this.btnBusquedaProducto.Click += new System.EventHandler(this.btnBusquedaProducto_Click);
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.BackColor = System.Drawing.Color.SpringGreen;
+            this.btnAgregar.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnAgregar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnAgregar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.ForeColor = System.Drawing.Color.Black;
+            this.btnAgregar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_agregar1;
+            this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAgregar.Location = new System.Drawing.Point(399, 132);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(125, 37);
+            this.btnAgregar.TabIndex = 10;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAgregar.UseVisualStyleBackColor = false;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // txtCantidad
             // 
@@ -498,6 +540,27 @@ namespace Capa_de_Presentacion
             this.textBox6.Size = new System.Drawing.Size(83, 22);
             this.textBox6.TabIndex = 13;
             this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackColor = System.Drawing.Color.DarkGray;
+            this.btnBuscar.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnBuscar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnBuscar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscar.ForeColor = System.Drawing.Color.Black;
+            this.btnBuscar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_buscar;
+            this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBuscar.Location = new System.Drawing.Point(410, 16);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(115, 37);
+            this.btnBuscar.TabIndex = 4;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // txtDocIdentidad
             // 
@@ -965,69 +1028,6 @@ namespace Capa_de_Presentacion
             this.btnEliminarItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEliminarItem.UseVisualStyleBackColor = false;
             this.btnEliminarItem.Click += new System.EventHandler(this.btnEliminarItem_Click);
-            // 
-            // btnBusquedaProducto
-            // 
-            this.btnBusquedaProducto.BackColor = System.Drawing.Color.DarkGray;
-            this.btnBusquedaProducto.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnBusquedaProducto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnBusquedaProducto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.btnBusquedaProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBusquedaProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBusquedaProducto.ForeColor = System.Drawing.Color.Black;
-            this.btnBusquedaProducto.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_buscar;
-            this.btnBusquedaProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBusquedaProducto.Location = new System.Drawing.Point(400, 87);
-            this.btnBusquedaProducto.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBusquedaProducto.Name = "btnBusquedaProducto";
-            this.btnBusquedaProducto.Size = new System.Drawing.Size(125, 37);
-            this.btnBusquedaProducto.TabIndex = 11;
-            this.btnBusquedaProducto.Text = "Buscar";
-            this.btnBusquedaProducto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnBusquedaProducto.UseVisualStyleBackColor = false;
-            this.btnBusquedaProducto.Click += new System.EventHandler(this.btnBusquedaProducto_Click);
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.BackColor = System.Drawing.Color.SpringGreen;
-            this.btnAgregar.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnAgregar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnAgregar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregar.ForeColor = System.Drawing.Color.Black;
-            this.btnAgregar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_agregar1;
-            this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregar.Location = new System.Drawing.Point(399, 132);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(125, 37);
-            this.btnAgregar.TabIndex = 10;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAgregar.UseVisualStyleBackColor = false;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.BackColor = System.Drawing.Color.DarkGray;
-            this.btnBuscar.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnBuscar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnBuscar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscar.ForeColor = System.Drawing.Color.Black;
-            this.btnBuscar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_buscar;
-            this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(410, 16);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(115, 37);
-            this.btnBuscar.TabIndex = 4;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // button3
             // 

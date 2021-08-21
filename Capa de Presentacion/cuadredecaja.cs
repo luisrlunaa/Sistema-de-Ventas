@@ -350,10 +350,10 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("No guardo el Archivo");
             }
         }
-        public void llenarid()
+        public void llenardeuda()
         {
             M.Desconectar();
-            string cadSql = "select top(1) id_caja,deuda from Caja order by id_caja desc";
+            string cadSql = "select deuda from Caja where id_caja="+Program.idcaja;
 
             M.Conectar();
             SqlCommand comando = new SqlCommand(cadSql, M.conexion);
@@ -363,7 +363,7 @@ namespace Capa_de_Presentacion
             if (leer.Read() == true)
             {
                 lbldeudas.Text = Math.Round(Convert.ToDecimal(leer["deuda"])).ToString();
-                lblidcaja.Text = leer["id_caja"].ToString();
+                lblidcaja.Text = Program.idcaja.ToString();
             }
             M.Desconectar();
         }
@@ -374,7 +374,7 @@ namespace Capa_de_Presentacion
             btnregistrar.Enabled = false;
             btnsuma.Visible = true;
 
-            llenarid();
+            llenardeuda();
             if (lblidcaja.Text != "")
             {
                 idcajaa = Convert.ToInt32(lblidcaja.Text);
