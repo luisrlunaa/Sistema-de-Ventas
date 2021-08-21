@@ -20,8 +20,6 @@ namespace Capa_de_Presentacion
         }
 
         clsManejador M = new clsManejador();
-        public int idcajaanterior = 0;
-        public int idcajaactual = 0;
         private void frmMovimientoCaja_Load(object sender, EventArgs e)
         {
             llenar_data();
@@ -275,11 +273,6 @@ namespace Capa_de_Presentacion
         private void btnimprimir_Click(object sender, EventArgs e)
         {
             To_pdf();
-        }
-
-        private void frmMovimientoCaja_Activated(object sender, EventArgs e)
-        {
- 
         }
 
         private void dataGridView2_DoubleClick(object sender, EventArgs e)
