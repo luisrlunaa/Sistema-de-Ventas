@@ -65,7 +65,7 @@ namespace Capa_de_Presentacion
         public static decimal PrecioVenta;
         public static decimal Pmax;
         public static decimal Pmin;
-        public static string tipogoma; 
+        public static string tipogoma;
         public static string ultimafechapago;
 
         //Datos del Empleado

@@ -322,6 +322,7 @@
             this.data_ncf.RowTemplate.Height = 24;
             this.data_ncf.Size = new System.Drawing.Size(506, 304);
             this.data_ncf.TabIndex = 114;
+            this.data_ncf.DoubleClick += new System.EventHandler(this.data_ncf_DoubleClick_1);
             // 
             // id_ncf
             // 

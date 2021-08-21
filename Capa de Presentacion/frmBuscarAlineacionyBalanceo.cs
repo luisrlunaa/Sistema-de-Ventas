@@ -1,4 +1,4 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -18,21 +18,18 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         public void cargardata()
         {
+            Cx.Desconectar();
             double total = 0;
             limpiar();
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection conexion = new SqlConnection();
+
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            conexion.ConnectionString = cadenaconexion;
-            comando.Connection = conexion;
+            comando.Connection = Cx.conexion;
             if (textBox1.Text != "")
             {
                 //declaramos el comando para realizar la busqueda
@@ -48,7 +45,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            conexion.Open();
+            Cx.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -73,7 +70,7 @@ namespace Capa_de_Presentacion
                 total += Convert.ToDouble(dataGridView1.Rows[renglon].Cells["precio"].Value);
                 txttotalG.Text = Convert.ToString(total);
             }
-            conexion.Close();
+            Cx.Desconectar();
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -134,18 +131,14 @@ namespace Capa_de_Presentacion
 
         public void buscarporfecha()
         {
+            Cx.Desconectar();
             double total = 0;
             limpiar();
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = Cx.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "select * from Taller where fecha BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) ORDER BY fecha";
             comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
@@ -153,7 +146,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            Cx.Conectar();;
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -178,7 +171,7 @@ namespace Capa_de_Presentacion
                 total += Convert.ToDouble(dataGridView1.Rows[renglon].Cells["precio"].Value);
                 txttotalG.Text = Convert.ToString(total);
             }
-            con.Close();
+           Cx.Desconectar();
         }
         private void frmBuscarAlineacionyBalanceo_Load(object sender, EventArgs e)
         {
@@ -288,17 +281,14 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Cx.Desconectar();
             double total = 0;
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection conexion = new SqlConnection();
+
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            conexion.ConnectionString = cadenaconexion;
-            comando.Connection = conexion;
+            comando.Connection = Cx.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "select * from taller where tipoDeTrabajo like '%" + cbtipo.Text + "%' AND fecha BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) ORDER BY fecha";
             comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
@@ -306,7 +296,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            conexion.Open();
+            Cx.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -331,7 +321,7 @@ namespace Capa_de_Presentacion
                 total += Convert.ToDouble(dataGridView1.Rows[renglon].Cells["precio"].Value);
                 txttotalG.Text = Convert.ToString(total);
             }
-            conexion.Close();
+            Cx.Desconectar();
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -349,6 +339,7 @@ namespace Capa_de_Presentacion
 
         private void button3_Click(object sender, EventArgs e)
         {
+            Cx.Desconectar();
             Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
             Program.tipogoma = dataGridView1.CurrentRow.Cells["tipoDeTrabajo"].Value.ToString();
             if (Program.Id > 0)
@@ -356,7 +347,7 @@ namespace Capa_de_Presentacion
                 decimal caja = 0, monto = 0;
                 if (Program.tipogoma.ToUpper() == "SALIDA")
                 {
-                    Cx.conexion.Open();
+                    Cx.Conectar();
                     string sql = "select * FROM pagos where idVenta=" + Program.Id;
                     SqlCommand cmd1 = new SqlCommand(sql, Cx.conexion);
                     SqlDataReader reade = cmd1.ExecuteReader();
@@ -368,7 +359,7 @@ namespace Capa_de_Presentacion
                         decimal egresos = Convert.ToDecimal(reade["egresos"]);
                         monto = ingresos - egresos;
                     }
-                    Cx.conexion.Close();
+                    Cx.Desconectar();
                 }
 
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -381,9 +372,9 @@ namespace Capa_de_Presentacion
                         cmd.Parameters.Add("@monto", SqlDbType.Int).Value = monto;
                         cmd.Parameters.Add("@tipoDeTrabajo", SqlDbType.NVarChar).Value = Program.tipogoma;
 
-                        Cx.conexion.Open();
+                        Cx.Conectar();
                         cmd.ExecuteNonQuery();
-                        Cx.conexion.Close();
+                        Cx.Desconectar();
                         Program.Id = 0;
                         Program.tipogoma = "";
                     }

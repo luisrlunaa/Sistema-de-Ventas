@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,7 +11,7 @@ namespace Capa_de_Presentacion
     {
         clsCargo C = new clsCargo();
         clsEmpleado Em = new clsEmpleado();
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         int Listado = 0;
         public FrmRegistrarEmpleados()
         {
@@ -43,6 +44,7 @@ namespace Capa_de_Presentacion
 
         private void btnGrabar_Click(object sender, EventArgs e)
         {
+            Cx.Desconectar();
             Char EstadoCivil = 'S';
             switch (cbxEstadoCivil.SelectedIndex)
             {
@@ -62,9 +64,7 @@ namespace Capa_de_Presentacion
                         {
                             if (comboBox1.SelectedValue != null)
                             {
-                                using (SqlConnection con = new SqlConnection(Cx.conet))
-                                {
-                                    using (SqlCommand cmd = new SqlCommand("MantenimientoEmpleados", con))
+                                using (SqlCommand cmd = new SqlCommand("MantenimientoEmpleados", Cx.conexion))
                                     {
                                         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -79,13 +79,11 @@ namespace Capa_de_Presentacion
 
                                         DevComponents.DotNetBar.MessageBoxEx.Show("Se Realizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                        con.Open();
+                                        Cx.Conectar();;
                                         cmd.ExecuteNonQuery();
-                                        con.Close();
+                                       Cx.Desconectar();
                                         Limpiar();
                                     }
-                                }
-
                             }
                             else
                             {
@@ -181,11 +179,11 @@ namespace Capa_de_Presentacion
         //        SqlCommand command = new SqlCommand("SELECT dbo.Empleado.imagen FROM dbo.Empleado WHERE dbo.Empleado.imagen IS NOT NULL AND  dbo.Empleado.idEmpleado = @Clave", Cx.conexion);
         //        command.Parameters.AddWithValue("@Clave", txtIdE.Text);
 
-        //        Cx.conexion.Open();
+        //        Cx.Conectar();
         //        SqlDataReader leer = command.ExecuteReader();
         //            //Representa un set de comandos que es utilizado para llenar un DataSet
         //            SqlDataAdapter dp = new SqlDataAdapter(command);
-        //            Cx.conexion.Close();
+        //            Cx.Desconectar();
 
         //            //Representa un caché (un espacio) en memoria de los datos.
         //            DataSet ds = new DataSet("Empleado");

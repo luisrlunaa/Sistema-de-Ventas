@@ -1,4 +1,4 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -18,7 +18,7 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         private void frmMovimientoCaja_Load(object sender, EventArgs e)
         {
             llenarid();
@@ -27,10 +27,11 @@ namespace Capa_de_Presentacion
 
         public void llenarid()
         {
+            Cx.Desconectar();
             string cadSql = "select top(1) id_caja,monto_inicial from Caja order by id_caja desc";
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            Cx.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -39,7 +40,7 @@ namespace Capa_de_Presentacion
                 txtmonto_inicial.Text = leer["monto_inicial"].ToString();
                 txtBuscarCaja.Text = leer["id_caja"].ToString();
             }
-            Cx.conexion.Close();
+            Cx.Desconectar();
         }
 
         public void llenar_datagastos()
@@ -52,22 +53,18 @@ namespace Capa_de_Presentacion
             {
                 idcajaActual = Convert.ToInt32(txtBuscarCaja.Text);
             }
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
+
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = Cx.conexion;
             //declaramos el comando para realizar la busqueda
-            comando.CommandText = "select G.id,G.monto,G.descripcion,G.fecha from Gastos G inner join Caja C on G.fecha= C.fecha where C.id_caja="+ idcajaActual;
+            comando.CommandText = "select G.id,G.monto,G.descripcion,G.fecha from Gastos G inner join Caja C on G.fecha= C.fecha where C.id_caja=" + idcajaActual;
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            Cx.Conectar();;
             //limpiamos los renglones de la datagridview
             dataGridView2.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -101,32 +98,29 @@ namespace Capa_de_Presentacion
 
             lbltotal.Text = total.ToString();
 
-            con.Close();
+           Cx.Desconectar();
         }
         public void llenar_data()
         {
+            Cx.Desconectar();
             decimal devuelta = 0, pagos = 0;
             int idcajaActual = 0;
             if (txtBuscarCaja.Text != "")
             {
                 idcajaActual = Convert.ToInt32(txtBuscarCaja.Text);
             }
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
+
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = Cx.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "select id_caja,id_pago,monto,ingresos,egresos from Pagos WHERE dbo.Pagos.id_caja =" + idcajaActual;
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            Cx.Conectar();;
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -151,7 +145,7 @@ namespace Capa_de_Presentacion
             lblegr.Text = devuelta.ToString();
             lbling.Text = pagos.ToString();
 
-            con.Close();
+           Cx.Desconectar();
             llenar_datagastos();
         }
 
@@ -336,22 +330,19 @@ namespace Capa_de_Presentacion
             {
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este Gasto.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    using (SqlConnection con = new SqlConnection(Cx.conet))
-                    {
-                        using (SqlCommand cmd = new SqlCommand("EliminarGasto", con))
+                        using (SqlCommand cmd = new SqlCommand("EliminarGasto", Cx.conexion))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
 
                             //tabla gastos
                             cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
 
-                            con.Open();
+                            Cx.Conectar();;
                             cmd.ExecuteNonQuery();
-                            con.Close();
+                           Cx.Desconectar();
                             limpiar();
                             llenar_datagastos();
                         }
-                    }
                 }
                 else
                 {
@@ -363,9 +354,7 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                using (SqlConnection con = new SqlConnection(Cx.conet))
-                {
-                    using (SqlCommand cmd = new SqlCommand("RegistrarGasto", con))
+                    using (SqlCommand cmd = new SqlCommand("RegistrarGasto", Cx.conexion))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -375,13 +364,12 @@ namespace Capa_de_Presentacion
                         cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontogasto.Text);
                         cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
-                        con.Open();
+                        Cx.Conectar();;
                         cmd.ExecuteNonQuery();
-                        con.Close();
+                       Cx.Desconectar();
                         limpiar();
                         llenar_datagastos();
                     }
-                }
             }
         }
 

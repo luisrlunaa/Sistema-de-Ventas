@@ -1,4 +1,4 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using System;
 using System.Data.SqlClient;
 using System.IO;
@@ -13,14 +13,15 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         //Correo c = new Correo();
         public void llenaridP()
         {
+            Cx.Desconectar();
             string cadSql = "select top(1) id_caja,montoactual from Caja order by id_caja desc";
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            Cx.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -29,10 +30,11 @@ namespace Capa_de_Presentacion
                 txtId.Text = leer["id_caja"].ToString();
                 txtCaja1.Text = leer["montoactual"].ToString();
             }
-            Cx.conexion.Close();
+            Cx.Desconectar();
         }
         private void button4_Click(object sender, EventArgs e)
         {
+            Cx.Desconectar();
             Program.turno = 0;
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
@@ -45,7 +47,7 @@ namespace Capa_de_Presentacion
                 SqlCommand comando = new SqlCommand(comand_query, Cx.conexion);
                 try
                 {
-                    Cx.conexion.Open();
+                    Cx.Conectar();
                     comando.ExecuteNonQuery();
 
                     //////////////////////Enviando al correo copia de seguridad de base de datos nueva
@@ -59,7 +61,7 @@ namespace Capa_de_Presentacion
                 }
                 finally
                 {
-                    Cx.conexion.Close();
+                    Cx.Desconectar();
                     Cx.conexion.Dispose();
                     Application.Exit();
                 }

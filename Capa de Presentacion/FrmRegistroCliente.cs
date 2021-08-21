@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,7 +11,7 @@ namespace Capa_de_Presentacion
     public partial class FrmRegistroCliente : DevComponents.DotNetBar.Metro.MetroForm
     {
         private clsCliente C = new clsCliente();
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         public FrmRegistroCliente()
         {
             InitializeComponent();
@@ -18,6 +19,8 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Cx.Desconectar();
+
             if (txtDni.Text.Trim() != "")
             {
                 if (txtApellidos.Text.Trim() != "")
@@ -31,10 +34,7 @@ namespace Capa_de_Presentacion
 
                                 if (Program.Evento == 0)
                                 {
-
-                                    using (SqlConnection con = new SqlConnection(Cx.conet))
-                                    {
-                                        using (SqlCommand cmd = new SqlCommand("RegistrarCliente", con))
+                                        using (SqlCommand cmd = new SqlCommand("RegistrarCliente", Cx.conexion))
                                         {
                                             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -47,13 +47,11 @@ namespace Capa_de_Presentacion
 
                                             DevComponents.DotNetBar.MessageBoxEx.Show("Se Registro Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                            con.Open();
+                                            Cx.Conectar();;
                                             cmd.ExecuteNonQuery();
-                                            con.Close();
+                                           Cx.Desconectar();
                                             Limpiar();
                                         }
-                                    }
-
                                 }
                             }
                             else
@@ -117,7 +115,7 @@ namespace Capa_de_Presentacion
         //              SqlCommand command = new SqlCommand("SELECT dbo.Cliente.imagen FROM dbo.Cliente WHERE dbo.Cliente.imagen IS NOT NULL AND  dbo.Cliente.Cliente = @Clave", Cx.conexion);
         //              command.Parameters.AddWithValue("@Clave", txtIdC.Text);
 
-        //              Cx.conexion.Open();
+        //              Cx.Conectar();
         //              SqlDataReader leer = command.ExecuteReader();
 
         //              if (leer.Read() == false)
@@ -128,7 +126,7 @@ namespace Capa_de_Presentacion
         //              else
         //              {//Representa un set de comandos que es utilizado para llenar un DataSet
         //                  SqlDataAdapter dp = new SqlDataAdapter(command);
-        //                  Cx.conexion.Close();
+        //                  Cx.Desconectar();
 
         //                  //Representa un caché (un espacio) en memoria de los datos.
         //                  DataSet ds = new DataSet("Cliente");
@@ -189,6 +187,7 @@ namespace Capa_de_Presentacion
 
         private void button3_Click(object sender, EventArgs e)
         {
+            Cx.Desconectar();
 
             if (txtDni.Text.Trim() != "")
             {
@@ -200,13 +199,9 @@ namespace Capa_de_Presentacion
                         {
                             if (txtTelefono.Text.Trim() != "")
                             {
-
                                 if (Program.Evento == 1)
                                 {
-
-                                    using (SqlConnection con = new SqlConnection(Cx.conet))
-                                    {
-                                        using (SqlCommand cmd = new SqlCommand("ActualizarCliente", con))
+                                        using (SqlCommand cmd = new SqlCommand("ActualizarCliente", Cx.conexion))
                                         {
                                             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -219,13 +214,11 @@ namespace Capa_de_Presentacion
 
                                             DevComponents.DotNetBar.MessageBoxEx.Show("Se Actualizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                            con.Open();
+                                            Cx.Conectar();;
                                             cmd.ExecuteNonQuery();
-                                            con.Close();
+                                           Cx.Desconectar();
                                             Limpiar();
                                         }
-                                    }
-
                                 }
                             }
                             else

@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,7 +11,7 @@ namespace Capa_de_Presentacion
     public partial class FrmListadoEmpleados : DevComponents.DotNetBar.Metro.MetroForm
     {
         clsEmpleado E = new clsEmpleado();
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         int Listado = 0;
         public FrmListadoEmpleados()
         {
@@ -187,6 +188,7 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Cx.Desconectar();
             Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
             if (Program.IdEmpleado > 0)
             {
@@ -197,18 +199,18 @@ namespace Capa_de_Presentacion
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = Program.IdEmpleado;
 
-                        Cx.conexion.Open();
+                        Cx.Conectar();
                         cmd.ExecuteNonQuery();
-                        Cx.conexion.Close();
+                        Cx.Desconectar();
 
                         using (SqlCommand cmd1 = new SqlCommand("eliminarEmpleado", Cx.conexion))
                         {
                             cmd1.CommandType = CommandType.StoredProcedure;
                             cmd1.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = Program.IdEmpleado;
 
-                            Cx.conexion.Open();
+                            Cx.Conectar();
                             cmd1.ExecuteNonQuery();
-                            Cx.conexion.Close();
+                            Cx.Desconectar();
                             MostrarListadoEmpleados();
                         }
                     }

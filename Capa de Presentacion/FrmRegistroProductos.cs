@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -12,7 +13,7 @@ namespace Capa_de_Presentacion
     {
         private clsCategoria C = new clsCategoria();
         private clsProducto P = new clsProducto();
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         public FrmRegistroProductos()
         {
             InitializeComponent();
@@ -70,9 +71,10 @@ namespace Capa_de_Presentacion
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            Cx.Desconectar();
             if (Cx.conexion != null && Cx.conexion.State == ConnectionState.Open)
             {
-                Cx.conexion.Close();
+                Cx.Desconectar();
             }
 
             clsProducto P = new clsProducto();
@@ -86,12 +88,10 @@ namespace Capa_de_Presentacion
                         {
                             if (txtStock.Text.Trim() != "")
                             {
-                                using (SqlConnection con = new SqlConnection(Cx.conet))
-                                {
-                                    using (SqlCommand cmd = new SqlCommand("RegistrarProducto", con))
+                                    using (SqlCommand cmd = new SqlCommand("RegistrarProducto", Cx.conexion))
                                     {
 
-                                        Cx.conexion.Open();
+                                        Cx.Conectar();
                                         string sql = "Select * From Producto Where Nombre =@Nombre and Marca=@Marca";
                                         SqlCommand Command = new SqlCommand(sql, Cx.conexion);
                                         Command.Parameters.AddWithValue("@Nombre", txtProducto.Text.ToUpper());
@@ -101,7 +101,7 @@ namespace Capa_de_Presentacion
                                         if (reade.Read())
                                         {
                                             DevComponents.DotNetBar.MessageBoxEx.Show("El producto ya existe", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                            Cx.conexion.Close();
+                                            Cx.Desconectar();
                                         }
                                         else
                                         {
@@ -121,9 +121,9 @@ namespace Capa_de_Presentacion
 
                                             DevComponents.DotNetBar.MessageBoxEx.Show("Se Registro Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                            con.Open();
+                                            Cx.Conectar();;
                                             cmd.ExecuteNonQuery();
-                                            con.Close();
+                                           Cx.Desconectar();
 
                                             P.Listar();
                                             ListarElementos();
@@ -131,7 +131,6 @@ namespace Capa_de_Presentacion
                                         }
 
                                     }
-                                }
                             }
                             else
                             {
@@ -209,6 +208,7 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Cx.Desconectar();
             FrmListadoProductos LP = new FrmListadoProductos();
             if (txtProducto.Text.Trim() != "")
             {
@@ -220,9 +220,7 @@ namespace Capa_de_Presentacion
                         {
                             if (txtStock.Text.Trim() != "")
                             {
-                                using (SqlConnection con = new SqlConnection(Cx.conet))
-                                {
-                                    using (SqlCommand cmd = new SqlCommand("ActualizarProducto", con))
+                                    using (SqlCommand cmd = new SqlCommand("ActualizarProducto", Cx.conexion))
                                     {
                                         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -241,14 +239,13 @@ namespace Capa_de_Presentacion
 
                                         DevComponents.DotNetBar.MessageBoxEx.Show("Se Actualizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                        con.Open();
+                                        Cx.Conectar();;
                                         cmd.ExecuteNonQuery();
-                                        con.Close();
+                                       Cx.Desconectar();
                                         ListarElementos();
                                         LP.CargarListado();
                                         Limpiar();
                                     }
-                                }
                             }
                             else
                             {
@@ -316,24 +313,21 @@ namespace Capa_de_Presentacion
         bool tienefila = false;
         public void llenar_data(string id)
         {
+            Cx.Desconectar();
             if (id != "")
             {
-                //declaramos la cadena  de conexion
-                string cadenaconexion = Cx.conet;
-                //variable de tipo Sqlconnection
-                SqlConnection con = new SqlConnection();
+
                 //variable de tipo Sqlcommand
                 SqlCommand comando = new SqlCommand();
                 //variable SqlDataReader para leer los datos
                 SqlDataReader dr;
-                con.ConnectionString = cadenaconexion;
-                comando.Connection = con;
+                comando.Connection = Cx.conexion;
                 //declaramos el comando para realizar la busqueda
                 comando.CommandText = "select * from ImeiList where IdProducto =" + id + "and activo=" + 1;
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
-                con.Open();
+                Cx.Conectar();;
                 //limpiamos los renglones de la datagridview
                 dgvimei.Rows.Clear();
                 //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -352,16 +346,18 @@ namespace Capa_de_Presentacion
 
                     tienefila = true;
                 }
-                con.Close();
+               Cx.Desconectar();
             }
         }
 
         public void idProducto()
         {
+            Cx.Desconectar();
+
             string cadSql = "select top(1) IdProducto from Producto order by IdProducto desc";
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            Cx.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -369,16 +365,18 @@ namespace Capa_de_Presentacion
             {
                 txtIdPNew.Text = leer["IdProducto"].ToString();
             }
-            Cx.conexion.Close();
+            Cx.Desconectar();
         }
 
         public string newimeiID;
         public void idIMEI(string id)
         {
+            Cx.Desconectar();
+
             string cadSql = "select top(1) idImei from ImeiList where IdProducto =" + id + "order by idImei desc";
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            Cx.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -393,7 +391,7 @@ namespace Capa_de_Presentacion
             {
                 newimeiID = "1";
             }
-            Cx.conexion.Close();
+            Cx.Desconectar();
         }
 
         private void dgvimei_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -410,6 +408,8 @@ namespace Capa_de_Presentacion
 
         private void btnsuma_Click(object sender, EventArgs e)
         {
+            Cx.Desconectar();
+
             idIMEI(txtIdP.Text);
             if (txtIdP.Text == "")
             {
@@ -423,17 +423,16 @@ namespace Capa_de_Presentacion
 
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este IMEI.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    using (SqlConnection con = new SqlConnection(Cx.conet))
-                    {
-                        using (SqlCommand cmd = new SqlCommand("eliminarimei", con))
+
+                        using (SqlCommand cmd = new SqlCommand("eliminarimei", Cx.conexion))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.Add("@idImei", SqlDbType.Int).Value = Convert.ToInt32(txtidImei.Text);
                             cmd.Parameters.Add("@idproducto", SqlDbType.Int).Value = Convert.ToInt32(txtIdP.Text);
 
-                            con.Open();
+                            Cx.Conectar();;
                             cmd.ExecuteNonQuery();
-                            con.Close();
+                           Cx.Desconectar();
                             llenar_data(txtIdP.Text);
 
 
@@ -441,14 +440,11 @@ namespace Capa_de_Presentacion
                             btnsuma.ForeColor = Color.White;
                             btnsuma.BackColor = Color.CornflowerBlue;
                         }
-                    }
                 }
             }
             else
             {
-                using (SqlConnection con = new SqlConnection(Cx.conet))
-                {
-                    using (SqlCommand cmd = new SqlCommand("Registrarimei", con))
+                    using (SqlCommand cmd = new SqlCommand("Registrarimei", Cx.conexion))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@idImei", SqlDbType.Int).Value = Convert.ToInt32(newimeiID);
@@ -457,26 +453,25 @@ namespace Capa_de_Presentacion
                         cmd.Parameters.Add("@activo", SqlDbType.Char).Value = 1;
                         cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Value = DateTime.Now;
 
-                        con.Open();
+                        Cx.Conectar();;
                         cmd.ExecuteNonQuery();
-                        con.Close();
+                       Cx.Desconectar();
                         llenar_data(txtIdP.Text);
                         ListarElementos();
                     }
 
                     newimeiID = "";
                     txtIMEI.Text = "";
-                }
             }
         }
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
-    private void FrmRegistroProductos_MouseDown(object sender, MouseEventArgs e)
+        private void FrmRegistroProductos_MouseDown(object sender, MouseEventArgs e)
         {
-        ReleaseCapture();
-        SendMessage(this.Handle, 0x112, 0xf012, 0);
-    }
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
     }
 }

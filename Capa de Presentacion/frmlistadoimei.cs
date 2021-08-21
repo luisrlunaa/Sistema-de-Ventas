@@ -1,4 +1,4 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,7 +9,7 @@ namespace Capa_de_Presentacion
 {
     public partial class frmlistadoimei : Form
     {
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         public frmlistadoimei()
         {
             InitializeComponent();
@@ -22,24 +22,21 @@ namespace Capa_de_Presentacion
         }
         public void llenar_data(string id)
         {
+            Cx.Desconectar();
             if (id != "")
             {
-                //declaramos la cadena  de conexion
-                string cadenaconexion = Cx.conet;
-                //variable de tipo Sqlconnection
-                SqlConnection con = new SqlConnection();
+
                 //variable de tipo Sqlcommand
                 SqlCommand comando = new SqlCommand();
                 //variable SqlDataReader para leer los datos
                 SqlDataReader dr;
-                con.ConnectionString = cadenaconexion;
-                comando.Connection = con;
+                comando.Connection = Cx.conexion;
                 //declaramos el comando para realizar la busqueda
                 comando.CommandText = "select * from ImeiList where IdProducto =" + id + "and activo=" + 1;
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
-                con.Open();
+                Cx.Conectar();;
                 //limpiamos los renglones de la datagridview
                 dgvimei.Rows.Clear();
                 //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -56,7 +53,7 @@ namespace Capa_de_Presentacion
                     dgvimei.Rows[renglon].Cells["idImei"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("idImei")));
                     dgvimei.Rows[renglon].Cells["Fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fechaingreso"));
                 }
-                con.Close();
+               Cx.Desconectar();
             }
         }
 

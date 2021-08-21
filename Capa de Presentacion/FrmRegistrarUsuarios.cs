@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Windows.Forms;
 
@@ -9,7 +10,7 @@ namespace Capa_de_Presentacion
 
     {
         clsUsuarios U = new clsUsuarios();
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         public FrmRegistrarUsuarios()
         {
             InitializeComponent();
@@ -87,7 +88,7 @@ namespace Capa_de_Presentacion
         //              SqlCommand command = new SqlCommand("SELECT dbo.Empleado.imagen FROM dbo.Empleado WHERE dbo.Empleado.imagen IS NOT NULL AND  dbo.Empleado.IdEmpleado = @Clave", Cx.conexion);
         //              command.Parameters.AddWithValue("@Clave", txtEmp.Text);
 
-        //              Cx.conexion.Open();
+        //              Cx.Conectar();
         //              SqlDataReader leer = command.ExecuteReader();
 
         //              if (leer.Read() == false)
@@ -98,7 +99,7 @@ namespace Capa_de_Presentacion
         //              else
         //              {//Representa un set de comandos que es utilizado para llenar un DataSet
         //                  SqlDataAdapter dp = new SqlDataAdapter(command);
-        //                  Cx.conexion.Close();
+        //                  Cx.Desconectar();
 
         //                  //Representa un caché (un espacio) en memoria de los datos.
         //                  DataSet ds = new DataSet("Empleado");

@@ -1,4 +1,4 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -15,7 +15,7 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         public void cargar_combo_Tipo(ComboBox tipo)
         {
             SqlCommand cm = new SqlCommand("CARGARcombotrabajoTipo", Cx.conexion);
@@ -167,6 +167,7 @@ namespace Capa_de_Presentacion
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            Cx.Desconectar();
             Program.averia = txtAveria.Text;
             Program.NombreCliente = txtCliente.Text;
             Program.Imei = txtImei.Text;
@@ -183,9 +184,7 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                using (SqlConnection con = new SqlConnection(Cx.conet))
-                {
-                    using (SqlCommand cmd = new SqlCommand("Registrartaller", con))
+                    using (SqlCommand cmd = new SqlCommand("Registrartaller", Cx.conexion))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(Program.Id);
@@ -199,13 +198,13 @@ namespace Capa_de_Presentacion
                         cmd.Parameters.Add("@precio", SqlDbType.Decimal).Value = Convert.ToDecimal(txtprecio.Text);
                         cmd.Parameters.Add("@nota", SqlDbType.NVarChar).Value = txtnota.Text;
 
-                        con.Open();
+                        Cx.Conectar();
                         cmd.ExecuteNonQuery();
-                        con.Close();
+                       Cx.Desconectar();
 
                         if (cbtipo.Text.ToLower() == "salida")
                         {
-                            using (SqlCommand cmd2 = new SqlCommand("pagos_re", con))
+                            using (SqlCommand cmd2 = new SqlCommand("pagos_re", Cx.conexion))
                             {
                                 cmd2.CommandType = CommandType.StoredProcedure;
 
@@ -229,9 +228,9 @@ namespace Capa_de_Presentacion
                                 cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
                                 cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = 0;
 
-                                con.Open();
+                                Cx.Conectar();;
                                 cmd2.ExecuteNonQuery();
-                                con.Close();
+                               Cx.Desconectar();
                                 tickEstiloP();
                                 MessageBox.Show("Salida Registrada y Pago Confirmado");
                             }
@@ -244,7 +243,6 @@ namespace Capa_de_Presentacion
 
                         Program.pagoRealizado = 0;
                     }
-                }
                 clean();
             }
         }
