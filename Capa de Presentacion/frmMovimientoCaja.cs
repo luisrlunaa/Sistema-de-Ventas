@@ -23,8 +23,6 @@ namespace Capa_de_Presentacion
         {
             llenarid();
             llenar_data();
-            llenar_datagastos();
-            llenar();
         }
 
         public void llenarid()
@@ -47,6 +45,13 @@ namespace Capa_de_Presentacion
         public void llenar_datagastos()
         {
             decimal gastos = 0;
+            decimal pagos = 0;
+            decimal total = 0;
+            int idcajaActual = 0;
+            if (txtBuscarCaja.Text != "")
+            {
+                idcajaActual = Convert.ToInt32(txtBuscarCaja.Text);
+            }
             //declaramos la cadena  de conexion
             string cadenaconexion = Cx.conet;
             //variable de tipo Sqlconnection
@@ -58,7 +63,7 @@ namespace Capa_de_Presentacion
             con.ConnectionString = cadenaconexion;
             comando.Connection = con;
             //declaramos el comando para realizar la busqueda
-            comando.CommandText = "select id,monto,descripcion,fecha from Gastos WHERE fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
+            comando.CommandText = "select G.id,G.monto,G.descripcion,G.fecha from Gastos G inner join Caja C on G.fecha= C.fecha where C.id_caja="+ idcajaActual;
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
@@ -81,6 +86,21 @@ namespace Capa_de_Presentacion
             }
 
             lbldeu.Text = gastos.ToString();
+
+            if (lbling.Text != "...")
+            {
+                pagos = Convert.ToDecimal(lbling.Text);
+            }
+
+            if (lbldeu.Text != "...")
+            {
+                gastos = Convert.ToDecimal(lbldeu.Text);
+            }
+
+            total = pagos - gastos;
+
+            lbltotal.Text = total.ToString();
+
             con.Close();
         }
         public void llenar_data()
@@ -132,24 +152,9 @@ namespace Capa_de_Presentacion
             lbling.Text = pagos.ToString();
 
             con.Close();
+            llenar_datagastos();
         }
 
-        public void llenar()
-        {
-            string cadSql = "select * from NomEmp";
-
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
-
-            SqlDataReader leer = comando.ExecuteReader();
-
-            if (leer.Read() == true)
-            {
-                lblDir.Text = leer["DirEmp"].ToString();
-                lblLogo.Text = leer["NombreEmp"].ToString();
-            }
-            Cx.conexion.Close();
-        }
         private void To_pdf()
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
@@ -295,33 +300,6 @@ namespace Capa_de_Presentacion
         private void btnimprimir_Click(object sender, EventArgs e)
         {
             To_pdf();
-        }
-
-        private void frmMovimientoCaja_Activated(object sender, EventArgs e)
-        {
-            decimal gastos = 0;
-            decimal pagos = 0;
-            decimal devuelta = 0;
-            decimal total = 0;
-
-            if (lbling.Text != "...")
-            {
-                pagos = Convert.ToDecimal(lbling.Text);
-            }
-
-            if (lblegr.Text != "...")
-            {
-                devuelta = Convert.ToDecimal(lblegr.Text);
-            }
-
-            if (lbldeu.Text != "...")
-            {
-                gastos = Convert.ToDecimal(lbldeu.Text);
-            }
-
-            total = pagos - gastos;
-
-            lbltotal.Text = total.ToString();
         }
 
         private void dataGridView2_DoubleClick(object sender, EventArgs e)

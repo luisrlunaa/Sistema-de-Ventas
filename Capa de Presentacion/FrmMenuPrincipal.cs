@@ -428,6 +428,8 @@ namespace Capa_de_Presentacion
             panel1.Size = new System.Drawing.Size(64, 517);
             button8.Text = ">>";
             frmMovimientoCaja move = new frmMovimientoCaja();
+            move.lblLogo.Text = lblLogo.Text;
+            move.lblDir.Text = lblDir.Text;
             move.Show();
         }
 

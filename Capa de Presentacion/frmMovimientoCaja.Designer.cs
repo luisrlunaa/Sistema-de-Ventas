@@ -525,7 +525,6 @@
             this.Name = "frmMovimientoCaja";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Movimientos en Caja";
-            this.Activated += new System.EventHandler(this.frmMovimientoCaja_Activated);
             this.Load += new System.EventHandler(this.frmMovimientoCaja_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmMovimientoCaja_MouseDown);
             this.panel1.ResumeLayout(false);
