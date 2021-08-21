@@ -77,8 +77,7 @@ namespace Capa_de_Presentacion
                         txtPassword.Clear();
                         txtPassword.Focus();
                     }
-                    else
-                        if (Mensaje == "El Nombre de Usuario no Existe.")
+                    else if (Mensaje == "El Nombre de Usuario no Existe.")
                     {
                         DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                         txtUser.Clear();
@@ -169,6 +168,7 @@ namespace Capa_de_Presentacion
                                             llenar_data();
                                             RecuperarDatosSesion();
 
+                                            Program.idcaja = Program.idcaja + 1;
                                             MP.Show();
                                             this.Hide();
                                         }
@@ -324,6 +324,7 @@ namespace Capa_de_Presentacion
 
             llenar_data();
             RecuperarDatosSesion();
+            Program.idcaja = Program.idcaja + 1;
             MP.Show();
             this.Hide();
         }
