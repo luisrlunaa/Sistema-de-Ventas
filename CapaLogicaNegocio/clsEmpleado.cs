@@ -8,7 +8,6 @@ namespace CapaLogicaNegocio
 
     public class clsEmpleado
     {
-        clsCx Cx = new clsCx();
         clsManejador M = new clsManejador();
 
         public int IdCargo { get; set; }
