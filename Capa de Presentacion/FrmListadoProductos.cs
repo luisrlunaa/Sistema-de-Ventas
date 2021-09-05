@@ -3,12 +3,15 @@ using CapaLogicaNegocio;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+
 
 namespace Capa_de_Presentacion
 {
@@ -17,7 +20,7 @@ namespace Capa_de_Presentacion
     {
         private clsProducto P = new clsProducto();
         private clsCategoria C = new clsCategoria();
-        clsManejador Cx = new clsManejador();
+        clsManejador M = new clsManejador();
         public FrmListadoProductos()
         {
             InitializeComponent();
@@ -25,22 +28,31 @@ namespace Capa_de_Presentacion
 
         private void FrmProductos_Load(object sender, EventArgs e)
         {
-            ListarElementos();
-            CargarListado();
-            dataGridView1.ClearSelection();
+            if (clsGenericList.listProducto is null)
+            {
+                clsGenericList.listProducto = new List<Producto>();
+            }
+
+            textBox5.Text = "";
+            id.Text = "";
+
+            cbTipoGoma.Enabled = false;
+            cbxCategoria.Enabled = false;
+
+            clear();
             repetitivo();
             Mrepetitivo();
-            button2.Enabled = false;
+
+            ListarElementos();
             ListarElementostipo();
-            clear();
         }
         decimal montoTotalenInventario = 0;
         public void buscarid()
         {
-            Cx.Desconectar();
-            Cx.Conectar();
+            M.Desconectar();
+            M.Conectar();
             string sql = "select IdCategoria from Categoria where Descripcion =@id";
-            SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+            SqlCommand cmd = new SqlCommand(sql, M.conexion);
             cmd.Parameters.AddWithValue("@id", cbxCategoria.Text);
 
             SqlDataReader reade = cmd.ExecuteReader();
@@ -54,15 +66,15 @@ namespace Capa_de_Presentacion
                 rbtodos.Checked = false;
                 radioButton1.Checked = false;
             }
-            Cx.Desconectar();
+            M.Desconectar();
         }
 
         public void buscardesc()
         {
-            Cx.Desconectar();
-            Cx.Conectar();
+            M.Desconectar();
+            M.Conectar();
             string sql = "select descripcion from tipoGOma where id =@id";
-            SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+            SqlCommand cmd = new SqlCommand(sql, M.conexion);
             cmd.Parameters.AddWithValue("@id", cbTipoGoma.SelectedValue);
             if (cbTipoGoma.SelectedValue != null)
             {
@@ -79,7 +91,7 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            Cx.Desconectar();
+            M.Desconectar();
         }
 
         private void ListarElementostipo()
@@ -99,7 +111,6 @@ namespace Capa_de_Presentacion
             }
         }
 
-
         private void ListarElementos()
         {
             if (id.Text.Trim() != "")
@@ -115,6 +126,7 @@ namespace Capa_de_Presentacion
                 cbxCategoria.ValueMember = "IdCategoria";
                 cbxCategoria.DataSource = C.Listar();
             }
+
         }
 
         public void clear()
@@ -127,74 +139,87 @@ namespace Capa_de_Presentacion
             radioButton1.Checked = false;
             rbfechaing.Checked = false;
             rbfechamod.Checked = false;
+            button2.Enabled = false;
             txtdesc.Text = "";
-            txtBuscarProducto.Text = "";
-            CargarListado();
+            GetAllProduct();
+            dataGridView1.ClearSelection();
         }
-        public void CargarListado(string palabra = null)
+
+        public void GetAllProduct()
+        {
+            if (clsGenericList.listProducto.Count > 0)
+            {
+                CargarListado(clsGenericList.listProducto);
+            }
+            else
+            {
+                DataTable dt = new DataTable();
+                dt = P.Listar();
+
+                try
+                {
+                    foreach (DataRow reader in dt.Rows)
+                    {
+                        Producto product = new Producto();
+
+                        product.m_IdP = Convert.ToInt32(reader["IdProducto"]);
+                        product.m_IdCategoria = Convert.ToInt32(reader["IdCategoria"]);
+                        product.m_Producto = reader["Nombre"].ToString();
+                        product.m_tipoGoma = reader["tipoGOma"].ToString();
+                        product.m_itbis = Convert.ToDecimal(reader["itbis"]);
+                        product.m_PrecioVenta = Convert.ToDecimal(reader["PrecioVenta"]);
+                        product.m_PrecioCompra = Convert.ToDecimal(reader["PrecioCompra"]);
+                        product.m_Preciomax = Convert.ToDecimal(reader["Pmax"]);
+                        product.m_Preciomin = Convert.ToDecimal(reader["Pmin"]);
+                        product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
+                        product.m_Stock = Convert.ToInt32(reader["Stock"]);
+                        product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
+                        product.m_Marca = reader["Marca"].ToString();
+
+                        clsGenericList.listProducto.Add(product);
+                    }
+
+                    CargarListado(clsGenericList.listProducto);
+                }
+                catch (Exception ex)
+                {
+                    DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
+                }
+            }
+        }
+        public void CargarListado(List<Producto> listaproductos)
         {
             try
             {
                 decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-                Cx.Desconectar();
-                //variable de tipo Sqlcommand
-                SqlCommand comando = new SqlCommand();
-                //variable SqlDataReader para leer los datos
-                SqlDataReader dr;
-                comando.Connection = Cx.conexion;
 
-                if (palabra != null)
-                {
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma," +
-                        "Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where Nombre LIKE '%" + palabra + "%' OR Marca LIKE '%" + palabra + "%' ORDER BY IdProducto";
-                }
-                else
-                {
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma," +
-                        "Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto ORDER BY IdProducto";
-                }
-
-                //especificamos que es de tipo Text
-                comando.CommandType = CommandType.Text;
-                //se abre la conexion
-                Cx.Conectar();
-                //limpiamos los renglones de la datagridview
                 dataGridView1.Rows.Clear();
-                //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-                dr = comando.ExecuteReader();
-                //el ciclo while se ejecutará mientras lea registros en la tabla
-                while (dr.Read())
+                foreach (var item in listaproductos)
                 {
-                    //variable de tipo entero para ir enumerando los la filas del datagridview
                     int renglon = dataGridView1.Rows.Add();
-                    // especificamos en que fila se mostrará cada registro
-                    // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 
-                    dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                    dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
-                    dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
-                    dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-                    dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
-                    dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-                    dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
-                    dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
-                    dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-                    dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
-                    dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
-                    dataGridView1.Rows[renglon].Cells[11].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmax")));
-                    dataGridView1.Rows[renglon].Cells[12].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmin")));
-
-                    compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
-                    ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
-                    total = ventas - compras;
-                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    txttotalG.Text = Convert.ToString(total);
-                    lbltotalproductos.Text = Convert.ToString(totalproducto);
+                    dataGridView1.Rows[renglon].Cells[0].Value = item.m_IdP.ToString();
+                    dataGridView1.Rows[renglon].Cells[1].Value = item.m_IdCategoria.ToString();
+                    dataGridView1.Rows[renglon].Cells[2].Value = item.m_Producto.ToString();
+                    dataGridView1.Rows[renglon].Cells[3].Value = item.m_Marca.ToString();
+                    dataGridView1.Rows[renglon].Cells[4].Value = item.m_PrecioCompra.ToString();
+                    dataGridView1.Rows[renglon].Cells[5].Value = item.m_PrecioVenta.ToString();
+                    dataGridView1.Rows[renglon].Cells[6].Value = item.m_Stock.ToString();
+                    dataGridView1.Rows[renglon].Cells[7].Value = item.m_FechaVencimiento.ToString();
+                    dataGridView1.Rows[renglon].Cells[8].Value = item.m_FechaModificacion.ToString();
+                    dataGridView1.Rows[renglon].Cells[9].Value = item.m_itbis.ToString();
+                    dataGridView1.Rows[renglon].Cells[10].Value = item.m_tipoGoma.ToString();
+                    dataGridView1.Rows[renglon].Cells[11].Value = item.m_Preciomax.ToString();
+                    dataGridView1.Rows[renglon].Cells[12].Value = item.m_Preciomin.ToString();
                 }
-                Cx.Desconectar();
+
+                compras = listaproductos.Sum(x => x.m_PrecioCompra);
+                ventas = listaproductos.Sum(x => x.m_PrecioVenta);
+                totalproducto = listaproductos.Sum(x => x.m_Stock);
+                total = ventas - compras;
+                montoTotalenInventario = ventas;
+                txttotalG.Text = Convert.ToString(total);
+                lbltotalproductos.Text = Convert.ToString(totalproducto);
             }
             catch (Exception ex)
             {
@@ -206,14 +231,6 @@ namespace Capa_de_Presentacion
             if (dataGridView1.Rows.Count > 0)
             {
                 dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
-            }
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-                Close();
             }
         }
 
@@ -264,6 +281,7 @@ namespace Capa_de_Presentacion
                 DevComponents.DotNetBar.MessageBoxEx.Show("Debe Seleccionar la Fila a Editar.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
         private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
@@ -272,358 +290,28 @@ namespace Capa_de_Presentacion
                     dataGridView1.ClearSelection();
             }
         }
+
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
+            Program.abiertosecundarias = false;
+            Program.abierto = false;
             Program.IdProducto = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Column1"].Value.ToString());
             Program.Descripcion = dataGridView1.CurrentRow.Cells["description"].Value.ToString();
             Program.Marca = dataGridView1.CurrentRow.Cells["marca"].Value.ToString();
             Program.PrecioVenta = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["pVenta"].Value.ToString());
+            Program.PrecioCompra = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["pCompra"].Value.ToString());
             Program.Stock = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["cantidad"].Value.ToString());
             Program.IdCategoria = Convert.ToInt32(dataGridView1.CurrentRow.Cells["IdC"].Value.ToString());
             Program.itbis = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["itbis"].Value.ToString());
             Program.tipo = dataGridView1.CurrentRow.Cells["tipoGOma"].Value.ToString();
             Program.Pmax = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Pmax"].Value.ToString());
             Program.Pmin = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Pmin"].Value.ToString());
-            Program.PrecioCompra = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Nombres"].Value.ToString());
             this.Close();
         }
+
         private void label2_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-        private void rbCero_CheckedChanged(object sender, EventArgs e)
-        {
-            decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-            if (rbCero.Checked == true)
-            {
-                Cx.Desconectar();
-                //variable de tipo Sqlcommand
-                SqlCommand comando = new SqlCommand();
-                //variable SqlDataReader para leer los datos
-                SqlDataReader dr;
-                comando.Connection = Cx.conexion;
-                //declaramos el comando para realizar la busqueda
-                comando.CommandText = "	Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where Stock=0 ORDER BY IdProducto";
-                //especificamos que es de tipo Text
-                comando.CommandType = CommandType.Text;
-                //se abre la conexion
-                Cx.Conectar();
-                //limpiamos los renglones de la datagridview
-                dataGridView1.Rows.Clear();
-                //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-                dr = comando.ExecuteReader();
-                //el ciclo while se ejecutará mientras lea registros en la tabla
-                while (dr.Read())
-                {
-                    //variable de tipo entero para ir enumerando los la filas del datagridview
-                    int renglon = dataGridView1.Rows.Add();
-                    // especificamos en que fila se mostrará cada registro
-                    // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
-                    dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                    dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
-                    dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
-                    dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-                    dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
-                    dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-                    dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
-                    dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-                    dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
-                    dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
-                    dataGridView1.Rows[renglon].Cells[11].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmax")));
-                    dataGridView1.Rows[renglon].Cells[12].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmin")));
-
-                    compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
-                    ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
-                    lbltotalproductos.Text = Convert.ToString(totalproducto);
-                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    total = ventas - compras;
-                    txttotalG.Text = Convert.ToString(total);
-                }
-                Cx.Desconectar();
-            }
-            else
-            {
-                CargarListado();
-            }
-        }
-        private void rdmedia_CheckedChanged(object sender, EventArgs e)
-        {
-            decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-            if (rdmedia.Checked == true)
-            {
-                Cx.Desconectar();
-                //variable de tipo Sqlcommand
-                SqlCommand comando = new SqlCommand();
-                //variable SqlDataReader para leer los datos
-                SqlDataReader dr;
-                comando.Connection = Cx.conexion;
-                //declaramos el comando para realizar la busqueda
-                comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where Stock >4  And Stock <11 ORDER BY IdProducto";
-                //especificamos que es de tipo Text
-                comando.CommandType = CommandType.Text;
-                //se abre la conexion
-                Cx.Conectar();
-                //limpiamos los renglones de la datagridview
-                dataGridView1.Rows.Clear();
-                //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-                dr = comando.ExecuteReader();
-                //el ciclo while se ejecutará mientras lea registros en la tabla
-                while (dr.Read())
-                {
-                    //variable de tipo entero para ir enumerando los la filas del datagridview
-                    int renglon = dataGridView1.Rows.Add();
-                    // especificamos en que fila se mostrará cada registro
-                    // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
-                    dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                    dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
-                    dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
-                    dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-                    dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
-                    dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-                    dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
-                    dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
-                    dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-                    dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
-                    dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
-                    dataGridView1.Rows[renglon].Cells[11].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmax")));
-                    dataGridView1.Rows[renglon].Cells[12].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmin")));
-
-                    compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
-                    ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
-                    lbltotalproductos.Text = Convert.ToString(totalproducto);
-                    total = ventas - compras;
-                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    txttotalG.Text = Convert.ToString(total);
-                }
-                Cx.Desconectar();
-            }
-            else
-            {
-                CargarListado();
-            }
-        }
-
-        private void rbbuena_CheckedChanged(object sender, EventArgs e)
-        {
-            decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-            if (rbbuena.Checked == true)
-            {
-                Cx.Desconectar();
-                //variable de tipo Sqlcommand
-                SqlCommand comando = new SqlCommand();
-                //variable SqlDataReader para leer los datos
-                SqlDataReader dr;
-                comando.Connection = Cx.conexion;
-                //declaramos el comando para realizar la busqueda
-                comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where Stock >10 ORDER BY IdProducto";
-                //especificamos que es de tipo Text
-                comando.CommandType = CommandType.Text;
-                //se abre la conexion
-                Cx.Conectar();
-                //limpiamos los renglones de la datagridview
-                dataGridView1.Rows.Clear();
-                //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-                dr = comando.ExecuteReader();
-                //el ciclo while se ejecutará mientras lea registros en la tabla
-                while (dr.Read())
-                {
-                    //variable de tipo entero para ir enumerando los la filas del datagridview
-                    int renglon = dataGridView1.Rows.Add();
-                    // especificamos en que fila se mostrará cada registro
-                    // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
-                    dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                    dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
-                    dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
-                    dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-                    dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
-                    dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-                    dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
-                    dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
-                    dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-                    dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
-                    dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
-                    dataGridView1.Rows[renglon].Cells[11].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmax")));
-                    dataGridView1.Rows[renglon].Cells[12].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmin")));
-
-                    compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
-                    ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
-                    lbltotalproductos.Text = Convert.ToString(totalproducto);
-                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    total = ventas - compras;
-                    txttotalG.Text = Convert.ToString(total);
-                }
-                Cx.Desconectar();
-            }
-            else
-            {
-                CargarListado();
-            }
-        }
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-            if (radioButton1.Checked == true)
-            {
-                Cx.Desconectar();
-                //variable de tipo Sqlcommand
-                SqlCommand comando = new SqlCommand();
-                //variable SqlDataReader para leer los datos
-                SqlDataReader dr;
-                comando.Connection = Cx.conexion;
-                //declaramos el comando para realizar la busqueda
-                comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where Stock >0 and Stock <5 ORDER BY IdProducto";
-                //especificamos que es de tipo Text
-                comando.CommandType = CommandType.Text;
-                //se abre la conexion
-                Cx.Conectar();
-                //limpiamos los renglones de la datagridview
-                dataGridView1.Rows.Clear();
-                //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-                dr = comando.ExecuteReader();
-                //el ciclo while se ejecutará mientras lea registros en la tabla
-                while (dr.Read())
-                {
-                    //variable de tipo entero para ir enumerando los la filas del datagridview
-                    int renglon = dataGridView1.Rows.Add();
-                    // especificamos en que fila se mostrará cada registro
-                    // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
-                    dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                    dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
-                    dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
-                    dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-                    dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
-                    dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-                    dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
-                    dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
-                    dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-                    dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
-                    dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
-                    dataGridView1.Rows[renglon].Cells[11].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmax")));
-                    dataGridView1.Rows[renglon].Cells[12].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmin")));
-
-                    compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
-                    ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
-                    lbltotalproductos.Text = Convert.ToString(totalproducto);
-                    total = ventas - compras;
-                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    txttotalG.Text = Convert.ToString(total);
-                }
-                Cx.Desconectar();
-            }
-            else
-            {
-                CargarListado();
-            }
-        }
-        private void rbtodos_CheckedChanged(object sender, EventArgs e)
-        {
-            CargarListado();
-        }
-
-        private void cbxCategoria_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            buscarid();
-            decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-            if (id.Text != "")
-            {
-                Cx.Desconectar();
-                //variable de tipo Sqlcommand
-                SqlCommand comando = new SqlCommand();
-                //variable SqlDataReader para leer los datos
-                SqlDataReader dr;
-                comando.Connection = Cx.conexion;
-                //declaramos el comando para realizar la busqueda
-                comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where IdCategoria=" + id.Text + "ORDER BY IdProducto";
-                //especificamos que es de tipo Text
-                comando.CommandType = CommandType.Text;
-                //se abre la conexion
-                Cx.Conectar();
-                //limpiamos los renglones de la datagridview
-                dataGridView1.Rows.Clear();
-                //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-                dr = comando.ExecuteReader();
-                //el ciclo while se ejecutará mientras lea registros en la tabla
-                while (dr.Read())
-                {
-                    //variable de tipo entero para ir enumerando los la filas del datagridview
-                    int renglon = dataGridView1.Rows.Add();
-                    // especificamos en que fila se mostrará cada registro
-                    // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
-                    dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                    dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
-                    dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
-                    dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-                    dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
-                    dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-                    dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
-                    dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
-                    dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-                    dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
-                    dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
-                    dataGridView1.Rows[renglon].Cells[11].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmax")));
-                    dataGridView1.Rows[renglon].Cells[12].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmin")));
-
-                    compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
-                    ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
-                    lbltotalproductos.Text = Convert.ToString(totalproducto);
-                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    total = ventas - compras;
-                    txttotalG.Text = Convert.ToString(total);
-                }
-                Cx.Desconectar();
-            }
-            else
-            {
-                CargarListado();
-            }
-        }
-        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (this.dataGridView1.Columns[e.ColumnIndex].Name == "cantidad")
-            {
-                if (Convert.ToDecimal(e.Value) == 0)
-                {
-                    e.CellStyle.ForeColor = System.Drawing.Color.White;
-                    e.CellStyle.BackColor = System.Drawing.Color.Red;
-                }
-
-                if (Convert.ToDecimal(e.Value) > 0 && Convert.ToDecimal(e.Value) < 5)
-                {
-                    e.CellStyle.ForeColor = System.Drawing.Color.Black;
-                    e.CellStyle.BackColor = System.Drawing.Color.Yellow;
-                }
-
-                if (Convert.ToDecimal(e.Value) > 4 && Convert.ToDecimal(e.Value) < 11)
-                {
-                    e.CellStyle.ForeColor = System.Drawing.Color.Black;
-                    e.CellStyle.BackColor = System.Drawing.Color.LightGreen;
-                }
-
-                if (Convert.ToDecimal(e.Value) > 10)
-                {
-                    e.CellStyle.ForeColor = System.Drawing.Color.Black;
-                    e.CellStyle.BackColor = System.Drawing.Color.CornflowerBlue;
-                }
-            }
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            id.Text = "";
-            cbxCategoria.Text = "";
-            txtBuscarProducto.Text = "";
-            CargarListado();
-            clear();
-            Refresh();
         }
 
         string Reporte;
@@ -671,21 +359,25 @@ namespace Capa_de_Presentacion
 
             if (rbfechaing.Checked == true)
             {
+                var fecha1 = Convert.ToDateTime(dtpfecha1.Text);
+                var fecha2 = Convert.ToDateTime(dtpfecha2.Text);
                 Reporte = "Inventario de Fecha de Ingreso \n" +
-                    "Desde " + dtpfecha1.Text + "\n" +
-                    "Hasta " + dtpfecha2.Text;
+                    "Desde " + fecha1.Day + "/" + fecha1.Month + "/" + fecha1.Year + "\n" +
+                    "Hasta " + fecha2.Day + "/" + fecha2.Month + "/" + fecha2.Year;
             }
 
             if (rbfechamod.Checked == true)
             {
+                var fecha1 = Convert.ToDateTime(dtpfecha1.Text);
+                var fecha2 = Convert.ToDateTime(dtpfecha2.Text);
                 Reporte = "Inventario de Fecha de Modificacion \n" +
-                    "Desde " + dtpfecha1.Text + "\n" +
-                    "Hasta " + dtpfecha2.Text;
+                    "Desde " + fecha1.Day + "/" + fecha1.Month + "/" + fecha1.Year + "\n" +
+                    "Hasta " + fecha2.Day + "/" + fecha2.Month + "/" + fecha2.Year;
             }
 
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("ferreteria.png");
+            Image image1 = Image.GetInstance("ferreteria.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
@@ -708,10 +400,11 @@ namespace Capa_de_Presentacion
                     doc.Open();
                     string remito = lblLogo.Text;
                     string ubicado = lblDir.Text;
-                    string envio = "Fecha : " + DateTime.Now.ToString();
+                    string envio = "Fecha : " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
 
                     Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
                     var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+
                     fecha.Alignment = Element.ALIGN_RIGHT;
                     doc.Add(fecha);
                     image1.Alignment = Image.TEXTWRAP | Image.ALIGN_CENTER;
@@ -745,6 +438,7 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("No guardo el Archivo");
             }
         }
+
         public void GenerarDocumento(Document document)
         {
             int i, j;
@@ -782,243 +476,280 @@ namespace Capa_de_Presentacion
             }
             return values;
         }
+
         private void btnimpimir_Click(object sender, EventArgs e)
         {
             To_pdf();
         }
 
-        string repeto;
         public void repetitivo()
         {
-            Cx.Desconectar();
-            Cx.Conectar();
-            string sql = "select top(1) Nombre, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta INNER JOIN " +
-                "dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto where Producto.IdProducto = " +
-                "DetalleVenta.IdProducto GROUP BY Nombre ORDER BY total DESC";
-            SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+            M.Desconectar();
+            M.Conectar();
+            string sql = "select top(1) detalles_P, Sum(Cantidad) AS total FROM  dbo.DetalleVenta GROUP BY detalles_P ORDER BY total DESC";
+            SqlCommand cmd = new SqlCommand(sql, M.conexion);
             SqlDataReader reade = cmd.ExecuteReader();
             if (reade.Read())
             {
-                repeto = reade["Nombre"].ToString();
-                txtRep.Text = repeto;
+                txtRep.Text = reade["detalles_P"].ToString();
 
             }
-            Cx.Desconectar();
+            M.Desconectar();
         }
 
-        string mrepeto;
         public void Mrepetitivo()
         {
-            Cx.Desconectar();
-            Cx.Conectar();
-            string sql = "select top(1) Nombre, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta INNER JOIN " +
-                "dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto where Producto.IdProducto = " +
-                "DetalleVenta.IdProducto GROUP BY Nombre ORDER BY total ASC";
-            SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
+            M.Desconectar();
+            M.Conectar();
+            string sql = "select top(1) detalles_P, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta GROUP BY detalles_P ORDER BY total ASC";
+            SqlCommand cmd = new SqlCommand(sql, M.conexion);
             SqlDataReader reade = cmd.ExecuteReader();
             if (reade.Read())
             {
-                mrepeto = reade["Nombre"].ToString();
-                txtMrep.Text = mrepeto;
+                txtMrep.Text = reade["detalles_P"].ToString();
             }
-            Cx.Desconectar();
+            M.Desconectar();
         }
 
+        #region radiobutton area
+        private void rbCero_CheckedChanged(object sender, EventArgs e)
+        {
+            decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
+            if (rbCero.Checked == true)
+            {
+                var newlist = clsGenericList.listProducto.Where(x => x.m_Stock == 0).ToList();
+                CargarListado(newlist);
+
+                compras = newlist.Sum(x => x.m_PrecioCompra);
+                ventas = newlist.Sum(x => x.m_PrecioVenta); ;
+                totalproducto = newlist.Sum(x => x.m_Stock);
+                lbltotalproductos.Text = Convert.ToString(totalproducto);
+                total = ventas - compras;
+                txttotalG.Text = Convert.ToString(total);
+            }
+            else
+            {
+                CargarListado(clsGenericList.listProducto);
+            }
+        }
+        private void rdmedia_CheckedChanged(object sender, EventArgs e)
+        {
+            decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
+            if (rdmedia.Checked == true)
+            {
+                var newlist = clsGenericList.listProducto.Where(x => x.m_Stock > 4 && x.m_Stock < 15).ToList();
+                CargarListado(newlist);
+
+                compras = newlist.Sum(x => x.m_PrecioCompra);
+                ventas = newlist.Sum(x => x.m_PrecioVenta); ;
+                totalproducto = newlist.Sum(x => x.m_Stock);
+                lbltotalproductos.Text = Convert.ToString(totalproducto);
+                total = ventas - compras;
+                montoTotalenInventario = ventas;
+                txttotalG.Text = Convert.ToString(total);
+            }
+            else
+            {
+                CargarListado(clsGenericList.listProducto);
+            }
+        }
+        private void rbbuena_CheckedChanged(object sender, EventArgs e)
+        {
+            decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
+            if (rbbuena.Checked == true)
+            {
+                var newlist = clsGenericList.listProducto.Where(x => x.m_Stock > 15).ToList();
+                CargarListado(newlist);
+
+                compras = newlist.Sum(x => x.m_PrecioCompra);
+                ventas = newlist.Sum(x => x.m_PrecioVenta); ;
+                totalproducto = newlist.Sum(x => x.m_Stock);
+                lbltotalproductos.Text = Convert.ToString(totalproducto);
+                total = ventas - compras;
+                montoTotalenInventario = ventas;
+                txttotalG.Text = Convert.ToString(total);
+            }
+            else
+            {
+                CargarListado(clsGenericList.listProducto);
+            }
+        }
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
+            if (radioButton1.Checked == true)
+            {
+                var newlist = clsGenericList.listProducto.Where(x => x.m_Stock > 0 && x.m_Stock < 5).ToList();
+                CargarListado(newlist);
+
+                compras = newlist.Sum(x => x.m_PrecioCompra);
+                ventas = newlist.Sum(x => x.m_PrecioVenta); ;
+                totalproducto = newlist.Sum(x => x.m_Stock);
+                lbltotalproductos.Text = Convert.ToString(totalproducto);
+                total = ventas - compras;
+                montoTotalenInventario = ventas;
+                txttotalG.Text = Convert.ToString(total);
+            }
+            else
+            {
+                CargarListado(clsGenericList.listProducto);
+            }
+        }
+        private void rbtodos_CheckedChanged(object sender, EventArgs e)
+        {
+            CargarListado(clsGenericList.listProducto);
+        }
         private void rbfechaing_CheckedChanged(object sender, EventArgs e)
         {
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-            Cx.Desconectar();
-            //variable de tipo Sqlcommand
-            SqlCommand comando = new SqlCommand();
-            //variable SqlDataReader para leer los datos
-            SqlDataReader dr;
-            comando.Connection = Cx.conexion;
-            //declaramos el comando para realizar la busqueda
-            comando.CommandText = "	Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto where FechaVencimiento BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) ORDER BY IdProducto";
-            comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-            comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
-            //especificamos que es de tipo Text
-            comando.CommandType = CommandType.Text;
-            //se abre la conexion
-            Cx.Conectar();
-            //limpiamos los renglones de la datagridview
-            dataGridView1.Rows.Clear();
-            //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-            dr = comando.ExecuteReader();
-            //el ciclo while se ejecutará mientras lea registros en la tabla
-            while (dr.Read())
-            {
-                //variable de tipo entero para ir enumerando los la filas del datagridview
-                int renglon = dataGridView1.Rows.Add();
-                // especificamos en que fila se mostrará cada registro
-                // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 
-                dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
-                dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
-                dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-                dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
-                dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-                dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
-                dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
-                dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-                dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
-                dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
-                dataGridView1.Rows[renglon].Cells[11].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmax")));
-                dataGridView1.Rows[renglon].Cells[12].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmin")));
+            var newlist = clsGenericList.listProducto.Where(x => x.m_FechaVencimiento >= dtpfecha1.Value && x.m_FechaVencimiento <= dtpfecha2.Value).ToList();
+            CargarListado(newlist);
 
-                totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
-                lbltotalproductos.Text = Convert.ToString(totalproducto);
-
-                compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
-                ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-
-                montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-
-                total = ventas - compras;
-                txttotalG.Text = Convert.ToString(total);
-            }
-            Cx.Desconectar();
+            compras = newlist.Sum(x => x.m_PrecioCompra);
+            ventas = newlist.Sum(x => x.m_PrecioVenta); ;
+            totalproducto = newlist.Sum(x => x.m_Stock);
+            lbltotalproductos.Text = Convert.ToString(totalproducto);
+            total = ventas - compras;
+            montoTotalenInventario = ventas;
+            txttotalG.Text = Convert.ToString(total);
         }
-
         private void rbfechamod_CheckedChanged(object sender, EventArgs e)
         {
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-            Cx.Desconectar();
-            //variable de tipo Sqlcommand
-            SqlCommand comando = new SqlCommand();
-            //variable SqlDataReader para leer los datos
-            SqlDataReader dr;
-            comando.Connection = Cx.conexion;
-            //declaramos el comando para realizar la busqueda
-            comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto where FechaModificacion BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) ORDER BY IdProducto";
-            comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
-            comando.Parameters.AddWithValue("@fecha2", dtpfecha2.Value);
-            //especificamos que es de tipo Text
-            comando.CommandType = CommandType.Text;
-            //se abre la conexion
-            Cx.Conectar();
-            //limpiamos los renglones de la datagridview
-            dataGridView1.Rows.Clear();
-            //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-            dr = comando.ExecuteReader();
-            //el ciclo while se ejecutará mientras lea registros en la tabla
-            while (dr.Read())
+
+
+            var newlist = clsGenericList.listProducto.Where(x => x.m_FechaModificacion >= dtpfecha1.Value && x.m_FechaModificacion <= dtpfecha2.Value).ToList();
+            CargarListado(newlist);
+
+            compras = newlist.Sum(x => x.m_PrecioCompra);
+            ventas = newlist.Sum(x => x.m_PrecioVenta); ;
+            totalproducto = newlist.Sum(x => x.m_Stock);
+            lbltotalproductos.Text = Convert.ToString(totalproducto);
+            total = ventas - compras;
+            montoTotalenInventario = ventas;
+            txttotalG.Text = Convert.ToString(total);
+        }
+        #endregion
+
+        private void cbxCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbcategoriafiltro.Checked)
             {
-                //variable de tipo entero para ir enumerando los la filas del datagridview
-                int renglon = dataGridView1.Rows.Add();
-                // especificamos en que fila se mostrará cada registro
-                // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+                buscarid();
+                decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
+                if (id.Text != "")
+                {
+                    var newlist = clsGenericList.listProducto.Where(x => x.m_IdCategoria == Convert.ToInt32(id.Text)).ToList();
+                    CargarListado(newlist);
 
-                dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
-                dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
-                dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-                dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
-                dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-                dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
-                dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
-                dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-                dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
-                dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
-                dataGridView1.Rows[renglon].Cells[11].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmax")));
-                dataGridView1.Rows[renglon].Cells[12].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmin")));
-
-                totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
-                lbltotalproductos.Text = Convert.ToString(totalproducto);
-
-                compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
-                ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                total = ventas - compras;
-                txttotalG.Text = Convert.ToString(total);
+                    compras = newlist.Sum(x => x.m_PrecioCompra);
+                    ventas = newlist.Sum(x => x.m_PrecioVenta); ;
+                    totalproducto = newlist.Sum(x => x.m_Stock);
+                    lbltotalproductos.Text = Convert.ToString(totalproducto);
+                    total = ventas - compras;
+                    montoTotalenInventario = ventas;
+                    txttotalG.Text = Convert.ToString(total);
+                }
+                else
+                {
+                    CargarListado(clsGenericList.listProducto);
+                }
             }
-            Cx.Desconectar();
+        }
+        private void cbTipoGoma_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbtipogomafiltro.Checked)
+            {
+                buscardesc();
+                decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
+                if (textBox5.Text != "")
+                {
+                    var newlist = clsGenericList.listProducto.Where(x => x.m_tipoGoma == textBox5.Text).ToList();
+                    CargarListado(newlist);
+
+                    compras = newlist.Sum(x => x.m_PrecioCompra);
+                    ventas = newlist.Sum(x => x.m_PrecioVenta); ;
+                    totalproducto = newlist.Sum(x => x.m_Stock);
+                    lbltotalproductos.Text = Convert.ToString(totalproducto);
+                    total = ventas - compras;
+                    montoTotalenInventario = ventas;
+                    txttotalG.Text = Convert.ToString(total);
+                }
+                else
+                {
+                    CargarListado(clsGenericList.listProducto);
+                }
+            }
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (this.dataGridView1.Columns[e.ColumnIndex].Name == "cantidad")
+            {
+                if (Convert.ToDecimal(e.Value) == 0)
+                {
+                    e.CellStyle.ForeColor = System.Drawing.Color.White;
+                    e.CellStyle.BackColor = System.Drawing.Color.Red;
+                }
+
+                if (Convert.ToDecimal(e.Value) > 0 && Convert.ToInt32(e.Value) < 5)
+                {
+                    e.CellStyle.ForeColor = System.Drawing.Color.Black;
+                    e.CellStyle.BackColor = System.Drawing.Color.Yellow;
+                }
+
+                if (Convert.ToDecimal(e.Value) > 4 && Convert.ToInt32(e.Value) < 11)
+                {
+                    e.CellStyle.ForeColor = System.Drawing.Color.Black;
+                    e.CellStyle.BackColor = System.Drawing.Color.LightGreen;
+                }
+
+                if (Convert.ToDecimal(e.Value) > 10)
+                {
+                    e.CellStyle.ForeColor = System.Drawing.Color.Black;
+                    e.CellStyle.BackColor = System.Drawing.Color.CornflowerBlue;
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            id.Text = "";
+            cbxCategoria.Text = "";
+            clear();
+            txtBuscarProducto.Text = "";
+            CargarListado(clsGenericList.listProducto);
+            Refresh();
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
+            M.Desconectar();
             Program.IdProducto = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
             if (Program.IdProducto > 0)
             {
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este Producto.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    using (SqlCommand cmd = new SqlCommand("eliminarProducto", Cx.conexion))
+                    using (SqlCommand cmd = new SqlCommand("eliminarProducto", M.conexion))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Program.IdProducto;
 
-                        Cx.Conectar();
+                        M.Conectar();
                         cmd.ExecuteNonQuery();
-                        Cx.Desconectar();
-                        CargarListado();
+                        M.Desconectar();
+
+                        var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Program.IdProducto);
+                        clsGenericList.listProducto.Remove(producto);
+
+                        GetAllProduct();
                     }
                 }
             }
             else
             {
                 MessageBox.Show("Por Favor Seleccione un producto antes de eliminarlo");
-            }
-        }
-
-        private void cbTipoGoma_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            buscardesc();
-            decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-            if (textBox5.Text != "")
-            {
-                Cx.Desconectar();
-                //variable de tipo Sqlcommand
-                SqlCommand comando = new SqlCommand();
-                //variable SqlDataReader para leer los datos
-                SqlDataReader dr;
-                comando.Connection = Cx.conexion;
-                //declaramos el comando para realizar la busqueda
-                comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where tipoGOma=@desc";
-                comando.Parameters.AddWithValue("@desc", textBox5.Text);
-                //especificamos que es de tipo Text
-                comando.CommandType = CommandType.Text;
-                //se abre la conexion
-                Cx.Conectar();
-                //limpiamos los renglones de la datagridview
-                dataGridView1.Rows.Clear();
-                //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-                dr = comando.ExecuteReader();
-                //el ciclo while se ejecutará mientras lea registros en la tabla
-                while (dr.Read())
-                {
-                    //variable de tipo entero para ir enumerando los la filas del datagridview
-                    int renglon = dataGridView1.Rows.Add();
-                    // especificamos en que fila se mostrará cada registro
-                    // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
-                    dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                    dataGridView1.Rows[renglon].Cells[1].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCategoria")));
-                    dataGridView1.Rows[renglon].Cells[2].Value = dr.GetString(dr.GetOrdinal("Nombre"));
-                    dataGridView1.Rows[renglon].Cells[3].Value = dr.GetString(dr.GetOrdinal("Marca"));
-                    dataGridView1.Rows[renglon].Cells[4].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioCompra")));
-                    dataGridView1.Rows[renglon].Cells[5].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioVenta")));
-                    dataGridView1.Rows[renglon].Cells[6].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Stock")));
-                    dataGridView1.Rows[renglon].Cells[7].Value = dr.GetDateTime(dr.GetOrdinal("FechaVencimiento"));
-                    dataGridView1.Rows[renglon].Cells[8].Value = dr.GetDateTime(dr.GetOrdinal("FechaModificacion"));
-                    dataGridView1.Rows[renglon].Cells[9].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("itbis")));
-                    dataGridView1.Rows[renglon].Cells[10].Value = dr.GetString(dr.GetOrdinal("tipoGOma"));
-                    dataGridView1.Rows[renglon].Cells[11].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmax")));
-                    dataGridView1.Rows[renglon].Cells[12].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Pmin")));
-
-                    compras += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[4].Value);
-                    ventas += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    totalproducto += Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[6].Value);
-                    total = ventas - compras;
-                    montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
-                    txttotalG.Text = Convert.ToString(total);
-                    lbltotalproductos.Text = Convert.ToString(totalproducto);
-                }
-                Cx.Desconectar();
-            }
-            else
-            {
-                CargarListado();
             }
         }
 
@@ -1030,33 +761,58 @@ namespace Capa_de_Presentacion
         private void txtBuscarProducto_KeyUp(object sender, KeyEventArgs e)
         {
             if (txtBuscarProducto.Text.Length >= 3)
-                CargarListado(txtBuscarProducto.Text);
-        }
-
-        private void FrmListadoProductos_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Program.abiertosecundarias = false;
-            Program.abierto = false;
-        }
-
-        private void FrmListadoProductos_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Program.abiertosecundarias = false;
-            Program.abierto = false;
+            {
+                string id = txtBuscarProducto.Text;
+                var newlist = clsGenericList.listProducto.Where(x => x.m_Producto.Contains(id) || x.m_Marca.Contains(id)).ToList();
+                CargarListado(newlist);
+            }
         }
 
         private void label15_Click(object sender, EventArgs e)
         {
+            Program.abiertosecundarias = false;
+            Program.abierto = false;
+            if (Program.CargoEmpleadoLogueado != "Administrador")
+            {
+                btnEditar.Enabled = false;
+            }
             this.Close();
         }
+
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+
         private void FrmListadoProductos_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
+
+        private void cbtipogomafiltro_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbtipogomafiltro.Checked)
+            {
+                cbTipoGoma.Enabled = true;
+            }
+            else
+            {
+                cbTipoGoma.Enabled = false;
+            }
+        }
+
+        private void cbcategoriafiltro_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbcategoriafiltro.Checked)
+            {
+                cbxCategoria.Enabled = true;
+            }
+            else
+            {
+                cbxCategoria.Enabled = false;
+            }
+        }
     }
 }
+
