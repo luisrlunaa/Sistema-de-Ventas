@@ -3,6 +3,7 @@ using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -10,9 +11,11 @@ namespace Capa_de_Presentacion
 {
     public partial class FrmRegistroProductos : DevComponents.DotNetBar.Metro.MetroForm
     {
+
         private clsCategoria C = new clsCategoria();
         private clsProducto P = new clsProducto();
-        clsManejador Cx = new clsManejador();
+        clsManejador M = new clsManejador();
+
         public FrmRegistroProductos()
         {
             InitializeComponent();
@@ -32,12 +35,12 @@ namespace Capa_de_Presentacion
             {
                 txtPmax.Text = "0";
             }
-
         }
 
         public void cargar_combo_Tipo(ComboBox tipo)
         {
-            SqlCommand cm = new SqlCommand("CARGARcomboTipogoma", Cx.conexion);
+            M.Desconectar();
+            SqlCommand cm = new SqlCommand("CARGARcomboTipogoma", M.conexion);
             cm.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cm);
             DataTable dt = new DataTable();
@@ -66,9 +69,10 @@ namespace Capa_de_Presentacion
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (Cx.conexion != null && Cx.conexion.State == ConnectionState.Open)
+            M.Desconectar();
+            if (M.conexion != null && M.conexion.State == ConnectionState.Open)
             {
-                Cx.Desconectar();
+                M.Desconectar();
             }
 
             clsProducto P = new clsProducto();
@@ -82,20 +86,13 @@ namespace Capa_de_Presentacion
                         {
                             if (txtStock.Text.Trim() != "")
                             {
-                                Cx.Desconectar();
-                                using (SqlCommand cmd = new SqlCommand("RegistrarProducto", Cx.conexion))
+                                using (SqlCommand cmd = new SqlCommand("RegistrarProducto", M.conexion))
                                 {
-                                    Cx.Conectar();
-                                    string sql = "Select * From Producto Where Nombre =@Nombre and Marca=@Marca";
-                                    SqlCommand Command = new SqlCommand(sql, Cx.conexion);
-                                    Command.Parameters.AddWithValue("@Nombre", txtProducto.Text.ToUpper());
-                                    Command.Parameters.AddWithValue("@Marca", txtMarca.Text.ToUpper());
-
-                                    SqlDataReader reade = Command.ExecuteReader();
-                                    if (reade.Read())
+                                    var exist = clsGenericList.listProducto.FirstOrDefault(x => x.m_Producto == txtProducto.Text.ToUpper() && x.m_Marca == txtMarca.Text.ToUpper());
+                                    if (exist != null)
                                     {
                                         DevComponents.DotNetBar.MessageBoxEx.Show("El producto ya existe", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        Cx.Desconectar();
+                                        M.Desconectar();
                                     }
                                     else
                                     {
@@ -113,16 +110,33 @@ namespace Capa_de_Presentacion
                                         cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
                                         cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
 
-                                        DevComponents.DotNetBar.MessageBoxEx.Show("Se Registro Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                        Cx.Conectar();
+                                        M.Conectar();
                                         cmd.ExecuteNonQuery();
-                                        Cx.Desconectar();
+                                        M.Desconectar();
+
+                                        Producto product = new Producto();
+                                        int idP = clsGenericList.listProducto.Count + 1;
+                                        product.m_IdP = idP;
+                                        product.m_IdCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
+                                        product.m_Producto = txtProducto.Text;
+                                        product.m_tipoGoma = cbtipo.Text;
+                                        product.m_itbis = Convert.ToDecimal(txtitbis.Text);
+                                        product.m_PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
+                                        product.m_PrecioCompra = Convert.ToDecimal(txtPCompra.Text);
+                                        product.m_Preciomax = 0;
+                                        product.m_Preciomin = 0;
+                                        product.m_Stock = Convert.ToDecimal(txtStock.Text);
+                                        product.m_Marca = txtMarca.Text;
+                                        product.m_FechaModificacion = dateTimePicker1.Value;
+                                        product.m_FechaVencimiento = dateTimePicker1.Value;
+
+                                        clsGenericList.listProducto.Add(product);
 
                                         P.Listar();
                                         ListarElementos();
                                         Limpiar();
                                     }
+
                                 }
                             }
                             else
@@ -198,6 +212,7 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            M.Desconectar();
             FrmListadoProductos LP = new FrmListadoProductos();
             if (txtProducto.Text.Trim() != "")
             {
@@ -209,8 +224,7 @@ namespace Capa_de_Presentacion
                         {
                             if (txtStock.Text.Trim() != "")
                             {
-                                Cx.Desconectar();
-                                using (SqlCommand cmd = new SqlCommand("ActualizarProducto", Cx.conexion))
+                                using (SqlCommand cmd = new SqlCommand("ActualizarProducto", M.conexion))
                                 {
                                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -227,14 +241,35 @@ namespace Capa_de_Presentacion
                                     cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
                                     cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
 
-                                    DevComponents.DotNetBar.MessageBoxEx.Show("Se Actualizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                    Cx.Conectar();
+                                    M.Conectar();
                                     cmd.ExecuteNonQuery();
-                                    Cx.Desconectar();
+                                    M.Desconectar();
                                     ListarElementos();
-                                    LP.CargarListado();
+
+                                    var idp = Convert.ToInt32(txtIdP.Text);
+                                    var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idp);
+
+                                    Producto product = new Producto();
+                                    product.m_IdP = idp;
+                                    product.m_IdCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
+                                    product.m_Producto = txtProducto.Text;
+                                    product.m_tipoGoma = cbtipo.Text;
+                                    product.m_itbis = Convert.ToDecimal(txtitbis.Text);
+                                    product.m_PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
+                                    product.m_PrecioCompra = Convert.ToDecimal(txtPCompra.Text);
+                                    product.m_Preciomax = 0;
+                                    product.m_Preciomin = 0;
+                                    product.m_Stock = Convert.ToDecimal(txtStock.Text);
+                                    product.m_Marca = txtMarca.Text;
+                                    product.m_FechaModificacion = dateTimePicker1.Value;
+                                    product.m_FechaVencimiento = producto.m_FechaVencimiento;
+
+                                    clsGenericList.listProducto.Remove(producto);
+                                    clsGenericList.listProducto.Add(product);
+
+                                    LP.CargarListado(clsGenericList.listProducto);
                                     Limpiar();
+                                    this.Close();
                                 }
                             }
                             else
@@ -288,7 +323,5 @@ namespace Capa_de_Presentacion
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
-
-
     }
 }
