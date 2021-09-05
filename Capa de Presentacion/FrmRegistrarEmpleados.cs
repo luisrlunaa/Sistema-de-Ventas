@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,7 +12,7 @@ namespace Capa_de_Presentacion
     {
         clsCargo C = new clsCargo();
         clsEmpleado Em = new clsEmpleado();
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         int Listado = 0;
         public FrmRegistrarEmpleados()
         {
@@ -63,30 +64,27 @@ namespace Capa_de_Presentacion
                         {
                             if (comboBox1.SelectedValue != null)
                             {
-                                using (SqlConnection con = new SqlConnection(Cx.conet))
+                                Cx.Desconectar();
+                                using (SqlCommand cmd = new SqlCommand("MantenimientoEmpleados", Cx.conexion))
                                 {
-                                    using (SqlCommand cmd = new SqlCommand("MantenimientoEmpleados", con))
-                                    {
-                                        cmd.CommandType = CommandType.StoredProcedure;
+                                    cmd.CommandType = CommandType.StoredProcedure;
 
-                                        cmd.Parameters.Add("@IdCargo", SqlDbType.NVarChar).Value = Convert.ToInt32(comboBox1.SelectedValue);
-                                        cmd.Parameters.Add("@Dni", SqlDbType.NVarChar).Value = txtDni.Text;
-                                        cmd.Parameters.Add("@Apellidos", SqlDbType.NVarChar).Value = txtApellidos.Text;
-                                        cmd.Parameters.Add("@Nombres", SqlDbType.NVarChar).Value = txtNombres.Text;
-                                        cmd.Parameters.Add("@Direccion", SqlDbType.NVarChar).Value = txtDireccion.Text;
-                                        cmd.Parameters.Add("@EstadoCivil", SqlDbType.Char).Value = EstadoCivil;
-                                        cmd.Parameters.Add("@Sexo", SqlDbType.Char).Value = rbnMasculino.Checked == true ? 'M' : 'F';
-                                        cmd.Parameters.Add("@FechaNac", SqlDbType.Date).Value = dateTimePicker1.Text;
+                                    cmd.Parameters.Add("@IdCargo", SqlDbType.NVarChar).Value = Convert.ToInt32(comboBox1.SelectedValue);
+                                    cmd.Parameters.Add("@Dni", SqlDbType.NVarChar).Value = txtDni.Text;
+                                    cmd.Parameters.Add("@Apellidos", SqlDbType.NVarChar).Value = txtApellidos.Text;
+                                    cmd.Parameters.Add("@Nombres", SqlDbType.NVarChar).Value = txtNombres.Text;
+                                    cmd.Parameters.Add("@Direccion", SqlDbType.NVarChar).Value = txtDireccion.Text;
+                                    cmd.Parameters.Add("@EstadoCivil", SqlDbType.Char).Value = EstadoCivil;
+                                    cmd.Parameters.Add("@Sexo", SqlDbType.Char).Value = rbnMasculino.Checked == true ? 'M' : 'F';
+                                    cmd.Parameters.Add("@FechaNac", SqlDbType.Date).Value = dateTimePicker1.Text;
 
-                                        DevComponents.DotNetBar.MessageBoxEx.Show("Se Realizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    DevComponents.DotNetBar.MessageBoxEx.Show("Se Realizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                        con.Open();
-                                        cmd.ExecuteNonQuery();
-                                        con.Close();
-                                        Limpiar();
-                                    }
+                                    Cx.Conectar();
+                                    cmd.ExecuteNonQuery();
+                                    Cx.Desconectar();
+                                    Limpiar();
                                 }
-
                             }
                             else
                             {

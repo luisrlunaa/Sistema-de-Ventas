@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -10,7 +11,7 @@ namespace Capa_de_Presentacion
 
     {
         clsUsuarios U = new clsUsuarios();
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         public FrmRegistrarUsuarios()
         {
             InitializeComponent();

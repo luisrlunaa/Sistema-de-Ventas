@@ -1,4 +1,4 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -19,7 +19,7 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
             button3.Enabled = false;
@@ -78,16 +78,12 @@ namespace Capa_de_Presentacion
         {
             idsVentas = new List<int>();
             decimal total = 0;
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
+            Cx.Desconectar();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = Cx.conexion;
 
             if (chkid.Checked && chknombre.Checked == false && id != null)
             {
@@ -112,7 +108,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            Cx.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -142,7 +138,7 @@ namespace Capa_de_Presentacion
             }
 
             llenarganancia();
-            con.Close();
+            Cx.Desconectar();
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -157,10 +153,11 @@ namespace Capa_de_Presentacion
         }
         public void llenarid(int idventa)
         {
+            Cx.Desconectar();
             string cadSql = "select IdCliente =COALESCE(dbo.Venta.IdCliente,0) from Venta where idventa=" + idventa;
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            Cx.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -168,7 +165,7 @@ namespace Capa_de_Presentacion
             {
                 Program.IdCliente = Convert.ToInt32(leer["IdCliente"]);
             }
-            Cx.conexion.Close();
+            Cx.Desconectar();
         }
         public void llenarganancia()
         {
@@ -180,11 +177,12 @@ namespace Capa_de_Presentacion
             decimal ganancia = 0;
             foreach (var item in idsVentas)
             {
+                Cx.Desconectar();
                 string cadSql = "select Sum(GananciaVenta) as ganancia from DetalleVenta where DetalleVenta.IdVenta=" + item + "group by DetalleVenta.IdVenta";
 
                 SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
 
-                Cx.conexion.Open();
+                Cx.Conectar();
 
                 SqlDataReader leer = comando.ExecuteReader();
 
@@ -192,7 +190,7 @@ namespace Capa_de_Presentacion
                 {
                     ganancia += (Convert.ToDecimal(leer["ganancia"]));
                 }
-                Cx.conexion.Close();
+                Cx.Desconectar();
             }
 
             txtGanancias.Text = ganancia.ToString("C2");
@@ -203,7 +201,8 @@ namespace Capa_de_Presentacion
             llenarid(Program.Id);
             if (Program.IdCliente > 0)
             {
-                Cx.conexion.Open();
+                Cx.Desconectar();
+                Cx.Conectar();
                 string sql = "SELECT DNI,Apellidos,Nombres from Cliente where IdCliente = '" + Program.IdCliente + "'";
                 SqlCommand comando = new SqlCommand(sql, Cx.conexion);
                 SqlDataReader dr = comando.ExecuteReader();
@@ -213,7 +212,7 @@ namespace Capa_de_Presentacion
                     Program.NombreCliente = dr.GetString(dr.GetOrdinal("Nombres"));
                     Program.ApellidosCliente = dr.GetString(dr.GetOrdinal("Apellidos"));
                 }
-                Cx.conexion.Close();
+                Cx.Desconectar();
             }
             else
             {
@@ -482,16 +481,12 @@ namespace Capa_de_Presentacion
         {
             idsVentas = new List<int>();
             decimal total = 0; decimal totalpendiente = 0;
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
+            Cx.Desconectar();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = Cx.conexion;
 
             if (txtBuscarid.Text != "" && txtBuscarid.Text != null)
             {
@@ -610,7 +605,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            Cx.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -666,7 +661,7 @@ namespace Capa_de_Presentacion
             dataGridView3.ClearSelection();
             llenarganancia();
             gridforcategoryandquantity(dtpfecha1.Value, dtpfecha2.Value);
-            con.Close();
+            Cx.Desconectar();
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -695,16 +690,12 @@ namespace Capa_de_Presentacion
         private void gridforcategoryandquantity(DateTime fecha1, DateTime fecha2)
         {
             decimal total = 0;
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
+            Cx.Desconectar();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = Cx.conexion;
 
             if (fecha1 != DateTime.MinValue && fecha2 != DateTime.MinValue)
             {
@@ -726,7 +717,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            Cx.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView3.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -746,7 +737,7 @@ namespace Capa_de_Presentacion
 
                 txttotalventaespecifica.Text = Math.Round(total, 2).ToString("C2");
             }
-            con.Close();
+            Cx.Desconectar();
         }
         private void txtBuscarid_KeyUp(object sender, KeyEventArgs e)
         {
@@ -775,6 +766,7 @@ namespace Capa_de_Presentacion
             Program.tipo = dataGridView1.CurrentRow.Cells["Tipo"].Value.ToString();
             if (Program.Id > 0)
             {
+                Cx.Desconectar();
                 string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante,Venta.Total from DetalleVenta" +
                 " inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta inner join Caja on Caja.fecha=Venta.FechaVenta where DetalleVenta.IdVenta=" + Program.Id;
                 SqlCommand cmd1 = new SqlCommand(sql, Cx.conexion);
@@ -811,9 +803,9 @@ namespace Capa_de_Presentacion
                         cmd3.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV;
                         cmd3.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV;
 
-                        Cx.conexion.Open();
+                        Cx.Conectar();
                         cmd3.ExecuteNonQuery();
-                        Cx.conexion.Close();
+                        Cx.Desconectar();
 
                         if (i == dt.Rows.Count)
                         {
@@ -837,15 +829,15 @@ namespace Capa_de_Presentacion
                                     cmd4.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV1;
                                     cmd4.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV1;
 
-                                    Cx.conexion.Open();
+                                    Cx.Conectar();
                                     cmd4.ExecuteNonQuery();
-                                    Cx.conexion.Close();
+                                    Cx.Desconectar();
                                 }
                             }
 
                             decimal caja = 0, monto = 0, montoingresos = 0;
                             string sql1 = "select * FROM pagos where idVenta=" + Program.Id;
-                            Cx.conexion.Open();
+                            Cx.Conectar();
                             SqlCommand cmd2 = new SqlCommand(sql1, Cx.conexion);
                             SqlDataReader reade = cmd2.ExecuteReader();
                             if (reade.Read())
@@ -867,7 +859,7 @@ namespace Capa_de_Presentacion
                                     monto = ingresos - egresos;
                                 }
                             }
-                            Cx.conexion.Close();
+                            Cx.Desconectar();
 
                             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar esta Venta?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                             {
@@ -880,9 +872,9 @@ namespace Capa_de_Presentacion
                                     cmd.Parameters.Add("@idCaja", SqlDbType.Int).Value = caja;
                                     cmd.Parameters.Add("@tipoFactura", SqlDbType.NVarChar).Value = Program.tipo;
 
-                                    Cx.conexion.Open();
+                                    Cx.Conectar();
                                     cmd.ExecuteNonQuery();
-                                    Cx.conexion.Close();
+                                    Cx.Desconectar();
                                     Program.Id = 0;
                                     Program.tipo = "";
                                     button3.Enabled = false;
@@ -934,8 +926,9 @@ namespace Capa_de_Presentacion
             if (DevComponents.DotNetBar.MessageBoxEx.Show("Nota: se devolveran todos los producto que contenga la venta y la misma se eliminara por completo del sistema" +
                            "\n ¿Está Seguro que Desea hacer una devolucion de esta Venta? ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
+                Cx.Desconectar();
                 Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
-                Cx.conexion.Open();
+                Cx.Conectar();
                 string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante,Venta.Total from DetalleVenta" +
                     " inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta inner join Caja on Caja.fecha=Venta.FechaVenta where DetalleVenta.IdVenta=" + Program.Id;
                 SqlCommand cmd1 = new SqlCommand(sql, Cx.conexion);
@@ -1015,7 +1008,7 @@ namespace Capa_de_Presentacion
                     }
                 }
 
-                Cx.conexion.Close();
+                Cx.Desconectar();
             }
         }
 

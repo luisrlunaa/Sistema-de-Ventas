@@ -1,4 +1,4 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,7 +16,7 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         private void frmLimitantesNCF_Load(object sender, EventArgs e)
         {
             actualzarestadoscomprobantes();
@@ -26,7 +26,8 @@ namespace Capa_de_Presentacion
 
         public void llenardatoscomprobantes(int id)
         {
-            Cx.conexion.Open();
+            Cx.Desconectar();
+            Cx.Conectar();
             string sql = "SELECT * FROM ncf INNER JOIN Comprobantes ON ncf.id_ncf = Comprobantes.id_comprobante where ncf.id_ncf=@id";
             SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
             cmd.Parameters.AddWithValue("@id", id);
@@ -40,7 +41,7 @@ namespace Capa_de_Presentacion
                 dtpinicio.Value = Convert.ToDateTime(reade["fecha_inicio"]);
                 dtpfinal.Value = Convert.ToDateTime(reade["fecha_final"]);
             }
-            Cx.conexion.Close();
+            Cx.Desconectar();
         }
 
         public void actualzarestadoscomprobantes()
@@ -54,7 +55,8 @@ namespace Capa_de_Presentacion
 
             foreach (var item in listaidint)
             {
-                Cx.conexion.Open();
+                Cx.Desconectar();
+                Cx.Conectar();
                 string sql = "SELECT * FROM ncf INNER JOIN Comprobantes ON ncf.id_ncf = Comprobantes.id_comprobante where ncf.id_ncf=@id order by id_ncf";
                 SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
                 cmd.Parameters.AddWithValue("@id", item);
@@ -70,40 +72,35 @@ namespace Capa_de_Presentacion
 
                     if (secui > secuf || fechaini >= fechafin)
                     {
-                        Cx.conexion.Close();
-                        using (SqlConnection con = new SqlConnection(Cx.conet))
+                        Cx.Desconectar();
+
+                        using (SqlCommand cmdup = new SqlCommand("UpdateState", Cx.conexion))
                         {
-                            using (SqlCommand cmdup = new SqlCommand("UpdateState", con))
-                            {
-                                cmdup.CommandType = CommandType.StoredProcedure;
-                                cmdup.Parameters.Add("@id", SqlDbType.Int).Value = item;
-                                con.Open();
-                                cmdup.ExecuteNonQuery();
-                                con.Close();
-                            }
+                            cmdup.CommandType = CommandType.StoredProcedure;
+                            cmdup.Parameters.Add("@id", SqlDbType.Int).Value = item;
+                            Cx.Conectar();
+                            cmdup.ExecuteNonQuery();
+                            Cx.Desconectar();
                         }
                     }
                 }
-                Cx.conexion.Close();
+                Cx.Desconectar();
             }
         }
         public void llenar_data_ncf()
-        {   //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
+        {
+            Cx.Desconectar();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = Cx.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "SELECT * FROM ncf INNER JOIN Comprobantes ON ncf.id_ncf = Comprobantes.id_comprobante order by ncf.id_ncf";
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            Cx.Conectar();
             //limpiamos los renglones de la datagridview
             data_ncf.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -128,26 +125,23 @@ namespace Capa_de_Presentacion
                     data_ncf.Rows[renglon].Cells["Activo"].Value = "Si";
                 }
             }
-            con.Close();
+            Cx.Desconectar();
         }
 
         public void llenar_data_comprobante()
-        {   //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
+        {
+            Cx.Desconectar();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = Cx.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "SELECT  * from Comprobantes";
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            Cx.Conectar();
             //limpiamos los renglones de la datagridview
             data_comprobante.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -166,11 +160,12 @@ namespace Capa_de_Presentacion
                 data_comprobante.Rows[renglon].Cells["fecha_inicio"].Value = dr.GetDateTime(dr.GetOrdinal("fecha_inicio"));
                 data_comprobante.Rows[renglon].Cells["fecha_final"].Value = dr.GetDateTime(dr.GetOrdinal("fecha_final"));
             }
-            con.Close();
+            Cx.Desconectar();
         }
 
         private void btnAplicar_Click(object sender, EventArgs e)
         {
+            Cx.Desconectar();
             using (SqlCommand cmd = new SqlCommand("limitantes", Cx.conexion))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -180,9 +175,9 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@fecha_inicio", SqlDbType.DateTime).Value = Convert.ToDateTime(dtpinicio.Text);
                 cmd.Parameters.Add("@fecha_final", SqlDbType.DateTime).Value = Convert.ToDateTime(dtpfinal.Text);
 
-                Cx.conexion.Open();
+                Cx.Conectar();
                 cmd.ExecuteNonQuery();
-                Cx.conexion.Close();
+                Cx.Desconectar();
 
                 MessageBox.Show("Aplicado Correctamente");
                 llenar_data_comprobante();

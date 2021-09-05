@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,14 +10,13 @@ namespace Capa_de_Presentacion
 {
     public partial class FrmMenuPrincipal : DevComponents.DotNetBar.Metro.MetroForm
     {
-        int EnviarFecha = 0;
         public FrmMenuPrincipal()
         {
             InitializeComponent();
         }
 
         //Correo c = new Correo();
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         clsUsuarios U = new clsUsuarios();
         private void FrmMenuPrincipal_Activated(object sender, EventArgs e)
         {
@@ -116,9 +116,10 @@ namespace Capa_de_Presentacion
 
         public void llenar()
         {
+            Cx.Desconectar();
             string cadSql = "select * from NomEmp";
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            Cx.Conectar();
             SqlDataReader leer = comando.ExecuteReader();
             if (leer.Read() == true)
             {
@@ -129,7 +130,7 @@ namespace Capa_de_Presentacion
                 lblCorreo.Text = leer["Correo"].ToString();
                 lblrnc.Text = leer["RNC"].ToString();
             }
-            Cx.conexion.Close();
+            Cx.Desconectar();
         }
         private void btnProductos_Click(object sender, EventArgs e)
         {

@@ -1,4 +1,4 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -12,7 +12,7 @@ namespace Capa_de_Presentacion
         {
             InitializeComponent();
         }
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         private void label6_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -36,22 +36,20 @@ namespace Capa_de_Presentacion
                     {
                         if (txtConf.Text == txtCon.Text)
                         {
-                            using (SqlConnection con = new SqlConnection(Cx.conet))
+                            Cx.Desconectar();
+                            using (SqlCommand cmd = new SqlCommand("recuperarUsu", Cx.conexion))
                             {
-                                using (SqlCommand cmd = new SqlCommand("recuperarUsu", con))
-                                {
-                                    cmd.CommandType = CommandType.StoredProcedure;
-                                    cmd.Parameters.Add("@usu", SqlDbType.VarChar).Value = txtUsu.Text;
-                                    cmd.Parameters.Add("@cedula", SqlDbType.VarChar).Value = Convert.ToString(txtCed.Text);
-                                    cmd.Parameters.Add("@clave", SqlDbType.VarChar).Value = Convert.ToString(txtConf.Text);
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.Add("@usu", SqlDbType.VarChar).Value = txtUsu.Text;
+                                cmd.Parameters.Add("@cedula", SqlDbType.VarChar).Value = Convert.ToString(txtCed.Text);
+                                cmd.Parameters.Add("@clave", SqlDbType.VarChar).Value = Convert.ToString(txtConf.Text);
 
-                                    con.Open();
-                                    cmd.ExecuteNonQuery();
-                                    MessageBox.Show("Felicidades Ya Cambiaste la Contraseña");
-                                    con.Close();
-                                    limpiar();
-                                    panel1.Visible = true;
-                                }
+                                Cx.Conectar();
+                                cmd.ExecuteNonQuery();
+                                MessageBox.Show("Felicidades Ya Cambiaste la Contraseña");
+                                Cx.Desconectar();
+                                limpiar();
+                                panel1.Visible = true;
                             }
                         }
                         else
@@ -88,10 +86,11 @@ namespace Capa_de_Presentacion
 
             if (activo == false)
             {
+                Cx.Desconectar();
                 SqlCommand command = new SqlCommand("SELECT  dbo.Usuario.Usuario FROM dbo.Empleado INNER JOIN " +
                     "dbo.Usuario ON dbo.Empleado.IdEmpleado = dbo.Usuario.IdEmpleado where dbo.Empleado.Dni = @Clave", Cx.conexion);
                 command.Parameters.AddWithValue("@Clave", txtCed.Text);
-                Cx.conexion.Open();
+                Cx.Conectar();
                 SqlDataReader leer = command.ExecuteReader();
 
                 if (leer.Read() == true)
@@ -103,7 +102,7 @@ namespace Capa_de_Presentacion
                     MessageBox.Show("Esta Cedula No tiene Usuario Registrado");
                     txtCed.Clear();
                 }
-                Cx.conexion.Close();
+                Cx.Desconectar();
             }
             else
             {

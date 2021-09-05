@@ -1,4 +1,4 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -12,7 +12,7 @@ namespace Capa_de_Presentacion
         {
             InitializeComponent();
         }
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         FrmLogin Login = new FrmLogin();
         private void frmRenovar_Load(object sender, EventArgs e)
         {
@@ -40,22 +40,20 @@ namespace Capa_de_Presentacion
             {
                 if (txtrenovar.Text == txtlicencia.Text && licenciaAnterior != txtrenovar.Text)
                 {
-                    using (SqlConnection con = new SqlConnection(Cx.conet))
+                    Cx.Desconectar();
+                    using (SqlCommand cmdup = new SqlCommand("ActualizarLicencia", Cx.conexion))
                     {
-                        using (SqlCommand cmdup = new SqlCommand("ActualizarLicencia", con))
-                        {
-                            cmdup.CommandType = CommandType.StoredProcedure;
-                            cmdup.Parameters.Add("@licencia", SqlDbType.NVarChar).Value = licenciaAnterior;
-                            cmdup.Parameters.Add("@licenciaNew", SqlDbType.NVarChar).Value = txtlicencia.Text;
-                            cmdup.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = nuevafecha;
+                        cmdup.CommandType = CommandType.StoredProcedure;
+                        cmdup.Parameters.Add("@licencia", SqlDbType.NVarChar).Value = licenciaAnterior;
+                        cmdup.Parameters.Add("@licenciaNew", SqlDbType.NVarChar).Value = txtlicencia.Text;
+                        cmdup.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = nuevafecha;
 
-                            con.Open();
-                            cmdup.ExecuteNonQuery();
-                            con.Close();
+                        Cx.Conectar();
+                        cmdup.ExecuteNonQuery();
+                        Cx.Desconectar();
 
-                            Login.Show();
-                            this.Hide();
-                        }
+                        Login.Show();
+                        this.Hide();
                     }
                 }
                 else
@@ -70,9 +68,9 @@ namespace Capa_de_Presentacion
             int num = 0;
             string numfin = "";
             string cadSql = "select * from Licencia";
-
+            Cx.Desconectar();
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            Cx.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -91,15 +89,16 @@ namespace Capa_de_Presentacion
 
                 txtlicencia.Text = empresa + secuenciaini + secuenciacent + secuenciafin + proveedor + palabraclave + numfin;
             }
-            Cx.conexion.Close();
+            Cx.Desconectar();
         }
 
         public void licienciaPre()
         {
+            Cx.Desconectar();
             string cadSql = "select top(1) Licencia_Post  from NomEmp order by idEmp desc";
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.conexion.Open();
+            Cx.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -107,7 +106,7 @@ namespace Capa_de_Presentacion
             {
                 licenciaAnterior = leer["Licencia_Post"].ToString();
             }
-            Cx.conexion.Close();
+            Cx.Desconectar();
         }
     }
 }

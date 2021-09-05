@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,7 +12,7 @@ namespace Capa_de_Presentacion
     {
         private clsCategoria C = new clsCategoria();
         private clsProducto P = new clsProducto();
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         public FrmRegistroProductos()
         {
             InitializeComponent();
@@ -67,7 +68,7 @@ namespace Capa_de_Presentacion
         {
             if (Cx.conexion != null && Cx.conexion.State == ConnectionState.Open)
             {
-                Cx.conexion.Close();
+                Cx.Desconectar();
             }
 
             clsProducto P = new clsProducto();
@@ -81,50 +82,46 @@ namespace Capa_de_Presentacion
                         {
                             if (txtStock.Text.Trim() != "")
                             {
-                                using (SqlConnection con = new SqlConnection(Cx.conet))
+                                Cx.Desconectar();
+                                using (SqlCommand cmd = new SqlCommand("RegistrarProducto", Cx.conexion))
                                 {
-                                    using (SqlCommand cmd = new SqlCommand("RegistrarProducto", con))
+                                    Cx.Conectar();
+                                    string sql = "Select * From Producto Where Nombre =@Nombre and Marca=@Marca";
+                                    SqlCommand Command = new SqlCommand(sql, Cx.conexion);
+                                    Command.Parameters.AddWithValue("@Nombre", txtProducto.Text.ToUpper());
+                                    Command.Parameters.AddWithValue("@Marca", txtMarca.Text.ToUpper());
+
+                                    SqlDataReader reade = Command.ExecuteReader();
+                                    if (reade.Read())
                                     {
+                                        DevComponents.DotNetBar.MessageBoxEx.Show("El producto ya existe", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        Cx.Desconectar();
+                                    }
+                                    else
+                                    {
+                                        cmd.CommandType = CommandType.StoredProcedure;
+                                        cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
+                                        cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
+                                        cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
+                                        cmd.Parameters.Add("@Stock", SqlDbType.Decimal).Value = Convert.ToDecimal(txtStock.Text);
+                                        cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
+                                        cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
+                                        cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
+                                        cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
+                                        cmd.Parameters.Add("@FechaVencimiento", SqlDbType.Date).Value = dateTimePicker1.Text;
+                                        cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
+                                        cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
+                                        cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
 
-                                        Cx.conexion.Open();
-                                        string sql = "Select * From Producto Where Nombre =@Nombre and Marca=@Marca";
-                                        SqlCommand Command = new SqlCommand(sql, Cx.conexion);
-                                        Command.Parameters.AddWithValue("@Nombre", txtProducto.Text.ToUpper());
-                                        Command.Parameters.AddWithValue("@Marca", txtMarca.Text.ToUpper());
+                                        DevComponents.DotNetBar.MessageBoxEx.Show("Se Registro Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                        SqlDataReader reade = Command.ExecuteReader();
-                                        if (reade.Read())
-                                        {
-                                            DevComponents.DotNetBar.MessageBoxEx.Show("El producto ya existe", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                            Cx.conexion.Close();
-                                        }
-                                        else
-                                        {
-                                            cmd.CommandType = CommandType.StoredProcedure;
-                                            cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
-                                            cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
-                                            cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
-                                            cmd.Parameters.Add("@Stock", SqlDbType.Decimal).Value = Convert.ToDecimal(txtStock.Text);
-                                            cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
-                                            cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
-                                            cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
-                                            cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
-                                            cmd.Parameters.Add("@FechaVencimiento", SqlDbType.Date).Value = dateTimePicker1.Text;
-                                            cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
-                                            cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
-                                            cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
+                                        Cx.Conectar();
+                                        cmd.ExecuteNonQuery();
+                                        Cx.Desconectar();
 
-                                            DevComponents.DotNetBar.MessageBoxEx.Show("Se Registro Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                            con.Open();
-                                            cmd.ExecuteNonQuery();
-                                            con.Close();
-
-                                            P.Listar();
-                                            ListarElementos();
-                                            Limpiar();
-                                        }
-
+                                        P.Listar();
+                                        ListarElementos();
+                                        Limpiar();
                                     }
                                 }
                             }
@@ -212,34 +209,32 @@ namespace Capa_de_Presentacion
                         {
                             if (txtStock.Text.Trim() != "")
                             {
-                                using (SqlConnection con = new SqlConnection(Cx.conet))
+                                Cx.Desconectar();
+                                using (SqlCommand cmd = new SqlCommand("ActualizarProducto", Cx.conexion))
                                 {
-                                    using (SqlCommand cmd = new SqlCommand("ActualizarProducto", con))
-                                    {
-                                        cmd.CommandType = CommandType.StoredProcedure;
+                                    cmd.CommandType = CommandType.StoredProcedure;
 
-                                        cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
-                                        cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = txtIdP.Text;
-                                        cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
-                                        cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
-                                        cmd.Parameters.Add("@Stock", SqlDbType.Decimal).Value = Convert.ToDecimal(txtStock.Text);
-                                        cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
-                                        cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
-                                        cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
-                                        cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
-                                        cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
-                                        cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
-                                        cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
+                                    cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
+                                    cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = txtIdP.Text;
+                                    cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
+                                    cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
+                                    cmd.Parameters.Add("@Stock", SqlDbType.Decimal).Value = Convert.ToDecimal(txtStock.Text);
+                                    cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
+                                    cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
+                                    cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
+                                    cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
+                                    cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
+                                    cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
+                                    cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
 
-                                        DevComponents.DotNetBar.MessageBoxEx.Show("Se Actualizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    DevComponents.DotNetBar.MessageBoxEx.Show("Se Actualizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                        con.Open();
-                                        cmd.ExecuteNonQuery();
-                                        con.Close();
-                                        ListarElementos();
-                                        LP.CargarListado();
-                                        Limpiar();
-                                    }
+                                    Cx.Conectar();
+                                    cmd.ExecuteNonQuery();
+                                    Cx.Desconectar();
+                                    ListarElementos();
+                                    LP.CargarListado();
+                                    Limpiar();
                                 }
                             }
                             else

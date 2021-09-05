@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,7 +11,7 @@ namespace Capa_de_Presentacion
     public partial class FrmListadoClientes : DevComponents.DotNetBar.Metro.MetroForm
     {
         private clsCliente C = new clsCliente();
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         int Listado = 0;
 
         public FrmListadoClientes()
@@ -195,7 +196,8 @@ namespace Capa_de_Presentacion
             Program.IdCliente = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
             if (Program.IdCliente > 0)
             {
-                Cx.conexion.Open();
+                Cx.Desconectar();
+                Cx.Conectar();
                 string sql = "select IdCliente from Venta where IdCliente =@id";
                 SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
                 cmd.Parameters.AddWithValue("@id", Program.IdCliente);
@@ -220,7 +222,7 @@ namespace Capa_de_Presentacion
                         }
                     }
                 }
-                Cx.conexion.Close();
+                Cx.Desconectar();
             }
             else
             {

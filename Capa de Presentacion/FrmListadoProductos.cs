@@ -1,4 +1,5 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -16,7 +17,7 @@ namespace Capa_de_Presentacion
     {
         private clsProducto P = new clsProducto();
         private clsCategoria C = new clsCategoria();
-        clsCx Cx = new clsCx();
+        clsManejador Cx = new clsManejador();
         public FrmListadoProductos()
         {
             InitializeComponent();
@@ -36,7 +37,8 @@ namespace Capa_de_Presentacion
         decimal montoTotalenInventario = 0;
         public void buscarid()
         {
-            Cx.conexion.Open();
+            Cx.Desconectar();
+            Cx.Conectar();
             string sql = "select IdCategoria from Categoria where Descripcion =@id";
             SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
             cmd.Parameters.AddWithValue("@id", cbxCategoria.Text);
@@ -52,12 +54,13 @@ namespace Capa_de_Presentacion
                 rbtodos.Checked = false;
                 radioButton1.Checked = false;
             }
-            Cx.conexion.Close();
+            Cx.Desconectar();
         }
 
         public void buscardesc()
         {
-            Cx.conexion.Open();
+            Cx.Desconectar();
+            Cx.Conectar();
             string sql = "select descripcion from tipoGOma where id =@id";
             SqlCommand cmd = new SqlCommand(sql, Cx.conexion);
             cmd.Parameters.AddWithValue("@id", cbTipoGoma.SelectedValue);
@@ -76,37 +79,7 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            Cx.conexion.Close();
-        }
-
-        private void Stretch(object sender, EventArgs e)
-        {
-            foreach (DataGridViewImageColumn column in
-                dataGridView1.Columns)
-            {
-                column.ImageLayout = DataGridViewImageCellLayout.Stretch;
-                column.Description = "Stretched";
-            }
-        }
-
-        private void ZoomToImage(object sender, EventArgs e)
-        {
-            foreach (DataGridViewImageColumn column in
-                dataGridView1.Columns)
-            {
-                column.ImageLayout = DataGridViewImageCellLayout.Zoom;
-                column.Description = "Zoomed";
-            }
-        }
-
-        private void NormalImage(object sender, EventArgs e)
-        {
-            foreach (DataGridViewImageColumn column in
-                dataGridView1.Columns)
-            {
-                column.ImageLayout = DataGridViewImageCellLayout.Normal;
-                column.Description = "Normal";
-            }
+            Cx.Desconectar();
         }
 
         private void ListarElementostipo()
@@ -163,16 +136,12 @@ namespace Capa_de_Presentacion
             try
             {
                 decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-                //declaramos la cadena  de conexion
-                string cadenaconexion = Cx.conet;
-                //variable de tipo Sqlconnection
-                SqlConnection con = new SqlConnection();
+                Cx.Desconectar();
                 //variable de tipo Sqlcommand
                 SqlCommand comando = new SqlCommand();
                 //variable SqlDataReader para leer los datos
                 SqlDataReader dr;
-                con.ConnectionString = cadenaconexion;
-                comando.Connection = con;
+                comando.Connection = Cx.conexion;
 
                 if (palabra != null)
                 {
@@ -190,7 +159,7 @@ namespace Capa_de_Presentacion
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
-                con.Open();
+                Cx.Conectar();
                 //limpiamos los renglones de la datagridview
                 dataGridView1.Rows.Clear();
                 //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -225,7 +194,7 @@ namespace Capa_de_Presentacion
                     txttotalG.Text = Convert.ToString(total);
                     lbltotalproductos.Text = Convert.ToString(totalproducto);
                 }
-                con.Close();
+                Cx.Desconectar();
             }
             catch (Exception ex)
             {
@@ -327,22 +296,18 @@ namespace Capa_de_Presentacion
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
             if (rbCero.Checked == true)
             {
-                //declaramos la cadena  de conexion
-                string cadenaconexion = Cx.conet;
-                //variable de tipo Sqlconnection
-                SqlConnection con = new SqlConnection();
+                Cx.Desconectar();
                 //variable de tipo Sqlcommand
                 SqlCommand comando = new SqlCommand();
                 //variable SqlDataReader para leer los datos
                 SqlDataReader dr;
-                con.ConnectionString = cadenaconexion;
-                comando.Connection = con;
+                comando.Connection = Cx.conexion;
                 //declaramos el comando para realizar la busqueda
                 comando.CommandText = "	Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where Stock=0 ORDER BY IdProducto";
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
-                con.Open();
+                Cx.Conectar();
                 //limpiamos los renglones de la datagridview
                 dataGridView1.Rows.Clear();
                 //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -376,7 +341,7 @@ namespace Capa_de_Presentacion
                     total = ventas - compras;
                     txttotalG.Text = Convert.ToString(total);
                 }
-                con.Close();
+                Cx.Desconectar();
             }
             else
             {
@@ -388,22 +353,18 @@ namespace Capa_de_Presentacion
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
             if (rdmedia.Checked == true)
             {
-                //declaramos la cadena  de conexion
-                string cadenaconexion = Cx.conet;
-                //variable de tipo Sqlconnection
-                SqlConnection con = new SqlConnection();
+                Cx.Desconectar();
                 //variable de tipo Sqlcommand
                 SqlCommand comando = new SqlCommand();
                 //variable SqlDataReader para leer los datos
                 SqlDataReader dr;
-                con.ConnectionString = cadenaconexion;
-                comando.Connection = con;
+                comando.Connection = Cx.conexion;
                 //declaramos el comando para realizar la busqueda
                 comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where Stock >4  And Stock <11 ORDER BY IdProducto";
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
-                con.Open();
+                Cx.Conectar();
                 //limpiamos los renglones de la datagridview
                 dataGridView1.Rows.Clear();
                 //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -438,7 +399,7 @@ namespace Capa_de_Presentacion
                     montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     txttotalG.Text = Convert.ToString(total);
                 }
-                con.Close();
+                Cx.Desconectar();
             }
             else
             {
@@ -451,22 +412,18 @@ namespace Capa_de_Presentacion
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
             if (rbbuena.Checked == true)
             {
-                //declaramos la cadena  de conexion
-                string cadenaconexion = Cx.conet;
-                //variable de tipo Sqlconnection
-                SqlConnection con = new SqlConnection();
+                Cx.Desconectar();
                 //variable de tipo Sqlcommand
                 SqlCommand comando = new SqlCommand();
                 //variable SqlDataReader para leer los datos
                 SqlDataReader dr;
-                con.ConnectionString = cadenaconexion;
-                comando.Connection = con;
+                comando.Connection = Cx.conexion;
                 //declaramos el comando para realizar la busqueda
                 comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where Stock >10 ORDER BY IdProducto";
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
-                con.Open();
+                Cx.Conectar();
                 //limpiamos los renglones de la datagridview
                 dataGridView1.Rows.Clear();
                 //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -501,7 +458,7 @@ namespace Capa_de_Presentacion
                     total = ventas - compras;
                     txttotalG.Text = Convert.ToString(total);
                 }
-                con.Close();
+                Cx.Desconectar();
             }
             else
             {
@@ -513,22 +470,18 @@ namespace Capa_de_Presentacion
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
             if (radioButton1.Checked == true)
             {
-                //declaramos la cadena  de conexion
-                string cadenaconexion = Cx.conet;
-                //variable de tipo Sqlconnection
-                SqlConnection con = new SqlConnection();
+                Cx.Desconectar();
                 //variable de tipo Sqlcommand
                 SqlCommand comando = new SqlCommand();
                 //variable SqlDataReader para leer los datos
                 SqlDataReader dr;
-                con.ConnectionString = cadenaconexion;
-                comando.Connection = con;
+                comando.Connection = Cx.conexion;
                 //declaramos el comando para realizar la busqueda
                 comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where Stock >0 and Stock <5 ORDER BY IdProducto";
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
-                con.Open();
+                Cx.Conectar();
                 //limpiamos los renglones de la datagridview
                 dataGridView1.Rows.Clear();
                 //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -563,7 +516,7 @@ namespace Capa_de_Presentacion
                     montoTotalenInventario = montoTotalenInventario + Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[5].Value);
                     txttotalG.Text = Convert.ToString(total);
                 }
-                con.Close();
+                Cx.Desconectar();
             }
             else
             {
@@ -581,22 +534,18 @@ namespace Capa_de_Presentacion
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
             if (id.Text != "")
             {
-                //declaramos la cadena  de conexion
-                string cadenaconexion = Cx.conet;
-                //variable de tipo Sqlconnection
-                SqlConnection con = new SqlConnection();
+                Cx.Desconectar();
                 //variable de tipo Sqlcommand
                 SqlCommand comando = new SqlCommand();
                 //variable SqlDataReader para leer los datos
                 SqlDataReader dr;
-                con.ConnectionString = cadenaconexion;
-                comando.Connection = con;
+                comando.Connection = Cx.conexion;
                 //declaramos el comando para realizar la busqueda
                 comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where IdCategoria=" + id.Text + "ORDER BY IdProducto";
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
-                con.Open();
+                Cx.Conectar();
                 //limpiamos los renglones de la datagridview
                 dataGridView1.Rows.Clear();
                 //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -631,7 +580,7 @@ namespace Capa_de_Presentacion
                     total = ventas - compras;
                     txttotalG.Text = Convert.ToString(total);
                 }
-                con.Close();
+                Cx.Desconectar();
             }
             else
             {
@@ -841,7 +790,8 @@ namespace Capa_de_Presentacion
         string repeto;
         public void repetitivo()
         {
-            Cx.conexion.Open();
+            Cx.Desconectar();
+            Cx.Conectar();
             string sql = "select top(1) Nombre, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta INNER JOIN " +
                 "dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto where Producto.IdProducto = " +
                 "DetalleVenta.IdProducto GROUP BY Nombre ORDER BY total DESC";
@@ -853,13 +803,14 @@ namespace Capa_de_Presentacion
                 txtRep.Text = repeto;
 
             }
-            Cx.conexion.Close();
+            Cx.Desconectar();
         }
 
         string mrepeto;
         public void Mrepetitivo()
         {
-            Cx.conexion.Open();
+            Cx.Desconectar();
+            Cx.Conectar();
             string sql = "select top(1) Nombre, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta INNER JOIN " +
                 "dbo.Producto ON dbo.DetalleVenta.IdProducto = dbo.Producto.IdProducto where Producto.IdProducto = " +
                 "DetalleVenta.IdProducto GROUP BY Nombre ORDER BY total ASC";
@@ -870,22 +821,18 @@ namespace Capa_de_Presentacion
                 mrepeto = reade["Nombre"].ToString();
                 txtMrep.Text = mrepeto;
             }
-            Cx.conexion.Close();
+            Cx.Desconectar();
         }
 
         private void rbfechaing_CheckedChanged(object sender, EventArgs e)
         {
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
+            Cx.Desconectar();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = Cx.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "	Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto where FechaVencimiento BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) ORDER BY IdProducto";
             comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
@@ -893,7 +840,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            Cx.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -931,23 +878,18 @@ namespace Capa_de_Presentacion
                 total = ventas - compras;
                 txttotalG.Text = Convert.ToString(total);
             }
-            con.Close();
+            Cx.Desconectar();
         }
 
         private void rbfechamod_CheckedChanged(object sender, EventArgs e)
         {
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
-
-            //declaramos la cadena  de conexion
-            string cadenaconexion = Cx.conet;
-            //variable de tipo Sqlconnection
-            SqlConnection con = new SqlConnection();
+            Cx.Desconectar();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            con.ConnectionString = cadenaconexion;
-            comando.Connection = con;
+            comando.Connection = Cx.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto where FechaModificacion BETWEEN convert(datetime, CONVERT(varchar(10), @fecha1, 103), 103) AND convert(datetime, CONVERT(varchar(10), @fecha2, 103), 103) ORDER BY IdProducto";
             comando.Parameters.AddWithValue("@fecha1", dtpfecha1.Value);
@@ -955,7 +897,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            con.Open();
+            Cx.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -991,7 +933,7 @@ namespace Capa_de_Presentacion
                 total = ventas - compras;
                 txttotalG.Text = Convert.ToString(total);
             }
-            con.Close();
+            Cx.Desconectar();
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -1006,9 +948,9 @@ namespace Capa_de_Presentacion
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Program.IdProducto;
 
-                        Cx.conexion.Open();
+                        Cx.Conectar();
                         cmd.ExecuteNonQuery();
-                        Cx.conexion.Close();
+                        Cx.Desconectar();
                         CargarListado();
                     }
                 }
@@ -1025,23 +967,19 @@ namespace Capa_de_Presentacion
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
             if (textBox5.Text != "")
             {
-                //declaramos la cadena  de conexion
-                string cadenaconexion = Cx.conet;
-                //variable de tipo Sqlconnection
-                SqlConnection con = new SqlConnection();
+                Cx.Desconectar();
                 //variable de tipo Sqlcommand
                 SqlCommand comando = new SqlCommand();
                 //variable SqlDataReader para leer los datos
                 SqlDataReader dr;
-                con.ConnectionString = cadenaconexion;
-                comando.Connection = con;
+                comando.Connection = Cx.conexion;
                 //declaramos el comando para realizar la busqueda
                 comando.CommandText = "Select IdProducto,IdCategoria,Nombre,Marca,PrecioCompra,PrecioVenta,Stock,FechaVencimiento,FechaModificacion,itbis,tipoGOma,Pmax =COALESCE(dbo.Producto.Pmax,0),Pmin =COALESCE(dbo.Producto.Pmin,0) From Producto Where tipoGOma=@desc";
                 comando.Parameters.AddWithValue("@desc", textBox5.Text);
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
-                con.Open();
+                Cx.Conectar();
                 //limpiamos los renglones de la datagridview
                 dataGridView1.Rows.Clear();
                 //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -1076,7 +1014,7 @@ namespace Capa_de_Presentacion
                     txttotalG.Text = Convert.ToString(total);
                     lbltotalproductos.Text = Convert.ToString(totalproducto);
                 }
-                con.Close();
+                Cx.Desconectar();
             }
             else
             {
