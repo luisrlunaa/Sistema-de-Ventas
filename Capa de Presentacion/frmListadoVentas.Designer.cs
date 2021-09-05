@@ -317,7 +317,6 @@
             this.txtBuscarid.Name = "txtBuscarid";
             this.txtBuscarid.Size = new System.Drawing.Size(296, 25);
             this.txtBuscarid.TabIndex = 8;
-            this.txtBuscarid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscarid_KeyPress);
             this.txtBuscarid.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscarid_KeyUp);
             // 
             // label2
