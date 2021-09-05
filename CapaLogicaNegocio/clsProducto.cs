@@ -5,6 +5,22 @@ using System.Data;
 
 namespace CapaLogicaNegocio
 {
+    public class Producto
+    {
+        public int m_IdP { get; set; }
+        public int m_IdCategoria { get; set; }
+        public string m_Producto { get; set; }
+        public string m_Marca { get; set; }
+        public string m_tipoGoma { get; set; }
+        public int m_Stock { get; set; }
+        public decimal m_PrecioCompra { get; set; }
+        public decimal m_PrecioVenta { get; set; }
+        public decimal m_Preciomin { get; set; }
+        public decimal m_Preciomax { get; set; }
+        public decimal m_itbis { get; set; }
+        public DateTime m_FechaVencimiento { get; set; }
+        public DateTime m_FechaModificacion { get; set; }
+    }
     public class clsProducto
     {
         private clsManejador M = new clsManejador();

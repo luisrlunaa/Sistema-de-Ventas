@@ -154,7 +154,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>21</value>
   </data>
   <data name="txtBuscarProducto.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.25pt</value>
@@ -181,7 +181,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtBuscarProducto.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>20</value>
   </data>
   <data name="dataGridView1.ColumnHeadersHeight" type="System.Int32, mscorlib">
     <value>29</value>
@@ -228,13 +228,13 @@
   <data name="marca.MinimumWidth" type="System.Int32, mscorlib">
     <value>80</value>
   </data>
-  <metadata name="Nombres.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="pCompra.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="Nombres.HeaderText" xml:space="preserve">
+  <data name="pCompra.HeaderText" xml:space="preserve">
     <value>P.Compra</value>
   </data>
-  <data name="Nombres.MinimumWidth" type="System.Int32, mscorlib">
+  <data name="pCompra.MinimumWidth" type="System.Int32, mscorlib">
     <value>80</value>
   </data>
   <metadata name="pVenta.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -370,7 +370,37 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
+  </data>
+  <data name="cbcategoriafiltro.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbcategoriafiltro.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbcategoriafiltro.Location" type="System.Drawing.Point, System.Drawing">
+    <value>106, 238</value>
+  </data>
+  <data name="cbcategoriafiltro.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 21</value>
+  </data>
+  <data name="cbcategoriafiltro.TabIndex" type="System.Int32, mscorlib">
+    <value>122</value>
+  </data>
+  <data name="cbcategoriafiltro.Text" xml:space="preserve">
+    <value>Filtrar Por Categorias</value>
+  </data>
+  <data name="&gt;&gt;cbcategoriafiltro.Name" xml:space="preserve">
+    <value>cbcategoriafiltro</value>
+  </data>
+  <data name="&gt;&gt;cbcategoriafiltro.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbcategoriafiltro.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;cbcategoriafiltro.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="rbfechamod.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -580,7 +610,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="txttotalG.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9pt, style=Bold</value>
@@ -610,7 +640,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;txttotalG.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -640,7 +670,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -670,7 +700,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="txtRep.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -703,7 +733,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;txtRep.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -733,7 +763,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="cbxCategoria.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9pt, style=Bold, Italic</value>
@@ -760,7 +790,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;cbxCategoria.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="txtMrep.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -793,7 +823,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;txtMrep.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="rbtodos.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -826,7 +856,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;rbtodos.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="radioButton1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -859,7 +889,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButton1.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="rbbuena.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -892,7 +922,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;rbbuena.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="rdmedia.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -925,7 +955,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;rdmedia.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="rbCero.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -958,7 +988,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;rbCero.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt</value>
@@ -991,7 +1021,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="id.Location" type="System.Drawing.Point, System.Drawing">
     <value>1491, 130</value>
@@ -1015,7 +1045,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;id.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="lblLogo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1048,7 +1078,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblLogo.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="lblDir.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1084,7 +1114,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblDir.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="txtdesc.Location" type="System.Drawing.Point, System.Drawing">
     <value>1491, 161</value>
@@ -1108,7 +1138,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtdesc.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="textBox10.Location" type="System.Drawing.Point, System.Drawing">
     <value>950, 23</value>
@@ -1426,7 +1456,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="label13.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1459,7 +1489,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="button2.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1501,7 +1531,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="btnimpimir.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1543,7 +1573,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnimpimir.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="button1.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1585,7 +1615,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="btnEditar.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1627,7 +1657,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnEditar.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="btnNuevo.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1669,7 +1699,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnNuevo.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1699,19 +1729,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="cbTipoGoma.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9pt, style=Bold, Italic</value>
   </data>
   <data name="cbTipoGoma.Location" type="System.Drawing.Point, System.Drawing">
-    <value>712, 100</value>
+    <value>694, 100</value>
   </data>
   <data name="cbTipoGoma.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
   </data>
   <data name="cbTipoGoma.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 26</value>
+    <value>180, 26</value>
   </data>
   <data name="cbTipoGoma.TabIndex" type="System.Int32, mscorlib">
     <value>110</value>
@@ -1726,7 +1756,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbTipoGoma.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="label14.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1753,7 +1783,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="lbltotalproductos.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1783,7 +1813,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbltotalproductos.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="textBox5.Location" type="System.Drawing.Point, System.Drawing">
     <value>1491, 196</value>
@@ -1807,7 +1837,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBox5.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label15.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1837,6 +1867,36 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cbtipogomafiltro.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbtipogomafiltro.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cbtipogomafiltro.Location" type="System.Drawing.Point, System.Drawing">
+    <value>694, 79</value>
+  </data>
+  <data name="cbtipogomafiltro.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 21</value>
+  </data>
+  <data name="cbtipogomafiltro.TabIndex" type="System.Int32, mscorlib">
+    <value>121</value>
+  </data>
+  <data name="cbtipogomafiltro.Text" xml:space="preserve">
+    <value>Filtrar Por Tipo de Goma</value>
+  </data>
+  <data name="&gt;&gt;cbtipogomafiltro.Name" xml:space="preserve">
+    <value>cbtipogomafiltro</value>
+  </data>
+  <data name="&gt;&gt;cbtipogomafiltro.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbtipogomafiltro.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;cbtipogomafiltro.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -5600,10 +5660,10 @@
   <data name="&gt;&gt;marca.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Nombres.Name" xml:space="preserve">
-    <value>Nombres</value>
+  <data name="&gt;&gt;pCompra.Name" xml:space="preserve">
+    <value>pCompra</value>
   </data>
-  <data name="&gt;&gt;Nombres.Type" xml:space="preserve">
+  <data name="&gt;&gt;pCompra.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;pVenta.Name" xml:space="preserve">
