@@ -34,7 +34,7 @@ namespace Capa_de_Presentacion
         {
             M.Desconectar();
             txtidCli.Text = null;
-            listProducts.Clear();
+            listProducts= new List<PrecioCompraProducto>();
             cbidentificacion.Checked = false;
             if (cbidentificacion.Checked == true)
             {
@@ -673,7 +673,7 @@ namespace Capa_de_Presentacion
                 Venta venta = new Venta();
 
                 venta.IdVenta = Convert.ToInt32(txtIdVenta.Text);
-                if (txtidCli.Text != "" && txtidCli.Text != null)
+                if (!string.IsNullOrWhiteSpace(txtidCli.Text))
                 {
                     venta.IdCliente = Convert.ToInt32(txtidCli.Text);
                 }
@@ -705,9 +705,10 @@ namespace Capa_de_Presentacion
                     int idventa = 0;
 
                     decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                    decimal subtotal = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
+                    decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
                     int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
-                    Ganancia = Math.Round(subtotal - (preciocompra * cantidad));
+
+                    Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
                     idventa = Convert.ToInt32(row.Cells["IdD"].Value);
 
                     //Tabla detalles ventas
@@ -898,7 +899,7 @@ namespace Capa_de_Presentacion
             lblabono.Visible = false;
             lbltituloabono.Visible = false;
             lblabono.Text = null;
-            listProducts.Clear();
+            listProducts = new List<PrecioCompraProducto>();
         }
 
         public void tickEstilo()
