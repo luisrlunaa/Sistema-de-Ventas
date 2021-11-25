@@ -752,7 +752,7 @@ namespace Capa_de_Presentacion
             if (txtBuscarProducto.Text.Length >= 3)
             {
                 string id = txtBuscarProducto.Text;
-                var newlist = clsGenericList.listProducto.Where(x => x.m_Producto.Contains(id) || x.m_Marca.Contains(id)).ToList();
+                var newlist = clsGenericList.listProducto.Where(x => x.m_Producto.ToLower().Contains(id.ToLower()) || x.m_Marca.ToLower().Contains(id.ToLower())).ToList();
                 CargarListado(newlist);
             }
         }
