@@ -9,9 +9,9 @@ namespace CapaLogicaNegocio
     {
         public int m_IdP { get; set; }
         public int m_IdCategoria { get; set; }
-        public string m_Producto { get; set; }
-        public string m_Marca { get; set; }
-        public string m_tipoGoma { get; set; }
+        public string m_Producto { get; set; } = string.Empty;
+        public string m_Marca { get; set; } = string.Empty;
+        public string m_tipoGoma { get; set; } = string.Empty;
         public int m_Stock { get; set; }
         public decimal m_PrecioCompra { get; set; }
         public decimal m_PrecioVenta { get; set; }

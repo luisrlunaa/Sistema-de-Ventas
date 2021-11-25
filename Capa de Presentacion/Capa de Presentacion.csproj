@@ -82,7 +82,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsVenta.cs" />
     <Compile Include="Correo.cs" />
     <Compile Include="CrearTiket.cs" />
     <Compile Include="cuadredecaja.cs">

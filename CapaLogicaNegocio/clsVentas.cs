@@ -10,16 +10,16 @@ namespace CapaLogicaNegocio
 
         public int IdEmpleado { get; set; }
         public int IdCliente { get; set; }
-        public string Serie { get; set; }
-        public string NroComprobante { get; set; }
-        public string TipoDocumento { get; set; }
-        public string imei { get; set; }
+        public string Serie { get; set; } = string.Empty;
+        public string NroComprobante { get; set; } = string.Empty;
+        public string TipoDocumento { get; set; } = string.Empty;
+        public string imei { get; set; } = string.Empty;
         public DateTime FechaVenta { get; set; }
         public decimal Total { get; set; }
 
         public int IdVenta { get; set; }
         public int Cantidad { get; set; }
-        public string Descripcion { get; set; }
+        public string Descripcion { get; set; } = string.Empty;
         public decimal PrecioVenta { get; set; }
         public decimal PrecioCompra { get; set; }
         public int IdProducto { get; set; }
@@ -60,17 +60,17 @@ namespace CapaLogicaNegocio
         public int IdVenta { get; set; }
         public int IdEmpleado { get; set; }
         public int IdCliente { get; set; }
-        public string Serie { get; set; }
-        public string NroComprobante { get; set; }
-        public string TipoDocumento { get; set; }
+        public string Serie { get; set; } = string.Empty;
+        public string NroComprobante { get; set; } = string.Empty;
+        public string TipoDocumento { get; set; } = string.Empty;
         public DateTime FechaVenta { get; set; }
         public decimal Total { get; set; }
-        public string Tipofactura { get; set; }
+        public string Tipofactura { get; set; } = string.Empty;
         public decimal Restante { get; set; }
-        public string NombreCliente { get; set; }
+        public string NombreCliente { get; set; } = string.Empty;
         public DateTime UltimaFechaPago { get; set; }
         public int borrador { get; set; }
-        public string imei { get; set; }
+        public string imei { get; set; } = string.Empty;
     }
 
 }

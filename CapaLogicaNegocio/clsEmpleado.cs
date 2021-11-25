@@ -11,13 +11,13 @@ namespace CapaLogicaNegocio
         clsManejador M = new clsManejador();
 
         public int IdCargo { get; set; }
-        public String Dni { get; set; }
-        public String Apellidos { get; set; }
-        public String Nombres { get; set; }
-        public Char Sexo { get; set; }
+        public string Dni { get; set; } = string.Empty;
+        public string Apellidos { get; set; } = string.Empty;
+        public string Nombres { get; set; } = string.Empty;
+        public char Sexo { get; set; }
         public DateTime FechaNac { get; set; }
-        public String Direccion { get; set; }
-        public Char EstadoCivil { get; set; }
+        public string Direccion { get; set; } = string.Empty;
+        public char EstadoCivil { get; set; }
 
 
 

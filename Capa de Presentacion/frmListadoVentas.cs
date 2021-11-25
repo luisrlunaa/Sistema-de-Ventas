@@ -22,8 +22,8 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        clsVentas V = new clsVentas();
-        clsManejador M = new clsManejador();
+        private clsVentas V = new clsVentas();
+        private clsManejador M = new clsManejador();
         public List<int> idsVentas { get; set; }
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
@@ -106,29 +106,17 @@ namespace Capa_de_Presentacion
                     {
                         Venta venta = new Venta();
 
-                        venta.IdVenta = Convert.ToInt32(reader["IdVenta"]);
-                        venta.IdCliente = Convert.ToInt32(reader["IdCliente"]);
-                        venta.IdEmpleado = Convert.ToInt32(reader["IdEmpleado"]);
-                        venta.TipoDocumento = reader["TipoDocumento"].ToString();
-                        var nroComprobante = reader["NroDocumento"].ToString();
-                        if (nroComprobante == DBNull.Value.ToString())
-                        {
-                            reader["NroDocumento"] = "Sin NCF";
-                        }
-                        venta.NroComprobante = reader["NroDocumento"].ToString();
-                        venta.Total = Convert.ToDecimal(reader["Total"]);
-                        venta.Tipofactura = reader["Tipofactura"].ToString();
-                        venta.Restante = Convert.ToDecimal(reader["Restante"]);
-                        venta.Serie = reader["Serie"].ToString();
+                        venta.IdVenta = reader["IdVenta"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdVenta"]);
+                        venta.IdEmpleado = reader["IdEmpleado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdEmpleado"]);
+                        venta.TipoDocumento = reader["TipoDocumento"] == DBNull.Value ? string.Empty : reader["TipoDocumento"].ToString();
+                        venta.NroComprobante = reader["NroDocumento"] == DBNull.Value ? string.Empty : reader["NroDocumento"].ToString();
+                        venta.Total = reader["Total"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Total"]);
+                        venta.Tipofactura = reader["Tipofactura"] == DBNull.Value ? string.Empty : reader["Tipofactura"].ToString();
+                        venta.Restante = reader["Restante"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Restante"]);
                         venta.FechaVenta = Convert.ToDateTime(reader["FechaVenta"]);
-                        var nombrecliente = reader["NombreCliente"].ToString();
-                        if (nombrecliente == DBNull.Value.ToString())
-                        {
-                            reader["NombreCliente"] = "Sin Cliente";
-                        }
-                        venta.NombreCliente = reader["NombreCliente"].ToString();
+                        venta.NombreCliente = reader["NombreCliente"] == DBNull.Value ? string.Empty : reader["NombreCliente"].ToString();
                         venta.UltimaFechaPago = Convert.ToDateTime(reader["UltimaFechaPago"]);
-                        venta.borrador = Convert.ToInt32(reader["borrado"]);
+                        venta.borrador = reader["borrado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["borrado"]);
 
                         clsGenericList.listVentas.Add(venta);
                     }
@@ -509,41 +497,41 @@ namespace Capa_de_Presentacion
         {
             var newlist = new List<Venta>();
 
-            if (txtBuscarid.Text != "" && txtBuscarid.Text != null)
+            if (!string.IsNullOrWhiteSpace(txtBuscarid.Text))
             {
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
                     llenar_data(newlist);
                 }
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text) && x.Restante > 0).ToList();
                     llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.Tipofactura == cbtipofactura.Text && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
                     llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
                     llenar_data(newlist);
                 }
                 else if (cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text) && x.Restante > 0).ToList();
                     llenar_data(newlist);
                 }
                 else
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
                     llenar_data(newlist);
                 }
@@ -552,37 +540,37 @@ namespace Capa_de_Presentacion
             {
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado).ToList();
                     llenar_data(newlist);
                 }
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.Restante > 0).ToList();
                     llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.Tipofactura == cbtipofactura.Text && x.borrador == borrado).ToList();
                     llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado).ToList();
                     llenar_data(newlist);
                 }
                 else if (cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.borrador == borrado && x.Restante > 0).ToList();
                     llenar_data(newlist);
                 }
                 else
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.borrador == borrado).ToList();
                     llenar_data(newlist);
                 }
