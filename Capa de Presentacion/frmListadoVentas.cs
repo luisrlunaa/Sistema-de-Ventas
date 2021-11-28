@@ -106,19 +106,19 @@ namespace Capa_de_Presentacion
                     {
                         Venta venta = new Venta();
 
-                        venta.IdVenta = Convert.ToInt32(reader["IdVenta"]);
-                        venta.IdEmpleado = Convert.ToInt32(reader["IdEmpleado"]);
-                        venta.TipoDocumento = reader["TipoDocumento"].ToString();
-                        venta.rncCliente= reader["rcnClient"].ToString();
-                        venta.Direccion= reader["Direccion"].ToString();
-                        venta.NroComprobante = reader["NroDocumento"].ToString();
-                        venta.Total = Convert.ToDecimal(reader["Total"]);
-                        venta.Tipofactura = reader["Tipofactura"].ToString();
-                        venta.Restante = Convert.ToDecimal(reader["Restante"]);
+                        venta.IdVenta = reader["IdVenta"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdVenta"]);
+                        venta.IdEmpleado = reader["IdEmpleado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdEmpleado"]);
+                        venta.TipoDocumento = reader["TipoDocumento"] == DBNull.Value ? string.Empty : reader["TipoDocumento"].ToString();
+                        venta.rncCliente = reader["rcnClient"] == DBNull.Value ? string.Empty : reader["rcnClient"].ToString();
+                        venta.Direccion = reader["Direccion"] == DBNull.Value ? string.Empty : reader["Direccion"].ToString();
+                        venta.NroComprobante = reader["NroDocumento"] == DBNull.Value ? string.Empty : reader["NroDocumento"].ToString();
+                        venta.Total = reader["Total"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Total"]);
+                        venta.Tipofactura = reader["Tipofactura"] == DBNull.Value ? string.Empty : reader["Tipofactura"].ToString();
+                        venta.Restante = reader["Restante"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Restante"]);
                         venta.FechaVenta = Convert.ToDateTime(reader["FechaVenta"]);
-                        venta.NombreCliente = reader["NombreCliente"].ToString();
+                        venta.NombreCliente = reader["NombreCliente"] == DBNull.Value ? string.Empty : reader["NombreCliente"].ToString();
                         venta.UltimaFechaPago = Convert.ToDateTime(reader["UltimaFechaPago"]);
-                        venta.borrador = Convert.ToInt32(reader["borrado"]);
+                        venta.borrador = reader["borrado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["borrado"]);
 
                         clsGenericList.listVentas.Add(venta);
                     }
@@ -323,7 +323,7 @@ namespace Capa_de_Presentacion
                     doc.Add(ubicacionalign);
 
                     doc.Add(new Paragraph("Reporte Especifico de Ventas Realizadas"));
-                    doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + ", " + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Date.Day + "/" + dtpfecha1.Value.Date.Month + "/" + dtpfecha1.Value.Date.Year).ToString() + ", " + "Hasta la Fecha: " + (dtpfecha2.Value.Date.Day + "/" + dtpfecha2.Value.Date.Month + "/" + dtpfecha2.Value.Date.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("                       "));
                     GenerarDocumento1(doc);
                     doc.AddCreationDate();
@@ -389,7 +389,7 @@ namespace Capa_de_Presentacion
                     if (cbPendiente.Checked)
                     {
                         doc.Add(new Paragraph("Reporte de Deudas"));
-                        doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + ", " + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Date.Day + "/" + dtpfecha1.Value.Date.Month + "/" + dtpfecha1.Value.Date.Year).ToString() + ", " + "Hasta la Fecha: " + (dtpfecha2.Value.Date.Day + "/" + dtpfecha2.Value.Date.Month + "/" + dtpfecha2.Value.Date.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
                         doc.Add(new Paragraph("                       "));
                         GenerarDocumento(doc);
                         doc.AddCreationDate();
@@ -405,7 +405,7 @@ namespace Capa_de_Presentacion
                     else
                     {
                         doc.Add(new Paragraph("Reporte de General de Ventas Realizadas"));
-                        doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + ", " + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Date.Day + "/" + dtpfecha1.Value.Date.Month + "/" + dtpfecha1.Value.Date.Year).ToString() + ", " + "Hasta la Fecha: " + (dtpfecha2.Value.Date.Day + "/" + dtpfecha2.Value.Date.Month + "/" + dtpfecha2.Value.Date.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
                         doc.Add(new Paragraph("                       "));
                         GenerarDocumento(doc);
                         doc.AddCreationDate();
@@ -509,38 +509,38 @@ namespace Capa_de_Presentacion
             {
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
-                    && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
+                    && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
                     llenar_data(newlist);
                 }
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
-                    && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text) && x.Restante > 0).ToList();
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
+                    && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower()) && x.Restante > 0).ToList();
                     llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
-                    && x.Tipofactura == cbtipofactura.Text && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
+                    && x.Tipofactura == cbtipofactura.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
                     llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
-                    && x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
+                    && x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
                     llenar_data(newlist);
                 }
                 else if (cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
-                    && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text) && x.Restante > 0).ToList();
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
+                    && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower()) && x.Restante > 0).ToList();
                     llenar_data(newlist);
                 }
                 else
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
-                    && x.borrador == borrado && x.NombreCliente.Contains(txtBuscarid.Text)).ToList();
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
+                    && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
                     llenar_data(newlist);
                 }
             }
@@ -548,43 +548,43 @@ namespace Capa_de_Presentacion
             {
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado).ToList();
                     llenar_data(newlist);
                 }
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.Restante > 0).ToList();
                     llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.Tipofactura == cbtipofactura.Text && x.borrador == borrado).ToList();
                     llenar_data(newlist);
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado).ToList();
                     llenar_data(newlist);
                 }
                 else if (cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.borrador == borrado && x.Restante > 0).ToList();
                     llenar_data(newlist);
                 }
                 else
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value && x.FechaVenta <= dtpfecha2.Value
+                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.borrador == borrado).ToList();
                     llenar_data(newlist);
                 }
             }
 
-            gridforcategoryandquantity(dtpfecha1.Value, dtpfecha2.Value);
+            gridforcategoryandquantity(dtpfecha1.Value.Date, dtpfecha2.Value.Date);
 
             if (cbPendiente.Checked == true)
             {

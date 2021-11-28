@@ -313,66 +313,66 @@ namespace Capa_de_Presentacion
 
             //if (Program.whoCallme == "Ventas")
             //{
-                if (activar == true && entro == false)
+            if (activar == true && entro == false)
+            {
+                entro = true;
+                cbtipofactura.Text = Program.tipo;
+                combo_tipo_NCF.Text = Program.NCF;
+                txtNCF.Text = Program.NroComprobante;
+                txttotal.Text = Program.total + "";
+                lblsubt.Text = Program.ST + "";
+                lbligv.Text = Program.igv + "";
+                txtidEmp.Text = Program.IdEmpleado + "";
+                dateTimePicker1.Text = Program.fecha;
+
+                decimal subtotal = 0;
+                decimal igv = 0;
+
+                M.Desconectar();
+                //variable de tipo Sqlcommand
+                SqlCommand comando = new SqlCommand();
+                //variable SqlDataReader para leer los datos
+                SqlDataReader dr;
+                comando.Connection = M.conexion;
+                //declaramos el comando para realizar la busqueda
+                comando.CommandText = "SELECT * from DetalleVenta WHERE DetalleVenta.IdVenta ='" + txtIdV.Text + "'";
+                //especificamos que es de tipo Text
+                comando.CommandType = CommandType.Text;
+                //se abre la conexion
+                M.Conectar();
+                //limpiamos los renglones de la datagridview
+                dgvVenta.Rows.Clear();
+                //a la variable DataReader asignamos  el la variable de tipo SqlCommand
+                dr = comando.ExecuteReader();
+                while (dr.Read())
                 {
-                    entro = true;
-                    cbtipofactura.Text = Program.tipo;
-                    combo_tipo_NCF.Text = Program.NCF;
-                    txtNCF.Text = Program.NroComprobante;
-                    txttotal.Text = Program.total + "";
-                    lblsubt.Text = Program.ST + "";
-                    lbligv.Text = Program.igv + "";
-                    txtidEmp.Text = Program.IdEmpleado + "";
-                    dateTimePicker1.Text = Program.fecha;
+                    //variable de tipo entero para ir enumerando los la filas del datagridview
+                    int renglon = dgvVenta.Rows.Add();
+                    // especificamos en que fila se mostrará cada registro
+                    // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 
-                    decimal subtotal = 0;
-                    decimal igv = 0;
-
-                    M.Desconectar();
-                    //variable de tipo Sqlcommand
-                    SqlCommand comando = new SqlCommand();
-                    //variable SqlDataReader para leer los datos
-                    SqlDataReader dr;
-                    comando.Connection = M.conexion;
-                    //declaramos el comando para realizar la busqueda
-                    comando.CommandText = "SELECT * from DetalleVenta WHERE DetalleVenta.IdVenta ='" + txtIdV.Text + "'";
-                    //especificamos que es de tipo Text
-                    comando.CommandType = CommandType.Text;
-                    //se abre la conexion
-                    M.Conectar();
-                    //limpiamos los renglones de la datagridview
-                    dgvVenta.Rows.Clear();
-                    //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-                    dr = comando.ExecuteReader();
-                    while (dr.Read())
+                    string idVenta = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
+                    if (idVenta == txtIdV.Text)
                     {
-                        //variable de tipo entero para ir enumerando los la filas del datagridview
-                        int renglon = dgvVenta.Rows.Add();
-                        // especificamos en que fila se mostrará cada registro
-                        // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+                        dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
+                        dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                        dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
+                        dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
+                        dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
+                        dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
+                        dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
 
-                        string idVenta = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                        if (idVenta == txtIdV.Text)
-                        {
-                            dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                            dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                            dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
-                            dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
-                            dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
-                            dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                            dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
-
-                            subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                            igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                        }
+                        subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                        igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
                     }
-
-                    Program.ST = subtotal;
-                    Program.igv = igv;
-
-                    M.Desconectar();
-                    buscaridcaja();
                 }
+
+                Program.ST = subtotal;
+                Program.igv = igv;
+
+                M.Desconectar();
+                buscaridcaja();
+            }
             //}
 
             //if (Program.whoCallme == "Vender Cotizacion")
@@ -782,12 +782,13 @@ namespace Capa_de_Presentacion
                     //}
                     //else
                     //{
-                        decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                        decimal subtotal = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
-                        decimal cantidad = Convert.ToDecimal(row.Cells["cantidadP"].Value);
-                        Ganancia = Math.Round(subtotal - (preciocompra * cantidad));
-                        idventa = Convert.ToInt32(row.Cells["IdD"].Value);
-                   // }
+                    decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
+                    decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
+                    decimal cantidad = Convert.ToDecimal(row.Cells["cantidadP"].Value);
+
+                    Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
+                    idventa = Convert.ToInt32(row.Cells["IdD"].Value);
+                    // }
 
                     //Tabla detalles ventas
                     cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
@@ -904,7 +905,7 @@ namespace Capa_de_Presentacion
                 }
 
                 VentaRealizada();
-               // Program.whoCallme = "";
+                // Program.whoCallme = "";
 
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de factura desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
