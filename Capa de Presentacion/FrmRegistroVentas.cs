@@ -776,9 +776,10 @@ namespace Capa_de_Presentacion
                     else
                     {
                         decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                        decimal subtotal = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
+                        decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
                         int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
-                        Ganancia = Math.Round(subtotal - (preciocompra * cantidad));
+
+                        Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
                         idventa = Convert.ToInt32(row.Cells["IdD"].Value);
                     }
 

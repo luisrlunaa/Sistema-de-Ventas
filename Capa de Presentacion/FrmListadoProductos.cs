@@ -40,6 +40,7 @@ namespace Capa_de_Presentacion
             cbxCategoria.Enabled = false;
 
             clear();
+            GetAllProduct();
             repetitivo();
             Mrepetitivo();
 
@@ -140,7 +141,6 @@ namespace Capa_de_Presentacion
             rbfechamod.Checked = false;
             button2.Enabled = false;
             txtdesc.Text = "";
-            GetAllProduct();
             dataGridView1.ClearSelection();
         }
 
@@ -161,19 +161,19 @@ namespace Capa_de_Presentacion
                     {
                         Producto product = new Producto();
 
-                        product.m_IdP = Convert.ToInt32(reader["IdProducto"]);
-                        product.m_IdCategoria = Convert.ToInt32(reader["IdCategoria"]);
-                        product.m_Producto = reader["Nombre"].ToString();
-                        product.m_tipoGoma = reader["tipoGOma"].ToString();
-                        product.m_itbis = Convert.ToDecimal(reader["itbis"]);
-                        product.m_PrecioVenta = Convert.ToDecimal(reader["PrecioVenta"]);
-                        product.m_PrecioCompra = Convert.ToDecimal(reader["PrecioCompra"]);
-                        product.m_Preciomax = Convert.ToDecimal(reader["Pmax"]);
-                        product.m_Preciomin = Convert.ToDecimal(reader["Pmin"]);
+                        product.m_IdP = reader["IdProducto"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdProducto"]);
+                        product.m_IdCategoria = reader["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdCategoria"]);
+                        product.m_Producto = reader["Nombre"] == DBNull.Value ? string.Empty : reader["Nombre"].ToString();
+                        product.m_tipoGoma = reader["tipoGOma"] == DBNull.Value ? string.Empty : reader["tipoGOma"].ToString();
+                        product.m_itbis = reader["itbis"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["itbis"]);
+                        product.m_PrecioVenta = reader["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioVenta"]);
+                        product.m_PrecioCompra = reader["PrecioCompra"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioCompra"]);
+                        product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmax"]);
+                        product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmin"]);
                         product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
-                        product.m_Stock = Convert.ToInt32(reader["Stock"]);
+                        product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Stock"]);
                         product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
-                        product.m_Marca = reader["Marca"].ToString();
+                        product.m_Marca = reader["Marca"] == DBNull.Value ? string.Empty : reader["Marca"].ToString();
 
                         clsGenericList.listProducto.Add(product);
                     }
@@ -747,7 +747,7 @@ namespace Capa_de_Presentacion
             if (txtBuscarProducto.Text.Length >= 3)
             {
                 string id = txtBuscarProducto.Text;
-                var newlist = clsGenericList.listProducto.Where(x => x.m_Producto.Contains(id) || x.m_Marca.Contains(id)).ToList();
+                var newlist = clsGenericList.listProducto.Where(x => x.m_Producto.ToLower().Contains(id.ToLower()) || x.m_Marca.ToLower().Contains(id.ToLower())).ToList();
                 CargarListado(newlist);
             }
         }
