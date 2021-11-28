@@ -197,7 +197,7 @@ namespace Capa_de_Presentacion
             decimal ganancia = 0;
             foreach (var item in idsVentas)
             {
-                string cadSql = "select Sum(GananciaVenta) as ganancia from DetalleVenta where DetalleVenta.IdVenta=" + item + "group by DetalleVenta.IdVenta";
+                string cadSql = $"select Sum(GananciaVenta) as ganancia from DetalleVenta where DetalleVenta.IdVenta= {item} group by DetalleVenta.IdVenta";
 
                 SqlCommand comando = new SqlCommand(cadSql, M.conexion);
                 M.Conectar();
