@@ -40,6 +40,19 @@
             this.txtBuscarProducto = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaVencimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechamodificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itbis = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoGOma = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pmin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pmax = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbcategoriafiltro = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -89,19 +102,6 @@
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.cbtipogomafiltro = new System.Windows.Forms.CheckBox();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IdC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FechaVencimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechamodificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itbis = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoGOma = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Pmin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Pmax = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -172,6 +172,97 @@
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
+            // 
+            // Column1
+            // 
+            resources.ApplyResources(this.Column1, "Column1");
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // IdC
+            // 
+            resources.ApplyResources(this.IdC, "IdC");
+            this.IdC.Name = "IdC";
+            this.IdC.ReadOnly = true;
+            // 
+            // description
+            // 
+            this.description.FillWeight = 93.23097F;
+            resources.ApplyResources(this.description, "description");
+            this.description.Name = "description";
+            this.description.ReadOnly = true;
+            // 
+            // marca
+            // 
+            this.marca.FillWeight = 52.46355F;
+            resources.ApplyResources(this.marca, "marca");
+            this.marca.Name = "marca";
+            this.marca.ReadOnly = true;
+            // 
+            // pCompra
+            // 
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.pCompra.DefaultCellStyle = dataGridViewCellStyle2;
+            this.pCompra.FillWeight = 52.46355F;
+            resources.ApplyResources(this.pCompra, "pCompra");
+            this.pCompra.Name = "pCompra";
+            this.pCompra.ReadOnly = true;
+            // 
+            // pVenta
+            // 
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.pVenta.DefaultCellStyle = dataGridViewCellStyle3;
+            this.pVenta.FillWeight = 52.46355F;
+            resources.ApplyResources(this.pVenta, "pVenta");
+            this.pVenta.Name = "pVenta";
+            this.pVenta.ReadOnly = true;
+            // 
+            // cantidad
+            // 
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.cantidad.DefaultCellStyle = dataGridViewCellStyle4;
+            this.cantidad.FillWeight = 52.46355F;
+            resources.ApplyResources(this.cantidad, "cantidad");
+            this.cantidad.Name = "cantidad";
+            this.cantidad.ReadOnly = true;
+            // 
+            // FechaVencimiento
+            // 
+            this.FechaVencimiento.FillWeight = 52.46355F;
+            resources.ApplyResources(this.FechaVencimiento, "FechaVencimiento");
+            this.FechaVencimiento.Name = "FechaVencimiento";
+            // 
+            // fechamodificacion
+            // 
+            this.fechamodificacion.FillWeight = 52.46355F;
+            resources.ApplyResources(this.fechamodificacion, "fechamodificacion");
+            this.fechamodificacion.Name = "fechamodificacion";
+            // 
+            // itbis
+            // 
+            this.itbis.FillWeight = 56.27266F;
+            resources.ApplyResources(this.itbis, "itbis");
+            this.itbis.Name = "itbis";
+            // 
+            // tipoGOma
+            // 
+            resources.ApplyResources(this.tipoGOma, "tipoGOma");
+            this.tipoGOma.Name = "tipoGOma";
+            // 
+            // Pmin
+            // 
+            this.Pmin.FillWeight = 93.23097F;
+            resources.ApplyResources(this.Pmin, "Pmin");
+            this.Pmin.Name = "Pmin";
+            // 
+            // Pmax
+            // 
+            this.Pmax.FillWeight = 136.3927F;
+            resources.ApplyResources(this.Pmax, "Pmax");
+            this.Pmax.Name = "Pmax";
             // 
             // groupBox1
             // 
@@ -548,97 +639,6 @@
             resources.ApplyResources(this.cbtipogomafiltro, "cbtipogomafiltro");
             this.cbtipogomafiltro.Name = "cbtipogomafiltro";
             this.cbtipogomafiltro.UseVisualStyleBackColor = true;
-            // 
-            // Column1
-            // 
-            resources.ApplyResources(this.Column1, "Column1");
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // IdC
-            // 
-            resources.ApplyResources(this.IdC, "IdC");
-            this.IdC.Name = "IdC";
-            this.IdC.ReadOnly = true;
-            // 
-            // description
-            // 
-            this.description.FillWeight = 93.23097F;
-            resources.ApplyResources(this.description, "description");
-            this.description.Name = "description";
-            this.description.ReadOnly = true;
-            // 
-            // marca
-            // 
-            this.marca.FillWeight = 52.46355F;
-            resources.ApplyResources(this.marca, "marca");
-            this.marca.Name = "marca";
-            this.marca.ReadOnly = true;
-            // 
-            // pCompra
-            // 
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.pCompra.DefaultCellStyle = dataGridViewCellStyle2;
-            this.pCompra.FillWeight = 52.46355F;
-            resources.ApplyResources(this.pCompra, "pCompra");
-            this.pCompra.Name = "pCompra";
-            this.pCompra.ReadOnly = true;
-            // 
-            // pVenta
-            // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.pVenta.DefaultCellStyle = dataGridViewCellStyle3;
-            this.pVenta.FillWeight = 52.46355F;
-            resources.ApplyResources(this.pVenta, "pVenta");
-            this.pVenta.Name = "pVenta";
-            this.pVenta.ReadOnly = true;
-            // 
-            // cantidad
-            // 
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.cantidad.DefaultCellStyle = dataGridViewCellStyle4;
-            this.cantidad.FillWeight = 52.46355F;
-            resources.ApplyResources(this.cantidad, "cantidad");
-            this.cantidad.Name = "cantidad";
-            this.cantidad.ReadOnly = true;
-            // 
-            // FechaVencimiento
-            // 
-            this.FechaVencimiento.FillWeight = 52.46355F;
-            resources.ApplyResources(this.FechaVencimiento, "FechaVencimiento");
-            this.FechaVencimiento.Name = "FechaVencimiento";
-            // 
-            // fechamodificacion
-            // 
-            this.fechamodificacion.FillWeight = 52.46355F;
-            resources.ApplyResources(this.fechamodificacion, "fechamodificacion");
-            this.fechamodificacion.Name = "fechamodificacion";
-            // 
-            // itbis
-            // 
-            this.itbis.FillWeight = 56.27266F;
-            resources.ApplyResources(this.itbis, "itbis");
-            this.itbis.Name = "itbis";
-            // 
-            // tipoGOma
-            // 
-            resources.ApplyResources(this.tipoGOma, "tipoGOma");
-            this.tipoGOma.Name = "tipoGOma";
-            // 
-            // Pmin
-            // 
-            this.Pmin.FillWeight = 93.23097F;
-            resources.ApplyResources(this.Pmin, "Pmin");
-            this.Pmin.Name = "Pmin";
-            // 
-            // Pmax
-            // 
-            this.Pmax.FillWeight = 136.3927F;
-            resources.ApplyResources(this.Pmax, "Pmax");
-            this.Pmax.Name = "Pmax";
             // 
             // FrmListadoProductos
             // 
