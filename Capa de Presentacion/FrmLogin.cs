@@ -1,6 +1,7 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -33,7 +34,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            Cx.Conectar();;
+            Cx.Conectar(); ;
             //limpiamos los renglones de la datagridview
             dgvCaja.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -51,7 +52,7 @@ namespace Capa_de_Presentacion
 
                 tienefila = true;
             }
-           Cx.Desconectar();
+            Cx.Desconectar();
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -102,6 +103,7 @@ namespace Capa_de_Presentacion
                         }
                         else
                         {
+                            CargarListados();
                             if (rbInventario.Checked)
                             {
                                 Program.LoginStatus = "Inventario";
@@ -190,6 +192,87 @@ namespace Capa_de_Presentacion
                 txtUser.Focus();
             }
         }
+
+        public void CargarListados()
+        {
+            #region Listado Ventas
+            if (clsGenericList.listVentas is null)
+            {
+                clsGenericList.listVentas = new List<Venta>();
+                clsGenericList.idsVentas = new List<int>();
+
+                clsVentas V = new clsVentas();
+                DataTable dtV = new DataTable();
+                dtV = V.Listado();
+
+                try
+                {
+                    foreach (DataRow reader in dtV.Rows)
+                    {
+                        Venta venta = new Venta();
+                        venta.IdVenta = reader["IdVenta"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdVenta"]);
+                        venta.IdEmpleado = reader["IdEmpleado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdEmpleado"]);
+                        venta.TipoDocumento = reader["TipoDocumento"] == DBNull.Value ? string.Empty : reader["TipoDocumento"].ToString();
+                        venta.NroComprobante = reader["NroDocumento"] == DBNull.Value ? string.Empty : reader["NroDocumento"].ToString();
+                        venta.Total = reader["Total"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Total"]);
+                        venta.Tipofactura = reader["Tipofactura"] == DBNull.Value ? string.Empty : reader["Tipofactura"].ToString();
+                        venta.Restante = reader["Restante"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Restante"]);
+                        venta.FechaVenta = Convert.ToDateTime(reader["FechaVenta"]);
+                        venta.NombreCliente = reader["NombreCliente"] == DBNull.Value ? string.Empty : reader["NombreCliente"].ToString();
+                        venta.UltimaFechaPago = Convert.ToDateTime(reader["UltimaFechaPago"]);
+                        venta.borrador = reader["borrado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["borrado"]);
+
+                        clsGenericList.listVentas.Add(venta);
+                        clsGenericList.idsVentas.Add(venta.IdVenta);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
+                }
+            }
+            #endregion
+
+            #region Listado Productos
+            if (clsGenericList.listProducto is null)
+            {
+                clsGenericList.listProducto = new List<Producto>();
+
+                clsProducto P = new clsProducto();
+                DataTable dtP = new DataTable();
+                dtP = P.Listar();
+
+                try
+                {
+                    foreach (DataRow reader in dtP.Rows)
+                    {
+                        Producto product = new Producto();
+
+                        product.m_IdP = reader["IdProducto"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdProducto"]);
+                        product.m_IdCategoria = reader["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdCategoria"]);
+                        product.m_Producto = reader["Nombre"] == DBNull.Value ? string.Empty : reader["Nombre"].ToString();
+                        product.m_tipoGoma = reader["tipoGOma"] == DBNull.Value ? string.Empty : reader["tipoGOma"].ToString();
+                        product.m_itbis = reader["itbis"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["itbis"]);
+                        product.m_PrecioVenta = reader["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioVenta"]);
+                        product.m_PrecioCompra = reader["PrecioCompra"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioCompra"]);
+                        product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmax"]);
+                        product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmin"]);
+                        product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
+                        product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Stock"]);
+                        product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
+                        product.m_Marca = reader["Marca"] == DBNull.Value ? string.Empty : reader["Marca"].ToString();
+
+                        clsGenericList.listProducto.Add(product);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
+                }
+            }
+            #endregion
+        }
+
         public void llenarid()
         {
             Cx.Desconectar();

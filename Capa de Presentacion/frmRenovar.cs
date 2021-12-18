@@ -41,20 +41,20 @@ namespace Capa_de_Presentacion
             {
                 if (txtrenovar.Text == txtlicencia.Text && licenciaAnterior != txtrenovar.Text)
                 {
-                        using (SqlCommand cmdup = new SqlCommand("ActualizarLicencia", Cx.conexion))
-                        {
-                            cmdup.CommandType = CommandType.StoredProcedure;
-                            cmdup.Parameters.Add("@licencia", SqlDbType.NVarChar).Value = licenciaAnterior;
-                            cmdup.Parameters.Add("@licenciaNew", SqlDbType.NVarChar).Value = txtlicencia.Text;
-                            cmdup.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = nuevafecha;
+                    using (SqlCommand cmdup = new SqlCommand("ActualizarLicencia", Cx.conexion))
+                    {
+                        cmdup.CommandType = CommandType.StoredProcedure;
+                        cmdup.Parameters.Add("@licencia", SqlDbType.NVarChar).Value = licenciaAnterior;
+                        cmdup.Parameters.Add("@licenciaNew", SqlDbType.NVarChar).Value = txtlicencia.Text;
+                        cmdup.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = nuevafecha;
 
-                            Cx.Conectar();;
-                            cmdup.ExecuteNonQuery();
-                           Cx.Desconectar();
+                        Cx.Conectar(); ;
+                        cmdup.ExecuteNonQuery();
+                        Cx.Desconectar();
 
-                            Login.Show();
-                            this.Hide();
-                        }
+                        Login.Show();
+                        this.Hide();
+                    }
                 }
                 else
                 {

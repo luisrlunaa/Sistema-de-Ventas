@@ -36,7 +36,7 @@ namespace Capa_de_Presentacion
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //se abre la conexion
-                Cx.Conectar();;
+                Cx.Conectar(); ;
                 //limpiamos los renglones de la datagridview
                 dgvimei.Rows.Clear();
                 //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -53,7 +53,7 @@ namespace Capa_de_Presentacion
                     dgvimei.Rows[renglon].Cells["idImei"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("idImei")));
                     dgvimei.Rows[renglon].Cells["Fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fechaingreso"));
                 }
-               Cx.Desconectar();
+                Cx.Desconectar();
             }
         }
 

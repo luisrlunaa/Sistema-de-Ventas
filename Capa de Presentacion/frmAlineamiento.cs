@@ -184,65 +184,65 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                    using (SqlCommand cmd = new SqlCommand("Registrartaller", Cx.conexion))
+                using (SqlCommand cmd = new SqlCommand("Registrartaller", Cx.conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(Program.Id);
+                    cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = Convert.ToInt32(txtidEmp.Text);
+                    cmd.Parameters.Add("@cliente", SqlDbType.NVarChar).Value = (txtCliente.Text + "." + txtTelefono.Text).ToLower();
+                    cmd.Parameters.Add("@averia", SqlDbType.NVarChar).Value = txtAveria.Text.ToLower();
+                    cmd.Parameters.Add("@tipoDeTrabajo", SqlDbType.VarChar).Value = cbtipo.Text.ToUpper();
+                    cmd.Parameters.Add("@Datos", SqlDbType.NVarChar).Value = (txtModelo.Text + "." + txtImei.Text).ToUpper();
+                    cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text;
+                    cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(dtpFecha.Text);
+                    cmd.Parameters.Add("@precio", SqlDbType.Decimal).Value = Convert.ToDecimal(txtprecio.Text);
+                    cmd.Parameters.Add("@nota", SqlDbType.NVarChar).Value = txtnota.Text;
+
+                    Cx.Conectar();
+                    cmd.ExecuteNonQuery();
+                    Cx.Desconectar();
+
+                    if (cbtipo.Text.ToLower() == "salida")
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(Program.Id);
-                        cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = Convert.ToInt32(txtidEmp.Text);
-                        cmd.Parameters.Add("@cliente", SqlDbType.NVarChar).Value = (txtCliente.Text + "." + txtTelefono.Text).ToLower();
-                        cmd.Parameters.Add("@averia", SqlDbType.NVarChar).Value = txtAveria.Text.ToLower();
-                        cmd.Parameters.Add("@tipoDeTrabajo", SqlDbType.VarChar).Value = cbtipo.Text.ToUpper();
-                        cmd.Parameters.Add("@Datos", SqlDbType.NVarChar).Value = (txtModelo.Text + "." + txtImei.Text).ToUpper();
-                        cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text;
-                        cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(dtpFecha.Text);
-                        cmd.Parameters.Add("@precio", SqlDbType.Decimal).Value = Convert.ToDecimal(txtprecio.Text);
-                        cmd.Parameters.Add("@nota", SqlDbType.NVarChar).Value = txtnota.Text;
-
-                        Cx.Conectar();
-                        cmd.ExecuteNonQuery();
-                       Cx.Desconectar();
-
-                        if (cbtipo.Text.ToLower() == "salida")
+                        using (SqlCommand cmd2 = new SqlCommand("pagos_re", Cx.conexion))
                         {
-                            using (SqlCommand cmd2 = new SqlCommand("pagos_re", Cx.conexion))
+                            cmd2.CommandType = CommandType.StoredProcedure;
+
+                            string idVenta = (Program.idcaja.ToString() + DateTime.Today.Second.ToString() + Program.IdEmpleadoLogueado.ToString());
+                            //Tabla de pago
+                            cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(idVenta);
+                            cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
+                            cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
+                            cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
+                            cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
+
+                            if (Program.Devuelta > 0)
                             {
-                                cmd2.CommandType = CommandType.StoredProcedure;
-
-                                string idVenta = (Program.idcaja.ToString() + DateTime.Today.Second.ToString() + Program.IdEmpleadoLogueado.ToString());
-                                //Tabla de pago
-                                cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(idVenta);
-                                cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
-                                cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
-                                cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.Caja;
-                                cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
-
-                                if (Program.Devuelta > 0)
-                                {
-                                    cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
-                                }
-                                else
-                                {
-                                    cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = 0;
-                                }
-
-                                cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
-                                cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = 0;
-
-                                Cx.Conectar();;
-                                cmd2.ExecuteNonQuery();
-                               Cx.Desconectar();
-                                tickEstiloP();
-                                MessageBox.Show("Salida Registrada y Pago Confirmado");
+                                cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = Program.Devuelta;
                             }
-                        }
-                        else
-                        {
-                            tickEstiloP();
-                            MessageBox.Show("Guardado en Taller");
-                        }
+                            else
+                            {
+                                cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = 0;
+                            }
 
-                        Program.pagoRealizado = 0;
+                            cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
+                            cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = 0;
+
+                            Cx.Conectar(); ;
+                            cmd2.ExecuteNonQuery();
+                            Cx.Desconectar();
+                            tickEstiloP();
+                            MessageBox.Show("Salida Registrada y Pago Confirmado");
+                        }
                     }
+                    else
+                    {
+                        tickEstiloP();
+                        MessageBox.Show("Guardado en Taller");
+                    }
+
+                    Program.pagoRealizado = 0;
+                }
                 clean();
             }
         }

@@ -73,14 +73,14 @@ namespace Capa_de_Presentacion
                     if (secui > secuf || fechaini >= fechafin)
                     {
                         Cx.Desconectar();
-                            using (SqlCommand cmdup = new SqlCommand("UpdateState", Cx.conexion))
-                            {
-                                cmdup.CommandType = CommandType.StoredProcedure;
-                                cmdup.Parameters.Add("@id", SqlDbType.Int).Value = item;
-                                Cx.Conectar();;
-                                cmdup.ExecuteNonQuery();
-                               Cx.Desconectar();
-                            }
+                        using (SqlCommand cmdup = new SqlCommand("UpdateState", Cx.conexion))
+                        {
+                            cmdup.CommandType = CommandType.StoredProcedure;
+                            cmdup.Parameters.Add("@id", SqlDbType.Int).Value = item;
+                            Cx.Conectar(); ;
+                            cmdup.ExecuteNonQuery();
+                            Cx.Desconectar();
+                        }
                     }
                 }
                 Cx.Desconectar();
@@ -99,7 +99,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            Cx.Conectar();;
+            Cx.Conectar(); ;
             //limpiamos los renglones de la datagridview
             data_ncf.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -124,7 +124,7 @@ namespace Capa_de_Presentacion
                     data_ncf.Rows[renglon].Cells["Activo"].Value = "Si";
                 }
             }
-           Cx.Desconectar();
+            Cx.Desconectar();
         }
 
         public void llenar_data_comprobante()
@@ -140,7 +140,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            Cx.Conectar();;
+            Cx.Conectar(); ;
             //limpiamos los renglones de la datagridview
             data_comprobante.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -159,7 +159,7 @@ namespace Capa_de_Presentacion
                 data_comprobante.Rows[renglon].Cells["fecha_inicio"].Value = dr.GetDateTime(dr.GetOrdinal("fecha_inicio"));
                 data_comprobante.Rows[renglon].Cells["fecha_final"].Value = dr.GetDateTime(dr.GetOrdinal("fecha_final"));
             }
-           Cx.Desconectar();
+            Cx.Desconectar();
         }
 
         private void btnAplicar_Click(object sender, EventArgs e)

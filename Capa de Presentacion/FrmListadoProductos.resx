@@ -660,6 +660,9 @@
   <data name="label5.Text" xml:space="preserve">
     <value>Producto Menos Vendido</value>
   </data>
+  <data name="label5.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;label5.Name" xml:space="preserve">
     <value>label5</value>
   </data>
@@ -689,6 +692,9 @@
   </data>
   <data name="label4.Text" xml:space="preserve">
     <value>Producto Mas Vendido</value>
+  </data>
+  <data name="label4.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;label4.Name" xml:space="preserve">
     <value>label4</value>
@@ -722,6 +728,9 @@
   </data>
   <data name="txtRep.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Center</value>
+  </data>
+  <data name="txtRep.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;txtRep.Name" xml:space="preserve">
     <value>txtRep</value>
@@ -812,6 +821,9 @@
   </data>
   <data name="txtMrep.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Center</value>
+  </data>
+  <data name="txtMrep.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;txtMrep.Name" xml:space="preserve">
     <value>txtMrep</value>

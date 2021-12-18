@@ -3,8 +3,8 @@ using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 

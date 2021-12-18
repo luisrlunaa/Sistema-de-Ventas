@@ -34,7 +34,7 @@ namespace Capa_de_Presentacion
         {
             M.Desconectar();
             txtidCli.Text = null;
-            listProducts= new List<PrecioCompraProducto>();
+            listProducts = new List<PrecioCompraProducto>();
             cbidentificacion.Checked = false;
             if (cbidentificacion.Checked == true)
             {

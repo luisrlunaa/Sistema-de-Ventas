@@ -146,7 +146,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            Cx.Conectar();;
+            Cx.Conectar(); ;
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -171,7 +171,7 @@ namespace Capa_de_Presentacion
                 total += Convert.ToDouble(dataGridView1.Rows[renglon].Cells["precio"].Value);
                 txttotalG.Text = Convert.ToString(total);
             }
-           Cx.Desconectar();
+            Cx.Desconectar();
         }
         private void frmBuscarAlineacionyBalanceo_Load(object sender, EventArgs e)
         {

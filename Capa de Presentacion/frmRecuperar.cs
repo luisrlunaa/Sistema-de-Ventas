@@ -37,20 +37,20 @@ namespace Capa_de_Presentacion
                     {
                         if (txtConf.Text == txtCon.Text)
                         {
-                                using (SqlCommand cmd = new SqlCommand("recuperarUsu", Cx.conexion))
-                                {
-                                    cmd.CommandType = CommandType.StoredProcedure;
-                                    cmd.Parameters.Add("@usu", SqlDbType.VarChar).Value = txtUsu.Text;
-                                    cmd.Parameters.Add("@cedula", SqlDbType.VarChar).Value = Convert.ToString(txtCed.Text);
-                                    cmd.Parameters.Add("@clave", SqlDbType.VarChar).Value = Convert.ToString(txtConf.Text);
+                            using (SqlCommand cmd = new SqlCommand("recuperarUsu", Cx.conexion))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.Add("@usu", SqlDbType.VarChar).Value = txtUsu.Text;
+                                cmd.Parameters.Add("@cedula", SqlDbType.VarChar).Value = Convert.ToString(txtCed.Text);
+                                cmd.Parameters.Add("@clave", SqlDbType.VarChar).Value = Convert.ToString(txtConf.Text);
 
-                                    Cx.Conectar();;
-                                    cmd.ExecuteNonQuery();
-                                    MessageBox.Show("Felicidades Ya Cambiaste la Contraseña");
-                                   Cx.Desconectar();
-                                    limpiar();
-                                    panel1.Visible = true;
-                                }
+                                Cx.Conectar(); ;
+                                cmd.ExecuteNonQuery();
+                                MessageBox.Show("Felicidades Ya Cambiaste la Contraseña");
+                                Cx.Desconectar();
+                                limpiar();
+                                panel1.Visible = true;
+                            }
                         }
                         else
                         {

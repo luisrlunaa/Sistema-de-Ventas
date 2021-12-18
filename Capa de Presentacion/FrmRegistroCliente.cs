@@ -34,24 +34,24 @@ namespace Capa_de_Presentacion
 
                                 if (Program.Evento == 0)
                                 {
-                                        using (SqlCommand cmd = new SqlCommand("RegistrarCliente", Cx.conexion))
-                                        {
-                                            cmd.CommandType = CommandType.StoredProcedure;
+                                    using (SqlCommand cmd = new SqlCommand("RegistrarCliente", Cx.conexion))
+                                    {
+                                        cmd.CommandType = CommandType.StoredProcedure;
 
-                                            cmd.Parameters.Add("@Dni", SqlDbType.NVarChar).Value = txtDni.Text;
-                                            cmd.Parameters.Add("@Apellidos", SqlDbType.NVarChar).Value = txtApellidos.Text;
-                                            cmd.Parameters.Add("@Nombres", SqlDbType.NVarChar).Value = txtNombres.Text;
-                                            cmd.Parameters.Add("@Direccion", SqlDbType.NVarChar).Value = txtDireccion.Text;
-                                            cmd.Parameters.Add("@Telefono", SqlDbType.NVarChar).Value = txtTelefono.Text;
-                                            cmd.Parameters.Add("@estado", SqlDbType.Int).Value = 1;
+                                        cmd.Parameters.Add("@Dni", SqlDbType.NVarChar).Value = txtDni.Text;
+                                        cmd.Parameters.Add("@Apellidos", SqlDbType.NVarChar).Value = txtApellidos.Text;
+                                        cmd.Parameters.Add("@Nombres", SqlDbType.NVarChar).Value = txtNombres.Text;
+                                        cmd.Parameters.Add("@Direccion", SqlDbType.NVarChar).Value = txtDireccion.Text;
+                                        cmd.Parameters.Add("@Telefono", SqlDbType.NVarChar).Value = txtTelefono.Text;
+                                        cmd.Parameters.Add("@estado", SqlDbType.Int).Value = 1;
 
-                                            DevComponents.DotNetBar.MessageBoxEx.Show("Se Registro Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        DevComponents.DotNetBar.MessageBoxEx.Show("Se Registro Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                            Cx.Conectar();;
-                                            cmd.ExecuteNonQuery();
-                                           Cx.Desconectar();
-                                            Limpiar();
-                                        }
+                                        Cx.Conectar(); ;
+                                        cmd.ExecuteNonQuery();
+                                        Cx.Desconectar();
+                                        Limpiar();
+                                    }
                                 }
                             }
                             else
@@ -201,24 +201,24 @@ namespace Capa_de_Presentacion
                             {
                                 if (Program.Evento == 1)
                                 {
-                                        using (SqlCommand cmd = new SqlCommand("ActualizarCliente", Cx.conexion))
-                                        {
-                                            cmd.CommandType = CommandType.StoredProcedure;
+                                    using (SqlCommand cmd = new SqlCommand("ActualizarCliente", Cx.conexion))
+                                    {
+                                        cmd.CommandType = CommandType.StoredProcedure;
 
-                                            cmd.Parameters.Add("@Dni", SqlDbType.NVarChar).Value = txtDni.Text;
-                                            cmd.Parameters.Add("@Apellidos", SqlDbType.NVarChar).Value = txtApellidos.Text;
-                                            cmd.Parameters.Add("@Nombres", SqlDbType.NVarChar).Value = txtNombres.Text;
-                                            cmd.Parameters.Add("@Direccion", SqlDbType.NVarChar).Value = txtDireccion.Text;
-                                            cmd.Parameters.Add("@Telefono", SqlDbType.NVarChar).Value = txtTelefono.Text;
-                                            cmd.Parameters.Add("@estado", SqlDbType.Int).Value = 1;
+                                        cmd.Parameters.Add("@Dni", SqlDbType.NVarChar).Value = txtDni.Text;
+                                        cmd.Parameters.Add("@Apellidos", SqlDbType.NVarChar).Value = txtApellidos.Text;
+                                        cmd.Parameters.Add("@Nombres", SqlDbType.NVarChar).Value = txtNombres.Text;
+                                        cmd.Parameters.Add("@Direccion", SqlDbType.NVarChar).Value = txtDireccion.Text;
+                                        cmd.Parameters.Add("@Telefono", SqlDbType.NVarChar).Value = txtTelefono.Text;
+                                        cmd.Parameters.Add("@estado", SqlDbType.Int).Value = 1;
 
-                                            DevComponents.DotNetBar.MessageBoxEx.Show("Se Actualizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        DevComponents.DotNetBar.MessageBoxEx.Show("Se Actualizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                            Cx.Conectar();;
-                                            cmd.ExecuteNonQuery();
-                                           Cx.Desconectar();
-                                            Limpiar();
-                                        }
+                                        Cx.Conectar(); ;
+                                        cmd.ExecuteNonQuery();
+                                        Cx.Desconectar();
+                                        Limpiar();
+                                    }
                                 }
                             }
                             else

@@ -55,26 +55,26 @@ namespace Capa_de_Presentacion
             if (!string.IsNullOrEmpty(lblmontocuadre.Text))
             {
                 decimal montofinal = Convert.ToDecimal(lblmontocuadre.Text);
-    
-                    using (SqlCommand cmd = new SqlCommand("Registrarcuadre", Cx.conexion))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
 
-                        //tabla cuadre
-                        cmd.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(lblidcaja.Text);
-                        cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtde5.Text + "," + txtde10.Text + "," + txtde25.Text + ","
-                            + txtde50.Text + "," + txtde100.Text + "," + txtde200.Text + "," + txtde500.Text + "," + txtde1000.Text + "," + txtde2000.Text;
-                        cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = montofinal;
-                        cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
+                using (SqlCommand cmd = new SqlCommand("Registrarcuadre", Cx.conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        Cx.Conectar();;
-                        cmd.ExecuteNonQuery();
-                       Cx.Desconectar();
-                        To_pdf();
-                        limpiar();
-                        label18.Enabled = true;
-                        MessageBox.Show("Cuadre Registrado");
-                    }
+                    //tabla cuadre
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(lblidcaja.Text);
+                    cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtde5.Text + "," + txtde10.Text + "," + txtde25.Text + ","
+                        + txtde50.Text + "," + txtde100.Text + "," + txtde200.Text + "," + txtde500.Text + "," + txtde1000.Text + "," + txtde2000.Text;
+                    cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = montofinal;
+                    cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
+
+                    Cx.Conectar(); ;
+                    cmd.ExecuteNonQuery();
+                    Cx.Desconectar();
+                    To_pdf();
+                    limpiar();
+                    label18.Enabled = true;
+                    MessageBox.Show("Cuadre Registrado");
+                }
             }
             else
             {
@@ -113,7 +113,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            Cx.Conectar();;
+            Cx.Conectar(); ;
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -177,7 +177,7 @@ namespace Capa_de_Presentacion
                 btnsuma.Visible = false;
             }
 
-           Cx.Desconectar();
+            Cx.Desconectar();
         }
         public void llenargridpagos(int id)
         {
@@ -194,7 +194,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            Cx.Conectar();;
+            Cx.Conectar(); ;
             //limpiamos los renglones de la datagridview
             dataGridView2.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -219,7 +219,7 @@ namespace Capa_de_Presentacion
             }
 
             lblmontoingreso.Text = Math.Round(Convert.ToDecimal(pagos)).ToString();
-           Cx.Desconectar();
+            Cx.Desconectar();
         }
 
         public void llenar(int id)

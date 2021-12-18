@@ -65,25 +65,25 @@ namespace Capa_de_Presentacion
                             if (comboBox1.SelectedValue != null)
                             {
                                 using (SqlCommand cmd = new SqlCommand("MantenimientoEmpleados", Cx.conexion))
-                                    {
-                                        cmd.CommandType = CommandType.StoredProcedure;
+                                {
+                                    cmd.CommandType = CommandType.StoredProcedure;
 
-                                        cmd.Parameters.Add("@IdCargo", SqlDbType.NVarChar).Value = Convert.ToInt32(comboBox1.SelectedValue);
-                                        cmd.Parameters.Add("@Dni", SqlDbType.NVarChar).Value = txtDni.Text;
-                                        cmd.Parameters.Add("@Apellidos", SqlDbType.NVarChar).Value = txtApellidos.Text;
-                                        cmd.Parameters.Add("@Nombres", SqlDbType.NVarChar).Value = txtNombres.Text;
-                                        cmd.Parameters.Add("@Direccion", SqlDbType.NVarChar).Value = txtDireccion.Text;
-                                        cmd.Parameters.Add("@EstadoCivil", SqlDbType.Char).Value = EstadoCivil;
-                                        cmd.Parameters.Add("@Sexo", SqlDbType.Char).Value = rbnMasculino.Checked == true ? 'M' : 'F';
-                                        cmd.Parameters.Add("@FechaNac", SqlDbType.Date).Value = dateTimePicker1.Text;
+                                    cmd.Parameters.Add("@IdCargo", SqlDbType.NVarChar).Value = Convert.ToInt32(comboBox1.SelectedValue);
+                                    cmd.Parameters.Add("@Dni", SqlDbType.NVarChar).Value = txtDni.Text;
+                                    cmd.Parameters.Add("@Apellidos", SqlDbType.NVarChar).Value = txtApellidos.Text;
+                                    cmd.Parameters.Add("@Nombres", SqlDbType.NVarChar).Value = txtNombres.Text;
+                                    cmd.Parameters.Add("@Direccion", SqlDbType.NVarChar).Value = txtDireccion.Text;
+                                    cmd.Parameters.Add("@EstadoCivil", SqlDbType.Char).Value = EstadoCivil;
+                                    cmd.Parameters.Add("@Sexo", SqlDbType.Char).Value = rbnMasculino.Checked == true ? 'M' : 'F';
+                                    cmd.Parameters.Add("@FechaNac", SqlDbType.Date).Value = dateTimePicker1.Text;
 
-                                        DevComponents.DotNetBar.MessageBoxEx.Show("Se Realizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    DevComponents.DotNetBar.MessageBoxEx.Show("Se Realizo Correctamente", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                        Cx.Conectar();;
-                                        cmd.ExecuteNonQuery();
-                                       Cx.Desconectar();
-                                        Limpiar();
-                                    }
+                                    Cx.Conectar(); ;
+                                    cmd.ExecuteNonQuery();
+                                    Cx.Desconectar();
+                                    Limpiar();
+                                }
                             }
                             else
                             {

@@ -64,7 +64,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            Cx.Conectar();;
+            Cx.Conectar(); ;
             //limpiamos los renglones de la datagridview
             dataGridView2.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -98,7 +98,7 @@ namespace Capa_de_Presentacion
 
             lbltotal.Text = total.ToString();
 
-           Cx.Desconectar();
+            Cx.Desconectar();
         }
         public void llenar_data()
         {
@@ -120,7 +120,7 @@ namespace Capa_de_Presentacion
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            Cx.Conectar();;
+            Cx.Conectar(); ;
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -145,7 +145,7 @@ namespace Capa_de_Presentacion
             lblegr.Text = devuelta.ToString();
             lbling.Text = pagos.ToString();
 
-           Cx.Desconectar();
+            Cx.Desconectar();
             llenar_datagastos();
         }
 
@@ -330,19 +330,19 @@ namespace Capa_de_Presentacion
             {
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este Gasto.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                        using (SqlCommand cmd = new SqlCommand("EliminarGasto", Cx.conexion))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
+                    using (SqlCommand cmd = new SqlCommand("EliminarGasto", Cx.conexion))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                            //tabla gastos
-                            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
+                        //tabla gastos
+                        cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
 
-                            Cx.Conectar();;
-                            cmd.ExecuteNonQuery();
-                           Cx.Desconectar();
-                            limpiar();
-                            llenar_datagastos();
-                        }
+                        Cx.Conectar(); ;
+                        cmd.ExecuteNonQuery();
+                        Cx.Desconectar();
+                        limpiar();
+                        llenar_datagastos();
+                    }
                 }
                 else
                 {
@@ -354,22 +354,22 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                    using (SqlCommand cmd = new SqlCommand("RegistrarGasto", Cx.conexion))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+                using (SqlCommand cmd = new SqlCommand("RegistrarGasto", Cx.conexion))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        //tabla gastos
-                        cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
-                        cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtdescripciondegasto.Text;
-                        cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontogasto.Text);
-                        cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
+                    //tabla gastos
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
+                    cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtdescripciondegasto.Text;
+                    cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontogasto.Text);
+                    cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
-                        Cx.Conectar();;
-                        cmd.ExecuteNonQuery();
-                       Cx.Desconectar();
-                        limpiar();
-                        llenar_datagastos();
-                    }
+                    Cx.Conectar(); ;
+                    cmd.ExecuteNonQuery();
+                    Cx.Desconectar();
+                    limpiar();
+                    llenar_datagastos();
+                }
             }
         }
 
