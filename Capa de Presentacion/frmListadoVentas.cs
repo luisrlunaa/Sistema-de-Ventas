@@ -23,9 +23,7 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        private clsVentas V = new clsVentas();
         private clsManejador M = new clsManejador();
-        public List<int> idsVentas { get; set; }
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
             if (clsGenericList.listVentas is null)
@@ -40,7 +38,11 @@ namespace Capa_de_Presentacion
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
 
-            GetAllVentas();
+            if (clsGenericList.listVentas.Count > 0)
+                llenar_data(clsGenericList.listVentas);
+
+            if (clsGenericList.listVentas.Count > 0 && clsGenericList.listVentasPorCategoria.Count > 0)
+                llenar_categoryandquantity(clsGenericList.listVentasPorCategoria);
         }
 
         public int borrado = 0;
@@ -87,19 +89,6 @@ namespace Capa_de_Presentacion
             tipofactura.ValueMember = "id";
             tipofactura.DataSource = dt;
         }
-
-        public void GetAllVentas()
-        {
-            if (clsGenericList.listVentas.Count > 0)
-                llenar_data(clsGenericList.listVentas);
-
-            txtTtal.Text = Math.Round(clsGenericList.totalVendido, 2).ToString("C2");
-            txtGanancias.Text = Math.Round(clsGenericList.totalGanancia, 2).ToString("C2");
-
-            if (clsGenericList.listVentas.Count > 0 && clsGenericList.listVentasPorCategoria.Count > 0)
-                llenar_categoryandquantity(clsGenericList.listVentasPorCategoria);
-        }
-
         public void llenar_data(List<Venta> listaventas)
         {
             dataGridView1.Rows.Clear();
@@ -119,6 +108,19 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = item.UltimaFechaPago;
             }
             clsGenericList.totalVendido = listaventas.Sum(x => x.Total);
+
+            txtTtal.Text = string.Empty;
+            txtTtal.Text = Math.Round(clsGenericList.totalVendido, 2).ToString("C2");
+            if (string.IsNullOrWhiteSpace(txtGanancias.Text))
+            {
+                GananciaTotal(clsGenericList.totalGanancia);
+            }
+        }
+
+        public void GananciaTotal(decimal monto)
+        {
+            txtGanancias.Text = string.Empty;
+            txtGanancias.Text = Math.Round(monto, 2).ToString("C2");
         }
         public void llenar_categoryandquantity(List<VentasPorCategoria> listaventas)
         {
@@ -527,7 +529,13 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(dtpfecha1.Value.Date, dtpfecha2.Value.Date, borrado);
+            var newlistVentasPorCategoria = clsGenericList.ListaPorCatergoria(dtpfecha1.Value.Date, dtpfecha2.Value.Date, borrado);
+            llenar_categoryandquantity(newlistVentasPorCategoria);
+
+            List<int> ventasIds = new List<int>();
+            newlist.ForEach(x => ventasIds.Add(x.IdVenta));
+            var ganancias = clsGenericList.Ganancias(ventasIds);
+            GananciaTotal(ganancias);
 
             if (cbPendiente.Checked == true)
             {

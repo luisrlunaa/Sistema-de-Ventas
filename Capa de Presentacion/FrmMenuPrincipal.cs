@@ -111,17 +111,12 @@ namespace Capa_de_Presentacion
             }
 
             #region productos vendidos por categoria
-            if (clsGenericList.listVentasPorCategoria is null && clsGenericList.listVentas.Count > 0)
+            if (clsGenericList.listVentas.Count > 0)
             {
                 var fecha1 = clsGenericList.listVentas.FirstOrDefault().FechaVenta;
                 var fecha2 = clsGenericList.listVentas.LastOrDefault().FechaVenta;
                 clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1, fecha2, 0);
             }
-            #endregion
-
-            #region Calculo de ganancias
-            if (clsGenericList.listVentas.Count > 0)
-                clsGenericList.Ganancias();
             #endregion
         }
         private void FrmMenuPrincipal_Load(object sender, EventArgs e)
@@ -130,7 +125,6 @@ namespace Capa_de_Presentacion
             timer1.Start();
             llenar();
         }
-
 
         public void llenar()
         {

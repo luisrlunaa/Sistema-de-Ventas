@@ -177,6 +177,12 @@ namespace Capa_de_Presentacion
                                 }
 
                             }
+
+                            #region Calculo de ganancias
+                            List<int> ventasIds = new List<int>();
+                            if (clsGenericList.listVentas.Count > 0)
+                                clsGenericList.totalGanancia = clsGenericList.Ganancias(ventasIds);
+                            #endregion
                         }
                     }
                 }
