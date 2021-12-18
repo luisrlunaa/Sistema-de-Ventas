@@ -23,10 +23,8 @@ namespace CapaLogicaNegocio
         #region Calculos
         public static List<VentasPorCategoria> ListaPorCatergoria(DateTime fecha1, DateTime fecha2, int borrador)
         {
-            if (listVentasPorCategoria is null)
-            {
+            var listVentCateg = new List<VentasPorCategoria>();
                 clsManejador M = new clsManejador();
-                listVentasPorCategoria = new List<VentasPorCategoria>();
                 try
                 {
                     string sql = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.SubTotal) AS PrecioOfProducts" +
@@ -48,47 +46,52 @@ namespace CapaLogicaNegocio
                         ventaPC.PrecioOfProducts = reader["PrecioOfProducts"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioOfProducts"]);
                         ventaPC.CantidadOfProducts = reader["CantidadOfProducts"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["CantidadOfProducts"]);
                         ventaPC.CategoryOfProducts = reader["CategoryOfProducts"] == DBNull.Value ? string.Empty : reader["CategoryOfProducts"].ToString();
-
-                        listVentasPorCategoria.Add(ventaPC);
+                        listVentCateg.Add(ventaPC);
                     }
-                    return listVentasPorCategoria;
                 }
                 catch (Exception ex)
                 {
                     ex.Message.ToString();
                 }
-            }
-            return new List<VentasPorCategoria>();
+
+            return listVentCateg;
         }
 
-        public static decimal Ganancias()
+        public static decimal Ganancias(List<int> ventasIds)
         {
+            decimal ganancia = 0;
             try
             {
-                if (idsVentas.Count > 0 && clsGenericList.listVentas.Count > 0)
+                if(ventasIds is null || ventasIds.Count==0)
+                {
+                    ventasIds = idsVentas;
+                }
+
+                if (ventasIds.Count > 0 && listVentas.Count > 0)
                 {
                     clsManejador M = new clsManejador();
-                    foreach (var item in idsVentas)
+                    foreach (var id in ventasIds)
                     {
-                        string cadSql = $"select Sum(GananciaVenta) as ganancia from DetalleVenta where DetalleVenta.IdVenta ={item} group by DetalleVenta.IdVenta";
+                        string cadSql = $"select Sum(GananciaVenta) as ganancia from DetalleVenta where DetalleVenta.IdVenta ={id} group by DetalleVenta.IdVenta";
                         SqlCommand comando = new SqlCommand(cadSql, M.conexion);
                         M.Conectar();
                         SqlDataReader leer = comando.ExecuteReader();
                         if (leer.Read() == true)
                         {
-                            totalGanancia += (Convert.ToDecimal(leer["ganancia"]));
+                            var monto = Convert.ToDecimal(leer["ganancia"]) > 0 ? Convert.ToDecimal(leer["ganancia"]) : 0;
+                            ganancia += monto;
                         }
                         M.Desconectar();
                     }
                 }
-                return totalGanancia;
+                return ganancia;
             }
             catch (Exception ex)
             {
                 ex.Message.ToString();
             }
 
-            return totalGanancia;
+            return ganancia;
         }
         #endregion
     }

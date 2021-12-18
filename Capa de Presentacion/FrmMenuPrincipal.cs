@@ -1,6 +1,7 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -121,7 +122,7 @@ namespace Capa_de_Presentacion
             button7.Text = ">>";
 
             #region productos vendidos por categoria
-            if (clsGenericList.listVentasPorCategoria is null && clsGenericList.listVentas.Count > 0)
+            if (clsGenericList.listVentas.Count > 0)
             {
                 var fecha1 = clsGenericList.listVentas.FirstOrDefault().FechaVenta;
                 var fecha2 = clsGenericList.listVentas.LastOrDefault().FechaVenta;
@@ -130,8 +131,9 @@ namespace Capa_de_Presentacion
             #endregion
 
             #region Calculo de ganancias
+            List<int> ventasIds = new List<int>();
             if (clsGenericList.listVentas.Count > 0)
-                clsGenericList.Ganancias();
+                clsGenericList.totalGanancia= clsGenericList.Ganancias(ventasIds);
             #endregion
         }
 

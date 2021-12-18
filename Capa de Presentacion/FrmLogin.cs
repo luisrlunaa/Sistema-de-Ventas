@@ -223,8 +223,8 @@ namespace Capa_de_Presentacion
                         venta.borrador = reader["borrado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["borrado"]);
 
                         clsGenericList.listVentas.Add(venta);
-                        clsGenericList.idsVentas.Add(venta.IdVenta);
                     }
+                    clsGenericList.listVentas.ForEach(x => clsGenericList.idsVentas.Add(x.IdVenta));
                 }
                 catch (Exception ex)
                 {
