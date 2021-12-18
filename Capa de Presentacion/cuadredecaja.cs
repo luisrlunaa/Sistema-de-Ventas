@@ -353,7 +353,7 @@ namespace Capa_de_Presentacion
         public void llenardeuda()
         {
             M.Desconectar();
-            string cadSql = "select deuda from Caja where id_caja="+Program.idcaja;
+            string cadSql = "select deuda from Caja where id_caja=" + Program.idcaja;
 
             M.Conectar();
             SqlCommand comando = new SqlCommand(cadSql, M.conexion);

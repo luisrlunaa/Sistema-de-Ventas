@@ -41,8 +41,8 @@ namespace Capa_de_Presentacion
 
             clear();
             GetAllProduct();
-            repetitivo();
-            Mrepetitivo();
+            //repetitivo();
+            //Mrepetitivo();
 
             ListarElementos();
             ListarElementostipo();
@@ -126,7 +126,6 @@ namespace Capa_de_Presentacion
                 cbxCategoria.ValueMember = "IdCategoria";
                 cbxCategoria.DataSource = C.Listar();
             }
-
         }
 
         public void clear()
@@ -473,34 +472,34 @@ namespace Capa_de_Presentacion
             To_pdf();
         }
 
-        public void repetitivo()
-        {
-            M.Desconectar();
-            M.Conectar();
-            string sql = "select top(1) detalles_P, Sum(Cantidad) AS total FROM  dbo.DetalleVenta GROUP BY detalles_P ORDER BY total DESC";
-            SqlCommand cmd = new SqlCommand(sql, M.conexion);
-            SqlDataReader reade = cmd.ExecuteReader();
-            if (reade.Read())
-            {
-                txtRep.Text = reade["detalles_P"].ToString();
+        //public void repetitivo()
+        //{
+        //    M.Desconectar();
+        //    M.Conectar();
+        //    string sql = "select top(1) detalles_P, Sum(Cantidad) AS total FROM  dbo.DetalleVenta GROUP BY detalles_P ORDER BY total DESC";
+        //    SqlCommand cmd = new SqlCommand(sql, M.conexion);
+        //    SqlDataReader reade = cmd.ExecuteReader();
+        //    if (reade.Read())
+        //    {
+        //        txtRep.Text = reade["detalles_P"].ToString();
 
-            }
-            M.Desconectar();
-        }
+        //    }
+        //    M.Desconectar();
+        //}
 
-        public void Mrepetitivo()
-        {
-            M.Desconectar();
-            M.Conectar();
-            string sql = "select top(1) detalles_P, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta GROUP BY detalles_P ORDER BY total ASC";
-            SqlCommand cmd = new SqlCommand(sql, M.conexion);
-            SqlDataReader reade = cmd.ExecuteReader();
-            if (reade.Read())
-            {
-                txtMrep.Text = reade["detalles_P"].ToString();
-            }
-            M.Desconectar();
-        }
+        //public void Mrepetitivo()
+        //{
+        //    M.Desconectar();
+        //    M.Conectar();
+        //    string sql = "select top(1) detalles_P, Sum( Cantidad ) AS total FROM  dbo.DetalleVenta GROUP BY detalles_P ORDER BY total ASC";
+        //    SqlCommand cmd = new SqlCommand(sql, M.conexion);
+        //    SqlDataReader reade = cmd.ExecuteReader();
+        //    if (reade.Read())
+        //    {
+        //        txtMrep.Text = reade["detalles_P"].ToString();
+        //    }
+        //    M.Desconectar();
+        //}
 
         #region radiobutton area
         private void rbCero_CheckedChanged(object sender, EventArgs e)

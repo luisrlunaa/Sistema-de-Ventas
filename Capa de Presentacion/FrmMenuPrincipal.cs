@@ -3,6 +3,7 @@ using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -118,6 +119,20 @@ namespace Capa_de_Presentacion
             panel3.Hide();
             panel1.Size = new System.Drawing.Size(61, 606);
             button7.Text = ">>";
+
+            #region productos vendidos por categoria
+            if (clsGenericList.listVentasPorCategoria is null && clsGenericList.listVentas.Count > 0)
+            {
+                var fecha1 = clsGenericList.listVentas.FirstOrDefault().FechaVenta;
+                var fecha2 = clsGenericList.listVentas.LastOrDefault().FechaVenta;
+                clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1, fecha2, 0);
+            }
+            #endregion
+
+            #region Calculo de ganancias
+            if (clsGenericList.listVentas.Count > 0)
+                clsGenericList.Ganancias();
+            #endregion
         }
 
         public void llenar()

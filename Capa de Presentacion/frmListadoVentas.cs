@@ -1,5 +1,6 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
+using CapaLogicaNegocio.ViewModel;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -39,8 +40,6 @@ namespace Capa_de_Presentacion
             cargar_combo_Tipofactura(cbtipofactura);
 
             GetAllVentas();
-
-            gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
         }
 
         public int borrado = 0;
@@ -94,45 +93,18 @@ namespace Capa_de_Presentacion
             {
                 llenar_data(clsGenericList.listVentas);
             }
-            else
+
+            txtTtal.Text = Math.Round(clsGenericList.totalVendido, 2).ToString("C2");
+            txtGanancias.Text = Math.Round(clsGenericList.totalGanancia, 2).ToString("C2");
+
+            if (clsGenericList.listVentasPorCategoria.Count > 0 && clsGenericList.listVentas.Count > 0)
             {
-                idsVentas = new List<int>();
-                DataTable dt = new DataTable();
-                dt = V.Listado();
-
-                try
-                {
-                    foreach (DataRow reader in dt.Rows)
-                    {
-                        Venta venta = new Venta();
-                        venta.IdVenta = reader["IdVenta"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdVenta"]);
-                        venta.IdEmpleado = reader["IdEmpleado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdEmpleado"]);
-                        venta.TipoDocumento = reader["TipoDocumento"] == DBNull.Value ? string.Empty : reader["TipoDocumento"].ToString();
-                        venta.NroComprobante = reader["NroDocumento"] == DBNull.Value ? string.Empty : reader["NroDocumento"].ToString();
-                        venta.Total = reader["Total"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Total"]);
-                        venta.Tipofactura = reader["Tipofactura"] == DBNull.Value ? string.Empty : reader["Tipofactura"].ToString();
-                        venta.Restante = reader["Restante"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Restante"]);
-                        venta.FechaVenta = Convert.ToDateTime(reader["FechaVenta"]);
-                        venta.NombreCliente = reader["NombreCliente"] == DBNull.Value ? string.Empty : reader["NombreCliente"].ToString();
-                        venta.UltimaFechaPago = Convert.ToDateTime(reader["UltimaFechaPago"]);
-                        venta.borrador = reader["borrado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["borrado"]);
-
-
-                        clsGenericList.listVentas.Add(venta);
-                    }
-
-                    llenar_data(clsGenericList.listVentas);
-                }
-                catch (Exception ex)
-                {
-                    DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
-                }
+                llenar_categoryandquantity(clsGenericList.listVentasPorCategoria);
             }
         }
 
         public void llenar_data(List<Venta> listaventas)
         {
-            decimal total = 0;
             dataGridView1.Rows.Clear();
             foreach (var item in listaventas)
             {
@@ -148,14 +120,27 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = item.FechaVenta;
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = item.NombreCliente.ToString();
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = item.UltimaFechaPago;
-
-                total += item.Total;
-                txtTtal.Text = Math.Round(total, 2).ToString("C2");
-                
-                idsVentas.Add(item.IdVenta);
             }
 
-            llenarganancia();
+            clsGenericList.totalVendido = listaventas.Sum(x => x.Total);
+        }
+
+        public void llenar_categoryandquantity(List<VentasPorCategoria> listaventas)
+        {
+            decimal total = 0;
+            dataGridView3.Rows.Clear();
+            foreach (var item in listaventas)
+            {
+                int renglon = dataGridView3.Rows.Add();
+                // especificamos en que fila se mostrará cada registro
+
+                dataGridView3.Rows[renglon].Cells["PrecioOfProducts"].Value = item.PrecioOfProducts.ToString();
+                dataGridView3.Rows[renglon].Cells["CantidadOfProducts"].Value = item.CantidadOfProducts.ToString();
+                dataGridView3.Rows[renglon].Cells["CategoryOfProducts"].Value = item.CategoryOfProducts;
+
+                total += item.PrecioOfProducts;
+                txttotalventaespecifica.Text = Math.Round(total, 2).ToString("C2");
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -184,34 +169,6 @@ namespace Capa_de_Presentacion
                 Program.IdCliente = Convert.ToInt32(leer["IdCliente"]);
             }
             M.Desconectar();
-        }
-
-        public void llenarganancia()
-        {
-            M.Desconectar();
-            if (idsVentas is null)
-            {
-                idsVentas = new List<int>();
-            }
-
-            decimal ganancia = 0;
-            foreach (var item in idsVentas)
-            {
-                string cadSql = $"select Sum(GananciaVenta) as ganancia from DetalleVenta where DetalleVenta.IdVenta= {item} group by DetalleVenta.IdVenta";
-
-                SqlCommand comando = new SqlCommand(cadSql, M.conexion);
-                M.Conectar();
-
-                SqlDataReader leer = comando.ExecuteReader();
-
-                if (leer.Read() == true)
-                {
-                    ganancia += (Convert.ToDecimal(leer["ganancia"]));
-                }
-                M.Desconectar();
-            }
-
-            txtGanancias.Text = ganancia.ToString("C2");
         }
 
         public void seleccion_data()
@@ -492,7 +449,6 @@ namespace Capa_de_Presentacion
             return values;
         }
 
-        public List<int> idsVentas { get; set; }
         private void button1_Click(object sender, EventArgs e)
         {
             var newlist = new List<Venta>();
@@ -576,7 +532,7 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            gridforcategoryandquantity(dtpfecha1.Value.Date, dtpfecha2.Value.Date);
+            clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(dtpfecha1.Value.Date, dtpfecha2.Value.Date, borrado);
 
             if (cbPendiente.Checked == true)
             {
@@ -600,7 +556,6 @@ namespace Capa_de_Presentacion
             vereliminadas.Checked = false;
             Program.Id = 0;
             Program.tipo = "";
-            gridforcategoryandquantity(DateTime.MinValue, DateTime.MinValue);
             llenar_data(clsGenericList.listVentas);
         }
 
@@ -612,60 +567,6 @@ namespace Capa_de_Presentacion
             FrmRegistroVentas V = new FrmRegistroVentas();
             V.btnSalir.Visible = false;
             this.Close();
-        }
-
-        private void gridforcategoryandquantity(DateTime fecha1, DateTime fecha2)
-        {
-            M.Desconectar();
-            decimal total = 0;
-            //variable de tipo Sqlcommand
-            SqlCommand comando = new SqlCommand();
-            //variable SqlDataReader para leer los datos
-            SqlDataReader dr;
-            comando.Connection = M.conexion;
-
-            if (fecha1 != DateTime.MinValue && fecha2 != DateTime.MinValue)
-            {
-                //declaramos el comando para realizar la busqueda
-                comando.CommandText = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.SubTotal) AS PrecioOfProducts" +
-                    " FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
-                    "INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta  where venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) AND " +
-                    "convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + "group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
-                comando.Parameters.AddWithValue("@fecha1", fecha1);
-                comando.Parameters.AddWithValue("@fecha2", fecha2);
-            }
-            else
-            {
-                //declaramos el comando para realizar la busqueda
-                comando.CommandText = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.SubTotal) AS PrecioOfProducts" +
-                    " FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
-                    "INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta and dbo.Venta.borrado=" + borrado + "group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
-            }
-
-            //especificamos que es de tipo Text
-            comando.CommandType = CommandType.Text;
-            //se abre la conexion
-            M.Conectar();
-            //limpiamos los renglones de la datagridview
-            dataGridView3.Rows.Clear();
-            //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-            dr = comando.ExecuteReader();
-            //el ciclo while se ejecutará mientras lea registros en la tabla
-            while (dr.Read())
-            {
-                //variable de tipo entero para ir enumerando los la filas del datagridview
-                int renglon = dataGridView3.Rows.Add();
-                // especificamos en que fila se mostrará cada registro
-
-                dataGridView3.Rows[renglon].Cells["PrecioOfProducts"].Value = dr.GetDecimal(dr.GetOrdinal("PrecioOfProducts")).ToString();
-                dataGridView3.Rows[renglon].Cells["CantidadOfProducts"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("CantidadOfProducts")));
-                dataGridView3.Rows[renglon].Cells["CategoryOfProducts"].Value = dr.GetString(dr.GetOrdinal("CategoryOfProducts"));
-
-                total += dr.GetDecimal(dr.GetOrdinal("PrecioOfProducts"));
-
-                txttotalventaespecifica.Text = Math.Round(total, 2).ToString("C2");
-            }
-            M.Desconectar();
         }
 
         private void txtBuscarid_KeyUp(object sender, KeyEventArgs e)

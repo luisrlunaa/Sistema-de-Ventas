@@ -23,7 +23,7 @@ namespace Capa_de_Presentacion
         public void llenar()
         {
             M.Desconectar();
-            string cadSql = "select montoactual from Caja where id_caja="+Program.idcaja;
+            string cadSql = "select montoactual from Caja where id_caja=" + Program.idcaja;
 
             SqlCommand comando = new SqlCommand(cadSql, M.conexion);
             M.Conectar();
@@ -38,7 +38,7 @@ namespace Capa_de_Presentacion
         }
         public void llenaridP()
         {
-           txtId.Text = Program.idcaja.ToString();
+            txtId.Text = Program.idcaja.ToString();
         }
         private void button4_Click(object sender, EventArgs e)
         {
