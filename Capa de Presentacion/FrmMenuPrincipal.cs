@@ -129,12 +129,6 @@ namespace Capa_de_Presentacion
                 clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1, fecha2, 0);
             }
             #endregion
-
-            #region Calculo de ganancias
-            List<int> ventasIds = new List<int>();
-            if (clsGenericList.listVentas.Count > 0)
-                clsGenericList.totalGanancia= clsGenericList.Ganancias(ventasIds);
-            #endregion
         }
 
         public void llenar()
