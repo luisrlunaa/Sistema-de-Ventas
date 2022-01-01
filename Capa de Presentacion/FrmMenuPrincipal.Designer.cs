@@ -39,7 +39,7 @@
             this.lblHora = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button9 = new System.Windows.Forms.Button();
+            this.btnCotizar = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.btnAyB = new System.Windows.Forms.Button();
@@ -55,7 +55,6 @@
             this.btnProductos = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.lblUsuario = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblDir = new System.Windows.Forms.Label();
             this.lblTel1 = new System.Windows.Forms.Label();
             this.lblTel2 = new System.Windows.Forms.Label();
@@ -81,6 +80,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button7 = new System.Windows.Forms.Button();
+            this.timerHoraActual = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.usuario.SuspendLayout();
@@ -178,32 +178,32 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.button9);
+            this.panel3.Controls.Add(this.btnCotizar);
             this.panel3.Controls.Add(this.button8);
             this.panel3.Location = new System.Drawing.Point(19, 152);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(223, 75);
             this.panel3.TabIndex = 41;
             // 
-            // button9
+            // btnCotizar
             // 
-            this.button9.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.button9.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
-            this.button9.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
-            this.button9.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.ForeColor = System.Drawing.Color.White;
-            this.button9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button9.Location = new System.Drawing.Point(-1, 40);
-            this.button9.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(223, 31);
-            this.button9.TabIndex = 2;
-            this.button9.Text = "Cotizar";
-            this.button9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button9.UseVisualStyleBackColor = false;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.btnCotizar.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.btnCotizar.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
+            this.btnCotizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
+            this.btnCotizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
+            this.btnCotizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCotizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCotizar.ForeColor = System.Drawing.Color.White;
+            this.btnCotizar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCotizar.Location = new System.Drawing.Point(-1, 40);
+            this.btnCotizar.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnCotizar.Name = "btnCotizar";
+            this.btnCotizar.Size = new System.Drawing.Size(223, 31);
+            this.btnCotizar.TabIndex = 2;
+            this.btnCotizar.Text = "Cotizar";
+            this.btnCotizar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCotizar.UseVisualStyleBackColor = false;
+            this.btnCotizar.Click += new System.EventHandler(this.btnCotizar_Click);
             // 
             // button8
             // 
@@ -498,10 +498,6 @@
             this.lblUsuario.TabIndex = 7;
             this.lblUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // lblDir
             // 
             this.lblDir.AutoSize = true;
@@ -781,6 +777,11 @@
             this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // timerHoraActual
+            // 
+            this.timerHoraActual.Enabled = true;
+            this.timerHoraActual.Tick += new System.EventHandler(this.timerHoraActual_Tick);
+            // 
             // FrmMenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -840,7 +841,6 @@
         private System.Windows.Forms.Button btnClientes;
         private System.Windows.Forms.Button btnProductos;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btnEmpleados;
 		public System.Windows.Forms.Label lblUsuario;
 		public System.Windows.Forms.Label lblFecha;
@@ -878,7 +878,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button btnCotizar;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Timer timerHoraActual;
     }
 }

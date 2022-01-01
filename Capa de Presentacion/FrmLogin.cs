@@ -20,35 +20,17 @@ namespace Capa_de_Presentacion
 
         public DateTime FechaVenc;
         bool tienefila = false;
-        public void llenar_data()
+        public void obtenerFiladeCaja()
         {
             M.Desconectar();
-            //variable de tipo Sqlcommand
-            SqlCommand comando = new SqlCommand();
-            //variable SqlDataReader para leer los datos
-            SqlDataReader dr;
-            comando.Connection = M.conexion;
-            //declaramos el comando para realizar la busqueda
-            comando.CommandText = "SELECT id_caja, monto_inicial,fecha  FROM Caja where monto_final =0 AND fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
-            //especificamos que es de tipo Text
-            comando.CommandType = CommandType.Text;
-            //se abre la conexion
+            string cadSql = "SELECT id_caja, monto_inicial,fecha  FROM Caja where monto_final =0 AND fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
             M.Conectar();
-            //limpiamos los renglones de la datagridview
-            dgvCaja.Rows.Clear();
-            //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-            dr = comando.ExecuteReader();
-            while (dr.Read())
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+
+            SqlDataReader leer = comando.ExecuteReader();
+
+            if (leer.Read() == true)
             {
-                //variable de tipo entero para ir enumerando los la filas del datagridview
-                int renglon = dgvCaja.Rows.Add();
-                // especificamos en que fila se mostrará cada registro
-                // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
-                dgvCaja.Rows[renglon].Cells["id_caja"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_caja")));
-                dgvCaja.Rows[renglon].Cells["monto"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto_inicial")).ToString("C2"));
-                dgvCaja.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
-
                 tienefila = true;
             }
             M.Desconectar();
@@ -87,9 +69,6 @@ namespace Capa_de_Presentacion
                     }
                     else
                     {
-                        DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-                        FrmMenuPrincipal MP = new FrmMenuPrincipal();
-
                         if (FechaVenc == DateTime.Today)
                         {
                             if (DevComponents.DotNetBar.MessageBoxEx.Show("Licencia del producto ha Cadudado, Favor ponerse en contacto con su suplidor para Renovar la misma, Desea Renovar Ahora?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -100,20 +79,30 @@ namespace Capa_de_Presentacion
                         }
                         else
                         {
-                            CargarListados();
+                            circularProgressBar1.Visible=true;
+                            circularProgressBar1.Value = 0;
+                            circularProgressBar1.Minimum = 0;
+                            circularProgressBar1.Maximum = 100;
+                            timer1.Start();
+
+                            if(circularProgressBar1.Visible == true)
+                                CargarListados();
+
                             if (rbInventario.Checked)
                             {
                                 Program.LoginStatus = "Inventario";
                                 RecuperarDatosSesion();
-                                MP.Show();
-                                this.Hide();
                             }
                             else if (rbVentas.Checked)
                             {
                                 Program.LoginStatus = "Ventas";
                                 RecuperarDatosSesion();
-                                MP.Show();
-                                this.Hide();
+
+                                #region Calculo de ganancias
+                                List<int> ventasIds = new List<int>();
+                                if (clsGenericList.listVentas.Count > 0)
+                                    clsGenericList.totalGanancia = clsGenericList.Ganancias(ventasIds);
+                                #endregion
                             }
                             else if (rbNCF.Checked)
                             {
@@ -121,8 +110,6 @@ namespace Capa_de_Presentacion
                                 if (Program.CargoEmpleadoLogueado == "Administrador")
                                 {
                                     Program.LoginStatus = "NCF";
-                                    MP.Show();
-                                    this.Hide();
                                 }
                                 else
                                 {
@@ -134,8 +121,6 @@ namespace Capa_de_Presentacion
                                 if (tienefila)
                                 {
                                     RecuperarDatosSesion();
-                                    MP.Show();
-                                    this.Hide();
                                 }
                                 else
                                 {
@@ -167,22 +152,20 @@ namespace Capa_de_Presentacion
                                                 M.Desconectar();
                                             }
 
-                                            llenar_data();
+                                            obtenerFiladeCaja();
                                             RecuperarDatosSesion();
 
                                             Program.idcaja = Program.idcaja + 1;
-                                            MP.Show();
-                                            this.Hide();
                                         }
                                     }
                                 }
+
+                                #region Calculo de ganancias
+                                List<int> ventasIds = new List<int>();
+                                if (clsGenericList.listVentas.Count > 0)
+                                    clsGenericList.totalGanancia = clsGenericList.Ganancias(ventasIds);
+                                #endregion
                             }
-                            
-                            #region Calculo de ganancias
-                            List<int> ventasIds = new List<int>();
-                            if (clsGenericList.listVentas.Count > 0)
-                                clsGenericList.totalGanancia = clsGenericList.Ganancias(ventasIds);
-                            #endregion
                         }
                     }
                 }
@@ -337,40 +320,6 @@ namespace Capa_de_Presentacion
             frmRecuperar r = new frmRecuperar();
             r.Show();
         }
-        bool activo;
-        private void txtUser_Leave(object sender, EventArgs e)
-        {
-            if (txtUser.Text == "")
-            {
-                activo = true;
-            }
-            else
-            {
-                activo = false;
-            }
-
-            if (activo == false)
-            {
-                M.Desconectar();
-                SqlCommand command = new SqlCommand("SELECT * FROM dbo.Empleado INNER JOIN " +
-                "dbo.Usuario ON dbo.Empleado.IdEmpleado = dbo.Usuario.IdEmpleado AND dbo.Empleado.IdEmpleado = " +
-                "dbo.Usuario.IdEmpleado WHERE dbo.Usuario.Usuario = @Clave", M.conexion);
-                command.Parameters.AddWithValue("@Clave", txtUser.Text);
-
-                M.Conectar();
-                SqlDataReader leer = command.ExecuteReader();
-
-                if (leer.Read() == false)
-                {
-                    MessageBox.Show("Usuario No Existente");
-                    txtUser.Clear();
-                    txtUser.Focus();
-
-                    M.conexion.Close();
-                }
-                M.Desconectar();
-            }
-        }
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -384,7 +333,8 @@ namespace Capa_de_Presentacion
         {
             fechaVenc();
             llenarid();
-            llenar_data();
+            obtenerFiladeCaja();
+            circularProgressBar1.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -410,11 +360,37 @@ namespace Capa_de_Presentacion
                 M.Desconectar();
             }
 
-            llenar_data();
+            obtenerFiladeCaja();
             RecuperarDatosSesion();
             Program.idcaja = Program.idcaja + 1;
             MP.Show();
             this.Hide();
+        }
+
+        private void label5_Click_1(object sender, EventArgs e)
+        {
+            if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            FrmMenuPrincipal MP = new FrmMenuPrincipal();
+            if (circularProgressBar1.Value < 100)
+            {
+                circularProgressBar1.Value += 1;
+                circularProgressBar1.Text = circularProgressBar1.Value.ToString();
+            }
+
+            if (circularProgressBar1.Value == 100)
+            {
+                timer1.Stop();
+                MP.Show();
+                circularProgressBar1.Visible=false;
+                this.Hide();
+            }
         }
     }
 }

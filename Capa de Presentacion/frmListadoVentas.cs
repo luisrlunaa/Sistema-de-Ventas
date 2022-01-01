@@ -38,7 +38,7 @@ namespace Capa_de_Presentacion
             {
                 llenar_data(clsGenericList.listVentas);
             }
-            
+
             if (clsGenericList.listVentasPorCategoria.Count > 0 && clsGenericList.listVentas.Count > 0)
             {
                 llenar_categoryandquantity(clsGenericList.listVentasPorCategoria);
@@ -112,8 +112,8 @@ namespace Capa_de_Presentacion
             clsGenericList.totalVendido = listaventas.Sum(x => x.Total);
 
             txtTtal.Text = string.Empty;
-            txtTtal.Text = Math.Round(clsGenericList.totalVendido, 2).ToString("C2");  
-            if(string.IsNullOrWhiteSpace(txtGanancias.Text))
+            txtTtal.Text = Math.Round(clsGenericList.totalVendido, 2).ToString("C2");
+            if (string.IsNullOrWhiteSpace(txtGanancias.Text))
             {
                 GananciaTotal(clsGenericList.totalGanancia);
             }
@@ -537,7 +537,7 @@ namespace Capa_de_Presentacion
 
             List<int> ventasIds = new List<int>();
             newlist.ForEach(x => ventasIds.Add(x.IdVenta));
-            var ganancias=clsGenericList.Ganancias(ventasIds);
+            var ganancias = clsGenericList.Ganancias(ventasIds);
             GananciaTotal(ganancias);
 
             if (cbPendiente.Checked == true)

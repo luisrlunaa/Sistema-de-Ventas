@@ -1,7 +1,6 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -12,7 +11,6 @@ namespace Capa_de_Presentacion
 {
     public partial class FrmMenuPrincipal : DevComponents.DotNetBar.Metro.MetroForm
     {
-        int EnviarFecha = 0;
         public FrmMenuPrincipal()
         {
             InitializeComponent();
@@ -33,6 +31,7 @@ namespace Capa_de_Presentacion
                 btnClientes.Visible = false;
                 btnVentas.Visible = false;
                 btnAyB.Visible = false;
+                btnCotizar.Visible = false;
 
                 button5.Visible = false;
                 button2.Visible = false;
@@ -228,35 +227,6 @@ namespace Capa_de_Presentacion
                 Program.abierto = true;
                 U.Show();
             }
-        }
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            switch (EnviarFecha)
-            {
-                case 0: CapturarFechaSistema(); break;
-            }
-        }
-        private void CapturarFechaSistema()
-        {
-            var fecha = DateTime.Now.ToLocalTime();
-            string tempdia = "";
-            var hora = fecha.Hour;
-            if (hora > 12)
-            {
-                hora = hora - 12;
-                tempdia = "PM";
-            }
-            else if (fecha.Hour == 12)
-            {
-                tempdia = "M";
-            }
-            else
-            {
-                tempdia = "AM";
-            }
-
-            lblFecha.Text = fecha.Day + "/" + fecha.Month + "/" + fecha.Year;
-            lblHora.Text = hora + " : " + fecha.Minute + " : " + fecha.Second + " " + tempdia;
         }
 
         private void btnEmpleados_Click(object sender, EventArgs e)
@@ -566,7 +536,7 @@ namespace Capa_de_Presentacion
             }
         }
 
-        private void button9_Click(object sender, EventArgs e)
+        private void btnCotizar_Click(object sender, EventArgs e)
         {
             Program.openpanel = 0;
             panel1.Size = new System.Drawing.Size(61, 606);
@@ -595,6 +565,15 @@ namespace Capa_de_Presentacion
                 panel3.Hide();
                 V.Show();
             }
+        }
+
+        private void timerHoraActual_Tick(object sender, EventArgs e)
+        {
+            var fecha = DateTime.Today.ToString("dd/MM/yyyy");
+            var hora = DateTime.Now.ToString("hh:mm:ss tt");
+
+            lblFecha.Text = fecha;
+            lblHora.Text = hora;
         }
     }
 }

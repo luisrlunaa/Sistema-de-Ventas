@@ -69,9 +69,10 @@ namespace Capa_de_Presentacion
 
                     DateTime fechaini = DateTime.Today;
                     DateTime fechafin = Convert.ToDateTime(reade["fecha_final"]);
-
+                    M.Desconectar();
                     if (secui > secuf || fechaini >= fechafin)
                     {
+                        M.Conectar();
                         using (SqlCommand cmdup = new SqlCommand("UpdateState", M.conexion))
                         {
                             cmdup.CommandType = CommandType.StoredProcedure;
