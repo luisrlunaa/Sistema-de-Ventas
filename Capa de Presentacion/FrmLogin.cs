@@ -91,7 +91,7 @@ namespace Capa_de_Presentacion
                         DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                         FrmMenuPrincipal MP = new FrmMenuPrincipal();
 
-                        if (FechaVenc == DateTime.Today)
+                        if (FechaVenc.Date <= DateTime.Today.Date)
                         {
                             if (DevComponents.DotNetBar.MessageBoxEx.Show("Licencia del producto ha Cadudado, Favor ponerse en contacto con su suplidor para Renovar la misma, Desea Renovar Ahora?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                             {
