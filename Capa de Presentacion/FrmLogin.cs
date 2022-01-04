@@ -69,7 +69,7 @@ namespace Capa_de_Presentacion
                     }
                     else
                     {
-                        if (FechaVenc == DateTime.Today)
+                        if (FechaVenc.Date <= DateTime.Today.Date)
                         {
                             if (DevComponents.DotNetBar.MessageBoxEx.Show("Licencia del producto ha Cadudado, Favor ponerse en contacto con su suplidor para Renovar la misma, Desea Renovar Ahora?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                             {
