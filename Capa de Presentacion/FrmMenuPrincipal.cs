@@ -11,7 +11,6 @@ namespace Capa_de_Presentacion
 {
     public partial class FrmMenuPrincipal : DevComponents.DotNetBar.Metro.MetroForm
     {
-        int EnviarFecha = 0;
         public FrmMenuPrincipal()
         {
             InitializeComponent();
@@ -119,6 +118,7 @@ namespace Capa_de_Presentacion
             }
             #endregion
         }
+
         private void FrmMenuPrincipal_Load(object sender, EventArgs e)
         {
             timer1.Interval = 500;
@@ -236,15 +236,11 @@ namespace Capa_de_Presentacion
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            switch (EnviarFecha)
-            {
-                case 0: CapturarFechaSistema(); break;
-            }
-        }
-        private void CapturarFechaSistema()
-        {
-            lblFecha.Text = DateTime.Now.ToShortDateString();
-            lblHora.Text = DateTime.Now.ToShortTimeString();
+            var fecha = DateTime.Today.ToString("dd/MM/yyyy");
+            var hora = DateTime.Now.ToString("hh:mm:ss tt");
+
+            lblFecha.Text = fecha;
+            lblHora.Text = hora;
         }
 
         private void btnEmpleados_Click(object sender, EventArgs e)
