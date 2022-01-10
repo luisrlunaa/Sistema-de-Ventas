@@ -21,44 +21,20 @@ namespace Capa_de_Presentacion
         public string idCaja;
         public DateTime FechaVenc;
         bool tienefila = false;
-        public void llenar_data()
+        public void obtenerFiladeCaja()
         {
             Cx.Desconectar();
-            //variable de tipo Sqlcommand
-            SqlCommand comando = new SqlCommand();
-            //variable SqlDataReader para leer los datos
-            SqlDataReader dr;
-            comando.Connection = Cx.conexion;
-            //declaramos el comando para realizar la busqueda
-            comando.CommandText = "SELECT id_caja, monto_inicial,fecha  FROM Caja where monto_final =0 AND fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
-            //especificamos que es de tipo Text
-            comando.CommandType = CommandType.Text;
-            //se abre la conexion
+            string cadSql = "SELECT id_caja, monto_inicial,fecha  FROM Caja where monto_final =0 AND fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
             Cx.Conectar();
-            //limpiamos los renglones de la datagridview
-            dgvCaja.Rows.Clear();
-            //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-            dr = comando.ExecuteReader();
-            while (dr.Read())
+            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+
+            SqlDataReader leer = comando.ExecuteReader();
+
+            if (leer.Read() == true)
             {
-                //variable de tipo entero para ir enumerando los la filas del datagridview
-                int renglon = dgvCaja.Rows.Add();
-                // especificamos en que fila se mostrará cada registro
-                // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
-                dgvCaja.Rows[renglon].Cells["id_caja"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_caja")));
-                dgvCaja.Rows[renglon].Cells["monto"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto_inicial")).ToString("C2"));
-                dgvCaja.Rows[renglon].Cells["fecha"].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
-
                 tienefila = true;
             }
-        }
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
+            Cx.Desconectar();
         }
 
         public void btnIngresar_Click(object sender, EventArgs e)
@@ -140,46 +116,94 @@ namespace Capa_de_Presentacion
                                 }
                                 else
                                 {
-                                    if (panelmontoinicial.Visible)
+                                    circularProgressBar1.Visible = true;
+                                    circularProgressBar1.Value = 0;
+                                    circularProgressBar1.Minimum = 0;
+                                    circularProgressBar1.Maximum = 100;
+                                    timer1.Start();
+
+                                    if (circularProgressBar1.Visible == true)
+                                        CargarListados();
+
+                                    if (rbInventario.Checked)
                                     {
-                                        if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea ingresar Monto Inicial de Caja?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                                        Program.LoginStatus = "Inventario";
+                                        RecuperarDatosSesion();
+                                    }
+                                    else if (rbVentas.Checked)
+                                    {
+                                        Program.LoginStatus = "Ventas";
+                                        RecuperarDatosSesion();
+
+                                        #region Calculo de ganancias
+                                        List<int> ventasIds = new List<int>();
+                                        if (clsGenericList.listVentas.Count > 0)
+                                            clsGenericList.totalGanancia = clsGenericList.Ganancias(ventasIds);
+                                        #endregion
+                                    }
+                                    else if (rbNCF.Checked)
+                                    {
+                                        RecuperarDatosSesion();
+                                        if (Program.CargoEmpleadoLogueado == "Administrador")
                                         {
-                                            panelmontoinicial.Visible = false;
+                                            Program.LoginStatus = "NCF";
                                         }
                                         else
                                         {
-                                            Cx.Desconectar();
-                                            using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
-                                            {
-                                                string id_var = "";
-                                                if (idCaja == "" || idCaja == null)
-                                                    id_var = "0";
-                                                else
-                                                    id_var = idCaja;
-
-                                                cmd.CommandType = CommandType.StoredProcedure;
-
-                                                cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
-                                                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = 0;
-                                                cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
-
-                                                Cx.Conectar();
-                                                cmd.ExecuteNonQuery();
-                                                Cx.Desconectar();
-                                            }
-                                            llenar_data();
-                                            RecuperarDatosSesion();
-                                            MP.Show();
-                                            this.Hide();
+                                            DevComponents.DotNetBar.MessageBoxEx.Show("No tiene Cargo de Administrador para poder usar esa función.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         }
                                     }
-                                }
+                                    else
+                                    {
+                                        if (tienefila)
+                                        {
+                                            RecuperarDatosSesion();
+                                        }
+                                        else
+                                        {
+                                            if (panelmontoinicial.Visible)
+                                            {
+                                                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea ingresar Monto Inicial de Caja?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                                                {
+                                                    panelmontoinicial.Visible = false;
+                                                }
+                                                else
+                                                {
+                                                    Cx.Desconectar();
+                                                    using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
+                                                    {
+                                                        string id_var = "";
+                                                        if (Program.idcaja.ToString() == "" || Program.idcaja.ToString() == null)
+                                                            id_var = "0";
+                                                        else
+                                                            id_var = Program.idcaja.ToString();
 
-                                #region Calculo de ganancias
-                                List<int> ventasIds = new List<int>();
-                                if (clsGenericList.listVentas.Count > 0)
-                                    clsGenericList.totalGanancia = clsGenericList.Ganancias(ventasIds);
-                                #endregion
+                                                        cmd.CommandType = CommandType.StoredProcedure;
+
+                                                        cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
+                                                        cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = 0;
+                                                        cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
+
+                                                        Cx.Conectar();
+                                                        cmd.ExecuteNonQuery();
+                                                        Cx.Desconectar();
+                                                    }
+
+                                                    obtenerFiladeCaja();
+                                                    RecuperarDatosSesion();
+
+                                                    Program.idcaja = Program.idcaja + 1;
+                                                }
+                                            }
+                                        }
+
+                                        #region Calculo de ganancias
+                                        List<int> ventasIds = new List<int>();
+                                        if (clsGenericList.listVentas.Count > 0)
+                                            clsGenericList.totalGanancia = clsGenericList.Ganancias(ventasIds);
+                                        #endregion
+                                    }
+                                }
                             }
                         }
 
@@ -221,10 +245,12 @@ namespace Capa_de_Presentacion
                         venta.Total = reader["Total"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Total"]);
                         venta.Tipofactura = reader["Tipofactura"] == DBNull.Value ? string.Empty : reader["Tipofactura"].ToString();
                         venta.Restante = reader["Restante"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Restante"]);
-                        venta.FechaVenta = Convert.ToDateTime(reader["FechaVenta"]);
+                        venta.FechaVenta = reader["FechaVenta"] == DBNull.Value ? DateTime.Today : Convert.ToDateTime(reader["FechaVenta"]);
                         venta.NombreCliente = reader["NombreCliente"] == DBNull.Value ? string.Empty : reader["NombreCliente"].ToString();
-                        venta.UltimaFechaPago = Convert.ToDateTime(reader["UltimaFechaPago"]);
-                        venta.borrador = reader["borrado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["borrado"]);
+                        venta.UltimaFechaPago = reader["UltimaFechaPago"] == DBNull.Value ? DateTime.Today : Convert.ToDateTime(reader["UltimaFechaPago"]);
+                        //venta.borrador = reader["borrado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["borrado"]);
+                        venta.Direccion = reader["Direccion"] == DBNull.Value ? string.Empty : reader["Direccion"].ToString();
+                        //venta.rncCliente = reader["rncCliente"] == DBNull.Value ? string.Empty : reader["rncCliente"].ToString();
 
                         clsGenericList.listVentas.Add(venta);
                         clsGenericList.idsVentas.Add(venta.IdVenta);
@@ -262,7 +288,7 @@ namespace Capa_de_Presentacion
                         product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmax"]);
                         product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmin"]);
                         product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
-                        product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Stock"]);
+                        product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Stock"]);
                         product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
                         product.m_Marca = reader["Marca"] == DBNull.Value ? string.Empty : reader["Marca"].ToString();
 
@@ -318,40 +344,7 @@ namespace Capa_de_Presentacion
             frmRecuperar r = new frmRecuperar();
             r.Show();
         }
-        bool activo;
-        private void txtUser_Leave(object sender, EventArgs e)
-        {
-            if (txtUser.Text == "")
-            {
-                activo = true;
-            }
-            else
-            {
-                activo = false;
-            }
-
-            if (activo == false)
-            {
-                Cx.Desconectar();
-                SqlCommand command = new SqlCommand("SELECT * FROM dbo.Empleado INNER JOIN " +
-                "dbo.Usuario ON dbo.Empleado.IdEmpleado = dbo.Usuario.IdEmpleado AND dbo.Empleado.IdEmpleado = " +
-                "dbo.Usuario.IdEmpleado WHERE dbo.Usuario.Usuario = @Clave", Cx.conexion);
-                command.Parameters.AddWithValue("@Clave", txtUser.Text);
-
-                Cx.Conectar();
-                SqlDataReader leer = command.ExecuteReader();
-
-                if (leer.Read() == false)
-                {
-                    MessageBox.Show("Usuario No Existente");
-                    txtUser.Clear();
-                    txtUser.Focus();
-
-                    Cx.Desconectar();
-                }
-                Cx.Desconectar();
-            }
-        }
+      
         public void fechaVenc()
         {
             Cx.Desconectar();
@@ -373,7 +366,8 @@ namespace Capa_de_Presentacion
             panelmontoinicial.Visible = true;
             fechaVenc();
             llenarid();
-            llenar_data();
+            obtenerFiladeCaja();
+            circularProgressBar1.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -398,10 +392,36 @@ namespace Capa_de_Presentacion
                 cmd.ExecuteNonQuery();
                 Cx.Desconectar();
             }
-            llenar_data();
             RecuperarDatosSesion();
             MP.Show();
             this.Hide();
+        }
+
+
+        private void label5_Click_1(object sender, EventArgs e)
+        {
+            if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            FrmMenuPrincipal MP = new FrmMenuPrincipal();
+            if (circularProgressBar1.Value < 100)
+            {
+                circularProgressBar1.Value += 1;
+                circularProgressBar1.Text = circularProgressBar1.Value.ToString();
+            }
+
+            if (circularProgressBar1.Value == 100)
+            {
+                timer1.Stop();
+                MP.Show();
+                circularProgressBar1.Visible = false;
+                this.Hide();
+            }
         }
     }
 }

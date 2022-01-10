@@ -693,13 +693,13 @@ namespace Capa_de_Presentacion
                     e.CellStyle.BackColor = System.Drawing.Color.Red;
                 }
 
-                if (Convert.ToDecimal(e.Value) > 0 && Convert.ToInt32(e.Value) < 5)
+                if (Convert.ToDecimal(e.Value) > 0 && Convert.ToDecimal(e.Value) < 5)
                 {
                     e.CellStyle.ForeColor = System.Drawing.Color.Black;
                     e.CellStyle.BackColor = System.Drawing.Color.Yellow;
                 }
 
-                if (Convert.ToDecimal(e.Value) > 4 && Convert.ToInt32(e.Value) < 11)
+                if (Convert.ToDecimal(e.Value) > 4 && Convert.ToDecimal(e.Value) < 11)
                 {
                     e.CellStyle.ForeColor = System.Drawing.Color.Black;
                     e.CellStyle.BackColor = System.Drawing.Color.LightGreen;

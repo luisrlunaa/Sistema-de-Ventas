@@ -77,7 +77,7 @@ namespace CapaLogicaNegocio
                         SqlDataReader leer = comando.ExecuteReader();
                         if (leer.Read() == true)
                         {
-                            var monto = Convert.ToDecimal(leer["ganancia"]) > 0 ? Convert.ToDecimal(leer["ganancia"]) : 0;
+                            var monto = leer["ganancia"] == DBNull.Value ? 0 : Convert.ToDecimal(leer["ganancia"]) > 0 ? Convert.ToDecimal(leer["ganancia"]) : 0;
                             ganancia += monto;
                         }
                         M.Desconectar();
