@@ -147,7 +147,7 @@ namespace Capa_de_Presentacion
         {
             if (clsGenericList.listProducto.Count > 0)
             {
-                CargarListado(clsGenericList.listProducto);
+                CargarListado(clsGenericList.listProducto.OrderBy(x => x.m_IdP).ToList());
             }
             else
             {
@@ -177,7 +177,7 @@ namespace Capa_de_Presentacion
                         clsGenericList.listProducto.Add(product);
                     }
 
-                    CargarListado(clsGenericList.listProducto);
+                    CargarListado(clsGenericList.listProducto.OrderBy(x => x.m_IdP).ToList());
                 }
                 catch (Exception ex)
                 {
@@ -514,7 +514,7 @@ namespace Capa_de_Presentacion
             if (rbCero.Checked == true)
             {
                 var newlist = clsGenericList.listProducto.Where(x => x.m_Stock == 0).ToList();
-                CargarListado(newlist);
+                CargarListado(newlist.OrderBy(x => x.m_IdP).ToList());
 
                 compras = newlist.Sum(x => x.m_PrecioCompra);
                 ventas = newlist.Sum(x => x.m_PrecioVenta); ;
@@ -525,7 +525,7 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                CargarListado(clsGenericList.listProducto);
+                CargarListado(clsGenericList.listProducto.OrderBy(x => x.m_IdP).ToList());
             }
         }
         private void rdmedia_CheckedChanged(object sender, EventArgs e)
@@ -534,7 +534,7 @@ namespace Capa_de_Presentacion
             if (rdmedia.Checked == true)
             {
                 var newlist = clsGenericList.listProducto.Where(x => x.m_Stock > 4 && x.m_Stock < 15).ToList();
-                CargarListado(newlist);
+                CargarListado(newlist.OrderBy(x => x.m_IdP).ToList());
 
                 compras = newlist.Sum(x => x.m_PrecioCompra);
                 ventas = newlist.Sum(x => x.m_PrecioVenta); ;
@@ -545,7 +545,7 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                CargarListado(clsGenericList.listProducto);
+                CargarListado(clsGenericList.listProducto.OrderBy(x => x.m_IdP).ToList());
             }
         }
         private void rbbuena_CheckedChanged(object sender, EventArgs e)
@@ -554,7 +554,7 @@ namespace Capa_de_Presentacion
             if (rbbuena.Checked == true)
             {
                 var newlist = clsGenericList.listProducto.Where(x => x.m_Stock > 15).ToList();
-                CargarListado(newlist);
+                CargarListado(newlist.OrderBy(x => x.m_IdP).ToList());
 
                 compras = newlist.Sum(x => x.m_PrecioCompra);
                 ventas = newlist.Sum(x => x.m_PrecioVenta); ;
@@ -565,7 +565,7 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                CargarListado(clsGenericList.listProducto);
+                CargarListado(clsGenericList.listProducto.OrderBy(x => x.m_IdP).ToList());
             }
         }
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -574,7 +574,7 @@ namespace Capa_de_Presentacion
             if (radioButton1.Checked == true)
             {
                 var newlist = clsGenericList.listProducto.Where(x => x.m_Stock > 0 && x.m_Stock < 5).ToList();
-                CargarListado(newlist);
+                CargarListado(newlist.OrderBy(x => x.m_IdP).ToList());
 
                 compras = newlist.Sum(x => x.m_PrecioCompra);
                 ventas = newlist.Sum(x => x.m_PrecioVenta); ;
@@ -585,19 +585,19 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                CargarListado(clsGenericList.listProducto);
+                CargarListado(clsGenericList.listProducto.OrderBy(x => x.m_IdP).ToList());
             }
         }
         private void rbtodos_CheckedChanged(object sender, EventArgs e)
         {
-            CargarListado(clsGenericList.listProducto);
+            CargarListado(clsGenericList.listProducto.OrderBy(x => x.m_IdP).ToList());
         }
         private void rbfechaing_CheckedChanged(object sender, EventArgs e)
         {
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
 
             var newlist = clsGenericList.listProducto.Where(x => x.m_FechaVencimiento >= dtpfecha1.Value.Date && x.m_FechaVencimiento <= dtpfecha2.Value.Date).ToList();
-            CargarListado(newlist);
+            CargarListado(newlist.OrderBy(x => x.m_IdP).ToList());
 
             compras = newlist.Sum(x => x.m_PrecioCompra);
             ventas = newlist.Sum(x => x.m_PrecioVenta); ;
@@ -610,9 +610,8 @@ namespace Capa_de_Presentacion
         {
             decimal compras = 0, total = 0, ventas = 0, totalproducto = 0;
 
-
             var newlist = clsGenericList.listProducto.Where(x => x.m_FechaModificacion >= dtpfecha1.Value.Date && x.m_FechaModificacion <= dtpfecha2.Value.Date).ToList();
-            CargarListado(newlist);
+            CargarListado(newlist.OrderBy(x => x.m_IdP).ToList());
 
             compras = newlist.Sum(x => x.m_PrecioCompra);
             ventas = newlist.Sum(x => x.m_PrecioVenta); ;
@@ -632,7 +631,7 @@ namespace Capa_de_Presentacion
                 if (id.Text != "")
                 {
                     var newlist = clsGenericList.listProducto.Where(x => x.m_IdCategoria == Convert.ToInt32(id.Text)).ToList();
-                    CargarListado(newlist);
+                    CargarListado(newlist.OrderBy(x => x.m_IdP).ToList());
 
                     compras = newlist.Sum(x => x.m_PrecioCompra);
                     ventas = newlist.Sum(x => x.m_PrecioVenta); ;
@@ -643,7 +642,7 @@ namespace Capa_de_Presentacion
                 }
                 else
                 {
-                    CargarListado(clsGenericList.listProducto);
+                    CargarListado(clsGenericList.listProducto.OrderBy(x => x.m_IdP).ToList());
                 }
             }
         }
@@ -656,7 +655,7 @@ namespace Capa_de_Presentacion
                 if (textBox5.Text != "")
                 {
                     var newlist = clsGenericList.listProducto.Where(x => x.m_tipoGoma == textBox5.Text).ToList();
-                    CargarListado(newlist);
+                    CargarListado(newlist.OrderBy(x => x.m_IdP).ToList());
 
                     compras = newlist.Sum(x => x.m_PrecioCompra);
                     ventas = newlist.Sum(x => x.m_PrecioVenta); ;
@@ -667,7 +666,7 @@ namespace Capa_de_Presentacion
                 }
                 else
                 {
-                    CargarListado(clsGenericList.listProducto);
+                    CargarListado(clsGenericList.listProducto.OrderBy(x => x.m_IdP).ToList());
                 }
             }
         }
@@ -708,7 +707,7 @@ namespace Capa_de_Presentacion
             cbxCategoria.Text = "";
             clear();
             txtBuscarProducto.Text = "";
-            CargarListado(clsGenericList.listProducto);
+            CargarListado(clsGenericList.listProducto.OrderBy(x => x.m_IdP).ToList());
             Refresh();
         }
 
@@ -753,7 +752,7 @@ namespace Capa_de_Presentacion
             {
                 string id = txtBuscarProducto.Text;
                 var newlist = clsGenericList.listProducto.Where(x => x.m_Producto.ToLower().Contains(id.ToLower()) || x.m_Marca.ToLower().Contains(id.ToLower())).ToList();
-                CargarListado(newlist);
+                CargarListado(newlist.OrderBy(x => x.m_IdP).ToList());
             }
         }
 
