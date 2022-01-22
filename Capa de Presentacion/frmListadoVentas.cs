@@ -853,7 +853,7 @@ namespace Capa_de_Presentacion
 
                                     var deleteProduct1= clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
                                     var updateProduct1 = clsGenericList.listProducto.FirstOrDefault(x=>x.m_IdP== idProductoDV1);
-                                    updateProduct1.m_Stock = updateProduct.m_Stock + cantidadDV1;
+                                    updateProduct1.m_Stock = updateProduct1.m_Stock + cantidadDV1;
 
                                     clsGenericList.listProducto.Remove(deleteProduct1);
                                     clsGenericList.listProducto.Add(updateProduct1);
