@@ -9,6 +9,7 @@ namespace Capa_de_Presentacion
         /// Punto de entrada principal para la aplicación.      
         /// </summary>
         /// 
+        public static bool isAdminUser;
         public static bool abierto;
         public static bool abiertosecundarias;
         public static int Evento;
@@ -71,7 +72,6 @@ namespace Capa_de_Presentacion
         //Variables de Sesion
         public static int IdEmpleadoLogueado;
         public static string NombreEmpleadoLogueado;
-        public static string CargoEmpleadoLogueado;
 
         public static int IdEmpleadoLogueado1;
         public static string NombreEmpleadoLogueado1;

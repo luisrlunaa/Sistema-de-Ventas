@@ -22,7 +22,6 @@ namespace Capa_de_Presentacion
         private void FrmMenuPrincipal_Activated(object sender, EventArgs e)
         {
             lblUsuario.Text = Program.NombreEmpleadoLogueado;
-            txtcargo.Text = Program.CargoEmpleadoLogueado;
             textBox1.Text = Program.CargoEmpleadoLogueado1;
 
             if (Program.LoginStatus == "Inventario")
@@ -79,7 +78,7 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                if (txtcargo.Text.Trim() != "Administrador")
+                if (Program.isAdminUser)
                 {
                     btnProductos.Visible = true;
                     btnClientes.Visible = true;
@@ -165,7 +164,7 @@ namespace Capa_de_Presentacion
                 }
                 else
                 {
-                    if (txtcargo.Text.Trim() != "Administrador")
+                    if (!Program.isAdminUser)
                     {
                         FrmListadoProductos P = new FrmListadoProductos();
                         P.lblLogo.Text = lblLogo.Text;
@@ -195,10 +194,7 @@ namespace Capa_de_Presentacion
             if (Program.abierto == false)
             {
                 FrmListadoClientes C = new FrmListadoClientes();
-                if (Program.CargoEmpleadoLogueado != "Administrador")
-                {
-                    C.btnActualizar.Enabled = false;
-                }
+                C.btnActualizar.Enabled = Program.isAdminUser;
                 Program.abierto = true;
                 C.Show();
             }
@@ -236,10 +232,7 @@ namespace Capa_de_Presentacion
             if (Program.abierto == false)
             {
                 FrmListadoEmpleados E = new FrmListadoEmpleados();
-                if (Program.CargoEmpleadoLogueado != "Administrador")
-                {
-                    E.btnActualizar.Enabled = false;
-                }
+                E.btnActualizar.Enabled = Program.isAdminUser;
                 Program.abierto = true;
                 E.Show();
             }
@@ -329,7 +322,7 @@ namespace Capa_de_Presentacion
             RecuperarDatosSesion1();
             MessageBox.Show("Buscando Usuario");
             Refresh();
-            if (textBox1.Text.Trim() == "Administrador")
+            if (Program.isAdminUser)
             {
                 usuario.Hide();
                 panel2.Show();
@@ -483,7 +476,6 @@ namespace Capa_de_Presentacion
         {
             if (panel1.Size == new System.Drawing.Size(240, 606))
             {
-
                 panel1.Size = new System.Drawing.Size(61, 606);
                 button7.Text = ">>";
             }
@@ -522,7 +514,7 @@ namespace Capa_de_Presentacion
                 V.lblCorreo.Text = lblCorreo.Text;
                 V.lblrnc.Text = lblrnc.Text;
 
-                if (Program.CargoEmpleadoLogueado != "Administrador")
+                if (!Program.isAdminUser)
                 {
                     V.txtPVenta.Enabled = false;
                     V.txtIgv.Enabled = false;
@@ -539,11 +531,11 @@ namespace Capa_de_Presentacion
         bool cotizar = true;
         private void btnCotizar_Click(object sender, EventArgs e)
         {
-            if(cotizar)
+            if (cotizar)
             {
-                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Debe ponerse en contacto con su suplidor para adquirir este servicio", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Warning) == DialogResult.OK)
+                if (DevComponents.DotNetBar.MessageBoxEx.Show("Debe ponerse en contacto con su suplidor para adquirir este servicio", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Warning) == DialogResult.OK)
                 {
-                    
+
                 }
             }
             else
@@ -563,7 +555,7 @@ namespace Capa_de_Presentacion
                     V.lblCorreo.Text = lblCorreo.Text;
                     V.lblrnc.Text = lblrnc.Text;
 
-                    if (Program.CargoEmpleadoLogueado != "Administrador")
+                    if (!Program.isAdminUser)
                     {
                         V.txtPVenta.Enabled = false;
                         V.txtIgv.Enabled = false;

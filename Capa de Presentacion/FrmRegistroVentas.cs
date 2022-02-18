@@ -47,7 +47,7 @@ namespace Capa_de_Presentacion
                 txtDatos.ReadOnly = false;
             }
 
-            if (Program.CargoEmpleadoLogueado != "Administrador")
+            if (!Program.isAdminUser)
             {
                 txtPVenta.Enabled = false;
                 txtIgv.Enabled = false;
@@ -1149,7 +1149,7 @@ namespace Capa_de_Presentacion
             Limpiar();
             Limpiar1();
 
-            if (Program.CargoEmpleadoLogueado != "Administrador")
+            if (!Program.isAdminUser)
             {
                 txtPVenta.Enabled = false;
                 txtIgv.Enabled = false;

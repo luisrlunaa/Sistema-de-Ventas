@@ -79,13 +79,13 @@ namespace Capa_de_Presentacion
                         }
                         else
                         {
-                            circularProgressBar1.Visible=true;
+                            circularProgressBar1.Visible = true;
                             circularProgressBar1.Value = 0;
                             circularProgressBar1.Minimum = 0;
                             circularProgressBar1.Maximum = 100;
                             timer1.Start();
 
-                            if(circularProgressBar1.Visible == true)
+                            if (circularProgressBar1.Visible == true)
                                 CargarListados();
 
                             if (rbInventario.Checked)
@@ -107,7 +107,7 @@ namespace Capa_de_Presentacion
                             else if (rbNCF.Checked)
                             {
                                 RecuperarDatosSesion();
-                                if (Program.CargoEmpleadoLogueado == "Administrador")
+                                if (Program.isAdminUser)
                                 {
                                     Program.LoginStatus = "NCF";
                                 }
@@ -278,6 +278,7 @@ namespace Capa_de_Presentacion
             }
             M.Desconectar();
         }
+
         public void fechaVenc()
         {
             M.Desconectar();
@@ -294,6 +295,7 @@ namespace Capa_de_Presentacion
             }
             M.Desconectar();
         }
+
         public void RecuperarDatosSesion()
         {
             DataRow row;
@@ -304,9 +306,10 @@ namespace Capa_de_Presentacion
                 row = dt.Rows[0];
                 Program.IdEmpleadoLogueado = Convert.ToInt32(row[0].ToString());
                 Program.NombreEmpleadoLogueado = row[1].ToString();
-                Program.CargoEmpleadoLogueado = row[2].ToString();
+                Program.isAdminUser = row[2].ToString() == "Administrador";
             }
         }
+
         private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
@@ -388,7 +391,7 @@ namespace Capa_de_Presentacion
             {
                 timer1.Stop();
                 MP.Show();
-                circularProgressBar1.Visible=false;
+                circularProgressBar1.Visible = false;
                 this.Hide();
             }
         }

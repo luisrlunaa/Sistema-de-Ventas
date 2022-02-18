@@ -22,7 +22,6 @@ namespace Capa_de_Presentacion
                     String Mensaje = "";
                     U.User = txtUser.Text;
                     U.Password = txtPassword.Text;
-                    Program.CargoEmpleadoLogueado = "";
                     Program.NombreEmpleadoLogueado = "";
 
                     Mensaje = U.IniciarSesion();
@@ -68,7 +67,7 @@ namespace Capa_de_Presentacion
                 row = dt.Rows[0];
                 Program.IdEmpleadoLogueado = Convert.ToInt32(row[0].ToString());
                 Program.NombreEmpleadoLogueado = row[1].ToString();
-                Program.CargoEmpleadoLogueado = row[2].ToString();
+                Program.isAdminUser = row[2].ToString() == "Administrador";
             }
         }
 

@@ -36,10 +36,7 @@ namespace Capa_de_Presentacion
         {
             ListarElementos();
             dataGridView1.ClearSelection();
-            if (Program.CargoEmpleadoLogueado != "Administrador")
-            {
-                btnEditar.Enabled = false;
-            }
+            btnEditar.Enabled = Program.isAdminUser;
         }
 
         private void ListarElementos()
@@ -128,10 +125,7 @@ namespace Capa_de_Presentacion
         {
             Program.abiertosecundarias = false;
             Program.abierto = false;
-            if (Program.CargoEmpleadoLogueado != "Administrador")
-            {
-                btnEditar.Enabled = false;
-            }
+            btnEditar.Enabled = Program.isAdminUser;
             this.Close();
         }
     }

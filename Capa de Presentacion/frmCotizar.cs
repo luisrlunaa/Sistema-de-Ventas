@@ -59,13 +59,10 @@ namespace Capa_de_Presentacion
             button2.Show();
             button3.Hide();
 
-            if (Program.CargoEmpleadoLogueado != "Administrador")
-            {
-                txtPVenta.Enabled = false;
-                txtIgv.Enabled = false;
-                txtDivisor.Enabled = false;
-                txtPorcentaje.Enabled = false;
-            }
+            txtPVenta.Enabled = Program.isAdminUser;
+            txtIgv.Enabled = Program.isAdminUser;
+            txtDivisor.Enabled = Program.isAdminUser;
+            txtPorcentaje.Enabled = Program.isAdminUser;
 
             txtDivisor.Text = "1.18";
             txtPorcentaje.Text = "";
@@ -563,7 +560,7 @@ namespace Capa_de_Presentacion
             Limpiar();
             Limpiar1();
 
-            if (Program.CargoEmpleadoLogueado != "Administrador")
+            if (!Program.isAdminUser)
             {
                 txtPVenta.Enabled = false;
                 txtIgv.Enabled = false;

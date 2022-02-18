@@ -46,11 +46,7 @@ namespace Capa_de_Presentacion
 
             ListarElementos();
             ListarElementostipo();
-
-            if (Program.CargoEmpleadoLogueado != "Administrador")
-            {
-                btnEditar.Enabled = false;
-            }
+            btnEditar.Enabled = Program.isAdminUser;
         }
         public void buscarid()
         {
@@ -248,7 +244,7 @@ namespace Capa_de_Presentacion
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            if (dataGridView1.SelectedRows.Count > 0 && Program.isAdminUser)
             {
                 FrmRegistroProductos P = new FrmRegistroProductos();
                 P.txtIdP.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
@@ -462,6 +458,7 @@ namespace Capa_de_Presentacion
             }
             document.Add(datatable);
         }
+
         public float[] GetTamañoColumnas(DataGridView dg)
         {
             float[] values = new float[dg.ColumnCount];
@@ -617,6 +614,7 @@ namespace Capa_de_Presentacion
                 }
             }
         }
+
         private void cbTipoGoma_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbtipogomafiltro.Checked)
@@ -731,10 +729,7 @@ namespace Capa_de_Presentacion
         {
             Program.abiertosecundarias = false;
             Program.abierto = false;
-            if (Program.CargoEmpleadoLogueado != "Administrador")
-            {
-                btnEditar.Enabled = false;
-            }
+            btnEditar.Enabled = Program.isAdminUser;
             this.Close();
         }
 

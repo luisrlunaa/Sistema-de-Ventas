@@ -35,7 +35,7 @@ namespace Capa_de_Presentacion
 
             if (clsGenericList.listVentas.Count > 0)
             {
-                llenar_data(clsGenericList.listVentas.OrderBy(x=>x.IdVenta).ToList());
+                llenar_data(clsGenericList.listVentas.OrderBy(x => x.IdVenta).ToList());
             }
 
             if (clsGenericList.listVentasPorCategoria.Count > 0 && clsGenericList.listVentas.Count > 0)
@@ -291,6 +291,7 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("No guardo el Archivo");
             }
         }
+
         private void To_pdf()
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
@@ -410,6 +411,7 @@ namespace Capa_de_Presentacion
             }
             document.Add(datatable);
         }
+
         public void GenerarDocumento(Document document)
         {
             int i, j;
@@ -438,6 +440,7 @@ namespace Capa_de_Presentacion
             }
             document.Add(datatable);
         }
+
         public float[] GetTamañoColumnas(DataGridView dg)
         {
             float[] values = new float[dg.ColumnCount];
@@ -503,31 +506,31 @@ namespace Capa_de_Presentacion
                 {
                     newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.Restante > 0).ToList();
-                    llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
                     newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
                     && x.Tipofactura == cbtipofactura.Text && x.borrador == borrado).ToList();
-                    llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
                     newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
                     && x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado).ToList();
-                    llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cbPendiente.Checked == true)
                 {
                     newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
                     && x.borrador == borrado && x.Restante > 0).ToList();
-                    llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else
                 {
                     newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
                     && x.borrador == borrado).ToList();
-                    llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
 
@@ -582,7 +585,7 @@ namespace Capa_de_Presentacion
                 {
                     int id = Convert.ToInt32(txtBuscarid.Text);
                     var newlist = clsGenericList.listVentas.Where(x => x.IdVenta == id).ToList();
-                    llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
             else if (chknombre.Checked && chkid.Checked == false)
@@ -591,7 +594,7 @@ namespace Capa_de_Presentacion
                 {
                     string name = txtBuscarid.Text;
                     var newlist = clsGenericList.listVentas.Where(x => x.NombreCliente.Contains(name)).ToList();
-                    llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
             else
@@ -741,12 +744,8 @@ namespace Capa_de_Presentacion
             if (dataGridView1.Rows.Count > 0)
             {
                 dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
-
-                if (Program.CargoEmpleadoLogueado == "Administrador")
-                {
-                    button3.Enabled = true;
-                    button4.Enabled = true;
-                }
+                button3.Enabled = Program.isAdminUser;
+                button4.Enabled = Program.isAdminUser;
             }
         }
 
@@ -756,13 +755,13 @@ namespace Capa_de_Presentacion
             {
                 borrado = 1;
                 var newlist = clsGenericList.listVentas.Where(x => x.borrador == borrado).ToList();
-                llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
             }
             else
             {
                 borrado = 0;
                 var newlist = clsGenericList.listVentas.Where(x => x.borrador == borrado).ToList();
-                llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
             }
         }
 
