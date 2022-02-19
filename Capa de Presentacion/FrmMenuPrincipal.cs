@@ -21,7 +21,6 @@ namespace Capa_de_Presentacion
         private void FrmMenuPrincipal_Activated(object sender, EventArgs e)
         {
             lblUsuario.Text = Program.NombreEmpleadoLogueado;
-            txtcargo.Text = Program.CargoEmpleadoLogueado;
             textBox1.Text = Program.CargoEmpleadoLogueado1;
 
             if (Program.LoginStatus == "Inventario")
@@ -77,7 +76,7 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                if (txtcargo.Text.Trim() != "Administrador")
+                if (!Program.isAdminUser)
                 {
                     btnProductos.Visible = true;
                     btnClientes.Visible = true;
@@ -191,10 +190,8 @@ namespace Capa_de_Presentacion
             if (Program.abierto == false)
             {
                 FrmListadoClientes C = new FrmListadoClientes();
-                if (Program.CargoEmpleadoLogueado != "Administrador")
-                {
-                    C.btnActualizar.Enabled = false;
-                }
+                    C.btnActualizar.Enabled = Program.isAdminUser;
+
                 Program.abierto = true;
                 C.Show();
             }
@@ -214,11 +211,8 @@ namespace Capa_de_Presentacion
                 V.lblTel2.Text = lblTel2.Text;
                 V.lblCorreo.Text = lblCorreo.Text;
                 V.lblrnc.Text = lblrnc.Text;
+                V.txtIgv.Enabled = Program.isAdminUser;
 
-                if (Program.CargoEmpleadoLogueado != "Administrador")
-                {
-                    V.txtIgv.Enabled = false;
-                }
                 Program.abierto = true;
                 V.Show();
             }
@@ -250,10 +244,7 @@ namespace Capa_de_Presentacion
             if (Program.abierto == false)
             {
                 FrmListadoEmpleados E = new FrmListadoEmpleados();
-                if (Program.CargoEmpleadoLogueado != "Administrador")
-                {
-                    E.btnActualizar.Enabled = false;
-                }
+                    E.btnActualizar.Enabled = Program.isAdminUser;
                 Program.abierto = true;
                 E.Show();
             }

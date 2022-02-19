@@ -713,37 +713,40 @@ namespace Capa_de_Presentacion
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            M.Desconectar();
-            Program.IdProducto = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
-            if (Program.IdProducto > 0)
+            if(Program.isAdminUser)
             {
-                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este Producto.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                M.Desconectar();
+                Program.IdProducto = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
+                if (Program.IdProducto > 0)
                 {
-                    using (SqlCommand cmd = new SqlCommand("eliminarProducto", M.conexion))
+                    if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar este Producto.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Program.IdProducto;
+                        using (SqlCommand cmd = new SqlCommand("eliminarProducto", M.conexion))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Program.IdProducto;
 
-                        M.Conectar();
-                        cmd.ExecuteNonQuery();
-                        M.Desconectar();
+                            M.Conectar();
+                            cmd.ExecuteNonQuery();
+                            M.Desconectar();
 
-                        var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Program.IdProducto);
-                        clsGenericList.listProducto.Remove(producto);
+                            var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Program.IdProducto);
+                            clsGenericList.listProducto.Remove(producto);
 
-                        GetAllProduct();
+                            GetAllProduct();
+                        }
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Por Favor Seleccione un producto antes de eliminarlo");
+                else
+                {
+                    MessageBox.Show("Por Favor Seleccione un producto antes de eliminarlo");
+                }
             }
         }
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
-            button2.Enabled = true;
+            button2.Enabled = Program.isAdminUser;
         }
 
         private void txtBuscarProducto_KeyUp(object sender, KeyEventArgs e)
@@ -760,10 +763,8 @@ namespace Capa_de_Presentacion
         {
             Program.abiertosecundario = false;
             Program.abierto = false;
-            if (Program.CargoEmpleadoLogueado != "Administrador")
-            {
-                btnEditar.Enabled = false;
-            }
+            btnEditar.Enabled = Program.isAdminUser;
+
             this.Close();
         }
 
