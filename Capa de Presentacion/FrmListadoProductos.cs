@@ -712,7 +712,7 @@ namespace Capa_de_Presentacion
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
-            button2.Enabled = true;
+            button2.Enabled = Program.isAdminUser;
         }
 
         private void txtBuscarProducto_KeyUp(object sender, KeyEventArgs e)
