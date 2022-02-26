@@ -1234,7 +1234,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Tipo de Factura: " + cbtipofactura.Text.ToUpper());
             ticket.TextoIzquierda("Numero de Comprobante: " + txtNCF.Text);
             ticket.TextoIzquierda("RNC: " + lblrnc.Text);
-            ticket.TextoExtremos("CAJA #1", "ID VENTA: " + txtIdVenta.Text);
+            ticket.TextoExtremos("CAJA #1", Program.isSaler ? "ID VENTA: " + txtIdVenta.Text : "ID Cotizacion: " + txtIdVenta.Text);
             ticket.lineasGuio();
 
             if (Program.datoscliente != "" && Program.IdCliente == 0)
@@ -1316,12 +1316,21 @@ namespace Capa_de_Presentacion
         {
             if (Program.abiertosecundarias == false)
             {
-                frmListadoVentas F = new frmListadoVentas();
-                F.btnCancelar.Visible = false;
-                Program.abiertosecundarias = false;
-                Program.abierto = false;
-                //Program.whoCallme = "Ventas";
-                F.Show();
+                if(Program.isSaler)
+                {
+                    frmListadoVentas F = new frmListadoVentas();
+                    F.btnCancelar.Visible = false;
+                    Program.abiertosecundarias = false;
+                    Program.abierto = false;
+                    F.Show();
+                }
+                else
+                {
+                    frmlistadodecotizacion F = new frmlistadodecotizacion();
+                    Program.abiertosecundarias = false;
+                    Program.abierto = false;
+                    F.Show();
+                }
             }
         }
 

@@ -125,7 +125,7 @@
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -163,14 +163,14 @@
             this.id.MinimumWidth = 6;
             this.id.Name = "id";
             this.id.ReadOnly = true;
-            this.id.Width = 95;
+            this.id.Width = 107;
             // 
             // nombrecliente
             // 
             this.nombrecliente.HeaderText = "Nombre Cliente";
             this.nombrecliente.MinimumWidth = 6;
             this.nombrecliente.Name = "nombrecliente";
-            this.nombrecliente.Width = 145;
+            this.nombrecliente.Width = 168;
             // 
             // idcliente
             // 
@@ -185,7 +185,7 @@
             this.Tipo.HeaderText = "Tipo Factura";
             this.Tipo.MinimumWidth = 6;
             this.Tipo.Name = "Tipo";
-            this.Tipo.Width = 127;
+            this.Tipo.Width = 144;
             // 
             // idEm
             // 
@@ -200,13 +200,14 @@
             this.restante.HeaderText = "Restante";
             this.restante.MinimumWidth = 6;
             this.restante.Name = "restante";
+            this.restante.Width = 113;
             // 
             // total
             // 
             this.total.HeaderText = "Total";
             this.total.MinimumWidth = 6;
             this.total.Name = "total";
-            this.total.Width = 74;
+            this.total.Width = 80;
             // 
             // fecha
             // 
@@ -242,35 +243,35 @@
             this.fecha.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.fecha.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
             this.fecha.Name = "fecha";
-            this.fecha.Width = 145;
+            this.fecha.Width = 169;
             // 
             // NCF
             // 
             this.NCF.HeaderText = "Tipo Comprobante";
             this.NCF.MinimumWidth = 6;
             this.NCF.Name = "NCF";
-            this.NCF.Width = 168;
+            this.NCF.Width = 191;
             // 
             // nroComprobante
             // 
             this.nroComprobante.HeaderText = "Numero de Comprobante";
             this.nroComprobante.MinimumWidth = 6;
             this.nroComprobante.Name = "nroComprobante";
-            this.nroComprobante.Width = 212;
+            this.nroComprobante.Width = 246;
             // 
             // Direccion
             // 
             this.Direccion.HeaderText = "Direccion";
             this.Direccion.MinimumWidth = 6;
             this.Direccion.Name = "Direccion";
-            this.Direccion.Width = 105;
+            this.Direccion.Width = 119;
             // 
             // rnccliente
             // 
             this.rnccliente.HeaderText = "RNC Cliente";
             this.rnccliente.MinimumWidth = 6;
             this.rnccliente.Name = "rnccliente";
-            this.rnccliente.Width = 121;
+            this.rnccliente.Width = 142;
             // 
             // ultimafecha
             // 
@@ -306,7 +307,7 @@
             this.ultimafecha.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ultimafecha.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
             this.ultimafecha.Name = "ultimafecha";
-            this.ultimafecha.Width = 122;
+            this.ultimafecha.Width = 140;
             // 
             // txtBuscarid
             // 
@@ -323,11 +324,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Red;
             this.label2.Location = new System.Drawing.Point(1399, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 25);
+            this.label2.Size = new System.Drawing.Size(28, 27);
             this.label2.TabIndex = 13;
             this.label2.Text = "X";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -473,7 +474,7 @@
             this.lblDir.ForeColor = System.Drawing.Color.Black;
             this.lblDir.Location = new System.Drawing.Point(1587, 584);
             this.lblDir.Name = "lblDir";
-            this.lblDir.Size = new System.Drawing.Size(76, 17);
+            this.lblDir.Size = new System.Drawing.Size(73, 16);
             this.lblDir.TabIndex = 108;
             this.lblDir.Text = "Direccion";
             this.lblDir.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -484,7 +485,7 @@
             this.lblLogo.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLogo.Location = new System.Drawing.Point(1584, 549);
             this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(65, 29);
+            this.lblLogo.Size = new System.Drawing.Size(61, 27);
             this.lblLogo.TabIndex = 107;
             this.lblLogo.Text = "logo";
             // 
@@ -639,7 +640,7 @@
             this.vereliminadas.AutoSize = true;
             this.vereliminadas.Location = new System.Drawing.Point(703, 111);
             this.vereliminadas.Name = "vereliminadas";
-            this.vereliminadas.Size = new System.Drawing.Size(124, 21);
+            this.vereliminadas.Size = new System.Drawing.Size(120, 20);
             this.vereliminadas.TabIndex = 120;
             this.vereliminadas.Text = "Ver Eliminadas";
             this.vereliminadas.UseVisualStyleBackColor = true;
@@ -723,7 +724,7 @@
             this.cbPendiente.AutoSize = true;
             this.cbPendiente.Location = new System.Drawing.Point(958, 87);
             this.cbPendiente.Name = "cbPendiente";
-            this.cbPendiente.Size = new System.Drawing.Size(101, 21);
+            this.cbPendiente.Size = new System.Drawing.Size(97, 20);
             this.cbPendiente.TabIndex = 158;
             this.cbPendiente.Text = "Pendientes";
             this.cbPendiente.UseVisualStyleBackColor = true;
@@ -755,7 +756,7 @@
             this.cktipofactura.AutoSize = true;
             this.cktipofactura.Location = new System.Drawing.Point(355, 83);
             this.cktipofactura.Name = "cktipofactura";
-            this.cktipofactura.Size = new System.Drawing.Size(190, 21);
+            this.cktipofactura.Size = new System.Drawing.Size(177, 20);
             this.cktipofactura.TabIndex = 155;
             this.cktipofactura.Text = "Filtrar por tipo de Factura";
             this.cktipofactura.UseVisualStyleBackColor = true;
@@ -775,7 +776,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(958, 110);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(124, 21);
+            this.checkBox1.Size = new System.Drawing.Size(120, 20);
             this.checkBox1.TabIndex = 152;
             this.checkBox1.Text = "Ver Eliminadas";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -785,7 +786,7 @@
             this.cbtipodocumento.AutoSize = true;
             this.cbtipodocumento.Location = new System.Drawing.Point(608, 83);
             this.cbtipodocumento.Name = "cbtipodocumento";
-            this.cbtipodocumento.Size = new System.Drawing.Size(169, 21);
+            this.cbtipodocumento.Size = new System.Drawing.Size(159, 20);
             this.cbtipodocumento.TabIndex = 151;
             this.cbtipodocumento.Text = "Filtrar por tipo de NCF";
             this.cbtipodocumento.UseVisualStyleBackColor = true;
@@ -840,7 +841,7 @@
             this.dataGridView3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;

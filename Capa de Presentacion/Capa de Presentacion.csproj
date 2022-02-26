@@ -111,6 +111,12 @@
     <Compile Include="frmLimitantesNCF.Designer.cs">
       <DependentUpon>frmLimitantesNCF.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmlistadodecotizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmlistadodecotizacion.Designer.cs">
+      <DependentUpon>frmlistadodecotizacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmListadoUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -249,6 +255,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmLimitantesNCF.resx">
       <DependentUpon>frmLimitantesNCF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmlistadodecotizacion.resx">
+      <DependentUpon>frmlistadodecotizacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmListadoProductos.aa.resx">
       <DependentUpon>FrmListadoProductos.cs</DependentUpon>
