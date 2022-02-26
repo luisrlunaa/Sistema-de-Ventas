@@ -71,8 +71,10 @@ namespace Capa_de_Presentacion
                         {
                             if (DevComponents.DotNetBar.MessageBoxEx.Show("Licencia del producto ha Cadudado, Favor ponerse en contacto con su suplidor para Renovar la misma, Desea Renovar Ahora?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                             {
+                                FrmLogin login = new FrmLogin();
                                 frmRenovar renovar = new frmRenovar();
                                 renovar.Show();
+                                login.Hide();
                             }
                         }
                         else
@@ -95,7 +97,7 @@ namespace Capa_de_Presentacion
                             else if (rbNCF.Checked)
                             {
                                 RecuperarDatosSesion();
-                                if (Program.CargoEmpleadoLogueado == "Administrador")
+                                if (Program.isAdminUser)
                                 {
                                     Program.LoginStatus = "NCF";
                                     MP.Show();
@@ -144,7 +146,7 @@ namespace Capa_de_Presentacion
                                     else if (rbNCF.Checked)
                                     {
                                         RecuperarDatosSesion();
-                                        if (Program.CargoEmpleadoLogueado == "Administrador")
+                                        if (Program.isAdminUser)
                                         {
                                             Program.LoginStatus = "NCF";
                                         }
@@ -329,7 +331,7 @@ namespace Capa_de_Presentacion
                 row = dt.Rows[0];
                 Program.IdEmpleadoLogueado = Convert.ToInt32(row[0].ToString());
                 Program.NombreEmpleadoLogueado = row[1].ToString();
-                Program.CargoEmpleadoLogueado = row[2].ToString();
+                Program.isAdminUser = row[2].ToString() == "Administrador";
             }
         }
         private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)

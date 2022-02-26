@@ -1,4 +1,5 @@
-﻿namespace Capa_de_Presentacion
+﻿
+ namespace Capa_de_Presentacion
 {
     partial class FrmLogin
     {
