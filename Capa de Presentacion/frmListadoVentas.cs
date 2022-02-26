@@ -459,42 +459,43 @@ namespace Capa_de_Presentacion
         private void button1_Click(object sender, EventArgs e)
         {
             var newlist = new List<Venta>();
+            var isSameDate = dtpfecha2.Value.Date == dtpfecha1.Value.Date;
 
             if (txtBuscarid.Text != "" && txtBuscarid.Text != null)
             {
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
+                    newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
+                    newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower()) && x.Restante > 0).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
+                    newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.Tipofactura == cbtipofactura.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
+                    newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
+                    newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower()) && x.Restante > 0).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
+                    newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
@@ -503,37 +504,37 @@ namespace Capa_de_Presentacion
             {
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
+                    newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
+                    newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.Restante > 0).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
+                    newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.Tipofactura == cbtipofactura.Text && x.borrador == borrado).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
+                    newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cbPendiente.Checked == true)
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
+                    newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.borrador == borrado && x.Restante > 0).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else
                 {
-                    newlist = clsGenericList.listVentas.Where(x => x.FechaVenta.Date >= dtpfecha1.Value.Date && x.FechaVenta.Date <= dtpfecha2.Value.Date
+                    newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date
                     && x.borrador == borrado).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
