@@ -35,6 +35,7 @@ namespace Capa_de_Presentacion
             }
             M.Desconectar();
         }
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -133,25 +134,7 @@ namespace Capa_de_Presentacion
                                         else
                                         {
                                             M.Desconectar();
-                                            using (SqlCommand cmd = new SqlCommand("abrir_caja", M.conexion))
-                                            {
-                                                string id_var = "";
-                                                if (Program.idcaja.ToString() == "" || Program.idcaja.ToString() == null)
-                                                    id_var = "0";
-                                                else
-                                                    id_var = Program.idcaja.ToString();
-
-                                                cmd.CommandType = CommandType.StoredProcedure;
-
-                                                cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
-                                                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = 0;
-                                                cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
-
-                                                M.Conectar();
-                                                cmd.ExecuteNonQuery();
-                                                M.Desconectar();
-                                            }
-
+                                            insertCaja();
                                             obtenerFiladeCaja();
                                             RecuperarDatosSesion();
 
@@ -273,7 +256,8 @@ namespace Capa_de_Presentacion
 
             if (leer.Read() == true)
             {
-                Program.idcaja = Convert.ToInt32(leer["id_caja"]);
+                var id = string.IsNullOrWhiteSpace(leer["id_caja"].ToString()) ? 0 : Convert.ToInt32(leer["id_caja"]);
+                Program.idcaja = id;
                 Program.MontoInicial = Convert.ToDecimal(leer["monto_inicial"]);
             }
             M.Desconectar();
@@ -340,29 +324,27 @@ namespace Capa_de_Presentacion
             circularProgressBar1.Hide();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void insertCaja()
         {
-            M.Desconectar();
-            FrmMenuPrincipal MP = new FrmMenuPrincipal();
             using (SqlCommand cmd = new SqlCommand("abrir_caja", M.conexion))
             {
-                string id_var = "";
-                if (Program.idcaja.ToString() == "" || Program.idcaja.ToString() == null)
-                    id_var = "0";
-                else
-                    id_var = Program.idcaja.ToString();
-
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
-                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontoinicial.Text);
+                cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
+                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = string.IsNullOrWhiteSpace(txtmontoinicial.Text) ? 0 : Convert.ToDecimal(txtmontoinicial.Text);
                 cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
                 M.Conectar();
                 cmd.ExecuteNonQuery();
                 M.Desconectar();
             }
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            M.Desconectar();
+            FrmMenuPrincipal MP = new FrmMenuPrincipal();
+            insertCaja();
             obtenerFiladeCaja();
             RecuperarDatosSesion();
             Program.idcaja = Program.idcaja + 1;
