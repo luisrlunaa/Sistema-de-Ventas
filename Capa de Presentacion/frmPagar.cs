@@ -44,19 +44,7 @@ namespace Capa_de_Presentacion
         }
         public void llenaridP()
         {
-            Cx.Desconectar();
-            string cadSql = "select top(1) id_caja from Caja order by id_caja desc";
-
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.Conectar();
-
-            SqlDataReader leer = comando.ExecuteReader();
-
-            if (leer.Read() == true)
-            {
-                txtId.Text = leer["id_caja"].ToString();
-            }
-            Cx.Desconectar();
+           txtId.Text = Program.idcaja.ToString();
         }
         private void button4_Click(object sender, EventArgs e)
         {
