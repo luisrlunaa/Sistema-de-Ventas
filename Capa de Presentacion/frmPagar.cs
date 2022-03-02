@@ -40,19 +40,7 @@ namespace Capa_de_Presentacion
 
         public void llenarid()
         {
-            Cx.Desconectar();
-            string cadSql = "select top(1) id_caja  from Caja order by id_caja desc";
-
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.Conectar();
-
-            SqlDataReader leer = comando.ExecuteReader();
-
-            if (leer.Read() == true)
-            {
-                txtId.Text = leer["id_caja"].ToString();
-            }
-            Cx.Desconectar();
+           txtId.Text = Program.idcaja.ToString();
         }
         public void llenaridP()
         {
@@ -137,7 +125,6 @@ namespace Capa_de_Presentacion
                     else
                         Program.idPago = Convert.ToInt32(txtIdp.Text);
                     Program.Devuelta = Convert.ToDecimal(txtDev.Text);
-                    Program.idcaja = Convert.ToInt32(txtId.Text);
                     Program.Fechapago = dateTimePicker1.Text;
 
                     decimal dev = decimal.Parse(txtDev.Text);

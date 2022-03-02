@@ -358,7 +358,7 @@ namespace Capa_de_Presentacion
             if (leer.Read() == true)
             {
                 lbldeudas.Text = leer["deuda"].ToString();
-                lblidcaja.Text = leer["id_caja"].ToString();
+                lblidcaja.Text = Program.idcaja.ToString();
             }
             Cx.Desconectar();
         }

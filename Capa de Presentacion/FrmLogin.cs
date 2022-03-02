@@ -18,7 +18,6 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        public string idCaja;
         public DateTime FechaVenc;
         bool tienefila = false;
         public void obtenerFiladeCaja()
@@ -172,25 +171,7 @@ namespace Capa_de_Presentacion
                                                 else
                                                 {
                                                     Cx.Desconectar();
-                                                    using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
-                                                    {
-                                                        string id_var = "";
-                                                        if (Program.idcaja.ToString() == "" || Program.idcaja.ToString() == null)
-                                                            id_var = "0";
-                                                        else
-                                                            id_var = Program.idcaja.ToString();
-
-                                                        cmd.CommandType = CommandType.StoredProcedure;
-
-                                                        cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
-                                                        cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = 0;
-                                                        cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
-
-                                                        Cx.Conectar();
-                                                        cmd.ExecuteNonQuery();
-                                                        Cx.Desconectar();
-                                                    }
-
+                                                    insertCaja();
                                                     obtenerFiladeCaja();
                                                     RecuperarDatosSesion();
 
@@ -223,6 +204,7 @@ namespace Capa_de_Presentacion
                 txtUser.Focus();
             }
         }
+
         public void CargarListados()
         {
             #region Listado Ventas
@@ -304,6 +286,7 @@ namespace Capa_de_Presentacion
             }
             #endregion
         }
+
         public void llenarid()
         {
             Cx.Desconectar();
@@ -316,7 +299,8 @@ namespace Capa_de_Presentacion
 
             if (leer.Read() == true)
             {
-                idCaja = leer["id_caja"].ToString();
+                var id = string.IsNullOrWhiteSpace(leer["id_caja"].ToString()) ? 0 : Convert.ToInt32(leer["id_caja"]);
+                Program.idcaja = id;
             }
             Cx.Desconectar();
         }
@@ -334,6 +318,7 @@ namespace Capa_de_Presentacion
                 Program.isAdminUser = row[2].ToString() == "Administrador";
             }
         }
+
         private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
@@ -341,6 +326,7 @@ namespace Capa_de_Presentacion
                 btnIngresar.PerformClick();
             }
         }
+
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             frmRecuperar r = new frmRecuperar();
@@ -363,8 +349,10 @@ namespace Capa_de_Presentacion
             }
             Cx.Desconectar();
         }
+
         private void FrmLogin_Load(object sender, EventArgs e)
         {
+            Program.idcaja = 0;
             panelmontoinicial.Visible = true;
             fechaVenc();
             llenarid();
@@ -372,33 +360,31 @@ namespace Capa_de_Presentacion
             circularProgressBar1.Hide();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void insertCaja()
         {
-            Cx.Desconectar();
-            FrmMenuPrincipal MP = new FrmMenuPrincipal();
             using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
             {
-                string id_var = "";
-                if (idCaja == "" || idCaja == null)
-                    id_var = "0";
-                else
-                    id_var = idCaja;
-
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
-                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontoinicial.Text);
+                cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
+                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = string.IsNullOrWhiteSpace(txtmontoinicial.Text) ? 0 : Convert.ToDecimal(txtmontoinicial.Text);
                 cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
                 Cx.Conectar();
                 cmd.ExecuteNonQuery();
                 Cx.Desconectar();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Cx.Desconectar();
+            FrmMenuPrincipal MP = new FrmMenuPrincipal();
+            insertCaja();
             RecuperarDatosSesion();
             MP.Show();
             this.Hide();
         }
-
 
         private void label5_Click_1(object sender, EventArgs e)
         {

@@ -41,7 +41,7 @@ namespace Capa_de_Presentacion
             if (leer.Read() == true)
             {
                 txtmonto_inicial.Text = leer["monto_inicial"].ToString();
-                txtBuscarCaja.Text = leer["id_caja"].ToString();
+                txtBuscarCaja.Text = Program.idcaja.ToString();
             }
             Cx.Desconectar();
         }
