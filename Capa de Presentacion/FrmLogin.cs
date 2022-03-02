@@ -318,6 +318,7 @@ namespace Capa_de_Presentacion
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {
+            Program.idcaja = 0;
             fechaVenc();
             llenarid();
             obtenerFiladeCaja();
