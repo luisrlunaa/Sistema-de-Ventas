@@ -18,7 +18,6 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        public string idCaja;
         public DateTime FechaVenc;
         bool tienefila = false;
         public void obtenerFiladeCaja()
@@ -132,25 +131,7 @@ namespace Capa_de_Presentacion
                                         else
                                         {
                                             Cx.Desconectar();
-                                            using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
-                                            {
-                                                string id_var = "";
-                                                if (Program.idcaja.ToString() == "" || Program.idcaja.ToString() == null)
-                                                    id_var = "0";
-                                                else
-                                                    id_var = Program.idcaja.ToString();
-
-                                                cmd.CommandType = CommandType.StoredProcedure;
-
-                                                cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
-                                                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = 0;
-                                                cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
-
-                                                Cx.Conectar();
-                                                cmd.ExecuteNonQuery();
-                                                Cx.Desconectar();
-                                            }
-
+                                            insertCaja();
                                             obtenerFiladeCaja();
                                             RecuperarDatosSesion();
 
@@ -273,11 +254,13 @@ namespace Capa_de_Presentacion
 
             if (leer.Read() == true)
             {
-                idCaja = leer["id_caja"].ToString();
+                var id = string.IsNullOrWhiteSpace(leer["id_caja"].ToString()) ? 0 : Convert.ToInt32(leer["id_caja"]);
+                Program.idcaja = id;
                 Cx.Desconectar();
             }
             Cx.Desconectar();
         }
+
         public void RecuperarDatosSesion()
         {
             DataRow row;
@@ -291,6 +274,7 @@ namespace Capa_de_Presentacion
                 Program.isAdminUser = row[2].ToString() == "Administrador";
             }
         }
+
         private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
@@ -304,6 +288,7 @@ namespace Capa_de_Presentacion
             frmRecuperar r = new frmRecuperar();
             r.Show();
         }
+
         public void fechaVenc()
         {
             Cx.Desconectar();
@@ -320,6 +305,7 @@ namespace Capa_de_Presentacion
             }
             Cx.Desconectar();
         }
+
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             fechaVenc();
@@ -331,24 +317,7 @@ namespace Capa_de_Presentacion
         {
             Cx.Desconectar();
             FrmMenuPrincipal MP = new FrmMenuPrincipal();
-            using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
-            {
-                string id_var = "";
-                if (idCaja == "" || idCaja == null)
-                    id_var = "0";
-                else
-                    id_var = idCaja;
-
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = id_var;
-                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontoinicial.Text);
-                cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
-
-                Cx.Conectar();
-                cmd.ExecuteNonQuery();
-                Cx.Desconectar();
-            }
+            insertCaja();
             RecuperarDatosSesion();
             MP.Show();
             this.Hide();
@@ -359,6 +328,22 @@ namespace Capa_de_Presentacion
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                 Application.Exit();
+            }
+        }
+
+        public void insertCaja()
+        {
+            using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
+                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = string.IsNullOrWhiteSpace(txtmontoinicial.Text) ? 0 : Convert.ToDecimal(txtmontoinicial.Text);
+                cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
+
+                Cx.Conectar();
+                cmd.ExecuteNonQuery();
+                Cx.Desconectar();
             }
         }
 

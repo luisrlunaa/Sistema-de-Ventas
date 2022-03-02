@@ -28,7 +28,7 @@ namespace Capa_de_Presentacion
         public void llenarid()
         {
             Cx.Desconectar();
-            string cadSql = "select top(1) id_caja,monto_inicial from Caja order by id_caja desc";
+            string cadSql = "select top(1) monto_inicial from Caja order by id_caja desc";
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
             Cx.Conectar();
@@ -38,7 +38,7 @@ namespace Capa_de_Presentacion
             if (leer.Read() == true)
             {
                 txtmonto_inicial.Text = leer["monto_inicial"].ToString();
-                txtBuscarCaja.Text = leer["id_caja"].ToString();
+                txtBuscarCaja.Text = Program.idcaja.ToString();
             }
             Cx.Desconectar();
         }
