@@ -1380,15 +1380,17 @@ namespace Capa_de_Presentacion
                 cmd.ExecuteNonQuery();
                 M.Desconectar();
 
-                var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
-                venta.Restante = restante;
+                if(clsGenericList.idsVentas.Contains(Program.Id))
+                {
+                    var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
+                    venta.Restante = restante;
 
-                Venta ventaup = new Venta();
-                ventaup = venta;
+                    Venta ventaup = new Venta();
+                    ventaup = venta;
 
-                clsGenericList.listVentas.Remove(venta);
-                clsGenericList.listVentas.Add(ventaup);
-
+                    clsGenericList.listVentas.Remove(venta);
+                    clsGenericList.listVentas.Add(ventaup);
+                }
             }
 
             using (SqlCommand cmd2 = new SqlCommand("Actualizarpagos_re", M.conexion))

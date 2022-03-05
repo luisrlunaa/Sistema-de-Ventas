@@ -62,7 +62,7 @@ namespace Capa_de_Presentacion
             txtMarca.Text = Program.marca;
             txtmodelo.Text = Program.modelo;
             cbtipo.Text = Program.descripcion;
-            ; txtaros.Text = Program.Aros;
+            txtaros.Text = Program.Aros;
             txtTotal.Text = Convert.ToString(Program.total);
             txtnota.Text = Program.nota;
             lblidAliBal.Text = Program.Id + "";

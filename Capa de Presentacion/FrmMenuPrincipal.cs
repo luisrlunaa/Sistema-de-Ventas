@@ -78,7 +78,7 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                if (Program.isAdminUser)
+                if (!Program.isAdminUser)
                 {
                     btnProductos.Visible = true;
                     btnClientes.Visible = true;
@@ -528,45 +528,34 @@ namespace Capa_de_Presentacion
             }
         }
 
-        bool cotizar = true;
         private void btnCotizar_Click(object sender, EventArgs e)
         {
-            if (cotizar)
+            Program.openpanel = 0;
+            panel1.Size = new System.Drawing.Size(61, 606);
+            button7.Text = ">>";
+            if (Program.abierto == false)
             {
-                if (DevComponents.DotNetBar.MessageBoxEx.Show("Debe ponerse en contacto con su suplidor para adquirir este servicio", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Warning) == DialogResult.OK)
+                frmCotizar V = new frmCotizar();
+                V.txtUsu.Text = lblUsuario.Text;
+                V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
+                V.lblLogo.Text = lblLogo.Text;
+                V.lblDir.Text = lblDir.Text;
+                V.lblTel1.Text = lblTel1.Text;
+                V.lblTel2.Text = lblTel2.Text;
+                V.lblCorreo.Text = lblCorreo.Text;
+                V.lblrnc.Text = lblrnc.Text;
+
+                if (!Program.isAdminUser)
                 {
-
+                    V.txtPVenta.Enabled = false;
+                    V.txtIgv.Enabled = false;
+                    V.txtDivisor.Enabled = false;
+                    V.txtPorcentaje.Enabled = false;
                 }
-            }
-            else
-            {
-                Program.openpanel = 0;
-                panel1.Size = new System.Drawing.Size(61, 606);
-                button7.Text = ">>";
-                if (Program.abierto == false)
-                {
-                    frmCotizar V = new frmCotizar();
-                    V.txtUsu.Text = lblUsuario.Text;
-                    V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
-                    V.lblLogo.Text = lblLogo.Text;
-                    V.lblDir.Text = lblDir.Text;
-                    V.lblTel1.Text = lblTel1.Text;
-                    V.lblTel2.Text = lblTel2.Text;
-                    V.lblCorreo.Text = lblCorreo.Text;
-                    V.lblrnc.Text = lblrnc.Text;
 
-                    if (!Program.isAdminUser)
-                    {
-                        V.txtPVenta.Enabled = false;
-                        V.txtIgv.Enabled = false;
-                        V.txtDivisor.Enabled = false;
-                        V.txtPorcentaje.Enabled = false;
-                    }
-
-                    Program.abierto = true;
-                    panel3.Hide();
-                    V.Show();
-                }
+                Program.abierto = true;
+                panel3.Hide();
+                V.Show();
             }
         }
 

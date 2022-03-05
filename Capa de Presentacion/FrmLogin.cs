@@ -174,6 +174,11 @@ namespace Capa_de_Presentacion
         public void CargarListados()
         {
             #region Listado Ventas
+            if(clsGenericList.listVentasPorCategoria is null)
+            {
+                clsGenericList.listVentasPorCategoria = new List<CapaLogicaNegocio.ViewModel.VentasPorCategoria>();
+            }
+
             if (clsGenericList.listVentas is null)
             {
                 clsGenericList.idsVentas = new List<int>();
