@@ -190,6 +190,7 @@ namespace Capa_de_Presentacion
             }
             M.Desconectar();
         }
+
         public void llenar()
         {
             M.Desconectar();

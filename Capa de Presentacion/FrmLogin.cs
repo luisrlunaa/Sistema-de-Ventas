@@ -186,7 +186,7 @@ namespace Capa_de_Presentacion
 
                 try
                 {
-                    clsGenericList.listVentas = V.GetListadoVentas(GetWeek(), null);
+                    clsGenericList.listVentas = V.GetListadoVentas(GetWeek(), DateTime.Now);
                     clsGenericList.listVentas.ForEach(x => clsGenericList.idsVentas.Add(x.IdVenta));
                 }
                 catch (Exception ex)

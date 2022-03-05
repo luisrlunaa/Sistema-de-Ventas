@@ -17,12 +17,10 @@ namespace Capa_de_Presentacion
 {
     public partial class frmListadoVentas : DevComponents.DotNetBar.Metro.MetroForm
     {
-
         public frmListadoVentas()
         {
             InitializeComponent();
         }
-
         clsManejador M = new clsManejador();
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
@@ -455,18 +453,22 @@ namespace Capa_de_Presentacion
         {
             var newlist = new List<Venta>();
             var isSameDate = dtpfecha2.Value.Date == dtpfecha1.Value.Date;
-            var isMoreThanWeek = !isSameDate && (dtpfecha2.Value.Date.DayOfYear - dtpfecha1.Value.Date.DayOfYear > 8);
+            var isMoreThanWeek = !isSameDate && ((dtpfecha2.Value.Date.DayOfYear - dtpfecha1.Value.Date.DayOfYear) > 8);
             var isDiferentWeek =   dtpfecha1.Value.Date < DateTime.Today.AddDays(-8);
+            var (date1, date2) = GetDaysToFilter(isSameDate, dtpfecha1.Value.Date, dtpfecha2.Value.Date);
 
             var searchOnDB = isMoreThanWeek || isDiferentWeek;
             if (searchOnDB)
             {
                 clsVentas V = new clsVentas();
-                newlist = V.GetListadoVentas(isSameDate ? dtpfecha1.Value.Date : dtpfecha1.Value.Date, dtpfecha2.Value.Date);
+                newlist = V.GetListadoVentas(date1,date2);
             }
             else
             {
-                newlist = clsGenericList.listVentas.Where(x => isSameDate ? x.FechaVenta >= dtpfecha1.Value.Date : x.FechaVenta >= dtpfecha1.Value.Date && x.FechaVenta <= dtpfecha2.Value.Date).ToList();
+                newlist = clsGenericList.listVentas.Where(x => isSameDate 
+                                                          ? x.FechaVenta == date1 && x.FechaVenta < date2
+                                                          : x.FechaVenta >= date1 && x.FechaVenta <= date2)
+                                                          .ToList();
             }
             
             if (!string.IsNullOrWhiteSpace(txtBuscarid.Text))
@@ -927,6 +929,15 @@ namespace Capa_de_Presentacion
             {
                 validar.sololetras(e);
             }
+        }
+        private (DateTime, DateTime) GetDaysToFilter(bool isSameDate, DateTime date1, DateTime date2)
+        {
+            if (isSameDate)
+            {
+                return (date1, date2.AddDays(1));
+            }
+
+            return (date1, date2);
         }
     }
 }
