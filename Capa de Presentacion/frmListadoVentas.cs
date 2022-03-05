@@ -722,8 +722,11 @@ namespace Capa_de_Presentacion
                                     cmd.ExecuteNonQuery();
                                     M.Desconectar();
 
-                                    var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
-                                    clsGenericList.listVentas.Remove(venta);
+                                    if(clsGenericList.idsVentas.Contains(Program.Id))
+                                    {
+                                        var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
+                                        clsGenericList.listVentas.Remove(venta);
+                                    }
 
                                     Program.Id = 0;
                                     Program.tipo = "";
