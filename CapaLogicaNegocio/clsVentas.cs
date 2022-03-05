@@ -1,6 +1,8 @@
 ﻿using CapaEnlaceDatos;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace CapaLogicaNegocio
 {
@@ -52,6 +54,62 @@ namespace CapaLogicaNegocio
         {
             return M.Listado("ListadoVentas", null);
         }
+
+        public List<Venta> GetListadoVentas(DateTime date , DateTime? date1)
+        {
+            M.Desconectar();
+            var newlist = new List<Venta>();
+            var hasTwoDate = date1 != null;
+
+            try
+            {
+                //variable de tipo Sqlcommand
+                SqlCommand comando = new SqlCommand();
+                comando.Connection = M.conexion;
+                //variable SqlDataReader para leer los datos
+                SqlDataReader dr;
+                //declaramos el comando para realizar la busqueda
+                comando.CommandText = hasTwoDate
+                              ? "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) order by IdVenta"
+                              : "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) order by IdVenta";
+                
+                //especificamos que es de tipo Text
+                comando.CommandType = CommandType.Text;
+                //sustituyendo variables por data
+                comando.Parameters.AddWithValue("@fecha", date);
+                if (hasTwoDate)
+                    comando.Parameters.AddWithValue("@fecha1", date1);
+                //se abre la conexion
+                M.Conectar();
+                //a la variable DataReader asignamos  el la variable de tipo SqlCommand
+                dr = comando.ExecuteReader();
+                while (dr.Read())
+                {
+                    Venta venta = new Venta();
+                    venta.IdVenta = dr.GetInt32(dr.GetOrdinal("IdVenta"));
+                    venta.IdEmpleado = dr.GetInt32(dr.GetOrdinal("IdEmpleado"));
+                    venta.TipoDocumento = dr.GetString(dr.GetOrdinal("TipoDocumento"));
+                    venta.NroComprobante = dr.GetString(dr.GetOrdinal("NroDocumento"));
+                    venta.Total = dr.GetDecimal(dr.GetOrdinal("Total"));
+                    venta.Tipofactura = dr.GetString(dr.GetOrdinal("Tipofactura"));
+                    venta.Restante = dr.GetDecimal(dr.GetOrdinal("Restante"));
+                    venta.FechaVenta = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
+                    venta.NombreCliente = dr.GetString(dr.GetOrdinal("NombreCliente"));
+                    venta.UltimaFechaPago = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
+                    venta.borrador = dr.GetBoolean(dr.GetOrdinal("borrado")) ? 1 : 0;
+
+                    newlist.Add(venta);
+                }
+                M.Desconectar();
+
+                return newlist;
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return newlist;
+            }
+        }
     }
 
     public class Venta
@@ -62,13 +120,12 @@ namespace CapaLogicaNegocio
         public string Serie { get; set; }
         public string NroComprobante { get; set; }
         public string TipoDocumento { get; set; }
-        public DateTime FechaVenta { get; set; }
+        public DateTime? FechaVenta { get; set; }
         public decimal Total { get; set; }
         public string Tipofactura { get; set; }
         public decimal Restante { get; set; }
         public string NombreCliente { get; set; }
-        public DateTime UltimaFechaPago { get; set; }
-        public int borrador { get; set; }
+        public DateTime? UltimaFechaPago { get; set; }
+        public int? borrador { get; set; }
     }
-
 }

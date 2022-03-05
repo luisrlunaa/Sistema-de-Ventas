@@ -35,24 +35,24 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
             this.rbNCF = new System.Windows.Forms.RadioButton();
+            this.panelmontoinicial = new System.Windows.Forms.Panel();
             this.rbVentas = new System.Windows.Forms.RadioButton();
+            this.button1 = new System.Windows.Forms.Button();
             this.rbInventario = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtmontoinicial = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.btnIngresar = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtmontoinicial = new System.Windows.Forms.TextBox();
-            this.panelmontoinicial = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -65,7 +65,7 @@
             this.label1.Location = new System.Drawing.Point(135, 25);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 24);
+            this.label1.Size = new System.Drawing.Size(82, 22);
             this.label1.TabIndex = 0;
             this.label1.Text = "Usuario :";
             // 
@@ -76,7 +76,7 @@
             this.label2.Location = new System.Drawing.Point(135, 85);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 24);
+            this.label2.Size = new System.Drawing.Size(66, 22);
             this.label2.TabIndex = 1;
             this.label2.Text = "Clave :";
             // 
@@ -107,6 +107,38 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
+            // circularProgressBar1
+            // 
+            this.circularProgressBar1.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
+            this.circularProgressBar1.AnimationSpeed = 500;
+            this.circularProgressBar1.BackColor = System.Drawing.Color.Transparent;
+            this.circularProgressBar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.circularProgressBar1.ForeColor = System.Drawing.Color.Black;
+            this.circularProgressBar1.InnerColor = System.Drawing.Color.Teal;
+            this.circularProgressBar1.InnerMargin = 2;
+            this.circularProgressBar1.InnerWidth = -1;
+            this.circularProgressBar1.Location = new System.Drawing.Point(70, 25);
+            this.circularProgressBar1.MarqueeAnimationSpeed = 2000;
+            this.circularProgressBar1.Name = "circularProgressBar1";
+            this.circularProgressBar1.OuterColor = System.Drawing.Color.Teal;
+            this.circularProgressBar1.OuterMargin = -25;
+            this.circularProgressBar1.OuterWidth = 26;
+            this.circularProgressBar1.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(229)))));
+            this.circularProgressBar1.ProgressWidth = 25;
+            this.circularProgressBar1.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.circularProgressBar1.Size = new System.Drawing.Size(211, 213);
+            this.circularProgressBar1.StartAngle = 270;
+            this.circularProgressBar1.SubscriptColor = System.Drawing.Color.Black;
+            this.circularProgressBar1.SubscriptMargin = new System.Windows.Forms.Padding(10, 50, 0, 100);
+            this.circularProgressBar1.SubscriptText = "";
+            this.circularProgressBar1.SuperscriptColor = System.Drawing.Color.Black;
+            this.circularProgressBar1.SuperscriptMargin = new System.Windows.Forms.Padding(0, 50, 0, 0);
+            this.circularProgressBar1.SuperscriptText = "%";
+            this.circularProgressBar1.TabIndex = 26;
+            this.circularProgressBar1.Text = "0";
+            this.circularProgressBar1.TextMargin = new System.Windows.Forms.Padding(8, 8, 0, 0);
+            this.circularProgressBar1.Value = 68;
+            // 
             // rbNCF
             // 
             this.rbNCF.AutoSize = true;
@@ -118,6 +150,13 @@
             this.rbNCF.TabStop = true;
             this.rbNCF.Text = "Configurar NCF";
             this.rbNCF.UseVisualStyleBackColor = true;
+            // 
+            // panelmontoinicial
+            // 
+            this.panelmontoinicial.Location = new System.Drawing.Point(57, 337);
+            this.panelmontoinicial.Name = "panelmontoinicial";
+            this.panelmontoinicial.Size = new System.Drawing.Size(235, 92);
+            this.panelmontoinicial.TabIndex = 22;
             // 
             // rbVentas
             // 
@@ -131,6 +170,16 @@
             this.rbVentas.Text = "Revisión de Ventas";
             this.rbVentas.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(204, 375);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(56, 31);
+            this.button1.TabIndex = 21;
+            this.button1.Text = "Abrir";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // rbInventario
             // 
             this.rbInventario.AutoSize = true;
@@ -143,14 +192,35 @@
             this.rbInventario.Text = "Entrar Inventario";
             this.rbInventario.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
+            this.label4.Location = new System.Drawing.Point(77, 348);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(176, 22);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Monto Inicial de Caja";
+            // 
+            // txtmontoinicial
+            // 
+            this.txtmontoinicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtmontoinicial.Location = new System.Drawing.Point(81, 376);
+            this.txtmontoinicial.Margin = new System.Windows.Forms.Padding(4);
+            this.txtmontoinicial.Name = "txtmontoinicial";
+            this.txtmontoinicial.Size = new System.Drawing.Size(113, 28);
+            this.txtmontoinicial.TabIndex = 20;
+            this.txtmontoinicial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel1.LinkColor = System.Drawing.Color.White;
             this.linkLabel1.Location = new System.Drawing.Point(88, 209);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(160, 16);
+            this.linkLabel1.Size = new System.Drawing.Size(143, 16);
             this.linkLabel1.TabIndex = 6;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Recuperar Contraseña";
@@ -179,7 +249,7 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.Location = new System.Drawing.Point(81, 113);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
             this.txtPassword.Name = "txtPassword";
@@ -191,7 +261,7 @@
             // 
             // txtUser
             // 
-            this.txtUser.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUser.Location = new System.Drawing.Point(81, 53);
             this.txtUser.Margin = new System.Windows.Forms.Padding(4);
             this.txtUser.Name = "txtUser";
@@ -206,47 +276,9 @@
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(3, 6);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 17);
+            this.label3.Size = new System.Drawing.Size(84, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Version 1.8";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(204, 375);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(56, 31);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "Abrir";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.label4.Location = new System.Drawing.Point(77, 348);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(184, 24);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "Monto Inicial de Caja";
-            // 
-            // txtmontoinicial
-            // 
-            this.txtmontoinicial.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtmontoinicial.Location = new System.Drawing.Point(81, 376);
-            this.txtmontoinicial.Margin = new System.Windows.Forms.Padding(4);
-            this.txtmontoinicial.Name = "txtmontoinicial";
-            this.txtmontoinicial.Size = new System.Drawing.Size(113, 28);
-            this.txtmontoinicial.TabIndex = 20;
-            this.txtmontoinicial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // panelmontoinicial
-            // 
-            this.panelmontoinicial.Location = new System.Drawing.Point(57, 337);
-            this.panelmontoinicial.Name = "panelmontoinicial";
-            this.panelmontoinicial.Size = new System.Drawing.Size(235, 92);
-            this.panelmontoinicial.TabIndex = 22;
             // 
             // pictureBox2
             // 
@@ -272,11 +304,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label5.ForeColor = System.Drawing.Color.Red;
             this.label5.Location = new System.Drawing.Point(378, 3);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(22, 23);
+            this.label5.Size = new System.Drawing.Size(26, 25);
             this.label5.TabIndex = 26;
             this.label5.Text = "X";
             this.label5.Click += new System.EventHandler(this.label5_Click_1);
@@ -285,38 +317,6 @@
             // 
             this.timer1.Interval = 250;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // circularProgressBar1
-            // 
-            this.circularProgressBar1.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
-            this.circularProgressBar1.AnimationSpeed = 500;
-            this.circularProgressBar1.BackColor = System.Drawing.Color.Transparent;
-            this.circularProgressBar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.circularProgressBar1.ForeColor = System.Drawing.Color.Black;
-            this.circularProgressBar1.InnerColor = System.Drawing.Color.Teal;
-            this.circularProgressBar1.InnerMargin = 2;
-            this.circularProgressBar1.InnerWidth = -1;
-            this.circularProgressBar1.Location = new System.Drawing.Point(70, 25);
-            this.circularProgressBar1.MarqueeAnimationSpeed = 2000;
-            this.circularProgressBar1.Name = "circularProgressBar1";
-            this.circularProgressBar1.OuterColor = System.Drawing.Color.Teal;
-            this.circularProgressBar1.OuterMargin = -25;
-            this.circularProgressBar1.OuterWidth = 26;
-            this.circularProgressBar1.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(229)))));
-            this.circularProgressBar1.ProgressWidth = 25;
-            this.circularProgressBar1.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.circularProgressBar1.Size = new System.Drawing.Size(211, 200);
-            this.circularProgressBar1.StartAngle = 270;
-            this.circularProgressBar1.SubscriptColor = System.Drawing.Color.Black;
-            this.circularProgressBar1.SubscriptMargin = new System.Windows.Forms.Padding(10, 50, 0, 100);
-            this.circularProgressBar1.SubscriptText = "";
-            this.circularProgressBar1.SuperscriptColor = System.Drawing.Color.Black;
-            this.circularProgressBar1.SuperscriptMargin = new System.Windows.Forms.Padding(0, 50, 0, 0);
-            this.circularProgressBar1.SuperscriptText = "%";
-            this.circularProgressBar1.TabIndex = 26;
-            this.circularProgressBar1.Text = "0";
-            this.circularProgressBar1.TextMargin = new System.Windows.Forms.Padding(8, 8, 0, 0);
-            this.circularProgressBar1.Value = 68;
             // 
             // FrmLogin
             // 

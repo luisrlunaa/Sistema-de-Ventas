@@ -122,8 +122,8 @@ namespace Capa_de_Presentacion
             #region productos vendidos por categoria
             if (clsGenericList.listVentas.Count > 0)
             {
-                var fecha1 = clsGenericList.listVentas.FirstOrDefault().FechaVenta;
-                var fecha2 = clsGenericList.listVentas.LastOrDefault().FechaVenta;
+                var fecha1 = clsGenericList.listVentas.FirstOrDefault().FechaVenta.Value;
+                var fecha2 = clsGenericList.listVentas.LastOrDefault().FechaVenta.Value;
                 clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1, fecha2, 0);
             }
             #endregion
