@@ -1,5 +1,6 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
+using CapaLogicaNegocio.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -205,40 +206,30 @@ namespace Capa_de_Presentacion
             }
         }
 
+        public DateTime GetWeek()
+        {
+            var day = DateTime.Today.AddDays(-8);
+            return day;
+        }
+
         public void CargarListados()
         {
             #region Listado Ventas
             if (clsGenericList.listVentas is null)
             {
+                if (clsGenericList.listVentasPorCategoria is null)
+                {
+                    clsGenericList.listVentasPorCategoria = new List<VentasPorCategoria>();
+                }
+
                 clsGenericList.listVentas = new List<Venta>();
                 clsGenericList.idsVentas = new List<int>();
-
                 clsVentas V = new clsVentas();
-                DataTable dtV = new DataTable();
-                dtV = V.Listado();
 
                 try
                 {
-                    foreach (DataRow reader in dtV.Rows)
-                    {
-                        Venta venta = new Venta();
-                        venta.IdVenta = reader["IdVenta"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdVenta"]);
-                        venta.IdEmpleado = reader["IdEmpleado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdEmpleado"]);
-                        venta.TipoDocumento = reader["TipoDocumento"] == DBNull.Value ? string.Empty : reader["TipoDocumento"].ToString();
-                        venta.NroComprobante = reader["NroDocumento"] == DBNull.Value ? string.Empty : reader["NroDocumento"].ToString();
-                        venta.Total = reader["Total"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Total"]);
-                        venta.Tipofactura = reader["Tipofactura"] == DBNull.Value ? string.Empty : reader["Tipofactura"].ToString();
-                        venta.Restante = reader["Restante"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Restante"]);
-                        venta.FechaVenta = reader["FechaVenta"] == DBNull.Value ? DateTime.Today : Convert.ToDateTime(reader["FechaVenta"]);
-                        venta.NombreCliente = reader["NombreCliente"] == DBNull.Value ? string.Empty : reader["NombreCliente"].ToString();
-                        venta.UltimaFechaPago = reader["UltimaFechaPago"] == DBNull.Value ? DateTime.Today : Convert.ToDateTime(reader["UltimaFechaPago"]);
-                        //venta.borrador = reader["borrado"] == DBNull.Value ? 0 : Convert.ToInt32(reader["borrado"]);
-                        venta.Direccion = reader["Direccion"] == DBNull.Value ? string.Empty : reader["Direccion"].ToString();
-                        //venta.rncCliente = reader["rncCliente"] == DBNull.Value ? string.Empty : reader["rncCliente"].ToString();
-
-                        clsGenericList.listVentas.Add(venta);
-                        clsGenericList.idsVentas.Add(venta.IdVenta);
-                    }
+                    clsGenericList.listVentas = V.GetListadoVentas(GetWeek(), DateTime.Now);
+                    clsGenericList.listVentas.ForEach(x => clsGenericList.idsVentas.Add(x.IdVenta));
                 }
                 catch (Exception ex)
                 {
