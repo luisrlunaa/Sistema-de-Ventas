@@ -168,7 +168,7 @@ namespace Capa_de_Presentacion
                                                 }
                                                 else
                                                 {
-                                                    M.Desconectar();
+                                                    Cx.Desconectar();
                                                     insertCaja();
                                                 }
                                             }
