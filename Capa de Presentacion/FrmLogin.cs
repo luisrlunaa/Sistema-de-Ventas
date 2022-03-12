@@ -119,11 +119,8 @@ namespace Capa_de_Presentacion
                             }
                             else
                             {
-                                if (tienefila)
-                                {
-                                    RecuperarDatosSesion();
-                                }
-                                else
+                                RecuperarDatosSesion();
+                                if (!tienefila)
                                 {
                                     if (panelmontoinicial.Visible)
                                     {
@@ -135,10 +132,6 @@ namespace Capa_de_Presentacion
                                         {
                                             M.Desconectar();
                                             insertCaja();
-                                            obtenerFiladeCaja();
-                                            RecuperarDatosSesion();
-
-                                            Program.idcaja = Program.idcaja + 1;
                                         }
                                     }
                                 }
@@ -330,6 +323,8 @@ namespace Capa_de_Presentacion
                 cmd.ExecuteNonQuery();
                 M.Desconectar();
             }
+
+            Program.idcaja = Program.idcaja + 1;
         }
 
         private void button1_Click(object sender, EventArgs e)
