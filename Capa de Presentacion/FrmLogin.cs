@@ -116,11 +116,11 @@ namespace Capa_de_Presentacion
                             }
                             else
                             {
-                                if (tienefila)
+                                if ()
                                 {
                                     RecuperarDatosSesion();
                                 }
-                                else
+                                if()
                                 {
                                     if (panelmontoinicial.Visible)
                                     {
@@ -132,10 +132,6 @@ namespace Capa_de_Presentacion
                                         {
                                             Cx.Desconectar();
                                             insertCaja();
-                                            obtenerFiladeCaja();
-                                            RecuperarDatosSesion();
-
-                                            Program.idcaja = Program.idcaja + 1;
                                         }
                                     }
                                 }
@@ -166,6 +162,7 @@ namespace Capa_de_Presentacion
             var day = DateTime.Today.AddDays(-8);
             return day;
         }
+
         public void CargarListados()
         {
             #region Listado Ventas
@@ -307,11 +304,8 @@ namespace Capa_de_Presentacion
         private void button1_Click(object sender, EventArgs e)
         {
             Cx.Desconectar();
-            FrmMenuPrincipal MP = new FrmMenuPrincipal();
             insertCaja();
             RecuperarDatosSesion();
-            MP.Show();
-            this.Hide();
         }
 
         private void label9_Click(object sender, EventArgs e)
@@ -336,6 +330,8 @@ namespace Capa_de_Presentacion
                 cmd.ExecuteNonQuery();
                 Cx.Desconectar();
             }
+
+            Program.idcaja = Program.idcaja + 1;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
