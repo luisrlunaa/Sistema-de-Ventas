@@ -3,6 +3,7 @@ using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -190,7 +191,7 @@ namespace Capa_de_Presentacion
             if (Program.abierto == false)
             {
                 FrmListadoClientes C = new FrmListadoClientes();
-                    C.btnActualizar.Enabled = Program.isAdminUser;
+                C.btnActualizar.Enabled = Program.isAdminUser;
 
                 Program.abierto = true;
                 C.Show();
@@ -198,24 +199,13 @@ namespace Capa_de_Presentacion
         }
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(64, 517);
-            button8.Text = ">>";
-            if (Program.abierto == false)
-            {
-                FrmRegistroVentas V = new FrmRegistroVentas();
-                V.txtUsu.Text = lblUsuario.Text;
-                V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
-                V.lblLogo.Text = lblLogo.Text;
-                V.lblDir.Text = lblDir.Text;
-                V.lblTel1.Text = lblTel1.Text;
-                V.lblTel2.Text = lblTel2.Text;
-                V.lblCorreo.Text = lblCorreo.Text;
-                V.lblrnc.Text = lblrnc.Text;
-                V.txtIgv.Enabled = Program.isAdminUser;
+            panel1.Size = new System.Drawing.Size(240, 517);
+            button7.Text = "<<";
 
-                Program.abierto = true;
-                V.Show();
-            }
+            if (buttonPanel.Visible == false)
+                buttonPanel.Visible = true;
+            else
+                buttonPanel.Visible = false;
         }
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
@@ -244,7 +234,7 @@ namespace Capa_de_Presentacion
             if (Program.abierto == false)
             {
                 FrmListadoEmpleados E = new FrmListadoEmpleados();
-                    E.btnActualizar.Enabled = Program.isAdminUser;
+                E.btnActualizar.Enabled = Program.isAdminUser;
                 Program.abierto = true;
                 E.Show();
             }
@@ -504,6 +494,75 @@ namespace Capa_de_Presentacion
         private void label10_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            panel1.Size = new Size(64, 517);
+            button7.Text = ">>";
+
+            Program.isSaler = true;
+            panel1.Size = new Size(64, 517);
+            button7.Text = ">>";
+            if (Program.abierto == false)
+            {
+                FrmRegistroVentas V = new FrmRegistroVentas();
+                V.txtUsu.Text = lblUsuario.Text;
+                V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
+                V.lblLogo.Text = lblLogo.Text;
+                V.lblDir.Text = lblDir.Text;
+                V.lblTel1.Text = lblTel1.Text;
+                V.lblTel2.Text = lblTel2.Text;
+                V.lblCorreo.Text = lblCorreo.Text;
+                V.lblrnc.Text = lblrnc.Text;
+                V.txtIgv.Enabled = Program.isAdminUser;
+
+                V.button2.Visible = Program.isSaler;
+                V.btnRegistrarVenta.Visible = Program.isSaler;
+                V.btnSalir.Visible = Program.isSaler;
+                V.cotizacionPanel.Visible = !Program.isSaler;
+                V.BackColor = Color.Firebrick;
+
+                buttonPanel.Visible = false;
+                Program.abierto = true;
+                V.Show();
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            panel1.Size = new Size(64, 517);
+            button7.Text = ">>";
+
+            Program.isSaler = false;
+            panel1.Size = new Size(64, 517);
+            button7.Text = ">>";
+            if (Program.abierto == false)
+            {
+                FrmRegistroVentas V = new FrmRegistroVentas();
+                V.txtUsu.Text = lblUsuario.Text;
+                V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
+                V.lblLogo.Text = lblLogo.Text;
+                V.lblDir.Text = lblDir.Text;
+                V.lblTel1.Text = lblTel1.Text;
+                V.lblTel2.Text = lblTel2.Text;
+                V.lblCorreo.Text = lblCorreo.Text;
+                V.lblrnc.Text = lblrnc.Text;
+                V.txtIgv.Enabled = Program.isAdminUser;
+
+                V.button2.Visible = Program.isSaler;
+                V.btnImprimir.Visible = !Program.isSaler;
+                V.btnImprimir.Location = new Point(33, 768);
+                V.btnRegistrarVenta.Visible = !Program.isSaler;
+                V.btnRegistrarVenta.Text = "Cotizar";
+                V.btnSalir.Visible = false;
+                V.cotizacionPanel.Visible = !Program.isSaler;
+                V.BackColor = Color.IndianRed;
+
+                buttonPanel.Visible = false;
+                Program.abierto = true;
+                V.Show();
+            }
         }
     }
 }

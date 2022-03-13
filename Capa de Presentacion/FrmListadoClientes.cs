@@ -26,7 +26,7 @@ namespace Capa_de_Presentacion
             ListarClientes1();
             dataGridView1.ClearSelection();
             dataGridView2.ClearSelection();
-                btnActualizar.Enabled = Program.isAdminUser;
+            btnActualizar.Enabled = Program.isAdminUser;
         }
 
         private void ListarClientes()
@@ -232,7 +232,7 @@ namespace Capa_de_Presentacion
         {
             Program.abiertosecundario = false;
             Program.abierto = false;
-                btnActualizar.Enabled = Program.isAdminUser;
+            btnActualizar.Enabled = Program.isAdminUser;
 
             this.Close();
         }

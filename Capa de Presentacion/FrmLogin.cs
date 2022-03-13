@@ -120,7 +120,7 @@ namespace Capa_de_Presentacion
                                 {
                                     RecuperarDatosSesion();
                                 }
-                                if()
+                                if ()
                                 {
                                     if (panelmontoinicial.Visible)
                                     {

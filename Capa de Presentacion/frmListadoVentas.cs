@@ -39,7 +39,7 @@ namespace Capa_de_Presentacion
             cargar_combo_Tipofactura(cbtipofactura);
 
             if (clsGenericList.listVentas.Count > 0)
-                llenar_data(clsGenericList.listVentas.OrderBy(x=>x.IdVenta).ToList());
+                llenar_data(clsGenericList.listVentas.OrderBy(x => x.IdVenta).ToList());
 
             if (clsGenericList.listVentas.Count > 0 && clsGenericList.listVentasPorCategoria.Count > 0)
                 llenar_categoryandquantity(clsGenericList.listVentasPorCategoria);
@@ -586,7 +586,7 @@ namespace Capa_de_Presentacion
                 {
                     int id = Convert.ToInt32(txtBuscarid.Text);
                     var newlist = clsGenericList.listVentas.Where(x => x.IdVenta == id).ToList();
-                    llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
             else if (chknombre.Checked && chkid.Checked == false)
@@ -595,7 +595,7 @@ namespace Capa_de_Presentacion
                 {
                     string name = txtBuscarid.Text;
                     var newlist = clsGenericList.listVentas.Where(x => x.NombreCliente.Contains(name)).ToList();
-                    llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
             else
@@ -748,8 +748,8 @@ namespace Capa_de_Presentacion
             if (dataGridView1.Rows.Count > 0)
             {
                 dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
-                    button3.Enabled = Program.isAdminUser;
-                    button4.Enabled = Program.isAdminUser;
+                button3.Enabled = Program.isAdminUser;
+                button4.Enabled = Program.isAdminUser;
             }
         }
 
@@ -759,13 +759,13 @@ namespace Capa_de_Presentacion
             {
                 borrado = 1;
                 var newlist = clsGenericList.listVentas.Where(x => x.borrador == borrado).ToList();
-                llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
             }
             else
             {
                 borrado = 0;
                 var newlist = clsGenericList.listVentas.Where(x => x.borrador == borrado).ToList();
-                llenar_data(newlist.OrderBy(x=>x.IdVenta).ToList());
+                llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
             }
         }
 

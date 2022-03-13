@@ -247,7 +247,7 @@ namespace Capa_de_Presentacion
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if(Program.isAdminUser)
+            if (Program.isAdminUser)
             {
                 if (dataGridView1.SelectedRows.Count > 0)
                 {
@@ -717,7 +717,7 @@ namespace Capa_de_Presentacion
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            if(Program.isAdminUser)
+            if (Program.isAdminUser)
             {
                 M.Desconectar();
                 Program.IdProducto = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());

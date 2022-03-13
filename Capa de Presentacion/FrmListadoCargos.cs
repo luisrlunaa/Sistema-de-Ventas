@@ -51,7 +51,7 @@ namespace Capa_de_Presentacion
             timer1.Interval = 5000;
             ListarElementos();
             dataGridView1.ClearSelection();
-                btnEditar.Enabled = Program.isAdminUser;
+            btnEditar.Enabled = Program.isAdminUser;
         }
 
         private void ListarElementos()
@@ -203,7 +203,7 @@ namespace Capa_de_Presentacion
         {
             Program.abiertosecundario = false;
             Program.abierto = false;
-                btnEditar.Enabled = Program.isAdminUser;
+            btnEditar.Enabled = Program.isAdminUser;
 
             this.Close();
         }
