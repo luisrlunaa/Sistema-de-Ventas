@@ -83,8 +83,8 @@ namespace CapaLogicaNegocio
                     Venta venta = new Venta();
                     venta.IdVenta = dr.GetInt32(dr.GetOrdinal("IdVenta"));
                     venta.IdEmpleado = dr.GetInt32(dr.GetOrdinal("IdEmpleado"));
-                    venta.rncCliente= dr.GetString(dr.GetOrdinal("rcnClient"));
-                    venta.Direccion= dr.GetString(dr.GetOrdinal("Direccion"));
+                    venta.rncCliente = dr.GetString(dr.GetOrdinal("rcnClient"));
+                    venta.Direccion = dr.GetString(dr.GetOrdinal("Direccion"));
                     venta.TipoDocumento = dr.GetString(dr.GetOrdinal("TipoDocumento"));
                     venta.NroComprobante = dr.GetString(dr.GetOrdinal("NroDocumento"));
                     venta.Total = dr.GetDecimal(dr.GetOrdinal("Total"));

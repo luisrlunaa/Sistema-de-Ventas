@@ -759,8 +759,8 @@ namespace Capa_de_Presentacion
             {
                 dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
 
-                    button3.Enabled = Program.isAdminUser;
-                    button4.Enabled = Program.isAdminUser;
+                button3.Enabled = Program.isAdminUser;
+                button4.Enabled = Program.isAdminUser;
             }
         }
 
@@ -857,8 +857,8 @@ namespace Capa_de_Presentacion
                                     cmd4.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV1;
                                     cmd4.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV1;
 
-                                    var deleteProduct1= clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
-                                    var updateProduct1 = clsGenericList.listProducto.FirstOrDefault(x=>x.m_IdP== idProductoDV1);
+                                    var deleteProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
+                                    var updateProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
                                     updateProduct1.m_Stock = updateProduct1.m_Stock + cantidadDV1;
 
                                     clsGenericList.listProducto.Remove(deleteProduct1);

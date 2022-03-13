@@ -187,7 +187,7 @@ namespace Capa_de_Presentacion
             if (Program.abierto == false)
             {
                 FrmListadoClientes C = new FrmListadoClientes();
-                    C.btnActualizar.Enabled = Program.isAdminUser;
+                C.btnActualizar.Enabled = Program.isAdminUser;
 
                 Program.abierto = true;
                 C.Show();
@@ -198,7 +198,7 @@ namespace Capa_de_Presentacion
             panel1.Size = new System.Drawing.Size(240, 517);
             button7.Text = "<<";
 
-            if (buttonPanel.Visible==false)
+            if (buttonPanel.Visible == false)
                 buttonPanel.Visible = true;
             else
                 buttonPanel.Visible = false;

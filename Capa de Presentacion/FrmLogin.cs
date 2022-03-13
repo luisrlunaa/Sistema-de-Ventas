@@ -316,7 +316,7 @@ namespace Capa_de_Presentacion
             frmRecuperar r = new frmRecuperar();
             r.Show();
         }
-      
+
         public void fechaVenc()
         {
             Cx.Desconectar();

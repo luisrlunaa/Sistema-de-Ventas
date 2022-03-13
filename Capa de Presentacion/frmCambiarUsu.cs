@@ -67,7 +67,7 @@ namespace Capa_de_Presentacion
                 row = dt.Rows[0];
                 Program.IdEmpleadoLogueado = Convert.ToInt32(row[0].ToString());
                 Program.NombreEmpleadoLogueado = row[1].ToString();
-                Program.isAdminUser = row[2].ToString()== "Administrador";
+                Program.isAdminUser = row[2].ToString() == "Administrador";
             }
         }
 

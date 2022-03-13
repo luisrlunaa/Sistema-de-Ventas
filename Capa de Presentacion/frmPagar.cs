@@ -40,11 +40,11 @@ namespace Capa_de_Presentacion
 
         public void llenarid()
         {
-           txtId.Text = Program.idcaja.ToString();
+            txtId.Text = Program.idcaja.ToString();
         }
         public void llenaridP()
         {
-           txtId.Text = Program.idcaja.ToString();
+            txtId.Text = Program.idcaja.ToString();
         }
         private void button4_Click(object sender, EventArgs e)
         {

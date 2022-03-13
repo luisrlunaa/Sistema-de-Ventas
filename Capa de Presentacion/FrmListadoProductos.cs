@@ -149,7 +149,7 @@ namespace Capa_de_Presentacion
         {
             if (clsGenericList.listProducto.Count > 0)
             {
-                CargarListado(clsGenericList.listProducto.OrderBy(x=>x.m_IdP).ToList());
+                CargarListado(clsGenericList.listProducto.OrderBy(x => x.m_IdP).ToList());
             }
             else
             {
@@ -743,7 +743,7 @@ namespace Capa_de_Presentacion
         {
             Program.abiertosecundarias = false;
             Program.abierto = false;
-                btnEditar.Enabled = Program.isAdminUser;
+            btnEditar.Enabled = Program.isAdminUser;
 
             this.Close();
         }

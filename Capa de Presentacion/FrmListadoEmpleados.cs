@@ -24,7 +24,7 @@ namespace Capa_de_Presentacion
             timer1.Start();
             timer1.Interval = 1000;
             MostrarListadoEmpleados();
-                btnActualizar.Enabled = Program.isAdminUser;
+            btnActualizar.Enabled = Program.isAdminUser;
         }
 
         private void MostrarListadoEmpleados()
@@ -176,7 +176,7 @@ namespace Capa_de_Presentacion
         {
             Program.abiertosecundarias = false;
             Program.abierto = false;
-                btnActualizar.Enabled = Program.isAdminUser;
+            btnActualizar.Enabled = Program.isAdminUser;
             this.Close();
         }
 

@@ -312,65 +312,65 @@ namespace Capa_de_Presentacion
             if (Program.isSaler)
             {
                 if (activar == true && entro == false)
-            {
-                entro = true;
-                cbtipofactura.Text = Program.tipo;
-                combo_tipo_NCF.Text = Program.NCF;
-                txtNCF.Text = Program.NroComprobante;
-                txttotal.Text = Program.total + "";
-                lblsubt.Text = Program.ST + "";
-                lbligv.Text = Program.igv + "";
-                txtidEmp.Text = Program.IdEmpleado + "";
-                dateTimePicker1.Text = Program.fecha;
-
-                decimal subtotal = 0;
-                decimal igv = 0;
-
-                M.Desconectar();
-                //variable de tipo Sqlcommand
-                SqlCommand comando = new SqlCommand();
-                //variable SqlDataReader para leer los datos
-                SqlDataReader dr;
-                comando.Connection = M.conexion;
-                //declaramos el comando para realizar la busqueda
-                comando.CommandText = "SELECT * from DetalleVenta WHERE DetalleVenta.IdVenta ='" + txtIdV.Text + "'";
-                //especificamos que es de tipo Text
-                comando.CommandType = CommandType.Text;
-                //se abre la conexion
-                M.Conectar();
-                //limpiamos los renglones de la datagridview
-                dgvVenta.Rows.Clear();
-                //a la variable DataReader asignamos  el la variable de tipo SqlCommand
-                dr = comando.ExecuteReader();
-                while (dr.Read())
                 {
-                    //variable de tipo entero para ir enumerando los la filas del datagridview
-                    int renglon = dgvVenta.Rows.Add();
-                    // especificamos en que fila se mostrará cada registro
-                    // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+                    entro = true;
+                    cbtipofactura.Text = Program.tipo;
+                    combo_tipo_NCF.Text = Program.NCF;
+                    txtNCF.Text = Program.NroComprobante;
+                    txttotal.Text = Program.total + "";
+                    lblsubt.Text = Program.ST + "";
+                    lbligv.Text = Program.igv + "";
+                    txtidEmp.Text = Program.IdEmpleado + "";
+                    dateTimePicker1.Text = Program.fecha;
 
-                    string idVenta = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                    if (idVenta == txtIdV.Text)
+                    decimal subtotal = 0;
+                    decimal igv = 0;
+
+                    M.Desconectar();
+                    //variable de tipo Sqlcommand
+                    SqlCommand comando = new SqlCommand();
+                    //variable SqlDataReader para leer los datos
+                    SqlDataReader dr;
+                    comando.Connection = M.conexion;
+                    //declaramos el comando para realizar la busqueda
+                    comando.CommandText = "SELECT * from DetalleVenta WHERE DetalleVenta.IdVenta ='" + txtIdV.Text + "'";
+                    //especificamos que es de tipo Text
+                    comando.CommandType = CommandType.Text;
+                    //se abre la conexion
+                    M.Conectar();
+                    //limpiamos los renglones de la datagridview
+                    dgvVenta.Rows.Clear();
+                    //a la variable DataReader asignamos  el la variable de tipo SqlCommand
+                    dr = comando.ExecuteReader();
+                    while (dr.Read())
                     {
-                        dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                        dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                        dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
-                        dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
-                        dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
-                        dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                        dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+                        //variable de tipo entero para ir enumerando los la filas del datagridview
+                        int renglon = dgvVenta.Rows.Add();
+                        // especificamos en que fila se mostrará cada registro
+                        // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
 
-                        subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                        igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                        string idVenta = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
+                        if (idVenta == txtIdV.Text)
+                        {
+                            dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
+                            dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
+                            dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
+                            dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
+                            dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
+                            dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
+
+                            subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                        }
                     }
+
+                    Program.ST = subtotal;
+                    Program.igv = igv;
+
+                    M.Desconectar();
+                    buscaridcaja();
                 }
-
-                Program.ST = subtotal;
-                Program.igv = igv;
-
-                M.Desconectar();
-                buscaridcaja();
-            }
             }
             else
             {
@@ -803,256 +803,8 @@ namespace Capa_de_Presentacion
                     M.Desconectar();
                 }
 
-            if(Program.isSaler)
+            if (Program.isSaler)
             {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 foreach (DataGridViewRow row in dgvVenta.Rows)
                 {
                     M.Desconectar();
@@ -1316,7 +1068,7 @@ namespace Capa_de_Presentacion
         {
             if (Program.abiertosecundarias == false)
             {
-                if(Program.isSaler)
+                if (Program.isSaler)
                 {
                     frmListadoVentas F = new frmListadoVentas();
                     F.btnCancelar.Visible = false;
@@ -1420,8 +1172,8 @@ namespace Capa_de_Presentacion
             Limpiar();
             Limpiar1();
 
-                txtPVenta.Enabled = Program.isAdminUser;
-                txtIgv.Enabled = Program.isAdminUser;
+            txtPVenta.Enabled = Program.isAdminUser;
+            txtIgv.Enabled = Program.isAdminUser;
 
             this.Close();
         }
