@@ -54,10 +54,9 @@ namespace Capa_de_Presentacion
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
-            Program.abiertosecundarias = false;
+            Program.abiertosecundario = false;
             Program.abierto = false;
             seleccion_data();
-            Program.whoCallme = "Cotizar";
             this.Close();
         }
 
@@ -222,7 +221,7 @@ namespace Capa_de_Presentacion
         private void label2_Click(object sender, EventArgs e)
         {
             Program.abierto = false;
-            Program.abiertosecundarias = false;
+            Program.abiertosecundario = false;
             this.Close();
         }
 
