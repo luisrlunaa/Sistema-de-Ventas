@@ -457,7 +457,7 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var newlist = new List<Venta>();
+            var listFind = new List<Venta>();
             var isSameDate = dtpfecha2.Value.Date == dtpfecha1.Value.Date;
             var isDiferentWeek = dtpfecha1.Value.Date < DateTime.Today.AddDays(-8);
 
@@ -478,83 +478,84 @@ namespace Capa_de_Presentacion
                 if (searchOnDB)
                 {
                     clsVentas V = new clsVentas();
-                    newlist = V.GetListadoVentas(date1, date2);
+                    listFind = V.GetListadoVentas(date1, date2);
                 }
                 else
                 {
-                    newlist = tempSalesData.Where(x => isSameDate
+                    listFind = tempSalesData.Where(x => isSameDate
                                                               ? x.FechaVenta == date1 && x.FechaVenta < date2
                                                               : x.FechaVenta >= date1 && x.FechaVenta <= date2)
                                                               .ToList();
                 }
 
-                tempSalesData = !isOnTempData ? newlist : tempSalesData;
+                tempSalesData = !isOnTempData ? listFind : tempSalesData;
             }
 
+            var newlist = new List<Venta>();
             if (!string.IsNullOrWhiteSpace(txtBuscarid.Text))
             {
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
-                    tempSalesData.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    newlist = tempSalesData.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
-                    tempSalesData.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower()) && x.Restante > 0).ToList();
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    newlist = tempSalesData.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower()) && x.Restante > 0).ToList();
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
-                    tempSalesData.Where(x => x.Tipofactura == cbtipofactura.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    newlist = tempSalesData.Where(x => x.Tipofactura == cbtipofactura.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
-                    tempSalesData.Where(x => x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    newlist = tempSalesData.Where(x => x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cbPendiente.Checked == true)
                 {
-                    tempSalesData.Where(x => x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower()) && x.Restante > 0).ToList();
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    newlist = tempSalesData.Where(x => x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower()) && x.Restante > 0).ToList();
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else
                 {
-                    tempSalesData.Where(x => x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    newlist = tempSalesData.Where(x => x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
             else
             {
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
-                    tempSalesData.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado).ToList();
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    newlist = tempSalesData.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado).ToList();
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
-                    tempSalesData.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.Restante > 0).ToList();
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    newlist = tempSalesData.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.Restante > 0).ToList();
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
-                    tempSalesData.Where(x => x.Tipofactura == cbtipofactura.Text && x.borrador == borrado).ToList();
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    newlist = tempSalesData.Where(x => x.Tipofactura == cbtipofactura.Text && x.borrador == borrado).ToList();
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
-                    tempSalesData.Where(x => x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado).ToList();
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    newlist = tempSalesData.Where(x => x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado).ToList();
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else if (cbPendiente.Checked == true)
                 {
-                    tempSalesData.Where(x => x.borrador == borrado && x.Restante > 0).ToList();
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    newlist = tempSalesData.Where(x => x.borrador == borrado && x.Restante > 0).ToList();
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
                 else
                 {
-                    tempSalesData.Where(x => x.borrador == borrado).ToList();
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    newlist = tempSalesData.Where(x => x.borrador == borrado).ToList();
+                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
 
