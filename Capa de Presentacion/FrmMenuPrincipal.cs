@@ -1,6 +1,7 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -111,6 +112,9 @@ namespace Capa_de_Presentacion
                     btnVer.Visible = false;
                 }
             }
+
+            if (TempData.DateIn.AddHours(1) <= DateTime.Now)
+                TempData.tempSalesData = new List<Venta>();
         }
         private void FrmMenuPrincipal_Load(object sender, EventArgs e)
         {
