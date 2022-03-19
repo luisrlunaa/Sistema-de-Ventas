@@ -112,7 +112,14 @@ namespace Capa_de_Presentacion
 
             if (TempData.DateIn.AddHours(1) <= DateTime.Now)
                 TempData.tempSalesData = new List<Venta>();
+        }
 
+        private void FrmMenuPrincipal_Load(object sender, EventArgs e)
+        {
+            timer1.Interval = 500;
+            timer1.Start();
+            llenar();            
+            
             #region productos vendidos por categoria
             if (clsGenericList.listVentas.Count > 0)
             {
@@ -121,13 +128,6 @@ namespace Capa_de_Presentacion
                 clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1, fecha2, 0);
             }
             #endregion
-        }
-
-        private void FrmMenuPrincipal_Load(object sender, EventArgs e)
-        {
-            timer1.Interval = 500;
-            timer1.Start();
-            llenar();
         }
 
         public void llenar()
