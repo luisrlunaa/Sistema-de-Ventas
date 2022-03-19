@@ -120,6 +120,7 @@ namespace Capa_de_Presentacion
                 var fecha2 = !TempData.tempSalesData.Any() ? clsGenericList.listVentas.LastOrDefault().FechaVenta : TempData.tempSalesData.LastOrDefault().FechaVenta;
                 clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1, fecha2, 0);
             }
+            #endregion
         }
 
         private void FrmMenuPrincipal_Load(object sender, EventArgs e)
