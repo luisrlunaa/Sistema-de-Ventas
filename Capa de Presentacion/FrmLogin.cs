@@ -300,6 +300,7 @@ namespace Capa_de_Presentacion
             Cx.Desconectar();
             insertCaja();
             RecuperarDatosSesion();
+            panelmontoinicial.Show();
         }
 
         private void label9_Click(object sender, EventArgs e)
