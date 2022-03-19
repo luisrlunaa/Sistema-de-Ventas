@@ -365,11 +365,9 @@ namespace Capa_de_Presentacion
         private void button1_Click(object sender, EventArgs e)
         {
             Cx.Desconectar();
-            FrmMenuPrincipal MP = new FrmMenuPrincipal();
             insertCaja();
             RecuperarDatosSesion();
-            MP.Show();
-            this.Hide();
+            panelmontoinicial.Show();
         }
 
         private void label5_Click_1(object sender, EventArgs e)
