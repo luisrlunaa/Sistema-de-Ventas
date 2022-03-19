@@ -22,7 +22,6 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
 
-        public static List<Venta> tempSalesData { get; set; }
         clsManejador M = new clsManejador();
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
@@ -38,15 +37,15 @@ namespace Capa_de_Presentacion
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
 
-            if (tempSalesData is null || tempSalesData.Count == 0)
-                tempSalesData = clsGenericList.listVentas.OrderBy(x => x.IdVenta).ToList();
+            if (TempData.tempSalesData is null || TempData.tempSalesData.Count == 0 || TempData.DateIn.AddHours(1) <= DateTime.Now)
+                TempData.tempSalesData = clsGenericList.listVentas.OrderBy(x => x.IdVenta).ToList();
 
-            if (tempSalesData.Count > 0)
+            if (TempData.tempSalesData.Count > 0)
             {
-                llenar_data(tempSalesData);
+                llenar_data(TempData.tempSalesData);
             }
 
-            if (clsGenericList.listVentasPorCategoria.Count > 0 && tempSalesData.Count > 0)
+            if (clsGenericList.listVentasPorCategoria.Count > 0 && TempData.tempSalesData.Count > 0)
             {
                 llenar_categoryandquantity(clsGenericList.listVentasPorCategoria);
             }
@@ -469,12 +468,12 @@ namespace Capa_de_Presentacion
 
             if (!isDiferentWeek)
             {
-                tempSalesData = clsGenericList.listVentas.OrderBy(x => x.IdVenta).ToList();
+                TempData.tempSalesData = clsGenericList.listVentas.OrderBy(x => x.IdVenta).ToList();
             }
             else
             {
                 var (date1, date2) = GetDaysToFilter(isSameDate, dtpfecha1.Value.Date, dtpfecha2.Value.Date);
-                var isOnTempData = tempSalesData.Count > 0 ? tempSalesData.Where(x => isSameDate
+                var isOnTempData = TempData.tempSalesData.Count > 0 ? TempData.tempSalesData.Where(x => isSameDate
                                                               ? x.FechaVenta == date1 && x.FechaVenta < date2
                                                               : x.FechaVenta >= date1 && x.FechaVenta <= date2)
                                                               .ToList().Count > 0
@@ -488,7 +487,7 @@ namespace Capa_de_Presentacion
                 }
                 else
                 {
-                    listFind = tempSalesData.Where(x => isSameDate
+                    listFind = TempData.tempSalesData.Where(x => isSameDate
                                                               ? x.FechaVenta == date1 && x.FechaVenta < date2
                                                               : x.FechaVenta >= date1 && x.FechaVenta <= date2)
                                                               .ToList();
@@ -580,7 +579,8 @@ namespace Capa_de_Presentacion
                 txttotalpendiente.Text = Math.Round(totalpendiente, 2).ToString("C2");
             }
 
-            tempSalesData = newlist;
+            TempData.tempSalesData = newlist;
+            TempData.DateIn = DateTime.Now;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -595,7 +595,7 @@ namespace Capa_de_Presentacion
             vereliminadas.Checked = false;
             Program.Id = 0;
             Program.tipo = "";
-            tempSalesData = new List<Venta>();
+            TempData.tempSalesData = new List<Venta>();
             llenar_data(clsGenericList.listVentas.OrderBy(x => x.IdVenta).ToList());
         }
 
@@ -616,7 +616,7 @@ namespace Capa_de_Presentacion
                 if (txtBuscarid.Text.Length >= 1 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
                     int id = Convert.ToInt32(txtBuscarid.Text);
-                    var newlist = tempSalesData.Where(x => x.IdVenta == id).ToList();
+                    var newlist = TempData.tempSalesData.Where(x => x.IdVenta == id).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
@@ -625,13 +625,13 @@ namespace Capa_de_Presentacion
                 if (txtBuscarid.Text.Length >= 4 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
                     string name = txtBuscarid.Text;
-                    var newlist = tempSalesData.Where(x => x.NombreCliente.ToLower().Contains(name.ToLower())).ToList();
+                    var newlist = TempData.tempSalesData.Where(x => x.NombreCliente.ToLower().Contains(name.ToLower())).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
             else
             {
-                llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                llenar_data(TempData.tempSalesData.OrderBy(x => x.IdVenta).ToList());
             }
         }
 
@@ -790,13 +790,13 @@ namespace Capa_de_Presentacion
             if (vereliminadas.Checked)
             {
                 borrado = 1;
-                var newlist = tempSalesData.Where(x => x.borrador == borrado).ToList();
+                var newlist = TempData.tempSalesData.Where(x => x.borrador == borrado).ToList();
                 llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
             }
             else
             {
                 borrado = 0;
-                var newlist = tempSalesData.Where(x => x.borrador == borrado).ToList();
+                var newlist = TempData.tempSalesData.Where(x => x.borrador == borrado).ToList();
                 llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
             }
         }
