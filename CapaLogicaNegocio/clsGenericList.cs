@@ -96,4 +96,10 @@ namespace CapaLogicaNegocio
         }
         #endregion
     }
+
+    public class TempData
+    {
+        public static List<Venta> tempSalesData { get; set; }
+        public static DateTime DateIn { get; set; }
+    }
 }
