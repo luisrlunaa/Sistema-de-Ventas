@@ -956,10 +956,10 @@ namespace Capa_de_Presentacion
         {
             if (isSameDate)
             {
-                return (date1, date2.AddDays(1));
+                return (date1.Date, date2.Date.AddDays(1));
             }
 
-            return (date1, date2);
+            return (date1.Date, date2.Date);
         }
     }
 }
