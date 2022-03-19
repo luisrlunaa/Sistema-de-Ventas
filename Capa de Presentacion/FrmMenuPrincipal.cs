@@ -1,6 +1,7 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -107,11 +108,14 @@ namespace Capa_de_Presentacion
                 }
             }
 
+            if (TempData.DateIn.AddHours(1) <= DateTime.Now)
+                TempData.tempSalesData = new List<Venta>();
+
             #region productos vendidos por categoria
             if (clsGenericList.listVentas.Count > 0)
             {
-                var fecha1 = clsGenericList.listVentas.FirstOrDefault().FechaVenta;
-                var fecha2 = clsGenericList.listVentas.LastOrDefault().FechaVenta;
+                var fecha1 = !TempData.tempSalesData.Any() ? clsGenericList.listVentas.FirstOrDefault().FechaVenta : TempData.tempSalesData.FirstOrDefault().FechaVenta;
+                var fecha2 = !TempData.tempSalesData.Any() ? clsGenericList.listVentas.LastOrDefault().FechaVenta : TempData.tempSalesData.LastOrDefault().FechaVenta;
                 clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1, fecha2, 0);
             }
             #endregion
