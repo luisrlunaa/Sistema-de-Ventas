@@ -468,8 +468,8 @@ namespace Capa_de_Presentacion
             {
                 var (date1, date2) = GetDaysToFilter(isSameDate, dtpfecha1.Value.Date, dtpfecha2.Value.Date);
                 var isOnTempData = TempData.tempSalesData.Count > 0 ? TempData.tempSalesData.Where(x => isSameDate
-                                                              ? x.FechaVenta == date1 && x.FechaVenta < date2
-                                                              : x.FechaVenta >= date1 && x.FechaVenta <= date2)
+                                                              ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
+                                                              : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
                                                               .ToList().Count > 0
                                                           : false;
 
@@ -482,8 +482,8 @@ namespace Capa_de_Presentacion
                 else
                 {
                     listFind = TempData.tempSalesData.Where(x => isSameDate
-                                                              ? x.FechaVenta == date1 && x.FechaVenta < date2
-                                                              : x.FechaVenta >= date1 && x.FechaVenta <= date2)
+                                                              ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
+                                                              : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
                                                               .ToList();
                 }
             }
