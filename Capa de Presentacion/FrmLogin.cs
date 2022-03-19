@@ -330,13 +330,11 @@ namespace Capa_de_Presentacion
         private void button1_Click(object sender, EventArgs e)
         {
             M.Desconectar();
-            FrmMenuPrincipal MP = new FrmMenuPrincipal();
             insertCaja();
             obtenerFiladeCaja();
             RecuperarDatosSesion();
             Program.idcaja = Program.idcaja + 1;
-            MP.Show();
-            this.Hide();
+            panelmontoinicial.Show();
         }
 
         private void label5_Click_1(object sender, EventArgs e)
