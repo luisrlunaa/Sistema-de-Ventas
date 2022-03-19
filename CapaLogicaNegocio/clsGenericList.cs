@@ -14,6 +14,8 @@ namespace CapaLogicaNegocio
         public static List<VentasPorCategoria> listVentasPorCategoria;
         public static List<int> idsVentas;
 
+
+
         #region Variables listado de ventas
         public static decimal totalPendiente { get; set; }
         public static decimal totalGanancia { get; set; }
@@ -93,5 +95,11 @@ namespace CapaLogicaNegocio
             return ganancia;
         }
         #endregion
+    }
+
+    public class TempData
+    {
+        public static List<Venta> tempSalesData { get; set; }
+        public static DateTime DateIn { get; set; }
     }
 }
