@@ -108,11 +108,16 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            CapturarFechaSistema();
-
             if (TempData.DateIn.AddHours(1) <= DateTime.Now)
                 TempData.tempSalesData = new List<Venta>();
+        }
 
+        private void FrmMenuPrincipal_Load(object sender, EventArgs e)
+        {
+            timer1.Interval = 500;
+            timer1.Start();
+            llenar();            
+            
             #region productos vendidos por categoria
             if (clsGenericList.listVentas.Count > 0)
             {
@@ -121,12 +126,6 @@ namespace Capa_de_Presentacion
                 clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1, fecha2, 0);
             }
             #endregion
-        }
-        private void FrmMenuPrincipal_Load(object sender, EventArgs e)
-        {
-            timer1.Interval = 500;
-            timer1.Start();
-            llenar();
         }
 
         public void llenar()
@@ -219,11 +218,6 @@ namespace Capa_de_Presentacion
                 Program.abierto = true;
                 U.Show();
             }
-        }
-        private void CapturarFechaSistema()
-        {
-            lblFecha.Text = DateTime.Now.ToShortDateString();
-            lblHora.Text = DateTime.Now.ToShortTimeString();
         }
 
         private void btnEmpleados_Click(object sender, EventArgs e)
@@ -565,6 +559,15 @@ namespace Capa_de_Presentacion
                 Program.abierto = true;
                 V.Show();
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            var fecha = DateTime.Today.ToString("dd/MM/yyyy");
+            var hora = DateTime.Now.ToString("hh:mm:ss tt");
+
+            lblFecha.Text = fecha;
+            lblHora.Text = hora;
         }
     }
 }
