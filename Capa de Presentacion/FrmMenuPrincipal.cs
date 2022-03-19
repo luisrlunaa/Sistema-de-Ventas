@@ -108,6 +108,8 @@ namespace Capa_de_Presentacion
                 }
             }
 
+            CapturarFechaSistema();
+
             if (TempData.DateIn.AddHours(1) <= DateTime.Now)
                 TempData.tempSalesData = new List<Venta>();
 

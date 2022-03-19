@@ -103,6 +103,16 @@ namespace Capa_de_Presentacion.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Household {
+            get {
+                object obj = ResourceManager.GetObject("Household", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_abrir_carpeta_16 {
             get {
                 object obj = ResourceManager.GetObject("icons8-abrir-carpeta-16", resourceCulture);
@@ -556,6 +566,16 @@ namespace Capa_de_Presentacion.Properties {
         internal static System.Drawing.Bitmap llantas_toyota_corolla {
             get {
                 object obj = ResourceManager.GetObject("llantas-toyota-corolla", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Logo_01 {
+            get {
+                object obj = ResourceManager.GetObject("Logo-01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

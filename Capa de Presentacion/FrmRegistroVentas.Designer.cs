@@ -1151,7 +1151,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Capa_de_Presentacion.Properties.Resources.ferreteria;
+            this.pictureBox1.Image = global::Capa_de_Presentacion.Properties.Resources.Household;
             this.pictureBox1.Location = new System.Drawing.Point(560, 68);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";

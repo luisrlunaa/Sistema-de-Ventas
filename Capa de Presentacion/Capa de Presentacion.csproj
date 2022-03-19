@@ -363,15 +363,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="iconfinder_1_1668045.ico" />
-    <Content Include="Resources\1button.png" />
-    <Content Include="Resources\1button_click.png" />
-    <Content Include="Resources\1button_hover.png" />
+    <None Include="Resources\Household.jpg" />
+    <None Include="Resources\Logo-01.png" />
     <None Include="Resources\icons8-caja-registradora-30.png" />
-    <None Include="Resources\LogoCepeda.png" />
-    <None Include="Resources\llantas-toyota-corolla.jpg" />
-    <None Include="Resources\llantas-1024x682.jpg" />
-    <None Include="Resources\slid_lla2.jpg" />
-    <None Include="Resources\ferreteria.png" />
     <None Include="Resources\icons8-lista-resumen-40.png" />
     <None Include="Resources\icons8-omitir-16.png" />
     <None Include="Resources\icons8-copia-de-seguridad-de-un-base-de-datos-40.png" />
@@ -397,8 +391,6 @@
     <None Include="Resources\icons8-abrir-carpeta-16.png" />
     <None Include="Resources\icons8-dinero-241.png" />
     <None Include="Resources\icons8-imprimir.png" />
-    <None Include="Resources\icons8-usuarios1.png" />
-    <None Include="Resources\icons8-usuarios.png" />
     <None Include="Resources\icons8-entrar.png" />
     <None Include="Resources\icons8-enviar-documento-24.png" />
     <None Include="Resources\icons8-salir-de-24.png" />
