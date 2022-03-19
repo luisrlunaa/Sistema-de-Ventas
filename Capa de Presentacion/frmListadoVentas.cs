@@ -37,7 +37,7 @@ namespace Capa_de_Presentacion
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
 
-            if (TempData.tempSalesData is null || TempData.tempSalesData.Count == 0 || TempData.DateIn.AddHours(1) <= DateTime.Now)
+            if (TempData.tempSalesData is null || TempData.tempSalesData.Count == 0)
                 TempData.tempSalesData = clsGenericList.listVentas.OrderBy(x => x.IdVenta).ToList();
 
             if (TempData.tempSalesData.Count > 0)
