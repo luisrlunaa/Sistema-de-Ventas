@@ -557,6 +557,7 @@ namespace Capa_de_Presentacion
                 V.btnRegistrarVenta.Text = "Cotizar";
                 V.btnSalir.Visible = false;
                 V.BackColor = Color.MediumAquamarine;
+                V.cotizacionPanel.Visible = true;
 
                 panel3.Visible = false;
                 Program.abierto = true;

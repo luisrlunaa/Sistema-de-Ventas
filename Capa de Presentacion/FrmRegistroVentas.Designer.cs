@@ -128,12 +128,15 @@
             this.btnRegistrarVenta = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.cotizacionPanel = new System.Windows.Forms.Panel();
+            this.label22 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.data_ncf)).BeginInit();
+            this.cotizacionPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // label4
@@ -1305,12 +1308,33 @@
             this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // cotizacionPanel
+            // 
+            this.cotizacionPanel.Controls.Add(this.label22);
+            this.cotizacionPanel.Location = new System.Drawing.Point(633, 15);
+            this.cotizacionPanel.Name = "cotizacionPanel";
+            this.cotizacionPanel.Size = new System.Drawing.Size(248, 54);
+            this.cotizacionPanel.TabIndex = 148;
+            this.cotizacionPanel.Visible = false;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
+            this.label22.ForeColor = System.Drawing.Color.Black;
+            this.label22.Location = new System.Drawing.Point(55, 10);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(125, 29);
+            this.label22.TabIndex = 0;
+            this.label22.Text = "Cotizacion";
+            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(928, 776);
+            this.Controls.Add(this.cotizacionPanel);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.lblabono);
             this.Controls.Add(this.lbltituloabono);
@@ -1380,6 +1404,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.data_ncf)).EndInit();
+            this.cotizacionPanel.ResumeLayout(false);
+            this.cotizacionPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1479,5 +1505,7 @@
         public System.Windows.Forms.Button btnImprimir;
         public System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        public System.Windows.Forms.Panel cotizacionPanel;
+        private System.Windows.Forms.Label label22;
     }
 }
