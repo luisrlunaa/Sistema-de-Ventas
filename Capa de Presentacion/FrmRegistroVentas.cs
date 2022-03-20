@@ -882,7 +882,7 @@ namespace Capa_de_Presentacion
 
             if (dgvVenta.Rows.Count > 0)
             {
-                if (chkComprobante.Checked == true)
+                if (chkComprobante.Checked == true && Program.isSaler)
                 {
                     using (SqlCommand cmd = new SqlCommand("generar", M.conexion))
                     {

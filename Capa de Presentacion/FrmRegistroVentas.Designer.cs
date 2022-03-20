@@ -130,7 +130,7 @@
             this.lblabono = new System.Windows.Forms.Label();
             this.lbltituloabono = new System.Windows.Forms.Label();
             this.cotizacionPanel = new System.Windows.Forms.Panel();
-            this.label21 = new System.Windows.Forms.Label();
+            this.frmLabel = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -1347,23 +1347,23 @@
             // cotizacionPanel
             // 
             this.cotizacionPanel.BackColor = System.Drawing.Color.Transparent;
-            this.cotizacionPanel.Controls.Add(this.label21);
+            this.cotizacionPanel.Controls.Add(this.frmLabel);
             this.cotizacionPanel.ForeColor = System.Drawing.Color.Black;
             this.cotizacionPanel.Location = new System.Drawing.Point(697, 20);
             this.cotizacionPanel.Name = "cotizacionPanel";
             this.cotizacionPanel.Size = new System.Drawing.Size(149, 48);
             this.cotizacionPanel.TabIndex = 103;
             // 
-            // label21
+            // frmLabel
             // 
-            this.label21.AutoSize = true;
-            this.label21.BackColor = System.Drawing.Color.Transparent;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
-            this.label21.Location = new System.Drawing.Point(14, 11);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(125, 29);
-            this.label21.TabIndex = 39;
-            this.label21.Text = "Cotizacion";
+            this.frmLabel.AutoSize = true;
+            this.frmLabel.BackColor = System.Drawing.Color.Transparent;
+            this.frmLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
+            this.frmLabel.Location = new System.Drawing.Point(14, 11);
+            this.frmLabel.Name = "frmLabel";
+            this.frmLabel.Size = new System.Drawing.Size(125, 29);
+            this.frmLabel.TabIndex = 39;
+            this.frmLabel.Text = "Cotizacion";
             // 
             // FrmRegistroVentas
             // 
@@ -1549,6 +1549,6 @@
         public System.Windows.Forms.Button btnImprimir;
         public System.Windows.Forms.Button button2;
         public System.Windows.Forms.Panel cotizacionPanel;
-        public System.Windows.Forms.Label label21;
+        public System.Windows.Forms.Label frmLabel;
     }
 }
