@@ -103,12 +103,6 @@
     <Compile Include="frmlistadodecotizacion.Designer.cs">
       <DependentUpon>frmlistadodecotizacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmCotizar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmCotizar.Designer.cs">
-      <DependentUpon>frmCotizar.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmCambiarUsu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,9 +259,6 @@
     <Compile Include="validar.cs" />
     <EmbeddedResource Include="cuadredecaja.resx">
       <DependentUpon>cuadredecaja.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmCotizar.resx">
-      <DependentUpon>frmCotizar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCambiarUsu.resx">
       <DependentUpon>frmCambiarUsu.cs</DependentUpon>

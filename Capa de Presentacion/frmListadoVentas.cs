@@ -746,7 +746,7 @@ namespace Capa_de_Presentacion
                                     cmd.ExecuteNonQuery();
                                     M.Desconectar();
 
-                                    if(clsGenericList.idsVentas.Contains(Program.Id))
+                                    if (clsGenericList.idsVentas.Contains(Program.Id))
                                     {
                                         var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
                                         clsGenericList.listVentas.Remove(venta);

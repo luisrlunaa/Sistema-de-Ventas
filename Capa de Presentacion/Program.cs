@@ -9,11 +9,11 @@ namespace Capa_de_Presentacion
         /// Punto de entrada principal para la aplicación.      
         /// </summary>
         /// 
+        public static bool isSaler;
         public static bool isAdminUser;
         public static bool abierto;
         public static bool abiertosecundarias;
         public static int Evento;
-        public static int openpanel;
         public static int Eid;
         public static int idgastos;
         public static string LoginStatus;

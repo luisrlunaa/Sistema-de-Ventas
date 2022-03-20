@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -120,7 +121,7 @@ namespace Capa_de_Presentacion
         {
             llenar();
             panel3.Hide();
-            panel1.Size = new System.Drawing.Size(61, 606);
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
 
             #region productos vendidos por categoria
@@ -153,7 +154,7 @@ namespace Capa_de_Presentacion
         }
         private void btnProductos_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 606);
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -193,7 +194,7 @@ namespace Capa_de_Presentacion
         }
         private void btnClientes_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 606);
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -206,20 +207,17 @@ namespace Capa_de_Presentacion
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            if (Program.openpanel == 1)
-            {
-                panel3.Hide();
-                Program.openpanel = 0;
-            }
+            panel1.Size = new Size(240, 606);
+            button7.Text = "<<";
+
+            if (panel3.Visible == false)
+                panel3.Visible = true;
             else
-            {
-                panel3.Show();
-                Program.openpanel = 1;
-            }
+                panel3.Visible = false;
         }
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 606);
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -231,7 +229,7 @@ namespace Capa_de_Presentacion
 
         private void btnEmpleados_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 606);
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -244,7 +242,7 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 606);
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             frmTurno Tu = new frmTurno();
             Tu.lblLogo.Text = lblLogo.Text;
@@ -254,7 +252,7 @@ namespace Capa_de_Presentacion
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 606);
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -265,7 +263,7 @@ namespace Capa_de_Presentacion
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 606);
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -309,7 +307,7 @@ namespace Capa_de_Presentacion
         }
         private void btnVer_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 606);
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             usuario.Show();
             btnVer.Hide();
@@ -361,7 +359,7 @@ namespace Capa_de_Presentacion
         }
         private void button5_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 606);
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -414,7 +412,7 @@ namespace Capa_de_Presentacion
 
         private void btnAyB_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 606);
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -434,7 +432,7 @@ namespace Capa_de_Presentacion
 
         private void button6_Click(object sender, EventArgs e)
         {
-            panel1.Size = new System.Drawing.Size(61, 606);
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -478,14 +476,14 @@ namespace Capa_de_Presentacion
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if (panel1.Size == new System.Drawing.Size(240, 606))
+            if (panel1.Size == new Size(240, 606))
             {
-                panel1.Size = new System.Drawing.Size(61, 606);
+                panel1.Size = new Size(61, 606);
                 button7.Text = ">>";
             }
             else
             {
-                panel1.Size = new System.Drawing.Size(240, 606);
+                panel1.Size = new Size(240, 606);
                 button7.Text = "<<";
             }
         }
@@ -503,8 +501,8 @@ namespace Capa_de_Presentacion
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Program.openpanel = 0;
-            panel1.Size = new System.Drawing.Size(61, 606);
+            Program.isSaler = true;
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -517,15 +515,16 @@ namespace Capa_de_Presentacion
                 V.lblTel2.Text = lblTel2.Text;
                 V.lblCorreo.Text = lblCorreo.Text;
                 V.lblrnc.Text = lblrnc.Text;
+                V.txtPVenta.Enabled = Program.isAdminUser;
+                V.txtIgv.Enabled = Program.isAdminUser;
+                V.txtDivisor.Enabled = Program.isAdminUser;
+                V.txtPorcentaje.Enabled = Program.isAdminUser;
+                V.button2.Visible = Program.isSaler;
+                V.btnRegistrarVenta.Visible = Program.isSaler;
+                V.btnSalir.Visible = Program.isSaler;
+                V.BackColor = Color.SeaGreen;
 
-                if (!Program.isAdminUser)
-                {
-                    V.txtPVenta.Enabled = false;
-                    V.txtIgv.Enabled = false;
-                    V.txtDivisor.Enabled = false;
-                    V.txtPorcentaje.Enabled = false;
-                }
-
+                panel3.Visible = false;
                 Program.abierto = true;
                 panel3.Hide();
                 V.Show();
@@ -534,12 +533,12 @@ namespace Capa_de_Presentacion
 
         private void btnCotizar_Click(object sender, EventArgs e)
         {
-            Program.openpanel = 0;
-            panel1.Size = new System.Drawing.Size(61, 606);
+            Program.isSaler = false;
+            panel1.Size = new Size(61, 606);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
-                frmCotizar V = new frmCotizar();
+                FrmRegistroVentas V = new FrmRegistroVentas();
                 V.txtUsu.Text = lblUsuario.Text;
                 V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
                 V.lblLogo.Text = lblLogo.Text;
@@ -548,17 +547,19 @@ namespace Capa_de_Presentacion
                 V.lblTel2.Text = lblTel2.Text;
                 V.lblCorreo.Text = lblCorreo.Text;
                 V.lblrnc.Text = lblrnc.Text;
+                V.txtPVenta.Enabled = Program.isAdminUser;
+                V.txtIgv.Enabled = Program.isAdminUser;
+                V.txtDivisor.Enabled = Program.isAdminUser;
+                V.txtPorcentaje.Enabled = Program.isAdminUser;
+                V.button2.Visible = Program.isSaler;
+                V.btnImprimir.Visible = !Program.isSaler;
+                V.btnRegistrarVenta.Visible = !Program.isSaler;
+                V.btnRegistrarVenta.Text = "Cotizar";
+                V.btnSalir.Visible = false;
+                V.BackColor = Color.MediumAquamarine;
 
-                if (!Program.isAdminUser)
-                {
-                    V.txtPVenta.Enabled = false;
-                    V.txtIgv.Enabled = false;
-                    V.txtDivisor.Enabled = false;
-                    V.txtPorcentaje.Enabled = false;
-                }
-
+                panel3.Visible = false;
                 Program.abierto = true;
-                panel3.Hide();
                 V.Show();
             }
         }

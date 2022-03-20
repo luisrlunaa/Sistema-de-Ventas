@@ -57,7 +57,6 @@ namespace Capa_de_Presentacion
             Program.abiertosecundarias = false;
             Program.abierto = false;
             seleccion_data();
-            Program.whoCallme = "Cotizar";
             this.Close();
         }
 
