@@ -1504,8 +1504,8 @@
         public System.Windows.Forms.Label lblabono;
         public System.Windows.Forms.Button btnImprimir;
         public System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         public System.Windows.Forms.Panel cotizacionPanel;
         private System.Windows.Forms.Label label22;
+        public System.Windows.Forms.Button button3;
     }
 }
