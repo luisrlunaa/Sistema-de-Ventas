@@ -891,51 +891,10 @@ namespace Capa_de_Presentacion
 
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
+            if (btnRegistrarVenta.Text.ToLower() == "cotizar")
+                button3.Visible = true;
 
-            if (dgvVenta.Rows.Count > 0)
-            {
-                if (chkComprobante.Checked == true && Program.isSaler)
-                {
-                    using (SqlCommand cmd = new SqlCommand("generar", M.conexion))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@id_ncf", SqlDbType.Int).Value = Convert.ToInt32(txtid.Text);
-                        cmd.Parameters.Add("@id_secuencia", SqlDbType.Int).Value = Convert.ToInt32(combo_tipo_NCF.SelectedIndex);
-                        cmd.Parameters.Add("@secuencia", SqlDbType.NVarChar).Value = txtNCF.Text;
-
-                        M.Conectar();
-                        cmd.ExecuteNonQuery();
-                        M.Desconectar();
-
-                        buscarid();
-                    }
-                }
-                else
-                {
-                    txtNCF.Text = "Sin NCF";
-                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
-                }
-
-                VentaRealizada();
-                //Program.whoCallme = "";
-
-                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de factura desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                {
-                    tickEstilo();
-                }
-                else
-                {
-                    To_pdf();
-                }
-
-                llenar();
-                Limpiar();
-                Limpiar1();
-            }
-            else
-            {
-                MessageBox.Show("Debe Agregar al menos una Venta");
-            }
+            RegistrarVenta();
         }
 
         private void Limpiar1()
@@ -1526,6 +1485,59 @@ namespace Capa_de_Presentacion
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void RegistrarVenta()
+        {
+            if (dgvVenta.Rows.Count > 0)
+            {
+                if (chkComprobante.Checked == true && Program.isSaler)
+                {
+                    using (SqlCommand cmd = new SqlCommand("generar", M.conexion))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@id_ncf", SqlDbType.Int).Value = Convert.ToInt32(txtid.Text);
+                        cmd.Parameters.Add("@id_secuencia", SqlDbType.Int).Value = Convert.ToInt32(combo_tipo_NCF.SelectedIndex);
+                        cmd.Parameters.Add("@secuencia", SqlDbType.NVarChar).Value = txtNCF.Text;
+
+                        M.Conectar();
+                        cmd.ExecuteNonQuery();
+                        M.Desconectar();
+
+                        buscarid();
+                    }
+                }
+                else
+                {
+                    txtNCF.Text = "Sin NCF";
+                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                }
+
+                VentaRealizada();
+
+                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de factura desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
+                    tickEstilo();
+                }
+                else
+                {
+                    To_pdf();
+                }
+
+                llenar();
+                Limpiar();
+                Limpiar1();
+            }
+            else
+            {
+                MessageBox.Show("Debe Agregar al menos una Venta");
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Program.isSaler = true;
+            RegistrarVenta();
         }
     }
 }
