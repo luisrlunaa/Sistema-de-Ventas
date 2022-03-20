@@ -1074,6 +1074,7 @@ namespace Capa_de_Presentacion
                     frmlistadodecotizacion F = new frmlistadodecotizacion();
                     Program.abiertosecundarias = false;
                     Program.abierto = false;
+                    button3.Visible = true;
                     F.Show();
                 }
             }

@@ -19,7 +19,6 @@ namespace Capa_de_Presentacion
         public static string LoginStatus;
         public static string ReImpresion;
         public static string Esabono;
-        public static string whoCallme;
 
         //Datos del Cliente
         public static int IdCliente;
