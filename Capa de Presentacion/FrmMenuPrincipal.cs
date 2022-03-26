@@ -108,7 +108,8 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            if (TempData.tempSalesData.Any() && TempData.DateIn.AddHours(1) <= DateTime.Now)
+            if (TempData.tempSalesData != null && TempData.tempSalesData.Any()
+                && TempData.DateIn != null && TempData.DateIn.AddHours(1) <= DateTime.Now)
             {
                 TempData.tempSalesData = new List<Venta>();
                 TempData.DateIn = DateTime.Now;
