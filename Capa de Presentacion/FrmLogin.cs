@@ -54,8 +54,7 @@ namespace Capa_de_Presentacion
                         txtPassword.Clear();
                         txtPassword.Focus();
                     }
-                    else
-                        if (Mensaje == "El Nombre de Usuario no Existe.")
+                    else if (Mensaje == "El Nombre de Usuario no Existe.")
                     {
                         DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                         txtUser.Clear();
@@ -64,35 +63,34 @@ namespace Capa_de_Presentacion
                     }
                     else
                     {
-                        DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-                        FrmMenuPrincipal MP = new FrmMenuPrincipal();
-
                         if (FechaVenc.Date <= DateTime.Today.Date)
                         {
                             if (DevComponents.DotNetBar.MessageBoxEx.Show("Licencia del producto ha Cadudado, Favor ponerse en contacto con su suplidor para Renovar la misma, Desea Renovar Ahora?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                             {
-                                FrmLogin login = new FrmLogin();
                                 frmRenovar renovar = new frmRenovar();
                                 renovar.Show();
-                                login.Hide();
                             }
                         }
                         else
                         {
-                            CargarListados();
+                            circularProgressBar1.Visible = true;
+                            circularProgressBar1.Value = 0;
+                            circularProgressBar1.Minimum = 0;
+                            circularProgressBar1.Maximum = 100;
+                            timer1.Start();
+
+                            if (circularProgressBar1.Visible == true)
+                                CargarListados();
+
                             if (rbInventario.Checked)
                             {
                                 Program.LoginStatus = "Inventario";
                                 RecuperarDatosSesion();
-                                MP.Show();
-                                this.Hide();
                             }
                             else if (rbVentas.Checked)
                             {
                                 Program.LoginStatus = "Ventas";
                                 RecuperarDatosSesion();
-                                MP.Show();
-                                this.Hide();
                             }
                             else if (rbNCF.Checked)
                             {
@@ -100,8 +98,6 @@ namespace Capa_de_Presentacion
                                 if (Program.isAdminUser)
                                 {
                                     Program.LoginStatus = "NCF";
-                                    MP.Show();
-                                    this.Hide();
                                 }
                                 else
                                 {
@@ -110,65 +106,24 @@ namespace Capa_de_Presentacion
                             }
                             else
                             {
-                                if (tienefila)
+                                RecuperarDatosSesion();
+                                if (!tienefila)
                                 {
-                                    RecuperarDatosSesion();
-                                    MP.Show();
-                                    this.Hide();
-                                }
-                                else
-                                {
-                                    circularProgressBar1.Visible = true;
-                                    circularProgressBar1.Value = 0;
-                                    circularProgressBar1.Minimum = 0;
-                                    circularProgressBar1.Maximum = 100;
-                                    timer1.Start();
-
-                                    if (rbInventario.Checked)
+                                    if (panelmontoinicial.Visible)
                                     {
-                                        Program.LoginStatus = "Inventario";
-                                        RecuperarDatosSesion();
-                                    }
-                                    else if (rbVentas.Checked)
-                                    {
-                                        Program.LoginStatus = "Ventas";
-                                        RecuperarDatosSesion();
-                                    }
-                                    else if (rbNCF.Checked)
-                                    {
-                                        RecuperarDatosSesion();
-                                        if (Program.isAdminUser)
+                                        if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea ingresar Monto Inicial de Caja?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                                         {
-                                            Program.LoginStatus = "NCF";
+                                            panelmontoinicial.Visible = false;
                                         }
                                         else
                                         {
-                                            DevComponents.DotNetBar.MessageBoxEx.Show("No tiene Cargo de Administrador para poder usar esa función.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        RecuperarDatosSesion();
-                                        if (!tienefila)
-                                        {
-                                            if (panelmontoinicial.Visible)
-                                            {
-                                                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea ingresar Monto Inicial de Caja?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                                                {
-                                                    panelmontoinicial.Visible = false;
-                                                }
-                                                else
-                                                {
-                                                    Cx.Desconectar();
-                                                    insertCaja();
-                                                }
-                                            }
+                                            Cx.Desconectar();
+                                            insertCaja();
                                         }
                                     }
                                 }
                             }
                         }
-
                     }
                 }
                 else
