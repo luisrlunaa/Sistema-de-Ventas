@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -79,7 +78,7 @@ namespace Capa_de_Presentacion
             V.lblTel2.Text = menu.lblTel2.Text;
             V.lblCorreo.Text = menu.lblCorreo.Text;
             V.lblrnc.Text = menu.lblrnc.Text;
-            V.BackColor = Color.CadetBlue;
+            V.BackColor = System.Drawing.Color.CadetBlue;
             Program.isSaler = true;
             V.Show();
             Hide();
