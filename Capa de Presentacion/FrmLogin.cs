@@ -86,6 +86,9 @@ namespace Capa_de_Presentacion
                             circularProgressBar1.Maximum = 100;
                             timer1.Start();
 
+                            if (circularProgressBar1.Visible == true)
+                                CargarListados();
+
                             if (rbInventario.Checked)
                             {
                                 Program.LoginStatus = "Inventario";
