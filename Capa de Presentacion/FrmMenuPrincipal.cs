@@ -133,7 +133,7 @@ namespace Capa_de_Presentacion
             {
                 var fecha1 = TempData.tempSalesData is null || !TempData.tempSalesData.Any() ? clsGenericList.listVentas.FirstOrDefault().FechaVenta : TempData.tempSalesData.FirstOrDefault().FechaVenta;
                 var fecha2 = TempData.tempSalesData is null || !TempData.tempSalesData.Any() ? clsGenericList.listVentas.LastOrDefault().FechaVenta : TempData.tempSalesData.LastOrDefault().FechaVenta;
-                clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1, fecha2, 0);
+                clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1.Value, fecha2.Value, 0);
             }
             #endregion
         }
