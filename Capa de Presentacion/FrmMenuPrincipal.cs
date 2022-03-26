@@ -125,8 +125,8 @@ namespace Capa_de_Presentacion
             #region productos vendidos por categoria
             if (clsGenericList.listVentas.Count > 0)
             {
-                var fecha1 = !TempData.tempSalesData.Any() ? clsGenericList.listVentas.FirstOrDefault().FechaVenta : TempData.tempSalesData.FirstOrDefault().FechaVenta;
-                var fecha2 = !TempData.tempSalesData.Any() ? clsGenericList.listVentas.LastOrDefault().FechaVenta : TempData.tempSalesData.LastOrDefault().FechaVenta;
+                var fecha1 = TempData.tempSalesData is null || !TempData.tempSalesData.Any() ? clsGenericList.listVentas.FirstOrDefault().FechaVenta : TempData.tempSalesData.FirstOrDefault().FechaVenta;
+                var fecha2 = TempData.tempSalesData is null || !TempData.tempSalesData.Any() ? clsGenericList.listVentas.LastOrDefault().FechaVenta : TempData.tempSalesData.LastOrDefault().FechaVenta;
                 clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1, fecha2, 0);
             }
             #endregion
@@ -167,7 +167,7 @@ namespace Capa_de_Presentacion
                 }
                 else
                 {
-                    if (txtcargo.Text.Trim() != "Administrador")
+                    if (!Program.isAdminUser)
                     {
                         FrmListadoProductos P = new FrmListadoProductos();
                         P.lblLogo.Text = lblLogo.Text;

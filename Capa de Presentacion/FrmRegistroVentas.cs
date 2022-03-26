@@ -55,8 +55,6 @@ namespace Capa_de_Presentacion
             txtPVenta.Enabled = Program.isAdminUser;
             txtIgv.Enabled = Program.isAdminUser;
 
-            txtrcnClient.Hide();
-            lblrcnClient.Hide();
             txtid.Text = "0";
             Program.ReImpresion = "";
             Program.datoscliente = "";
@@ -710,27 +708,30 @@ namespace Capa_de_Presentacion
                     cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = Program.datoscliente;
                 }
 
-                cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
-                cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
-
-                if (cbtipofactura.Text == "Credito")
-                {
-                    restante = Convert.ToDecimal(txttotal.Text) - Program.pagoRealizado;
-                    cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
-                }
-                else
-                {
-                    cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = 0;
-                }
-
-                cmd.Parameters.Add("@Serie", SqlDbType.Int).Value = Convert.ToInt32(txtid.Text);
-                cmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = txtNCF.Text;
+                cmd.Parameters.Add(Program.isSaler ? "@IdVenta" : "@IdCotizacion", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
-                cmd.Parameters.Add("@TipoDocumento", SqlDbType.VarChar).Value = combo_tipo_NCF.Text;
-                cmd.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = Program.Direccion;
-                cmd.Parameters.Add("@rcnClient", SqlDbType.VarChar).Value = txtrcnClient.Text;
-                cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dateTimePicker1.Text;
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
+                if (Program.isSaler)
+                {
+                    cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
+
+                    if (cbtipofactura.Text == "Credito")
+                    {
+                        restante = Convert.ToDecimal(txttotal.Text) - Program.pagoRealizado;
+                        cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = 0;
+                    }
+
+                    cmd.Parameters.Add("@Serie", SqlDbType.Int).Value = Convert.ToInt32(txtid.Text);
+                    cmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = txtNCF.Text;
+                    cmd.Parameters.Add("@TipoDocumento", SqlDbType.VarChar).Value = combo_tipo_NCF.Text;
+                    cmd.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = Program.Direccion ?? "Entregado en el Local";
+                    cmd.Parameters.Add("@rcnClient", SqlDbType.VarChar).Value = txtrcnClient.Text;
+                    cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dateTimePicker1.Text;
+                }
 
                 M.Conectar();
                 cmd.ExecuteNonQuery();
@@ -749,7 +750,7 @@ namespace Capa_de_Presentacion
                 venta.Total = Convert.ToDecimal(txttotal.Text);
                 venta.Tipofactura = cbtipofactura.Text;
                 venta.Restante = restante;
-                venta.Direccion = Program.Direccion;
+                venta.Direccion = Program.Direccion ?? "Entregado en el Local";
                 venta.rncCliente = txtrcnClient.Text;
                 venta.FechaVenta = dateTimePicker1.Value;
                 venta.UltimaFechaPago = dateTimePicker1.Value;
@@ -759,6 +760,10 @@ namespace Capa_de_Presentacion
                 if (clsGenericList.listVentas != null)
                 {
                     clsGenericList.listVentas.Add(venta);
+
+                    clsGenericList.idsVentas.Add(venta.IdVenta);
+                    if (clsGenericList.listVentas.Count > 0)
+                        clsGenericList.totalGanancia = clsGenericList.Ganancias(clsGenericList.idsVentas);
                 }
             }
 
@@ -788,7 +793,7 @@ namespace Capa_de_Presentacion
                     }
 
                     //Tabla detalles ventas
-                    cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
+                    cmd1.Parameters.Add(Program.isSaler ? "@IdVenta" : "@IdCotizacion", SqlDbType.Int).Value = idventa;
                     cmd1.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
                     cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
                     cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);

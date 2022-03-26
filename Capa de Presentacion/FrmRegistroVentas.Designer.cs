@@ -124,13 +124,13 @@
             this.label19 = new System.Windows.Forms.Label();
             this.txtpmin = new System.Windows.Forms.TextBox();
             this.txtpmax = new System.Windows.Forms.TextBox();
-            this.lblrcnClient = new System.Windows.Forms.Label();
-            this.txtrcnClient = new System.Windows.Forms.TextBox();
             this.lblabono = new System.Windows.Forms.Label();
             this.lbltituloabono = new System.Windows.Forms.Label();
             this.cotizacionPanel = new System.Windows.Forms.Panel();
             this.frmLabel = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.lblrcnClient = new System.Windows.Forms.Label();
+            this.txtrcnClient = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -1284,30 +1284,6 @@
             this.txtpmax.Size = new System.Drawing.Size(67, 22);
             this.txtpmax.TabIndex = 95;
             // 
-            // lblrcnClient
-            // 
-            this.lblrcnClient.AutoSize = true;
-            this.lblrcnClient.BackColor = System.Drawing.Color.Transparent;
-            this.lblrcnClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblrcnClient.ForeColor = System.Drawing.Color.Black;
-            this.lblrcnClient.Location = new System.Drawing.Point(8, 57);
-            this.lblrcnClient.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblrcnClient.Name = "lblrcnClient";
-            this.lblrcnClient.Size = new System.Drawing.Size(36, 16);
-            this.lblrcnClient.TabIndex = 100;
-            this.lblrcnClient.Text = "RNC";
-            // 
-            // txtrcnClient
-            // 
-            this.txtrcnClient.BackColor = System.Drawing.Color.White;
-            this.txtrcnClient.ForeColor = System.Drawing.Color.Black;
-            this.txtrcnClient.Location = new System.Drawing.Point(61, 54);
-            this.txtrcnClient.Margin = new System.Windows.Forms.Padding(4);
-            this.txtrcnClient.Name = "txtrcnClient";
-            this.txtrcnClient.Size = new System.Drawing.Size(245, 22);
-            this.txtrcnClient.TabIndex = 16;
-            this.txtrcnClient.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // lblabono
             // 
             this.lblabono.AutoSize = true;
@@ -1375,6 +1351,30 @@
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // lblrcnClient
+            // 
+            this.lblrcnClient.AutoSize = true;
+            this.lblrcnClient.BackColor = System.Drawing.Color.Transparent;
+            this.lblrcnClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblrcnClient.ForeColor = System.Drawing.Color.Black;
+            this.lblrcnClient.Location = new System.Drawing.Point(8, 57);
+            this.lblrcnClient.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblrcnClient.Name = "lblrcnClient";
+            this.lblrcnClient.Size = new System.Drawing.Size(36, 16);
+            this.lblrcnClient.TabIndex = 100;
+            this.lblrcnClient.Text = "RNC";
+            // 
+            // txtrcnClient
+            // 
+            this.txtrcnClient.BackColor = System.Drawing.Color.White;
+            this.txtrcnClient.ForeColor = System.Drawing.Color.Black;
+            this.txtrcnClient.Location = new System.Drawing.Point(61, 54);
+            this.txtrcnClient.Margin = new System.Windows.Forms.Padding(4);
+            this.txtrcnClient.Name = "txtrcnClient";
+            this.txtrcnClient.Size = new System.Drawing.Size(245, 22);
+            this.txtrcnClient.TabIndex = 16;
+            this.txtrcnClient.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // FrmRegistroVentas
             // 
@@ -1549,8 +1549,6 @@
         private System.Windows.Forms.TextBox txtpmax;
         private System.Windows.Forms.TextBox txtdireccion;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label lblrcnClient;
-        private System.Windows.Forms.TextBox txtrcnClient;
         public System.Windows.Forms.Label lblabono;
         public System.Windows.Forms.Label lbltituloabono;
         public System.Windows.Forms.Button btnImprimir;
@@ -1558,5 +1556,7 @@
         public System.Windows.Forms.Panel cotizacionPanel;
         public System.Windows.Forms.Label frmLabel;
         public System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox txtrcnClient;
+        private System.Windows.Forms.Label lblrcnClient;
     }
 }

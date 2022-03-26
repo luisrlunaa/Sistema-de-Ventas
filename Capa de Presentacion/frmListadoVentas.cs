@@ -82,6 +82,7 @@ namespace Capa_de_Presentacion
             V.lblrnc.Text = menu.lblrnc.Text;
             V.Show();
             Hide();
+            Program.isSaler = true;
         }
 
         public void cargar_combo_Tipofactura(ComboBox tipofactura)
@@ -113,7 +114,7 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["Tipo"].Value = item.Tipofactura.ToString();
                 dataGridView1.Rows[renglon].Cells["restante"].Value = item.Restante.ToString();
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = item.FechaVenta;
-                dataGridView1.Rows[renglon].Cells["Direccion"].Value = item.Direccion.ToString();
+                dataGridView1.Rows[renglon].Cells["Direccion"].Value = item.Direccion != null ? item.Direccion.ToString() : "Entregado en el Local";
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = item.NombreCliente.ToString();
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = item.UltimaFechaPago;
             }
