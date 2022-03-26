@@ -707,25 +707,28 @@ namespace Capa_de_Presentacion
                     cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = Program.datoscliente;
                 }
 
-                cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
-                cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
-
-                if (cbtipofactura.Text == "Credito")
-                {
-                    restante = Convert.ToDecimal(lbltotal.Text) - Program.pagoRealizado;
-                    cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
-                }
-                else
-                {
-                    cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = 0;
-                }
-
-                cmd.Parameters.Add("@Serie", SqlDbType.Int).Value = Convert.ToInt32(txtid.Text);
-                cmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = txtNCF.Text;
+                cmd.Parameters.Add(Program.isSaler ? "@IdVenta" : "@IdCotizacion", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
-                cmd.Parameters.Add("@TipoDocumento", SqlDbType.VarChar).Value = combo_tipo_NCF.Text;
-                cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dateTimePicker1.Text;
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(lbltotal.Text);
+                if (Program.isSaler)
+                {
+                    cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
+
+                    if (cbtipofactura.Text == "Credito")
+                    {
+                        restante = Convert.ToDecimal(lbltotal.Text) - Program.pagoRealizado;
+                        cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = 0;
+                    }
+
+                    cmd.Parameters.Add("@Serie", SqlDbType.Int).Value = Convert.ToInt32(txtid.Text);
+                    cmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = txtNCF.Text;
+                    cmd.Parameters.Add("@TipoDocumento", SqlDbType.VarChar).Value = combo_tipo_NCF.Text;
+                    cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dateTimePicker1.Text;
+                }
 
                 M.Conectar();
                 cmd.ExecuteNonQuery();
@@ -752,6 +755,10 @@ namespace Capa_de_Presentacion
                 if (clsGenericList.listVentas != null)
                 {
                     clsGenericList.listVentas.Add(venta);
+
+                    clsGenericList.idsVentas.Add(venta.IdVenta);
+                    if (clsGenericList.listVentas.Count > 0)
+                        clsGenericList.totalGanancia = clsGenericList.Ganancias(clsGenericList.idsVentas);
                 }
             }
 
@@ -781,7 +788,7 @@ namespace Capa_de_Presentacion
                     }
 
                     //Tabla detalles ventas
-                    cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
+                    cmd1.Parameters.Add(Program.isSaler ? "@IdVenta" : "@IdCotizacion", SqlDbType.Int).Value = idventa;
                     cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
                     cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
                     cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
@@ -807,7 +814,6 @@ namespace Capa_de_Presentacion
                             M.Desconectar();
                         }
                     }
-
 
                     M.Conectar();
                     cmd1.ExecuteNonQuery();
@@ -1252,14 +1258,21 @@ namespace Capa_de_Presentacion
                         doc.Add(fechaabono);
                     }
                     doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Tipo de Factura: " + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Tipo de Comprobante: " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Numero de Comprobante: " + txtNCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    if (txtImei.Text != null || txtImei.Text != "")
+                    if (Program.isSaler)
                     {
-                        doc.Add(new Paragraph("IMEI del Producto: " + txtImei.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Tipo de Factura: " + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Tipo de Comprobante: " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Numero de Comprobante: " + txtNCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        if (txtImei.Text != null || txtImei.Text != "")
+                        {
+                            doc.Add(new Paragraph("IMEI del Producto: " + txtImei.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        }
+                    }
+                    else
+                    {
+                        doc.Add(new Paragraph("COTIZACION", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
                     doc.Add(new Paragraph(" "));
                     GenerarDocumento(doc);
