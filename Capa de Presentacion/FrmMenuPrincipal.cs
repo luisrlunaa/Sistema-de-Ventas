@@ -120,13 +120,13 @@ namespace Capa_de_Presentacion
         {
             timer1.Interval = 500;
             timer1.Start();
-            llenar();            
-            
+            llenar();
+
             #region productos vendidos por categoria
             if (clsGenericList.listVentas.Count > 0)
             {
-                var fecha1 = !TempData.tempSalesData.Any() ? clsGenericList.listVentas.FirstOrDefault().FechaVenta : TempData.tempSalesData.FirstOrDefault().FechaVenta;
-                var fecha2 = !TempData.tempSalesData.Any() ? clsGenericList.listVentas.LastOrDefault().FechaVenta : TempData.tempSalesData.LastOrDefault().FechaVenta;
+                var fecha1 = TempData.tempSalesData is null || !TempData.tempSalesData.Any() ? clsGenericList.listVentas.FirstOrDefault().FechaVenta : TempData.tempSalesData.FirstOrDefault().FechaVenta;
+                var fecha2 = TempData.tempSalesData is null || !TempData.tempSalesData.Any() ? clsGenericList.listVentas.LastOrDefault().FechaVenta : TempData.tempSalesData.LastOrDefault().FechaVenta;
                 clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1, fecha2, 0);
             }
             #endregion
@@ -167,7 +167,7 @@ namespace Capa_de_Presentacion
                 }
                 else
                 {
-                    if (txtcargo.Text.Trim() != "Administrador")
+                    if (!Program.isAdminUser)
                     {
                         FrmListadoProductos P = new FrmListadoProductos();
                         P.lblLogo.Text = lblLogo.Text;
@@ -346,7 +346,7 @@ namespace Capa_de_Presentacion
             RecuperarDatosSesion1();
             MessageBox.Show("Buscando Usuario");
             Refresh();
-            if (textBox1.Text.Trim() == "Administrador")
+            if (Program.isAdminUser)
             {
                 usuario.Hide();
                 panel2.Show();

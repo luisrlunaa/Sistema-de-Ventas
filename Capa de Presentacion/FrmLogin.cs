@@ -124,9 +124,6 @@ namespace Capa_de_Presentacion
                                     circularProgressBar1.Maximum = 100;
                                     timer1.Start();
 
-                                    if (circularProgressBar1.Visible == true)
-                                        CargarListados();
-
                                     if (rbInventario.Checked)
                                     {
                                         Program.LoginStatus = "Inventario";
@@ -136,12 +133,6 @@ namespace Capa_de_Presentacion
                                     {
                                         Program.LoginStatus = "Ventas";
                                         RecuperarDatosSesion();
-
-                                        #region Calculo de ganancias
-                                        List<int> ventasIds = new List<int>();
-                                        if (clsGenericList.listVentas.Count > 0)
-                                            clsGenericList.totalGanancia = clsGenericList.Ganancias(ventasIds);
-                                        #endregion
                                     }
                                     else if (rbNCF.Checked)
                                     {
@@ -173,12 +164,6 @@ namespace Capa_de_Presentacion
                                                 }
                                             }
                                         }
-
-                                        #region Calculo de ganancias
-                                        List<int> ventasIds = new List<int>();
-                                        if (clsGenericList.listVentas.Count > 0)
-                                            clsGenericList.totalGanancia = clsGenericList.Ganancias(ventasIds);
-                                        #endregion
                                     }
                                 }
                             }
@@ -223,6 +208,7 @@ namespace Capa_de_Presentacion
                 {
                     clsGenericList.listVentas = V.GetListadoVentas(GetWeek(), DateTime.Now);
                     clsGenericList.listVentas.ForEach(x => clsGenericList.idsVentas.Add(x.IdVenta));
+                    clsGenericList.totalGanancia = clsGenericList.Ganancias(clsGenericList.idsVentas);
                 }
                 catch (Exception ex)
                 {
