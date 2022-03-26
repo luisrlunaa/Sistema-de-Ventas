@@ -108,8 +108,11 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            if (TempData.DateIn.AddHours(1) <= DateTime.Now)
+            if (TempData.tempSalesData.Any() && TempData.DateIn.AddHours(1) <= DateTime.Now)
+            {
                 TempData.tempSalesData = new List<Venta>();
+                TempData.DateIn = DateTime.Now;
+            }
         }
 
         private void FrmMenuPrincipal_Load(object sender, EventArgs e)
