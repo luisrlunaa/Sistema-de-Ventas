@@ -65,7 +65,7 @@ namespace Capa_de_Presentacion
             ticket.TextoCentro(textBox1.Text);
             ticket.TextoCentro("!GRACIAS POR SU PACIENCIA!");
             ticket.CortaTicket();
-            ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
+            ticket.ImprimirTicket(Program.ImpresonaPeq);//NOMBRE DE LA IMPRESORA
         }
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();

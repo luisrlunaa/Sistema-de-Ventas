@@ -147,6 +147,7 @@ namespace Capa_de_Presentacion
                 lblTel2.Text = leer["Tel2"].ToString();
                 lblCorreo.Text = leer["Correo"].ToString();
                 lblrnc.Text = leer["RNC"].ToString();
+                Program.ImpresonaPeq = leer["ImpresoraPeq"].ToString();
             }
             Cx.Desconectar();
         }
