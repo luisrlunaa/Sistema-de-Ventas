@@ -54,6 +54,7 @@ namespace CapaLogicaNegocio
             catch (Exception ex)
             {
                 ex.Message.ToString();
+                return listVentCateg;
             }
 
             return listVentCateg;
@@ -90,6 +91,7 @@ namespace CapaLogicaNegocio
             catch (Exception ex)
             {
                 ex.Message.ToString();
+                return ganancia;
             }
 
             return ganancia;

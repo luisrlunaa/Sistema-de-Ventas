@@ -82,7 +82,7 @@ namespace Capa_de_Presentacion
                 else
                 {
                     txtNCF.Text = "Sin NCF";
-                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                    combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
                 }
             }
         }
@@ -504,7 +504,7 @@ namespace Capa_de_Presentacion
 
                             if (cbidentificacion.Checked == false && txtDatos.Text != "" && Program.IdCliente == 0)
                             {
-                                txtDocIdentidad.Text = "Sin identificación";
+                                txtDocIdentidad.Text = "Sin identificacion";
                                 txtDatos.Text = Program.datoscliente;
                             }
 
@@ -603,7 +603,7 @@ namespace Capa_de_Presentacion
                 {
                     chkComprobante.Checked = false;
                     txtNCF.Text = "Sin NCF";
-                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                    combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
                     txtid.Text = "0";
                 }
             }
@@ -611,7 +611,7 @@ namespace Capa_de_Presentacion
             if (cbidentificacion.Checked == false && Program.IdCliente == 0)
             {
                 txtDatos.Text = Program.datoscliente;
-                txtDocIdentidad.Text = "Sin Identificación";
+                txtDocIdentidad.Text = "Sin Identificacion";
             }
 
             pa.Show();
@@ -738,7 +738,6 @@ namespace Capa_de_Presentacion
                 M.Desconectar();
 
                 Venta venta = new Venta();
-
                 venta.IdVenta = Convert.ToInt32(txtIdVenta.Text);
                 if (txtidCli.Text != "" && txtidCli.Text != null)
                 {
@@ -942,7 +941,7 @@ namespace Capa_de_Presentacion
 
             //System.Drawing.Image img = System.Drawing.Image.FromFile("LogoCepeda.png");
             //ticket.HeaderImage = img;
-            ticket.TextoCentro(lblLogo.Text);
+            ticket.TextoCentro(lblLogo.Text.ToUpper());
             ticket.TextoIzquierda("");
             ticket.TextoIzquierda(lblDir.Text);
             ticket.TextoIzquierda("Tel: " + lblTel1.Text + "/" + lblTel2.Text);
@@ -957,7 +956,7 @@ namespace Capa_de_Presentacion
             if (Program.datoscliente != "" && Program.IdCliente == 0)
             {
                 nombre = Program.datoscliente;
-                cedula = "Sin Identificación";
+                cedula = "Sin Identificacion";
             }
             else
             {
@@ -969,7 +968,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Atendido Por: " + txtUsu.Text);
             ticket.TextoIzquierda("Cliente: " + nombre);
             ticket.TextoIzquierda("Direccion de la Entrega: " + Program.Direccion);
-            ticket.TextoIzquierda("Documento de Identificación: " + cedula);
+            ticket.TextoIzquierda("Documento de Identificacion: " + cedula);
             if (txtrcnClient.Text != "sin rcn del Cliente")
             {
                 ticket.TextoIzquierda("RNC Cliente: " + txtrcnClient.Text);
@@ -1031,6 +1030,7 @@ namespace Capa_de_Presentacion
 
         private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            entro = false;
             if (Program.abiertosecundarias == false)
             {
                 if (Program.isSaler)
@@ -1047,6 +1047,8 @@ namespace Capa_de_Presentacion
                     Program.abiertosecundarias = false;
                     Program.abierto = false;
                     button3.Visible = true;
+                    btnRegistrarVenta.Visible = false;
+                    btnImprimir.Visible = true;
                     F.Show();
                 }
             }
@@ -1205,7 +1207,7 @@ namespace Capa_de_Presentacion
                     if (Program.datoscliente != "" && Program.IdCliente == 0)
                     {
                         nombre = Program.datoscliente;
-                        cedula = "Sin Identificación";
+                        cedula = "Sin Identificacion";
                     }
                     else
                     {
@@ -1250,7 +1252,7 @@ namespace Capa_de_Presentacion
                         }
                         doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                         doc.Add(new Paragraph("Direccion de la Entrega: " + Program.Direccion, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                        doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Documento de Identificacion: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                         doc.Add(new Paragraph(" "));
                     }
                     else
@@ -1464,7 +1466,7 @@ namespace Capa_de_Presentacion
                 txtrcnClient.Hide();
                 lblrcnClient.Hide();
                 txtNCF.Text = "Sin NCF";
-                combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
             }
         }
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -1500,7 +1502,7 @@ namespace Capa_de_Presentacion
                 else
                 {
                     txtNCF.Text = "Sin NCF";
-                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                    combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
                 }
 
                 VentaRealizada();

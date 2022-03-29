@@ -52,7 +52,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>iconfinder_1_1668045.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.10.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
@@ -362,7 +363,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="iconfinder_1_1668045.ico" />
     <None Include="Resources\Household.jpg" />
     <None Include="Resources\Logo-01.png" />
     <None Include="Resources\icons8-caja-registradora-30.png" />

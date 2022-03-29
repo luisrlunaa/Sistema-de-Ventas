@@ -6,10 +6,10 @@ using System.Data.SqlClient;
 
 namespace CapaEnlaceDatos
 {
-    public class clsManejador
+    public class clsManejador   
     {
-        public SqlConnection conexion = new SqlConnection("Data Source=DESKTOP-108SHQB\\SQLEXPRESS;Initial Catalog=SalesSystem;Integrated Security=True");
-        //public SqlConnection conexion = new SqlConnection("Data Source=.;Initial Catalog=SalesSystem;Integrated Security=True");
+        public SqlConnection conexion = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=SalesSystem;Integrated Security=True");
+        //public SqlConnection conexion = new SqlConnection("Data Source=.;Initial Catalog=SalesSystemcolchoneria;Integrated Security=True");
         public void Conectar()
         {
             if (conexion.State == ConnectionState.Closed)

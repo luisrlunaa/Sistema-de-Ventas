@@ -759,19 +759,7 @@ namespace Capa_de_Presentacion
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
-        private void cbtipogomafiltro_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbtipogomafiltro.Checked)
-            {
-                cbTipoGoma.Enabled = true;
-            }
-            else
-            {
-                cbTipoGoma.Enabled = false;
-            }
-        }
-
-        private void cbcategoriafiltro_CheckedChanged(object sender, EventArgs e)
+        private void cbcategoriafiltro_CheckedChanged_1(object sender, EventArgs e)
         {
             if (cbcategoriafiltro.Checked)
             {
@@ -780,6 +768,18 @@ namespace Capa_de_Presentacion
             else
             {
                 cbxCategoria.Enabled = false;
+            }
+        }
+
+        private void cbtipogomafiltro_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (cbtipogomafiltro.Checked)
+            {
+                cbTipoGoma.Enabled = true;
+            }
+            else
+            {
+                cbTipoGoma.Enabled = false;
             }
         }
     }
