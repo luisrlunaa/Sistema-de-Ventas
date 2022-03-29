@@ -83,7 +83,7 @@ namespace Capa_de_Presentacion
                 else
                 {
                     txtNCF.Text = "Sin NCF";
-                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                    combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
                 }
             }
         }
@@ -603,7 +603,7 @@ namespace Capa_de_Presentacion
                 {
                     chkComprobante.Checked = false;
                     txtNCF.Text = "Sin NCF";
-                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                    combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
                     txtid.Text = "0";
                 }
             }
@@ -900,7 +900,7 @@ namespace Capa_de_Presentacion
                 else
                 {
                     txtNCF.Text = "Sin NCF";
-                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                    combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
                 }
 
                 VentaRealizada();
