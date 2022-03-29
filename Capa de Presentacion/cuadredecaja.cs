@@ -121,7 +121,7 @@ namespace Capa_de_Presentacion
             if (dr.HasRows == false)
             {
                 limpiar();
-                MessageBox.Show("No tiene ningún cuadre registrado en esta Fecha");
+                MessageBox.Show("No tiene Ningun cuadre registrado en esta Fecha");
             }
             //el ciclo while se ejecutará mientras lea registros en la tabla
             while (dr.Read())

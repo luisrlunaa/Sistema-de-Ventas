@@ -14,6 +14,8 @@ namespace CapaLogicaNegocio
         public static List<VentasPorCategoria> listVentasPorCategoria;
         public static List<int> idsVentas;
 
+
+
         #region Variables listado de ventas
         public static decimal totalPendiente { get; set; }
         public static decimal totalGanancia { get; set; }
@@ -52,12 +54,11 @@ namespace CapaLogicaNegocio
             catch (Exception ex)
             {
                 ex.Message.ToString();
+                return listVentCateg;
             }
 
             return listVentCateg;
         }
-
-
         public static decimal Ganancias(List<int> ventasIds)
         {
             decimal ganancia = 0;
@@ -79,7 +80,7 @@ namespace CapaLogicaNegocio
                         SqlDataReader leer = comando.ExecuteReader();
                         if (leer.Read() == true)
                         {
-                            var monto = Convert.ToDecimal(leer["ganancia"]) > 0 ? Convert.ToDecimal(leer["ganancia"]) : 0;
+                            var monto = leer["ganancia"] == DBNull.Value ? 0 : Convert.ToDecimal(leer["ganancia"]) > 0 ? Convert.ToDecimal(leer["ganancia"]) : 0;
                             ganancia += monto;
                         }
                         M.Desconectar();
@@ -90,6 +91,7 @@ namespace CapaLogicaNegocio
             catch (Exception ex)
             {
                 ex.Message.ToString();
+                return ganancia;
             }
 
             return ganancia;
