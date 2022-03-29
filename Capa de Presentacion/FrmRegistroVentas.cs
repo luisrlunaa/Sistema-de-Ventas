@@ -82,7 +82,7 @@ namespace Capa_de_Presentacion
                 else
                 {
                     txtNCF.Text = "Sin NCF";
-                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                    combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
                 }
             }
         }
@@ -504,7 +504,7 @@ namespace Capa_de_Presentacion
 
                             if (cbidentificacion.Checked == false && txtDatos.Text != "" && Program.IdCliente == 0)
                             {
-                                txtDocIdentidad.Text = "Sin identificación";
+                                txtDocIdentidad.Text = "Sin identificacion";
                                 txtDatos.Text = Program.datoscliente;
                             }
 
@@ -603,7 +603,7 @@ namespace Capa_de_Presentacion
                 {
                     chkComprobante.Checked = false;
                     txtNCF.Text = "Sin NCF";
-                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                    combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
                     txtid.Text = "0";
                 }
             }
@@ -611,7 +611,7 @@ namespace Capa_de_Presentacion
             if (cbidentificacion.Checked == false && Program.IdCliente == 0)
             {
                 txtDatos.Text = Program.datoscliente;
-                txtDocIdentidad.Text = "Sin Identificación";
+                txtDocIdentidad.Text = "Sin identificacion";
             }
 
             pa.Show();
@@ -957,7 +957,7 @@ namespace Capa_de_Presentacion
             if (Program.datoscliente != "" && Program.IdCliente == 0)
             {
                 nombre = Program.datoscliente;
-                cedula = "Sin Identificación";
+                cedula = "Sin identificacion";
             }
             else
             {
@@ -969,7 +969,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Atendido Por: " + txtUsu.Text);
             ticket.TextoIzquierda("Cliente: " + nombre);
             ticket.TextoIzquierda("Direccion de la Entrega: " + Program.Direccion);
-            ticket.TextoIzquierda("Documento de Identificación: " + cedula);
+            ticket.TextoIzquierda("Documento de identificacion: " + cedula);
             if (txtrcnClient.Text != "sin rcn del Cliente")
             {
                 ticket.TextoIzquierda("RNC Cliente: " + txtrcnClient.Text);
@@ -1170,7 +1170,7 @@ namespace Capa_de_Presentacion
             string cedula = "";
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            Image image1 = Image.GetInstance("Logo-01.png");
+            Image image1 = Image.GetInstance("ferreteria.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
@@ -1205,7 +1205,7 @@ namespace Capa_de_Presentacion
                     if (Program.datoscliente != "" && Program.IdCliente == 0)
                     {
                         nombre = Program.datoscliente;
-                        cedula = "Sin Identificación";
+                        cedula = "Sin identificacion";
                     }
                     else
                     {
@@ -1250,7 +1250,7 @@ namespace Capa_de_Presentacion
                         }
                         doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                         doc.Add(new Paragraph("Direccion de la Entrega: " + Program.Direccion, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                        doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Documento de identificacion: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                         doc.Add(new Paragraph(" "));
                     }
                     else
@@ -1464,7 +1464,7 @@ namespace Capa_de_Presentacion
                 txtrcnClient.Hide();
                 lblrcnClient.Hide();
                 txtNCF.Text = "Sin NCF";
-                combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
             }
         }
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -1500,7 +1500,7 @@ namespace Capa_de_Presentacion
                 else
                 {
                     txtNCF.Text = "Sin NCF";
-                    combo_tipo_NCF.Text = "Ningún Tipo de Comprobante";
+                    combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
                 }
 
                 VentaRealizada();
