@@ -468,13 +468,16 @@ namespace Capa_de_Presentacion
             var isSameDate = dtpfecha2.Value.Date == dtpfecha1.Value.Date;
             var isDiferentWeek = dtpfecha1.Value.Date < DateTime.Today.AddDays(-8);
 
+            var (date1, date2) = GetDaysToFilter(isSameDate, dtpfecha1.Value.Date, dtpfecha2.Value.Date);
             if (!isDiferentWeek)
             {
-                TempData.tempSalesData = clsGenericList.listVentas.OrderBy(x => x.IdVenta).ToList();
+                listFind = clsGenericList.listVentas.Where(x => isSameDate
+                                                              ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
+                                                              : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
+                    .OrderBy(x => x.IdVenta).ToList();
             }
             else
             {
-                var (date1, date2) = GetDaysToFilter(isSameDate, dtpfecha1.Value.Date, dtpfecha2.Value.Date);
                 var isOnTempData = TempData.tempSalesData.Count > 0 ? TempData.tempSalesData.Where(x => isSameDate
                                                               ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
                                                               : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
