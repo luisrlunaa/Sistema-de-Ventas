@@ -466,15 +466,15 @@ namespace Capa_de_Presentacion
             if (!isDiferentWeek)
             {
                 listFind = clsGenericList.listVentas.Where(x => isSameDate
-                                                              ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
-                                                              : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
+                                                              ? x.FechaVenta.Value.Date == date1 && x.FechaVenta.Value.Date < date2
+                                                              : x.FechaVenta.Value.Date >= date1 && x.FechaVenta.Value.Date <= date2)
                     .OrderBy(x => x.IdVenta).ToList();
             }
             else
             {
                 var isOnTempData = TempData.tempSalesData.Count > 0 ? TempData.tempSalesData.Where(x => isSameDate
-                                                              ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
-                                                              : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
+                                                              ? x.FechaVenta.Value.Date == date1 && x.FechaVenta.Value.Date < date2
+                                                              : x.FechaVenta.Value.Date >= date1 && x.FechaVenta.Value.Date <= date2)
                                                               .ToList().Count > 0
                                                           : false;
 
@@ -487,8 +487,8 @@ namespace Capa_de_Presentacion
                 else
                 {
                     listFind = TempData.tempSalesData.Where(x => isSameDate
-                                                              ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
-                                                              : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
+                                                              ? x.FechaVenta.Value.Date == date1 && x.FechaVenta.Value.Date < date2
+                                                              : x.FechaVenta.Value.Date >= date1 && x.FechaVenta.Value.Date <= date2)
                                                               .ToList();
                 }
             }
