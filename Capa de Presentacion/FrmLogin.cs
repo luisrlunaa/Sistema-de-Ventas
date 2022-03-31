@@ -114,19 +114,16 @@ namespace Capa_de_Presentacion
                             else
                             {
                                 RecuperarDatosSesion();
-                                if (!tienefila)
+                                if (!tienefila && panelmontoinicial.Visible)
                                 {
-                                    if (panelmontoinicial.Visible)
+                                    if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea ingresar Monto Inicial de Caja?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                                     {
-                                        if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea ingresar Monto Inicial de Caja?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                                        {
-                                            panelmontoinicial.Visible = false;
-                                        }
-                                        else
-                                        {
-                                            M.Desconectar();
-                                            insertCaja();
-                                        }
+                                        panelmontoinicial.Visible = false;
+                                    }
+                                    else
+                                    {
+                                        M.Desconectar();
+                                        insertCaja();
                                     }
                                 }
                             }
