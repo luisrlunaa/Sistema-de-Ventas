@@ -111,7 +111,7 @@ namespace Capa_de_Presentacion
                             else
                             {
                                 RecuperarDatosSesion();
-                                if (panelmontoinicial.Visible)
+                                if (!tienefila && panelmontoinicial.Visible)
                                 {
                                     if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea ingresar Monto Inicial de Caja?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                                     {
