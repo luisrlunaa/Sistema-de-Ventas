@@ -75,7 +75,6 @@ namespace Capa_de_Presentacion
                 M.Desconectar();
             }
 
-            clsProducto P = new clsProducto();
             if (txtProducto.Text.Trim() != "")
             {
                 if (txtMarca.Text.Trim() != "")
@@ -132,9 +131,8 @@ namespace Capa_de_Presentacion
 
                                         clsGenericList.listProducto.Add(product);
 
-                                        P.Listar();
-                                        ListarElementos();
                                         Limpiar();
+                                        ListarElementos();
                                     }
 
                                 }
@@ -213,7 +211,6 @@ namespace Capa_de_Presentacion
         private void button1_Click(object sender, EventArgs e)
         {
             M.Desconectar();
-            FrmListadoProductos LP = new FrmListadoProductos();
             if (txtProducto.Text.Trim() != "")
             {
                 if (txtMarca.Text.Trim() != "")
@@ -244,7 +241,6 @@ namespace Capa_de_Presentacion
                                     M.Conectar();
                                     cmd.ExecuteNonQuery();
                                     M.Desconectar();
-                                    ListarElementos();
 
                                     var idp = Convert.ToInt32(txtIdP.Text);
                                     var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idp);
@@ -267,9 +263,8 @@ namespace Capa_de_Presentacion
                                     clsGenericList.listProducto.Remove(producto);
                                     clsGenericList.listProducto.Add(product);
 
-                                    LP.CargarListado(clsGenericList.listProducto);
                                     Limpiar();
-                                    this.Close();
+                                    ListarElementos();
                                 }
                             }
                             else

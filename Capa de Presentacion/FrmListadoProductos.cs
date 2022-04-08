@@ -46,6 +46,7 @@ namespace Capa_de_Presentacion
             ListarElementos();
             ListarElementostipo();
         }
+
         decimal montoTotalenInventario = 0;
         public void buscarid()
         {
@@ -781,6 +782,11 @@ namespace Capa_de_Presentacion
             {
                 cbTipoGoma.Enabled = false;
             }
+        }
+
+        private void FrmListadoProductos_Activated(object sender, EventArgs e)
+        {
+            GetAllProduct();
         }
     }
 }
