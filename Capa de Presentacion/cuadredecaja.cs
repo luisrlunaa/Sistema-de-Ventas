@@ -133,13 +133,12 @@ namespace Capa_de_Presentacion
             else
             {
                 //el ciclo while se ejecutará mientras lea registros en la tabla
-                while (dr.Read())
+                while (!dr.IsClosed && dr.Read())
                 {
                     //variable de tipo entero para ir enumerando los la filas del datagridview
                     int renglon = dataGridView1.Rows.Add();
                     // especificamos en que fila se mostrará cada registro
                     // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
                     if (dr.GetInt32(dr.GetOrdinal("id")) > 0)
                     {
                         dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
@@ -152,7 +151,7 @@ namespace Capa_de_Presentacion
                         llenardeudas(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
                         llenargastos();
 
-                        string desglose = dr.GetString(dr.GetOrdinal("descripcion"));
+                        string desglose = dataGridView1.Rows[renglon].Cells[1].Value.ToString();
                         if (desglose != "")
                         {
                             var marca = desglose;
@@ -181,7 +180,7 @@ namespace Capa_de_Presentacion
                         txtde1000.ReadOnly = true;
                         txtde2000.ReadOnly = true;
 
-                        lblmontocuadre.Text = dr.GetDecimal(dr.GetOrdinal("monto")).ToString();
+                        lblmontocuadre.Text = dataGridView1.Rows[renglon].Cells[2].Value.ToString();
 
                         btnregistrar.Visible = false;
                         btnimprimir.Visible = true;
