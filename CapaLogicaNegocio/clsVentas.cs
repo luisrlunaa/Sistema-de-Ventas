@@ -55,7 +55,7 @@ namespace CapaLogicaNegocio
             return M.Listado("ListadoVentas", null);
         }
 
-        public List<Venta> GetListadoVentas(DateTime date , DateTime date1)
+        public List<Venta> GetListadoVentas(DateTime date, DateTime date1)
         {
             M.Desconectar();
             var newlist = new List<Venta>();
@@ -67,7 +67,7 @@ namespace CapaLogicaNegocio
                 //variable SqlDataReader para leer los datos
                 SqlDataReader dr;
                 //declaramos el comando para realizar la busqueda
-                comando.CommandText = "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) order by IdVenta"; 
+                comando.CommandText = "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) order by IdVenta";
                 //especificamos que es de tipo Text
                 comando.CommandType = CommandType.Text;
                 //sustituyendo variables por data

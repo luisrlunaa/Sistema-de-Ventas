@@ -135,6 +135,7 @@ namespace Capa_de_Presentacion
 
             llenar_datagastos();
         }
+
         private void To_pdf()
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
@@ -193,6 +194,7 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("No guardo el Archivo");
             }
         }
+
         public void GenerarDocumento(Document document)
         {
             int i, j;
@@ -221,6 +223,7 @@ namespace Capa_de_Presentacion
             }
             document.Add(datatable);
         }
+
         public void GenerarDocumentogastos(Document document)
         {
             int i, j;
@@ -277,11 +280,10 @@ namespace Capa_de_Presentacion
 
         private void dataGridView2_DoubleClick(object sender, EventArgs e)
         {
-            Program.idgastos = Convert.ToInt32(dataGridView2.CurrentRow.Cells["id"].Value.ToString());
+            Program.idgastos = dataGridView2.CurrentRow.Cells["id"].Value != null ? Convert.ToInt32(dataGridView2.CurrentRow.Cells["id"].Value.ToString()) : 0;
             txtdescripciondegasto.Text = dataGridView2.CurrentRow.Cells["descripcion"].Value.ToString();
             txtmontogasto.Text = dataGridView2.CurrentRow.Cells["montogasto"].Value.ToString();
         }
-
 
         private void txtBuscarCaja_TextChanged(object sender, EventArgs e)
         {
