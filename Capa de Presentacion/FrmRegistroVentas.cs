@@ -30,6 +30,7 @@ namespace Capa_de_Presentacion
         {
             InitializeComponent();
         }
+
         private void FrmVentas_Load(object sender, EventArgs e)
         {
             M.Desconectar();
@@ -897,9 +898,7 @@ namespace Capa_de_Presentacion
 
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
-            if (btnRegistrarVenta.Text.ToLower() == "cotizar")
-                button3.Visible = true;
-
+            Program.isSaler = true;
             RegistrarVenta();
         }
 
@@ -1070,6 +1069,7 @@ namespace Capa_de_Presentacion
                     Program.abiertosecundario = false;
                     Program.abierto = false;
                     button3.Visible = true;
+                    btnRegistrarVenta.Visible = false;
                     F.Show();
                 }
             }
@@ -1550,7 +1550,7 @@ namespace Capa_de_Presentacion
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Program.isSaler = true;
+            Program.isSaler = false;
             RegistrarVenta();
         }
     }
