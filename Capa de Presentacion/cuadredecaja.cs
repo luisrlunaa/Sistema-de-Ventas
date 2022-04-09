@@ -17,19 +17,19 @@ namespace Capa_de_Presentacion
         {
             InitializeComponent();
         }
-        clsManejador Cx = new clsManejador();
-        //Correo c = new Correo();
+
+        clsManejador M = new clsManejador();
         public void limpiar()
         {
-            txtde5.Text = "";
-            txtde10.Text = "";
-            txtde25.Text = "";
-            txtde50.Text = "";
-            txtde100.Text = "";
-            txtde200.Text = "";
-            txtde500.Text = "";
-            txtde1000.Text = "";
-            txtde2000.Text = "";
+            txtde5.Text = "0";
+            txtde10.Text = "0";
+            txtde25.Text = "0";
+            txtde50.Text = "0";
+            txtde100.Text = "0";
+            txtde200.Text = "0";
+            txtde500.Text = "0";
+            txtde1000.Text = "0";
+            txtde2000.Text = "0";
 
             txtde5.ReadOnly = false;
             txtde10.ReadOnly = false;
@@ -41,39 +41,44 @@ namespace Capa_de_Presentacion
             txtde1000.ReadOnly = false;
             txtde2000.ReadOnly = false;
 
-            lbldeudas.Text = "";
-            lblmontocuadre.Text = "";
-            lblmontocaja.Text = "";
-            lblmontoingreso.Text = "";
-            lblmontogasto.Text = "";
+            lbldeudas.Text = "...";
+            lblmontocuadre.Text = "...";
+            lblmontocaja.Text = "...";
+            lblmontoingreso.Text = "...";
+            lblmontogasto.Text = "...";
+
             dataGridView1.Rows.Clear();
             dataGridView2.Rows.Clear();
         }
+
         private void btnregistrar_Click(object sender, EventArgs e)
         {
-            Cx.Desconectar();
-            if (!string.IsNullOrEmpty(lblmontocuadre.Text))
+            M.Desconectar();
+            if (lblmontocuadre.Text != "..." && !string.IsNullOrWhiteSpace(lblmontocuadre.Text))
             {
                 decimal montofinal = Convert.ToDecimal(lblmontocuadre.Text);
-
-                using (SqlCommand cmd = new SqlCommand("Registrarcuadre", Cx.conexion))
+                if (montofinal > 0)
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (SqlCommand cmd = new SqlCommand("Registrarcuadre", M.conexion))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    //tabla cuadre
-                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = Convert.ToInt32(lblidcaja.Text);
-                    cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtde5.Text + "," + txtde10.Text + "," + txtde25.Text + ","
-                        + txtde50.Text + "," + txtde100.Text + "," + txtde200.Text + "," + txtde500.Text + "," + txtde1000.Text + "," + txtde2000.Text;
-                    cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = montofinal;
-                    cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
+                        //tabla cuadre
+                        cmd.Parameters.Add("@id", SqlDbType.Int).Value = Program.idcaja;
+                        cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtde5.Text + "," + txtde10.Text + "," + txtde25.Text + ","
+                            + txtde50.Text + "," + txtde100.Text + "," + txtde200.Text + "," + txtde500.Text + "," + txtde1000.Text + "," + txtde2000.Text;
+                        cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = montofinal;
+                        cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
-                    Cx.Conectar();
-                    cmd.ExecuteNonQuery();
-                    Cx.Desconectar();
-                    To_pdf();
-                    limpiar();
-                    label18.Enabled = true;
-                    MessageBox.Show("Cuadre Registrado");
+                        M.Conectar();
+                        cmd.ExecuteNonQuery();
+                        M.Desconectar();
+
+                        To_pdf();
+                        limpiar();
+                        label18.Enabled = true;
+                        MessageBox.Show("Cuadre Registrado");
+                    }
                 }
             }
             else
@@ -81,38 +86,41 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("Debe darle al boton de Sumar antes de registrar un nuevo Cuadre");
             }
         }
+
         public void llenardeudas(int id)
         {
-            Cx.Desconectar();
+            M.Desconectar();
             string cadSql = "select deuda from Caja where id_caja =" + id;
+            M.Conectar();
 
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
 
             SqlDataReader leer = comando.ExecuteReader();
 
             if (leer.Read() == true)
             {
-                lbldeudas.Text = Math.Round(Convert.ToDecimal(leer["deuda"])).ToString();
+                var deuda = leer["deuda"] != null ? Math.Round(Convert.ToDecimal(leer["deuda"].ToString())) : 0;
+                lbldeudas.Text = deuda.ToString();
             }
-            Cx.Desconectar();
+            M.Desconectar();
         }
+
         private void agregargasto_Click(object sender, EventArgs e)
         {
-            Cx.Desconectar();
+            M.Desconectar();
             limpiar();
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            comando.Connection = Cx.conexion;
+            comando.Connection = M.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "Select * From Cuadre where fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
             comando.Parameters.AddWithValue("@fecha", dpkfechacuadre.Value);
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            Cx.Conectar();
+            M.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView1.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -120,79 +128,90 @@ namespace Capa_de_Presentacion
             if (dr.HasRows == false)
             {
                 limpiar();
-                MessageBox.Show("No tiene Ningun cuadre registrado en esta Fecha");
+                MessageBox.Show("No tiene ningun cuadre registrado en esta Fecha");
             }
-            //el ciclo while se ejecutará mientras lea registros en la tabla
-            while (dr.Read())
+            else
             {
-                //variable de tipo entero para ir enumerando los la filas del datagridview
-                int renglon = dataGridView1.Rows.Add();
-                // especificamos en que fila se mostrará cada registro
-                // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
-
-                dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
-                dataGridView1.Rows[renglon].Cells[1].Value = dr.GetString(dr.GetOrdinal("descripcion"));
-                dataGridView1.Rows[renglon].Cells[2].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
-                dataGridView1.Rows[renglon].Cells[3].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
-
-                llenargridpagos(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
-                llenar(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
-                llenardeudas(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
-                llenargastos();
-
-                string desglose = dr.GetString(dr.GetOrdinal("descripcion"));
-                if (desglose != "")
+                //el ciclo while se ejecutará mientras lea registros en la tabla
+                while (!dr.IsClosed && dr.Read())
                 {
-                    var marca = desglose;
-                    string cadena = marca;
-                    char delimitador = ',';
-                    string[] valores = cadena.Split(delimitador);
+                    //variable de tipo entero para ir enumerando los la filas del datagridview
+                    int renglon = dataGridView1.Rows.Add();
+                    // especificamos en que fila se mostrará cada registro
+                    // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+                    if (dr.GetInt32(dr.GetOrdinal("id")) > 0)
+                    {
+                        dataGridView1.Rows[renglon].Cells[0].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id")));
+                        dataGridView1.Rows[renglon].Cells[1].Value = dr.GetString(dr.GetOrdinal("descripcion"));
+                        dataGridView1.Rows[renglon].Cells[2].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
+                        dataGridView1.Rows[renglon].Cells[3].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
 
-                    txtde5.Text = valores[0];
-                    txtde10.Text = valores[1];
-                    txtde25.Text = valores[2];
-                    txtde50.Text = valores[3];
-                    txtde100.Text = valores[4];
-                    txtde200.Text = valores[5];
-                    txtde500.Text = valores[6];
-                    txtde1000.Text = valores[7];
-                    txtde2000.Text = valores[8];
+                        llenargridpagos(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
+                        llenar(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
+                        llenardeudas(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
+                        llenargastos();
+
+                        string desglose = dataGridView1.Rows[renglon].Cells[1].Value.ToString();
+                        if (desglose != "")
+                        {
+                            var marca = desglose;
+                            string cadena = marca;
+                            char delimitador = ',';
+                            string[] valores = cadena.Split(delimitador);
+
+                            txtde5.Text = valores[0];
+                            txtde10.Text = valores[1];
+                            txtde25.Text = valores[2];
+                            txtde50.Text = valores[3];
+                            txtde100.Text = valores[4];
+                            txtde200.Text = valores[5];
+                            txtde500.Text = valores[6];
+                            txtde1000.Text = valores[7];
+                            txtde2000.Text = valores[8];
+                        }
+
+                        txtde5.ReadOnly = true;
+                        txtde10.ReadOnly = true;
+                        txtde25.ReadOnly = true;
+                        txtde50.ReadOnly = true;
+                        txtde100.ReadOnly = true;
+                        txtde200.ReadOnly = true;
+                        txtde500.ReadOnly = true;
+                        txtde1000.ReadOnly = true;
+                        txtde2000.ReadOnly = true;
+
+                        lblmontocuadre.Text = dataGridView1.Rows[renglon].Cells[2].Value.ToString();
+
+                        btnregistrar.Visible = false;
+                        btnimprimir.Visible = true;
+                        btnsuma.Visible = false;
+                    }
+                    else
+                    {
+                        limpiar();
+                        MessageBox.Show("No se encontro ningun registrado de cuadre en esta Fecha");
+                    }
                 }
-
-                txtde5.ReadOnly = true;
-                txtde10.ReadOnly = true;
-                txtde25.ReadOnly = true;
-                txtde50.ReadOnly = true;
-                txtde100.ReadOnly = true;
-                txtde200.ReadOnly = true;
-                txtde500.ReadOnly = true;
-                txtde1000.ReadOnly = true;
-                txtde2000.ReadOnly = true;
-
-                lblmontocuadre.Text = Math.Round(Convert.ToDecimal(dataGridView1.Rows[renglon].Cells[2].Value)).ToString();
-
-                btnregistrar.Visible = false;
-                btnimprimir.Visible = true;
-                btnsuma.Visible = false;
             }
 
-            Cx.Desconectar();
+            M.Desconectar();
         }
+
         public void llenargridpagos(int id)
         {
-            Cx.Desconectar();
+            M.Desconectar();
             decimal pagos = 0, devuelta = 0;
             //variable de tipo Sqlcommand
             SqlCommand comando = new SqlCommand();
             //variable SqlDataReader para leer los datos
             SqlDataReader dr;
-            comando.Connection = Cx.conexion;
+            comando.Connection = M.conexion;
             //declaramos el comando para realizar la busqueda
             comando.CommandText = "select id_caja,id_pago,monto,ingresos,egresos From Pagos WHERE id_caja =" + id;
             //especificamos que es de tipo Text
             comando.CommandType = CommandType.Text;
             //se abre la conexion
-            Cx.Conectar();
+            M.Conectar();
             //limpiamos los renglones de la datagridview
             dataGridView2.Rows.Clear();
             //a la variable DataReader asignamos  el la variable de tipo SqlCommand
@@ -204,68 +223,73 @@ namespace Capa_de_Presentacion
                 // especificamos en que fila se mostrará cada registro
                 // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
                 //pagos
-                dataGridView2.Rows[renglon].Cells["id_caja"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_caja")));
-                dataGridView2.Rows[renglon].Cells["id_pago"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_pago")));
-                dataGridView2.Rows[renglon].Cells["montoventa"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
-                dataGridView2.Rows[renglon].Cells["ingresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("ingresos")));
-                dataGridView2.Rows[renglon].Cells["egresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("egresos")));
-                if (Convert.ToInt32(dataGridView2.Rows[renglon].Cells["id_caja"].Value) == id)
+
+                if (dr.GetInt32(dr.GetOrdinal("id_caja")) > 0)
                 {
-                    pagos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["ingresos"].Value));
-                    devuelta += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["egresos"].Value));
+                    dataGridView2.Rows[renglon].Cells["id_caja"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_caja")));
+                    dataGridView2.Rows[renglon].Cells["id_pago"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("id_pago")));
+                    dataGridView2.Rows[renglon].Cells["montoventa"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
+                    dataGridView2.Rows[renglon].Cells["ingresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("ingresos")));
+                    dataGridView2.Rows[renglon].Cells["egresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("egresos")));
+                    if (Convert.ToInt32(dataGridView2.Rows[renglon].Cells["id_caja"].Value) == id)
+                    {
+                        pagos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["ingresos"].Value), 2);
+                        devuelta += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["egresos"].Value), 2);
+                    }
                 }
             }
 
-            lblmontoingreso.Text = pagos.ToString();
-            Cx.Desconectar();
+            if (pagos > 0)
+                lblmontoingreso.Text = Math.Round(Convert.ToDecimal(pagos)).ToString();
+
+            M.Desconectar();
         }
 
         public void llenar(int id)
         {
-            Cx.Desconectar();
+            M.Desconectar();
             string cadSql = "select montoactual, monto_inicial from Caja where id_caja=" + id;
 
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.Conectar();
+            M.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
 
             SqlDataReader leer = comando.ExecuteReader();
 
             if (leer.Read() == true)
             {
                 decimal montogasto = 0;
-                var montoactual = leer["montoactual"].ToString();
-                lblmontoinicial.Text = leer["monto_inicial"].ToString();
+                decimal montoactual = leer["montoactual"] != null ? Math.Round(Convert.ToDecimal(leer["montoactual"].ToString())) : 0;
+                lblmontoinicial.Text = leer["monto_inicial"] != null ? Math.Round(Convert.ToDecimal(leer["monto_inicial"].ToString())).ToString() : "0";
 
-                if (lblmontogasto.Text != "")
+                if (lblmontogasto.Text != "...")
                 {
                     montogasto = Math.Round(Convert.ToDecimal(lblmontogasto.Text));
                 }
 
-                lblmontocaja.Text = (Math.Round((Convert.ToDecimal(montoactual) + Convert.ToDecimal(lblmontoinicial.Text)) - montogasto)).ToString();
+                lblmontocaja.Text = Math.Round(montoactual - montogasto).ToString();
             }
 
-            Cx.Desconectar();
+            M.Desconectar();
         }
 
         public void llenargastos()
         {
-            Cx.Desconectar();
+            M.Desconectar();
             decimal totalgasto = 0;
             string cadSql = "select * from Gastos where fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+            M.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
             comando.Parameters.AddWithValue("@fecha", dpkfechacuadre.Value);
-            Cx.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
             while (leer.Read())
             {
-                var monto = leer["monto"].ToString();
-                totalgasto += Convert.ToDecimal(monto);
+                var monto = leer["monto"] != null ? Convert.ToDecimal(leer["monto"].ToString()) : 0;
+                totalgasto += monto;
             }
 
             lblmontogasto.Text = Math.Round(totalgasto).ToString();
-
-            Cx.Desconectar();
+            M.Desconectar();
         }
 
         private void btnimprimir_Click(object sender, EventArgs e)
@@ -273,11 +297,12 @@ namespace Capa_de_Presentacion
             To_pdf();
             limpiar();
         }
+
         private void To_pdf()
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            iTextSharp.text.Image image1 = iTextSharp.text.Image.GetInstance("ferreteria.png");
+            Image image1 = Image.GetInstance("LogoCepeda.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
@@ -345,41 +370,37 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("No guardo el Archivo");
             }
         }
-        public void llenarid()
-        {
-            Cx.Desconectar();
-            string cadSql = "select top(1) id_caja,deuda from Caja order by id_caja desc";
 
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.Conectar();
+        public void llenardeuda()
+        {
+            M.Desconectar();
+            string cadSql = "select deuda from Caja where id_caja=" + Program.idcaja;
+
+            M.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
 
             SqlDataReader leer = comando.ExecuteReader();
 
             if (leer.Read() == true)
             {
-                lbldeudas.Text = leer["deuda"].ToString();
-                lblidcaja.Text = Program.idcaja.ToString();
+                lbldeudas.Text = leer["deuda"] != null ? Math.Round(Convert.ToDecimal(leer["deuda"].ToString())).ToString() : "0";
             }
-            Cx.Desconectar();
+            M.Desconectar();
         }
+
         private void cuadredecaja_Load(object sender, EventArgs e)
         {
-            int idcajaa = 0;
             label18.Enabled = false;
             btnregistrar.Enabled = false;
             btnsuma.Visible = true;
 
-            llenarid();
-            if (lblidcaja.Text != "")
-            {
-                idcajaa = Convert.ToInt32(lblidcaja.Text);
-            }
-
+            llenardeuda();
             llenargastos();
-            if (idcajaa > 0)
+
+            if (Program.idcaja > 0)
             {
-                llenargridpagos(idcajaa);
-                llenar(idcajaa);
+                llenargridpagos(Program.idcaja);
+                llenar(Program.idcaja);
             }
 
             btnimprimir.Visible = false;
@@ -387,6 +408,9 @@ namespace Capa_de_Presentacion
 
         private void label18_Click(object sender, EventArgs e)
         {
+            M.Desconectar();
+            Program.abiertosecundarias = false;
+            Program.abierto = false;
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                 ////////////////////Borrar copia de seguridad de base de datos anterior
@@ -395,10 +419,10 @@ namespace Capa_de_Presentacion
 
                 ////////////////////Creando copia de seguridad de base de datos nueva
                 string comand_query = "BACKUP DATABASE [SalesSystem] TO  DISK = N'C:\\Program Files\\Microsoft SQL Server\\MSSQL12.MSSQLSERVER\\MSSQL\\Backup\\SalesSystem.bak'WITH NOFORMAT, NOINIT,  NAME = N'SalesSystem-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
-                SqlCommand comando = new SqlCommand(comand_query, Cx.conexion);
+                SqlCommand comando = new SqlCommand(comand_query, M.conexion);
                 try
                 {
-                    Cx.Conectar();
+                    M.Conectar();
                     comando.ExecuteNonQuery();
 
                     ////////////////////Enviando al correo copia de seguridad de base de datos nueva
@@ -412,8 +436,7 @@ namespace Capa_de_Presentacion
                 }
                 finally
                 {
-                    Cx.Desconectar();
-                    Cx.conexion.Dispose();
+                    M.Desconectar();
                     Application.Exit();
                 }
             }
@@ -438,7 +461,6 @@ namespace Capa_de_Presentacion
         private void btnsuma_Click(object sender, EventArgs e)
         {
             decimal ingresos = 0;
-            decimal montoinicial = 0;
             decimal gastos = 0;
 
             if (lblmontogasto.Text != "...")
@@ -451,57 +473,62 @@ namespace Capa_de_Presentacion
                 ingresos = Math.Round(Convert.ToDecimal(lblmontoingreso.Text));
             }
 
-            if (lblmontoinicial.Text != "...")
-            {
-                montoinicial = Math.Round(Convert.ToDecimal(lblmontoinicial.Text));
-            }
+            decimal cuadre = ingresos - gastos;
 
-            decimal cuadre = (ingresos + montoinicial) - gastos;
-
-            if (lbldeudas.Text == "")
+            if (string.IsNullOrWhiteSpace(lbldeudas.Text))
             {
                 txtde2000.Text = "0";
             }
-            if (txtde5.Text == "")
+
+            if (string.IsNullOrWhiteSpace(txtde5.Text))
             {
                 txtde5.Text = "0";
             }
-            if (txtde10.Text == "")
+
+            if (string.IsNullOrWhiteSpace(txtde10.Text))
             {
                 txtde10.Text = "0";
             }
-            if (txtde25.Text == "")
+
+            if (string.IsNullOrWhiteSpace(txtde25.Text))
             {
                 txtde25.Text = "0";
             }
-            if (txtde50.Text == "")
+
+            if (string.IsNullOrWhiteSpace(txtde50.Text))
             {
                 txtde50.Text = "0";
             }
-            if (txtde100.Text == "")
+
+            if (string.IsNullOrWhiteSpace(txtde100.Text))
             {
                 txtde100.Text = "0";
             }
-            if (txtde200.Text == "")
+
+            if (string.IsNullOrWhiteSpace(txtde200.Text))
             {
                 txtde200.Text = "0";
             }
-            if (txtde500.Text == "")
+
+            if (string.IsNullOrWhiteSpace(txtde500.Text))
             {
                 txtde500.Text = "0";
             }
-            if (txtde1000.Text == "")
+
+            if (string.IsNullOrWhiteSpace(txtde1000.Text))
             {
                 txtde1000.Text = "0";
             }
-            if (txtde2000.Text == "")
+
+            if (string.IsNullOrWhiteSpace(txtde2000.Text))
             {
                 txtde2000.Text = "0";
             }
 
             decimal total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
-                (50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) + (500 * decimal.Parse(txtde500.Text)) +
-                (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)));
+                                       (50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) +
+                                       (500 * decimal.Parse(txtde500.Text)) + (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)) +
+                                       decimal.Parse(lblmontoinicial.Text));
 
             if (cuadre < total)
             {
@@ -510,7 +537,6 @@ namespace Capa_de_Presentacion
                 lblmensaje.ForeColor = System.Drawing.Color.White;
                 btnregistrar.Enabled = true;
             }
-
             else if (cuadre == total)
             {
                 lblmensaje.Text = "Cuadre exacto";
@@ -521,7 +547,7 @@ namespace Capa_de_Presentacion
             {
                 var faltantes = cuadre - total;
                 lblmensaje.Text = "Cuadre defectuoso, Faltan : \n" + faltantes + " Pesos";
-                lblmensaje.ForeColor = System.Drawing.Color.Red;
+                lblmensaje.ForeColor = System.Drawing.Color.Yellow;
                 btnregistrar.Enabled = false;
             }
 
