@@ -60,8 +60,8 @@
             this.gbPagar.Controls.Add(this.label4);
             this.gbPagar.Controls.Add(this.txtpaga);
             this.gbPagar.Controls.Add(this.txtCaja1);
-            this.gbPagar.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbPagar.ForeColor = System.Drawing.Color.Black;
+            this.gbPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbPagar.ForeColor = System.Drawing.Color.White;
             this.gbPagar.Location = new System.Drawing.Point(13, 13);
             this.gbPagar.Margin = new System.Windows.Forms.Padding(4);
             this.gbPagar.Name = "gbPagar";
@@ -75,7 +75,7 @@
             // 
             this.btnC.FlatAppearance.BorderSize = 0;
             this.btnC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnC.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnC.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnC.ForeColor = System.Drawing.Color.Red;
             this.btnC.Location = new System.Drawing.Point(662, 19);
             this.btnC.Margin = new System.Windows.Forms.Padding(4);
@@ -90,10 +90,11 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(199, 36);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(109, 17);
+            this.label6.Size = new System.Drawing.Size(83, 13);
             this.label6.TabIndex = 13;
             this.label6.Text = "Monto a Pagar :";
             // 
@@ -114,10 +115,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(542, 36);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 17);
+            this.label5.Size = new System.Drawing.Size(56, 13);
             this.label5.TabIndex = 11;
             this.label5.Text = "Devuelta :";
             // 
@@ -160,10 +162,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(378, 36);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 17);
+            this.label3.Size = new System.Drawing.Size(62, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Pagar con :";
             // 
@@ -171,10 +174,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(20, 36);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 17);
+            this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Monto En Caja";
             // 
@@ -214,7 +218,7 @@
             this.txtId.Location = new System.Drawing.Point(941, 476);
             this.txtId.Margin = new System.Windows.Forms.Padding(4);
             this.txtId.Name = "txtId";
-            this.txtId.Size = new System.Drawing.Size(78, 22);
+            this.txtId.Size = new System.Drawing.Size(78, 19);
             this.txtId.TabIndex = 16;
             this.txtId.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -224,7 +228,7 @@
             this.txtIdp.Location = new System.Drawing.Point(941, 284);
             this.txtIdp.Margin = new System.Windows.Forms.Padding(4);
             this.txtIdp.Name = "txtIdp";
-            this.txtIdp.Size = new System.Drawing.Size(78, 22);
+            this.txtIdp.Size = new System.Drawing.Size(78, 19);
             this.txtIdp.TabIndex = 17;
             this.txtIdp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -235,12 +239,12 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(941, 364);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(150, 22);
+            this.dateTimePicker1.Size = new System.Drawing.Size(150, 19);
             this.dateTimePicker1.TabIndex = 18;
             // 
             // frmPagar
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
             this.ClientSize = new System.Drawing.Size(732, 223);

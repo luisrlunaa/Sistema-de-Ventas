@@ -112,6 +112,8 @@
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Name = "label1";
             // 
             // txtBuscarProducto
@@ -266,7 +268,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.cbcategoriafiltro);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.txttotalG);
@@ -282,25 +284,29 @@
             this.groupBox1.Controls.Add(this.rdmedia);
             this.groupBox1.Controls.Add(this.rbCero);
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
             // cbcategoriafiltro
             // 
             resources.ApplyResources(this.cbcategoriafiltro, "cbcategoriafiltro");
+            this.cbcategoriafiltro.BackColor = System.Drawing.Color.Transparent;
+            this.cbcategoriafiltro.ForeColor = System.Drawing.Color.White;
             this.cbcategoriafiltro.Name = "cbcategoriafiltro";
-            this.cbcategoriafiltro.UseVisualStyleBackColor = true;
+            this.cbcategoriafiltro.UseVisualStyleBackColor = false;
             this.cbcategoriafiltro.CheckedChanged += new System.EventHandler(this.cbcategoriafiltro_CheckedChanged_1);
             // 
             // groupBox3
             // 
-            this.groupBox3.BackColor = System.Drawing.Color.RoyalBlue;
+            this.groupBox3.BackColor = System.Drawing.Color.Transparent;
             this.groupBox3.Controls.Add(this.rbfechamod);
             this.groupBox3.Controls.Add(this.rbfechaing);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.dtpfecha2);
             this.groupBox3.Controls.Add(this.dtpfecha1);
+            this.groupBox3.ForeColor = System.Drawing.Color.White;
             resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
@@ -309,6 +315,7 @@
             // 
             resources.ApplyResources(this.rbfechamod, "rbfechamod");
             this.rbfechamod.BackColor = System.Drawing.Color.Transparent;
+            this.rbfechamod.ForeColor = System.Drawing.Color.White;
             this.rbfechamod.Name = "rbfechamod";
             this.rbfechamod.TabStop = true;
             this.rbfechamod.UseVisualStyleBackColor = false;
@@ -318,6 +325,7 @@
             // 
             resources.ApplyResources(this.rbfechaing, "rbfechaing");
             this.rbfechaing.BackColor = System.Drawing.Color.Transparent;
+            this.rbfechaing.ForeColor = System.Drawing.Color.White;
             this.rbfechaing.Name = "rbfechaing";
             this.rbfechaing.TabStop = true;
             this.rbfechaing.UseVisualStyleBackColor = false;
@@ -326,11 +334,15 @@
             // label12
             // 
             resources.ApplyResources(this.label12, "label12");
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.ForeColor = System.Drawing.Color.White;
             this.label12.Name = "label12";
             // 
             // label11
             // 
             resources.ApplyResources(this.label11, "label11");
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Name = "label11";
             // 
             // dtpfecha2
@@ -356,11 +368,15 @@
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Name = "label5";
             // 
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Name = "label4";
             // 
             // txtRep
@@ -391,6 +407,7 @@
             // 
             resources.ApplyResources(this.rbtodos, "rbtodos");
             this.rbtodos.BackColor = System.Drawing.Color.Transparent;
+            this.rbtodos.ForeColor = System.Drawing.Color.White;
             this.rbtodos.Name = "rbtodos";
             this.rbtodos.TabStop = true;
             this.rbtodos.UseVisualStyleBackColor = false;
@@ -400,6 +417,7 @@
             // 
             resources.ApplyResources(this.radioButton1, "radioButton1");
             this.radioButton1.BackColor = System.Drawing.Color.Transparent;
+            this.radioButton1.ForeColor = System.Drawing.Color.White;
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.TabStop = true;
             this.radioButton1.UseVisualStyleBackColor = false;
@@ -409,6 +427,7 @@
             // 
             resources.ApplyResources(this.rbbuena, "rbbuena");
             this.rbbuena.BackColor = System.Drawing.Color.Transparent;
+            this.rbbuena.ForeColor = System.Drawing.Color.White;
             this.rbbuena.Name = "rbbuena";
             this.rbbuena.TabStop = true;
             this.rbbuena.UseVisualStyleBackColor = false;
@@ -418,6 +437,7 @@
             // 
             resources.ApplyResources(this.rdmedia, "rdmedia");
             this.rdmedia.BackColor = System.Drawing.Color.Transparent;
+            this.rdmedia.ForeColor = System.Drawing.Color.White;
             this.rdmedia.Name = "rdmedia";
             this.rdmedia.TabStop = true;
             this.rdmedia.UseVisualStyleBackColor = false;
@@ -427,6 +447,7 @@
             // 
             resources.ApplyResources(this.rbCero, "rbCero");
             this.rbCero.BackColor = System.Drawing.Color.Transparent;
+            this.rbCero.ForeColor = System.Drawing.Color.White;
             this.rbCero.Name = "rbCero";
             this.rbCero.TabStop = true;
             this.rbCero.UseVisualStyleBackColor = false;
@@ -533,6 +554,8 @@
             // label13
             // 
             resources.ApplyResources(this.label13, "label13");
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.ForeColor = System.Drawing.Color.White;
             this.label13.Name = "label13";
             // 
             // button2
@@ -615,11 +638,15 @@
             // label14
             // 
             resources.ApplyResources(this.label14, "label14");
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.ForeColor = System.Drawing.Color.White;
             this.label14.Name = "label14";
             // 
             // lbltotalproductos
             // 
             resources.ApplyResources(this.lbltotalproductos, "lbltotalproductos");
+            this.lbltotalproductos.BackColor = System.Drawing.Color.Transparent;
+            this.lbltotalproductos.ForeColor = System.Drawing.Color.White;
             this.lbltotalproductos.Name = "lbltotalproductos";
             // 
             // textBox5
@@ -638,8 +665,10 @@
             // cbtipogomafiltro
             // 
             resources.ApplyResources(this.cbtipogomafiltro, "cbtipogomafiltro");
+            this.cbtipogomafiltro.BackColor = System.Drawing.Color.Transparent;
+            this.cbtipogomafiltro.ForeColor = System.Drawing.Color.White;
             this.cbtipogomafiltro.Name = "cbtipogomafiltro";
-            this.cbtipogomafiltro.UseVisualStyleBackColor = true;
+            this.cbtipogomafiltro.UseVisualStyleBackColor = false;
             this.cbtipogomafiltro.CheckedChanged += new System.EventHandler(this.cbtipogomafiltro_CheckedChanged_1);
             // 
             // FrmListadoProductos

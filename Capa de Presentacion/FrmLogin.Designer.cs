@@ -70,10 +70,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.label1.Location = new System.Drawing.Point(120, 47);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(90, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 22);
+            this.label1.Size = new System.Drawing.Size(64, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "Usuario:";
             // 
@@ -81,10 +81,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.label2.Location = new System.Drawing.Point(132, 115);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(99, 93);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 22);
+            this.label2.Size = new System.Drawing.Size(49, 18);
             this.label2.TabIndex = 1;
             this.label2.Text = "Clave:";
             // 
@@ -107,11 +107,9 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
-            this.groupBox1.Location = new System.Drawing.Point(45, 206);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Location = new System.Drawing.Point(34, 167);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(326, 481);
+            this.groupBox1.Size = new System.Drawing.Size(244, 391);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
@@ -125,7 +123,8 @@
             this.circularProgressBar1.InnerColor = System.Drawing.Color.SteelBlue;
             this.circularProgressBar1.InnerMargin = 2;
             this.circularProgressBar1.InnerWidth = -1;
-            this.circularProgressBar1.Location = new System.Drawing.Point(37, 43);
+            this.circularProgressBar1.Location = new System.Drawing.Point(28, 32);
+            this.circularProgressBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.circularProgressBar1.MarqueeAnimationSpeed = 2000;
             this.circularProgressBar1.Name = "circularProgressBar1";
             this.circularProgressBar1.OuterColor = System.Drawing.Color.SteelBlue;
@@ -134,7 +133,7 @@
             this.circularProgressBar1.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(229)))));
             this.circularProgressBar1.ProgressWidth = 25;
             this.circularProgressBar1.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.circularProgressBar1.Size = new System.Drawing.Size(246, 229);
+            this.circularProgressBar1.Size = new System.Drawing.Size(184, 186);
             this.circularProgressBar1.StartAngle = 270;
             this.circularProgressBar1.SubscriptColor = System.Drawing.Color.Black;
             this.circularProgressBar1.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
@@ -149,18 +148,21 @@
             // 
             // panelmontoinicial
             // 
-            this.panelmontoinicial.Location = new System.Drawing.Point(71, 371);
+            this.panelmontoinicial.Location = new System.Drawing.Point(53, 295);
+            this.panelmontoinicial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelmontoinicial.Name = "panelmontoinicial";
-            this.panelmontoinicial.Size = new System.Drawing.Size(200, 100);
+            this.panelmontoinicial.Size = new System.Drawing.Size(150, 81);
             this.panelmontoinicial.TabIndex = 17;
             // 
             // rbNCF
             // 
             this.rbNCF.AutoSize = true;
             this.rbNCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbNCF.Location = new System.Drawing.Point(91, 334);
+            this.rbNCF.ForeColor = System.Drawing.Color.White;
+            this.rbNCF.Location = new System.Drawing.Point(68, 271);
+            this.rbNCF.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rbNCF.Name = "rbNCF";
-            this.rbNCF.Size = new System.Drawing.Size(133, 22);
+            this.rbNCF.Size = new System.Drawing.Size(109, 19);
             this.rbNCF.TabIndex = 16;
             this.rbNCF.TabStop = true;
             this.rbNCF.Text = "Configurar NCF";
@@ -168,9 +170,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(204, 406);
+            this.button1.Location = new System.Drawing.Point(153, 330);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(56, 31);
+            this.button1.Size = new System.Drawing.Size(42, 25);
             this.button1.TabIndex = 18;
             this.button1.Text = "Abrir";
             this.button1.UseVisualStyleBackColor = true;
@@ -180,9 +183,11 @@
             // 
             this.rbVentas.AutoSize = true;
             this.rbVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbVentas.Location = new System.Drawing.Point(91, 306);
+            this.rbVentas.ForeColor = System.Drawing.Color.White;
+            this.rbVentas.Location = new System.Drawing.Point(68, 249);
+            this.rbVentas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rbVentas.Name = "rbVentas";
-            this.rbVentas.Size = new System.Drawing.Size(155, 22);
+            this.rbVentas.Size = new System.Drawing.Size(129, 19);
             this.rbVentas.TabIndex = 15;
             this.rbVentas.TabStop = true;
             this.rbVentas.Text = "Revisión de Ventas";
@@ -192,10 +197,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.label4.Location = new System.Drawing.Point(77, 379);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(58, 308);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(176, 22);
+            this.label4.Size = new System.Drawing.Size(145, 18);
             this.label4.TabIndex = 17;
             this.label4.Text = "Monto Inicial de Caja";
             // 
@@ -203,9 +208,11 @@
             // 
             this.rbInventario.AutoSize = true;
             this.rbInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbInventario.Location = new System.Drawing.Point(91, 278);
+            this.rbInventario.ForeColor = System.Drawing.Color.White;
+            this.rbInventario.Location = new System.Drawing.Point(68, 226);
+            this.rbInventario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rbInventario.Name = "rbInventario";
-            this.rbInventario.Size = new System.Drawing.Size(136, 22);
+            this.rbInventario.Size = new System.Drawing.Size(114, 19);
             this.rbInventario.TabIndex = 14;
             this.rbInventario.TabStop = true;
             this.rbInventario.Text = "Entrar Inventario";
@@ -214,10 +221,9 @@
             // txtmontoinicial
             // 
             this.txtmontoinicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtmontoinicial.Location = new System.Drawing.Point(81, 407);
-            this.txtmontoinicial.Margin = new System.Windows.Forms.Padding(4);
+            this.txtmontoinicial.Location = new System.Drawing.Point(61, 331);
             this.txtmontoinicial.Name = "txtmontoinicial";
-            this.txtmontoinicial.Size = new System.Drawing.Size(113, 28);
+            this.txtmontoinicial.Size = new System.Drawing.Size(86, 24);
             this.txtmontoinicial.TabIndex = 17;
             this.txtmontoinicial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -226,9 +232,10 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel1.LinkColor = System.Drawing.Color.White;
-            this.linkLabel1.Location = new System.Drawing.Point(83, 246);
+            this.linkLabel1.Location = new System.Drawing.Point(62, 200);
+            this.linkLabel1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(143, 16);
+            this.linkLabel1.Size = new System.Drawing.Size(114, 13);
             this.linkLabel1.TabIndex = 6;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Recuperar Contraseña";
@@ -245,10 +252,9 @@
             this.btnIngresar.ForeColor = System.Drawing.Color.Black;
             this.btnIngresar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_entrar;
             this.btnIngresar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnIngresar.Location = new System.Drawing.Point(93, 189);
-            this.btnIngresar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnIngresar.Location = new System.Drawing.Point(70, 154);
             this.btnIngresar.Name = "btnIngresar";
-            this.btnIngresar.Size = new System.Drawing.Size(134, 40);
+            this.btnIngresar.Size = new System.Drawing.Size(100, 32);
             this.btnIngresar.TabIndex = 4;
             this.btnIngresar.Text = "Ingresar";
             this.btnIngresar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -258,11 +264,10 @@
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(81, 143);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPassword.Location = new System.Drawing.Point(61, 116);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(161, 28);
+            this.txtPassword.Size = new System.Drawing.Size(122, 24);
             this.txtPassword.TabIndex = 3;
             this.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPassword_KeyPress);
@@ -270,10 +275,9 @@
             // txtUser
             // 
             this.txtUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUser.Location = new System.Drawing.Point(81, 75);
-            this.txtUser.Margin = new System.Windows.Forms.Padding(4);
+            this.txtUser.Location = new System.Drawing.Point(61, 61);
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(162, 28);
+            this.txtUser.Size = new System.Drawing.Size(122, 24);
             this.txtUser.TabIndex = 2;
             this.txtUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -281,9 +285,10 @@
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Image = global::Capa_de_Presentacion.Properties.Resources.Logo_01;
-            this.pictureBox2.Location = new System.Drawing.Point(-1, 36);
+            this.pictureBox2.Location = new System.Drawing.Point(-1, 29);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(423, 185);
+            this.pictureBox2.Size = new System.Drawing.Size(317, 150);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
@@ -310,8 +315,7 @@
             this.fecha});
             this.dgvCaja.EnableHeadersVisualStyles = false;
             this.dgvCaja.GridColor = System.Drawing.Color.White;
-            this.dgvCaja.Location = new System.Drawing.Point(979, 223);
-            this.dgvCaja.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvCaja.Location = new System.Drawing.Point(734, 181);
             this.dgvCaja.Name = "dgvCaja";
             this.dgvCaja.ReadOnly = true;
             this.dgvCaja.RowHeadersVisible = false;
@@ -322,7 +326,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.dgvCaja.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCaja.RowTemplate.Height = 24;
-            this.dgvCaja.Size = new System.Drawing.Size(665, 112);
+            this.dgvCaja.Size = new System.Drawing.Size(499, 91);
             this.dgvCaja.TabIndex = 6;
             // 
             // Id_caja
@@ -387,8 +391,9 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(429, 39);
+            this.panel1.Size = new System.Drawing.Size(322, 32);
             this.panel1.TabIndex = 10;
             // 
             // label3
@@ -396,10 +401,9 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(6, 12);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(4, 10);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 18);
+            this.label3.Size = new System.Drawing.Size(79, 15);
             this.label3.TabIndex = 11;
             this.label3.Text = "Version 1.8";
             // 
@@ -409,9 +413,10 @@
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(395, 7);
+            this.label5.Location = new System.Drawing.Point(296, 6);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(28, 27);
+            this.label5.Size = new System.Drawing.Size(22, 22);
             this.label5.TabIndex = 12;
             this.label5.Text = "X";
             this.label5.Click += new System.EventHandler(this.label5_Click_1);
@@ -422,10 +427,10 @@
             // 
             // FrmLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(420, 691);
+            this.ClientSize = new System.Drawing.Size(315, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.dgvCaja);
@@ -433,7 +438,6 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
