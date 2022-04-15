@@ -66,6 +66,7 @@ namespace Capa_de_Presentacion
             btnImprimir.Visible = !Program.isSaler;
             btnAgregar.Visible = !Program.isSaler;
             button2.Visible = false;
+            btnSalir.Enabled = false;
             llenar();
             btnEliminarItem.Enabled = false;
             frmPagar pa = new frmPagar();
@@ -508,6 +509,9 @@ namespace Capa_de_Presentacion
                                 txtDatos.Text = Program.datoscliente;
                             }
 
+                            if (btnSalir.Enabled == false)
+                                btnSalir.Enabled = true;
+
                             Limpiar();
                         }
                         else
@@ -756,7 +760,7 @@ namespace Capa_de_Presentacion
                 venta.NombreCliente = Program.datoscliente;
                 venta.borrador = 0;
 
-                if (clsGenericList.listVentas != null)
+                if (clsGenericList.listVentas != null && Program.isSaler)
                 {
                     clsGenericList.listVentas.Add(venta);
 
@@ -766,7 +770,8 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            using (SqlCommand cmd1 = new SqlCommand(Program.isSaler ? "RegistrarDetalleVenta" : "RegistrarDetalleCotizacion", M.conexion))
+            var procedureDetalle = Program.isSaler ? "RegistrarDetalleVenta" : "RegistrarDetalleCotizacion";
+            using (SqlCommand cmd1 = new SqlCommand(procedureDetalle, M.conexion))
                 foreach (DataGridViewRow row in dgvVenta.Rows)
                 {
                     M.Desconectar();
@@ -883,7 +888,6 @@ namespace Capa_de_Presentacion
 
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
-            Program.isSaler = true;
             RegistrarVenta();
         }
 
@@ -1160,6 +1164,7 @@ namespace Capa_de_Presentacion
             {
                 To_pdf();
             }
+
             btnImprimir.Visible = false;
             Limpiar1();
         }
@@ -1418,7 +1423,6 @@ namespace Capa_de_Presentacion
                 M.Desconectar();
             }
 
-            //Program.whoCallme = "";
             Program.pagoRealizado = 0;
 
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de factura desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -1520,7 +1524,7 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                MessageBox.Show("Debe Agregar al menos una Venta");
+                MessageBox.Show("Debe Agregar al menos un Producto a la Venta");
             }
         }
 
