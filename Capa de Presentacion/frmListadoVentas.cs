@@ -608,7 +608,7 @@ namespace Capa_de_Presentacion
             Program.Id = 0;
             Program.tipo = "";
             TempData.tempSalesData = new List<Venta>();
-            llenar_data(clsGenericList.listVentas.OrderBy(x => x.IdVenta).ToList());
+            llenar_data(TempData.tempSalesData.OrderBy(x => x.IdVenta).ToList());
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -766,8 +766,8 @@ namespace Capa_de_Presentacion
 
                                     if (clsGenericList.idsVentas.Contains(Program.Id))
                                     {
-                                        var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
-                                        clsGenericList.listVentas.Remove(venta);
+                                        var venta = TempData.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
+                                        TempData.tempSalesData.Remove(venta);
                                     }
 
                                     Program.Id = 0;
@@ -820,20 +820,19 @@ namespace Capa_de_Presentacion
             if (DevComponents.DotNetBar.MessageBoxEx.Show("Nota: se devolveran todos los producto que contenga la venta y la misma se eliminara por completo del sistema" +
                            "\n ¿Está Seguro que Desea hacer una devolucion de esta Venta? ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
-
-                M.Conectar();
-                string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante,Venta.Total from DetalleVenta" +
-                    " inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta inner join Caja on Caja.fecha=Venta.FechaVenta where DetalleVenta.IdVenta=" + Program.Id;
-                SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
-
-                DataTable dt = new DataTable();
-                SqlDataAdapter da = new SqlDataAdapter(cmd1);
-                da.Fill(dt);
-
-                var venta = TempData.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
+                var Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
+                var venta = TempData.tempSalesData.FirstOrDefault(x => x.IdVenta == Id);
                 if(venta != null)
                 {
+                    M.Conectar();
+                    string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante,Venta.Total from DetalleVenta" +
+                        " inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta inner join Caja on Caja.fecha=Venta.FechaVenta where DetalleVenta.IdVenta=" + Id;
+                    SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
+
+                    DataTable dt = new DataTable();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd1);
+                    da.Fill(dt);
+
                     var i = 1;
                     foreach (DataRow data in dt.Rows)
                     {
@@ -910,7 +909,7 @@ namespace Capa_de_Presentacion
                                     cmd.CommandType = CommandType.StoredProcedure;
 
                                     //Borrar venta luego de devolver todos los productos
-                                    cmd.Parameters.Add("@IdVenta", SqlDbType.Decimal).Value = Program.Id;
+                                    cmd.Parameters.Add("@IdVenta", SqlDbType.Decimal).Value = Id;
                                     cmd.ExecuteNonQuery();
                                 }
                             }
@@ -919,8 +918,8 @@ namespace Capa_de_Presentacion
 
                         TempData.tempSalesData.Remove(venta);
                     }
+                    M.Desconectar();
                 }
-                M.Desconectar();
             }
         }
 
