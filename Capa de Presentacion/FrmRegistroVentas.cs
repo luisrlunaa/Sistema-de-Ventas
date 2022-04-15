@@ -1530,7 +1530,7 @@ namespace Capa_de_Presentacion
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Program.isSaler = false;
+            Program.isSaler = true;
             RegistrarVenta();
         }
     }
