@@ -79,7 +79,6 @@ namespace Capa_de_Presentacion
             V.lblTel2.Text = menu.lblTel2.Text;
             V.lblCorreo.Text = menu.lblCorreo.Text;
             V.lblrnc.Text = menu.lblrnc.Text;
-            V.frmLabel.Text = "Ventas";
             V.txtIgv.Enabled = Program.isAdminUser;
             V.button2.Visible = Program.isSaler;
             V.btnRegistrarVenta.Visible = Program.isSaler;

@@ -521,7 +521,6 @@ namespace Capa_de_Presentacion
                 V.btnRegistrarVenta.Visible = Program.isSaler;
                 V.btnSalir.Visible = Program.isSaler;
                 V.cotizacionPanel.Visible = !Program.isSaler;
-                V.BackColor = Color.CadetBlue;
 
                 buttonPanel.Visible = false;
                 Program.abierto = true;
