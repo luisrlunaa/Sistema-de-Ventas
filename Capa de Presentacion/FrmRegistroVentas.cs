@@ -35,11 +35,13 @@ namespace Capa_de_Presentacion
             M.Desconectar();
             txtidCli.Text = null;
             listProducts.Clear();
+            btnSalir.Enabled = false;
             txtdireccion.Text = "";
             Program.IdCliente = 0;
             cbidentificacion.Checked = false;
             txtrcnClient.Text = "sin rcn del Cliente";
             txtid.Text = "0";
+            
             chkComprobante.Checked = false;
             if (cbidentificacion.Checked == true)
             {
@@ -507,6 +509,9 @@ namespace Capa_de_Presentacion
                                 txtDatos.Text = Program.datoscliente;
                             }
 
+                            if (btnSalir.Enabled == false)
+                                btnSalir.Enabled = true;
+
                             Limpiar();
                         }
                         else
@@ -743,6 +748,7 @@ namespace Capa_de_Presentacion
                 {
                     venta.IdCliente = Convert.ToInt32(txtidCli.Text);
                 }
+
                 venta.IdEmpleado = Convert.ToInt32(txtidEmp.Text);
                 venta.TipoDocumento = combo_tipo_NCF.Text;
                 venta.NroComprobante = txtNCF.Text;
@@ -756,17 +762,18 @@ namespace Capa_de_Presentacion
                 venta.NombreCliente = Program.datoscliente;
                 venta.borrador = 0;
 
-                if (clsGenericList.listVentas != null)
+                if (TempData.tempSalesData != null && Program.isSaler)
                 {
-                    clsGenericList.listVentas.Add(venta);
+                    TempData.tempSalesData.Add(venta);
 
                     clsGenericList.idsVentas.Add(venta.IdVenta);
-                    if (clsGenericList.listVentas.Count > 0)
+                    if (TempData.tempSalesData.Count > 0)
                         clsGenericList.totalGanancia = clsGenericList.Ganancias(clsGenericList.idsVentas);
                 }
             }
 
-            using (SqlCommand cmd1 = new SqlCommand(Program.isSaler ? "RegistrarDetalleVenta" : "RegistrarDetalleCotizacion", M.conexion))
+            var procedureDetalle = Program.isSaler ? "RegistrarDetalleVenta" : "RegistrarDetalleCotizacion";
+            using (SqlCommand cmd1 = new SqlCommand(procedureDetalle, M.conexion))
                 foreach (DataGridViewRow row in dgvVenta.Rows)
                 {
                     M.Desconectar();
@@ -883,7 +890,6 @@ namespace Capa_de_Presentacion
 
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
-            Program.isSaler = true;
             RegistrarVenta();
         }
 
@@ -1378,14 +1384,14 @@ namespace Capa_de_Presentacion
 
                 if (clsGenericList.idsVentas.Contains(Program.Id))
                 {
-                    var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
+                    var venta = TempData.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
                     venta.Restante = restante;
 
                     Venta ventaup = new Venta();
                     ventaup = venta;
 
-                    clsGenericList.listVentas.Remove(venta);
-                    clsGenericList.listVentas.Add(ventaup);
+                    TempData.tempSalesData.Remove(venta);
+                    TempData.tempSalesData.Add(ventaup);
                 }
             }
 
@@ -1416,7 +1422,6 @@ namespace Capa_de_Presentacion
                 M.Desconectar();
             }
 
-            //Program.whoCallme = "";
             Program.pagoRealizado = 0;
 
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de factura desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
