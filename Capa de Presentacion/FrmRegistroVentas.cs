@@ -58,6 +58,7 @@ namespace Capa_de_Presentacion
             btnImprimir.Visible = !Program.isSaler;
             btnAgregar.Visible = !Program.isSaler;
             button2.Visible = false;
+            btnSalir.Enabled = false;
             llenar();
             btnEliminarItem.Enabled = false;
             frmPagar pa = new frmPagar();
@@ -505,6 +506,9 @@ namespace Capa_de_Presentacion
                             }
 
                             Limpiar();
+
+                            if (btnSalir.Enabled == false)
+                                btnSalir.Enabled = true;
                         }
                         else
                         {
@@ -753,17 +757,18 @@ namespace Capa_de_Presentacion
                 venta.NombreCliente = Program.datoscliente;
                 venta.borrador = 0;
 
-                if (clsGenericList.listVentas != null)
+                if (TempData.tempSalesData != null && Program.isSaler)
                 {
-                    clsGenericList.listVentas.Add(venta);
+                    TempData.tempSalesData.Add(venta);
 
                     clsGenericList.idsVentas.Add(venta.IdVenta);
-                    if (clsGenericList.listVentas.Count > 0)
+                    if (TempData.tempSalesData.Count > 0)
                         clsGenericList.totalGanancia = clsGenericList.Ganancias(clsGenericList.idsVentas);
                 }
             }
 
-            using (SqlCommand cmd1 = new SqlCommand(Program.isSaler ? "RegistrarDetalleVenta" : "RegistrarDetalleCotizacion", M.conexion))
+            var procedureDetalle = Program.isSaler ? "RegistrarDetalleVenta" : "RegistrarDetalleCotizacion";
+            using (SqlCommand cmd1 = new SqlCommand(procedureDetalle, M.conexion))
                 foreach (DataGridViewRow row in dgvVenta.Rows)
                 {
                     M.Desconectar();
@@ -1388,14 +1393,14 @@ namespace Capa_de_Presentacion
 
                 if (clsGenericList.idsVentas.Contains(Program.Id))
                 {
-                    var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
+                    var venta = TempData.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
                     venta.Restante = restante;
 
                     Venta ventaup = new Venta();
                     ventaup = venta;
 
-                    clsGenericList.listVentas.Remove(venta);
-                    clsGenericList.listVentas.Add(ventaup);
+                    TempData.tempSalesData.Remove(venta);
+                    TempData.tempSalesData.Add(ventaup);
                 }
             }
 
