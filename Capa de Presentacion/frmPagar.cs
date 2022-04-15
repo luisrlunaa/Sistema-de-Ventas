@@ -99,7 +99,7 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                if (txtpaga.Text == "")
+                if (string.IsNullOrWhiteSpace(txtpaga.Text))
                 {
                     MessageBox.Show("Debe Ingresar un Monto");
                 }
@@ -125,8 +125,14 @@ namespace Capa_de_Presentacion
                     }
 
                     Program.realizopago = true;
-
-                    this.Close();
+                    if (DevComponents.DotNetBar.MessageBoxEx.Show("Pago Realizado", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
+                    {
+                        FrmRegistroVentas venta = new FrmRegistroVentas();
+                        venta.txttotal.Text = Program.total + "";
+                        venta.lbligv.Text = Program.igv + "";
+                        venta.lblsubt.Text = Program.ST + "";
+                        this.Hide();
+                    }
                 }
             }
         }

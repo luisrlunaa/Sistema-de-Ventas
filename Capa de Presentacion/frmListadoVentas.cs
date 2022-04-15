@@ -66,6 +66,7 @@ namespace Capa_de_Presentacion
         {
             FrmMenuPrincipal menu = new FrmMenuPrincipal();
             FrmRegistroVentas V = new FrmRegistroVentas();
+            Program.isSaler = true;
             V.txtUsu.Text = menu.lblUsuario.Text;
             V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
             V.lblLogo.Text = menu.lblLogo.Text;
@@ -74,8 +75,11 @@ namespace Capa_de_Presentacion
             V.lblTel2.Text = menu.lblTel2.Text;
             V.lblCorreo.Text = menu.lblCorreo.Text;
             V.lblrnc.Text = menu.lblrnc.Text;
-            V.BackColor = System.Drawing.Color.CadetBlue;
-            Program.isSaler = true;
+            V.txtIgv.Enabled = Program.isAdminUser;
+            V.button2.Visible = Program.isSaler;
+            V.btnRegistrarVenta.Visible = Program.isSaler;
+            V.btnSalir.Visible = Program.isSaler;
+            Program.abierto = true;
             V.Show();
             Hide();
         }
@@ -753,8 +757,8 @@ namespace Capa_de_Presentacion
 
                                     if (clsGenericList.idsVentas.Contains(Program.Id))
                                     {
-                                        var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
-                                        clsGenericList.listVentas.Remove(venta);
+                                        var venta = TempData.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
+                                        TempData.tempSalesData.Remove(venta);
                                     }
 
                                     Program.Id = 0;
@@ -806,106 +810,106 @@ namespace Capa_de_Presentacion
             if (DevComponents.DotNetBar.MessageBoxEx.Show("Nota: se devolveran todos los producto que contenga la venta y la misma se eliminara por completo del sistema" +
                            "\n ¿Está Seguro que Desea hacer una devolucion de esta Venta? ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
-
                 M.Conectar();
-                string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante,Venta.Total from DetalleVenta" +
-                    " inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta inner join Caja on Caja.fecha=Venta.FechaVenta where DetalleVenta.IdVenta=" + Program.Id;
-                SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
-
-                DataTable dt = new DataTable();
-                SqlDataAdapter da = new SqlDataAdapter(cmd1);
-                da.Fill(dt);
-
-                var i = 1;
-                foreach (DataRow data in dt.Rows)
+                var Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
+                var venta = TempData.tempSalesData.FirstOrDefault(x => x.IdVenta == Id);
+                if (venta != null)
                 {
-                    SqlCommand sqlCommand = new SqlCommand("DevolucionVenta", M.conexion);
-                    using (SqlCommand cmd3 = sqlCommand)
+                    string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante,Venta.Total from DetalleVenta" +
+                    " inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta inner join Caja on Caja.fecha=Venta.FechaVenta where DetalleVenta.IdVenta=" + Id;
+                    SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
+
+                    DataTable dt = new DataTable();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd1);
+                    da.Fill(dt);
+
+                    var i = 1;
+                    foreach (DataRow data in dt.Rows)
                     {
-                        cmd3.CommandType = CommandType.StoredProcedure;
-
-                        decimal cantidadDV = Convert.ToDecimal(data[0]);
-                        int idProductoDV = Convert.ToInt32(data[1]);
-                        string tipofacturaDV = data[2].ToString();
-                        decimal subtotalDV = Convert.ToDecimal(data[3]);
-                        int idcajaDV = Convert.ToInt32(data[4]);
-                        decimal restanteDV = Convert.ToDecimal(data[5]);
-                        decimal TotalDV = Convert.ToDecimal(data[6]);
-
-                        if (tipofacturaDV.ToLower() == "credito")
+                        SqlCommand sqlCommand = new SqlCommand("DevolucionVenta", M.conexion);
+                        using (SqlCommand cmd3 = sqlCommand)
                         {
-                            subtotalDV = restanteDV / dt.Rows.Count;
-                        }
+                            cmd3.CommandType = CommandType.StoredProcedure;
 
-                        //UpdateStock
-                        cmd3.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV;
-                        cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV;
-                        cmd3.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV;
-                        cmd3.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV;
-                        cmd3.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV;
+                            decimal cantidadDV = Convert.ToDecimal(data[0]);
+                            int idProductoDV = Convert.ToInt32(data[1]);
+                            string tipofacturaDV = data[2].ToString();
+                            decimal subtotalDV = Convert.ToDecimal(data[3]);
+                            int idcajaDV = Convert.ToInt32(data[4]);
+                            decimal restanteDV = Convert.ToDecimal(data[5]);
+                            decimal TotalDV = Convert.ToDecimal(data[6]);
 
-                        cmd3.ExecuteNonQuery();
-
-                        var deleteProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
-                        var updateProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
-                        updateProduct.m_Stock = updateProduct.m_Stock + (int)cantidadDV;
-
-                        clsGenericList.listProducto.Remove(deleteProduct);
-                        clsGenericList.listProducto.Add(updateProduct);
-
-                        if (i == dt.Rows.Count)
-                        {
-                            if (restanteDV != TotalDV)
+                            if (tipofacturaDV.ToLower() == "credito")
                             {
-                                SqlCommand sqlCommand2 = new SqlCommand("DevolucionVenta", M.conexion);
-                                using (SqlCommand cmd4 = sqlCommand2)
+                                subtotalDV = restanteDV / dt.Rows.Count;
+                            }
+
+                            //UpdateStock
+                            cmd3.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV;
+                            cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV;
+                            cmd3.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV;
+                            cmd3.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV;
+                            cmd3.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV;
+
+                            cmd3.ExecuteNonQuery();
+
+                            var deleteProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
+                            var updateProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
+                            updateProduct.m_Stock = updateProduct.m_Stock + (int)cantidadDV;
+
+                            clsGenericList.listProducto.Remove(deleteProduct);
+                            clsGenericList.listProducto.Add(updateProduct);
+
+                            if (i == dt.Rows.Count)
+                            {
+                                if (restanteDV != TotalDV)
                                 {
-                                    cmd4.CommandType = CommandType.StoredProcedure;
+                                    SqlCommand sqlCommand2 = new SqlCommand("DevolucionVenta", M.conexion);
+                                    using (SqlCommand cmd4 = sqlCommand2)
+                                    {
+                                        cmd4.CommandType = CommandType.StoredProcedure;
 
-                                    decimal cantidadDV1 = 0;
-                                    int idProductoDV1 = Convert.ToInt32(data[1]);
-                                    string tipofacturaDV1 = "Debito";
-                                    decimal subtotalDV1 = TotalDV - restanteDV;
-                                    int idcajaDV1 = Convert.ToInt32(data[4]);
+                                        decimal cantidadDV1 = 0;
+                                        int idProductoDV1 = Convert.ToInt32(data[1]);
+                                        string tipofacturaDV1 = "Debito";
+                                        decimal subtotalDV1 = TotalDV - restanteDV;
+                                        int idcajaDV1 = Convert.ToInt32(data[4]);
 
-                                    //UpdateStock
-                                    cmd4.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV1;
-                                    cmd4.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV1;
-                                    cmd4.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV1;
-                                    cmd4.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV1;
-                                    cmd4.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV1;
+                                        //UpdateStock
+                                        cmd4.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV1;
+                                        cmd4.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV1;
+                                        cmd4.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV1;
+                                        cmd4.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV1;
+                                        cmd4.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV1;
 
-                                    cmd4.ExecuteNonQuery();
+                                        cmd4.ExecuteNonQuery();
 
-                                    var deleteProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
-                                    var updateProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
-                                    updateProduct1.m_Stock = updateProduct1.m_Stock + (int)cantidadDV1;
+                                        var deleteProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
+                                        var updateProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
+                                        updateProduct1.m_Stock = updateProduct1.m_Stock + (int)cantidadDV1;
 
-                                    clsGenericList.listProducto.Remove(deleteProduct1);
-                                    clsGenericList.listProducto.Add(updateProduct1);
+                                        clsGenericList.listProducto.Remove(deleteProduct1);
+                                        clsGenericList.listProducto.Add(updateProduct1);
+                                    }
+                                }
+
+                                SqlCommand sqlCommand1 = new SqlCommand("BorrarVentaDV", M.conexion);
+                                using (SqlCommand cmd = sqlCommand1)
+                                {
+                                    cmd.CommandType = CommandType.StoredProcedure;
+
+                                    //Borrar venta luego de devolver todos los productos
+                                    cmd.Parameters.Add("@IdVenta", SqlDbType.Decimal).Value = Program.Id;
+
+                                    cmd.ExecuteNonQuery();
                                 }
                             }
-
-                            SqlCommand sqlCommand1 = new SqlCommand("BorrarVentaDV", M.conexion);
-                            using (SqlCommand cmd = sqlCommand1)
-                            {
-                                cmd.CommandType = CommandType.StoredProcedure;
-
-                                //Borrar venta luego de devolver todos los productos
-                                cmd.Parameters.Add("@IdVenta", SqlDbType.Decimal).Value = Program.Id;
-
-                                cmd.ExecuteNonQuery();
-                            }
+                            i = i + 1;
                         }
-                        i = i + 1;
+
+                        TempData.tempSalesData.Remove(venta);
                     }
-
-                    var venta = clsGenericList.listVentas.FirstOrDefault(x => x.IdVenta == Program.Id);
-                    clsGenericList.listVentas.Remove(venta);
-
                 }
-
                 M.Desconectar();
             }
         }
