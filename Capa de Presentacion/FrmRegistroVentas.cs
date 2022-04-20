@@ -1160,7 +1160,7 @@ namespace Capa_de_Presentacion
                 btnSalir.Visible = false;
                 txtIgv.Enabled = Program.isAdminUser;
                 label20.Text = "Cotizacion";
-                BackColor = System.Drawing.Color.SlateGray;
+                BackColor = System.Drawing.Color.IndianRed;
             }
             else
             {
