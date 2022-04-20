@@ -1144,7 +1144,6 @@ namespace Capa_de_Presentacion
             {
                 Program.isSaler = true;
                 txtIgv.Enabled = Program.isAdminUser;
-                button2.Visible = Program.isSaler;
                 btnRegistrarVenta.Visible = Program.isSaler;
                 btnSalir.Visible = Program.isSaler;
                 frmLabel.Text = "Ventas";
