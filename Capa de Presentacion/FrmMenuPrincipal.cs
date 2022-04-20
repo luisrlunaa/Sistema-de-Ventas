@@ -521,6 +521,7 @@ namespace Capa_de_Presentacion
                 V.btnRegistrarVenta.Visible = Program.isSaler;
                 V.btnSalir.Visible = Program.isSaler;
                 V.frmLabel.Text = "Ventas";
+                V.btnRegistrarVenta.Text = "Imprimir Factura";
 
                 buttonPanel.Visible = false;
                 Program.abierto = true;

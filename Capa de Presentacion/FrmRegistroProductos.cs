@@ -86,84 +86,77 @@ namespace Capa_de_Presentacion
                 M.Desconectar();
             }
 
+            txtMarca.Text = string.IsNullOrWhiteSpace(txtMarca.Text) ? string.Empty : txtMarca.Text.Trim();
             var precioCompra = string.IsNullOrWhiteSpace(txtPCompra.Text) ? "0" : txtPCompra.Text.Trim();
             txtPCompra.Text = precioCompra;
 
             if (txtProducto.Text.Trim() != "")
             {
-                if (txtMarca.Text.Trim() != "")
+                if (txtPVenta.Text.Trim() != "")
                 {
-                    if (txtPVenta.Text.Trim() != "")
+                    if (txtStock.Text.Trim() != "")
                     {
-                        if (txtStock.Text.Trim() != "")
+                        using (SqlCommand cmd = new SqlCommand("RegistrarProducto", M.conexion))
                         {
-                            using (SqlCommand cmd = new SqlCommand("RegistrarProducto", M.conexion))
+                            var exist = clsGenericList.listProducto.FirstOrDefault(x => x.m_Producto == txtProducto.Text.ToUpper() && x.m_Marca == txtMarca.Text.ToUpper());
+                            if (exist != null)
                             {
-                                var exist = clsGenericList.listProducto.FirstOrDefault(x => x.m_Producto == txtProducto.Text.ToUpper() && x.m_Marca == txtMarca.Text.ToUpper());
-                                if (exist != null)
-                                {
-                                    DevComponents.DotNetBar.MessageBoxEx.Show("El producto ya existe", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    M.Desconectar();
-                                }
-                                else
-                                {
-                                    cmd.CommandType = CommandType.StoredProcedure;
-                                    cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
-                                    cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
-                                    cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
-                                    cmd.Parameters.Add("@Stock", SqlDbType.Decimal).Value = Convert.ToDecimal(txtStock.Text);
-                                    cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
-                                    cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
-                                    cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
-                                    cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
-                                    cmd.Parameters.Add("@FechaVencimiento", SqlDbType.Date).Value = dateTimePicker1.Text;
-                                    cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
-                                    cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
-                                    cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
-
-                                    M.Conectar();
-                                    cmd.ExecuteNonQuery();
-                                    M.Desconectar();
-
-                                    Producto product = new Producto();
-                                    int idP = clsGenericList.listProducto.Count + 1;
-                                    product.m_IdP = idP;
-                                    product.m_IdCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
-                                    product.m_Producto = txtProducto.Text;
-                                    product.m_tipoGoma = cbtipo.Text;
-                                    product.m_itbis = Convert.ToDecimal(txtitbis.Text);
-                                    product.m_PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
-                                    product.m_PrecioCompra = Convert.ToDecimal(txtPCompra.Text);
-                                    product.m_Preciomax = 0;
-                                    product.m_Preciomin = 0;
-                                    product.m_Stock = Convert.ToDecimal(txtStock.Text);
-                                    product.m_Marca = txtMarca.Text;
-                                    product.m_FechaModificacion = dateTimePicker1.Value;
-                                    product.m_FechaVencimiento = dateTimePicker1.Value;
-
-                                    clsGenericList.listProducto.Add(product);
-
-                                    Limpiar();
-                                    ListarElementos();
-                                }
+                                DevComponents.DotNetBar.MessageBoxEx.Show("El producto ya existe", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                M.Desconectar();
                             }
-                        }
-                        else
-                        {
-                            DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese Stock del Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            txtStock.Focus();
+                            else
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
+                                cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
+                                cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
+                                cmd.Parameters.Add("@Stock", SqlDbType.Decimal).Value = Convert.ToDecimal(txtStock.Text);
+                                cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
+                                cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
+                                cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
+                                cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
+                                cmd.Parameters.Add("@FechaVencimiento", SqlDbType.Date).Value = dateTimePicker1.Text;
+                                cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
+                                cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
+                                cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
+
+                                M.Conectar();
+                                cmd.ExecuteNonQuery();
+                                M.Desconectar();
+
+                                Producto product = new Producto();
+                                int idP = clsGenericList.listProducto.Count + 1;
+                                product.m_IdP = idP;
+                                product.m_IdCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
+                                product.m_Producto = txtProducto.Text;
+                                product.m_tipoGoma = cbtipo.Text;
+                                product.m_itbis = Convert.ToDecimal(txtitbis.Text);
+                                product.m_PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
+                                product.m_PrecioCompra = Convert.ToDecimal(txtPCompra.Text);
+                                product.m_Preciomax = 0;
+                                product.m_Preciomin = 0;
+                                product.m_Stock = Convert.ToDecimal(txtStock.Text);
+                                product.m_Marca = txtMarca.Text;
+                                product.m_FechaModificacion = dateTimePicker1.Value;
+                                product.m_FechaVencimiento = dateTimePicker1.Value;
+
+                                clsGenericList.listProducto.Add(product);
+
+                                Limpiar();
+                                ListarElementos();
+                            }
                         }
                     }
                     else
                     {
-                        DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese Precio de Venta del Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtPVenta.Focus();
+                        DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese Stock del Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtStock.Focus();
                     }
                 }
                 else
                 {
-                    DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese Marca del Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtMarca.Focus();
+                    DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese Precio de Venta del Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPVenta.Focus();
                 }
             }
             else
@@ -215,80 +208,77 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            M.Desconectar();
+            if (M.conexion != null && M.conexion.State == ConnectionState.Open)
+            {
+                M.Desconectar();
+            }
 
             var precioCompra = string.IsNullOrWhiteSpace(txtPCompra.Text) ? "0" : txtPCompra.Text.Trim();
+            txtMarca.Text = string.IsNullOrWhiteSpace(txtMarca.Text) ? string.Empty : txtMarca.Text.Trim();
             txtPCompra.Text = precioCompra;
+
             if (txtProducto.Text.Trim() != "")
             {
-                if (txtMarca.Text.Trim() != "")
+                if (txtPVenta.Text.Trim() != "")
                 {
-                    if (txtPVenta.Text.Trim() != "")
+                    if (txtStock.Text.Trim() != "")
                     {
-                        if (txtStock.Text.Trim() != "")
+                        using (SqlCommand cmd = new SqlCommand("ActualizarProducto", M.conexion))
                         {
-                            using (SqlCommand cmd = new SqlCommand("ActualizarProducto", M.conexion))
-                            {
-                                cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandType = CommandType.StoredProcedure;
 
-                                cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
-                                cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = txtIdP.Text;
-                                cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
-                                cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
-                                cmd.Parameters.Add("@Stock", SqlDbType.Decimal).Value = Convert.ToDecimal(txtStock.Text);
-                                cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
-                                cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
-                                cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
-                                cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
-                                cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
-                                cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
-                                cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
+                            cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
+                            cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = txtIdP.Text;
+                            cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
+                            cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
+                            cmd.Parameters.Add("@Stock", SqlDbType.Decimal).Value = Convert.ToDecimal(txtStock.Text);
+                            cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
+                            cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
+                            cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
+                            cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
+                            cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
+                            cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
+                            cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
 
-                                M.Conectar();
-                                cmd.ExecuteNonQuery();
-                                M.Desconectar();
+                            M.Conectar();
+                            cmd.ExecuteNonQuery();
+                            M.Desconectar();
 
-                                var idp = Convert.ToInt32(txtIdP.Text);
-                                var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idp);
+                            var idp = Convert.ToInt32(txtIdP.Text);
+                            var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idp);
 
-                                Producto product = new Producto();
-                                product.m_IdP = idp;
-                                product.m_IdCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
-                                product.m_Producto = txtProducto.Text;
-                                product.m_tipoGoma = cbtipo.Text;
-                                product.m_itbis = Convert.ToDecimal(txtitbis.Text);
-                                product.m_PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
-                                product.m_PrecioCompra = Convert.ToDecimal(txtPCompra.Text);
-                                product.m_Preciomax = 0;
-                                product.m_Preciomin = 0;
-                                product.m_Stock = Convert.ToDecimal(txtStock.Text);
-                                product.m_Marca = txtMarca.Text;
-                                product.m_FechaModificacion = dateTimePicker1.Value;
-                                product.m_FechaVencimiento = producto.m_FechaVencimiento;
+                            Producto product = new Producto();
+                            product.m_IdP = idp;
+                            product.m_IdCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
+                            product.m_Producto = txtProducto.Text;
+                            product.m_tipoGoma = cbtipo.Text;
+                            product.m_itbis = Convert.ToDecimal(txtitbis.Text);
+                            product.m_PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
+                            product.m_PrecioCompra = Convert.ToDecimal(txtPCompra.Text);
+                            product.m_Preciomax = 0;
+                            product.m_Preciomin = 0;
+                            product.m_Stock = Convert.ToDecimal(txtStock.Text);
+                            product.m_Marca = txtMarca.Text;
+                            product.m_FechaModificacion = dateTimePicker1.Value;
+                            product.m_FechaVencimiento = producto.m_FechaVencimiento;
 
-                                clsGenericList.listProducto.Remove(producto);
-                                clsGenericList.listProducto.Add(product);
+                            clsGenericList.listProducto.Remove(producto);
+                            clsGenericList.listProducto.Add(product);
 
-                                Limpiar();
-                                ListarElementos();
-                            }
-                        }
-                        else
-                        {
-                            DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese Stock del Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            txtStock.Focus();
+                            Limpiar();
+                            ListarElementos();
                         }
                     }
                     else
                     {
-                        DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese Precio de Venta del Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtPVenta.Focus();
+                        DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese Stock del Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtStock.Focus();
                     }
                 }
                 else
                 {
-                    DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese Marca del Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtMarca.Focus();
+                    DevComponents.DotNetBar.MessageBoxEx.Show("Por Favor Ingrese Precio de Venta del Producto.", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPVenta.Focus();
                 }
             }
             else

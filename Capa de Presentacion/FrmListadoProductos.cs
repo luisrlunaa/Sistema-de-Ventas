@@ -40,8 +40,6 @@ namespace Capa_de_Presentacion
             cbxCategoria.Enabled = false;
 
             clear();
-            //repetitivo();
-            //Mrepetitivo();
 
             ListarElementos();
             ListarElementostipo();
@@ -737,6 +735,10 @@ namespace Capa_de_Presentacion
                 string id = txtBuscarProducto.Text;
                 var newlist = clsGenericList.listProducto.Where(x => x.m_Producto.ToLower().Contains(id.ToLower()) || x.m_Marca.ToLower().Contains(id.ToLower())).ToList();
                 CargarListado(newlist.OrderBy(x => x.m_IdP).ToList());
+            }
+            else
+            {
+                GetAllProduct();
             }
         }
 
