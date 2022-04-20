@@ -524,11 +524,11 @@ namespace Capa_de_Presentacion
                 V.lblCorreo.Text = lblCorreo.Text;
                 V.lblrnc.Text = lblrnc.Text;
                 V.txtIgv.Enabled = Program.isAdminUser;
+                V.label20.Text = "Ventas";
 
                 V.button2.Visible = Program.isSaler;
                 V.btnRegistrarVenta.Visible = Program.isSaler;
                 V.btnSalir.Visible = Program.isSaler;
-                V.cotizacionPanel.Visible = !Program.isSaler;
 
                 buttonPanel.Visible = false;
                 Program.abierto = true;
@@ -563,7 +563,7 @@ namespace Capa_de_Presentacion
                 V.btnRegistrarVenta.Visible = !Program.isSaler;
                 V.btnRegistrarVenta.Text = "Cotizar";
                 V.btnSalir.Visible = false;
-                V.cotizacionPanel.Visible = !Program.isSaler;
+                V.label20.Text = "Cotizacion";
                 V.BackColor = Color.IndianRed;
 
                 buttonPanel.Visible = false;

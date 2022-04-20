@@ -762,6 +762,10 @@ namespace Capa_de_Presentacion
                 var newlist = clsGenericList.listProducto.Where(x => x.m_Producto.ToLower().Contains(id.ToLower()) || x.m_Marca.ToLower().Contains(id.ToLower())).ToList();
                 CargarListado(newlist.OrderBy(x => x.m_IdP).ToList());
             }
+            else
+            {
+                GetAllProduct();
+            }
         }
 
         private void label15_Click(object sender, EventArgs e)
