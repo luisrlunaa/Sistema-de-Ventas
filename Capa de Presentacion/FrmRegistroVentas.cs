@@ -1160,10 +1160,28 @@ namespace Capa_de_Presentacion
             Limpiar();
             Limpiar1();
 
-            btnRegistrarVenta.Hide();
-            btnImprimir.Visible = false;
-            btnAgregar.Visible = false;
-            button2.Visible = false;
+            if (label22.Text == "Cotizacion")
+            {
+                Program.isSaler = false;
+                button2.Visible = Program.isSaler;
+                btnImprimir.Visible = !Program.isSaler;
+                btnImprimir.Location = new System.Drawing.Point(33, 768);
+                btnRegistrarVenta.Visible = !Program.isSaler;
+                btnRegistrarVenta.Text = "Cotizar";
+                btnSalir.Visible = false;
+                txtIgv.Enabled = Program.isAdminUser;
+                label22.Text = "Cotizacion";
+                BackColor = System.Drawing.Color.MediumAquamarine;
+            }
+            else
+            {
+                Program.isSaler = true;
+                txtIgv.Enabled = Program.isAdminUser;
+                button2.Visible = Program.isSaler;
+                btnRegistrarVenta.Visible = Program.isSaler;
+                btnSalir.Visible = Program.isSaler;
+                label22.Text = "Ventas";
+            }
         }
 
         private void label18_Click(object sender, EventArgs e)
