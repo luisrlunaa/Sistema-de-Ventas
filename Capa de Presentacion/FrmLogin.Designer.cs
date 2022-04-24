@@ -31,14 +31,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
             this.panelmontoinicial = new System.Windows.Forms.Panel();
             this.rbNCF = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
@@ -51,7 +49,6 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dgvCaja = new System.Windows.Forms.DataGridView();
             this.Id_caja = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,7 +56,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaja)).BeginInit();
@@ -91,7 +87,6 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.SteelBlue;
-            this.groupBox1.Controls.Add(this.circularProgressBar1);
             this.groupBox1.Controls.Add(this.panelmontoinicial);
             this.groupBox1.Controls.Add(this.rbNCF);
             this.groupBox1.Controls.Add(this.button1);
@@ -113,43 +108,10 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
-            // circularProgressBar1
-            // 
-            this.circularProgressBar1.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
-            this.circularProgressBar1.AnimationSpeed = 500;
-            this.circularProgressBar1.BackColor = System.Drawing.Color.Transparent;
-            this.circularProgressBar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.circularProgressBar1.ForeColor = System.Drawing.Color.Black;
-            this.circularProgressBar1.InnerColor = System.Drawing.Color.SteelBlue;
-            this.circularProgressBar1.InnerMargin = 2;
-            this.circularProgressBar1.InnerWidth = -1;
-            this.circularProgressBar1.Location = new System.Drawing.Point(27, 36);
-            this.circularProgressBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.circularProgressBar1.MarqueeAnimationSpeed = 2000;
-            this.circularProgressBar1.Name = "circularProgressBar1";
-            this.circularProgressBar1.OuterColor = System.Drawing.Color.SteelBlue;
-            this.circularProgressBar1.OuterMargin = -25;
-            this.circularProgressBar1.OuterWidth = 26;
-            this.circularProgressBar1.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(229)))));
-            this.circularProgressBar1.ProgressWidth = 25;
-            this.circularProgressBar1.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.circularProgressBar1.Size = new System.Drawing.Size(184, 186);
-            this.circularProgressBar1.StartAngle = 270;
-            this.circularProgressBar1.SubscriptColor = System.Drawing.Color.Black;
-            this.circularProgressBar1.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
-            this.circularProgressBar1.SubscriptText = "";
-            this.circularProgressBar1.SuperscriptColor = System.Drawing.Color.Black;
-            this.circularProgressBar1.SuperscriptMargin = new System.Windows.Forms.Padding(10, 50, 0, 0);
-            this.circularProgressBar1.SuperscriptText = "%";
-            this.circularProgressBar1.TabIndex = 19;
-            this.circularProgressBar1.Text = "0";
-            this.circularProgressBar1.TextMargin = new System.Windows.Forms.Padding(8, 8, 0, 0);
-            this.circularProgressBar1.Value = 68;
-            // 
             // panelmontoinicial
             // 
             this.panelmontoinicial.Location = new System.Drawing.Point(61, 294);
-            this.panelmontoinicial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelmontoinicial.Margin = new System.Windows.Forms.Padding(2);
             this.panelmontoinicial.Name = "panelmontoinicial";
             this.panelmontoinicial.Size = new System.Drawing.Size(150, 81);
             this.panelmontoinicial.TabIndex = 17;
@@ -160,7 +122,7 @@
             this.rbNCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbNCF.ForeColor = System.Drawing.Color.White;
             this.rbNCF.Location = new System.Drawing.Point(68, 271);
-            this.rbNCF.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbNCF.Margin = new System.Windows.Forms.Padding(2);
             this.rbNCF.Name = "rbNCF";
             this.rbNCF.Size = new System.Drawing.Size(109, 19);
             this.rbNCF.TabIndex = 16;
@@ -171,7 +133,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(153, 330);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(42, 25);
             this.button1.TabIndex = 18;
@@ -185,7 +147,7 @@
             this.rbVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbVentas.ForeColor = System.Drawing.Color.White;
             this.rbVentas.Location = new System.Drawing.Point(68, 249);
-            this.rbVentas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbVentas.Margin = new System.Windows.Forms.Padding(2);
             this.rbVentas.Name = "rbVentas";
             this.rbVentas.Size = new System.Drawing.Size(129, 19);
             this.rbVentas.TabIndex = 15;
@@ -210,7 +172,7 @@
             this.rbInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbInventario.ForeColor = System.Drawing.Color.White;
             this.rbInventario.Location = new System.Drawing.Point(68, 226);
-            this.rbInventario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbInventario.Margin = new System.Windows.Forms.Padding(2);
             this.rbInventario.Name = "rbInventario";
             this.rbInventario.Size = new System.Drawing.Size(114, 19);
             this.rbInventario.TabIndex = 14;
@@ -286,7 +248,7 @@
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Image = global::Capa_de_Presentacion.Properties.Resources.ferreteria;
             this.pictureBox2.Location = new System.Drawing.Point(-1, 28);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(320, 150);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -391,7 +353,7 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(322, 32);
             this.panel1.TabIndex = 10;
@@ -420,10 +382,6 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "X";
             this.label5.Click += new System.EventHandler(this.label5_Click_1);
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FrmLogin
             // 
@@ -461,7 +419,6 @@
         private System.Windows.Forms.Button btnIngresar;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtUser;
-		private System.ComponentModel.BackgroundWorker backgroundWorker1;
 		private System.Windows.Forms.LinkLabel linkLabel1;
 		private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.DataGridView dgvCaja;
@@ -478,7 +435,5 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Timer timer1;
-        private CircularProgressBar.CircularProgressBar circularProgressBar1;
     }
 }
