@@ -216,36 +216,27 @@ namespace Capa_de_Presentacion
         {
             if (Program.IdCliente != 0)
             {
-                txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
-                txtidCli.Text = Program.IdCliente + "";
-                txtDocIdentidad.Text = Program.DocumentoIdentidad;
+                txtDatos.Text = string.IsNullOrWhiteSpace(txtDatos.Text) ? Program.NombreCliente + " " + Program.ApellidosCliente : txtDatos.Text;
+                txtidCli.Text = string.IsNullOrWhiteSpace(txtidCli.Text) ? Program.IdCliente + "" : txtidCli.Text;
+                txtDocIdentidad.Text = string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
             }
             else
             {
-                if (txtDatos.Text != null && txtDatos.Text != "")
-                {
-                    Program.datoscliente = txtDatos.Text;
-
-                }
-                if (Program.datoscliente != null && Program.datoscliente != "")
-                {
-                    txtDatos.Text = Program.datoscliente;
-                }
+                txtDatos.Text = string.IsNullOrWhiteSpace(txtDatos.Text) ? Program.datoscliente : txtDatos.Text;
             }
 
-            txtIdProducto.Text = Program.IdProducto + "";
-            txtDescripcion.Text = Program.Descripcion;
-            txtMarca.Text = Program.Marca;
-            txtStock.Text = Program.Stock + "";
-            txtPVenta.Text = Program.PrecioVenta + "";
-            txtIgv.Text = Program.itbis + "";
-            txtIdV.Text = Program.Id + "";
-            lbltotal.Text = Program.total + "";
-            lblsubt.Text = Program.ST + "";
-            lbligv.Text = Program.igv + "";
-            txtpmax.Text = Program.Pmax + "";
-            txtpmin.Text = Program.Pmin + "";
-            txtImei.Text = Program.Imei;
+            if (Program.IdProducto > 0)
+            {
+                txtIdProducto.Text = string.IsNullOrWhiteSpace(txtIdProducto.Text) ? Program.IdProducto + "" : txtIdProducto.Text;
+                txtDescripcion.Text = string.IsNullOrWhiteSpace(txtDescripcion.Text) ? Program.Descripcion : txtDescripcion.Text;
+                txtMarca.Text = string.IsNullOrWhiteSpace(txtMarca.Text) ? Program.Marca : txtMarca.Text;
+                txtPVenta.Text = string.IsNullOrWhiteSpace(txtPVenta.Text) ? Program.PrecioVenta + "" : txtPVenta.Text;
+
+                txtStock.Text = string.IsNullOrWhiteSpace(txtStock.Text) ? Program.Stock + "" : txtStock.Text;
+                txtIgv.Text = string.IsNullOrWhiteSpace(txtIgv.Text) ? Program.itbis + "" + "" : txtIgv.Text;
+                txtpmax.Text = string.IsNullOrWhiteSpace(txtpmax.Text) ? Program.Pmax + "" : txtpmax.Text;
+                txtpmin.Text = string.IsNullOrWhiteSpace(txtpmin.Text) ? Program.Pmin + "" : txtpmin.Text;
+            }
 
             if (Program.IdProducto > 0)
             {
@@ -259,7 +250,20 @@ namespace Capa_de_Presentacion
                 imei.Show();
             }
 
-            if (Program.Esabono != "" && Program.Esabono != null && Program.pagoRealizado >= 0 && Program.realizopago == true)
+            txtIdV.Text = string.IsNullOrWhiteSpace(txtIdV.Text) ? Program.Id + "" : txtIdV.Text;
+            txtidEmp.Text = string.IsNullOrWhiteSpace(txtidEmp.Text) ? Program.IdEmpleado + "" : txtidEmp.Text;
+
+            cbtipofactura.Text = string.IsNullOrWhiteSpace(cbtipofactura.Text) ? Program.tipo : cbtipofactura.Text;
+            combo_tipo_NCF.Text = string.IsNullOrWhiteSpace(combo_tipo_NCF.Text) ? Program.NCF : combo_tipo_NCF.Text;
+            txtNCF.Text = string.IsNullOrWhiteSpace(txtNCF.Text) ? Program.NroComprobante : txtNCF.Text;
+
+            lbltotal.Text = string.IsNullOrWhiteSpace(lbltotal.Text) ? Program.total + "" : lbltotal.Text;
+            lblsubt.Text = string.IsNullOrWhiteSpace(lblsubt.Text) ? Program.ST + "" : lblsubt.Text;
+            lbligv.Text = string.IsNullOrWhiteSpace(lbligv.Text) ? Program.igv + "" : lbligv.Text;
+
+            dateTimePicker1.Text = string.IsNullOrWhiteSpace(dateTimePicker1.Text) ? Program.fecha : dateTimePicker1.Text;
+
+            if (!string.IsNullOrWhiteSpace(Program.Esabono) && Program.pagoRealizado > 0 && Program.realizopago == true)
             {
                 button2.Visible = true;
                 btnSalir.Visible = false;
@@ -275,7 +279,7 @@ namespace Capa_de_Presentacion
                 btnSalir.Visible = Program.isSaler;
             }
 
-            if (Program.Esabono != "" && Program.Esabono != null && Program.tipo.ToLower() == "credito")
+            if (!string.IsNullOrWhiteSpace(Program.Esabono) && !string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito")
             {
                 activar = true;
                 btnImprimir.Visible = false;
@@ -301,14 +305,15 @@ namespace Capa_de_Presentacion
                 if (activar == true && entro == false)
                 {
                     entro = true;
-                    cbtipofactura.Text = Program.tipo;
-                    combo_tipo_NCF.Text = Program.NCF;
-                    txtNCF.Text = Program.NroComprobante;
-                    lbltotal.Text = Program.total + "";
-                    lblsubt.Text = Program.ST + "";
-                    lbligv.Text = Program.igv + "";
-                    txtidEmp.Text = Program.IdEmpleado + "";
-                    dateTimePicker1.Text = Program.fecha;
+                    txtIdV.Text = string.IsNullOrWhiteSpace(txtIdV.Text) ? Program.Id + "" : txtIdV.Text;
+                    cbtipofactura.Text = string.IsNullOrWhiteSpace(cbtipofactura.Text) ? Program.tipo : cbtipofactura.Text;
+                    combo_tipo_NCF.Text = string.IsNullOrWhiteSpace(combo_tipo_NCF.Text) ? Program.NCF : combo_tipo_NCF.Text; ;
+                    txtNCF.Text = string.IsNullOrWhiteSpace(txtNCF.Text) ? Program.NroComprobante : txtNCF.Text;
+                    lbltotal.Text = string.IsNullOrWhiteSpace(lbltotal.Text) ? Program.total + "" : lbltotal.Text;
+                    lblsubt.Text = string.IsNullOrWhiteSpace(lblsubt.Text) ? Program.ST + "" : lblsubt.Text;
+                    lbligv.Text = string.IsNullOrWhiteSpace(lbligv.Text) ? Program.igv + "" : lbligv.Text;
+                    txtidEmp.Text = string.IsNullOrWhiteSpace(txtidEmp.Text) ? Program.IdEmpleado + "" : txtidEmp.Text;
+                    dateTimePicker1.Text = string.IsNullOrWhiteSpace(dateTimePicker1.Text) ? Program.fecha : dateTimePicker1.Text;
 
                     decimal subtotal = 0;
                     decimal igv = 0;
@@ -337,6 +342,7 @@ namespace Capa_de_Presentacion
                         int renglon = dgvVenta.Rows.Add();
                         // especificamos en que fila se mostrará cada registro
                         // nombredeldatagrid.filas[numerodefila].celdas[nombrdelacelda].valor=\
+
                         string idVenta = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
                         if (idVenta == txtIdV.Text)
                         {
@@ -366,11 +372,15 @@ namespace Capa_de_Presentacion
                 if (activar == true && entro == false)
                 {
                     entro = true;
-                    txtIdV.Text = Program.Id + "";
-                    lbltotal.Text = Program.total + "";
-                    lblsubt.Text = Program.ST + "";
-                    lbligv.Text = Program.igv + "";
-                    txtidEmp.Text = Program.IdEmpleado + "";
+                    txtIdV.Text = string.IsNullOrWhiteSpace(txtIdV.Text) ? Program.Id + "" : txtIdV.Text;
+                    cbtipofactura.Text = string.IsNullOrWhiteSpace(cbtipofactura.Text) ? Program.tipo : cbtipofactura.Text;
+                    combo_tipo_NCF.Text = string.IsNullOrWhiteSpace(combo_tipo_NCF.Text) ? Program.NCF : combo_tipo_NCF.Text; ;
+                    txtNCF.Text = string.IsNullOrWhiteSpace(txtNCF.Text) ? Program.NroComprobante : txtNCF.Text;
+                    lbltotal.Text = string.IsNullOrWhiteSpace(lbltotal.Text) ? Program.total + "" : lbltotal.Text;
+                    lblsubt.Text = string.IsNullOrWhiteSpace(lblsubt.Text) ? Program.ST + "" : lblsubt.Text;
+                    lbligv.Text = string.IsNullOrWhiteSpace(lbligv.Text) ? Program.igv + "" : lbligv.Text;
+                    txtidEmp.Text = string.IsNullOrWhiteSpace(txtidEmp.Text) ? Program.IdEmpleado + "" : txtidEmp.Text;
+                    dateTimePicker1.Text = string.IsNullOrWhiteSpace(dateTimePicker1.Text) ? Program.fecha : dateTimePicker1.Text;
 
                     decimal subtotal = 0;
                     decimal igv = 0;
@@ -781,7 +791,7 @@ namespace Capa_de_Presentacion
                     {
                         decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
                         decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
-                        decimal cantidad = Convert.ToDecimal(row.Cells["cantidadP"].Value);
+                        int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
 
                         Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
                         idventa = Convert.ToInt32(row.Cells["IdD"].Value);
@@ -789,13 +799,31 @@ namespace Capa_de_Presentacion
 
                     //Tabla detalles ventas
                     cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
-                    cmd1.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
+                    cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
                     cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
                     cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
                     cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
                     cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
                     cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
                     cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
+                    cmd1.Parameters.Add("@imei", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["ImeiC"].Value);
+
+                    if (Convert.ToString(row.Cells["ImeiC"].Value) != "Sin Imei")
+                    {
+                        using (SqlCommand cmd4 = new SqlCommand("Registrarimei", M.conexion))
+                        {
+                            cmd4.CommandType = CommandType.StoredProcedure;
+                            cmd4.Parameters.Add("@idImei", SqlDbType.Int).Value = Convert.ToInt32(Program.idImei);
+                            cmd4.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IDP"].Value);
+                            cmd4.Parameters.Add("@IMEI", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["ImeiC"].Value);
+                            cmd4.Parameters.Add("@activo", SqlDbType.Char).Value = 0;
+                            cmd4.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
+
+                            M.Conectar(); ;
+                            cmd4.ExecuteNonQuery();
+                            M.Desconectar();
+                        }
+                    }
 
                     M.Conectar();
                     cmd1.ExecuteNonQuery();
@@ -812,7 +840,7 @@ namespace Capa_de_Presentacion
                     cmd3.CommandType = CommandType.StoredProcedure;
 
                     //UpdateStock
-                    cmd3.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
+                    cmd3.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
                     cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IDP"].Value);
 
                     M.Conectar();
@@ -949,7 +977,7 @@ namespace Capa_de_Presentacion
                     {
                         decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
                         decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
-                        decimal cantidad = Convert.ToDecimal(row.Cells["cantidadP"].Value);
+                        int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
 
                         Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
                         idventa = Convert.ToInt32(row.Cells["IdD"].Value);
@@ -957,7 +985,7 @@ namespace Capa_de_Presentacion
 
                     //Tabla detalles ventas
                     cmd1.Parameters.Add(Program.isSaler ? "@IdVenta" : "@IdCotizacion", SqlDbType.Int).Value = idventa;
-                    cmd1.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
+                    cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
                     cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
                     cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
                     cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);

@@ -26,6 +26,8 @@ namespace Capa_de_Presentacion
         {
             ListarElementos();
             cargar_combo_Tipo(cbtipo);
+            llenar_data(txtIdP.Text);
+
             cbtipo.SelectedIndex = 0;
             txtidImei.Text = "";
             if (txtPmin.Text.Trim() == "")
