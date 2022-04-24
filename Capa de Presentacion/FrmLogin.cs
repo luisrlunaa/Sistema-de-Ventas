@@ -1,5 +1,6 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
+using CapaLogicaNegocio.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +12,7 @@ namespace Capa_de_Presentacion
     public partial class FrmLogin : DevComponents.DotNetBar.Metro.MetroForm
     {
         clsUsuarios U = new clsUsuarios();
-        clsManejador M = new clsManejador();
+        clsManejador Cx = new clsManejador();
 
         public FrmLogin()
         {
@@ -22,10 +23,10 @@ namespace Capa_de_Presentacion
         bool tienefila = false;
         public void obtenerFiladeCaja()
         {
-            M.Desconectar();
+            Cx.Desconectar();
             string cadSql = "SELECT id_caja, monto_inicial,fecha  FROM Caja where monto_final =0 AND fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
-            M.Conectar();
-            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+            Cx.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -33,15 +34,7 @@ namespace Capa_de_Presentacion
             {
                 tienefila = true;
             }
-            M.Desconectar();
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
+            Cx.Desconectar();
         }
 
         public void btnIngresar_Click(object sender, EventArgs e)
@@ -80,15 +73,6 @@ namespace Capa_de_Presentacion
                         }
                         else
                         {
-                            circularProgressBar1.Visible = true;
-                            circularProgressBar1.Value = 0;
-                            circularProgressBar1.Minimum = 0;
-                            circularProgressBar1.Maximum = 100;
-                            timer1.Start();
-
-                            if (circularProgressBar1.Visible == true)
-                                CargarListados();
-
                             if (rbInventario.Checked)
                             {
                                 Program.LoginStatus = "Inventario";
@@ -122,10 +106,14 @@ namespace Capa_de_Presentacion
                                     }
                                     else
                                     {
-                                        M.Desconectar();
+                                        Cx.Desconectar();
                                         insertCaja();
                                     }
                                 }
+
+                                FrmMenuPrincipal MP = new FrmMenuPrincipal();
+                                MP.Show();
+                                this.Hide();
                             }
                         }
                     }
@@ -143,84 +131,13 @@ namespace Capa_de_Presentacion
             }
         }
 
-        public DateTime GetWeek()
-        {
-            var day = DateTime.Today.AddDays(-8);
-            return day;
-        }
-
-        public void CargarListados()
-        {
-            #region Listado Ventas
-            if (clsGenericList.listVentasPorCategoria is null)
-            {
-                clsGenericList.listVentasPorCategoria = new List<CapaLogicaNegocio.ViewModel.VentasPorCategoria>();
-            }
-
-            if (clsGenericList.listVentas is null)
-            {
-                clsGenericList.idsVentas = new List<int>();
-                clsVentas V = new clsVentas();
-
-                try
-                {
-                    clsGenericList.listVentas = V.GetListadoVentas(GetWeek(), DateTime.Now);
-                    clsGenericList.listVentas.ForEach(x => clsGenericList.idsVentas.Add(x.IdVenta));
-                    clsGenericList.totalGanancia = clsGenericList.Ganancias(clsGenericList.idsVentas);
-                }
-                catch (Exception ex)
-                {
-                    DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
-                }
-            }
-            #endregion
-
-            #region Listado Productos
-            if (clsGenericList.listProducto is null)
-            {
-                clsGenericList.listProducto = new List<Producto>();
-
-                clsProducto P = new clsProducto();
-                DataTable dtP = new DataTable();
-                dtP = P.Listar();
-
-                try
-                {
-                    foreach (DataRow reader in dtP.Rows)
-                    {
-                        Producto product = new Producto();
-
-                        product.m_IdP = reader["IdProducto"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdProducto"]);
-                        product.m_IdCategoria = reader["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdCategoria"]);
-                        product.m_Producto = reader["Nombre"] == DBNull.Value ? string.Empty : reader["Nombre"].ToString();
-                        product.m_tipoGoma = reader["tipoGOma"] == DBNull.Value ? string.Empty : reader["tipoGOma"].ToString();
-                        product.m_itbis = reader["itbis"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["itbis"]);
-                        product.m_PrecioVenta = reader["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioVenta"]);
-                        product.m_PrecioCompra = reader["PrecioCompra"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioCompra"]);
-                        product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmax"]);
-                        product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmin"]);
-                        product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
-                        product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Stock"]);
-                        product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
-                        product.m_Marca = reader["Marca"] == DBNull.Value ? string.Empty : reader["Marca"].ToString();
-
-                        clsGenericList.listProducto.Add(product);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
-                }
-            }
-            #endregion
-        }
-
         public void llenarid()
         {
-            M.Desconectar();
-            string cadSql = "select top(1) id_caja,monto_inicial  from Caja order by id_caja desc";
-            M.Conectar();
-            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+            Cx.Desconectar();
+            string cadSql = "select top(1) id_caja  from Caja order by id_caja desc";
+
+            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+            Cx.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -228,26 +145,8 @@ namespace Capa_de_Presentacion
             {
                 var id = string.IsNullOrWhiteSpace(leer["id_caja"].ToString()) ? 0 : Convert.ToInt32(leer["id_caja"]);
                 Program.idcaja = id;
-                Program.MontoInicial = Convert.ToDecimal(leer["monto_inicial"]);
             }
-            M.Desconectar();
-        }
-
-        public void fechaVenc()
-        {
-            M.Desconectar();
-            string cadSql = "select top(1) FechaVenc  from NomEmp order by idEmp desc";
-
-            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
-            M.Conectar();
-
-            SqlDataReader leer = comando.ExecuteReader();
-
-            if (leer.Read() == true)
-            {
-                FechaVenc = Convert.ToDateTime(leer["FechaVenc"]);
-            }
-            M.Desconectar();
+            Cx.Desconectar();
         }
 
         public void RecuperarDatosSesion()
@@ -278,26 +177,35 @@ namespace Capa_de_Presentacion
             r.Show();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        public void fechaVenc()
         {
-            FrmMenuPrincipal MP = new FrmMenuPrincipal();
-            Program.LoginStatus = "Inventario";
-            MP.Show();
-            this.Hide();
+            Cx.Desconectar();
+            string cadSql = "select top(1) FechaVenc  from NomEmp order by idEmp desc";
+
+            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+            Cx.Conectar();
+
+            SqlDataReader leer = comando.ExecuteReader();
+
+            if (leer.Read() == true)
+            {
+                FechaVenc = Convert.ToDateTime(leer["FechaVenc"]);
+            }
+            Cx.Desconectar();
         }
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             Program.idcaja = 0;
+            panelmontoinicial.Visible = true;
             fechaVenc();
             llenarid();
             obtenerFiladeCaja();
-            circularProgressBar1.Hide();
         }
 
         public void insertCaja()
         {
-            using (SqlCommand cmd = new SqlCommand("abrir_caja", M.conexion))
+            using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -305,9 +213,9 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = string.IsNullOrWhiteSpace(txtmontoinicial.Text) ? 0 : Convert.ToDecimal(txtmontoinicial.Text);
                 cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
-                M.Conectar();
+                Cx.Conectar();
                 cmd.ExecuteNonQuery();
-                M.Desconectar();
+                Cx.Desconectar();
             }
 
             Program.idcaja = Program.idcaja + 1;
@@ -315,11 +223,9 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            M.Desconectar();
+            Cx.Desconectar();
             insertCaja();
-            obtenerFiladeCaja();
             RecuperarDatosSesion();
-            Program.idcaja = Program.idcaja + 1;
             panelmontoinicial.Show();
         }
 
@@ -328,24 +234,6 @@ namespace Capa_de_Presentacion
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                 Application.Exit();
-            }
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            FrmMenuPrincipal MP = new FrmMenuPrincipal();
-            if (circularProgressBar1.Value < 100)
-            {
-                circularProgressBar1.Value += 1;
-                circularProgressBar1.Text = circularProgressBar1.Value.ToString();
-            }
-
-            if (circularProgressBar1.Value == 100)
-            {
-                timer1.Stop();
-                MP.Show();
-                circularProgressBar1.Visible = false;
-                this.Hide();
             }
         }
     }

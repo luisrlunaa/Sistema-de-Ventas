@@ -31,8 +31,6 @@ namespace Capa_de_Presentacion
                 btnProductos.Visible = true;
                 btnClientes.Visible = false;
                 btnVentas.Visible = false;
-                btnAyB.Visible = false;
-                btnCotizar.Visible = false;
 
                 button5.Visible = false;
                 button2.Visible = false;
@@ -49,7 +47,6 @@ namespace Capa_de_Presentacion
                 btnProductos.Visible = false;
                 btnClientes.Visible = false;
                 btnVentas.Visible = false;
-                btnAyB.Visible = false;
 
                 button5.Visible = true;
                 button2.Visible = false;
@@ -66,7 +63,6 @@ namespace Capa_de_Presentacion
                 btnProductos.Visible = false;
                 btnClientes.Visible = false;
                 btnVentas.Visible = false;
-                btnAyB.Visible = false;
 
                 button5.Visible = false;
                 button2.Visible = true;
@@ -85,7 +81,6 @@ namespace Capa_de_Presentacion
                     btnProductos.Visible = true;
                     btnClientes.Visible = true;
                     btnVentas.Visible = true;
-                    btnAyB.Visible = true;
 
                     button5.Visible = false;
                     button2.Visible = false;
@@ -101,7 +96,6 @@ namespace Capa_de_Presentacion
                     btnProductos.Visible = true;
                     btnClientes.Visible = true;
                     btnVentas.Visible = true;
-                    btnAyB.Visible = true;
 
                     button5.Visible = true;
                     button2.Visible = true;
@@ -113,29 +107,13 @@ namespace Capa_de_Presentacion
                     btnVer.Visible = false;
                 }
             }
-
-            if (TempData.tempSalesData != null && TempData.tempSalesData.Any()
-                && TempData.DateIn != null && TempData.DateIn.AddHours(1) <= DateTime.Now)
-            {
-                TempData.tempSalesData = new List<Venta>();
-                TempData.DateIn = DateTime.Now;
-            }
         }
+
         private void FrmMenuPrincipal_Load(object sender, EventArgs e)
         {
+            timerHoraActual.Interval = 500;
+            timerHoraActual.Start();
             llenar();
-            panel3.Hide();
-            panel1.Size = new Size(61, 606);
-            button7.Text = ">>";
-
-            #region productos vendidos por categoria
-            if (clsGenericList.listVentas.Count > 0)
-            {
-                var fecha1 = TempData.tempSalesData is null || !TempData.tempSalesData.Any() ? clsGenericList.listVentas.FirstOrDefault().FechaVenta : TempData.tempSalesData.FirstOrDefault().FechaVenta;
-                var fecha2 = TempData.tempSalesData is null || !TempData.tempSalesData.Any() ? clsGenericList.listVentas.LastOrDefault().FechaVenta : TempData.tempSalesData.LastOrDefault().FechaVenta;
-                clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1.Value, fecha2.Value, 0);
-            }
-            #endregion
         }
 
         public void llenar()
