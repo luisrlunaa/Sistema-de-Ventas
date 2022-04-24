@@ -107,29 +107,13 @@ namespace Capa_de_Presentacion
                     btnVer.Visible = false;
                 }
             }
-
-            if (TempData.tempSalesData != null && TempData.tempSalesData.Any() 
-                && TempData.DateIn != null && TempData.DateIn.AddHours(1) <= DateTime.Now)
-            {
-                TempData.tempSalesData = new List<Venta>();
-                TempData.DateIn = DateTime.Now;
-            }
         }
 
         private void FrmMenuPrincipal_Load(object sender, EventArgs e)
         {
             timer1.Interval = 500;
             timer1.Start();
-            llenar();            
-            
-            #region productos vendidos por categoria
-            if (clsGenericList.listVentas.Count > 0)
-            {
-                var fecha1 = TempData.tempSalesData is null || !TempData.tempSalesData.Any() ? clsGenericList.listVentas.FirstOrDefault().FechaVenta : TempData.tempSalesData.FirstOrDefault().FechaVenta;
-                var fecha2 = TempData.tempSalesData is null || !TempData.tempSalesData.Any() ? clsGenericList.listVentas.LastOrDefault().FechaVenta : TempData.tempSalesData.LastOrDefault().FechaVenta;
-                clsGenericList.listVentasPorCategoria = clsGenericList.ListaPorCatergoria(fecha1, fecha2, 0);
-            }
-            #endregion
+            llenar();
         }
 
         public void llenar()
