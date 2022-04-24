@@ -23,9 +23,14 @@ namespace Capa_de_Presentacion
         }
 
         clsManejador M = new clsManejador();
-
+        public int borrado = 0;
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
+            if (clsGenericList.tempSalesData is null)
+            {
+                clsGenericList.tempSalesData = cargarListado();
+            }
+
             button3.Enabled = false;
             button4.Enabled = false;
             txtBuscarid.Enabled = false;
@@ -33,21 +38,66 @@ namespace Capa_de_Presentacion
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
 
-            if (TempData.tempSalesData is null || TempData.tempSalesData.Count == 0)
-                TempData.tempSalesData = clsGenericList.listVentas.OrderBy(x => x.IdVenta).ToList();
-
-            if (TempData.tempSalesData.Count > 0)
+            if (clsGenericList.tempSalesData.Count > 0)
             {
-                llenar_data(TempData.tempSalesData);
-            }
+                llenar_data(clsGenericList.tempSalesData);
 
-            if (clsGenericList.listVentasPorCategoria.Count > 0 && TempData.tempSalesData.Count > 0)
-            {
-                llenar_categoryandquantity(clsGenericList.listVentasPorCategoria);
+                var fecha1 = clsGenericList.tempSalesData.FirstOrDefault().FechaVenta;
+                var fecha2 = clsGenericList.tempSalesData.LastOrDefault().FechaVenta;
+
+                var listVentCateg = new List<VentasPorCategoria>();
+                try
+                {
+                    string sql = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.SubTotal) AS PrecioOfProducts" +
+                        " FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
+                        "INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta  where venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) AND " +
+                        "convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + "group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
+
+                    SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
+                    cmd1.Parameters.AddWithValue("@fecha1", fecha1);
+                    cmd1.Parameters.AddWithValue("@fecha2", fecha2);
+
+                    DataTable dtPC = new DataTable();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd1);
+                    da.Fill(dtPC);
+
+                    foreach (DataRow reader in dtPC.Rows)
+                    {
+                        VentasPorCategoria ventaPC = new VentasPorCategoria();
+                        ventaPC.PrecioOfProducts = reader["PrecioOfProducts"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioOfProducts"]);
+                        ventaPC.CantidadOfProducts = reader["CantidadOfProducts"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["CantidadOfProducts"]);
+                        ventaPC.CategoryOfProducts = reader["CategoryOfProducts"] == DBNull.Value ? string.Empty : reader["CategoryOfProducts"].ToString();
+                        listVentCateg.Add(ventaPC);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.Message.ToString();
+                }
+
+                llenar_categoryandquantity(listVentCateg);
             }
         }
 
-        public int borrado = 0;
+        public DateTime GetWeek()
+        {
+            var day = DateTime.Today.AddDays(-8);
+            return day;
+        }
+
+        public List<Venta> cargarListado()
+        {
+            clsVentas V = new clsVentas();
+            try
+            {
+                return clsGenericList.tempSalesData = V.GetListadoVentas(GetWeek(), DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
+                return new List<Venta>();
+            }
+        }
         public void cargar_combo_NCF(ComboBox combo_tipo_NCF)
         {
             M.Desconectar();
@@ -117,13 +167,13 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = item.UltimaFechaPago;
             }
 
-            clsGenericList.totalVendido = listaventas.Sum(x => x.Total);
+            var totalVendido = listaventas.Sum(x => x.Total);
 
             txtTtal.Text = string.Empty;
-            txtTtal.Text = Math.Round(clsGenericList.totalVendido, 2).ToString("C2");
+            txtTtal.Text = Math.Round(totalVendido, 2).ToString("C2");
             if (string.IsNullOrWhiteSpace(txtGanancias.Text))
             {
-                GananciaTotal(clsGenericList.totalGanancia);
+                GananciaTotal(Ganancias());
             }
         }
 
@@ -469,15 +519,14 @@ namespace Capa_de_Presentacion
             var (date1, date2) = GetDaysToFilter(isSameDate, dtpfecha1.Value.Date, dtpfecha2.Value.Date);
             if (!isDiferentWeek)
             {
-                listFind = clsGenericList.listVentas.Where(x => isSameDate
+                listFind = clsGenericList.tempSalesData.Where(x => isSameDate
                                                               ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
                                                               : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
-                                                    .OrderBy(x => x.IdVenta)
-                                                    .ToList();
+                    .OrderBy(x => x.IdVenta).ToList();
             }
             else
             {
-                var isOnTempData = TempData.tempSalesData.Count > 0 ? TempData.tempSalesData.Where(x => isSameDate
+                var isOnTempData = clsGenericList.tempSalesData.Count > 0 ? clsGenericList.tempSalesData.Where(x => isSameDate
                                                               ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
                                                               : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
                                                               .ToList().Count > 0
@@ -491,7 +540,7 @@ namespace Capa_de_Presentacion
                 }
                 else
                 {
-                    listFind = TempData.tempSalesData.Where(x => isSameDate
+                    listFind = clsGenericList.tempSalesData.Where(x => isSameDate
                                                               ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
                                                               : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
                                                               .ToList();
@@ -566,12 +615,10 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            var newlistVentasPorCategoria = clsGenericList.ListaPorCatergoria(dtpfecha1.Value.Date, dtpfecha2.Value.Date, borrado);
+            var newlistVentasPorCategoria = ListaPorCatergoria(dtpfecha1.Value.Date, dtpfecha2.Value.Date, borrado);
             llenar_categoryandquantity(newlistVentasPorCategoria);
 
-            List<int> ventasIds = new List<int>();
-            newlist.ForEach(x => ventasIds.Add(x.IdVenta));
-            var ganancias = clsGenericList.Ganancias(ventasIds);
+            var ganancias = Ganancias();
             GananciaTotal(ganancias);
 
             if (cbPendiente.Checked == true)
@@ -582,9 +629,6 @@ namespace Capa_de_Presentacion
                 var totalpendiente = newlist.Sum(x => x.Restante);
                 txttotalpendiente.Text = Math.Round(totalpendiente, 2).ToString("C2");
             }
-
-            TempData.tempSalesData = newlist;
-            TempData.DateIn = DateTime.Now;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -599,8 +643,7 @@ namespace Capa_de_Presentacion
             vereliminadas.Checked = false;
             Program.Id = 0;
             Program.tipo = "";
-            TempData.tempSalesData = new List<Venta>();
-            llenar_data(TempData.tempSalesData.OrderBy(x => x.IdVenta).ToList());
+            llenar_data(clsGenericList.tempSalesData.OrderBy(x => x.IdVenta).ToList());
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -620,7 +663,7 @@ namespace Capa_de_Presentacion
                 if (txtBuscarid.Text.Length >= 1 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
                     int id = Convert.ToInt32(txtBuscarid.Text);
-                    var newlist = TempData.tempSalesData.Where(x => x.IdVenta == id).ToList();
+                    var newlist = clsGenericList.tempSalesData.Where(x => x.IdVenta == id).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
@@ -629,13 +672,13 @@ namespace Capa_de_Presentacion
                 if (txtBuscarid.Text.Length >= 4 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
                     string name = txtBuscarid.Text;
-                    var newlist = TempData.tempSalesData.Where(x => x.NombreCliente.ToLower().Contains(name.ToLower())).ToList();
+                    var newlist = clsGenericList.tempSalesData.Where(x => x.NombreCliente.ToLower().Contains(name.ToLower())).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
             else
             {
-                llenar_data(TempData.tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                llenar_data(clsGenericList.tempSalesData.OrderBy(x => x.IdVenta).ToList());
             }
         }
 
@@ -756,10 +799,10 @@ namespace Capa_de_Presentacion
                                     cmd.ExecuteNonQuery();
                                     M.Desconectar();
 
-                                    if (clsGenericList.idsVentas.Contains(Program.Id))
+                                    var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
+                                    if (venta != null)
                                     {
-                                        var venta = TempData.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
-                                        TempData.tempSalesData.Remove(venta);
+                                        clsGenericList.tempSalesData.Remove(venta);
                                     }
 
                                     Program.Id = 0;
@@ -793,13 +836,13 @@ namespace Capa_de_Presentacion
             if (vereliminadas.Checked)
             {
                 borrado = 1;
-                var newlist = TempData.tempSalesData.Where(x => x.borrador == borrado).ToList();
+                var newlist = clsGenericList.tempSalesData.Where(x => x.borrador == borrado).ToList();
                 llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
             }
             else
             {
                 borrado = 0;
-                var newlist = TempData.tempSalesData.Where(x => x.borrador == borrado).ToList();
+                var newlist = clsGenericList.tempSalesData.Where(x => x.borrador == borrado).ToList();
                 llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
             }
         }
@@ -815,7 +858,7 @@ namespace Capa_de_Presentacion
 
                 M.Conectar();
                 var Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
-                var venta = TempData.tempSalesData.FirstOrDefault(x => x.IdVenta == Id);
+                var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Id);
                 if (venta != null)
                 {
                     string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante,Venta.Total from DetalleVenta" +
@@ -910,7 +953,7 @@ namespace Capa_de_Presentacion
                             i = i + 1;
                         }
 
-                        TempData.tempSalesData.Remove(venta);
+                        clsGenericList.tempSalesData.Remove(venta);
                     }
                 }
                 M.Desconectar();
@@ -973,5 +1016,76 @@ namespace Capa_de_Presentacion
 
             return (date1.Date, date2.Date);
         }
+
+        #region Calculos
+        public List<VentasPorCategoria> ListaPorCatergoria(DateTime fecha1, DateTime fecha2, int borrador)
+        {
+            var listVentCateg = new List<VentasPorCategoria>();
+            clsManejador M = new clsManejador();
+            try
+            {
+                string sql = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.SubTotal) AS PrecioOfProducts" +
+                    " FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
+                    "INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta  where venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) AND " +
+                    "convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103) and dbo.Venta.borrado=" + borrador + "group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
+
+                SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
+                cmd1.Parameters.AddWithValue("@fecha1", fecha1);
+                cmd1.Parameters.AddWithValue("@fecha2", fecha2);
+
+                DataTable dtPC = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(cmd1);
+                da.Fill(dtPC);
+
+                foreach (DataRow reader in dtPC.Rows)
+                {
+                    VentasPorCategoria ventaPC = new VentasPorCategoria();
+                    ventaPC.PrecioOfProducts = reader["PrecioOfProducts"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioOfProducts"]);
+                    ventaPC.CantidadOfProducts = reader["CantidadOfProducts"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["CantidadOfProducts"]);
+                    ventaPC.CategoryOfProducts = reader["CategoryOfProducts"] == DBNull.Value ? string.Empty : reader["CategoryOfProducts"].ToString();
+                    listVentCateg.Add(ventaPC);
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return listVentCateg;
+            }
+
+            return listVentCateg;
+        }
+        public decimal Ganancias()
+        {
+            decimal ganancia = 0;
+            try
+            {
+                List<int> ventasIds = new List<int>();
+                if (clsGenericList.tempSalesData.Count > 0)
+                {
+                    clsGenericList.tempSalesData.ForEach(x => ventasIds.Add(x.IdVenta));
+                    foreach (var id in ventasIds)
+                    {
+                        string cadSql = $"select Sum(GananciaVenta) as ganancia from DetalleVenta where DetalleVenta.IdVenta ={id} group by DetalleVenta.IdVenta";
+                        SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+                        M.Conectar();
+                        SqlDataReader leer = comando.ExecuteReader();
+                        if (leer.Read() == true)
+                        {
+                            var monto = leer["ganancia"] == DBNull.Value ? 0 : Convert.ToDecimal(leer["ganancia"]) > 0 ? Convert.ToDecimal(leer["ganancia"]) : 0;
+                            ganancia += monto;
+                        }
+                        M.Desconectar();
+                    }
+                }
+
+                return ganancia;
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return ganancia;
+            }
+        }
+        #endregion
     }
 }

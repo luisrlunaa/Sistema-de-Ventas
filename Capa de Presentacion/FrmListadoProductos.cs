@@ -30,24 +30,64 @@ namespace Capa_de_Presentacion
         {
             if (clsGenericList.listProducto is null)
             {
-                clsGenericList.listProducto = new List<Producto>();
+                clsGenericList.listProducto = CargarListados();
             }
+
+
 
             textBox5.Text = "";
             id.Text = "";
 
             cbTipoGoma.Enabled = false;
             cbxCategoria.Enabled = false;
-            button2.Enabled = Program.isAdminUser;
-            btnEditar.Enabled = Program.isAdminUser;
 
             clear();
-            //repetitivo();
-            //Mrepetitivo();
 
             ListarElementos();
             ListarElementostipo();
         }
+
+        public List<Producto> CargarListados()
+        {
+            #region Listado Productos
+            clsGenericList.listProducto = new List<Producto>();
+
+            DataTable dtP = new DataTable();
+            dtP = P.Listar();
+
+            try
+            {
+                foreach (DataRow reader in dtP.Rows)
+                {
+                    Producto product = new Producto();
+
+                    product.m_IdP = reader["IdProducto"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdProducto"]);
+                    product.m_IdCategoria = reader["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdCategoria"]);
+                    product.m_Producto = reader["Nombre"] == DBNull.Value ? string.Empty : reader["Nombre"].ToString();
+                    product.m_tipoGoma = reader["tipoGOma"] == DBNull.Value ? string.Empty : reader["tipoGOma"].ToString();
+                    product.m_itbis = reader["itbis"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["itbis"]);
+                    product.m_PrecioVenta = reader["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioVenta"]);
+                    product.m_PrecioCompra = reader["PrecioCompra"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioCompra"]);
+                    product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmax"]);
+                    product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmin"]);
+                    product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
+                    product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Stock"]);
+                    product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
+                    product.m_Marca = reader["Marca"] == DBNull.Value ? string.Empty : reader["Marca"].ToString();
+
+                    clsGenericList.listProducto.Add(product);
+                }
+
+                return clsGenericList.listProducto;
+            }
+            catch (Exception ex)
+            {
+                DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
+                return new List<Producto>();
+            }
+            #endregion
+        }
+
         public void buscarid()
         {
             M.Desconectar();

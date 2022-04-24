@@ -1,5 +1,6 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
+using CapaLogicaNegocio.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -38,7 +39,6 @@ namespace Capa_de_Presentacion
 
         public void btnIngresar_Click(object sender, EventArgs e)
         {
-            Cx.Desconectar();
             if (txtUser.Text.Trim() != "")
             {
                 if (txtPassword.Text.Trim() != "")
@@ -54,8 +54,7 @@ namespace Capa_de_Presentacion
                         txtPassword.Clear();
                         txtPassword.Focus();
                     }
-                    else
-                        if (Mensaje == "El Nombre de Usuario no Existe.")
+                    else if (Mensaje == "El Nombre de Usuario no Existe.")
                     {
                         DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                         txtUser.Clear();
@@ -64,9 +63,6 @@ namespace Capa_de_Presentacion
                     }
                     else
                     {
-                        DevComponents.DotNetBar.MessageBoxEx.Show(Mensaje, "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-                        FrmMenuPrincipal MP = new FrmMenuPrincipal();
-
                         if (FechaVenc.Date <= DateTime.Today.Date)
                         {
                             if (DevComponents.DotNetBar.MessageBoxEx.Show("Licencia del producto ha Cadudado, Favor ponerse en contacto con su suplidor para Renovar la misma, Desea Renovar Ahora?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -77,15 +73,6 @@ namespace Capa_de_Presentacion
                         }
                         else
                         {
-                            circularProgressBar1.Visible = true;
-                            circularProgressBar1.Value = 0;
-                            circularProgressBar1.Minimum = 0;
-                            circularProgressBar1.Maximum = 100;
-                            timer1.Start();
-
-                            if (circularProgressBar1.Visible == true)
-                                CargarListados();
-
                             if (rbInventario.Checked)
                             {
                                 Program.LoginStatus = "Inventario";
@@ -123,6 +110,10 @@ namespace Capa_de_Presentacion
                                         insertCaja();
                                     }
                                 }
+
+                                FrmMenuPrincipal MP = new FrmMenuPrincipal();
+                                MP.Show();
+                                this.Hide();
                             }
                         }
                     }
@@ -139,78 +130,6 @@ namespace Capa_de_Presentacion
                 txtUser.Focus();
             }
         }
-        public DateTime GetWeek()
-        {
-            var day = DateTime.Today.AddDays(-8);
-            return day;
-        }
-
-        public void CargarListados()
-        {
-            #region Listado Ventas
-            if (clsGenericList.listVentas is null)
-            {
-                if (clsGenericList.listVentasPorCategoria is null)
-                {
-                    clsGenericList.listVentasPorCategoria = new List<CapaLogicaNegocio.ViewModel.VentasPorCategoria>();
-                }
-
-                clsGenericList.listVentas = new List<Venta>();
-                clsGenericList.idsVentas = new List<int>();
-
-                clsVentas V = new clsVentas();
-                try
-                {
-                    clsGenericList.listVentas = V.GetListadoVentas(GetWeek(), DateTime.Now);
-                    clsGenericList.listVentas.ForEach(x => clsGenericList.idsVentas.Add(x.IdVenta));
-                    clsGenericList.totalGanancia = clsGenericList.Ganancias(clsGenericList.idsVentas);
-                }
-                catch (Exception ex)
-                {
-                    DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
-                }
-            }
-            #endregion
-
-            #region Listado Productos
-            if (clsGenericList.listProducto is null)
-            {
-                clsGenericList.listProducto = new List<Producto>();
-
-                clsProducto P = new clsProducto();
-                DataTable dtP = new DataTable();
-                dtP = P.Listar();
-
-                try
-                {
-                    foreach (DataRow reader in dtP.Rows)
-                    {
-                        Producto product = new Producto();
-
-                        product.m_IdP = reader["IdProducto"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdProducto"]);
-                        product.m_IdCategoria = reader["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdCategoria"]);
-                        product.m_Producto = reader["Nombre"] == DBNull.Value ? string.Empty : reader["Nombre"].ToString();
-                        product.m_tipoGoma = reader["tipoGOma"] == DBNull.Value ? string.Empty : reader["tipoGOma"].ToString();
-                        product.m_itbis = reader["itbis"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["itbis"]);
-                        product.m_PrecioVenta = reader["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioVenta"]);
-                        product.m_PrecioCompra = reader["PrecioCompra"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioCompra"]);
-                        product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmax"]);
-                        product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmin"]);
-                        product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
-                        product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Stock"]);
-                        product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
-                        product.m_Marca = reader["Marca"] == DBNull.Value ? string.Empty : reader["Marca"].ToString();
-
-                        clsGenericList.listProducto.Add(product);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
-                }
-            }
-            #endregion
-        }
 
         public void llenarid()
         {
@@ -226,7 +145,6 @@ namespace Capa_de_Presentacion
             {
                 var id = string.IsNullOrWhiteSpace(leer["id_caja"].ToString()) ? 0 : Convert.ToInt32(leer["id_caja"]);
                 Program.idcaja = id;
-                Cx.Desconectar();
             }
             Cx.Desconectar();
         }
@@ -262,7 +180,7 @@ namespace Capa_de_Presentacion
         public void fechaVenc()
         {
             Cx.Desconectar();
-            string cadSql = "select top(1) FechaVenc from NomEmp order by idEmp desc";
+            string cadSql = "select top(1) FechaVenc  from NomEmp order by idEmp desc";
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
             Cx.Conectar();
@@ -279,25 +197,10 @@ namespace Capa_de_Presentacion
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             Program.idcaja = 0;
+            panelmontoinicial.Visible = true;
             fechaVenc();
             llenarid();
             obtenerFiladeCaja();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Cx.Desconectar();
-            insertCaja();
-            RecuperarDatosSesion();
-            panelmontoinicial.Show();
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-            if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
         }
 
         public void insertCaja()
@@ -318,21 +221,19 @@ namespace Capa_de_Presentacion
             Program.idcaja = Program.idcaja + 1;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            FrmMenuPrincipal MP = new FrmMenuPrincipal();
-            if (circularProgressBar1.Value < 100)
-            {
-                circularProgressBar1.Value += 1;
-                circularProgressBar1.Text = circularProgressBar1.Value.ToString();
-            }
+            Cx.Desconectar();
+            insertCaja();
+            RecuperarDatosSesion();
+            panelmontoinicial.Show();
+        }
 
-            if (circularProgressBar1.Value == 100)
+        private void label9_Click(object sender, EventArgs e)
+        {
+            if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Salir.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                timer1.Stop();
-                MP.Show();
-                circularProgressBar1.Visible = false;
-                this.Hide();
+                Application.Exit();
             }
         }
     }
