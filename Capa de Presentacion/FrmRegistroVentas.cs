@@ -260,8 +260,6 @@ namespace Capa_de_Presentacion
             lblsubt.Text = string.IsNullOrWhiteSpace(lblsubt.Text) ? Program.ST + "" : lblsubt.Text;
             lbligv.Text = string.IsNullOrWhiteSpace(lbligv.Text) ? Program.igv + "" : lbligv.Text;
 
-            dateTimePicker1.Text = string.IsNullOrWhiteSpace(dateTimePicker1.Text) ? Program.fecha : dateTimePicker1.Text;
-
             if (!string.IsNullOrWhiteSpace(Program.Esabono) && Program.pagoRealizado > 0 && Program.realizopago == true)
             {
                 button2.Visible = true;
@@ -318,7 +316,7 @@ namespace Capa_de_Presentacion
                     lblsubt.Text = string.IsNullOrWhiteSpace(lblsubt.Text) ? Program.ST + "" : lblsubt.Text;
                     lbligv.Text = string.IsNullOrWhiteSpace(lbligv.Text) ? Program.igv + "" : lbligv.Text;
                     txtidEmp.Text = string.IsNullOrWhiteSpace(txtidEmp.Text) ? Program.IdEmpleado + "" : txtidEmp.Text;
-                    dateTimePicker1.Text = string.IsNullOrWhiteSpace(dateTimePicker1.Text) ? Program.fecha : dateTimePicker1.Text;
+                    dateTimePicker1.Text = Program.fecha;
 
                     decimal subtotal = 0;
                     decimal igv = 0;
@@ -382,7 +380,7 @@ namespace Capa_de_Presentacion
                     lblsubt.Text = string.IsNullOrWhiteSpace(lblsubt.Text) ? Program.ST + "" : lblsubt.Text;
                     lbligv.Text = string.IsNullOrWhiteSpace(lbligv.Text) ? Program.igv + "" : lbligv.Text;
                     txtidEmp.Text = string.IsNullOrWhiteSpace(txtidEmp.Text) ? Program.IdEmpleado + "" : txtidEmp.Text;
-                    dateTimePicker1.Text = string.IsNullOrWhiteSpace(dateTimePicker1.Text) ? Program.fecha : dateTimePicker1.Text;
+                    dateTimePicker1.Text = Program.fecha;
 
                     decimal subtotal = 0;
                     decimal igv = 0;
