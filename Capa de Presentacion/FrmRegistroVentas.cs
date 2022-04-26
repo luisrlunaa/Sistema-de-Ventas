@@ -260,8 +260,6 @@ namespace Capa_de_Presentacion
             lblsubt.Text = string.IsNullOrWhiteSpace(lblsubt.Text) ? Program.ST + "" : lblsubt.Text;
             lbligv.Text = string.IsNullOrWhiteSpace(lbligv.Text) ? Program.igv + "" : lbligv.Text;
 
-            dateTimePicker1.Text = Program.fecha;
-
             if (!string.IsNullOrWhiteSpace(Program.Esabono) && Program.pagoRealizado > 0 && Program.realizopago == true)
             {
                 button2.Visible = true;
@@ -745,7 +743,7 @@ namespace Capa_de_Presentacion
 
                 Venta venta = new Venta();
                 venta.IdVenta = Convert.ToInt32(txtIdVenta.Text);
-                if (txtidCli.Text != "" && txtidCli.Text != null)
+                if (!string.IsNullOrWhiteSpace(txtidCli.Text))
                 {
                     venta.IdCliente = Convert.ToInt32(txtidCli.Text);
                 }
