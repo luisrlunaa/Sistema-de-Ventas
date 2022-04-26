@@ -236,6 +236,7 @@ namespace Capa_de_Presentacion
                 txtIgv.Text = string.IsNullOrWhiteSpace(txtIgv.Text) ? Program.itbis + "" + "" : txtIgv.Text;
                 txtpmax.Text = string.IsNullOrWhiteSpace(txtpmax.Text) ? Program.Pmax + "" : txtpmax.Text;
                 txtpmin.Text = string.IsNullOrWhiteSpace(txtpmin.Text) ? Program.Pmin + "" : txtpmin.Text;
+                txtImei.Text = string.IsNullOrWhiteSpace(txtImei.Text) ? Program.Imei + "" : txtImei.Text;
             }
 
             if (Program.IdProducto > 0)
@@ -260,7 +261,6 @@ namespace Capa_de_Presentacion
             lbltotal.Text = string.IsNullOrWhiteSpace(lbltotal.Text) ? Program.total + "" : lbltotal.Text;
             lblsubt.Text = string.IsNullOrWhiteSpace(lblsubt.Text) ? Program.ST + "" : lblsubt.Text;
             lbligv.Text = string.IsNullOrWhiteSpace(lbligv.Text) ? Program.igv + "" : lbligv.Text;
-            dateTimePicker1.Text = Program.fecha;
 
             if (!string.IsNullOrWhiteSpace(Program.Esabono) && Program.pagoRealizado > 0 && Program.realizopago == true)
             {
@@ -750,7 +750,7 @@ namespace Capa_de_Presentacion
 
                 Venta venta = new Venta();
                 venta.IdVenta = Convert.ToInt32(txtIdVenta.Text);
-                if (txtidCli.Text != "" && txtidCli.Text != null)
+                if (!string.IsNullOrWhiteSpace(txtidCli.Text))
                 {
                     venta.IdCliente = Convert.ToInt32(txtidCli.Text);
                 }
