@@ -189,7 +189,7 @@ namespace Capa_de_Presentacion
         private void btnVentas_Click(object sender, EventArgs e)
         {
             panel1.Size = new System.Drawing.Size(240, 517);
-            button7.Text = "<<";
+            button8.Text = "<<";
 
             if (buttonPanel.Visible == false)
                 buttonPanel.Visible = true;
@@ -488,11 +488,11 @@ namespace Capa_de_Presentacion
         private void button10_Click(object sender, EventArgs e)
         {
             panel1.Size = new Size(64, 517);
-            button7.Text = ">>";
+            button8.Text = ">>";
 
             Program.isSaler = true;
             panel1.Size = new Size(64, 517);
-            button7.Text = ">>";
+            button8.Text = ">>";
             if (Program.abierto == false)
             {
                 FrmRegistroVentas V = new FrmRegistroVentas();
@@ -520,11 +520,11 @@ namespace Capa_de_Presentacion
         private void button9_Click(object sender, EventArgs e)
         {
             panel1.Size = new Size(64, 517);
-            button7.Text = ">>";
+            button8.Text = ">>";
 
             Program.isSaler = false;
             panel1.Size = new Size(64, 517);
-            button7.Text = ">>";
+            button8.Text = ">>";
             if (Program.abierto == false)
             {
                 FrmRegistroVentas V = new FrmRegistroVentas();
