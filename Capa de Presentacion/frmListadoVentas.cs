@@ -172,7 +172,7 @@ namespace Capa_de_Presentacion
             txtTtal.Text = Math.Round(totalVendido, 2).ToString("C2");
             if (string.IsNullOrWhiteSpace(txtGanancias.Text))
             {
-                GananciaTotal(Ganancias());
+                GananciaTotal(Ganancias(listaventas));
             }
         }
 
@@ -617,7 +617,7 @@ namespace Capa_de_Presentacion
             var newlistVentasPorCategoria = ListaPorCatergoria(dtpfecha1.Value.Date, dtpfecha2.Value.Date, borrado);
             llenar_categoryandquantity(newlistVentasPorCategoria);
 
-            var ganancias = Ganancias();
+            var ganancias = Ganancias(newlist);
             GananciaTotal(ganancias);
 
             if (cbPendiente.Checked == true)
@@ -1013,6 +1013,7 @@ namespace Capa_de_Presentacion
 
             return (date1.Date, date2.Date);
         }
+
         #region Calculos
         public List<VentasPorCategoria> ListaPorCatergoria(DateTime fecha1, DateTime fecha2, int borrador)
         {
@@ -1050,15 +1051,15 @@ namespace Capa_de_Presentacion
 
             return listVentCateg;
         }
-        public decimal Ganancias()
+        public decimal Ganancias(List<Venta> newlist)
         {
             decimal ganancia = 0;
             try
             {
                 List<int> ventasIds = new List<int>();
-                if (clsGenericList.tempSalesData.Count > 0)
+                if (newlist.Count > 0)
                 {
-                    clsGenericList.tempSalesData.ForEach(x => ventasIds.Add(x.IdVenta));
+                    newlist.ForEach(x => ventasIds.Add(x.IdVenta));
                     foreach (var id in ventasIds)
                     {
                         string cadSql = $"select Sum(GananciaVenta) as ganancia from DetalleVenta where DetalleVenta.IdVenta ={id} group by DetalleVenta.IdVenta";

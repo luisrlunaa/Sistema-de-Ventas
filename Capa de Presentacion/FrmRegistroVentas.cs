@@ -237,25 +237,25 @@ namespace Capa_de_Presentacion
 
             if (Program.IdProducto > 0)
             {
-                txtIdProducto.Text = string.IsNullOrWhiteSpace(txtIdProducto.Text) ? Program.IdProducto + "" : txtIdProducto.Text;
-                txtDescripcion.Text = string.IsNullOrWhiteSpace(txtDescripcion.Text) ? Program.Descripcion : txtDescripcion.Text;
-                txtMarca.Text = string.IsNullOrWhiteSpace(txtMarca.Text) ? Program.Marca : txtMarca.Text;
-                txtPVenta.Text = string.IsNullOrWhiteSpace(txtPVenta.Text) ? Program.PrecioVenta + "" : txtPVenta.Text;
+                txtIdProducto.Text = Program.IdProducto > 0 ? Program.IdProducto + "" : txtIdProducto.Text;
+                txtDescripcion.Text = !string.IsNullOrWhiteSpace(txtDescripcion.Text) ? Program.Descripcion : txtDescripcion.Text;
+                txtMarca.Text = !string.IsNullOrWhiteSpace(txtMarca.Text) ? Program.Marca : txtMarca.Text;
+                txtPVenta.Text = !string.IsNullOrWhiteSpace(txtPVenta.Text) ? Program.PrecioVenta + "" : txtPVenta.Text;
 
-                txtStock.Text = string.IsNullOrWhiteSpace(txtStock.Text) ? Program.Stock + "" : txtStock.Text;
-                txtIgv.Text = string.IsNullOrWhiteSpace(txtIgv.Text) ? Program.itbis + "" + "" : txtIgv.Text;
+                txtStock.Text = !string.IsNullOrWhiteSpace(txtStock.Text) ? Program.Stock + "" : txtStock.Text;
+                txtIgv.Text = Program.itbis + "";
             }
 
-            txtIdV.Text = string.IsNullOrWhiteSpace(txtIdV.Text) ? Program.Id + "" : txtIdV.Text;
-            txtidEmp.Text = string.IsNullOrWhiteSpace(txtidEmp.Text) ? Program.IdEmpleado + "" : txtidEmp.Text;
+            txtIdV.Text = Program.Id > 0 ? Program.Id + "" : txtIdV.Text;
+            txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
 
-            cbtipofactura.Text = string.IsNullOrWhiteSpace(cbtipofactura.Text) ? Program.tipo : cbtipofactura.Text;
-            combo_tipo_NCF.Text = string.IsNullOrWhiteSpace(combo_tipo_NCF.Text) ? Program.NCF : combo_tipo_NCF.Text;
-            txtNCF.Text = string.IsNullOrWhiteSpace(txtNCF.Text) ? Program.NroComprobante : txtNCF.Text;
+            cbtipofactura.Text = !string.IsNullOrWhiteSpace(Program.tipo) ? Program.tipo : cbtipofactura.Text;
+            combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
+            txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
 
-            txttotal.Text = string.IsNullOrWhiteSpace(txttotal.Text) ? Program.total + "" : txttotal.Text;
-            lblsubt.Text = string.IsNullOrWhiteSpace(lblsubt.Text) ? Program.ST + "" : lblsubt.Text;
-            lbligv.Text = string.IsNullOrWhiteSpace(lbligv.Text) ? Program.igv + "" : lbligv.Text;
+            txttotal.Text = Program.total > 0 ? Program.total + "" : txttotal.Text;
+            lblsubt.Text = Program.ST + "";
+            lbligv.Text = Program.igv + "";
 
             if (!string.IsNullOrWhiteSpace(Program.Esabono) && Program.pagoRealizado > 0 && Program.realizopago == true)
             {
@@ -299,15 +299,15 @@ namespace Capa_de_Presentacion
                 if (activar == true && entro == false)
                 {
                     entro = true;
-                    txtIdV.Text = string.IsNullOrWhiteSpace(txtIdV.Text) ? Program.Id + "" : txtIdV.Text;
-                    cbtipofactura.Text = string.IsNullOrWhiteSpace(cbtipofactura.Text) ? Program.tipo : cbtipofactura.Text;
-                    combo_tipo_NCF.Text = string.IsNullOrWhiteSpace(combo_tipo_NCF.Text) ? Program.NCF : combo_tipo_NCF.Text; ;
-                    txtNCF.Text = string.IsNullOrWhiteSpace(txtNCF.Text) ? Program.NroComprobante : txtNCF.Text;
-                    txttotal.Text = string.IsNullOrWhiteSpace(txttotal.Text) ? Program.total + "" : txttotal.Text;
-                    lblsubt.Text = string.IsNullOrWhiteSpace(lblsubt.Text) ? Program.ST + "" : lblsubt.Text;
-                    lbligv.Text = string.IsNullOrWhiteSpace(lbligv.Text) ? Program.igv + "" : lbligv.Text;
-                    txtidEmp.Text = string.IsNullOrWhiteSpace(txtidEmp.Text) ? Program.IdEmpleado + "" : txtidEmp.Text;
-                    dateTimePicker1.Text = Program.fecha;
+                    txtIdV.Text = Program.Id > 0 ? txtIdV.Text : Program.Id + "";
+                    cbtipofactura.Text = !string.IsNullOrWhiteSpace(Program.tipo) ? Program.tipo : cbtipofactura.Text;
+                    combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
+                    txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
+                    txttotal.Text = Program.total > 0 ? Program.total + "" : txttotal.Text;
+                    lblsubt.Text = Program.ST + "";
+                    lbligv.Text = Program.igv + "";
+                    txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
+                    dateTimePicker1.Text = !string.IsNullOrWhiteSpace(Program.fecha) ? Program.fecha : dateTimePicker1.Text;
 
                     decimal subtotal = 0;
                     decimal igv = 0;
@@ -363,15 +363,15 @@ namespace Capa_de_Presentacion
                 if (activar == true && entro == false)
                 {
                     entro = true;
-                    txtIdV.Text = string.IsNullOrWhiteSpace(txtIdV.Text) ? Program.Id + "" : txtIdV.Text;
-                    cbtipofactura.Text = string.IsNullOrWhiteSpace(cbtipofactura.Text) ? Program.tipo : cbtipofactura.Text;
-                    combo_tipo_NCF.Text = string.IsNullOrWhiteSpace(combo_tipo_NCF.Text) ? Program.NCF : combo_tipo_NCF.Text; ;
-                    txtNCF.Text = string.IsNullOrWhiteSpace(txtNCF.Text) ? Program.NroComprobante : txtNCF.Text;
-                    txttotal.Text = string.IsNullOrWhiteSpace(txttotal.Text) ? Program.total + "" : txttotal.Text;
-                    lblsubt.Text = string.IsNullOrWhiteSpace(lblsubt.Text) ? Program.ST + "" : lblsubt.Text;
-                    lbligv.Text = string.IsNullOrWhiteSpace(lbligv.Text) ? Program.igv + "" : lbligv.Text;
-                    txtidEmp.Text = string.IsNullOrWhiteSpace(txtidEmp.Text) ? Program.IdEmpleado + "" : txtidEmp.Text;
-                    dateTimePicker1.Text = Program.fecha;
+                    txtIdV.Text = Program.Id > 0 ? txtIdV.Text : Program.Id + "";
+                    cbtipofactura.Text = !string.IsNullOrWhiteSpace(Program.tipo) ? Program.tipo : cbtipofactura.Text;
+                    combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
+                    txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
+                    txttotal.Text = Program.total > 0 ? Program.total + "" : txttotal.Text;
+                    lblsubt.Text = Program.ST + "";
+                    lbligv.Text = Program.igv + "";
+                    txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
+                    dateTimePicker1.Text = !string.IsNullOrWhiteSpace(Program.fecha) ? Program.fecha : dateTimePicker1.Text;
 
                     decimal subtotal = 0;
                     decimal igv = 0;
@@ -580,21 +580,64 @@ namespace Capa_de_Presentacion
 
         private void Limpiar()
         {
-            txtDescripcion.Clear();
-            txtMarca.Clear();
-            txtStock.Clear();
-            txtPVenta.Clear();
-            txtCantidad.Clear();
-            txtCantidad.Focus();
-            txtIgv.Text = "";
-            txtPorcentaje.Text = "";
-            Program.Descripcion = "";
-            Program.Stock = 0;
-            Program.Marca = "";
-            Program.PrecioVenta = 0;
-            Program.IdProducto = 0;
-            Program.itbis = 0;
+            if (Program.IdProducto > 0)
+            {
+                Program.IdProducto = 0;
+                Program.Descripcion = string.Empty;
+                Program.Marca = string.Empty;
+                Program.PrecioVenta = 0;
+
+                Program.Stock = 0;
+                Program.itbis = 0;
+            }
+
+            Program.Id = 0;
+            Program.IdEmpleado = 0;
+            Program.total = 0;
+            Program.ST = 0;
+            Program.igv = 0;
+            Program.tipo = string.Empty;
+            Program.NCF = string.Empty;
+            Program.NroComprobante = string.Empty;
+            Program.fecha = string.Empty;
+
+            Program.Esabono = "";
+            Program.IdCliente = 0;
+            Program.pagoRealizado = 0;
+            Program.PrecioCompra = 0;
+            Program.DocumentoIdentidad = "";
+            Program.ApellidosCliente = "";
+            Program.NombreCliente = "";
             Program.realizopago = false;
+            Program.ReImpresion = "";
+            Program.datoscliente = "";
+            entro = false;
+        }
+
+        private void Limpiar1()
+        {
+            txtDescripcion.Text = "";
+            txtMarca.Text = "";
+            txtStock.Text = "";
+            txtPVenta.Text = "";
+            txtCantidad.Text = "";
+            cbidentificacion.Visible = true;
+            txtidCli.Text = "0";
+            cbidentificacion.Checked = false;
+            txtDocIdentidad.Clear();
+            txtDatos.Clear();
+            dgvVenta.Rows.Clear();
+            txtIdProducto.Clear();
+            txtNCF.Clear();
+            lst.Clear();
+            lblsubt.Text = "...";
+            txttotal.Text = "...";
+            lbligv.Text = "...";
+            txtIgv.Text = "";
+            lblabono.Visible = false;
+            lbltituloabono.Visible = false;
+            lblabono.Text = null;
+            listProducts = new List<PrecioCompraProducto>();
         }
         private void btnSalir_Click(object sender, EventArgs e)
         {
@@ -1034,42 +1077,6 @@ namespace Capa_de_Presentacion
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
             RegistrarVenta();
-        }
-
-        private void Limpiar1()
-        {
-            cbidentificacion.Visible = true;
-            txtidCli.Text = "0";
-            cbidentificacion.Checked = false;
-            Program.Esabono = "";
-            txtIgv.Clear();
-            txtDocIdentidad.Clear();
-            txtDatos.Clear();
-            dgvVenta.Rows.Clear();
-            Program.IdCliente = 0;
-            txtIdProducto.Clear();
-            Program.pagoRealizado = 0;
-            Program.PrecioCompra = 0;
-            Program.DocumentoIdentidad = "";
-            Program.ApellidosCliente = "";
-            Program.NombreCliente = "";
-            Program.Id = 0;
-            Program.total = 0;
-            Program.ST = 0;
-            Program.igv = 0;
-            Program.fecha = "";
-            Program.NroComprobante = "";
-            Program.NCF = "";
-            txtNCF.Clear();
-            lst.Clear();
-            txtIgv.Text = "";
-            Program.realizopago = false;
-            Program.ReImpresion = "";
-            Program.datoscliente = "";
-            lblabono.Visible = false;
-            lbltituloabono.Visible = false;
-            lblabono.Text = null;
-            listProducts = new List<PrecioCompraProducto>();
         }
 
         public void tickEstilo()
