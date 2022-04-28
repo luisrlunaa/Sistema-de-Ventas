@@ -87,13 +87,6 @@
             this.txtidCli = new System.Windows.Forms.TextBox();
             this.txtIdV = new System.Windows.Forms.TextBox();
             this.dgvVenta = new System.Windows.Forms.DataGridView();
-            this.IdD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescripcionP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidadP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecioU = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IGV = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubtoTal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dtpFf = new System.Windows.Forms.DateTimePicker();
@@ -130,6 +123,13 @@
             this.button3 = new System.Windows.Forms.Button();
             this.cotizacionPanel = new System.Windows.Forms.Panel();
             this.label22 = new System.Windows.Forms.Label();
+            this.IdD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescripcionP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidadP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecioU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IGV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubtoTal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -177,7 +177,7 @@
             this.cbidentificacion.AutoSize = true;
             this.cbidentificacion.BackColor = System.Drawing.Color.Transparent;
             this.cbidentificacion.Location = new System.Drawing.Point(293, 17);
-            this.cbidentificacion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbidentificacion.Margin = new System.Windows.Forms.Padding(2);
             this.cbidentificacion.Name = "cbidentificacion";
             this.cbidentificacion.Size = new System.Drawing.Size(111, 17);
             this.cbidentificacion.TabIndex = 94;
@@ -778,62 +778,6 @@
             this.dgvVenta.TabIndex = 43;
             this.dgvVenta.Click += new System.EventHandler(this.dgvVenta_Click);
             // 
-            // IdD
-            // 
-            this.IdD.FillWeight = 78.35892F;
-            this.IdD.HeaderText = "ID Venta";
-            this.IdD.MinimumWidth = 25;
-            this.IdD.Name = "IdD";
-            this.IdD.ReadOnly = true;
-            // 
-            // IDP
-            // 
-            this.IDP.HeaderText = "IDP";
-            this.IDP.MinimumWidth = 10;
-            this.IDP.Name = "IDP";
-            this.IDP.ReadOnly = true;
-            this.IDP.Visible = false;
-            // 
-            // DescripcionP
-            // 
-            this.DescripcionP.FillWeight = 127.5433F;
-            this.DescripcionP.HeaderText = "Descripcion";
-            this.DescripcionP.MinimumWidth = 60;
-            this.DescripcionP.Name = "DescripcionP";
-            this.DescripcionP.ReadOnly = true;
-            // 
-            // cantidadP
-            // 
-            this.cantidadP.FillWeight = 80.21391F;
-            this.cantidadP.HeaderText = "Cantidad";
-            this.cantidadP.MinimumWidth = 25;
-            this.cantidadP.Name = "cantidadP";
-            this.cantidadP.ReadOnly = true;
-            // 
-            // PrecioU
-            // 
-            this.PrecioU.FillWeight = 113.4559F;
-            this.PrecioU.HeaderText = "Precio";
-            this.PrecioU.MinimumWidth = 35;
-            this.PrecioU.Name = "PrecioU";
-            this.PrecioU.ReadOnly = true;
-            // 
-            // IGV
-            // 
-            this.IGV.FillWeight = 72.88459F;
-            this.IGV.HeaderText = "ITBIS";
-            this.IGV.MinimumWidth = 20;
-            this.IGV.Name = "IGV";
-            this.IGV.ReadOnly = true;
-            // 
-            // SubtoTal
-            // 
-            this.SubtoTal.FillWeight = 127.5433F;
-            this.SubtoTal.HeaderText = "Importe";
-            this.SubtoTal.MinimumWidth = 30;
-            this.SubtoTal.Name = "SubtoTal";
-            this.SubtoTal.ReadOnly = true;
-            // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
@@ -861,7 +805,7 @@
             // 
             this.dtpFf.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFf.Location = new System.Drawing.Point(859, 370);
-            this.dtpFf.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpFf.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFf.Name = "dtpFf";
             this.dtpFf.Size = new System.Drawing.Size(94, 20);
             this.dtpFf.TabIndex = 81;
@@ -870,7 +814,7 @@
             // 
             this.dtpFi.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFi.Location = new System.Drawing.Point(768, 370);
-            this.dtpFi.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpFi.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFi.Name = "dtpFi";
             this.dtpFi.Size = new System.Drawing.Size(87, 20);
             this.dtpFi.TabIndex = 80;
@@ -878,7 +822,7 @@
             // txtSf
             // 
             this.txtSf.Location = new System.Drawing.Point(859, 330);
-            this.txtSf.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtSf.Margin = new System.Windows.Forms.Padding(2);
             this.txtSf.Name = "txtSf";
             this.txtSf.Size = new System.Drawing.Size(76, 20);
             this.txtSf.TabIndex = 79;
@@ -886,7 +830,7 @@
             // txtSi
             // 
             this.txtSi.Location = new System.Drawing.Point(768, 330);
-            this.txtSi.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtSi.Margin = new System.Windows.Forms.Padding(2);
             this.txtSi.Name = "txtSi";
             this.txtSi.Size = new System.Drawing.Size(76, 20);
             this.txtSi.TabIndex = 78;
@@ -904,7 +848,7 @@
             // 
             this.txtid.BackColor = System.Drawing.Color.White;
             this.txtid.Location = new System.Drawing.Point(841, 296);
-            this.txtid.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtid.Margin = new System.Windows.Forms.Padding(2);
             this.txtid.Name = "txtid";
             this.txtid.Size = new System.Drawing.Size(76, 20);
             this.txtid.TabIndex = 76;
@@ -913,9 +857,9 @@
             // 
             this.groupBox1.Controls.Add(this.data_ncf);
             this.groupBox1.Location = new System.Drawing.Point(768, 417);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(374, 210);
             this.groupBox1.TabIndex = 82;
             this.groupBox1.TabStop = false;
@@ -930,7 +874,7 @@
             this.secuencia,
             this.fecha});
             this.data_ncf.Location = new System.Drawing.Point(5, 21);
-            this.data_ncf.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.data_ncf.Margin = new System.Windows.Forms.Padding(2);
             this.data_ncf.Name = "data_ncf";
             this.data_ncf.RowHeadersWidth = 51;
             this.data_ncf.RowTemplate.Height = 24;
@@ -1034,7 +978,7 @@
             // txtidEmp
             // 
             this.txtidEmp.Location = new System.Drawing.Point(768, 235);
-            this.txtidEmp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtidEmp.Margin = new System.Windows.Forms.Padding(2);
             this.txtidEmp.Name = "txtidEmp";
             this.txtidEmp.Size = new System.Drawing.Size(76, 20);
             this.txtidEmp.TabIndex = 86;
@@ -1067,7 +1011,7 @@
             this.chkComprobante.AutoSize = true;
             this.chkComprobante.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkComprobante.Location = new System.Drawing.Point(578, 129);
-            this.chkComprobante.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkComprobante.Margin = new System.Windows.Forms.Padding(2);
             this.chkComprobante.Name = "chkComprobante";
             this.chkComprobante.Size = new System.Drawing.Size(111, 17);
             this.chkComprobante.TabIndex = 91;
@@ -1262,7 +1206,7 @@
             // 
             this.cotizacionPanel.Controls.Add(this.label22);
             this.cotizacionPanel.Location = new System.Drawing.Point(475, 12);
-            this.cotizacionPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cotizacionPanel.Margin = new System.Windows.Forms.Padding(2);
             this.cotizacionPanel.Name = "cotizacionPanel";
             this.cotizacionPanel.Size = new System.Drawing.Size(186, 44);
             this.cotizacionPanel.TabIndex = 148;
@@ -1279,6 +1223,62 @@
             this.label22.Size = new System.Drawing.Size(97, 24);
             this.label22.TabIndex = 0;
             this.label22.Text = "Cotizacion";
+            // 
+            // IdD
+            // 
+            this.IdD.FillWeight = 78.35892F;
+            this.IdD.HeaderText = "ID Venta";
+            this.IdD.MinimumWidth = 25;
+            this.IdD.Name = "IdD";
+            this.IdD.ReadOnly = true;
+            // 
+            // IDP
+            // 
+            this.IDP.HeaderText = "IDP";
+            this.IDP.MinimumWidth = 10;
+            this.IDP.Name = "IDP";
+            this.IDP.ReadOnly = true;
+            this.IDP.Visible = false;
+            // 
+            // DescripcionP
+            // 
+            this.DescripcionP.FillWeight = 127.5433F;
+            this.DescripcionP.HeaderText = "Descripcion";
+            this.DescripcionP.MinimumWidth = 60;
+            this.DescripcionP.Name = "DescripcionP";
+            this.DescripcionP.ReadOnly = true;
+            // 
+            // cantidadP
+            // 
+            this.cantidadP.FillWeight = 80.21391F;
+            this.cantidadP.HeaderText = "Cantidad";
+            this.cantidadP.MinimumWidth = 25;
+            this.cantidadP.Name = "cantidadP";
+            this.cantidadP.ReadOnly = true;
+            // 
+            // PrecioU
+            // 
+            this.PrecioU.FillWeight = 113.4559F;
+            this.PrecioU.HeaderText = "Precio";
+            this.PrecioU.MinimumWidth = 35;
+            this.PrecioU.Name = "PrecioU";
+            this.PrecioU.ReadOnly = true;
+            // 
+            // IGV
+            // 
+            this.IGV.FillWeight = 72.88459F;
+            this.IGV.HeaderText = "ITBIS";
+            this.IGV.MinimumWidth = 20;
+            this.IGV.Name = "IGV";
+            this.IGV.ReadOnly = true;
+            // 
+            // SubtoTal
+            // 
+            this.SubtoTal.FillWeight = 127.5433F;
+            this.SubtoTal.HeaderText = "SubTotal";
+            this.SubtoTal.MinimumWidth = 30;
+            this.SubtoTal.Name = "SubtoTal";
+            this.SubtoTal.ReadOnly = true;
             // 
             // FrmRegistroVentas
             // 
@@ -1434,13 +1434,6 @@
         public System.Windows.Forms.Button btnRegistrarVenta;
         private System.Windows.Forms.CheckBox chkComprobante;
         public System.Windows.Forms.Label txttotal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdD;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IDP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DescripcionP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cantidadP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrecioU;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IGV;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubtoTal;
         private System.Windows.Forms.CheckBox cbidentificacion;
         public System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
@@ -1458,5 +1451,12 @@
         public System.Windows.Forms.Panel cotizacionPanel;
         public System.Windows.Forms.Button button3;
         public System.Windows.Forms.Label label22;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DescripcionP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cantidadP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrecioU;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IGV;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubtoTal;
     }
 }
