@@ -238,11 +238,11 @@ namespace Capa_de_Presentacion
             if (Program.IdProducto > 0)
             {
                 txtIdProducto.Text = Program.IdProducto > 0 ? Program.IdProducto + "" : txtIdProducto.Text;
-                txtDescripcion.Text = !string.IsNullOrWhiteSpace(txtDescripcion.Text) ? Program.Descripcion : txtDescripcion.Text;
-                txtMarca.Text = !string.IsNullOrWhiteSpace(txtMarca.Text) ? Program.Marca : txtMarca.Text;
-                txtPVenta.Text = !string.IsNullOrWhiteSpace(txtPVenta.Text) ? Program.PrecioVenta + "" : txtPVenta.Text;
+                txtDescripcion.Text = !string.IsNullOrWhiteSpace(Program.Descripcion) ? Program.Descripcion : txtDescripcion.Text;
+                txtMarca.Text = !string.IsNullOrWhiteSpace(Program.Marca) ? Program.Marca : txtMarca.Text;
+                txtPVenta.Text = Program.PrecioVenta > 0 ? Program.PrecioVenta + "" : txtPVenta.Text;
 
-                txtStock.Text = !string.IsNullOrWhiteSpace(txtStock.Text) ? Program.Stock + "" : txtStock.Text;
+                txtStock.Text = Program.Stock + "";
                 txtIgv.Text = Program.itbis + "";
             }
 
@@ -1272,7 +1272,6 @@ namespace Capa_de_Presentacion
             if (label22.Text == "Cotizacion")
             {
                 Program.isSaler = false;
-                button2.Visible = Program.isSaler;
                 btnImprimir.Visible = !Program.isSaler;
                 btnImprimir.Location = new System.Drawing.Point(33, 768);
                 btnRegistrarVenta.Visible = !Program.isSaler;
@@ -1286,7 +1285,6 @@ namespace Capa_de_Presentacion
             {
                 Program.isSaler = true;
                 txtIgv.Enabled = Program.isAdminUser;
-                button2.Visible = Program.isSaler;
                 btnRegistrarVenta.Visible = Program.isSaler;
                 btnSalir.Visible = Program.isSaler;
                 label22.Text = "Ventas";
