@@ -191,7 +191,7 @@ namespace Capa_de_Presentacion
         public void EncabezadoVenta()
         {
             //Escribimos los espacios para mostrar el articulo. En total tienen que ser 40 caracteres
-            linea.AppendLine("ARTICULOS            | CANT | PRECIO | IMPORTE");
+            linea.AppendLine("ARTICULOS              |CANT |PRECIO |IMPORTE ");
         }
 
         //Metodo para agregar los totales d ela venta
