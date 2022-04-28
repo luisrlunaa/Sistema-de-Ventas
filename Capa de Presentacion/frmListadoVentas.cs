@@ -175,7 +175,7 @@ namespace Capa_de_Presentacion
             txtTtal.Text = Math.Round(totalVendido, 2).ToString("C2");
             if (string.IsNullOrWhiteSpace(txtGanancias.Text))
             {
-                GananciaTotal(Ganancias());
+                GananciaTotal(Ganancias(listaventas));
             }
         }
 
@@ -298,7 +298,7 @@ namespace Capa_de_Presentacion
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            Image image1 = Image.GetInstance("Logo-01.png");
+            Image image1 = Image.GetInstance("ferreteria.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
@@ -362,7 +362,7 @@ namespace Capa_de_Presentacion
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            Image image1 = Image.GetInstance("Logo-01.png");
+            Image image1 = Image.GetInstance("ferreteria.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
@@ -625,7 +625,7 @@ namespace Capa_de_Presentacion
             var newlistVentasPorCategoria = ListaPorCatergoria(dtpfecha1.Value.Date, dtpfecha2.Value.Date, borrado);
             llenar_categoryandquantity(newlistVentasPorCategoria);
 
-            var ganancias = Ganancias();
+            var ganancias = Ganancias(newlist);
             GananciaTotal(ganancias);
 
             if (cbPendiente.Checked == true)
@@ -1059,15 +1059,15 @@ namespace Capa_de_Presentacion
 
             return listVentCateg;
         }
-        public decimal Ganancias()
+        public decimal Ganancias(List<Venta> newlist)
         {
             decimal ganancia = 0;
             try
             {
                 List<int> ventasIds = new List<int>();
-                if (clsGenericList.tempSalesData.Count > 0)
+                if (newlist.Count > 0)
                 {
-                    clsGenericList.tempSalesData.ForEach(x => ventasIds.Add(x.IdVenta));
+                    newlist.ForEach(x => ventasIds.Add(x.IdVenta));
                     foreach (var id in ventasIds)
                     {
                         string cadSql = $"select Sum(GananciaVenta) as ganancia from DetalleVenta where DetalleVenta.IdVenta ={id} group by DetalleVenta.IdVenta";

@@ -47,7 +47,7 @@ namespace CapaEnlaceDatos
             return dt;
         }
 
-        public void EjecutarSP(String NombreSP, ref List<clsParametro> lst)
+        public void EjecutarSP(string NombreSP, ref List<clsParametro> lst)
         {
             SqlCommand cmd;
             try
