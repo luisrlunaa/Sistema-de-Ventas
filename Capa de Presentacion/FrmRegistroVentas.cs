@@ -1088,9 +1088,12 @@ namespace Capa_de_Presentacion
             //SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
             foreach (DataGridViewRow fila in dgvVenta.Rows)
             {
-                ticket.AgregaArticulo(fila.Cells["DescripcionP"].Value.ToString().Trim(), decimal.Parse(fila.Cells["cantidadP"].Value.ToString().Trim()),
-                decimal.Parse(fila.Cells["SubtoTal"].Value.ToString().Trim()), decimal.Parse(fila.Cells["IGV"].Value.ToString().Trim()));
+                ticket.AgregaArticulo(fila.Cells["DescripcionP"].Value.ToString().Trim(),
+                                      fila.Cells["cantidadP"].Value.ToString().Trim() + "x" + fila.Cells["PrecioU"].Value.ToString().Trim(),
+                                      decimal.Parse(fila.Cells["SubtoTal"].Value.ToString().Trim()),
+                                      decimal.Parse(fila.Cells["IGV"].Value.ToString().Trim()));
             }
+
             ticket.TextoIzquierda(" ");
 
             //resumen de la venta

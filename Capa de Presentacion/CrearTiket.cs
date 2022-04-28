@@ -191,7 +191,7 @@ namespace Capa_de_Presentacion
         public void EncabezadoVenta()
         {
             //Escribimos los espacios para mostrar el articulo. En total tienen que ser 40 caracteres
-            linea.AppendLine("ARTICULOS            | CANT | PRECIO | IMPORTE");
+            linea.AppendLine("ARTICULOS             |CANTxPRECIO |SUBT |ITBIS");
         }
 
         //Metodo para agregar los totales d ela venta
@@ -223,10 +223,10 @@ namespace Capa_de_Presentacion
         }
 
         // agregar los articulos a la factura
-        public void AgregaArticulo(string articulo, decimal cant, decimal precio, decimal importe)
+        public void AgregaArticulo(string articulo, string cantxprecio, decimal Subtotal, decimal itbis)
         {
             // valida que cant precio e importe esten dentro del rango
-            if (cant.ToString().Length <= 7 && precio.ToString().Length <= 12 && importe.ToString().Length <= 8)
+            if (cantxprecio.ToString().Length <= 7 && Subtotal.ToString().Length <= 12 && itbis.ToString().Length <= 8)
             {
                 string elemento = "", espacios = "";
                 bool bandera = false;
@@ -241,7 +241,7 @@ namespace Capa_de_Presentacion
                         espacios += " ";
                     }
 
-                    elemento += espacios + cant.ToString();
+                    elemento += espacios + cantxprecio.ToString();
 
                     //colocar el precio a la derecha.
 
@@ -252,7 +252,7 @@ namespace Capa_de_Presentacion
                     }
 
 
-                    elemento += espacios + precio.ToString();
+                    elemento += espacios + Subtotal.ToString();
 
                     //colocar el importe a la derecha
 
@@ -262,7 +262,7 @@ namespace Capa_de_Presentacion
                         espacios += " ";
                     }
 
-                    elemento += espacios + importe.ToString(); //se agrega el importe
+                    elemento += espacios + itbis.ToString(); //se agrega el importe
 
                     int caracterActual = 0;
                     for (int longitudTexto = articulo.Length; longitudTexto > 24; longitudTexto -= 24)
@@ -291,7 +291,7 @@ namespace Capa_de_Presentacion
                         espacios += " ";
                     }
 
-                    elemento += espacios + cant.ToString();
+                    elemento += espacios + cantxprecio.ToString();
 
                     //colocar el precio a la derecha
                     espacios = "";
@@ -300,7 +300,7 @@ namespace Capa_de_Presentacion
                         espacios += " ";
                     }
 
-                    elemento += espacios + precio.ToString();
+                    elemento += espacios + Subtotal.ToString();
 
                     //colocar el importe a la derecha
                     espacios = "";
@@ -309,7 +309,7 @@ namespace Capa_de_Presentacion
                         espacios += " ";
                     }
 
-                    elemento += espacios + importe.ToString();
+                    elemento += espacios + itbis.ToString();
 
                     linea.AppendLine(elemento); // se agrega el elemento
                 }
