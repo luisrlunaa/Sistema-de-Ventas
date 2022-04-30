@@ -264,7 +264,7 @@ namespace Capa_de_Presentacion
             Program.Direccion = dataGridView1.CurrentRow.Cells["Direccion"].Value.ToString();
             Program.fecha = dataGridView1.CurrentRow.Cells["fecha"].Value.ToString();
             Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
-            var rnc = dataGridView1.CurrentRow.Cells["rnccliente"].Value.ToString();
+            var rnc = dataGridView1.CurrentRow.Cells["rnccliente"].Value != null ? dataGridView1.CurrentRow.Cells["rnccliente"].Value.ToString() : "sin rcn del Cliente";
             if (rnc != "sin rcn del Cliente")
             {
                 Program.rncClient = rnc;
