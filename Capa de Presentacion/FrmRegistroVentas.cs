@@ -347,15 +347,15 @@ namespace Capa_de_Presentacion
                         if (idVenta == txtIdV.Text)
                         {
                             dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                            dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Cantidad")));
                             dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
                             dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
                             dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
                             dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                             dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
 
-                            subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                            igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
+                            igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
                         }
                     }
 
@@ -411,15 +411,15 @@ namespace Capa_de_Presentacion
                         if (idVenta == txtIdV.Text)
                         {
                             dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCotizacion")));
-                            dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Cantidad")));
                             dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
                             dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
                             dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
                             dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                             dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
 
-                            subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                            igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
+                            igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
 
                             PrecioCompraProducto PCP = new PrecioCompraProducto();
                             PCP.ID = dr.GetInt32(dr.GetOrdinal("IdProducto"));
@@ -1040,7 +1040,7 @@ namespace Capa_de_Presentacion
                 ticket.TextoDerecha(Program.ReImpresion);
             }
 
-            //System.Drawing.Image img = System.Drawing.Image.FromFile("ferreteria.png");
+            //System.Drawing.Image img = System.Drawing.Image.FromFile("Logo-01.png");
             //ticket.HeaderImage = img;
             ticket.TextoCentro(lblLogo.Text.ToUpper());
             ticket.TextoIzquierda("");
@@ -1082,7 +1082,7 @@ namespace Capa_de_Presentacion
             }
 
             //ARTICULOS A VENDER.
-            ticket.EncabezadoVenta();// NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
+            ticket.EncabezadoVenta();// NOMBRE DEL ARTICULOS, CANTxPRECIO, SUBT, ITBIS
             ticket.lineasGuio();
 
             //SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
@@ -1231,6 +1231,7 @@ namespace Capa_de_Presentacion
             if (label21.Text == "Cotizacion")
             {
                 Program.isSaler = false;
+                button2.Visible = Program.isSaler;
                 btnImprimir.Visible = !Program.isSaler;
                 btnImprimir.Location = new System.Drawing.Point(33, 768);
                 btnRegistrarVenta.Visible = !Program.isSaler;
@@ -1293,7 +1294,7 @@ namespace Capa_de_Presentacion
             string cedula = "";
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            Image image1 = Image.GetInstance("ferreteria.png");
+            Image image1 = Image.GetInstance("Logo-01.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
