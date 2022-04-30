@@ -238,11 +238,11 @@ namespace Capa_de_Presentacion
             if (Program.IdProducto > 0)
             {
                 txtIdProducto.Text = Program.IdProducto > 0 ? Program.IdProducto + "" : txtIdProducto.Text;
-                txtDescripcion.Text = !string.IsNullOrWhiteSpace(txtDescripcion.Text) ? Program.Descripcion : txtDescripcion.Text;
-                txtMarca.Text = !string.IsNullOrWhiteSpace(txtMarca.Text) ? Program.Marca : txtMarca.Text;
-                txtPVenta.Text = !string.IsNullOrWhiteSpace(txtPVenta.Text) ? Program.PrecioVenta + "" : txtPVenta.Text;
+                txtDescripcion.Text = !string.IsNullOrWhiteSpace(Program.Descripcion) ? Program.Descripcion : txtDescripcion.Text;
+                txtMarca.Text = !string.IsNullOrWhiteSpace(Program.Marca) ? Program.Marca : txtMarca.Text;
+                txtPVenta.Text = Program.PrecioVenta > 0 ? Program.PrecioVenta + "" : txtPVenta.Text;
 
-                txtStock.Text = !string.IsNullOrWhiteSpace(txtStock.Text) ? Program.Stock + "" : txtStock.Text;
+                txtStock.Text = Program.Stock + "";
                 txtIgv.Text = Program.itbis + "";
                 txtpmax.Text = Program.Pmax + "";
                 txtpmin.Text = Program.Pmin + "";
