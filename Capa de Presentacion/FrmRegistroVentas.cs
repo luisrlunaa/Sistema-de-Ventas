@@ -226,13 +226,13 @@ namespace Capa_de_Presentacion
         {
             if (Program.IdCliente != 0)
             {
-                txtDatos.Text = string.IsNullOrWhiteSpace(txtDatos.Text) ? Program.NombreCliente + " " + Program.ApellidosCliente : txtDatos.Text;
-                txtidCli.Text = string.IsNullOrWhiteSpace(txtidCli.Text) ? Program.IdCliente + "" : txtidCli.Text;
-                txtDocIdentidad.Text = string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
+                txtDatos.Text = !string.IsNullOrWhiteSpace(Program.NombreCliente + " " + Program.ApellidosCliente) ? Program.NombreCliente + " " + Program.ApellidosCliente : txtDatos.Text;
+                txtidCli.Text = Program.IdCliente > 0 ? Program.IdCliente + "" : txtidCli.Text;
+                txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
             }
             else
             {
-                txtDatos.Text = string.IsNullOrWhiteSpace(txtDatos.Text) ? Program.datoscliente : txtDatos.Text;
+                txtDatos.Text = !string.IsNullOrWhiteSpace(Program.datoscliente) ? Program.datoscliente : txtDatos.Text;
             }
 
             if (Program.IdProducto > 0)
