@@ -759,18 +759,12 @@ namespace Capa_de_Presentacion
             using (SqlCommand cmd = new SqlCommand(procedure, M.conexion))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-
-                //tabla Ventas
                 if (Program.IdCliente != 0)
                 {
                     cmd.Parameters.Add("@IdCliente", SqlDbType.Int).Value = Convert.ToInt32(txtidCli.Text);
-                    cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
-                }
-                else
-                {
-                    cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = Program.datoscliente;
                 }
 
+                cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
                 cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
@@ -948,19 +942,12 @@ namespace Capa_de_Presentacion
 
             using (SqlCommand cmd = new SqlCommand(procedure, M.conexion))
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                //tabla Ventas
                 if (Program.IdCliente != 0)
                 {
                     cmd.Parameters.Add("@IdCliente", SqlDbType.Int).Value = Convert.ToInt32(txtidCli.Text);
-                    cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
-                }
-                else
-                {
-                    cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = Program.datoscliente;
                 }
 
+                cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
                 cmd.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
