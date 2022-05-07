@@ -101,6 +101,7 @@ namespace Capa_de_Presentacion
                         Program.idPago = 0;
                     else
                         Program.idPago = Convert.ToInt32(txtIdp.Text);
+
                     Program.Devuelta = Convert.ToDecimal(txtDev.Text);
                     Program.Fechapago = dateTimePicker1.Text;
 
