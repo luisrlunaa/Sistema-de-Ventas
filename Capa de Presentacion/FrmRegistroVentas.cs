@@ -659,8 +659,14 @@ namespace Capa_de_Presentacion
 
             if (cbidentificacion.Checked == false && Program.IdCliente == 0)
             {
-                txtDatos.Text = Program.datoscliente;
-                txtDocIdentidad.Text = "Sin Identificacion";
+                txtDatos.Text = !string.IsNullOrWhiteSpace(Program.datoscliente) ? Program.datoscliente : txtDatos.Text;
+                txtDocIdentidad.Text = "Sin identificacion";
+            }
+            else
+            {
+                txtDatos.Text = !string.IsNullOrWhiteSpace(Program.NombreCliente + " " + Program.ApellidosCliente) ? Program.NombreCliente + " " + Program.ApellidosCliente : txtDatos.Text;
+                txtidCli.Text = Program.IdCliente > 0 ? Program.IdCliente + "" : txtidCli.Text;
+                txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
             }
 
             pa.Show();
