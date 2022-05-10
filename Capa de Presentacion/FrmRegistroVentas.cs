@@ -226,14 +226,39 @@ namespace Capa_de_Presentacion
         {
             if (Program.IdCliente != 0)
             {
-                txtDatos.Text = !string.IsNullOrWhiteSpace(Program.NombreCliente + " " + Program.ApellidosCliente) ? Program.NombreCliente + " " + Program.ApellidosCliente : txtDatos.Text;
+                if (string.IsNullOrWhiteSpace(Program.NombreCliente + " " + Program.ApellidosCliente) && !string.IsNullOrWhiteSpace(txtDatos.Text))
+                {
+                    var wordQuantity = txtDatos.Text.Split(' ').Count();
+                    Program.NombreCliente = wordQuantity > 2
+                                          ? txtDatos.Text.Split(' ')[0] + " " + txtDatos.Text.Split(' ')[1]
+                                          : wordQuantity == 2
+                                          ? txtDatos.Text.Split(' ')[0]
+                                          : string.Empty;
+
+                    Program.ApellidosCliente = wordQuantity > 2
+                                             ? txtDatos.Text.Split(' ')[2]
+                                             : wordQuantity == 2
+                                             ? txtDatos.Text.Split(' ')[1]
+                                             : string.Empty;
+                }
+                if (!string.IsNullOrWhiteSpace(Program.NombreCliente + " " + Program.ApellidosCliente) && string.IsNullOrWhiteSpace(txtDatos.Text))
+                {
+                    txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
+                }
+
                 txtidCli.Text = Program.IdCliente > 0 ? Program.IdCliente + "" : txtidCli.Text;
                 txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
             }
             else
             {
-                txtDatos.Text = !string.IsNullOrWhiteSpace(Program.datoscliente) ? Program.datoscliente : txtDatos.Text;
-                txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
+                if (string.IsNullOrWhiteSpace(Program.datoscliente) && !string.IsNullOrWhiteSpace(txtDatos.Text))
+                {
+                    Program.datoscliente = txtDatos.Text;
+                }
+                if (!string.IsNullOrWhiteSpace(Program.datoscliente) && string.IsNullOrWhiteSpace(txtDatos.Text))
+                {
+                    txtDatos.Text = Program.datoscliente;
+                }
             }
 
             if (Program.IdProducto > 0)
@@ -660,12 +685,38 @@ namespace Capa_de_Presentacion
 
             if (cbidentificacion.Checked == false && Program.IdCliente == 0)
             {
-                txtDatos.Text = !string.IsNullOrWhiteSpace(Program.datoscliente) ? Program.datoscliente : txtDatos.Text;
+                if (string.IsNullOrWhiteSpace(Program.datoscliente) && !string.IsNullOrWhiteSpace(txtDatos.Text))
+                {
+                    Program.datoscliente = txtDatos.Text;
+                }
+                if (!string.IsNullOrWhiteSpace(Program.datoscliente) && string.IsNullOrWhiteSpace(txtDatos.Text))
+                {
+                    txtDatos.Text = Program.datoscliente;
+                }
                 txtDocIdentidad.Text = "Sin identificacion";
             }
             else
             {
-                txtDatos.Text = !string.IsNullOrWhiteSpace(Program.NombreCliente + " " + Program.ApellidosCliente) ? Program.NombreCliente + " " + Program.ApellidosCliente : txtDatos.Text;
+                if (string.IsNullOrWhiteSpace(Program.NombreCliente + " " + Program.ApellidosCliente) && !string.IsNullOrWhiteSpace(txtDatos.Text))
+                {
+                    var wordQuantity = txtDatos.Text.Split(' ').Count();
+                    Program.NombreCliente = wordQuantity > 2
+                                          ? txtDatos.Text.Split(' ')[0] + " " + txtDatos.Text.Split(' ')[1]
+                                          : wordQuantity == 2
+                                          ? txtDatos.Text.Split(' ')[0]
+                                          : string.Empty;
+
+                    Program.ApellidosCliente = wordQuantity > 2
+                                             ? txtDatos.Text.Split(' ')[2]
+                                             : wordQuantity == 2
+                                             ? txtDatos.Text.Split(' ')[1]
+                                             : string.Empty;
+                }
+                if (!string.IsNullOrWhiteSpace(Program.NombreCliente + " " + Program.ApellidosCliente) && string.IsNullOrWhiteSpace(txtDatos.Text))
+                {
+                    txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
+                }
+
                 txtidCli.Text = Program.IdCliente > 0 ? Program.IdCliente + "" : txtidCli.Text;
                 txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
             }
