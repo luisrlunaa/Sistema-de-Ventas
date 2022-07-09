@@ -114,8 +114,10 @@ namespace Capa_de_Presentacion
             timerHoraActual.Interval = 500;
             timerHoraActual.Start();
             llenar();
+            if (panel3.Visible)
+                panel3.Visible = false;
         }
-
+        
         public void llenar()
         {
             M.Desconectar();

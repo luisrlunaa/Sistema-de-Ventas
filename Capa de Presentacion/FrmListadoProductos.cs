@@ -32,6 +32,7 @@ namespace Capa_de_Presentacion
                 clsGenericList.listProducto = CargarListados();
             }
 
+            rbtodos.Checked = true;
             textBox5.Text = "";
             id.Text = "";
 
@@ -333,7 +334,7 @@ namespace Capa_de_Presentacion
             Program.Stock = Convert.ToInt32(dataGridView1.CurrentRow.Cells["cantidad"].Value.ToString());
             Program.IdCategoria = Convert.ToInt32(dataGridView1.CurrentRow.Cells["IdC"].Value.ToString());
             Program.itbis = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["itbis"].Value.ToString());
-            Program.tipo = dataGridView1.CurrentRow.Cells["tipoGOma"].Value.ToString();
+            //Program.tipo = dataGridView1.CurrentRow.Cells["tipoGOma"].Value.ToString();
             this.Close();
         }
 

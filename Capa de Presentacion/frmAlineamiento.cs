@@ -148,7 +148,7 @@ namespace Capa_de_Presentacion
                     cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = Convert.ToInt32(txtidEmp.Text);
                     cmd.Parameters.Add("@tipoDeTrabajo", SqlDbType.VarChar).Value = cbtipo.Text.ToUpper();
                     cmd.Parameters.Add("@vehiculo", SqlDbType.NVarChar).Value = (txtMarca.Text + " " + txtmodelo.Text).ToUpper();
-                    cmd.Parameters.Add("@AroGoma", SqlDbType.Int).Value = Convert.ToInt32(txtaros.Text);
+                    cmd.Parameters.Add("@AroGoma", SqlDbType.Int).Value = !string.IsNullOrWhiteSpace(txtaros.Text) ? Convert.ToInt32(txtaros.Text) : 0;
                     cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(dtpFecha.Text);
                     cmd.Parameters.Add("@precio", SqlDbType.Decimal).Value = Convert.ToDecimal(txtTotal.Text);
                     cmd.Parameters.Add("@nota", SqlDbType.NVarChar).Value = txtnota.Text;
@@ -178,7 +178,7 @@ namespace Capa_de_Presentacion
                             cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = 0;
                         }
 
-                        cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
+                        cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = !string.IsNullOrWhiteSpace(Program.Fechapago) ? Convert.ToDateTime(Program.Fechapago) : DateTime.Today;
                         cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = 0;
 
                         M.Conectar();
