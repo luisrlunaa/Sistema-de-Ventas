@@ -334,6 +334,7 @@ namespace Capa_de_Presentacion
                     lbligv.Text = Program.igv + "";
                     txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
                     dateTimePicker1.Text = !string.IsNullOrWhiteSpace(Program.fecha) ? Program.fecha : dateTimePicker1.Text;
+                    btnSalir.Enabled = Program.total > 0;
 
                     decimal subtotal = 0;
                     decimal igv = 0;
@@ -398,6 +399,7 @@ namespace Capa_de_Presentacion
                     lbligv.Text = Program.igv + "";
                     txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
                     dateTimePicker1.Text = !string.IsNullOrWhiteSpace(Program.fecha) ? Program.fecha : dateTimePicker1.Text;
+                    btnSalir.Enabled = Program.total > 0;
 
                     decimal subtotal = 0;
                     decimal igv = 0;
