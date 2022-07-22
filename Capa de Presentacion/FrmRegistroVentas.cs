@@ -19,7 +19,7 @@ namespace Capa_de_Presentacion
         public class PrecioCompraProducto
         {
             public int ID;
-            public decimal Precio;
+            public decimal Precio; 
         }
 
         private List<clsVentas> lst = new List<clsVentas>();
@@ -573,7 +573,7 @@ namespace Capa_de_Presentacion
 
         private void LlenarGri()
         {
-            Decimal SumaSubTotal = 0; Decimal SumaIgv = 0; Decimal SumaTotal = 0;
+            decimal SumaSubTotal = 0; decimal SumaIgv = 0; decimal SumaTotal = 0;
             dgvVenta.Rows.Clear();
             for (int i = 0; i < lst.Count; i++)
             {
@@ -619,52 +619,67 @@ namespace Capa_de_Presentacion
                 Program.itbis = 0;
             }
 
+            ClearProduct();
+
+            Program.tipo = string.Empty;
+            Program.NCF = string.Empty;
+            Program.NroComprobante = string.Empty;
+            Program.fecha = string.Empty;
+            Program.Esabono = string.Empty;
+            Program.DocumentoIdentidad = string.Empty;
+            Program.ApellidosCliente = string.Empty;
+            Program.NombreCliente = string.Empty;
+            Program.ReImpresion = string.Empty;
+            Program.datoscliente = string.Empty;
+
             Program.Id = 0;
             Program.IdEmpleado = 0;
             Program.total = 0;
             Program.ST = 0;
             Program.igv = 0;
-            Program.tipo = string.Empty;
-            Program.NCF = string.Empty;
-            Program.NroComprobante = string.Empty;
-            Program.fecha = string.Empty;
-
-            Program.Esabono = "";
             Program.IdCliente = 0;
             Program.pagoRealizado = 0;
             Program.PrecioCompra = 0;
-            Program.DocumentoIdentidad = "";
-            Program.ApellidosCliente = "";
-            Program.NombreCliente = "";
+
             Program.realizopago = false;
-            Program.ReImpresion = "";
-            Program.datoscliente = "";
             entro = false;
         }
 
-        private void Limpiar1()
+        private void ClearProduct()
         {
+            txtDivisor.Text = "1.18";
+            txtPorcentaje.Text = "";
+
             txtDescripcion.Text = "";
             txtMarca.Text = "";
             txtStock.Text = "";
             txtPVenta.Text = "";
             txtCantidad.Text = "";
-            cbidentificacion.Visible = true;
+            txtIgv.Text = "";
+        }
+
+        private void Limpiar1()
+        {
+            ClearProduct();
+
             txtidCli.Text = "0";
-            cbidentificacion.Checked = false;
+            lblsubt.Text = "...";
+            txttotal.Text = "...";
+            lbligv.Text = "...";
+            lblabono.Text = null;
+
             txtDocIdentidad.Clear();
             txtDatos.Clear();
             dgvVenta.Rows.Clear();
             txtIdProducto.Clear();
             txtNCF.Clear();
             lst.Clear();
-            lblsubt.Text = "...";
-            txttotal.Text = "...";
-            lbligv.Text = "...";
-            txtIgv.Text = "";
+
+            cbidentificacion.Visible = true;
+            cbidentificacion.Checked = false;
             lblabono.Visible = false;
             lbltituloabono.Visible = false;
-            lblabono.Text = null;
+
             listProducts = new List<PrecioCompraProducto>();
         }
         private void btnSalir_Click(object sender, EventArgs e)
