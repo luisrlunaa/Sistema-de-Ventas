@@ -87,6 +87,13 @@
             this.txtidCli = new System.Windows.Forms.TextBox();
             this.txtIdV = new System.Windows.Forms.TextBox();
             this.dgvVenta = new System.Windows.Forms.DataGridView();
+            this.IdD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescripcionP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidadP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecioU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IGV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubtoTal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dtpFf = new System.Windows.Forms.DateTimePicker();
@@ -123,13 +130,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.cotizacionPanel = new System.Windows.Forms.Panel();
             this.label22 = new System.Windows.Forms.Label();
-            this.IdD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescripcionP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidadP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecioU = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IGV = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubtoTal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -778,6 +778,62 @@
             this.dgvVenta.TabIndex = 43;
             this.dgvVenta.Click += new System.EventHandler(this.dgvVenta_Click);
             // 
+            // IdD
+            // 
+            this.IdD.FillWeight = 78.35892F;
+            this.IdD.HeaderText = "ID Venta";
+            this.IdD.MinimumWidth = 25;
+            this.IdD.Name = "IdD";
+            this.IdD.ReadOnly = true;
+            // 
+            // IDP
+            // 
+            this.IDP.HeaderText = "IDP";
+            this.IDP.MinimumWidth = 10;
+            this.IDP.Name = "IDP";
+            this.IDP.ReadOnly = true;
+            this.IDP.Visible = false;
+            // 
+            // DescripcionP
+            // 
+            this.DescripcionP.FillWeight = 127.5433F;
+            this.DescripcionP.HeaderText = "Descripcion";
+            this.DescripcionP.MinimumWidth = 60;
+            this.DescripcionP.Name = "DescripcionP";
+            this.DescripcionP.ReadOnly = true;
+            // 
+            // cantidadP
+            // 
+            this.cantidadP.FillWeight = 80.21391F;
+            this.cantidadP.HeaderText = "Cantidad";
+            this.cantidadP.MinimumWidth = 25;
+            this.cantidadP.Name = "cantidadP";
+            this.cantidadP.ReadOnly = true;
+            // 
+            // PrecioU
+            // 
+            this.PrecioU.FillWeight = 113.4559F;
+            this.PrecioU.HeaderText = "Precio";
+            this.PrecioU.MinimumWidth = 35;
+            this.PrecioU.Name = "PrecioU";
+            this.PrecioU.ReadOnly = true;
+            // 
+            // IGV
+            // 
+            this.IGV.FillWeight = 72.88459F;
+            this.IGV.HeaderText = "ITBIS";
+            this.IGV.MinimumWidth = 20;
+            this.IGV.Name = "IGV";
+            this.IGV.ReadOnly = true;
+            // 
+            // SubtoTal
+            // 
+            this.SubtoTal.FillWeight = 127.5433F;
+            this.SubtoTal.HeaderText = "SubTotal";
+            this.SubtoTal.MinimumWidth = 30;
+            this.SubtoTal.Name = "SubtoTal";
+            this.SubtoTal.ReadOnly = true;
+            // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
@@ -1224,67 +1280,11 @@
             this.label22.TabIndex = 0;
             this.label22.Text = "Cotizacion";
             // 
-            // IdD
-            // 
-            this.IdD.FillWeight = 78.35892F;
-            this.IdD.HeaderText = "ID Venta";
-            this.IdD.MinimumWidth = 25;
-            this.IdD.Name = "IdD";
-            this.IdD.ReadOnly = true;
-            // 
-            // IDP
-            // 
-            this.IDP.HeaderText = "IDP";
-            this.IDP.MinimumWidth = 10;
-            this.IDP.Name = "IDP";
-            this.IDP.ReadOnly = true;
-            this.IDP.Visible = false;
-            // 
-            // DescripcionP
-            // 
-            this.DescripcionP.FillWeight = 127.5433F;
-            this.DescripcionP.HeaderText = "Descripcion";
-            this.DescripcionP.MinimumWidth = 60;
-            this.DescripcionP.Name = "DescripcionP";
-            this.DescripcionP.ReadOnly = true;
-            // 
-            // cantidadP
-            // 
-            this.cantidadP.FillWeight = 80.21391F;
-            this.cantidadP.HeaderText = "Cantidad";
-            this.cantidadP.MinimumWidth = 25;
-            this.cantidadP.Name = "cantidadP";
-            this.cantidadP.ReadOnly = true;
-            // 
-            // PrecioU
-            // 
-            this.PrecioU.FillWeight = 113.4559F;
-            this.PrecioU.HeaderText = "Precio";
-            this.PrecioU.MinimumWidth = 35;
-            this.PrecioU.Name = "PrecioU";
-            this.PrecioU.ReadOnly = true;
-            // 
-            // IGV
-            // 
-            this.IGV.FillWeight = 72.88459F;
-            this.IGV.HeaderText = "ITBIS";
-            this.IGV.MinimumWidth = 20;
-            this.IGV.Name = "IGV";
-            this.IGV.ReadOnly = true;
-            // 
-            // SubtoTal
-            // 
-            this.SubtoTal.FillWeight = 127.5433F;
-            this.SubtoTal.HeaderText = "SubTotal";
-            this.SubtoTal.MinimumWidth = 30;
-            this.SubtoTal.Name = "SubtoTal";
-            this.SubtoTal.ReadOnly = true;
-            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.ClientSize = new System.Drawing.Size(696, 630);
             this.Controls.Add(this.cotizacionPanel);
             this.Controls.Add(this.button3);

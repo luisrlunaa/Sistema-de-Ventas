@@ -847,7 +847,7 @@ namespace Capa_de_Presentacion
         }
 
         private void button4_Click(object sender, EventArgs e)
-        { 
+        {
             M.Desconectar();
             //devolucion de venta
             if (DevComponents.DotNetBar.MessageBoxEx.Show("Nota: se devolveran todos los producto que contenga la venta y la misma se eliminara por completo del sistema" +
@@ -856,15 +856,15 @@ namespace Capa_de_Presentacion
                 M.Conectar();
                 var Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
 
-                    string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante,Venta.Total from DetalleVenta" +
-                        " inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta inner join Caja on Caja.fecha=Venta.FechaVenta where DetalleVenta.IdVenta=" + Program.Id;
-                    SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
+                string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante,Venta.Total from DetalleVenta" +
+                    " inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta inner join Caja on Caja.fecha=Venta.FechaVenta where DetalleVenta.IdVenta=" + Program.Id;
+                SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
 
-                    DataTable dt = new DataTable();
-                    SqlDataAdapter da = new SqlDataAdapter(cmd1);
-                    da.Fill(dt);
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(cmd1);
+                da.Fill(dt);
 
-                    var i = 1;
+                var i = 1;
                 foreach (DataRow data in dt.Rows)
                 {
                     SqlCommand sqlCommand = new SqlCommand("DevolucionVenta", M.conexion);
@@ -958,6 +958,7 @@ namespace Capa_de_Presentacion
                 M.Desconectar();
             }
         }
+
 
         bool isallowNumber = false;
         private void chkid_CheckedChanged(object sender, EventArgs e)

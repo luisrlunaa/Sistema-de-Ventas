@@ -90,7 +90,7 @@
             // 
             // lblLogo
             // 
-            this.lblLogo.BackColor = System.Drawing.Color.DarkCyan;
+            this.lblLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(29)))), ((int)(((byte)(135)))));
             this.lblLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblLogo.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLogo.ForeColor = System.Drawing.Color.White;
@@ -106,7 +106,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.DarkCyan;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(29)))), ((int)(((byte)(135)))));
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(931, 59);
@@ -118,7 +118,7 @@
             // 
             // lblFecha
             // 
-            this.lblFecha.BackColor = System.Drawing.Color.DarkCyan;
+            this.lblFecha.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(29)))), ((int)(((byte)(135)))));
             this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFecha.ForeColor = System.Drawing.Color.White;
             this.lblFecha.Location = new System.Drawing.Point(1025, 61);
@@ -131,7 +131,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.DarkCyan;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(29)))), ((int)(((byte)(135)))));
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(931, 91);
@@ -143,7 +143,7 @@
             // 
             // lblHora
             // 
-            this.lblHora.BackColor = System.Drawing.Color.DarkCyan;
+            this.lblHora.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(29)))), ((int)(((byte)(135)))));
             this.lblHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHora.ForeColor = System.Drawing.Color.White;
             this.lblHora.Location = new System.Drawing.Point(1025, 93);
@@ -155,7 +155,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.DarkCyan;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(29)))), ((int)(((byte)(135)))));
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.btnAyB);
@@ -207,7 +207,7 @@
             // 
             // button8
             // 
-            this.button8.BackColor = System.Drawing.Color.Teal;
+            this.button8.BackColor = System.Drawing.Color.SlateBlue;
             this.button8.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.button8.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.button8.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -227,7 +227,7 @@
             // 
             // button6
             // 
-            this.button6.BackColor = System.Drawing.Color.Teal;
+            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.button6.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.button6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -248,7 +248,7 @@
             // 
             // btnAyB
             // 
-            this.btnAyB.BackColor = System.Drawing.Color.Teal;
+            this.btnAyB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.btnAyB.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnAyB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnAyB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -269,7 +269,7 @@
             // 
             // button5
             // 
-            this.button5.BackColor = System.Drawing.Color.Teal;
+            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.button5.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -290,7 +290,7 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.Teal;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -309,7 +309,7 @@
             // 
             // button3
             // 
-            this.button3.BackColor = System.Drawing.Color.Teal;
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.button3.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -329,7 +329,7 @@
             // 
             // btnVer
             // 
-            this.btnVer.BackColor = System.Drawing.Color.Teal;
+            this.btnVer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.btnVer.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnVer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnVer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -349,7 +349,7 @@
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.Teal;
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.button2.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -370,7 +370,7 @@
             // 
             // btnEmpleados
             // 
-            this.btnEmpleados.BackColor = System.Drawing.Color.Teal;
+            this.btnEmpleados.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.btnEmpleados.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnEmpleados.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnEmpleados.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -391,7 +391,7 @@
             // 
             // btnVentas
             // 
-            this.btnVentas.BackColor = System.Drawing.Color.Teal;
+            this.btnVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.btnVentas.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnVentas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -412,7 +412,7 @@
             // 
             // btnUsuarios
             // 
-            this.btnUsuarios.BackColor = System.Drawing.Color.Teal;
+            this.btnUsuarios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.btnUsuarios.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnUsuarios.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnUsuarios.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -433,7 +433,7 @@
             // 
             // btnClientes
             // 
-            this.btnClientes.BackColor = System.Drawing.Color.Teal;
+            this.btnClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.btnClientes.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnClientes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnClientes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -454,7 +454,7 @@
             // 
             // btnProductos
             // 
-            this.btnProductos.BackColor = System.Drawing.Color.Teal;
+            this.btnProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.btnProductos.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnProductos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnProductos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -476,7 +476,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.DarkCyan;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(29)))), ((int)(((byte)(135)))));
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(11, 5);
@@ -488,7 +488,7 @@
             // 
             // lblUsuario
             // 
-            this.lblUsuario.BackColor = System.Drawing.Color.DarkCyan;
+            this.lblUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(29)))), ((int)(((byte)(135)))));
             this.lblUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUsuario.ForeColor = System.Drawing.Color.White;
             this.lblUsuario.Location = new System.Drawing.Point(11, 31);
@@ -632,7 +632,7 @@
             // 
             // usuario
             // 
-            this.usuario.BackColor = System.Drawing.Color.Teal;
+            this.usuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.usuario.Controls.Add(this.label1);
             this.usuario.Controls.Add(this.button4);
             this.usuario.Controls.Add(this.label6);
@@ -725,7 +725,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.DarkCyan;
+            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(29)))), ((int)(((byte)(135)))));
             this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Red;
@@ -740,7 +740,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.DarkCyan;
+            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(29)))), ((int)(((byte)(135)))));
             this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Yellow;
@@ -755,17 +755,17 @@
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.White;
-            this.pictureBox2.Image = global::Capa_de_Presentacion.Properties.Resources.llantas_toyota_corolla;
-            this.pictureBox2.Location = new System.Drawing.Point(245, 170);
+            this.pictureBox2.Image = global::Capa_de_Presentacion.Properties.Resources.llantas_1024x682;
+            this.pictureBox2.Location = new System.Drawing.Point(245, 160);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(948, 469);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.Size = new System.Drawing.Size(1024, 682);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox2.TabIndex = 26;
             this.pictureBox2.TabStop = false;
             // 
             // button7
             // 
-            this.button7.BackColor = System.Drawing.Color.DarkCyan;
+            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(29)))), ((int)(((byte)(135)))));
             this.button7.FlatAppearance.BorderSize = 0;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.ForeColor = System.Drawing.Color.White;

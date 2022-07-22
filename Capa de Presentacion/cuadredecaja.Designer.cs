@@ -31,6 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(cuadredecaja));
             this.agregargasto = new System.Windows.Forms.Button();
             this.lblmontogasto = new System.Windows.Forms.Label();
             this.lblmontocaja = new System.Windows.Forms.Label();
@@ -99,7 +100,7 @@
             // 
             // agregargasto
             // 
-            this.agregargasto.BackColor = System.Drawing.Color.SeaGreen;
+            this.agregargasto.BackColor = System.Drawing.Color.Transparent;
             this.agregargasto.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.agregargasto.FlatAppearance.BorderSize = 0;
             this.agregargasto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
@@ -637,7 +638,7 @@
             // 
             this.btnsuma.BackColor = System.Drawing.Color.CornflowerBlue;
             this.btnsuma.Location = new System.Drawing.Point(452, 412);
-            this.btnsuma.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnsuma.Margin = new System.Windows.Forms.Padding(2);
             this.btnsuma.Name = "btnsuma";
             this.btnsuma.Size = new System.Drawing.Size(26, 27);
             this.btnsuma.TabIndex = 149;
@@ -736,7 +737,7 @@
             // txtmonto_inicial
             // 
             this.txtmonto_inicial.Location = new System.Drawing.Point(765, 439);
-            this.txtmonto_inicial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtmonto_inicial.Margin = new System.Windows.Forms.Padding(2);
             this.txtmonto_inicial.Name = "txtmonto_inicial";
             this.txtmonto_inicial.Size = new System.Drawing.Size(76, 20);
             this.txtmonto_inicial.TabIndex = 158;
@@ -798,7 +799,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.ClientSize = new System.Drawing.Size(512, 466);
             this.Controls.Add(this.lblmontoinicial);
             this.Controls.Add(this.label21);
@@ -854,7 +855,8 @@
             this.Controls.Add(this.btnimprimir);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "cuadredecaja";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "cuadredecaja";

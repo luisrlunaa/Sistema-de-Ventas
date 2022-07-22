@@ -219,7 +219,7 @@
             // txtEmp
             // 
             this.txtEmp.Location = new System.Drawing.Point(736, 77);
-            this.txtEmp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEmp.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmp.Name = "txtEmp";
             this.txtEmp.Size = new System.Drawing.Size(44, 20);
             this.txtEmp.TabIndex = 83;
@@ -242,7 +242,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(124)))), ((int)(((byte)(72)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(101)))), ((int)(((byte)(203)))));
             this.ClientSize = new System.Drawing.Size(508, 327);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtEmp);

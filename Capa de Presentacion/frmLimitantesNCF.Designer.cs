@@ -84,11 +84,12 @@
             this.fecha_final});
             this.data_comprobante.EnableHeadersVisualStyles = false;
             this.data_comprobante.GridColor = System.Drawing.Color.Black;
-            this.data_comprobante.Location = new System.Drawing.Point(24, 513);
+            this.data_comprobante.Location = new System.Drawing.Point(18, 417);
+            this.data_comprobante.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.data_comprobante.Name = "data_comprobante";
             this.data_comprobante.RowHeadersWidth = 51;
             this.data_comprobante.RowTemplate.Height = 24;
-            this.data_comprobante.Size = new System.Drawing.Size(977, 221);
+            this.data_comprobante.Size = new System.Drawing.Size(733, 180);
             this.data_comprobante.TabIndex = 72;
             // 
             // id_comprobante
@@ -140,9 +141,11 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.groupBox2.Location = new System.Drawing.Point(566, 111);
+            this.groupBox2.Location = new System.Drawing.Point(424, 90);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(435, 386);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(326, 314);
             this.groupBox2.TabIndex = 70;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Limitantes";
@@ -156,10 +159,10 @@
             this.lblcomp.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lblcomp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.lblcomp.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lblcomp.Location = new System.Drawing.Point(85, 42);
+            this.lblcomp.Location = new System.Drawing.Point(64, 34);
             this.lblcomp.Margin = new System.Windows.Forms.Padding(0);
             this.lblcomp.Name = "lblcomp";
-            this.lblcomp.Size = new System.Drawing.Size(171, 18);
+            this.lblcomp.Size = new System.Drawing.Size(145, 15);
             this.lblcomp.TabIndex = 76;
             this.lblcomp.Text = "Tipo de Comprobante";
             this.lblcomp.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -168,17 +171,19 @@
             // 
             this.txtid.BackColor = System.Drawing.Color.White;
             this.txtid.Enabled = false;
-            this.txtid.Location = new System.Drawing.Point(232, 107);
+            this.txtid.Location = new System.Drawing.Point(174, 87);
+            this.txtid.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtid.Name = "txtid";
-            this.txtid.Size = new System.Drawing.Size(82, 22);
+            this.txtid.Size = new System.Drawing.Size(62, 19);
             this.txtid.TabIndex = 75;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(43, 107);
+            this.label6.Location = new System.Drawing.Point(32, 87);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 17);
+            this.label6.Size = new System.Drawing.Size(42, 13);
             this.label6.TabIndex = 74;
             this.label6.Text = "ID NCF";
             // 
@@ -187,9 +192,10 @@
             this.dtpfinal.CalendarMonthBackground = System.Drawing.Color.White;
             this.dtpfinal.CalendarTrailingForeColor = System.Drawing.SystemColors.Desktop;
             this.dtpfinal.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpfinal.Location = new System.Drawing.Point(232, 215);
+            this.dtpfinal.Location = new System.Drawing.Point(174, 175);
+            this.dtpfinal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dtpfinal.Name = "dtpfinal";
-            this.dtpfinal.Size = new System.Drawing.Size(165, 22);
+            this.dtpfinal.Size = new System.Drawing.Size(125, 19);
             this.dtpfinal.TabIndex = 72;
             // 
             // dtpinicio
@@ -197,62 +203,69 @@
             this.dtpinicio.CalendarMonthBackground = System.Drawing.Color.White;
             this.dtpinicio.CalendarTrailingForeColor = System.Drawing.SystemColors.Desktop;
             this.dtpinicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpinicio.Location = new System.Drawing.Point(232, 170);
+            this.dtpinicio.Location = new System.Drawing.Point(174, 138);
+            this.dtpinicio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dtpinicio.Name = "dtpinicio";
-            this.dtpinicio.Size = new System.Drawing.Size(165, 22);
+            this.dtpinicio.Size = new System.Drawing.Size(125, 19);
             this.dtpinicio.TabIndex = 71;
             // 
             // txtfinal
             // 
             this.txtfinal.BackColor = System.Drawing.Color.White;
-            this.txtfinal.Location = new System.Drawing.Point(232, 333);
+            this.txtfinal.Location = new System.Drawing.Point(174, 271);
+            this.txtfinal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtfinal.Name = "txtfinal";
-            this.txtfinal.Size = new System.Drawing.Size(165, 22);
+            this.txtfinal.Size = new System.Drawing.Size(125, 19);
             this.txtfinal.TabIndex = 70;
             this.txtfinal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtinicio_KeyPress);
             // 
             // txtinicio
             // 
             this.txtinicio.BackColor = System.Drawing.Color.White;
-            this.txtinicio.Location = new System.Drawing.Point(232, 286);
+            this.txtinicio.Location = new System.Drawing.Point(174, 232);
+            this.txtinicio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtinicio.Name = "txtinicio";
-            this.txtinicio.Size = new System.Drawing.Size(165, 22);
+            this.txtinicio.Size = new System.Drawing.Size(125, 19);
             this.txtinicio.TabIndex = 69;
             this.txtinicio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtinicio_KeyPress);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(43, 286);
+            this.label4.Location = new System.Drawing.Point(32, 232);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(117, 17);
+            this.label4.Size = new System.Drawing.Size(91, 13);
             this.label4.TabIndex = 68;
             this.label4.Text = "Secuencia Inicial:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(43, 341);
+            this.label3.Location = new System.Drawing.Point(32, 277);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(112, 17);
+            this.label3.Size = new System.Drawing.Size(86, 13);
             this.label3.TabIndex = 67;
             this.label3.Text = "Secuencia Final:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(43, 221);
+            this.label2.Location = new System.Drawing.Point(32, 180);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 17);
+            this.label2.Size = new System.Drawing.Size(65, 13);
             this.label2.TabIndex = 66;
             this.label2.Text = "Fecha Final:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 170);
+            this.label1.Location = new System.Drawing.Point(32, 138);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 17);
+            this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 65;
             this.label1.Text = "Fecha Inicial:";
             // 
@@ -260,11 +273,11 @@
             // 
             this.groupBox1.Controls.Add(this.data_ncf);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.groupBox1.Location = new System.Drawing.Point(24, 111);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.groupBox1.Location = new System.Drawing.Point(18, 90);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.groupBox1.Size = new System.Drawing.Size(524, 337);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBox1.Size = new System.Drawing.Size(393, 274);
             this.groupBox1.TabIndex = 69;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Elige el NCF que vas a Limitar";
@@ -290,13 +303,13 @@
             this.Activo});
             this.data_ncf.EnableHeadersVisualStyles = false;
             this.data_ncf.GridColor = System.Drawing.Color.Black;
-            this.data_ncf.Location = new System.Drawing.Point(8, 25);
-            this.data_ncf.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.data_ncf.Location = new System.Drawing.Point(6, 20);
+            this.data_ncf.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.data_ncf.Name = "data_ncf";
             this.data_ncf.RowHeadersVisible = false;
             this.data_ncf.RowHeadersWidth = 51;
             this.data_ncf.RowTemplate.Height = 24;
-            this.data_ncf.Size = new System.Drawing.Size(506, 304);
+            this.data_ncf.Size = new System.Drawing.Size(380, 247);
             this.data_ncf.TabIndex = 0;
             this.data_ncf.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.data_ncf_CellFormatting);
             this.data_ncf.DoubleClick += new System.EventHandler(this.data_ncf_DoubleClick);
@@ -333,9 +346,10 @@
             this.btnAplicar.ForeColor = System.Drawing.Color.Black;
             this.btnAplicar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_aplicar;
             this.btnAplicar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAplicar.Location = new System.Drawing.Point(24, 455);
+            this.btnAplicar.Location = new System.Drawing.Point(18, 370);
+            this.btnAplicar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAplicar.Name = "btnAplicar";
-            this.btnAplicar.Size = new System.Drawing.Size(119, 42);
+            this.btnAplicar.Size = new System.Drawing.Size(89, 34);
             this.btnAplicar.TabIndex = 71;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -346,11 +360,12 @@
             // 
             this.label5.AutoSize = true;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(992, 9);
+            this.label5.Location = new System.Drawing.Point(744, 7);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(24, 25);
+            this.label5.Size = new System.Drawing.Size(22, 22);
             this.label5.TabIndex = 73;
             this.label5.Text = "X";
             this.label5.Click += new System.EventHandler(this.label5_Click);
@@ -359,18 +374,19 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold);
-            this.label7.Location = new System.Drawing.Point(345, 44);
+            this.label7.Location = new System.Drawing.Point(259, 36);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(299, 29);
+            this.label7.Size = new System.Drawing.Size(237, 24);
             this.label7.TabIndex = 113;
             this.label7.Text = "Limitaciones de los NCF";
             // 
             // frmLimitantesNCF
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
-            this.ClientSize = new System.Drawing.Size(1027, 746);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
+            this.ClientSize = new System.Drawing.Size(770, 606);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.data_comprobante);
@@ -379,6 +395,7 @@
             this.Controls.Add(this.groupBox1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "frmLimitantesNCF";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Limitantes NCF";

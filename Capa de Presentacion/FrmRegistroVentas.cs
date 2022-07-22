@@ -19,7 +19,7 @@ namespace Capa_de_Presentacion
         public class PrecioCompraProducto
         {
             public int ID;
-            public decimal Precio; 
+            public decimal Precio;
         }
 
         private List<clsVentas> lst = new List<clsVentas>();
@@ -573,7 +573,7 @@ namespace Capa_de_Presentacion
 
         private void LlenarGri()
         {
-            decimal SumaSubTotal = 0; decimal SumaIgv = 0; decimal SumaTotal = 0;
+            Decimal SumaSubTotal = 0; Decimal SumaIgv = 0; Decimal SumaTotal = 0;
             dgvVenta.Rows.Clear();
             for (int i = 0; i < lst.Count; i++)
             {
@@ -682,6 +682,7 @@ namespace Capa_de_Presentacion
 
             listProducts = new List<PrecioCompraProducto>();
         }
+
         private void btnSalir_Click(object sender, EventArgs e)
         {
             frmPagar pa = new frmPagar();

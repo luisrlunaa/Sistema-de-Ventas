@@ -46,12 +46,12 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -76,7 +76,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.DarkCyan;
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.groupBox1.Controls.Add(this.rbNCF);
             this.groupBox1.Controls.Add(this.panelmontoinicial);
             this.groupBox1.Controls.Add(this.rbVentas);
@@ -92,7 +92,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
-            this.groupBox1.Location = new System.Drawing.Point(22, 188);
+            this.groupBox1.Location = new System.Drawing.Point(21, 188);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(260, 362);
             this.groupBox1.TabIndex = 2;
@@ -103,7 +103,7 @@
             this.rbNCF.AutoSize = true;
             this.rbNCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbNCF.Location = new System.Drawing.Point(68, 244);
-            this.rbNCF.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbNCF.Margin = new System.Windows.Forms.Padding(2);
             this.rbNCF.Name = "rbNCF";
             this.rbNCF.Size = new System.Drawing.Size(109, 19);
             this.rbNCF.TabIndex = 10;
@@ -114,7 +114,7 @@
             // panelmontoinicial
             // 
             this.panelmontoinicial.Location = new System.Drawing.Point(43, 274);
-            this.panelmontoinicial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelmontoinicial.Margin = new System.Windows.Forms.Padding(2);
             this.panelmontoinicial.Name = "panelmontoinicial";
             this.panelmontoinicial.Size = new System.Drawing.Size(176, 75);
             this.panelmontoinicial.TabIndex = 22;
@@ -124,7 +124,7 @@
             this.rbVentas.AutoSize = true;
             this.rbVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbVentas.Location = new System.Drawing.Point(68, 221);
-            this.rbVentas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbVentas.Margin = new System.Windows.Forms.Padding(2);
             this.rbVentas.Name = "rbVentas";
             this.rbVentas.Size = new System.Drawing.Size(129, 19);
             this.rbVentas.TabIndex = 9;
@@ -135,7 +135,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(153, 305);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(42, 25);
             this.button1.TabIndex = 21;
@@ -148,7 +148,7 @@
             this.rbInventario.AutoSize = true;
             this.rbInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbInventario.Location = new System.Drawing.Point(68, 198);
-            this.rbInventario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbInventario.Margin = new System.Windows.Forms.Padding(2);
             this.rbInventario.Name = "rbInventario";
             this.rbInventario.Size = new System.Drawing.Size(114, 19);
             this.rbInventario.TabIndex = 8;
@@ -198,7 +198,6 @@
             this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIngresar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.btnIngresar.ForeColor = System.Drawing.Color.Black;
-            this.btnIngresar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_entrar;
             this.btnIngresar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnIngresar.Location = new System.Drawing.Point(76, 132);
             this.btnIngresar.Name = "btnIngresar";
@@ -241,25 +240,13 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Version 1.8";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::Capa_de_Presentacion.Properties.Resources.LogoCepeda;
-            this.pictureBox2.Location = new System.Drawing.Point(1, 21);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(302, 175);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 24;
-            this.pictureBox2.TabStop = false;
-            // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.DarkCyan;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(67)))), ((int)(((byte)(204)))));
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(1, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(302, 24);
             this.panel1.TabIndex = 25;
@@ -276,6 +263,18 @@
             this.label5.TabIndex = 26;
             this.label5.Text = "X";
             this.label5.Click += new System.EventHandler(this.label5_Click_1);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(1, 24);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(302, 172);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 24;
+            this.pictureBox2.TabStop = false;
             // 
             // FrmLogin
             // 
@@ -296,9 +295,9 @@
             this.Load += new System.EventHandler(this.FrmLogin_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
