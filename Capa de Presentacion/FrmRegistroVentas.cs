@@ -607,56 +607,67 @@ namespace Capa_de_Presentacion
 
                 Program.Stock = 0;
                 Program.itbis = 0;
-                Program.Pmax = 0;
-                Program.Pmin = 0;
             }
+
+            ClearProduct();
+
+            Program.tipo = string.Empty;
+            Program.NCF = string.Empty;
+            Program.NroComprobante = string.Empty;
+            Program.fecha = string.Empty;
+            Program.Esabono = string.Empty;
+            Program.DocumentoIdentidad = string.Empty;
+            Program.ApellidosCliente = string.Empty;
+            Program.NombreCliente = string.Empty;
+            Program.ReImpresion = string.Empty;
+            Program.datoscliente = string.Empty;
 
             Program.Id = 0;
             Program.IdEmpleado = 0;
             Program.total = 0;
             Program.ST = 0;
             Program.igv = 0;
-            Program.tipo = string.Empty;
-            Program.NCF = string.Empty;
-            Program.NroComprobante = string.Empty;
-            Program.fecha = string.Empty;
-
-            Program.Esabono = "";
             Program.IdCliente = 0;
             Program.pagoRealizado = 0;
             Program.PrecioCompra = 0;
-            Program.DocumentoIdentidad = "";
-            Program.ApellidosCliente = "";
-            Program.NombreCliente = "";
+
             Program.realizopago = false;
-            Program.ReImpresion = "";
-            Program.datoscliente = "";
             entro = false;
         }
 
-        private void Limpiar1()
+        private void ClearProduct()
         {
+            txtdireccion.Text = "";
             txtDescripcion.Text = "";
             txtMarca.Text = "";
             txtStock.Text = "";
             txtPVenta.Text = "";
             txtCantidad.Text = "";
-            cbidentificacion.Visible = true;
+            txtIgv.Text = "";
+        }
+
+        private void Limpiar1()
+        {
+            ClearProduct();
+
             txtidCli.Text = "0";
-            cbidentificacion.Checked = false;
+            lblsubt.Text = "...";
+            txttotal.Text = "...";
+            lbligv.Text = "...";
+            lblabono.Text = null;
+
             txtDocIdentidad.Clear();
             txtDatos.Clear();
             dgvVenta.Rows.Clear();
             txtIdProducto.Clear();
             txtNCF.Clear();
             lst.Clear();
-            lblsubt.Text = "...";
-            txttotal.Text = "...";
-            lbligv.Text = "...";
-            txtIgv.Text = "";
+
+            cbidentificacion.Visible = true;
+            cbidentificacion.Checked = false;
             lblabono.Visible = false;
             lbltituloabono.Visible = false;
-            lblabono.Text = null;
+
             listProducts = new List<PrecioCompraProducto>();
         }
 
