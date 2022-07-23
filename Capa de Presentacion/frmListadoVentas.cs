@@ -847,7 +847,7 @@ namespace Capa_de_Presentacion
         }
 
         private void button4_Click(object sender, EventArgs e)
-        { 
+        {
             M.Desconectar();
             //devolucion de venta
             if (DevComponents.DotNetBar.MessageBoxEx.Show("Nota: se devolveran todos los producto que contenga la venta y la misma se eliminara por completo del sistema" +
@@ -856,15 +856,15 @@ namespace Capa_de_Presentacion
                 M.Conectar();
                 var Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
 
-                    string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante,Venta.Total from DetalleVenta" +
-                        " inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta inner join Caja on Caja.fecha=Venta.FechaVenta where DetalleVenta.IdVenta=" + Program.Id;
-                    SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
+                string sql = "select DetalleVenta.Cantidad,DetalleVenta.IdProducto, Venta.TipoFactura,DetalleVenta.SubTotal,Caja.id_caja,Venta.Restante,Venta.Total from DetalleVenta" +
+                    " inner join Venta on DetalleVenta.IdVenta= Venta.IdVenta inner join Caja on Caja.fecha=Venta.FechaVenta where DetalleVenta.IdVenta=" + Id;
+                SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
 
-                    DataTable dt = new DataTable();
-                    SqlDataAdapter da = new SqlDataAdapter(cmd1);
-                    da.Fill(dt);
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(cmd1);
+                da.Fill(dt);
 
-                    var i = 1;
+                var i = 1;
                 foreach (DataRow data in dt.Rows)
                 {
                     SqlCommand sqlCommand = new SqlCommand("DevolucionVenta", M.conexion);
@@ -940,9 +940,34 @@ namespace Capa_de_Presentacion
                                 cmd.CommandType = CommandType.StoredProcedure;
 
                                 //Borrar venta luego de devolver todos los productos
-                                cmd.Parameters.Add("@IdVenta", SqlDbType.Decimal).Value = Program.Id;
+                                cmd.Parameters.Add("@IdVenta", SqlDbType.Decimal).Value = Id;
 
                                 cmd.ExecuteNonQuery();
+                            }
+
+                            decimal caja = 0, monto = 0, montoingresos = 0;
+                            string sql1 = "select * FROM pagos where idVenta=" + Id;
+
+                            SqlCommand cmd2 = new SqlCommand(sql1, M.conexion);
+                            SqlDataReader reade = cmd2.ExecuteReader();
+                            if (reade.Read())
+                            {
+                                caja = Convert.ToInt32(reade["id_caja"]);
+                                if (Program.tipo != "Debito")
+                                {
+                                    decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
+                                    decimal egresos = Convert.ToDecimal(reade["egresos"]);
+                                    monto = Convert.ToDecimal(reade["monto"]);
+
+                                    montoingresos = ingresos - egresos;
+                                }
+                                else
+                                {
+                                    decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
+                                    decimal egresos = Convert.ToDecimal(reade["egresos"]);
+
+                                    monto = ingresos - egresos;
+                                }
                             }
                         }
                         i = i + 1;
