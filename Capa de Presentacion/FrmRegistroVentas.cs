@@ -636,9 +636,7 @@ namespace Capa_de_Presentacion
 
         private void ClearProduct()
         {
-            txtDivisor.Text = "1.18";
-            txtPorcentaje.Text = "";
-
+            txtdireccion.Text = "";
             txtDescripcion.Text = "";
             txtMarca.Text = "";
             txtStock.Text = "";
