@@ -636,7 +636,6 @@ namespace Capa_de_Presentacion
             Program.total = 0;
             Program.ST = 0;
             Program.igv = 0;
-            Program.IdCliente = 0;
             Program.pagoRealizado = 0;
             Program.PrecioCompra = 0;
 
@@ -676,6 +675,8 @@ namespace Capa_de_Presentacion
             cbidentificacion.Checked = false;
             lblabono.Visible = false;
             lbltituloabono.Visible = false;
+
+            Program.IdCliente = 0;
 
             listProducts = new List<PrecioCompraProducto>();
         }
