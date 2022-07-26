@@ -627,7 +627,6 @@ namespace Capa_de_Presentacion
             Program.total = 0;
             Program.ST = 0;
             Program.igv = 0;
-            Program.IdCliente = 0;
             Program.pagoRealizado = 0;
             Program.PrecioCompra = 0;
 
@@ -637,7 +636,9 @@ namespace Capa_de_Presentacion
 
         private void ClearProduct()
         {
-            txtdireccion.Text = "";
+            txtDivisor.Text = "1.18";
+            txtPorcentaje.Text = "";
+
             txtDescripcion.Text = "";
             txtMarca.Text = "";
             txtStock.Text = "";
@@ -667,6 +668,8 @@ namespace Capa_de_Presentacion
             cbidentificacion.Checked = false;
             lblabono.Visible = false;
             lbltituloabono.Visible = false;
+
+            Program.IdCliente = 0;
 
             listProducts = new List<PrecioCompraProducto>();
         }
