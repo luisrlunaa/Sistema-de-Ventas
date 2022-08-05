@@ -611,17 +611,8 @@ namespace Capa_de_Presentacion
 
             ClearProduct();
 
-            Program.tipo = string.Empty;
-            Program.NCF = string.Empty;
-            Program.NroComprobante = string.Empty;
-            Program.fecha = string.Empty;
             Program.Esabono = string.Empty;
-            Program.DocumentoIdentidad = string.Empty;
-            Program.ApellidosCliente = string.Empty;
-            Program.NombreCliente = string.Empty;
             Program.ReImpresion = string.Empty;
-            Program.datoscliente = string.Empty;
-
             Program.Id = 0;
             Program.IdEmpleado = 0;
             Program.total = 0;
@@ -636,7 +627,6 @@ namespace Capa_de_Presentacion
 
         private void ClearProduct()
         {
-            txtdireccion.Text = "";
             txtDescripcion.Text = "";
             txtMarca.Text = "";
             txtStock.Text = "";
@@ -649,6 +639,7 @@ namespace Capa_de_Presentacion
         {
             ClearProduct();
 
+            txtdireccion.Text = "";
             txtidCli.Text = "0";
             lblsubt.Text = "...";
             txttotal.Text = "...";
@@ -668,6 +659,14 @@ namespace Capa_de_Presentacion
             lbltituloabono.Visible = false;
 
             Program.IdCliente = 0;
+            Program.tipo = string.Empty;
+            Program.NCF = string.Empty;
+            Program.NroComprobante = string.Empty;
+            Program.datoscliente = string.Empty;
+            Program.DocumentoIdentidad = string.Empty;
+            Program.ApellidosCliente = string.Empty;
+            Program.NombreCliente = string.Empty;
+            Program.fecha = string.Empty;
 
             listProducts = new List<PrecioCompraProducto>();
         }
