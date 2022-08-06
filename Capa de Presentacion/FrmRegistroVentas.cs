@@ -306,7 +306,6 @@ namespace Capa_de_Presentacion
                 activar = true;
                 btnImprimir.Visible = false;
                 btnSalir.Visible = true;
-
                 lblabono.Visible = true;
                 lbltituloabono.Visible = true;
                 var fecha = Convert.ToDateTime(Program.ultimafechapago);
@@ -460,6 +459,12 @@ namespace Capa_de_Presentacion
                     M.Desconectar();
                 }
             }
+
+
+            btnSalir.Enabled = !string.IsNullOrWhiteSpace(Program.Esabono) 
+                             && !string.IsNullOrWhiteSpace(Program.tipo) 
+                             && Program.tipo.ToLower() == "credito" 
+                             && Convert.ToDecimal(txttotal.Text) > 0;
         }
 
         public int idcaja = 0;
