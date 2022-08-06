@@ -342,7 +342,7 @@ namespace Capa_de_Presentacion
             Program.Stock = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["cantidad"].Value.ToString());
             Program.IdCategoria = Convert.ToInt32(dataGridView1.CurrentRow.Cells["IdC"].Value.ToString());
             Program.itbis = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["itbis"].Value.ToString());
-            Program.tipo = dataGridView1.CurrentRow.Cells["tipoGOma"].Value.ToString();
+            //Program.tipo = dataGridView1.CurrentRow.Cells["tipoGOma"].Value.ToString();
             Program.Pmax = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Pmax"].Value.ToString());
             Program.Pmin = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Pmin"].Value.ToString());
             this.Close();
