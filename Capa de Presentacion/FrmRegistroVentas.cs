@@ -1102,7 +1102,7 @@ namespace Capa_de_Presentacion
                 ticket.TextoDerecha(Program.ReImpresion);
             }
 
-            //System.Drawing.Image img = System.Drawing.Image.FromFile("Logo-01.png");
+            //System.Drawing.Image img = System.Drawing.Image.FromFile("ferreteria.png");
             //ticket.HeaderImage = img;
             ticket.TextoCentro(lblLogo.Text.ToUpper());
             ticket.TextoIzquierda("");
@@ -1356,7 +1356,7 @@ namespace Capa_de_Presentacion
             string cedula = "";
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            Image image1 = Image.GetInstance("Logo-01.png");
+            Image image1 = Image.GetInstance("ferreteria.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
