@@ -460,6 +460,11 @@ namespace Capa_de_Presentacion
                     M.Desconectar();
                 }
             }
+
+            btnSalir.Enabled = !string.IsNullOrWhiteSpace(Program.Esabono)
+                 && !string.IsNullOrWhiteSpace(Program.tipo)
+                 && Program.tipo.ToLower() == "credito"
+                 && Convert.ToDecimal(txttotal.Text) > 0;
         }
 
         public int idcaja = 0;
