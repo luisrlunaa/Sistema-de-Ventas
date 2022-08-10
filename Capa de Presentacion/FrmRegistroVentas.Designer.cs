@@ -86,6 +86,13 @@
             this.txtidCli = new System.Windows.Forms.TextBox();
             this.txtIdV = new System.Windows.Forms.TextBox();
             this.dgvVenta = new System.Windows.Forms.DataGridView();
+            this.IdD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescripcionP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidadP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecioU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IGV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubtoTal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dtpFf = new System.Windows.Forms.DateTimePicker();
@@ -124,13 +131,6 @@
             this.cotizacionPanel = new System.Windows.Forms.Panel();
             this.label21 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.IdD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescripcionP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidadP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecioU = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IGV = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubtoTal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -636,7 +636,7 @@
             this.lblsubt.BackColor = System.Drawing.Color.Transparent;
             this.lblsubt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblsubt.ForeColor = System.Drawing.Color.White;
-            this.lblsubt.Location = new System.Drawing.Point(286, 607);
+            this.lblsubt.Location = new System.Drawing.Point(293, 607);
             this.lblsubt.Name = "lblsubt";
             this.lblsubt.Size = new System.Drawing.Size(20, 17);
             this.lblsubt.TabIndex = 26;
@@ -648,7 +648,7 @@
             this.lbligv.BackColor = System.Drawing.Color.Transparent;
             this.lbligv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbligv.ForeColor = System.Drawing.Color.White;
-            this.lbligv.Location = new System.Drawing.Point(418, 607);
+            this.lbligv.Location = new System.Drawing.Point(424, 607);
             this.lbligv.Name = "lbligv";
             this.lbligv.Size = new System.Drawing.Size(20, 17);
             this.lbligv.TabIndex = 27;
@@ -684,7 +684,7 @@
             this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.White;
-            this.label17.Location = new System.Drawing.Point(370, 607);
+            this.label17.Location = new System.Drawing.Point(363, 607);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(53, 17);
             this.label17.TabIndex = 31;
@@ -822,6 +822,62 @@
             this.dgvVenta.Size = new System.Drawing.Size(646, 176);
             this.dgvVenta.TabIndex = 43;
             this.dgvVenta.Click += new System.EventHandler(this.dgvVenta_Click);
+            // 
+            // IdD
+            // 
+            this.IdD.FillWeight = 78.35892F;
+            this.IdD.HeaderText = "ID Venta";
+            this.IdD.MinimumWidth = 25;
+            this.IdD.Name = "IdD";
+            this.IdD.ReadOnly = true;
+            // 
+            // IDP
+            // 
+            this.IDP.HeaderText = "IDP";
+            this.IDP.MinimumWidth = 10;
+            this.IDP.Name = "IDP";
+            this.IDP.ReadOnly = true;
+            this.IDP.Visible = false;
+            // 
+            // DescripcionP
+            // 
+            this.DescripcionP.FillWeight = 127.5433F;
+            this.DescripcionP.HeaderText = "Descripcion";
+            this.DescripcionP.MinimumWidth = 60;
+            this.DescripcionP.Name = "DescripcionP";
+            this.DescripcionP.ReadOnly = true;
+            // 
+            // cantidadP
+            // 
+            this.cantidadP.FillWeight = 80.21391F;
+            this.cantidadP.HeaderText = "Cantidad";
+            this.cantidadP.MinimumWidth = 25;
+            this.cantidadP.Name = "cantidadP";
+            this.cantidadP.ReadOnly = true;
+            // 
+            // PrecioU
+            // 
+            this.PrecioU.FillWeight = 113.4559F;
+            this.PrecioU.HeaderText = "Precio";
+            this.PrecioU.MinimumWidth = 35;
+            this.PrecioU.Name = "PrecioU";
+            this.PrecioU.ReadOnly = true;
+            // 
+            // IGV
+            // 
+            this.IGV.FillWeight = 72.88459F;
+            this.IGV.HeaderText = "ITBIS";
+            this.IGV.MinimumWidth = 20;
+            this.IGV.Name = "IGV";
+            this.IGV.ReadOnly = true;
+            // 
+            // SubtoTal
+            // 
+            this.SubtoTal.FillWeight = 127.5433F;
+            this.SubtoTal.HeaderText = "SubTotal";
+            this.SubtoTal.MinimumWidth = 30;
+            this.SubtoTal.Name = "SubtoTal";
+            this.SubtoTal.ReadOnly = true;
             // 
             // groupBox2
             // 
@@ -1173,7 +1229,7 @@
             this.txttotal.BackColor = System.Drawing.Color.Transparent;
             this.txttotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.txttotal.ForeColor = System.Drawing.Color.White;
-            this.txttotal.Location = new System.Drawing.Point(540, 607);
+            this.txttotal.Location = new System.Drawing.Point(549, 607);
             this.txttotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.txttotal.Name = "txttotal";
             this.txttotal.Size = new System.Drawing.Size(20, 17);
@@ -1294,62 +1350,6 @@
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // IdD
-            // 
-            this.IdD.FillWeight = 78.35892F;
-            this.IdD.HeaderText = "ID Venta";
-            this.IdD.MinimumWidth = 25;
-            this.IdD.Name = "IdD";
-            this.IdD.ReadOnly = true;
-            // 
-            // IDP
-            // 
-            this.IDP.HeaderText = "IDP";
-            this.IDP.MinimumWidth = 10;
-            this.IDP.Name = "IDP";
-            this.IDP.ReadOnly = true;
-            this.IDP.Visible = false;
-            // 
-            // DescripcionP
-            // 
-            this.DescripcionP.FillWeight = 127.5433F;
-            this.DescripcionP.HeaderText = "Descripcion";
-            this.DescripcionP.MinimumWidth = 60;
-            this.DescripcionP.Name = "DescripcionP";
-            this.DescripcionP.ReadOnly = true;
-            // 
-            // cantidadP
-            // 
-            this.cantidadP.FillWeight = 80.21391F;
-            this.cantidadP.HeaderText = "Cantidad";
-            this.cantidadP.MinimumWidth = 25;
-            this.cantidadP.Name = "cantidadP";
-            this.cantidadP.ReadOnly = true;
-            // 
-            // PrecioU
-            // 
-            this.PrecioU.FillWeight = 113.4559F;
-            this.PrecioU.HeaderText = "Precio";
-            this.PrecioU.MinimumWidth = 35;
-            this.PrecioU.Name = "PrecioU";
-            this.PrecioU.ReadOnly = true;
-            // 
-            // IGV
-            // 
-            this.IGV.FillWeight = 72.88459F;
-            this.IGV.HeaderText = "ITBIS";
-            this.IGV.MinimumWidth = 20;
-            this.IGV.Name = "IGV";
-            this.IGV.ReadOnly = true;
-            // 
-            // SubtoTal
-            // 
-            this.SubtoTal.FillWeight = 127.5433F;
-            this.SubtoTal.HeaderText = "SubTotal";
-            this.SubtoTal.MinimumWidth = 30;
-            this.SubtoTal.Name = "SubtoTal";
-            this.SubtoTal.ReadOnly = true;
             // 
             // FrmRegistroVentas
             // 

@@ -281,7 +281,10 @@ namespace Capa_de_Presentacion
             combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
             txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
 
-            txttotal.Text = Program.total > 0 ? Program.total + "" : txttotal.Text;
+            Program.Direccion = !string.IsNullOrWhiteSpace(txtdireccion.Text) ? txtdireccion.Text : Program.Direccion;
+            txtdireccion.Text = !string.IsNullOrWhiteSpace(Program.Direccion) ? Program.Direccion : txtdireccion.Text;
+
+            txttotal.Text = Program.total > 0 ? Program.total + "" : string.IsNullOrWhiteSpace(txttotal.Text) || txttotal.Text == "..."  ? 0.ToString() : txttotal.Text;
             lblsubt.Text = Program.ST + "";
             lbligv.Text = Program.igv + "";
 
@@ -304,7 +307,7 @@ namespace Capa_de_Presentacion
             if (!string.IsNullOrWhiteSpace(Program.Esabono) && !string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito")
             {
                 activar = true;
-                btnImprimir.Visible = false;
+                btnImprimir.Visible = Program.total == 0;
                 btnSalir.Visible = true;
                 lblabono.Visible = true;
                 lbltituloabono.Visible = true;
@@ -336,7 +339,7 @@ namespace Capa_de_Presentacion
                     cbtipofactura.Text = !string.IsNullOrWhiteSpace(Program.tipo) ? Program.tipo : cbtipofactura.Text;
                     combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
                     txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
-                    txttotal.Text = Program.total > 0 ? Program.total + "" : txttotal.Text;
+                    txttotal.Text = Program.total > 0 ? Program.total + "" : string.IsNullOrWhiteSpace(txttotal.Text) || txttotal.Text == "..." ? 0.ToString() : txttotal.Text;
                     lblsubt.Text = Program.ST + "";
                     lbligv.Text = Program.igv + "";
                     txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
@@ -400,7 +403,7 @@ namespace Capa_de_Presentacion
                     cbtipofactura.Text = !string.IsNullOrWhiteSpace(Program.tipo) ? Program.tipo : cbtipofactura.Text;
                     combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
                     txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
-                    txttotal.Text = Program.total > 0 ? Program.total + "" : txttotal.Text;
+                    txttotal.Text = Program.total > 0 ? Program.total + "" : string.IsNullOrWhiteSpace(txttotal.Text) || txttotal.Text == "..." ? 0.ToString() : txttotal.Text;
                     lblsubt.Text = Program.ST + "";
                     lbligv.Text = Program.igv + "";
                     txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
@@ -464,7 +467,8 @@ namespace Capa_de_Presentacion
             btnSalir.Enabled = !string.IsNullOrWhiteSpace(Program.Esabono) 
                              && !string.IsNullOrWhiteSpace(Program.tipo) 
                              && Program.tipo.ToLower() == "credito" 
-                             && Convert.ToDecimal(txttotal.Text) > 0;
+                             && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..."
+                             ? Convert.ToDecimal(txttotal.Text) > 0 : false;
         }
 
         public int idcaja = 0;
@@ -644,7 +648,6 @@ namespace Capa_de_Presentacion
         {
             ClearProduct();
 
-            txtdireccion.Text = "";
             txtidCli.Text = "0";
             lblsubt.Text = "...";
             txttotal.Text = "...";
@@ -1290,7 +1293,7 @@ namespace Capa_de_Presentacion
             Limpiar();
             Limpiar1();
 
-            if (label21.Text == "Cotizacion")
+            if (!Program.isSaler)
             {
                 Program.isSaler = false;
                 button2.Visible = Program.isSaler;

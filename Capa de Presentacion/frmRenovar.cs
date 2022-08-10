@@ -13,7 +13,6 @@ namespace Capa_de_Presentacion
             InitializeComponent();
         }
         clsManejador Cx = new clsManejador();
-        FrmLogin Login = new FrmLogin();
         private void frmRenovar_Load(object sender, EventArgs e)
         {
             Licencia();
@@ -51,8 +50,6 @@ namespace Capa_de_Presentacion
                         Cx.Conectar();
                         cmdup.ExecuteNonQuery();
                         Cx.Desconectar();
-
-                        Login.Show();
                         this.Hide();
                     }
                 }
