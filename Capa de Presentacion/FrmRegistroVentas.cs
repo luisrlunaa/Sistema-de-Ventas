@@ -277,12 +277,17 @@ namespace Capa_de_Presentacion
             txtIdV.Text = Program.Id > 0 ? Program.Id + "" : txtIdV.Text;
             txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
 
-            cbtipofactura.Text = !string.IsNullOrWhiteSpace(Program.tipo) ? Program.tipo : cbtipofactura.Text;
+            var newSelect = !string.IsNullOrWhiteSpace(cbtipofactura.Text) && (cbtipofactura.Text != Program.tipo) ? cbtipofactura.Text : Program.tipo;
+            cbtipofactura.Text = newSelect;
+            Program.tipo = newSelect;
+
             combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
             txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
 
             Program.Direccion = !string.IsNullOrWhiteSpace(txtdireccion.Text) ? txtdireccion.Text : Program.Direccion;
             txtdireccion.Text = !string.IsNullOrWhiteSpace(Program.Direccion) ? Program.Direccion : txtdireccion.Text;
+            Program.rncClient = !string.IsNullOrWhiteSpace(txtrcnClient.Text) ? txtrcnClient.Text : Program.rncClient;
+            txtrcnClient.Text = string.IsNullOrWhiteSpace(txtrcnClient.Text) ? Program.rncClient : txtrcnClient.Text;
 
             txttotal.Text = Program.total > 0 ? Program.total + "" : string.IsNullOrWhiteSpace(txttotal.Text) || txttotal.Text == "..."  ? 0.ToString() : txttotal.Text;
             lblsubt.Text = Program.ST + "";
@@ -463,12 +468,8 @@ namespace Capa_de_Presentacion
                 }
             }
 
-
-            btnSalir.Enabled = !string.IsNullOrWhiteSpace(Program.Esabono) 
-                             && !string.IsNullOrWhiteSpace(Program.tipo) 
-                             && Program.tipo.ToLower() == "credito" 
-                             && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..."
-                             ? Convert.ToDecimal(txttotal.Text) > 0 : false;
+            btnSalir.Enabled = Program.pagoRealizado == 0 && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0 
+                            || (!string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito" && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0);
         }
 
         public int idcaja = 0;
@@ -619,19 +620,6 @@ namespace Capa_de_Presentacion
             }
 
             ClearProduct();
-
-            Program.Esabono = string.Empty;
-            Program.ReImpresion = string.Empty;
-            Program.Id = 0;
-            Program.IdEmpleado = 0;
-            Program.total = 0;
-            Program.ST = 0;
-            Program.igv = 0;
-            Program.pagoRealizado = 0;
-            Program.PrecioCompra = 0;
-
-            Program.realizopago = false;
-            entro = false;
         }
 
         private void ClearProduct()
@@ -646,8 +634,6 @@ namespace Capa_de_Presentacion
 
         private void Limpiar1()
         {
-            ClearProduct();
-
             txtidCli.Text = "0";
             lblsubt.Text = "...";
             txttotal.Text = "...";
@@ -660,6 +646,7 @@ namespace Capa_de_Presentacion
             txtIdProducto.Clear();
             txtNCF.Clear();
             lst.Clear();
+            txtdireccion.Text = "";
 
             cbidentificacion.Visible = true;
             cbidentificacion.Checked = false;
@@ -675,6 +662,19 @@ namespace Capa_de_Presentacion
             Program.ApellidosCliente = string.Empty;
             Program.NombreCliente = string.Empty;
             Program.fecha = string.Empty;
+
+            Program.Esabono = string.Empty;
+            Program.ReImpresion = string.Empty;
+            Program.Id = 0;
+            Program.IdEmpleado = 0;
+            Program.total = 0;
+            Program.ST = 0;
+            Program.igv = 0;
+            Program.pagoRealizado = 0;
+            Program.PrecioCompra = 0;
+
+            Program.realizopago = false;
+            entro = false;
 
             listProducts = new List<PrecioCompraProducto>();
         }
