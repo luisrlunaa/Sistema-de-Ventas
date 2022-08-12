@@ -662,6 +662,7 @@ namespace Capa_de_Presentacion
             Program.ApellidosCliente = string.Empty;
             Program.NombreCliente = string.Empty;
             Program.fecha = string.Empty;
+            Program.Direccion = string.Empty;
 
             Program.Esabono = string.Empty;
             Program.ReImpresion = string.Empty;
