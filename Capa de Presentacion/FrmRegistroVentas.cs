@@ -278,10 +278,12 @@ namespace Capa_de_Presentacion
             txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
 
             cbtipofactura.Text = !string.IsNullOrWhiteSpace(Program.tipo) ? Program.tipo : cbtipofactura.Text;
+            Program.tipo = !string.IsNullOrWhiteSpace(cbtipofactura.Text) ? cbtipofactura.Text : Program.tipo;
+
             combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
             txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
 
-            txttotal.Text = Program.total > 0 ? Program.total + "" : txttotal.Text;
+            txttotal.Text = Program.total > 0 ? Program.total + "" : string.IsNullOrWhiteSpace(txttotal.Text) || txttotal.Text == "..." ? 0.ToString() : txttotal.Text;
             lblsubt.Text = Program.ST + "";
             lbligv.Text = Program.igv + "";
 
@@ -304,9 +306,8 @@ namespace Capa_de_Presentacion
             if (!string.IsNullOrWhiteSpace(Program.Esabono) && !string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito")
             {
                 activar = true;
-                btnImprimir.Visible = false;
+                btnImprimir.Visible = Program.total == 0;
                 btnSalir.Visible = true;
-
                 lblabono.Visible = true;
                 lbltituloabono.Visible = true;
                 var fecha = Convert.ToDateTime(Program.ultimafechapago);
@@ -461,10 +462,8 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            btnSalir.Enabled = !string.IsNullOrWhiteSpace(Program.Esabono)
-                 && !string.IsNullOrWhiteSpace(Program.tipo)
-                 && Program.tipo.ToLower() == "credito"
-                 && Convert.ToDecimal(txttotal.Text) > 0;
+            btnSalir.Enabled = Program.pagoRealizado == 0 && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0
+                                        || (!string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito" && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0);
         }
 
         public int idcaja = 0;
@@ -1290,7 +1289,7 @@ namespace Capa_de_Presentacion
             Limpiar();
             Limpiar1();
 
-            if(frmLabel.Text == "Cotizacion")
+            if (!Program.isSaler)
             {
                 Program.isSaler = false;
                 button2.Visible = Program.isSaler;
@@ -1716,6 +1715,13 @@ namespace Capa_de_Presentacion
         {
             Program.isSaler = true;
             RegistrarVenta();
+        }
+
+        private void cbtipofactura_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var newSelect = !string.IsNullOrWhiteSpace(cbtipofactura.Text) && (cbtipofactura.Text != Program.tipo) ? cbtipofactura.Text : Program.tipo;
+            cbtipofactura.Text = newSelect;
+            Program.tipo = newSelect;
         }
     }
 }
