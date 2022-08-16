@@ -110,10 +110,12 @@ namespace Capa_de_Presentacion
                                         insertCaja();
                                     }
                                 }
-
-                                FrmMenuPrincipal MP = new FrmMenuPrincipal();
-                                MP.Show();
-                                this.Hide();
+                                else if (tienefila && panelmontoinicial.Visible)
+                                {
+                                    FrmMenuPrincipal MP = new FrmMenuPrincipal();
+                                    MP.Show();
+                                    this.Hide();
+                                }
                             }
                         }
                     }
@@ -219,14 +221,18 @@ namespace Capa_de_Presentacion
             }
 
             Program.idcaja = Program.idcaja + 1;
+
+            FrmMenuPrincipal MP = new FrmMenuPrincipal();
+            MP.Show();
+            this.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Cx.Desconectar();
-            insertCaja();
             RecuperarDatosSesion();
             panelmontoinicial.Show();
+            insertCaja();
         }
 
         private void label5_Click_1(object sender, EventArgs e)
