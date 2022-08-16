@@ -1049,6 +1049,7 @@
             this.cbtipofactura.Name = "cbtipofactura";
             this.cbtipofactura.Size = new System.Drawing.Size(134, 21);
             this.cbtipofactura.TabIndex = 88;
+            this.cbtipofactura.SelectedIndexChanged += new System.EventHandler(this.cbtipofactura_SelectedIndexChanged);
             // 
             // label11
             // 

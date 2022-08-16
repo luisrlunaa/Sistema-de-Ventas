@@ -259,14 +259,15 @@ namespace Capa_de_Presentacion
             {
                 decimal montogasto = 0;
                 decimal montoactual = leer["montoactual"] != null ? Math.Round(Convert.ToDecimal(leer["montoactual"].ToString())) : 0;
-                lblmontoinicial.Text = leer["monto_inicial"] != null ? Math.Round(Convert.ToDecimal(leer["monto_inicial"].ToString())).ToString() : "0";
+                decimal montoinicial = leer["monto_inicial"] != null ? Math.Round(Convert.ToDecimal(leer["monto_inicial"].ToString())) : 0;
+                lblmontoinicial.Text = montoinicial.ToString();
 
                 if (lblmontogasto.Text != "...")
                 {
                     montogasto = Math.Round(Convert.ToDecimal(lblmontogasto.Text));
                 }
 
-                lblmontocaja.Text = Math.Round(montoactual - montogasto).ToString();
+                lblmontocaja.Text = Math.Round((montoactual - montogasto) + montoinicial).ToString();
             }
 
             M.Desconectar();
@@ -460,6 +461,7 @@ namespace Capa_de_Presentacion
 
         private void btnsuma_Click(object sender, EventArgs e)
         {
+            decimal inicial = 0;
             decimal ingresos = 0;
             decimal gastos = 0;
 
@@ -473,7 +475,12 @@ namespace Capa_de_Presentacion
                 ingresos = Math.Round(Convert.ToDecimal(lblmontoingreso.Text));
             }
 
-            decimal cuadre = ingresos - gastos;
+            if (lblmontoinicial.Text != "...")
+            {
+                inicial = Math.Round(Convert.ToDecimal(lblmontoinicial.Text));
+            }
+
+            decimal cuadre = (ingresos + inicial) - gastos;
 
             if (string.IsNullOrWhiteSpace(lbldeudas.Text))
             {
@@ -527,8 +534,7 @@ namespace Capa_de_Presentacion
 
             decimal total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
                                        (50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) +
-                                       (500 * decimal.Parse(txtde500.Text)) + (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)) +
-                                       decimal.Parse(lblmontoinicial.Text));
+                                       (500 * decimal.Parse(txtde500.Text)) + (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)));
 
             if (cuadre < total)
             {

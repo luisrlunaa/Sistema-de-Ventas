@@ -276,10 +276,12 @@ namespace Capa_de_Presentacion
             txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
 
             cbtipofactura.Text = !string.IsNullOrWhiteSpace(Program.tipo) ? Program.tipo : cbtipofactura.Text;
+            Program.tipo = !string.IsNullOrWhiteSpace(cbtipofactura.Text) ? cbtipofactura.Text : Program.tipo;
+
             combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
             txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
 
-            txttotal.Text = Program.total > 0 ? Program.total + "" : txttotal.Text;
+            txttotal.Text = Program.total > 0 ? Program.total + "" : string.IsNullOrWhiteSpace(txttotal.Text) || txttotal.Text == "..." ? 0.ToString() : txttotal.Text;
             lblsubt.Text = Program.ST + "";
             lbligv.Text = Program.igv + "";
 
@@ -302,9 +304,8 @@ namespace Capa_de_Presentacion
             if (!string.IsNullOrWhiteSpace(Program.Esabono) && !string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito")
             {
                 activar = true;
-                btnImprimir.Visible = false;
+                btnImprimir.Visible = Program.total == 0;
                 btnSalir.Visible = true;
-
                 lblabono.Visible = true;
                 lbltituloabono.Visible = true;
                 var fecha = Convert.ToDateTime(Program.ultimafechapago);
@@ -334,7 +335,6 @@ namespace Capa_de_Presentacion
                     lbligv.Text = Program.igv + "";
                     txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
                     dateTimePicker1.Text = !string.IsNullOrWhiteSpace(Program.fecha) ? Program.fecha : dateTimePicker1.Text;
-                    btnSalir.Enabled = Program.total > 0;
 
                     decimal subtotal = 0;
                     decimal igv = 0;
@@ -399,7 +399,6 @@ namespace Capa_de_Presentacion
                     lbligv.Text = Program.igv + "";
                     txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
                     dateTimePicker1.Text = !string.IsNullOrWhiteSpace(Program.fecha) ? Program.fecha : dateTimePicker1.Text;
-                    btnSalir.Enabled = Program.total > 0;
 
                     decimal subtotal = 0;
                     decimal igv = 0;
@@ -454,6 +453,9 @@ namespace Capa_de_Presentacion
                     M.Desconectar();
                 }
             }
+
+            btnSalir.Enabled = Program.pagoRealizado == 0 && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0
+                           || (!string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito" && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0);
         }
 
 
@@ -1334,25 +1336,26 @@ namespace Capa_de_Presentacion
             Limpiar();
             Limpiar1();
 
-            if (label22.Text == "Cotizacion")
+            if (!Program.isSaler)
             {
                 Program.isSaler = false;
+                button2.Visible = Program.isSaler;
                 btnImprimir.Visible = !Program.isSaler;
                 btnImprimir.Location = new System.Drawing.Point(33, 768);
                 btnRegistrarVenta.Visible = !Program.isSaler;
                 btnRegistrarVenta.Text = "Cotizar";
                 btnSalir.Visible = false;
                 txtIgv.Enabled = Program.isAdminUser;
-                label22.Text = "Cotizacion";
-                BackColor = System.Drawing.Color.MediumAquamarine;
+                label21.Text = "Cotizacion";
+                BackColor = System.Drawing.Color.SlateGray;
             }
             else
             {
                 Program.isSaler = true;
                 txtIgv.Enabled = Program.isAdminUser;
-                btnRegistrarVenta.Visible = Program.isSaler;
                 btnSalir.Visible = Program.isSaler;
-                label22.Text = "Ventas";
+                label21.Text = "Ventas";
+                btnRegistrarVenta.Text = "Imprimir Factura";
             }
         }
 
@@ -1690,6 +1693,13 @@ namespace Capa_de_Presentacion
         {
             Program.isSaler = true;
             RegistrarVenta();
+        }
+
+        private void cbtipofactura_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var newSelect = !string.IsNullOrWhiteSpace(cbtipofactura.Text) && (cbtipofactura.Text != Program.tipo) ? cbtipofactura.Text : Program.tipo;
+            cbtipofactura.Text = newSelect;
+            Program.tipo = newSelect;
         }
     }
 }
