@@ -277,9 +277,8 @@ namespace Capa_de_Presentacion
             txtIdV.Text = Program.Id > 0 ? Program.Id + "" : txtIdV.Text;
             txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
 
-            var newSelect = !string.IsNullOrWhiteSpace(cbtipofactura.Text) && (cbtipofactura.Text != Program.tipo) ? cbtipofactura.Text : Program.tipo;
-            cbtipofactura.Text = newSelect;
-            Program.tipo = newSelect;
+            cbtipofactura.Text = !string.IsNullOrWhiteSpace(Program.tipo) ? Program.tipo : cbtipofactura.Text;
+            Program.tipo = !string.IsNullOrWhiteSpace(cbtipofactura.Text) ? cbtipofactura.Text : Program.tipo;
 
             combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
             txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
@@ -647,6 +646,7 @@ namespace Capa_de_Presentacion
             txtNCF.Clear();
             lst.Clear();
             txtdireccion.Text = "";
+            txtrcnClient.Text = "";
 
             cbidentificacion.Visible = true;
             cbidentificacion.Checked = false;
@@ -663,6 +663,7 @@ namespace Capa_de_Presentacion
             Program.NombreCliente = string.Empty;
             Program.fecha = string.Empty;
             Program.Direccion = string.Empty;
+            Program.rncClient = string.Empty;
 
             Program.Esabono = string.Empty;
             Program.ReImpresion = string.Empty;
@@ -1720,6 +1721,13 @@ namespace Capa_de_Presentacion
         {
             Program.isSaler = true;
             RegistrarVenta();
+        }
+
+        private void cbtipofactura_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var newSelect = !string.IsNullOrWhiteSpace(cbtipofactura.Text) && (cbtipofactura.Text != Program.tipo) ? cbtipofactura.Text : Program.tipo;
+            cbtipofactura.Text = newSelect;
+            Program.tipo = newSelect;
         }
     }
 }
