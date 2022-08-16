@@ -614,19 +614,6 @@ namespace Capa_de_Presentacion
             }
 
             ClearProduct();
-
-            Program.Esabono = string.Empty;
-            Program.ReImpresion = string.Empty;
-            Program.Id = 0;
-            Program.IdEmpleado = 0;
-            Program.total = 0;
-            Program.ST = 0;
-            Program.igv = 0;
-            Program.pagoRealizado = 0;
-            Program.PrecioCompra = 0;
-
-            Program.realizopago = false;
-            entro = false;
         }
 
         private void ClearProduct()
@@ -641,9 +628,6 @@ namespace Capa_de_Presentacion
 
         private void Limpiar1()
         {
-            ClearProduct();
-
-            txtdireccion.Text = "";
             txtidCli.Text = "0";
             lblsubt.Text = "...";
             txttotal.Text = "...";
@@ -656,6 +640,8 @@ namespace Capa_de_Presentacion
             txtIdProducto.Clear();
             txtNCF.Clear();
             lst.Clear();
+            txtdireccion.Text = "";
+            txtrcnClient.Text = "";
 
             cbidentificacion.Visible = true;
             cbidentificacion.Checked = false;
@@ -671,6 +657,21 @@ namespace Capa_de_Presentacion
             Program.ApellidosCliente = string.Empty;
             Program.NombreCliente = string.Empty;
             Program.fecha = string.Empty;
+            Program.Direccion = string.Empty;
+            Program.rncClient = string.Empty;
+
+            Program.Esabono = string.Empty;
+            Program.ReImpresion = string.Empty;
+            Program.Id = 0;
+            Program.IdEmpleado = 0;
+            Program.total = 0;
+            Program.ST = 0;
+            Program.igv = 0;
+            Program.pagoRealizado = 0;
+            Program.PrecioCompra = 0;
+
+            Program.realizopago = false;
+            entro = false;
 
             listProducts = new List<PrecioCompraProducto>();
         }
