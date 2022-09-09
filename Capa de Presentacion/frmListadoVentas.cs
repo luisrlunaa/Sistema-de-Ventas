@@ -527,14 +527,14 @@ namespace Capa_de_Presentacion
             if (!isDiferentWeek)
             {
                 listFind = clsGenericList.tempSalesData.Where(x => isSameDate
-                                                              ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
+                                                              ? x.FechaVenta.Date == date1
                                                               : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
                     .OrderBy(x => x.IdVenta).ToList();
             }
             else
             {
                 var isOnTempData = clsGenericList.tempSalesData.Count > 0 ? clsGenericList.tempSalesData.Where(x => isSameDate
-                                                              ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
+                                                              ? x.FechaVenta.Date == date1
                                                               : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
                                                               .ToList().Count > 0
                                                           : false;
@@ -548,7 +548,7 @@ namespace Capa_de_Presentacion
                 else
                 {
                     listFind = clsGenericList.tempSalesData.Where(x => isSameDate
-                                                              ? x.FechaVenta.Date == date1 && x.FechaVenta.Date < date2
+                                                              ? x.FechaVenta.Date == date1
                                                               : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
                                                               .ToList();
                 }
