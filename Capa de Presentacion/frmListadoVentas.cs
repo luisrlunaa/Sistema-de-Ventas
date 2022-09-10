@@ -894,12 +894,15 @@ namespace Capa_de_Presentacion
 
                         cmd3.ExecuteNonQuery();
 
-                        var deleteProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
-                        var updateProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
-                        updateProduct.m_Stock = updateProduct.m_Stock + (int)cantidadDV;
+                        if(clsGenericList.listProducto != null)
+                        {
+                            var deleteProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
+                            var updateProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
+                            updateProduct.m_Stock = updateProduct.m_Stock + (int)cantidadDV;
 
-                        clsGenericList.listProducto.Remove(deleteProduct);
-                        clsGenericList.listProducto.Add(updateProduct);
+                            clsGenericList.listProducto.Remove(deleteProduct);
+                            clsGenericList.listProducto.Add(updateProduct);
+                        }
 
                         if (i == dt.Rows.Count)
                         {
@@ -925,12 +928,15 @@ namespace Capa_de_Presentacion
 
                                     cmd4.ExecuteNonQuery();
 
-                                    var deleteProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
-                                    var updateProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
-                                    updateProduct1.m_Stock = updateProduct1.m_Stock + (int)cantidadDV1;
+                                    if (clsGenericList.listProducto != null)
+                                    {
+                                        var deleteProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
+                                        var updateProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
+                                        updateProduct1.m_Stock = updateProduct1.m_Stock + (int)cantidadDV1;
 
-                                    clsGenericList.listProducto.Remove(deleteProduct1);
-                                    clsGenericList.listProducto.Add(updateProduct1);
+                                        clsGenericList.listProducto.Remove(deleteProduct1);
+                                        clsGenericList.listProducto.Add(updateProduct1);
+                                    }
                                 }
                             }
 

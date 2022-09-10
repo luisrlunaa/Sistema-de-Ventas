@@ -125,7 +125,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("");
             ticket.TextoIzquierda("");
             ticket.CortaTicket();//CORTAR TICKET
-            ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
+            ticket.ImprimirTicket("POS-80 (copy 1)");//NOMBRE DE LA IMPRESORA
         }
 
         private void button1_Click(object sender, EventArgs e)
