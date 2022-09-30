@@ -495,10 +495,24 @@ namespace Capa_de_Presentacion
             {
                 FrmListadoProductos P = new FrmListadoProductos();
                 btnAgregar.Visible = true;
-                Program.datoscliente = txtDatos.Text;
+                txtDatos.Text = string.IsNullOrWhiteSpace(Program.datoscliente) 
+                              ? txtDatos.Text
+                              : string.IsNullOrWhiteSpace(txtDatos.Text)
+                              ? Program.datoscliente 
+                              : string.Empty;
+                Program.datoscliente = string.IsNullOrWhiteSpace(txtDatos.Text)
+                                     ? Program.datoscliente
+                                     : string.IsNullOrWhiteSpace(Program.datoscliente)
+                                     ? txtDatos.Text
+                                     : string.Empty;
                 Program.abiertosecundarias = true;
                 P.Show();
             }
+        }
+
+        private decimal WithTwoDecimalPoints(decimal val)
+        {
+            return decimal.Parse(val.ToString("0.00"));
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -514,19 +528,20 @@ namespace Capa_de_Presentacion
                     {
                         if (Convert.ToDecimal(txtCantidad.Text) <= Convert.ToDecimal(txtStock.Text))
                         {
+                            var Cant = WithTwoDecimalPoints(decimal.Parse(txtCantidad.Text));
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
                             V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
                             V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).Trim();
-                            V.Cantidad = Convert.ToDecimal(txtCantidad.Text);
+                            V.Cantidad = Cant;
 
-                            if (Convert.ToDecimal(txtIgv.Text) > 0)
+                            if (!string.IsNullOrWhiteSpace(txtIgv.Text))
                             {
-                                V.Igv = Convert.ToDecimal(txtIgv.Text);
+                                V.Igv = WithTwoDecimalPoints(Convert.ToDecimal(txtIgv.Text));
                             }
                             V.PrecioCompra = Program.PrecioCompra;
-                            V.PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
+                            V.PrecioVenta = WithTwoDecimalPoints(Convert.ToDecimal(txtPVenta.Text));
 
-                            V.SubTotal = Math.Round((Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text)) * Convert.ToDecimal(txtCantidad.Text), 2);
+                            V.SubTotal = WithTwoDecimalPoints((Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text)) * Convert.ToDecimal(txtCantidad.Text));
                             btnAgregar.Visible = false;
                             lst.Add(V);
 
@@ -1155,8 +1170,12 @@ namespace Capa_de_Presentacion
             //SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
             foreach (DataGridViewRow fila in dgvVenta.Rows)
             {
+                string cantxprecio = fila.Cells["cantidadP"].Value != DBNull.Value && fila.Cells["PrecioU"].Value != DBNull.Value 
+                                   ? fila.Cells["cantidadP"].Value.ToString().Trim() + "x" + fila.Cells["PrecioU"].Value.ToString().Trim() 
+                                   : string.Empty;
+
                 ticket.AgregaArticulo(fila.Cells["DescripcionP"].Value.ToString().Trim(),
-                                      decimal.Parse(fila.Cells["cantidadP"].Value.ToString().Trim()) + "x" + fila.Cells["PrecioU"].Value.ToString().Trim(),
+                                      cantxprecio,
                                       decimal.Parse(fila.Cells["SubtoTal"].Value.ToString().Trim()),
                                       decimal.Parse(fila.Cells["IGV"].Value.ToString().Trim()));
             }

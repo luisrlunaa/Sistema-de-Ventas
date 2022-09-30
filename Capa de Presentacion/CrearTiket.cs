@@ -234,7 +234,6 @@ namespace Capa_de_Presentacion
                 if (articulo.Length > 24)
                 {
                     //colocar la cantidad a la derecha
-
                     espacios = "";
                     for (int i = 0; i < 2; i++)
                     {
@@ -244,18 +243,15 @@ namespace Capa_de_Presentacion
                     elemento += espacios + cantxprecio.ToString();
 
                     //colocar el precio a la derecha.
-
                     espacios = "";
                     for (int i = 0; i < 3; i++)
                     {
                         espacios += " ";
                     }
 
-
                     elemento += espacios + Subtotal.ToString();
 
                     //colocar el importe a la derecha
-
                     espacios = "";
                     for (int i = 0; i < 3; i++)
                     {
@@ -273,8 +269,8 @@ namespace Capa_de_Presentacion
                             bandera = true;
                         }
                         else//-----------------------
-
                             linea.AppendLine(articulo.Substring(caracterActual, 24));
+
                         caracterActual += 20;
                     }
 
