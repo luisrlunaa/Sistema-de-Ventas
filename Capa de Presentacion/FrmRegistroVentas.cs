@@ -455,7 +455,7 @@ namespace Capa_de_Presentacion
             }
 
             btnSalir.Enabled = Program.pagoRealizado == 0 && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0
-                           || (!string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito" && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0);
+                            || (!string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito" && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0);
         }
 
 
@@ -483,7 +483,16 @@ namespace Capa_de_Presentacion
             {
                 FrmListadoProductos P = new FrmListadoProductos();
                 btnAgregar.Visible = true;
-                Program.datoscliente = txtDatos.Text;
+                txtDatos.Text = string.IsNullOrWhiteSpace(Program.datoscliente)
+                              ? txtDatos.Text
+                              : string.IsNullOrWhiteSpace(txtDatos.Text)
+                              ? Program.datoscliente
+                              : string.Empty;
+                Program.datoscliente = string.IsNullOrWhiteSpace(txtDatos.Text)
+                                     ? Program.datoscliente
+                                     : string.IsNullOrWhiteSpace(Program.datoscliente)
+                                     ? txtDatos.Text
+                                     : string.Empty;
                 Program.abiertosecundarias = true;
                 P.Show();
             }
@@ -517,7 +526,7 @@ namespace Capa_de_Presentacion
             {
                 if (txtCantidad.Text.Trim() != "")
                 {
-                    if (Convert.ToInt32(txtCantidad.Text) >= 0)
+                    if (Convert.ToInt32(txtCantidad.Text) > 0)
                     {
                         if (Convert.ToInt32(txtCantidad.Text) <= Convert.ToInt32(txtStock.Text))
                         {
@@ -575,7 +584,7 @@ namespace Capa_de_Presentacion
 
         private void LlenarGri()
         {
-            Decimal SumaSubTotal = 0; Decimal SumaIgv = 0; Decimal SumaTotal = 0;
+            decimal SumaSubTotal = 0; decimal SumaIgv = 0; decimal SumaTotal = 0;
             dgvVenta.Rows.Clear();
             for (int i = 0; i < lst.Count; i++)
             {
@@ -684,7 +693,6 @@ namespace Capa_de_Presentacion
 
             listProducts = new List<PrecioCompraProducto>();
         }
-
         private void btnSalir_Click(object sender, EventArgs e)
         {
             frmPagar pa = new frmPagar();
@@ -946,13 +954,15 @@ namespace Capa_de_Presentacion
                     if (clsGenericList.listProducto != null)
                     {
                         var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Convert.ToInt32(row.Cells["IDP"].Value));
-                        producto.m_Stock = producto.m_Stock - Convert.ToInt32(row.Cells["cantidadP"].Value);
+                        if (producto.m_Stock > 0)
+                        {
+                            producto.m_Stock = producto.m_Stock - Convert.ToInt32(row.Cells["cantidadP"].Value);
+                            Producto updateproducto = new Producto();
+                            updateproducto = producto;
 
-                        Producto updateproducto = new Producto();
-                        updateproducto = producto;
-
-                        clsGenericList.listProducto.Remove(producto);
-                        clsGenericList.listProducto.Add(updateproducto);
+                            clsGenericList.listProducto.Remove(producto);
+                            clsGenericList.listProducto.Add(updateproducto);
+                        }
                     }
                 }
             }
