@@ -483,7 +483,16 @@ namespace Capa_de_Presentacion
             {
                 FrmListadoProductos P = new FrmListadoProductos();
                 btnAgregar.Visible = true;
-                Program.datoscliente = txtDatos.Text;
+                txtDatos.Text = string.IsNullOrWhiteSpace(Program.datoscliente)
+                              ? txtDatos.Text
+                              : string.IsNullOrWhiteSpace(txtDatos.Text)
+                              ? Program.datoscliente
+                              : string.Empty;
+                Program.datoscliente = string.IsNullOrWhiteSpace(txtDatos.Text)
+                                     ? Program.datoscliente
+                                     : string.IsNullOrWhiteSpace(Program.datoscliente)
+                                     ? txtDatos.Text
+                                     : string.Empty;
                 Program.abiertosecundarias = true;
                 P.Show();
             }
