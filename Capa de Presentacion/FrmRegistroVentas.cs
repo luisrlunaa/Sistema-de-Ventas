@@ -19,7 +19,7 @@ namespace Capa_de_Presentacion
         public class PrecioCompraProducto
         {
             public int ID;
-            public decimal Precio; 
+            public decimal Precio;
         }
 
         private List<clsVentas> lst = new List<clsVentas>();
@@ -526,7 +526,7 @@ namespace Capa_de_Presentacion
             {
                 if (txtCantidad.Text.Trim() != "")
                 {
-                    if (Convert.ToInt32(txtCantidad.Text) >= 0)
+                    if (Convert.ToInt32(txtCantidad.Text) > 0)
                     {
                         if (Convert.ToInt32(txtCantidad.Text) <= Convert.ToInt32(txtStock.Text))
                         {
@@ -895,45 +895,45 @@ namespace Capa_de_Presentacion
             }
 
             using (SqlCommand cmd1 = new SqlCommand("RegistrarDetalleVenta", M.conexion))
-                foreach (DataGridViewRow row in dgvVenta.Rows)
+            foreach (DataGridViewRow row in dgvVenta.Rows)
+            {
+                M.Desconectar();
+                cmd1.CommandType = CommandType.StoredProcedure;
+
+                decimal Ganancia = 0;
+                int idProducto = Convert.ToInt32(row.Cells["IDP"].Value);
+                int idventa = 0;
+
+                if (!Program.isSaler)
                 {
-                    M.Desconectar();
-                    cmd1.CommandType = CommandType.StoredProcedure;
-
-                    decimal Ganancia = 0;
-                    int idProducto = Convert.ToInt32(row.Cells["IDP"].Value);
-                    int idventa = 0;
-
-                    if (!Program.isSaler)
-                    {
-                        Ganancia = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                        idventa = Convert.ToInt32(txtIdVenta.Text);
-                    }
-                    else
-                    {
-                        decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                        decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
-                        int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
-
-                        Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
-                        idventa = Convert.ToInt32(row.Cells["IdD"].Value);
-                    }
-
-                    //Tabla detalles ventas
-                    cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
-                    cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
-                    cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
-                    cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
-                    cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
-                    cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
-                    cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
-                    cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
-
-                    M.Conectar();
-                    cmd1.ExecuteNonQuery();
-                    cmd1.Parameters.Clear();
-                    M.Desconectar();
+                    Ganancia = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
+                    idventa = Convert.ToInt32(txtIdVenta.Text);
                 }
+                else
+                {
+                    decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
+                    decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
+                    int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
+
+                    Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
+                    idventa = Convert.ToInt32(row.Cells["IdD"].Value);
+                }
+
+                //Tabla detalles ventas
+                cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
+                cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
+                cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
+                cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
+                cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
+                cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
+                cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
+                cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
+
+                M.Conectar();
+                cmd1.ExecuteNonQuery();
+                cmd1.Parameters.Clear();
+                M.Desconectar();
+            }
 
             foreach (DataGridViewRow row in dgvVenta.Rows)
             {
@@ -954,13 +954,15 @@ namespace Capa_de_Presentacion
                     if (clsGenericList.listProducto != null)
                     {
                         var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Convert.ToInt32(row.Cells["IDP"].Value));
-                        producto.m_Stock = producto.m_Stock - Convert.ToInt32(row.Cells["cantidadP"].Value);
+                        if (producto.m_Stock > 0)
+                        {
+                            producto.m_Stock = producto.m_Stock - Convert.ToInt32(row.Cells["cantidadP"].Value);
+                            Producto updateproducto = new Producto();
+                            updateproducto = producto;
 
-                        Producto updateproducto = new Producto();
-                        updateproducto = producto;
-
-                        clsGenericList.listProducto.Remove(producto);
-                        clsGenericList.listProducto.Add(updateproducto);
+                            clsGenericList.listProducto.Remove(producto);
+                            clsGenericList.listProducto.Add(updateproducto);
+                        }
                     }
                 }
             }
