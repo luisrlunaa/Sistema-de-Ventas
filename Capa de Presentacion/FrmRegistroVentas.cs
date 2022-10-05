@@ -526,7 +526,7 @@ namespace Capa_de_Presentacion
                 {
                     if (Convert.ToDecimal(txtCantidad.Text) > 0)
                     {
-                        if (Convert.ToDecimal(txtCantidad.Text) < Convert.ToDecimal(txtStock.Text))
+                        if (Convert.ToDecimal(txtStock.Text) >= Convert.ToDecimal(txtCantidad.Text))
                         {
                             var Cant = WithTwoDecimalPoints(decimal.Parse(txtCantidad.Text));
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
