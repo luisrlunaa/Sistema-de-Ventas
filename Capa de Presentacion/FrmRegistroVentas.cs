@@ -524,9 +524,9 @@ namespace Capa_de_Presentacion
             {
                 if (txtCantidad.Text.Trim() != "")
                 {
-                    if (Convert.ToDecimal(txtCantidad.Text) >= 0)
+                    if (Convert.ToDecimal(txtCantidad.Text) > 0)
                     {
-                        if (Convert.ToDecimal(txtCantidad.Text) <= Convert.ToDecimal(txtStock.Text))
+                        if (Convert.ToDecimal(txtCantidad.Text) < Convert.ToDecimal(txtStock.Text))
                         {
                             var Cant = WithTwoDecimalPoints(decimal.Parse(txtCantidad.Text));
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
@@ -959,13 +959,16 @@ namespace Capa_de_Presentacion
                     if (clsGenericList.listProducto != null)
                     {
                         var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Convert.ToInt32(row.Cells["IDP"].Value));
-                        producto.m_Stock = producto.m_Stock - Convert.ToDecimal(row.Cells["cantidadP"].Value);
+                        if(producto.m_Stock > 0)
+                        {
+                            producto.m_Stock = producto.m_Stock - Convert.ToDecimal(row.Cells["cantidadP"].Value);
 
-                        Producto updateproducto = new Producto();
-                        updateproducto = producto;
+                            Producto updateproducto = new Producto();
+                            updateproducto = producto;
 
-                        clsGenericList.listProducto.Remove(producto);
-                        clsGenericList.listProducto.Add(updateproducto);
+                            clsGenericList.listProducto.Remove(producto);
+                            clsGenericList.listProducto.Add(updateproducto);
+                        }
                     }
                 }
             }
