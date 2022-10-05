@@ -283,6 +283,11 @@ namespace Capa_de_Presentacion
             combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
             txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
 
+            Program.Direccion = !string.IsNullOrWhiteSpace(txtdireccion.Text) ? txtdireccion.Text : Program.Direccion;
+            txtdireccion.Text = !string.IsNullOrWhiteSpace(Program.Direccion) ? Program.Direccion : txtdireccion.Text;
+            Program.rncClient = !string.IsNullOrWhiteSpace(txtrcnClient.Text) ? txtrcnClient.Text : Program.rncClient;
+            txtrcnClient.Text = string.IsNullOrWhiteSpace(txtrcnClient.Text) ? Program.rncClient : txtrcnClient.Text;
+
             txttotal.Text = Program.total > 0 ? Program.total + "" : string.IsNullOrWhiteSpace(txttotal.Text) || txttotal.Text == "..." ? 0.ToString() : txttotal.Text;
             lblsubt.Text = Program.ST + "";
             lbligv.Text = Program.igv + "";
@@ -326,7 +331,7 @@ namespace Capa_de_Presentacion
             if (!string.IsNullOrWhiteSpace(Program.rncClient) && Program.rncClient != "sin rcn del Cliente")
             {
                 chkComprobante.Checked = true;
-                txtrcnClient.Text = string.IsNullOrWhiteSpace(txtrcnClient.Text) ?  Program.rncClient : txtrcnClient.Text;
+                txtrcnClient.Text = string.IsNullOrWhiteSpace(txtrcnClient.Text) ? Program.rncClient : txtrcnClient.Text;
             }
 
             if (Program.isSaler)
@@ -338,7 +343,7 @@ namespace Capa_de_Presentacion
                     cbtipofactura.Text = !string.IsNullOrWhiteSpace(Program.tipo) ? Program.tipo : cbtipofactura.Text;
                     combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
                     txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
-                    txttotal.Text = Program.total > 0 ? Program.total + "" : txttotal.Text;
+                    txttotal.Text = Program.total > 0 ? Program.total + "" : string.IsNullOrWhiteSpace(txttotal.Text) || txttotal.Text == "..." ? 0.ToString() : txttotal.Text;
                     lblsubt.Text = Program.ST + "";
                     lbligv.Text = Program.igv + "";
                     txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
@@ -402,7 +407,7 @@ namespace Capa_de_Presentacion
                     cbtipofactura.Text = !string.IsNullOrWhiteSpace(Program.tipo) ? Program.tipo : cbtipofactura.Text;
                     combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
                     txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
-                    txttotal.Text = Program.total > 0 ? Program.total + "" : txttotal.Text;
+                    txttotal.Text = Program.total > 0 ? Program.total + "" : string.IsNullOrWhiteSpace(txttotal.Text) || txttotal.Text == "..." ? 0.ToString() : txttotal.Text;
                     lblsubt.Text = Program.ST + "";
                     lbligv.Text = Program.igv + "";
                     txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
@@ -463,7 +468,7 @@ namespace Capa_de_Presentacion
             }
 
             btnSalir.Enabled = Program.pagoRealizado == 0 && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0
-                                        || (!string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito" && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0);
+                            || (!string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito" && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0);
         }
 
         public int idcaja = 0;
@@ -519,14 +524,15 @@ namespace Capa_de_Presentacion
             {
                 if (txtCantidad.Text.Trim() != "")
                 {
-                    if (Convert.ToDecimal(txtCantidad.Text) >= 0)
+                    if (Convert.ToDecimal(txtCantidad.Text) > 0)
                     {
-                        if (Convert.ToDecimal(txtCantidad.Text) <= Convert.ToDecimal(txtStock.Text))
+                        if (Convert.ToDecimal(txtCantidad.Text) < Convert.ToDecimal(txtStock.Text))
                         {
+                            var Cant = WithTwoDecimalPoints(decimal.Parse(txtCantidad.Text));
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
                             V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
                             V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).Trim();
-                            V.Cantidad = WithTwoDecimalPoints(Convert.ToDecimal(txtCantidad.Text));
+                            V.Cantidad = Cant;
 
                             if (!string.IsNullOrWhiteSpace(txtIgv.Text))
                             {
@@ -953,13 +959,16 @@ namespace Capa_de_Presentacion
                     if (clsGenericList.listProducto != null)
                     {
                         var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Convert.ToInt32(row.Cells["IDP"].Value));
-                        producto.m_Stock = producto.m_Stock - Convert.ToDecimal(row.Cells["cantidadP"].Value);
+                        if (producto.m_Stock > 0)
+                        {
+                            producto.m_Stock = producto.m_Stock - Convert.ToDecimal(row.Cells["cantidadP"].Value);
 
-                        Producto updateproducto = new Producto();
-                        updateproducto = producto;
+                            Producto updateproducto = new Producto();
+                            updateproducto = producto;
 
-                        clsGenericList.listProducto.Remove(producto);
-                        clsGenericList.listProducto.Add(updateproducto);
+                            clsGenericList.listProducto.Remove(producto);
+                            clsGenericList.listProducto.Add(updateproducto);
+                        }
                     }
                 }
             }
@@ -1116,7 +1125,7 @@ namespace Capa_de_Presentacion
                 ticket.TextoDerecha(Program.ReImpresion);
             }
 
-            //System.Drawing.Image img = System.Drawing.Image.FromFile("Logo-01.png");
+            //System.Drawing.Image img = System.Drawing.Image.FromFile("ferreteria.png");
             //ticket.HeaderImage = img;
             ticket.TextoCentro(lblLogo.Text.ToUpper());
             ticket.TextoIzquierda("");
@@ -1204,7 +1213,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("");
             ticket.TextoIzquierda("");
             ticket.CortaTicket();//CORTAR TICKET
-            ticket.ImprimirTicket(Program.ImpresonaPeq);//NOMBRE DE LA IMPRESORA
+            ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
         }
 
         private void txtPVenta_KeyPress(object sender, KeyPressEventArgs e)
@@ -1318,7 +1327,7 @@ namespace Capa_de_Presentacion
                 btnRegistrarVenta.Text = "Cotizar";
                 btnSalir.Visible = false;
                 txtIgv.Enabled = Program.isAdminUser;
-                frmLabel.Text = "Cotizacion";
+                label21.Text = "Cotizacion";
                 BackColor = System.Drawing.Color.SlateGray;
             }
             else
@@ -1326,7 +1335,7 @@ namespace Capa_de_Presentacion
                 Program.isSaler = true;
                 txtIgv.Enabled = Program.isAdminUser;
                 btnSalir.Visible = Program.isSaler;
-                frmLabel.Text = "Ventas";
+                label21.Text = "Ventas";
                 btnRegistrarVenta.Text = "Imprimir Factura";
             }
         }
@@ -1374,7 +1383,7 @@ namespace Capa_de_Presentacion
             string cedula = "";
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            Image image1 = Image.GetInstance("Logo-01.png");
+            Image image1 = Image.GetInstance("ferreteria.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
@@ -1443,7 +1452,7 @@ namespace Capa_de_Presentacion
                         doc.Add(fechaabono);
                     }
                     doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                    if(Program.isSaler)
+                    if (Program.isSaler)
                     {
                         doc.Add(new Paragraph("Tipo de Factura: " + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                         doc.Add(new Paragraph("Tipo de Comprobante: " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
