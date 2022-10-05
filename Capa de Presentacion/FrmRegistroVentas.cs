@@ -513,9 +513,9 @@ namespace Capa_de_Presentacion
             {
                 if (txtCantidad.Text.Trim() != "")
                 {
-                    if (Convert.ToInt32(txtCantidad.Text) >= 0)
+                    if (Convert.ToInt32(txtCantidad.Text) > 0)
                     {
-                        if (Convert.ToInt32(txtCantidad.Text) <= Convert.ToInt32(txtStock.Text))
+                        if (Convert.ToInt32(txtCantidad.Text) < Convert.ToInt32(txtStock.Text))
                         {
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
                             V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
@@ -971,13 +971,16 @@ namespace Capa_de_Presentacion
                     if (clsGenericList.listProducto != null)
                     {
                         var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Convert.ToInt32(row.Cells["IDP"].Value));
-                        producto.m_Stock = producto.m_Stock - Convert.ToInt32(row.Cells["cantidadP"].Value);
+                        if(producto.m_Stock > 0)
+                        {
+                            producto.m_Stock = producto.m_Stock - Convert.ToInt32(row.Cells["cantidadP"].Value);
 
-                        Producto updateproducto = new Producto();
-                        updateproducto = producto;
+                            Producto updateproducto = new Producto();
+                            updateproducto = producto;
 
-                        clsGenericList.listProducto.Remove(producto);
-                        clsGenericList.listProducto.Add(updateproducto);
+                            clsGenericList.listProducto.Remove(producto);
+                            clsGenericList.listProducto.Add(updateproducto);
+                        }
                     }
                 }
             }
