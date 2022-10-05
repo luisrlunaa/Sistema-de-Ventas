@@ -528,7 +528,7 @@ namespace Capa_de_Presentacion
                 {
                     if (Convert.ToInt32(txtCantidad.Text) > 0)
                     {
-                        if (Convert.ToInt32(txtStock.Text) > Convert.ToInt32(txtCantidad.Text))
+                        if (Convert.ToInt32(txtStock.Text) >= Convert.ToInt32(txtCantidad.Text))
                         {
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
                             V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
