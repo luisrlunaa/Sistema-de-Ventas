@@ -100,7 +100,7 @@ namespace CapaLogicaNegocio
                     venta.NombreCliente = dr.GetString(dr.GetOrdinal("NombreCliente"));
                     venta.Direccion = dr.GetString(dr.GetOrdinal("Direccion"));
                     venta.UltimaFechaPago = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
-                    venta.rcnCliente = dr.GetString(dr.GetOrdinal("rcnClient"));
+                    venta.rncCliente = dr.GetString(dr.GetOrdinal("rcnClient"));
                     venta.borrador = dr.GetBoolean(dr.GetOrdinal("borrado")) ? 1 : 0;
 
                     newlist.Add(venta);
