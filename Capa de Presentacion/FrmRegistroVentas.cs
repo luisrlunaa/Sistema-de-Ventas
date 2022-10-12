@@ -1319,7 +1319,7 @@ namespace Capa_de_Presentacion
                 btnRegistrarVenta.Text = "Cotizar";
                 btnSalir.Visible = false;
                 txtIgv.Enabled = Program.isAdminUser;
-                label21.Text = "Cotizacion";
+                frmLabel.Text = "Cotizacion";
                 BackColor = System.Drawing.Color.SlateGray;
             }
             else
@@ -1327,7 +1327,7 @@ namespace Capa_de_Presentacion
                 Program.isSaler = true;
                 txtIgv.Enabled = Program.isAdminUser;
                 btnSalir.Visible = Program.isSaler;
-                label21.Text = "Ventas";
+                frmLabel.Text = "Ventas";
                 btnRegistrarVenta.Text = "Imprimir Factura";
             }
         }
