@@ -390,22 +390,21 @@ namespace Capa_de_Presentacion
                             igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
 
                             if (lst is null || !lst.Any())
-                            {
                                 lst = new List<clsVentas>();
-                                var Cant = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Cantidad")));
-                                clsVentas V = new clsVentas();
-                                V.IdProducto = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                                V.IdVenta = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                                V.Descripcion = (dr.GetString(dr.GetOrdinal("detalles_P"))).Trim();
-                                V.Cantidad = Cant;
-                                if (!string.IsNullOrWhiteSpace(Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")))))
-                                {
-                                    V.Igv = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Igv")));
-                                }
-                                V.PrecioVenta = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
-                                V.SubTotal = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
-                                lst.Add(V);
+
+                            var Cant = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Cantidad")));
+                            clsVentas V = new clsVentas();
+                            V.IdProducto = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("IdProducto")));
+                            V.IdVenta = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("IdVenta")));
+                            V.Descripcion = (dr.GetString(dr.GetOrdinal("detalles_P"))).Trim();
+                            V.Cantidad = Cant;
+                            if (!string.IsNullOrWhiteSpace(Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")))))
+                            {
+                                V.Igv = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Igv")));
                             }
+                            V.PrecioVenta = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
+                            V.SubTotal = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
+                            lst.Add(V);
                         }
                     }
 
@@ -476,23 +475,22 @@ namespace Capa_de_Presentacion
                             PCP.Precio = dr.GetDecimal(dr.GetOrdinal("GananciaVenta"));
                             listProducts.Add(PCP);
 
-                            if(lst is null || !lst.Any())
-                            {
+                            if (lst is null || !lst.Any())
                                 lst = new List<clsVentas>();
-                                var Cant = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Cantidad")));
-                                clsVentas V = new clsVentas();
-                                V.IdProducto = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("IdProducto")));
-                                V.IdVenta = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                                V.Descripcion = (dr.GetString(dr.GetOrdinal("detalles_P"))).Trim();
-                                V.Cantidad = Cant;
-                                if (!string.IsNullOrWhiteSpace(Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")))))
-                                {
-                                    V.Igv = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Igv")));
-                                }
-                                V.PrecioVenta = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
-                                V.SubTotal = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
-                                lst.Add(V);
+
+                            var Cant = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Cantidad")));
+                            clsVentas V = new clsVentas();
+                            V.IdProducto = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("IdProducto")));
+                            V.IdVenta = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("IdVenta")));
+                            V.Descripcion = (dr.GetString(dr.GetOrdinal("detalles_P"))).Trim();
+                            V.Cantidad = Cant;
+                            if (!string.IsNullOrWhiteSpace(Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")))))
+                            {
+                                V.Igv = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("Igv")));
                             }
+                            V.PrecioVenta = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
+                            V.SubTotal = Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
+                            lst.Add(V);
                         }
                     }
 
