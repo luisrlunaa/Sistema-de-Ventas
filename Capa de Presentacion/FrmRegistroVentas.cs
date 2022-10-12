@@ -283,9 +283,9 @@ namespace Capa_de_Presentacion
             combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
             txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
 
-            Program.Direccion = !string.IsNullOrWhiteSpace(txtdireccion.Text) ? txtdireccion.Text : Program.Direccion;
+            Program.Direccion = !string.IsNullOrWhiteSpace(txtdireccion.Text) && txtdireccion.Text != "Entregado en el Local" ? txtdireccion.Text : Program.Direccion;
             txtdireccion.Text = !string.IsNullOrWhiteSpace(Program.Direccion) ? Program.Direccion : txtdireccion.Text;
-            Program.rncClient = !string.IsNullOrWhiteSpace(txtrcnClient.Text) ? txtrcnClient.Text : Program.rncClient;
+            Program.rncClient = !string.IsNullOrWhiteSpace(txtrcnClient.Text) && txtrcnClient.Text != "sin rcn del Cliente" ? txtrcnClient.Text : Program.rncClient;
             txtrcnClient.Text = string.IsNullOrWhiteSpace(txtrcnClient.Text) ? Program.rncClient : txtrcnClient.Text;
 
             txttotal.Text = Program.total > 0 ? Program.total + "" : string.IsNullOrWhiteSpace(txttotal.Text) || txttotal.Text == "..." ? 0.ToString() : txttotal.Text;
@@ -510,11 +510,6 @@ namespace Capa_de_Presentacion
             }
         }
 
-        private decimal WithTwoDecimalPoints(decimal val)
-        {
-            return decimal.Parse(val.ToString("0.00"));
-        }
-
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             clsVentas V = new clsVentas();
@@ -528,7 +523,7 @@ namespace Capa_de_Presentacion
                     {
                         if (Convert.ToDecimal(txtStock.Text) >= Convert.ToDecimal(txtCantidad.Text))
                         {
-                            var Cant = WithTwoDecimalPoints(decimal.Parse(txtCantidad.Text));
+                            var Cant = decimal.Parse(txtCantidad.Text);
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
                             V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
                             V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).Trim();
@@ -536,12 +531,12 @@ namespace Capa_de_Presentacion
 
                             if (!string.IsNullOrWhiteSpace(txtIgv.Text))
                             {
-                                V.Igv = WithTwoDecimalPoints(Convert.ToDecimal(txtIgv.Text));
+                                V.Igv = Convert.ToDecimal(txtIgv.Text);
                             }
                             V.PrecioCompra = Program.PrecioCompra;
-                            V.PrecioVenta = WithTwoDecimalPoints(Convert.ToDecimal(txtPVenta.Text));
+                            V.PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
 
-                            V.SubTotal = WithTwoDecimalPoints((Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text)) * Convert.ToDecimal(txtCantidad.Text));
+                            V.SubTotal = (Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text)) * Cant;
                             btnAgregar.Visible = false;
                             lst.Add(V);
 
@@ -756,6 +751,9 @@ namespace Capa_de_Presentacion
                 txtidCli.Text = Program.IdCliente > 0 ? Program.IdCliente + "" : txtidCli.Text;
                 txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
             }
+
+            if (btnImprimir.Visible)
+                btnImprimir.Visible = false;
 
             pa.Show();
 
@@ -1171,16 +1169,10 @@ namespace Capa_de_Presentacion
             ticket.lineasGuio();
 
             //SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
-            foreach (DataGridViewRow fila in dgvVenta.Rows)
+            foreach (var fila in lst)
             {
-                string cantxprecio = fila.Cells["cantidadP"].Value != DBNull.Value && fila.Cells["PrecioU"].Value != DBNull.Value
-                                   ? fila.Cells["cantidadP"].Value.ToString().Trim() + "x" + fila.Cells["PrecioU"].Value.ToString().Trim()
-                                   : string.Empty;
-
-                ticket.AgregaArticulo(fila.Cells["DescripcionP"].Value.ToString().Trim(),
-                                      cantxprecio,
-                                      decimal.Parse(fila.Cells["SubtoTal"].Value.ToString().Trim()),
-                                      decimal.Parse(fila.Cells["IGV"].Value.ToString().Trim()));
+                string cantxprecio = fila.Cantidad.ToString() + "x" + fila.PrecioVenta.ToString();
+                ticket.AgregaArticulo(fila.Descripcion, cantxprecio, fila.SubTotal, fila.Igv);
             }
 
             ticket.TextoIzquierda(" ");
@@ -1383,7 +1375,7 @@ namespace Capa_de_Presentacion
             string cedula = "";
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            Image image1 = Image.GetInstance("ferreteria.png");
+            Image image1 = Image.GetInstance("Logo-01.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";

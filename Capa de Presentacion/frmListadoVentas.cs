@@ -167,6 +167,7 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["Direccion"].Value = item.Direccion != null ? item.Direccion.ToString() : "Entregado en el Local";
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = item.NombreCliente.ToString();
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = item.UltimaFechaPago;
+                dataGridView1.Rows[renglon].Cells["rnccliente"].Value = item.rncCliente;
             }
 
             var totalVendido = listaventas.Sum(x => x.Total);
@@ -993,7 +994,6 @@ namespace Capa_de_Presentacion
             }
         }
 
-
         bool isallowNumber = false;
         private void chkid_CheckedChanged(object sender, EventArgs e)
         {
@@ -1043,11 +1043,6 @@ namespace Capa_de_Presentacion
         }
         private (DateTime, DateTime) GetDaysToFilter(bool isSameDate, DateTime date1, DateTime date2)
         {
-            if (isSameDate)
-            {
-                return (date1.Date, date2.Date.AddDays(1));
-            }
-
             return (date1.Date, date2.Date);
         }
 
