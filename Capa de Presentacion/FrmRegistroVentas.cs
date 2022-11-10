@@ -895,45 +895,45 @@ namespace Capa_de_Presentacion
             }
 
             using (SqlCommand cmd1 = new SqlCommand("RegistrarDetalleVenta", M.conexion))
-            foreach (DataGridViewRow row in dgvVenta.Rows)
-            {
-                M.Desconectar();
-                cmd1.CommandType = CommandType.StoredProcedure;
-
-                decimal Ganancia = 0;
-                int idProducto = Convert.ToInt32(row.Cells["IDP"].Value);
-                int idventa = 0;
-
-                if (!Program.isSaler)
+                foreach (DataGridViewRow row in dgvVenta.Rows)
                 {
-                    Ganancia = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                    idventa = Convert.ToInt32(txtIdVenta.Text);
+                    M.Desconectar();
+                    cmd1.CommandType = CommandType.StoredProcedure;
+
+                    decimal Ganancia = 0;
+                    int idProducto = Convert.ToInt32(row.Cells["IDP"].Value);
+                    int idventa = 0;
+
+                    if (!Program.isSaler)
+                    {
+                        Ganancia = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
+                        idventa = Convert.ToInt32(txtIdVenta.Text);
+                    }
+                    else
+                    {
+                        decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
+                        decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
+                        int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
+
+                        Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
+                        idventa = Convert.ToInt32(row.Cells["IdD"].Value);
+                    }
+
+                    //Tabla detalles ventas
+                    cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
+                    cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
+                    cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
+                    cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
+                    cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
+                    cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
+                    cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
+                    cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
+
+                    M.Conectar();
+                    cmd1.ExecuteNonQuery();
+                    cmd1.Parameters.Clear();
+                    M.Desconectar();
                 }
-                else
-                {
-                    decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                    decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
-                    int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
-
-                    Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
-                    idventa = Convert.ToInt32(row.Cells["IdD"].Value);
-                }
-
-                //Tabla detalles ventas
-                cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
-                cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
-                cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
-                cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
-                cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
-                cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
-                cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
-                cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
-
-                M.Conectar();
-                cmd1.ExecuteNonQuery();
-                cmd1.Parameters.Clear();
-                M.Desconectar();
-            }
 
             foreach (DataGridViewRow row in dgvVenta.Rows)
             {
@@ -1490,13 +1490,13 @@ namespace Capa_de_Presentacion
                         doc.Add(new Paragraph("Tipo de Factura: " + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                         doc.Add(new Paragraph("Tipo de Comprobante: " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                         doc.Add(new Paragraph("Numero de Comprobante: " + txtNCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                        doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
-                        doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
                     else
                     {
                         doc.Add(new Paragraph("COTIZACION", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
+                    doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph(" "));
 
                     GenerarDocumento(doc);
