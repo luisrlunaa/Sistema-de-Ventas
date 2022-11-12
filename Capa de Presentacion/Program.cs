@@ -15,6 +15,7 @@ namespace Capa_de_Presentacion
         public static bool abiertoimei;
         public static bool abierto;
         public static bool isSaler;
+        public static bool pagarcotizacion;
 
         public static int Evento;
         public static int Eid;

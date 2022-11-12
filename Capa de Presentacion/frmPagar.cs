@@ -117,6 +117,7 @@ namespace Capa_de_Presentacion
                         Program.pagoRealizado = paga - dev;
                     }
 
+                    Program.pagarcotizacion = false;
                     Program.realizopago = true;
                     if (DevComponents.DotNetBar.MessageBoxEx.Show("Pago Realizado", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
                     {
