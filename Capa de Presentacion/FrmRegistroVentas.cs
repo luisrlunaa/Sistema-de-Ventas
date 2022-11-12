@@ -236,7 +236,6 @@ namespace Capa_de_Presentacion
             return varcodigo;
         }
 
-
         private void btnBusqueda_Click(object sender, EventArgs e)
         {
             FrmListadoClientes C = new FrmListadoClientes();
@@ -321,7 +320,7 @@ namespace Capa_de_Presentacion
             else
             {
                 btnRegistrarVenta.Visible = !Program.isSaler;
-                btnSalir.Visible = Program.isSaler;
+                btnSalir.Visible = Program.isSaler || Program.pagarcotizacion;
             }
 
             if (!string.IsNullOrWhiteSpace(Program.Esabono) && !string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito")
@@ -482,7 +481,10 @@ namespace Capa_de_Presentacion
             }
 
             btnSalir.Enabled = Program.pagoRealizado == 0 && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0
-                            || (!string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito" && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0);
+                            || (!string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito" && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0)
+                            || Program.pagarcotizacion;
+
+            button3.Enabled = !Program.pagarcotizacion;
         }
 
 
@@ -857,7 +859,7 @@ namespace Capa_de_Presentacion
         }
 
         decimal restante = 0;
-        public void VentaRealizada()
+        public void VentaRealizada(bool fuicotizacion)
         {
             M.Desconectar();
             string procedure = "";
@@ -871,6 +873,13 @@ namespace Capa_de_Presentacion
                 procedure = "RegistrarVentasinIDcliente";
             }
 
+            var idVenta = Convert.ToInt32(txtIdVenta.Text);
+            if (fuicotizacion)
+            {
+                idVenta = Program.Id;
+            }
+
+            var ventaGuardada = false;
             using (SqlCommand cmd = new SqlCommand(procedure, M.conexion))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -880,31 +889,34 @@ namespace Capa_de_Presentacion
                 }
 
                 cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
-                cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
+                cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idVenta;
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
-                if (Program.isSaler)
+
+                cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
+
+                if (cbtipofactura.Text == "Credito")
                 {
-                    cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
-
-                    if (cbtipofactura.Text == "Credito")
-                    {
-                        restante = Convert.ToDecimal(txttotal.Text) - Program.pagoRealizado;
-                        cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
-                    }
-                    else
-                    {
-                        cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = 0;
-                    }
-
-                    cmd.Parameters.Add("@Serie", SqlDbType.Int).Value = Convert.ToInt32(txtid.Text);
-                    cmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = txtNCF.Text;
-                    cmd.Parameters.Add("@TipoDocumento", SqlDbType.VarChar).Value = combo_tipo_NCF.Text;
-                    cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dateTimePicker1.Text;
+                    restante = Convert.ToDecimal(txttotal.Text) - Program.pagoRealizado;
+                    cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
+                }
+                else
+                {
+                    cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = 0;
                 }
 
+                var fecha = dateTimePicker1.Text;
+                if (fuicotizacion)
+                    fecha = DateTime.Today.ToShortDateString();
+
+                cmd.Parameters.Add("@Serie", SqlDbType.Int).Value = Convert.ToInt32(txtid.Text);
+                cmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = txtNCF.Text;
+                cmd.Parameters.Add("@TipoDocumento", SqlDbType.VarChar).Value = combo_tipo_NCF.Text;
+                cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = fecha;
+
                 M.Conectar();
-                cmd.ExecuteNonQuery();
+                var save = cmd.ExecuteNonQuery();
+                ventaGuardada = save > 0;
                 M.Desconectar();
 
                 Venta venta = new Venta();
@@ -940,20 +952,12 @@ namespace Capa_de_Presentacion
                     int idProducto = Convert.ToInt32(row.Cells["IDP"].Value);
                     int idventa = 0;
 
-                    if (!Program.isSaler)
-                    {
-                        Ganancia = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                        idventa = Convert.ToInt32(txtIdVenta.Text);
-                    }
-                    else
-                    {
-                        decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                        decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
-                        int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
+                    decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
+                    decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
+                    int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
 
-                        Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
-                        idventa = Convert.ToInt32(row.Cells["IdD"].Value);
-                    }
+                    Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
+                    idventa = Convert.ToInt32(row.Cells["IdD"].Value);
 
                     //Tabla detalles ventas
                     cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
@@ -1041,6 +1045,19 @@ namespace Capa_de_Presentacion
                 M.Desconectar();
             }
 
+            if (fuicotizacion && ventaGuardada)
+            {
+                M.Conectar();
+                var cmd = new SqlCommand("delete Cotizacion where IdCotizacion =" + idVenta, M.conexion);
+                cmd.ExecuteNonQuery();
+                M.Desconectar();
+
+                M.Conectar();
+                var comando = new SqlCommand("delete DetalleCotizacion where IdCotizacion =" + idVenta, M.conexion);
+                comando.ExecuteNonQuery();
+                M.Desconectar();
+            }
+
             Program.pagoRealizado = 0;
         }
         public void CotizacionRealizada()
@@ -1103,7 +1120,7 @@ namespace Capa_de_Presentacion
                 }
         }
 
-        private void RegistrarVenta()
+        private void RegistrarVenta(bool fuicotizacion)
         {
             if (dgvVenta.Rows.Count > 0)
             {
@@ -1129,8 +1146,8 @@ namespace Capa_de_Presentacion
                     combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
                 }
 
-                if (Program.isSaler && label22.Text == "Ventas")
-                    VentaRealizada();
+                if (Program.isSaler)
+                    VentaRealizada(fuicotizacion);
                 else
                     CotizacionRealizada();
 
@@ -1155,7 +1172,7 @@ namespace Capa_de_Presentacion
 
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
-            RegistrarVenta();
+            RegistrarVenta(false);
         }
 
         public void tickEstilo()
@@ -1274,6 +1291,7 @@ namespace Capa_de_Presentacion
                     Program.abiertosecundarias = false;
                     Program.abierto = false;
                     button3.Visible = true;
+                    button3.Enabled = false;
                     btnRegistrarVenta.Visible = false;
                     F.Show();
                 }
@@ -1358,7 +1376,7 @@ namespace Capa_de_Presentacion
                 btnImprimir.Location = new System.Drawing.Point(33, 768);
                 btnRegistrarVenta.Visible = !Program.isSaler;
                 btnRegistrarVenta.Text = "Cotizar";
-                btnSalir.Visible = false;
+                btnSalir.Visible = Program.pagarcotizacion;
                 txtIgv.Enabled = Program.isAdminUser;
                 label21.Text = "Cotizacion";
                 BackColor = System.Drawing.Color.SlateGray;
@@ -1706,7 +1724,7 @@ namespace Capa_de_Presentacion
         private void button3_Click(object sender, EventArgs e)
         {
             Program.isSaler = true;
-            RegistrarVenta();
+            RegistrarVenta(true);
         }
 
         private void cbtipofactura_SelectedIndexChanged(object sender, EventArgs e)

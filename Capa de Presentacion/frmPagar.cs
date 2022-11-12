@@ -126,6 +126,7 @@ namespace Capa_de_Presentacion
                     }
 
                     Program.realizopago = true;
+                    Program.pagarcotizacion = false;
                     if (DevComponents.DotNetBar.MessageBoxEx.Show("Pago Realizado", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
                     {
                         FrmRegistroVentas venta = new FrmRegistroVentas();
