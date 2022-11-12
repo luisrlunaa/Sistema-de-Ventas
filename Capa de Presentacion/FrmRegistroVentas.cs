@@ -877,8 +877,8 @@ namespace Capa_de_Presentacion
             if(fuicotizacion)
             {
                 idVenta = Program.Id;
-                llenar();
             }
+
             var ventaGuardada = false;
             using (SqlCommand cmd = new SqlCommand(procedure, M.conexion))
             {
