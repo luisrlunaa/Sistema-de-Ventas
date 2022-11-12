@@ -200,6 +200,7 @@ namespace Capa_de_Presentacion
             Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
             Program.fecha = dataGridView1.CurrentRow.Cells["fecha"].Value.ToString();
             Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
+            Program.pagarcotizacion = true;
         }
 
         public void llenaridCliente(int idventa)

@@ -13,6 +13,7 @@ namespace Capa_de_Presentacion
         public static bool isAdminUser;
         public static bool abierto;
         public static bool abiertosecundarias;
+        public static bool pagarcotizacion;
         public static int Evento;
         public static int Eid;
         public static int idgastos;
