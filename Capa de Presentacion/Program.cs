@@ -17,6 +17,8 @@ namespace Capa_de_Presentacion
         public static string LoginStatus;
         public static string ReImpresion;
         public static string Esabono;
+        public static string ImpresonaPeq;
+        public static bool pagarcotizacion;
 
         //Datos del Cliente
         public static bool abiertosecundarias;

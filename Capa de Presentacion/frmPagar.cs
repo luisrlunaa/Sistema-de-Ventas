@@ -14,7 +14,6 @@ namespace Capa_de_Presentacion
         }
 
         clsManejador Cx = new clsManejador();
-        //Correo c = new Correo();
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             FrmMenuPrincipal MP = new FrmMenuPrincipal();
@@ -37,7 +36,6 @@ namespace Capa_de_Presentacion
             }
             Cx.Desconectar();
         }
-
         public void llenarid()
         {
             txtId.Text = Program.idcaja.ToString();
@@ -48,6 +46,7 @@ namespace Capa_de_Presentacion
         }
         private void button4_Click(object sender, EventArgs e)
         {
+            Cx.Desconectar();
             Program.turno = 0;
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
@@ -62,6 +61,10 @@ namespace Capa_de_Presentacion
                 {
                     Cx.Conectar();
                     comando.ExecuteNonQuery();
+
+                    ////////////////////Enviando al correo copia de seguridad de base de datos nueva
+                    //c.enviarCorreo("sendingsystembackup@gmail.com", "evitarperdidadedatos/0", "Realizando la creacion diaria de respaldo de base de datos para evitar perdidas de datos en caso de algun problema con el equipo.",
+                    //	"Backup de base de datos", "cepedaimport2715@hotmail.com", direccion);
                 }
                 catch (Exception ex)
                 {
@@ -71,7 +74,6 @@ namespace Capa_de_Presentacion
                 finally
                 {
                     Cx.Desconectar();
-                    Cx.conexion.Dispose();
                     Application.Exit();
                 }
             }
@@ -129,6 +131,7 @@ namespace Capa_de_Presentacion
                     }
 
                     Program.realizopago = true;
+                    Program.pagarcotizacion = false;
                     if (DevComponents.DotNetBar.MessageBoxEx.Show("Pago Realizado", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
                     {
                         FrmRegistroVentas venta = new FrmRegistroVentas();
@@ -140,7 +143,6 @@ namespace Capa_de_Presentacion
                 }
             }
         }
-
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             frmMovimientoCaja mo = new frmMovimientoCaja();
@@ -155,7 +157,6 @@ namespace Capa_de_Presentacion
             venta.lblsubt.Text = Program.ST + "";
             this.Hide();
         }
-
         private void button4_Click_1(object sender, EventArgs e)
         {
             FrmMenuPrincipal MP = new FrmMenuPrincipal();
@@ -163,7 +164,6 @@ namespace Capa_de_Presentacion
             MP.Show();
             this.Hide();
         }
-
         private void txtFinal_KeyPress(object sender, KeyPressEventArgs e)
         {
             validar.solonumeros(e);

@@ -200,6 +200,7 @@ namespace Capa_de_Presentacion
             Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
             Program.fecha = dataGridView1.CurrentRow.Cells["fecha"].Value.ToString();
             Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
+            Program.pagarcotizacion = true;
         }
 
         public void llenaridCliente(int idventa)
@@ -290,7 +291,7 @@ namespace Capa_de_Presentacion
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            Image image1 = Image.GetInstance("LogoCepeda.png");
+            Image image1 = Image.GetInstance("Logo-01.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
