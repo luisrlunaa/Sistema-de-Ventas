@@ -23,9 +23,9 @@ namespace Capa_de_Presentacion
         public void llenar()
         {
             Cx.Desconectar();
-            string cadSql = "select montoactual from Caja where id_caja=" + Program.idcaja;
+            string cadSql = "select top(1) montoactual from Caja order by id_caja desc";
 
-            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
             Cx.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
@@ -35,6 +35,10 @@ namespace Capa_de_Presentacion
                 txtCaja1.Text = leer["montoactual"].ToString();
             }
             Cx.Desconectar();
+        }
+        public void llenarid()
+        {
+            txtId.Text = Program.idcaja.ToString();
         }
         public void llenaridP()
         {
