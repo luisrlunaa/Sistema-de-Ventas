@@ -214,6 +214,29 @@ namespace Capa_de_Presentacion
             M.Desconectar();
         }
 
+        public int llenarIdCotizacion()
+        {
+            M.Desconectar();
+            string cadSql = "select top(1) IdCotizacion from Cotizacion order by IdCotizacion desc";
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+            M.Conectar();
+
+            SqlDataReader leer = comando.ExecuteReader();
+            int varcodigo;
+
+            if (leer.Read() == true)
+            {
+                varcodigo = Convert.ToInt32(leer["IdCotizacion"]) + 1;
+            }
+            else
+            {
+                varcodigo = 1;
+            }
+            M.Desconectar();
+            return varcodigo;
+        }
+
+
         private void btnBusqueda_Click(object sender, EventArgs e)
         {
             FrmListadoClientes C = new FrmListadoClientes();
@@ -282,8 +305,8 @@ namespace Capa_de_Presentacion
             txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
 
             txttotal.Text = Program.total > 0 ? Program.total + "" : string.IsNullOrWhiteSpace(txttotal.Text) || txttotal.Text == "..." ? 0.ToString() : txttotal.Text;
-            lblsubt.Text = Program.ST + "";
-            lbligv.Text = Program.igv + "";
+            lblsubt.Text = Program.ST > 0 ? Program.ST + "" : lblsubt.Text;
+            lbligv.Text = Program.igv > 0 ? Program.igv + "" : lbligv.Text;
 
             if (!string.IsNullOrWhiteSpace(Program.Esabono) && Program.pagoRealizado > 0 && Program.realizopago == true)
             {
@@ -380,6 +403,8 @@ namespace Capa_de_Presentacion
 
                     Program.ST = subtotal;
                     Program.igv = igv;
+                    lblsubt.Text = subtotal.ToString();
+                    lbligv.Text = igv.ToString();
 
                     M.Desconectar();
                     buscaridcaja();
@@ -449,6 +474,8 @@ namespace Capa_de_Presentacion
 
                     Program.ST = subtotal;
                     Program.igv = igv;
+                    lblsubt.Text= subtotal.ToString();
+                    lbligv.Text= igv.ToString();
 
                     M.Desconectar();
                 }
@@ -500,6 +527,9 @@ namespace Capa_de_Presentacion
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtPVenta.Text))
+                return;
+
             clsVentas V = new clsVentas();
             PrecioCompraProducto PCP = new PrecioCompraProducto();
             decimal precio = 0;
@@ -531,7 +561,7 @@ namespace Capa_de_Presentacion
                         if (Convert.ToInt32(txtStock.Text) >= Convert.ToInt32(txtCantidad.Text))
                         {
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
-                            V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
+                            V.IdVenta = Program.isSaler ? Convert.ToInt32(txtIdVenta.Text) : llenarIdCotizacion();
                             V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).Trim();
                             V.Cantidad = Convert.ToInt32(txtCantidad.Text);
                             V.PrecioCompra = Program.PrecioCompra;
@@ -557,6 +587,12 @@ namespace Capa_de_Presentacion
 
                             if (btnSalir.Enabled == false)
                                 btnSalir.Enabled = true;
+
+                            if(!Program.isSaler && label22.Text == "Cotizacion")
+                            {
+                                btnRegistrarVenta.Visible = true;
+                                btnImprimir.Visible = false;
+                            }
                         }
                         else
                         {
@@ -1011,6 +1047,7 @@ namespace Capa_de_Presentacion
         {
             M.Desconectar();
             string procedure = "";
+            var id = llenarIdCotizacion();
 
             if (Program.IdCliente > 0)
             {
@@ -1023,34 +1060,16 @@ namespace Capa_de_Presentacion
 
             using (SqlCommand cmd = new SqlCommand(procedure, M.conexion))
             {
+                cmd.CommandType = CommandType.StoredProcedure;
                 if (Program.IdCliente != 0)
                 {
                     cmd.Parameters.Add("@IdCliente", SqlDbType.Int).Value = Convert.ToInt32(txtidCli.Text);
                 }
 
-                cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
-                cmd.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
+                cmd.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = id;
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
-                if (Program.isSaler)
-                {
-                    cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
-
-                    if (cbtipofactura.Text == "Credito")
-                    {
-                        restante = Convert.ToDecimal(txttotal.Text) - Program.pagoRealizado;
-                        cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
-                    }
-                    else
-                    {
-                        cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = 0;
-                    }
-
-                    cmd.Parameters.Add("@Serie", SqlDbType.Int).Value = Convert.ToInt32(txtid.Text);
-                    cmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = txtNCF.Text;
-                    cmd.Parameters.Add("@TipoDocumento", SqlDbType.VarChar).Value = combo_tipo_NCF.Text;
-                    cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = dateTimePicker1.Text;
-                }
+                cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
 
                 M.Conectar();
                 cmd.ExecuteNonQuery();
@@ -1065,25 +1084,10 @@ namespace Capa_de_Presentacion
 
                     decimal Ganancia = 0;
                     int idProducto = Convert.ToInt32(row.Cells["IDP"].Value);
-                    int idventa = 0;
-
-                    if (!Program.isSaler)
-                    {
-                        Ganancia = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                        idventa = Convert.ToInt32(txtIdVenta.Text);
-                    }
-                    else
-                    {
-                        decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                        decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
-                        int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
-
-                        Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
-                        idventa = Convert.ToInt32(row.Cells["IdD"].Value);
-                    }
+                    Ganancia = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
 
                     //Tabla detalles ventas
-                    cmd1.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = idventa;
+                    cmd1.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = id;
                     cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
                     cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
                     cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
@@ -1125,7 +1129,7 @@ namespace Capa_de_Presentacion
                     combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
                 }
 
-                if (Program.isSaler)
+                if (Program.isSaler && label22.Text == "Ventas")
                     VentaRealizada();
                 else
                     CotizacionRealizada();
@@ -1513,9 +1517,9 @@ namespace Capa_de_Presentacion
                         }
                     }
 
-                    decimal Sub = Convert.ToDecimal(lblsubt.Text);
-                    decimal ITBIS = Convert.ToDecimal(lbligv.Text);
-                    decimal total = Convert.ToDecimal(txttotal.Text);
+                    decimal Sub = decimal.Parse(lblsubt.Text);
+                    decimal ITBIS = decimal.Parse(lbligv.Text);
+                    decimal total = decimal.Parse(txttotal.Text);
 
                     doc.Add(new Paragraph("Sub-Total   : " + Sub.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("ITBIS   : " + ITBIS.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
