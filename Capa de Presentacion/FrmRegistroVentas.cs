@@ -1279,7 +1279,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("");
             ticket.TextoIzquierda("");
             ticket.CortaTicket();//CORTAR TICKET
-            ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
+            ticket.ImprimirTicket("POS-80 (copy 1)");//NOMBRE DE LA IMPRESORA
         }
 
         private void txtPVenta_KeyPress(object sender, KeyPressEventArgs e)
@@ -1450,7 +1450,7 @@ namespace Capa_de_Presentacion
             string cedula = "";
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            Image image1 = Image.GetInstance("Logo-01.png");
+            Image image1 = Image.GetInstance("ferreteria.png");
             image1.ScaleAbsoluteWidth(140);
             image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
