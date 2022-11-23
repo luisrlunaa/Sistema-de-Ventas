@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaEnlaceDatos", "CapaEnla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capa de Presentacion", "Capa de Presentacion\Capa de Presentacion.csproj", "{F54C7316-903E-4543-840A-9CFB39CF275A}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Ferreteria Almonte", "Ferreteria Almonte\Ferreteria Almonte.vdproj", "{B3969183-4EEB-4012-A9C4-CCDD915D568E}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Ferreteria Almonte", "Ferreteria Almonte\Ferreteria Almonte.vdproj", "{04E614E5-5378-404E-9DFD-FE58459F54CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,9 +42,9 @@ Global
 		{F54C7316-903E-4543-840A-9CFB39CF275A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F54C7316-903E-4543-840A-9CFB39CF275A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F54C7316-903E-4543-840A-9CFB39CF275A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3969183-4EEB-4012-A9C4-CCDD915D568E}.All|Any CPU.ActiveCfg = Debug
-		{B3969183-4EEB-4012-A9C4-CCDD915D568E}.Debug|Any CPU.ActiveCfg = Debug
-		{B3969183-4EEB-4012-A9C4-CCDD915D568E}.Release|Any CPU.ActiveCfg = Release
+		{04E614E5-5378-404E-9DFD-FE58459F54CA}.All|Any CPU.ActiveCfg = Debug
+		{04E614E5-5378-404E-9DFD-FE58459F54CA}.Debug|Any CPU.ActiveCfg = Debug
+		{04E614E5-5378-404E-9DFD-FE58459F54CA}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
