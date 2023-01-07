@@ -103,16 +103,6 @@ namespace Capa_de_Presentacion.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ferreteria {
-            get {
-                object obj = ResourceManager.GetObject("ferreteria", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap icons8_abrir_carpeta_16 {
             get {
                 object obj = ResourceManager.GetObject("icons8-abrir-carpeta-16", resourceCulture);
@@ -556,36 +546,6 @@ namespace Capa_de_Presentacion.Properties {
         internal static System.Drawing.Bitmap llantas_1024x682 {
             get {
                 object obj = ResourceManager.GetObject("llantas-1024x682", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap llantas_toyota_corolla {
-            get {
-                object obj = ResourceManager.GetObject("llantas-toyota-corolla", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap slid_lla2 {
-            get {
-                object obj = ResourceManager.GetObject("slid_lla2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap x_30465_960_720 {
-            get {
-                object obj = ResourceManager.GetObject("x-30465_960_720", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
