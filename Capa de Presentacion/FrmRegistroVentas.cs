@@ -948,10 +948,18 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@rcnClient", SqlDbType.VarChar).Value = txtrcnClient.Text;
                 cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = fecha;
 
-                M.Conectar();
-                var save = cmd.ExecuteNonQuery();
-                ventaGuardada = save > 0;
-                M.Desconectar();
+                try
+                {
+                    M.Conectar();
+                    var save = cmd.ExecuteNonQuery();
+                    ventaGuardada = save > 0;
+                    M.Desconectar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al realizar la venta. \n" + ex);
+                    return;
+                }
 
                 Venta venta = new Venta();
                 venta.IdVenta = Convert.ToInt32(txtIdVenta.Text);
@@ -1013,10 +1021,18 @@ namespace Capa_de_Presentacion
                     cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
                     cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
 
-                    M.Conectar();
-                    cmd1.ExecuteNonQuery();
-                    cmd1.Parameters.Clear();
-                    M.Desconectar();
+                    try
+                    {
+                        M.Conectar();
+                        cmd1.ExecuteNonQuery();
+                        cmd1.Parameters.Clear();
+                        M.Desconectar();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al guardar los detalles de la venta. \n" + ex);
+                        return;
+                    }
                 }
 
             foreach (DataGridViewRow row in dgvVenta.Rows)
@@ -1031,9 +1047,16 @@ namespace Capa_de_Presentacion
                     cmd3.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
                     cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IDP"].Value);
 
-                    M.Conectar();
-                    cmd3.ExecuteNonQuery();
-                    M.Desconectar();
+                    try
+                    {
+                        M.Conectar();
+                        cmd3.ExecuteNonQuery();
+                        M.Desconectar();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al actualizar los productos vendidos, favor actualizar de manera manual. \n" + ex);
+                    }
 
                     if (clsGenericList.listProducto != null)
                     {
@@ -1084,10 +1107,16 @@ namespace Capa_de_Presentacion
                     cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = 0;
                 }
 
-
-                M.Conectar();
-                cmd2.ExecuteNonQuery();
-                M.Desconectar();
+                try
+                {
+                    M.Conectar();
+                    cmd2.ExecuteNonQuery();
+                    M.Desconectar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al guardar el pago. \n" + ex);
+                }
             }
 
             if (fuicotizacion && ventaGuardada)
@@ -1133,9 +1162,17 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
                 cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
 
-                M.Conectar();
-                cmd.ExecuteNonQuery();
-                M.Desconectar();
+                try
+                {
+                    M.Conectar();
+                    cmd.ExecuteNonQuery();
+                    M.Desconectar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al realizar la cotizacion. \n" + ex);
+                    return;
+                }
             }
 
             using (SqlCommand cmd1 = new SqlCommand("RegistrarDetalleCotizacion", M.conexion))
@@ -1173,10 +1210,18 @@ namespace Capa_de_Presentacion
                     cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
                     cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
 
-                    M.Conectar();
-                    cmd1.ExecuteNonQuery();
-                    cmd1.Parameters.Clear();
-                    M.Desconectar();
+                    try
+                    {
+                        M.Conectar();
+                        cmd1.ExecuteNonQuery();
+                        cmd1.Parameters.Clear();
+                        M.Desconectar();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al guardar los detalles de la cotizacion. \n" + ex);
+                        return;
+                    }
                 }
         }
 
@@ -1197,7 +1242,7 @@ namespace Capa_de_Presentacion
                 ticket.TextoDerecha(Program.ReImpresion);
             }
 
-            //System.Drawing.Image img = System.Drawing.Image.FromFile("ferreteria.png");
+            //System.Drawing.Image img = System.Drawing.Image.FromFile("Logo-01.png");
             //ticket.HeaderImage = img;
             ticket.TextoCentro(lblLogo.Text.ToUpper());
             ticket.TextoIzquierda("");
@@ -1654,9 +1699,17 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Program.Id;
                 cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
 
-                M.Conectar();
-                cmd.ExecuteNonQuery();
-                M.Desconectar();
+                try
+                {
+                    M.Conectar();
+                    cmd.ExecuteNonQuery();
+                    M.Desconectar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al realizar el abono. \n" + ex);
+                    return;
+                }
 
                 var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
                 if (venta != null)
@@ -1693,9 +1746,16 @@ namespace Capa_de_Presentacion
                 cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(Program.Fechapago);
                 cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = restante;
 
-                M.Conectar();
-                cmd2.ExecuteNonQuery();
-                M.Desconectar();
+                try
+                {
+                    M.Conectar();
+                    cmd2.ExecuteNonQuery();
+                    M.Desconectar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Factura actualizada, pero hubo un Error al actualizar el pago en la caja. \n" + ex);
+                }
             }
 
             Program.pagoRealizado = 0;
@@ -1769,9 +1829,17 @@ namespace Capa_de_Presentacion
                         cmd.Parameters.Add("@id_secuencia", SqlDbType.Int).Value = Convert.ToInt32(combo_tipo_NCF.SelectedIndex);
                         cmd.Parameters.Add("@secuencia", SqlDbType.NVarChar).Value = txtNCF.Text;
 
-                        M.Conectar();
-                        cmd.ExecuteNonQuery();
-                        M.Desconectar();
+                        try
+                        {
+                            M.Conectar();
+                            cmd.ExecuteNonQuery();
+                            M.Desconectar();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al generar el comprobante. \n" + ex);
+                            return;
+                        }
 
                         buscarid();
                     }
