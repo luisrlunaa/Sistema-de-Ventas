@@ -21,7 +21,19 @@ namespace Capa_de_Presentacion
             public int ID;
             public decimal Precio;
         }
+        public class categorias
+        {
+            public int id;
+            public string category;
+        }
+        public class categoriasTotals
+        {
+            public string category;
+            public int total;
+        }
 
+        public List<categoriasTotals> TotalsList = new List<categoriasTotals>();
+        private clsCategoria C = new clsCategoria();
         private List<clsVentas> lst = new List<clsVentas>();
         private List<PrecioCompraProducto> listProducts = new List<PrecioCompraProducto>();
         clsManejador M = new clsManejador();
@@ -87,6 +99,27 @@ namespace Capa_de_Presentacion
                     combo_tipo_NCF.Text = "Ningun Tipo de Comprobante";
                 }
             }
+
+            cbxTotals.Visible = false;
+            label23.Visible = false;
+        }
+
+        public string buscarcategoriaporid(int id)
+        {
+            M.Desconectar();
+            M.Conectar();
+            string sql = "select Descripcion from Categoria where IdCategoria = @id";
+            SqlCommand cmd = new SqlCommand(sql, M.conexion);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            SqlDataReader reade = cmd.ExecuteReader();
+            if (reade.Read())
+            {
+                var desc = Convert.ToString(reade["Descripcion"]);
+                M.Desconectar();
+                return desc;
+            }
+            return string.Empty;
         }
 
         public void actualzarestadoscomprobantes()
@@ -718,6 +751,9 @@ namespace Capa_de_Presentacion
             cbidentificacion.Checked = false;
             lblabono.Visible = false;
             lbltituloabono.Visible = false;
+            label23.Visible = false;
+            cbxTotals.Visible = false;
+            cbxTotals.DataSource = new List<string>();
 
             Program.IdCliente = 0;
             Program.tipo = string.Empty;
@@ -730,6 +766,7 @@ namespace Capa_de_Presentacion
             Program.fecha = string.Empty;
 
             listProducts = new List<PrecioCompraProducto>();
+            TotalsList = new List<categoriasTotals>();
         }
         private void btnSalir_Click(object sender, EventArgs e)
         {
@@ -796,6 +833,39 @@ namespace Capa_de_Presentacion
 
             pa.Show();
 
+            var value = new List<string>();
+            foreach (var item in listProducts)
+            {
+                if (!value.Any())
+                {
+                    value.Add("ninguno");
+                    value.Add("todos");
+                }
+
+                var product = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == item.ID);
+                var category = buscarcategoriaporid(product.m_IdCategoria);
+                if (!string.IsNullOrWhiteSpace(category))
+                    category = category.Split(' ')[0].ToLower();
+
+                if (!value.Contains(category))
+                {
+                    var id = value.Count + 1;
+                    value.Add(category );
+                    TotalsList.Add(new categoriasTotals() { category = category, total= lst.Where(x => x.IdProducto == product.m_IdP).Sum(y => y.Cantidad) });
+                }
+                else
+                {
+                    var totalold = TotalsList.FirstOrDefault(x => x.category == category);
+                    var total = totalold;
+                    total.total = total.total + lst.Where(x => x.IdProducto == product.m_IdP).Sum(y => y.Cantidad);
+                    TotalsList.Remove(totalold);
+                    TotalsList.Add(total);
+                }
+            }
+
+            cbxTotals.Visible = string.IsNullOrWhiteSpace(Program.Esabono);
+            label23.Visible = string.IsNullOrWhiteSpace(Program.Esabono);
+            GetTotalListValue(value);
             Program.tipo = cbtipofactura.Text;
         }
         private void btnEliminarItem_Click(object sender, EventArgs e)
@@ -1225,6 +1295,15 @@ namespace Capa_de_Presentacion
 
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
+            if (cbxTotals.Items.Count > 0 && cbxTotals.Text == "todos")
+            {
+                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Esta seguro desea la cantidad total de todos los productos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
+                {
+                    MessageBox.Show("seleccione el tipo de producto que desea calcular la cantidad");
+                    return;
+                }
+            }
+
             RegistrarVenta(false);
         }
 
@@ -1298,6 +1377,25 @@ namespace Capa_de_Presentacion
             if (cbtipofactura.Text.ToLower() == "credito")
             {
                 ticket.AgregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
+            }
+
+            if (cbxTotals.Items.Count > 0 && cbxTotals.Text != "ninguno")
+            {
+                ticket.TextoIzquierda(" ");
+                ticket.TextoIzquierda("Cantidad Total de Productos");
+                if (cbxTotals.Text == "todos")
+                {
+                    foreach (var item in TotalsList)
+                    {
+                        ticket.TextoIzquierda("Cantidad de " + item.category + "= " + item.total);
+                    }
+                }
+                else
+                {
+
+                    var category = TotalsList.FirstOrDefault(x => x.category == cbxTotals.Text);
+                    ticket.TextoIzquierda("Cantidad de " + category.category + "= " + category.total);
+                }
             }
 
             ticket.TextoIzquierda(" ");
@@ -1601,6 +1699,24 @@ namespace Capa_de_Presentacion
                         doc.Add(new Paragraph("Total de Restante : " + restante.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
 
+                    if (cbxTotals.Items.Count > 0 && cbxTotals.Text != "ninguno")
+                    {
+                        doc.Add(new Paragraph("                       "));
+                        doc.Add(new Paragraph("Cantidad Total de Productos", FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
+                        if (cbxTotals.Text == "todos")
+                        {
+                            foreach (var item in TotalsList)
+                            {
+                                doc.Add(new Paragraph("Cantidad de " + item.category + "= " + item.total, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                            }
+                        }
+                        else
+                        {
+                            var category = TotalsList.FirstOrDefault(x => x.category == cbxTotals.Text);
+                            doc.Add(new Paragraph("Cantidad de " + category.category + "= " + category.total, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        }
+                    }
+
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("_________________________" + "                                                                                                                                                 " + "_________________________", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("      Facturado Por      " + "                                                                                                                                                                         " + "     Recibido Por  ", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
@@ -1799,6 +1915,13 @@ namespace Capa_de_Presentacion
             var newSelect = !string.IsNullOrWhiteSpace(cbtipofactura.Text) && (cbtipofactura.Text != Program.tipo) ? cbtipofactura.Text : Program.tipo;
             cbtipofactura.Text = newSelect;
             Program.tipo = newSelect;
+        }
+
+        private void GetTotalListValue(List<string> values)
+        {
+            cbxTotals.DisplayMember = "text";
+            cbxTotals.ValueMember = "text";
+            cbxTotals.DataSource = values;
         }
     }
 }

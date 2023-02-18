@@ -95,9 +95,9 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(29, 231);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(347, 446);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
@@ -175,7 +175,7 @@
             // 
             this.txtmontoinicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtmontoinicial.Location = new System.Drawing.Point(81, 377);
-            this.txtmontoinicial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtmontoinicial.Margin = new System.Windows.Forms.Padding(4);
             this.txtmontoinicial.Name = "txtmontoinicial";
             this.txtmontoinicial.Size = new System.Drawing.Size(113, 28);
             this.txtmontoinicial.TabIndex = 20;
@@ -206,7 +206,7 @@
             this.btnIngresar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_entrar;
             this.btnIngresar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnIngresar.Location = new System.Drawing.Point(101, 162);
-            this.btnIngresar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnIngresar.Margin = new System.Windows.Forms.Padding(4);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(133, 39);
             this.btnIngresar.TabIndex = 4;
@@ -219,7 +219,7 @@
             // 
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.Location = new System.Drawing.Point(81, 113);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(184, 28);
@@ -231,7 +231,7 @@
             // 
             this.txtUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUser.Location = new System.Drawing.Point(81, 53);
-            this.txtUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUser.Margin = new System.Windows.Forms.Padding(4);
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(184, 28);
             this.txtUser.TabIndex = 2;
@@ -244,9 +244,9 @@
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(3, 6);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 16);
+            this.label3.Size = new System.Drawing.Size(96, 16);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Version 1.9";
+            this.label3.Text = "Version 1.9.1";
             // 
             // pictureBox2
             // 
@@ -295,7 +295,7 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
