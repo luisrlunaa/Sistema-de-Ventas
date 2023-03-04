@@ -8,7 +8,7 @@ namespace CapaEnlaceDatos
 {
     public class clsManejador
     {
-        public SqlConnection conexion = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=SalesSystem;Integrated Security=True");
+        public SqlConnection conexion = new SqlConnection("Data Source=.;Initial Catalog=LubatDB;Integrated Security=True");
         public void Conectar()
         {
             if (conexion.State == ConnectionState.Closed)
