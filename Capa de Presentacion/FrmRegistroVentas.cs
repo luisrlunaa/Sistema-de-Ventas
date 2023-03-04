@@ -742,7 +742,8 @@ namespace Capa_de_Presentacion
             lbligv.Text = "...";
             lblabono.Text = null;
 
-            txtDocIdentidad.Clear();
+            txtDocIdentidad.Clear(); 
+            txtTel.Clear();
             txtDatos.Clear();
             dgvVenta.Rows.Clear();
             txtIdProducto.Clear();
@@ -765,6 +766,7 @@ namespace Capa_de_Presentacion
             Program.DocumentoIdentidad = string.Empty;
             Program.ApellidosCliente = string.Empty;
             Program.NombreCliente = string.Empty;
+            Program.Telefono = string.Empty;
             Program.fecha = string.Empty;
 
             listProducts = new List<PrecioCompraProducto>();
