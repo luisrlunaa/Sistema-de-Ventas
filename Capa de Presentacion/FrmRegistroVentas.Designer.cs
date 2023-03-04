@@ -37,6 +37,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmRegistroVentas));
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.cbidentificacion = new System.Windows.Forms.CheckBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -132,6 +133,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.cbxTotals = new System.Windows.Forms.ComboBox();
+            this.txtTel = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -154,6 +156,7 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox3.Controls.Add(this.label24);
             this.groupBox3.Controls.Add(this.cbidentificacion);
             this.groupBox3.Controls.Add(this.textBox6);
             this.groupBox3.Controls.Add(this.btnBuscar);
@@ -176,6 +179,16 @@
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Cliente";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(360, 57);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(30, 16);
+            this.label24.TabIndex = 95;
+            this.label24.Text = "Tel:";
             // 
             // cbidentificacion
             // 
@@ -214,7 +227,7 @@
             this.btnBuscar.ForeColor = System.Drawing.Color.Black;
             this.btnBuscar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_buscar;
             this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(427, 11);
+            this.btnBuscar.Location = new System.Drawing.Point(450, 11);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(115, 37);
@@ -258,7 +271,7 @@
             this.txtDatos.Margin = new System.Windows.Forms.Padding(4);
             this.txtDatos.Name = "txtDatos";
             this.txtDatos.ReadOnly = true;
-            this.txtDatos.Size = new System.Drawing.Size(474, 22);
+            this.txtDatos.Size = new System.Drawing.Size(288, 22);
             this.txtDatos.TabIndex = 1;
             this.txtDatos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1359,12 +1372,26 @@
             this.cbxTotals.Size = new System.Drawing.Size(184, 24);
             this.cbxTotals.TabIndex = 149;
             // 
+            // txtTel
+            // 
+            this.txtTel.BackColor = System.Drawing.Color.White;
+            this.txtTel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTel.ForeColor = System.Drawing.Color.Black;
+            this.txtTel.Location = new System.Drawing.Point(410, 242);
+            this.txtTel.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTel.Name = "txtTel";
+            this.txtTel.Size = new System.Drawing.Size(172, 22);
+            this.txtTel.TabIndex = 95;
+            this.txtTel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(928, 775);
+            this.Controls.Add(this.txtTel);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.cbxTotals);
             this.Controls.Add(this.cotizacionPanel);
@@ -1542,5 +1569,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SubtoTal;
         private System.Windows.Forms.Label label23;
         public System.Windows.Forms.ComboBox cbxTotals;
+        private System.Windows.Forms.Label label24;
+        public System.Windows.Forms.TextBox txtTel;
     }
 }

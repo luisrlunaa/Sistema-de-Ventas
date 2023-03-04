@@ -301,6 +301,7 @@ namespace Capa_de_Presentacion
                     txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
                 }
 
+                txtTel.Text = !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
                 txtidCli.Text = Program.IdCliente > 0 ? Program.IdCliente + "" : txtidCli.Text;
                 txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
             }
@@ -314,6 +315,7 @@ namespace Capa_de_Presentacion
                 {
                     txtDatos.Text = Program.datoscliente;
                 }
+                txtTel.Text = !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
             }
 
             if (Program.IdProducto > 0)
@@ -830,7 +832,7 @@ namespace Capa_de_Presentacion
                 txtidCli.Text = Program.IdCliente > 0 ? Program.IdCliente + "" : txtidCli.Text;
                 txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
             }
-
+            txtTel.Text = !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
             pa.Show();
 
             var value = new List<string>();
@@ -958,7 +960,8 @@ namespace Capa_de_Presentacion
                     cmd.Parameters.Add("@IdCliente", SqlDbType.Int).Value = Convert.ToInt32(txtidCli.Text);
                 }
 
-                cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
+                cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text; 
+                cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = txtTel.Text;
                 cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idVenta;
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
@@ -1186,6 +1189,7 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
                 cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
+                cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = txtTel.Text;
 
                 try
                 {
