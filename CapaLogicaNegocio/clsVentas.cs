@@ -99,6 +99,8 @@ namespace CapaLogicaNegocio
                     venta.NombreCliente = dr.GetString(dr.GetOrdinal("NombreCliente"));
                     venta.UltimaFechaPago = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
                     venta.borrador = dr.GetBoolean(dr.GetOrdinal("borrado")) ? 1 : 0;
+                    venta.Telefono = dr.GetString(dr.GetOrdinal("Telefono"));
+                    venta.Vehiculo = dr.GetString(dr.GetOrdinal("Vehiculo"));
 
                     newlist.Add(venta);
                 }
@@ -129,5 +131,7 @@ namespace CapaLogicaNegocio
         public string NombreCliente { get; set; }
         public DateTime? UltimaFechaPago { get; set; }
         public int? borrador { get; set; }
+        public string Vehiculo { get; set; }
+        public string Telefono { get; set; }
     }
 }
