@@ -1,5 +1,6 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
+using DevComponents.DotNetBar.Controls;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -270,6 +271,7 @@ namespace Capa_de_Presentacion
 
                 txtidCli.Text = Program.IdCliente > 0 ? Program.IdCliente + "" : txtidCli.Text;
                 txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
+                txtTel.Text = !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
             }
             else
             {
@@ -281,6 +283,7 @@ namespace Capa_de_Presentacion
                 {
                     txtDatos.Text = Program.datoscliente;
                 }
+                txtTel.Text = !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
             }
 
             if (Program.IdProducto > 0)
@@ -709,6 +712,8 @@ namespace Capa_de_Presentacion
 
             txtDocIdentidad.Clear();
             txtDatos.Clear();
+            txtTel.Clear();
+            txtVeh.Clear();
             dgvVenta.Rows.Clear();
             txtIdProducto.Clear();
             txtNCF.Clear();
@@ -727,6 +732,7 @@ namespace Capa_de_Presentacion
             Program.DocumentoIdentidad = string.Empty;
             Program.ApellidosCliente = string.Empty;
             Program.NombreCliente = string.Empty;
+            Program.Telefono = string.Empty;
             Program.fecha = string.Empty;
 
             listProducts = new List<PrecioCompraProducto>();
@@ -767,6 +773,8 @@ namespace Capa_de_Presentacion
                     txtDatos.Text = Program.datoscliente;
                 }
                 txtDocIdentidad.Text = "Sin identificacion";
+
+                txtTel.Text= !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
             }
             else
             {
@@ -792,6 +800,7 @@ namespace Capa_de_Presentacion
 
                 txtidCli.Text = Program.IdCliente > 0 ? Program.IdCliente + "" : txtidCli.Text;
                 txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
+                txtTel.Text = !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
             }
 
             pa.Show();
@@ -889,6 +898,8 @@ namespace Capa_de_Presentacion
                 }
 
                 cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
+                cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = txtTel.Text;
+                cmd.Parameters.Add("@Vehiculo", SqlDbType.VarChar).Value = txtVeh.Text;
                 cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idVenta;
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
@@ -1116,6 +1127,8 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
                 cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
+                cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = txtTel.Text;
+                cmd.Parameters.Add("@Vehiculo", SqlDbType.VarChar).Value = txtVeh.Text;
 
                 try
                 {
@@ -1268,6 +1281,7 @@ namespace Capa_de_Presentacion
             //SUB CABECERA.
             ticket.TextoIzquierda("Atendido Por: " + txtUsu.Text);
             ticket.TextoIzquierda("Cliente: " + nombre);
+            ticket.TextoIzquierda("Cliente: " + txtTel.Text);
             ticket.TextoIzquierda("Documento de Identificación: " + cedula);
             ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Value.Day + "/" + dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year);
 
@@ -1571,6 +1585,7 @@ namespace Capa_de_Presentacion
                         doc.Add(new Paragraph("COTIZACION", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
                     doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Telefono: " + txtTel.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph(" "));
 

@@ -143,6 +143,7 @@ namespace Capa_de_Presentacion
             Program.DocumentoIdentidad = dataGridView1.CurrentRow.Cells[1].Value.ToString();
             Program.ApellidosCliente = dataGridView1.CurrentRow.Cells[2].Value.ToString();
             Program.NombreCliente = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            Program.Telefono = dataGridView2.CurrentRow.Cells[5].Value.ToString();
             this.Close();
         }
 
@@ -186,6 +187,7 @@ namespace Capa_de_Presentacion
             apellido = dataGridView2.CurrentRow.Cells[2].Value.ToString();
             nombre = dataGridView2.CurrentRow.Cells[3].Value.ToString();
             Program.nombres = apellido + "," + nombre;
+            Program.Telefono = dataGridView2.CurrentRow.Cells[5].Value.ToString();
             this.Close();
         }
 
