@@ -392,6 +392,7 @@ namespace Capa_de_Presentacion
                     lbligv.Text = Program.igv + "";
                     txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
                     dateTimePicker1.Text = !string.IsNullOrWhiteSpace(Program.fecha) ? Program.fecha : dateTimePicker1.Text;
+                    txtTel.Text = Program.Telefono;
 
                     decimal subtotal = 0;
                     decimal igv = 0;
@@ -458,6 +459,7 @@ namespace Capa_de_Presentacion
                     lbligv.Text = Program.igv + "";
                     txtidEmp.Text = Program.IdEmpleado > 0 ? Program.IdEmpleado + "" : txtidEmp.Text;
                     dateTimePicker1.Text = !string.IsNullOrWhiteSpace(Program.fecha) ? Program.fecha : dateTimePicker1.Text;
+                    txtTel.Text = Program.Telefono;
 
                     decimal subtotal = 0;
                     decimal igv = 0;
@@ -1537,7 +1539,7 @@ namespace Capa_de_Presentacion
                 btnRegistrarVenta.Text = "Cotizar";
                 btnSalir.Visible = Program.pagarcotizacion;
                 txtIgv.Enabled = Program.isAdminUser;
-                label21.Text = "Cotizacion";
+                label22.Text = "Cotizacion";
                 BackColor = System.Drawing.Color.SlateGray;
             }
             else
@@ -1545,7 +1547,7 @@ namespace Capa_de_Presentacion
                 Program.isSaler = true;
                 txtIgv.Enabled = Program.isAdminUser;
                 btnSalir.Visible = Program.isSaler;
-                label21.Text = "Ventas";
+                label22.Text = "Ventas";
                 btnRegistrarVenta.Text = "Imprimir Factura";
             }
         }

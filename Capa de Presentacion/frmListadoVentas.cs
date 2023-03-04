@@ -273,6 +273,7 @@ namespace Capa_de_Presentacion
                 Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["restante"].Value.ToString());
                 Program.ultimafechapago = dataGridView1.CurrentRow.Cells["ultimafecha"].Value.ToString();
             }
+            Program.Telefono = dataGridView1.CurrentRow.Cells["telefono"].Value.ToString();
 
             Program.ReImpresion = "Copia Factura";
         }
