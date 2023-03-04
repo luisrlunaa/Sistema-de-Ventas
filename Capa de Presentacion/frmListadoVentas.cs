@@ -164,6 +164,8 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = item.FechaVenta;
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = item.NombreCliente.ToString();
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = item.UltimaFechaPago;
+                dataGridView1.Rows[renglon].Cells["vehiculo"].Value = item.Vehiculo.ToString();
+                dataGridView1.Rows[renglon].Cells["telefono"].Value = item.Telefono.ToString();
             }
 
             var totalVendido = listaventas.Sum(x => x.Total);
@@ -273,6 +275,8 @@ namespace Capa_de_Presentacion
                 Program.ultimafechapago = dataGridView1.CurrentRow.Cells["ultimafecha"].Value.ToString();
             }
 
+            Program.Telefono = dataGridView1.CurrentRow.Cells["telefono"].Value.ToString();
+            Program.Vehiculo = dataGridView1.CurrentRow.Cells["vehiculo"].Value.ToString();
             Program.ReImpresion = "Copia Factura";
         }
 
