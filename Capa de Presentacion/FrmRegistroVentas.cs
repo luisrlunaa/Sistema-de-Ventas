@@ -1281,8 +1281,9 @@ namespace Capa_de_Presentacion
             //SUB CABECERA.
             ticket.TextoIzquierda("Atendido Por: " + txtUsu.Text);
             ticket.TextoIzquierda("Cliente: " + nombre);
-            ticket.TextoIzquierda("Cliente: " + txtTel.Text);
+            ticket.TextoIzquierda("Telefono: " + txtTel.Text);
             ticket.TextoIzquierda("Documento de Identificación: " + cedula);
+            ticket.TextoIzquierda("Vehiculo: " + txtVeh.Text);
             ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Value.Day + "/" + dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year);
 
             if (cbtipofactura.Text.ToLower() == "credito" && Program.Esabono == "Es Abono")
@@ -1587,6 +1588,7 @@ namespace Capa_de_Presentacion
                     doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Telefono: " + txtTel.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Vehiculo: " + txtVeh.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph(" "));
 
                     GenerarDocumento(doc);
