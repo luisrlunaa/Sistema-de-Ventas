@@ -216,7 +216,6 @@ namespace Capa_de_Presentacion
 
         private void txtMarca_KeyPress(object sender, KeyPressEventArgs e)
         {
-            validar.sololetras(e);
         }
 
         private void frmAlineamiento_Load(object sender, EventArgs e)

@@ -164,6 +164,7 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = item.FechaVenta;
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = item.NombreCliente.ToString();
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = item.UltimaFechaPago;
+                dataGridView1.Rows[renglon].Cells["telefono"].Value = item.Telefono.ToString();
             }
 
             var totalVendido = listaventas.Sum(x => x.Total);

@@ -1018,6 +1018,7 @@ namespace Capa_de_Presentacion
                 venta.UltimaFechaPago = dateTimePicker1.Value;
                 venta.NombreCliente = Program.datoscliente;
                 venta.borrador = 0;
+                venta.Telefono = Program.Telefono;
 
                 if (clsGenericList.tempSalesData != null)
                 {
