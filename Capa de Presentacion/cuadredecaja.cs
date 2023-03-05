@@ -413,11 +413,11 @@ namespace Capa_de_Presentacion
             Program.abiertosecundarias = false;
             Program.abierto = false;
 
-            var dirs = new DirectoryInfo(@"C:\\Program Files\\Microsoft SQL Server\\" + Program.SqlFolder + "\\MSSQL\\Backup").FullName;
+            var dirs = new DirectoryInfo(@""+Program.SqlFolder).FullName;
             var (save, fileName) = MakeBackup(dirs, M.conexion.ConnectionString, M.conexion.Database);
             if (save)
             {
-                var destination = @"C:\\Users\\" + Program.WindUser + "\\Desktop\\" + fileName;
+                var destination = @"" + Program.WindUser + "\\" + fileName;
                 if (File.Exists(destination))
                 {
                     File.Delete(destination);
