@@ -410,43 +410,47 @@ namespace Capa_de_Presentacion
         private void label18_Click(object sender, EventArgs e)
         {
             M.Desconectar();
-            Program.abiertosecundario = false;
+            Program.abiertosecundarias = false;
             Program.abierto = false;
+
+            var dirs = new DirectoryInfo(@"" + Program.SqlFolder).FullName;
+            var (save, fileName) = MakeBackup(dirs, M.conexion.ConnectionString, M.conexion.Database);
+            if (save)
+            {
+                var destination = @"" + Program.WindUser + "\\" + fileName;
+                if (File.Exists(destination))
+                {
+                    File.Delete(destination);
+                }
+
+                File.Move(dirs + "\\" + fileName, destination);
+                MessageBox.Show("Backup de base de datos realizado y guardado");
+            }
+            else
+                MessageBox.Show("Error al realizar el Backup de base de datos");
+
             Application.Exit();
+        }
 
-            //if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            //{
-            //    ////////////////////Borrar copia de seguridad de base de datos anterior
-            //    string direccion = @"C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Backup\SalesSystem.bak";
-            //    File.Delete(direccion);
+        public (bool success, string filename) MakeBackup(string ubicacion, string strConnection, string dbName)
+        {
+            string nombre = "_" + dbName + "_" + DateTime.Now.ToShortDateString().Replace("/", "-") + ".bak";
 
-            //    ////////////////////Creando copia de seguridad de base de datos nueva
-            //    string comand_query = "BACKUP DATABASE [SalesSystem] TO  DISK = N'C:\\Program Files\\Microsoft SQL Server\\MSSQL12.MSSQLSERVER\\MSSQL\\Backup\\SalesSystem.bak'WITH NOFORMAT, NOINIT,  NAME = N'SalesSystem-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
-            //    SqlCommand comando = new SqlCommand(comand_query, M.conexion);
-            //    try
-            //    {
-            //        M.Conectar();
-            //        comando.ExecuteNonQuery();
+            var con = new SqlConnection(strConnection);
+            var cmd = new SqlCommand("BACKUP DATABASE " + dbName + " TO DISK='" + ubicacion + "/" + nombre + "'", con);
 
-            //        ////////////////////Enviando al correo copia de seguridad de base de datos nueva
-            //        //c.enviarCorreo("sendingsystembackup@gmail.com", "evitarperdidadedatos/0", "Realizando la creación diaria de respaldo de base de datos para evitar perdidas de datos en caso de algún problema con el equipo.",
-            //        //    "Backup de base de datos" + DateTime.Now, "ferreteriaalmontekm13@gmail.com", direccion);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(ex.Message);
-            //        throw;
-            //    }
-            //    finally
-            //    {
-            //        M.Desconectar();
-            //        Application.Exit();
-            //    }
-            //}
-            //else
-            //{
-            //    Application.Exit();
-            //}
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                return (true, nombre);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                con.Close();
+                return (false, string.Empty);
+            }
         }
 
         private void label7_Click(object sender, EventArgs e)
