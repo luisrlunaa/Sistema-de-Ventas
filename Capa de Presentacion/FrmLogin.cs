@@ -180,7 +180,7 @@ namespace Capa_de_Presentacion
         public void fechaVenc()
         {
             Cx.Desconectar();
-            string cadSql = "select top(1) FechaVenc  from NomEmp order by idEmp desc";
+            string cadSql = "select top(1) FechaVenc,WindowsUserName,SqlFolderName from NomEmp order by idEmp desc";
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
             Cx.Conectar();
@@ -190,6 +190,8 @@ namespace Capa_de_Presentacion
             if (leer.Read() == true)
             {
                 FechaVenc = Convert.ToDateTime(leer["FechaVenc"]);
+                Program.WindUser = Convert.ToString(leer["WindowsUserName"]);
+                Program.SqlFolder = Convert.ToString(leer["SqlFolderName"]);
             }
             Cx.Desconectar();
         }

@@ -19,6 +19,8 @@ namespace Capa_de_Presentacion
         public static string Esabono;
         public static string ImpresonaPeq;
         public static bool pagarcotizacion;
+        public static string WindUser;
+        public static string SqlFolder;
 
         //Datos del Cliente
         public static bool abiertosecundarias;

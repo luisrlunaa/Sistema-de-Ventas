@@ -706,121 +706,129 @@ namespace Capa_de_Presentacion
                 da.Fill(dt);
 
                 var i = 1;
-                foreach (DataRow data in dt.Rows)
+                try
                 {
-                    SqlCommand sqlCommand = new SqlCommand("DevolucionVenta", M.conexion);
-                    using (SqlCommand cmd3 = sqlCommand)
+                    foreach (DataRow data in dt.Rows)
                     {
-                        cmd3.CommandType = CommandType.StoredProcedure;
-
-                        decimal cantidadDV = Convert.ToDecimal(data[0]);
-                        int idProductoDV = Convert.ToInt32(data[1]);
-                        string tipofacturaDV = data[2].ToString().ToLower();
-                        decimal subtotalDV = Convert.ToDecimal(data[3]);
-                        int idcajaDV = Convert.ToInt32(data[4]);
-                        decimal restanteDV = Convert.ToDecimal(data[5]);
-                        decimal TotalDV = Convert.ToDecimal(data[6]);
-
-                        if (tipofacturaDV.ToLower() == "credito")
+                        SqlCommand sqlCommand = new SqlCommand("DevolucionVenta", M.conexion);
+                        using (SqlCommand cmd3 = sqlCommand)
                         {
-                            subtotalDV = restanteDV / dt.Rows.Count;
-                        }
+                            cmd3.CommandType = CommandType.StoredProcedure;
 
-                        //UpdateStock
-                        cmd3.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV;
-                        cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV;
-                        cmd3.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV;
-                        cmd3.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV;
-                        cmd3.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV;
+                            decimal cantidadDV = Convert.ToDecimal(data[0]);
+                            int idProductoDV = Convert.ToInt32(data[1]);
+                            string tipofacturaDV = data[2].ToString().ToLower();
+                            decimal subtotalDV = Convert.ToDecimal(data[3]);
+                            int idcajaDV = Convert.ToInt32(data[4]);
+                            decimal restanteDV = Convert.ToDecimal(data[5]);
+                            decimal TotalDV = Convert.ToDecimal(data[6]);
 
-                        M.Conectar();
-                        cmd3.ExecuteNonQuery();
-                        M.Desconectar();
-
-                        if (i == dt.Rows.Count)
-                        {
-                            if (restanteDV != TotalDV)
+                            if (tipofacturaDV.ToLower() == "credito")
                             {
-                                SqlCommand sqlCommand2 = new SqlCommand("DevolucionVenta", M.conexion);
-                                using (SqlCommand cmd4 = sqlCommand2)
-                                {
-                                    cmd4.CommandType = CommandType.StoredProcedure;
-
-                                    decimal cantidadDV1 = 0;
-                                    int idProductoDV1 = Convert.ToInt32(data[1]);
-                                    string tipofacturaDV1 = "Debito";
-                                    decimal subtotalDV1 = TotalDV - restanteDV;
-                                    int idcajaDV1 = Convert.ToInt32(data[4]);
-
-                                    //UpdateStock
-                                    cmd4.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV1;
-                                    cmd4.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV1;
-                                    cmd4.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV1;
-                                    cmd4.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV1;
-                                    cmd4.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV1;
-
-                                    M.Conectar();
-                                    cmd4.ExecuteNonQuery();
-                                    M.Desconectar();
-                                }
+                                subtotalDV = restanteDV / dt.Rows.Count;
                             }
 
-                            decimal caja = 0, monto = 0, montoingresos = 0;
-                            string sql1 = "select * FROM pagos where idVenta=" + Program.Id;
+                            //UpdateStock
+                            cmd3.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV;
+                            cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV;
+                            cmd3.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV;
+                            cmd3.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV;
+                            cmd3.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV;
 
                             M.Conectar();
-                            SqlCommand cmd2 = new SqlCommand(sql1, M.conexion);
-                            SqlDataReader reade = cmd2.ExecuteReader();
-                            if (reade.Read())
-                            {
-                                caja = Convert.ToInt32(reade["id_caja"]);
-                                if (Program.tipo != "Debito")
-                                {
-                                    decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
-                                    decimal egresos = Convert.ToDecimal(reade["egresos"]);
-                                    monto = Convert.ToDecimal(reade["monto"]);
-
-                                    montoingresos = ingresos - egresos;
-                                }
-                                else
-                                {
-                                    decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
-                                    decimal egresos = Convert.ToDecimal(reade["egresos"]);
-
-                                    monto = ingresos - egresos;
-                                }
-                            }
+                            cmd3.ExecuteNonQuery();
                             M.Desconectar();
 
-                            if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar esta Venta?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                            if (i == dt.Rows.Count)
                             {
-                                using (SqlCommand cmd = new SqlCommand("eliminarVenta", M.conexion))
+                                if (restanteDV != TotalDV)
                                 {
-                                    cmd.CommandType = CommandType.StoredProcedure;
-                                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.Id;
-                                    cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = monto;
-                                    cmd.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = montoingresos;
-                                    cmd.Parameters.Add("@idCaja", SqlDbType.Int).Value = caja;
-                                    cmd.Parameters.Add("@tipoFactura", SqlDbType.NVarChar).Value = Program.tipo;
-
-                                    M.Conectar();
-                                    cmd.ExecuteNonQuery();
-                                    M.Desconectar();
-
-                                    var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
-                                    if (venta != null)
+                                    SqlCommand sqlCommand2 = new SqlCommand("DevolucionVenta", M.conexion);
+                                    using (SqlCommand cmd4 = sqlCommand2)
                                     {
-                                        clsGenericList.tempSalesData.Remove(venta);
-                                    }
+                                        cmd4.CommandType = CommandType.StoredProcedure;
 
-                                    Program.Id = 0;
-                                    Program.tipo = "";
-                                    button3.Enabled = false;
+                                        decimal cantidadDV1 = 0;
+                                        int idProductoDV1 = Convert.ToInt32(data[1]);
+                                        string tipofacturaDV1 = "Debito";
+                                        decimal subtotalDV1 = TotalDV - restanteDV;
+                                        int idcajaDV1 = Convert.ToInt32(data[4]);
+
+                                        //UpdateStock
+                                        cmd4.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV1;
+                                        cmd4.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV1;
+                                        cmd4.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV1;
+                                        cmd4.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV1;
+                                        cmd4.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV1;
+
+                                        M.Conectar();
+                                        cmd4.ExecuteNonQuery();
+                                        M.Desconectar();
+                                    }
+                                }
+
+                                decimal caja = 0, monto = 0, montoingresos = 0;
+                                string sql1 = "select * FROM pagos where idVenta=" + Program.Id;
+
+                                M.Conectar();
+                                SqlCommand cmd2 = new SqlCommand(sql1, M.conexion);
+                                SqlDataReader reade = cmd2.ExecuteReader();
+                                if (reade.Read())
+                                {
+                                    caja = Convert.ToInt32(reade["id_caja"]);
+                                    if (Program.tipo != "Debito")
+                                    {
+                                        decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
+                                        decimal egresos = Convert.ToDecimal(reade["egresos"]);
+                                        monto = Convert.ToDecimal(reade["monto"]);
+
+                                        montoingresos = ingresos - egresos;
+                                    }
+                                    else
+                                    {
+                                        decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
+                                        decimal egresos = Convert.ToDecimal(reade["egresos"]);
+
+                                        monto = ingresos - egresos;
+                                    }
+                                }
+                                M.Desconectar();
+
+                                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar esta Venta?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                                {
+                                    using (SqlCommand cmd = new SqlCommand("eliminarVenta", M.conexion))
+                                    {
+                                        cmd.CommandType = CommandType.StoredProcedure;
+                                        cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.Id;
+                                        cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = monto;
+                                        cmd.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = montoingresos;
+                                        cmd.Parameters.Add("@idCaja", SqlDbType.Int).Value = caja;
+                                        cmd.Parameters.Add("@tipoFactura", SqlDbType.NVarChar).Value = Program.tipo;
+
+                                        M.Conectar();
+                                        cmd.ExecuteNonQuery();
+                                        M.Desconectar();
+
+                                        var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
+                                        if (venta != null)
+                                        {
+                                            clsGenericList.tempSalesData.Remove(venta);
+                                        }
+
+                                        Program.Id = 0;
+                                        Program.tipo = "";
+                                        button3.Enabled = false;
+                                    }
                                 }
                             }
+                            i = i + 1;
                         }
-                        i = i + 1;
                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error en la eliminacion, ", ex.Message);
+                    return;
                 }
             }
             else
@@ -875,119 +883,148 @@ namespace Capa_de_Presentacion
                 da.Fill(dt);
 
                 var i = 1;
-                foreach (DataRow data in dt.Rows)
+                try
                 {
-                    SqlCommand sqlCommand = new SqlCommand("DevolucionVenta", M.conexion);
-                    using (SqlCommand cmd3 = sqlCommand)
+                    foreach (DataRow data in dt.Rows)
                     {
-                        cmd3.CommandType = CommandType.StoredProcedure;
-
-                        decimal cantidadDV = Convert.ToDecimal(data[0]);
-                        int idProductoDV = Convert.ToInt32(data[1]);
-                        string tipofacturaDV = data[2].ToString();
-                        decimal subtotalDV = Convert.ToDecimal(data[3]);
-                        int idcajaDV = Convert.ToInt32(data[4]);
-                        decimal restanteDV = Convert.ToDecimal(data[5]);
-                        decimal TotalDV = Convert.ToDecimal(data[6]);
-
-                        if (tipofacturaDV.ToLower() == "credito")
+                        SqlCommand sqlCommand = new SqlCommand("DevolucionVenta", M.conexion);
+                        using (SqlCommand cmd3 = sqlCommand)
                         {
-                            subtotalDV = restanteDV / dt.Rows.Count;
+                            cmd3.CommandType = CommandType.StoredProcedure;
+
+                            decimal cantidadDV = Convert.ToDecimal(data[0]);
+                            int idProductoDV = Convert.ToInt32(data[1]);
+                            string tipofacturaDV = data[2].ToString();
+                            decimal subtotalDV = Convert.ToDecimal(data[3]);
+                            int idcajaDV = Convert.ToInt32(data[4]);
+                            decimal restanteDV = Convert.ToDecimal(data[5]);
+                            decimal TotalDV = Convert.ToDecimal(data[6]);
+
+                            if (tipofacturaDV.ToLower() == "credito")
+                            {
+                                subtotalDV = restanteDV / dt.Rows.Count;
+                            }
+
+                            //UpdateStock
+                            cmd3.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV;
+                            cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV;
+                            cmd3.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV;
+                            cmd3.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV;
+                            cmd3.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV;
+
+                            cmd3.ExecuteNonQuery();
+
+                            if (clsGenericList.listProducto != null)
+                            {
+                                var deleteProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
+                                if (deleteProduct != null)
+                                {
+                                    var updateProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
+                                    if (updateProduct != null)
+                                    {
+                                        updateProduct.m_Stock = updateProduct.m_Stock + (int)cantidadDV;
+
+                                        clsGenericList.listProducto.Remove(deleteProduct);
+                                        clsGenericList.listProducto.Add(updateProduct);
+                                    }
+                                }
+                            }
+
+                            if (i == dt.Rows.Count)
+                            {
+                                if (restanteDV != TotalDV)
+                                {
+                                    SqlCommand sqlCommand2 = new SqlCommand("DevolucionVenta", M.conexion);
+                                    using (SqlCommand cmd4 = sqlCommand2)
+                                    {
+                                        cmd4.CommandType = CommandType.StoredProcedure;
+
+                                        decimal cantidadDV1 = 0;
+                                        int idProductoDV1 = Convert.ToInt32(data[1]);
+                                        string tipofacturaDV1 = "Debito";
+                                        decimal subtotalDV1 = TotalDV - restanteDV;
+                                        int idcajaDV1 = Convert.ToInt32(data[4]);
+
+                                        //UpdateStock
+                                        cmd4.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV1;
+                                        cmd4.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV1;
+                                        cmd4.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV1;
+                                        cmd4.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV1;
+                                        cmd4.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV1;
+
+                                        cmd4.ExecuteNonQuery();
+
+                                        if (clsGenericList.listProducto != null)
+                                        {
+                                            var deleteProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
+                                            if (deleteProduct1 != null)
+                                            {
+                                                var updateProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
+                                                if (updateProduct1 != null)
+                                                {
+                                                    updateProduct1.m_Stock = updateProduct1.m_Stock + (int)cantidadDV1;
+
+                                                    clsGenericList.listProducto.Remove(deleteProduct1);
+                                                    clsGenericList.listProducto.Add(updateProduct1);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                SqlCommand sqlCommand1 = new SqlCommand("BorrarVentaDV", M.conexion);
+                                using (SqlCommand cmd = sqlCommand1)
+                                {
+                                    cmd.CommandType = CommandType.StoredProcedure;
+
+                                    //Borrar venta luego de devolver todos los productos
+                                    cmd.Parameters.Add("@IdVenta", SqlDbType.Decimal).Value = Id;
+
+                                    cmd.ExecuteNonQuery();
+                                }
+
+                                decimal caja = 0, monto = 0, montoingresos = 0;
+                                string sql1 = "select * FROM pagos where idVenta=" + Id;
+
+                                SqlCommand cmd2 = new SqlCommand(sql1, M.conexion);
+                                SqlDataReader reade = cmd2.ExecuteReader();
+                                if (reade.Read())
+                                {
+                                    caja = Convert.ToInt32(reade["id_caja"]);
+                                    if (Program.tipo != "Debito")
+                                    {
+                                        decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
+                                        decimal egresos = Convert.ToDecimal(reade["egresos"]);
+                                        monto = Convert.ToDecimal(reade["monto"]);
+
+                                        montoingresos = ingresos - egresos;
+                                    }
+                                    else
+                                    {
+                                        decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
+                                        decimal egresos = Convert.ToDecimal(reade["egresos"]);
+
+                                        monto = ingresos - egresos;
+                                    }
+                                }
+                            }
+                            i = i + 1;
                         }
 
-                        //UpdateStock
-                        cmd3.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV;
-                        cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV;
-                        cmd3.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV;
-                        cmd3.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV;
-                        cmd3.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV;
-
-                        cmd3.ExecuteNonQuery();
-
-                        var deleteProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
-                        var updateProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
-                        updateProduct.m_Stock = updateProduct.m_Stock + (int)cantidadDV;
-
-                        clsGenericList.listProducto.Remove(deleteProduct);
-                        clsGenericList.listProducto.Add(updateProduct);
-
-                        if (i == dt.Rows.Count)
+                        if (clsGenericList.tempSalesData != null && clsGenericList.tempSalesData.Any())
                         {
-                            if (restanteDV != TotalDV)
+                            var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Id);
+                            if (venta != null)
                             {
-                                SqlCommand sqlCommand2 = new SqlCommand("DevolucionVenta", M.conexion);
-                                using (SqlCommand cmd4 = sqlCommand2)
-                                {
-                                    cmd4.CommandType = CommandType.StoredProcedure;
-
-                                    decimal cantidadDV1 = 0;
-                                    int idProductoDV1 = Convert.ToInt32(data[1]);
-                                    string tipofacturaDV1 = "Debito";
-                                    decimal subtotalDV1 = TotalDV - restanteDV;
-                                    int idcajaDV1 = Convert.ToInt32(data[4]);
-
-                                    //UpdateStock
-                                    cmd4.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = cantidadDV1;
-                                    cmd4.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProductoDV1;
-                                    cmd4.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = tipofacturaDV1;
-                                    cmd4.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = subtotalDV1;
-                                    cmd4.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV1;
-
-                                    cmd4.ExecuteNonQuery();
-
-                                    var deleteProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
-                                    var updateProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
-                                    updateProduct1.m_Stock = updateProduct1.m_Stock + (int)cantidadDV1;
-
-                                    clsGenericList.listProducto.Remove(deleteProduct1);
-                                    clsGenericList.listProducto.Add(updateProduct1);
-                                }
-                            }
-
-                            SqlCommand sqlCommand1 = new SqlCommand("BorrarVentaDV", M.conexion);
-                            using (SqlCommand cmd = sqlCommand1)
-                            {
-                                cmd.CommandType = CommandType.StoredProcedure;
-
-                                //Borrar venta luego de devolver todos los productos
-                                cmd.Parameters.Add("@IdVenta", SqlDbType.Decimal).Value = Id;
-
-                                cmd.ExecuteNonQuery();
-                            }
-
-                            decimal caja = 0, monto = 0, montoingresos = 0;
-                            string sql1 = "select * FROM pagos where idVenta=" + Id;
-
-                            SqlCommand cmd2 = new SqlCommand(sql1, M.conexion);
-                            SqlDataReader reade = cmd2.ExecuteReader();
-                            if (reade.Read())
-                            {
-                                caja = Convert.ToInt32(reade["id_caja"]);
-                                if (Program.tipo != "Debito")
-                                {
-                                    decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
-                                    decimal egresos = Convert.ToDecimal(reade["egresos"]);
-                                    monto = Convert.ToDecimal(reade["monto"]);
-
-                                    montoingresos = ingresos - egresos;
-                                }
-                                else
-                                {
-                                    decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
-                                    decimal egresos = Convert.ToDecimal(reade["egresos"]);
-
-                                    monto = ingresos - egresos;
-                                }
+                                clsGenericList.tempSalesData.Remove(venta);
                             }
                         }
-                        i = i + 1;
                     }
-
-                    var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Id);
-                    if (venta != null)
-                    {
-                        clsGenericList.tempSalesData.Remove(venta);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error en la devolucion, ", ex.Message);
+                    return;
                 }
 
                 M.Desconectar();
