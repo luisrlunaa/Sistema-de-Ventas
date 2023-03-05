@@ -391,7 +391,7 @@ namespace Capa_de_Presentacion
 
         private void cuadredecaja_Load(object sender, EventArgs e)
         {
-            label18.Enabled = true;
+            label18.Enabled = false;
             btnregistrar.Enabled = false;
             btnsuma.Visible = true;
 
