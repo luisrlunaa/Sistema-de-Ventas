@@ -20,6 +20,8 @@ namespace Capa_de_Presentacion
         public static string LoginStatus;
         public static string ReImpresion;
         public static string Esabono;
+        public static string WindUser;
+        public static string SqlFolder;
 
         //Datos del Cliente
         public static int IdCliente;
