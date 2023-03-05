@@ -391,7 +391,7 @@ namespace Capa_de_Presentacion
 
         private void cuadredecaja_Load(object sender, EventArgs e)
         {
-            label18.Enabled = false;
+            label18.Enabled = true;
             btnregistrar.Enabled = false;
             btnsuma.Visible = true;
 
@@ -412,41 +412,24 @@ namespace Capa_de_Presentacion
             M.Desconectar();
             Program.abiertosecundarias = false;
             Program.abierto = false;
+
+            var dirs = new DirectoryInfo(@"C:\\Program Files\\Microsoft SQL Server\\" + Program.SqlFolder + "\\MSSQL\\Backup").FullName;
+            var (save, fileName) = MakeBackup(dirs, M.conexion.ConnectionString, M.conexion.Database);
+            if (save)
+            {
+                var destination = @"C:\\Users\\" + Program.WindUser + "\\Desktop\\" + fileName;
+                if (File.Exists(destination))
+                {
+                    File.Delete(destination);
+                }
+
+                File.Move(dirs + "\\" + fileName, destination);
+                MessageBox.Show("Backup de base de datos realizado y guardado");
+            }
+            else
+                MessageBox.Show("Error al realizar el Backup de base de datos");
+
             Application.Exit();
-
-            //if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea realizar una copia de seguridad de la base de datos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            //{
-            //    ////////////////////Borrar copia de seguridad de base de datos anterior
-            //    string direccion = @"C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\Backup\SalesSystem.bak";
-            //    File.Delete(direccion);
-
-            //    ////////////////////Creando copia de seguridad de base de datos nueva
-            //    string comand_query = "BACKUP DATABASE [SalesSystem] TO  DISK = N'C:\\Program Files\\Microsoft SQL Server\\MSSQL12.MSSQLSERVER\\MSSQL\\Backup\\SalesSystem.bak'WITH NOFORMAT, NOINIT,  NAME = N'SalesSystem-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
-            //    SqlCommand comando = new SqlCommand(comand_query, M.conexion);
-            //    try
-            //    {
-            //        M.Conectar();
-            //        comando.ExecuteNonQuery();
-
-            //        ////////////////////Enviando al correo copia de seguridad de base de datos nueva
-            //        //c.enviarCorreo("sendingsystembackup@gmail.com", "evitarperdidadedatos/0", "Realizando la creación diaria de respaldo de base de datos para evitar perdidas de datos en caso de algún problema con el equipo.",
-            //        //    "Backup de base de datos" + DateTime.Now, "ferreteriaalmontekm13@gmail.com", direccion);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(ex.Message);
-            //        throw;
-            //    }
-            //    finally
-            //    {
-            //        M.Desconectar();
-            //        Application.Exit();
-            //    }
-            //}
-            //else
-            //{
-            //    Application.Exit();
-            //}
         }
 
         private void label7_Click(object sender, EventArgs e)
@@ -570,6 +553,27 @@ namespace Capa_de_Presentacion
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        public (bool success, string filename) MakeBackup(string ubicacion, string strConnection, string dbName)
+        {
+            string nombre = "_" + dbName + "_" + DateTime.Now.ToShortDateString().Replace("/", "-") + ".bak";
+
+            var con = new SqlConnection(strConnection);
+            var cmd = new SqlCommand("BACKUP DATABASE " + dbName + " TO DISK='" + ubicacion + "/" + nombre + "'", con);
+
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                return (true, nombre);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                con.Close();
+                return (false, string.Empty);
+            }
         }
     }
 }
