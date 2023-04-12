@@ -134,6 +134,8 @@
             this.label23 = new System.Windows.Forms.Label();
             this.cbxTotals = new System.Windows.Forms.ComboBox();
             this.txtTel = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.txtVeh = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -156,6 +158,8 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox3.Controls.Add(this.label25);
+            this.groupBox3.Controls.Add(this.txtVeh);
             this.groupBox3.Controls.Add(this.label24);
             this.groupBox3.Controls.Add(this.cbidentificacion);
             this.groupBox3.Controls.Add(this.textBox6);
@@ -175,7 +179,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(573, 86);
+            this.groupBox3.Size = new System.Drawing.Size(573, 107);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Cliente";
@@ -183,7 +187,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(360, 57);
+            this.label24.Location = new System.Drawing.Point(360, 53);
             this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(30, 16);
@@ -194,7 +198,7 @@
             // 
             this.cbidentificacion.AutoSize = true;
             this.cbidentificacion.BackColor = System.Drawing.Color.Transparent;
-            this.cbidentificacion.Location = new System.Drawing.Point(391, 21);
+            this.cbidentificacion.Location = new System.Drawing.Point(391, 20);
             this.cbidentificacion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbidentificacion.Name = "cbidentificacion";
             this.cbidentificacion.Size = new System.Drawing.Size(134, 20);
@@ -227,7 +231,7 @@
             this.btnBuscar.ForeColor = System.Drawing.Color.Black;
             this.btnBuscar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_buscar;
             this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(450, 11);
+            this.btnBuscar.Location = new System.Drawing.Point(450, 10);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(115, 37);
@@ -243,18 +247,18 @@
             this.txtDocIdentidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDocIdentidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDocIdentidad.ForeColor = System.Drawing.Color.Black;
-            this.txtDocIdentidad.Location = new System.Drawing.Point(131, 20);
+            this.txtDocIdentidad.Location = new System.Drawing.Point(131, 19);
             this.txtDocIdentidad.Margin = new System.Windows.Forms.Padding(4);
             this.txtDocIdentidad.Name = "txtDocIdentidad";
-            this.txtDocIdentidad.ReadOnly = true;
             this.txtDocIdentidad.Size = new System.Drawing.Size(253, 22);
             this.txtDocIdentidad.TabIndex = 3;
             this.txtDocIdentidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDocIdentidad.TextChanged += new System.EventHandler(this.txtDocIdentidad_TextChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 22);
+            this.label5.Location = new System.Drawing.Point(13, 21);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 16);
@@ -267,10 +271,9 @@
             this.txtDatos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDatos.ForeColor = System.Drawing.Color.Black;
-            this.txtDatos.Location = new System.Drawing.Point(68, 54);
+            this.txtDatos.Location = new System.Drawing.Point(68, 50);
             this.txtDatos.Margin = new System.Windows.Forms.Padding(4);
             this.txtDatos.Name = "txtDatos";
-            this.txtDatos.ReadOnly = true;
             this.txtDatos.Size = new System.Drawing.Size(288, 22);
             this.txtDatos.TabIndex = 1;
             this.txtDatos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -290,7 +293,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 57);
+            this.label1.Location = new System.Drawing.Point(13, 53);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(42, 16);
@@ -375,7 +378,7 @@
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.Color.Black;
-            this.groupBox4.Location = new System.Drawing.Point(17, 282);
+            this.groupBox4.Location = new System.Drawing.Point(17, 295);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
@@ -806,7 +809,7 @@
             this.dgvVenta.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvVenta.EnableHeadersVisualStyles = false;
             this.dgvVenta.GridColor = System.Drawing.Color.MidnightBlue;
-            this.dgvVenta.Location = new System.Drawing.Point(17, 471);
+            this.dgvVenta.Location = new System.Drawing.Point(17, 478);
             this.dgvVenta.Margin = new System.Windows.Forms.Padding(0);
             this.dgvVenta.Name = "dgvVenta";
             this.dgvVenta.ReadOnly = true;
@@ -1378,12 +1381,35 @@
             this.txtTel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTel.ForeColor = System.Drawing.Color.Black;
-            this.txtTel.Location = new System.Drawing.Point(410, 242);
+            this.txtTel.Location = new System.Drawing.Point(410, 239);
             this.txtTel.Margin = new System.Windows.Forms.Padding(4);
             this.txtTel.Name = "txtTel";
             this.txtTel.Size = new System.Drawing.Size(172, 22);
             this.txtTel.TabIndex = 95;
             this.txtTel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(13, 83);
+            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(62, 16);
+            this.label25.TabIndex = 152;
+            this.label25.Text = "Vehiculo:";
+            // 
+            // txtVeh
+            // 
+            this.txtVeh.BackColor = System.Drawing.Color.White;
+            this.txtVeh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtVeh.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVeh.ForeColor = System.Drawing.Color.Black;
+            this.txtVeh.Location = new System.Drawing.Point(83, 79);
+            this.txtVeh.Margin = new System.Windows.Forms.Padding(4);
+            this.txtVeh.Name = "txtVeh";
+            this.txtVeh.Size = new System.Drawing.Size(316, 22);
+            this.txtVeh.TabIndex = 151;
+            this.txtVeh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // FrmRegistroVentas
             // 
@@ -1571,5 +1597,7 @@
         public System.Windows.Forms.ComboBox cbxTotals;
         private System.Windows.Forms.Label label24;
         public System.Windows.Forms.TextBox txtTel;
+        private System.Windows.Forms.Label label25;
+        public System.Windows.Forms.TextBox txtVeh;
     }
 }

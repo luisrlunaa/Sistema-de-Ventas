@@ -51,12 +51,12 @@ namespace Capa_de_Presentacion
             if (cbidentificacion.Checked == true)
             {
                 btnBuscar.Show();
-                txtDatos.ReadOnly = true;
+                //txtDatos.ReadOnly = true;
             }
             else
             {
                 btnBuscar.Hide();
-                txtDatos.ReadOnly = false;
+                //txtDatos.ReadOnly = false;
             }
 
             if (!Program.isAdminUser)
@@ -296,14 +296,14 @@ namespace Capa_de_Presentacion
                                              ? txtDatos.Text.Split(' ')[1]
                                              : string.Empty;
                 }
-                if (!string.IsNullOrWhiteSpace(Program.NombreCliente + " " + Program.ApellidosCliente) && string.IsNullOrWhiteSpace(txtDatos.Text))
+                if (!string.IsNullOrWhiteSpace(Program.NombreCliente + " " + Program.ApellidosCliente))
                 {
                     txtDatos.Text = Program.NombreCliente + " " + Program.ApellidosCliente;
                 }
 
                 txtTel.Text = !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
                 txtidCli.Text = Program.IdCliente > 0 ? Program.IdCliente + "" : txtidCli.Text;
-                txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
+                txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : !string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? txtDocIdentidad.Text : "Sin identificación";
             }
             else
             {
@@ -616,11 +616,8 @@ namespace Capa_de_Presentacion
 
                             LlenarGri();
 
-                            if (cbidentificacion.Checked == false && txtDatos.Text != "" && Program.IdCliente == 0)
-                            {
-                                txtDocIdentidad.Text = "Sin identificación";
-                                txtDatos.Text = Program.datoscliente;
-                            }
+                            txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? txtDocIdentidad.Text : "Sin identificación";
+                            txtDatos.Text = Program.datoscliente;
 
                             Limpiar();
 
@@ -809,7 +806,6 @@ namespace Capa_de_Presentacion
                 {
                     txtDatos.Text = Program.datoscliente;
                 }
-                txtDocIdentidad.Text = "Sin identificacion";
             }
             else
             {
@@ -834,8 +830,9 @@ namespace Capa_de_Presentacion
                 }
 
                 txtidCli.Text = Program.IdCliente > 0 ? Program.IdCliente + "" : txtidCli.Text;
-                txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : txtDocIdentidad.Text;
             }
+
+            txtDocIdentidad.Text = !string.IsNullOrWhiteSpace(Program.DocumentoIdentidad) ? Program.DocumentoIdentidad : !string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? txtDocIdentidad.Text : "Sin identificación";
             txtTel.Text = !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
             pa.Show();
 
@@ -969,7 +966,7 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idVenta;
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
-
+                cmd.Parameters.Add("@Vehiculo", SqlDbType.VarChar).Value = txtVeh.Text;
                 cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
 
                 if (cbtipofactura.Text == "Credito")
@@ -1195,6 +1192,7 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
                 cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
                 cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = txtTel.Text;
+                cmd.Parameters.Add("@Vehiculo", SqlDbType.VarChar).Value = txtVeh.Text;
 
                 try
                 {
@@ -1345,13 +1343,13 @@ namespace Capa_de_Presentacion
             if (Program.datoscliente != "" && Program.IdCliente == 0)
             {
                 nombre = Program.datoscliente;
-                cedula = "Sin Identificación";
             }
             else
             {
                 nombre = txtDatos.Text;
-                cedula = txtDocIdentidad.Text;
             }
+
+            cedula = !string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? txtDocIdentidad.Text : "Sin identificación";
 
             //SUB CABECERA.
             ticket.TextoIzquierda("Atendido Por: " + txtUsu.Text);
@@ -1634,13 +1632,13 @@ namespace Capa_de_Presentacion
                     if (Program.datoscliente != "" && Program.IdCliente == 0)
                     {
                         nombre = Program.datoscliente;
-                        cedula = "Sin Identificación";
                     }
                     else
                     {
                         nombre = txtDatos.Text;
-                        cedula = txtDocIdentidad.Text;
                     }
+
+                    cedula = !string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? txtDocIdentidad.Text : "Sin identificación";
 
                     var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
 
@@ -1895,13 +1893,13 @@ namespace Capa_de_Presentacion
             if (cbidentificacion.Checked == true)
             {
                 btnBuscar.Show();
-                txtDatos.ReadOnly = true;
+                //txtDatos.ReadOnly = true;
                 cbidentificacion.Visible = false;
             }
             else
             {
                 btnBuscar.Hide();
-                txtDatos.ReadOnly = false;
+                //txtDatos.ReadOnly = false;
             }
         }
 
@@ -1933,6 +1931,12 @@ namespace Capa_de_Presentacion
             cbxTotals.DisplayMember = "text";
             cbxTotals.ValueMember = "text";
             cbxTotals.DataSource = values;
+        }
+
+        private void txtDocIdentidad_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtDocIdentidad.Text))
+                Program.IdCliente = 0;
         }
     }
 }
