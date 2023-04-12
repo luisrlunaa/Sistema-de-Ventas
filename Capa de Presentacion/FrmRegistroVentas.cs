@@ -307,7 +307,7 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(Program.datoscliente) && !string.IsNullOrWhiteSpace(txtDatos.Text))
+                if (string.IsNullOrWhiteSpace(Program.datoscliente) || Program.IdCliente == 0 && !string.IsNullOrWhiteSpace(txtDatos.Text))
                 {
                     Program.datoscliente = txtDatos.Text;
                 }
