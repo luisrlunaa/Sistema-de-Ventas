@@ -246,7 +246,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(96, 16);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Version 1.9.1";
+            this.label3.Text = "Version 1.9.2";
             // 
             // pictureBox2
             // 
