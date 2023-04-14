@@ -41,6 +41,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombrecliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idEm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.restante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
+            this.NCF = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nroComprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ultimafecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
+            this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtBuscarid = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -93,17 +104,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.chkid = new System.Windows.Forms.CheckBox();
             this.chknombre = new System.Windows.Forms.CheckBox();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombrecliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idEm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.restante = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
-            this.NCF = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nroComprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ultimafecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
-            this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -147,7 +148,8 @@
             this.NCF,
             this.nroComprobante,
             this.ultimafecha,
-            this.telefono});
+            this.telefono,
+            this.vehiculo});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -174,6 +176,144 @@
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "Id Venta";
+            this.id.MinimumWidth = 6;
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Width = 107;
+            // 
+            // nombrecliente
+            // 
+            this.nombrecliente.HeaderText = "Nombre Cliente";
+            this.nombrecliente.MinimumWidth = 6;
+            this.nombrecliente.Name = "nombrecliente";
+            this.nombrecliente.Width = 168;
+            // 
+            // Tipo
+            // 
+            this.Tipo.HeaderText = "Tipo Factura";
+            this.Tipo.MinimumWidth = 6;
+            this.Tipo.Name = "Tipo";
+            this.Tipo.Width = 144;
+            // 
+            // idEm
+            // 
+            this.idEm.HeaderText = "Id Empleado";
+            this.idEm.MinimumWidth = 6;
+            this.idEm.Name = "idEm";
+            this.idEm.Visible = false;
+            this.idEm.Width = 141;
+            // 
+            // restante
+            // 
+            this.restante.HeaderText = "Restante";
+            this.restante.MinimumWidth = 6;
+            this.restante.Name = "restante";
+            this.restante.Width = 113;
+            // 
+            // total
+            // 
+            this.total.HeaderText = "Total";
+            this.total.MinimumWidth = 6;
+            this.total.Name = "total";
+            this.total.Width = 80;
+            // 
+            // fecha
+            // 
+            // 
+            // 
+            // 
+            this.fecha.BackgroundStyle.Class = "DataGridViewDateTimeBorder";
+            this.fecha.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.fecha.HeaderText = "Fecha de Venta";
+            this.fecha.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
+            this.fecha.MinimumWidth = 6;
+            // 
+            // 
+            // 
+            this.fecha.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.fecha.MonthCalendar.BackgroundStyle.Class = "";
+            this.fecha.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.fecha.MonthCalendar.CommandsBackgroundStyle.Class = "";
+            this.fecha.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.fecha.MonthCalendar.DisplayMonth = new System.DateTime(2019, 7, 1, 0, 0, 0, 0);
+            this.fecha.MonthCalendar.MarkedDates = new System.DateTime[0];
+            this.fecha.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.fecha.MonthCalendar.NavigationBackgroundStyle.Class = "";
+            this.fecha.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.fecha.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
+            this.fecha.Name = "fecha";
+            this.fecha.Width = 169;
+            // 
+            // NCF
+            // 
+            this.NCF.HeaderText = "Tipo Comprobante";
+            this.NCF.MinimumWidth = 6;
+            this.NCF.Name = "NCF";
+            this.NCF.Width = 191;
+            // 
+            // nroComprobante
+            // 
+            this.nroComprobante.HeaderText = "Numero de Comprobante";
+            this.nroComprobante.MinimumWidth = 6;
+            this.nroComprobante.Name = "nroComprobante";
+            this.nroComprobante.Width = 246;
+            // 
+            // ultimafecha
+            // 
+            // 
+            // 
+            // 
+            this.ultimafecha.BackgroundStyle.Class = "DataGridViewDateTimeBorder";
+            this.ultimafecha.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ultimafecha.HeaderText = "Fecha Abono";
+            this.ultimafecha.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
+            this.ultimafecha.MinimumWidth = 6;
+            // 
+            // 
+            // 
+            this.ultimafecha.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.ultimafecha.MonthCalendar.BackgroundStyle.Class = "";
+            this.ultimafecha.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.ultimafecha.MonthCalendar.CommandsBackgroundStyle.Class = "";
+            this.ultimafecha.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ultimafecha.MonthCalendar.DisplayMonth = new System.DateTime(2021, 5, 1, 0, 0, 0, 0);
+            this.ultimafecha.MonthCalendar.MarkedDates = new System.DateTime[0];
+            this.ultimafecha.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
+            // 
+            // 
+            // 
+            this.ultimafecha.MonthCalendar.NavigationBackgroundStyle.Class = "";
+            this.ultimafecha.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ultimafecha.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
+            this.ultimafecha.Name = "ultimafecha";
+            this.ultimafecha.Visible = false;
+            this.ultimafecha.Width = 147;
+            // 
+            // telefono
+            // 
+            this.telefono.HeaderText = "Telefono";
+            this.telefono.MinimumWidth = 6;
+            this.telefono.Name = "telefono";
+            this.telefono.Width = 110;
             // 
             // txtBuscarid
             // 
@@ -828,143 +968,12 @@
             this.chknombre.UseVisualStyleBackColor = true;
             this.chknombre.CheckedChanged += new System.EventHandler(this.chknombre_CheckedChanged);
             // 
-            // id
+            // vehiculo
             // 
-            this.id.HeaderText = "Id Venta";
-            this.id.MinimumWidth = 6;
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Width = 107;
-            // 
-            // nombrecliente
-            // 
-            this.nombrecliente.HeaderText = "Nombre Cliente";
-            this.nombrecliente.MinimumWidth = 6;
-            this.nombrecliente.Name = "nombrecliente";
-            this.nombrecliente.Width = 168;
-            // 
-            // Tipo
-            // 
-            this.Tipo.HeaderText = "Tipo Factura";
-            this.Tipo.MinimumWidth = 6;
-            this.Tipo.Name = "Tipo";
-            this.Tipo.Width = 144;
-            // 
-            // idEm
-            // 
-            this.idEm.HeaderText = "Id Empleado";
-            this.idEm.MinimumWidth = 6;
-            this.idEm.Name = "idEm";
-            this.idEm.Visible = false;
-            this.idEm.Width = 141;
-            // 
-            // restante
-            // 
-            this.restante.HeaderText = "Restante";
-            this.restante.MinimumWidth = 6;
-            this.restante.Name = "restante";
-            this.restante.Width = 113;
-            // 
-            // total
-            // 
-            this.total.HeaderText = "Total";
-            this.total.MinimumWidth = 6;
-            this.total.Name = "total";
-            this.total.Width = 80;
-            // 
-            // fecha
-            // 
-            // 
-            // 
-            // 
-            this.fecha.BackgroundStyle.Class = "DataGridViewDateTimeBorder";
-            this.fecha.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.fecha.HeaderText = "Fecha de Venta";
-            this.fecha.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
-            this.fecha.MinimumWidth = 6;
-            // 
-            // 
-            // 
-            this.fecha.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.fecha.MonthCalendar.BackgroundStyle.Class = "";
-            this.fecha.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.fecha.MonthCalendar.CommandsBackgroundStyle.Class = "";
-            this.fecha.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.fecha.MonthCalendar.DisplayMonth = new System.DateTime(2019, 7, 1, 0, 0, 0, 0);
-            this.fecha.MonthCalendar.MarkedDates = new System.DateTime[0];
-            this.fecha.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.fecha.MonthCalendar.NavigationBackgroundStyle.Class = "";
-            this.fecha.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.fecha.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
-            this.fecha.Name = "fecha";
-            this.fecha.Width = 169;
-            // 
-            // NCF
-            // 
-            this.NCF.HeaderText = "Tipo Comprobante";
-            this.NCF.MinimumWidth = 6;
-            this.NCF.Name = "NCF";
-            this.NCF.Width = 191;
-            // 
-            // nroComprobante
-            // 
-            this.nroComprobante.HeaderText = "Numero de Comprobante";
-            this.nroComprobante.MinimumWidth = 6;
-            this.nroComprobante.Name = "nroComprobante";
-            this.nroComprobante.Width = 246;
-            // 
-            // ultimafecha
-            // 
-            // 
-            // 
-            // 
-            this.ultimafecha.BackgroundStyle.Class = "DataGridViewDateTimeBorder";
-            this.ultimafecha.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ultimafecha.HeaderText = "Fecha Abono";
-            this.ultimafecha.InputHorizontalAlignment = DevComponents.Editors.eHorizontalAlignment.Left;
-            this.ultimafecha.MinimumWidth = 6;
-            // 
-            // 
-            // 
-            this.ultimafecha.MonthCalendar.AnnuallyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.ultimafecha.MonthCalendar.BackgroundStyle.Class = "";
-            this.ultimafecha.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.ultimafecha.MonthCalendar.CommandsBackgroundStyle.Class = "";
-            this.ultimafecha.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ultimafecha.MonthCalendar.DisplayMonth = new System.DateTime(2021, 5, 1, 0, 0, 0, 0);
-            this.ultimafecha.MonthCalendar.MarkedDates = new System.DateTime[0];
-            this.ultimafecha.MonthCalendar.MonthlyMarkedDates = new System.DateTime[0];
-            // 
-            // 
-            // 
-            this.ultimafecha.MonthCalendar.NavigationBackgroundStyle.Class = "";
-            this.ultimafecha.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ultimafecha.MonthCalendar.WeeklyMarkedDays = new System.DayOfWeek[0];
-            this.ultimafecha.Name = "ultimafecha";
-            this.ultimafecha.Visible = false;
-            this.ultimafecha.Width = 147;
-            // 
-            // telefono
-            // 
-            this.telefono.HeaderText = "Telefono";
-            this.telefono.MinimumWidth = 6;
-            this.telefono.Name = "telefono";
-            this.telefono.Width = 110;
+            this.vehiculo.HeaderText = "Vehiculo";
+            this.vehiculo.MinimumWidth = 6;
+            this.vehiculo.Name = "vehiculo";
+            this.vehiculo.Width = 110;
             // 
             // frmListadoVentas
             // 
@@ -1099,5 +1108,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nroComprobante;
         private DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn ultimafecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn telefono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vehiculo;
     }
 }

@@ -164,6 +164,7 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = item.FechaVenta;
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = item.NombreCliente.ToString();
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = item.UltimaFechaPago;
+                dataGridView1.Rows[renglon].Cells["vehiculo"].Value = item.Vehiculo.ToString();
                 dataGridView1.Rows[renglon].Cells["telefono"].Value = item.Telefono.ToString();
             }
 
@@ -673,7 +674,7 @@ namespace Capa_de_Presentacion
                 if (txtBuscarid.Text.Length >= 4 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
                     string name = txtBuscarid.Text;
-                    var newlist = clsGenericList.tempSalesData.Where(x => x.NombreCliente.ToLower().Contains(name.ToLower())).ToList();
+                    var newlist = clsGenericList.tempSalesData.Where(x => x.NombreCliente.ToLower().Contains(name.ToLower()) || x.Vehiculo.ToLower().Contains(name.ToLower())).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }

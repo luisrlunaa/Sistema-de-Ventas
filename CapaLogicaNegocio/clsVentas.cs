@@ -61,9 +61,9 @@ namespace CapaLogicaNegocio
             var isSame = date.Date == date1.Date;
             var query = string.Empty;
             if (isSame)
-                query = "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),Telefono = COALESCE(Telefono, 'Sin Telefono'),borrado,UltimaFechaPago from venta where FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND borrado = 0 order by IdVenta";
+                query = "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),Telefono = COALESCE(Telefono, 'Sin Telefono'),Vehiculo = COALESCE(Vehiculo, 'Sin Vehiculo'),borrado,UltimaFechaPago from venta where FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND borrado = 0 order by IdVenta";
             else
-                query = "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),Telefono = COALESCE(Telefono, 'Sin Telefono'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) AND borrado = 0 order by IdVenta";
+                query = "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),Telefono = COALESCE(Telefono, 'Sin Telefono'),Vehiculo = COALESCE(Vehiculo, 'Sin Vehiculo'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) AND borrado = 0 order by IdVenta";
 
             M.Desconectar();
             try
@@ -100,6 +100,7 @@ namespace CapaLogicaNegocio
                     venta.UltimaFechaPago = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
                     venta.borrador = dr.GetBoolean(dr.GetOrdinal("borrado")) ? 1 : 0;
                     venta.Telefono = dr.GetString(dr.GetOrdinal("Telefono"));
+                    venta.Vehiculo = dr.GetString(dr.GetOrdinal("Vehiculo"));
 
                     newlist.Add(venta);
                 }
@@ -130,6 +131,7 @@ namespace CapaLogicaNegocio
         public string NombreCliente { get; set; }
         public DateTime? UltimaFechaPago { get; set; }
         public int? borrador { get; set; }
+        public string Vehiculo { get; set; }
         public string Telefono { get; set; }
     }
 }
