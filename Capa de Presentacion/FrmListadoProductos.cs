@@ -344,7 +344,7 @@ namespace Capa_de_Presentacion
         }
 
         string Reporte;
-        private void To_pdf(bool bayPrice)
+        private void To_pdf()
         {
             if (textBox5.Text != "")
             {
@@ -448,7 +448,7 @@ namespace Capa_de_Presentacion
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("Reporte de Inventario de Productos   "));
                     doc.Add(new Paragraph("                       "));
-                    GenerarDocumento(doc, bayPrice);
+                    GenerarDocumento(doc);
                     doc.AddCreationDate();
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("Total de Productos = " + lbltotalproductos.Text));
@@ -467,7 +467,7 @@ namespace Capa_de_Presentacion
             }
         }
 
-        public void GenerarDocumento(Document document, bool bayPrice)
+        public void GenerarDocumento(Document document)
         {
             int i, j;
             PdfPTable datatable = new PdfPTable(dataGridView1.ColumnCount);
@@ -478,11 +478,7 @@ namespace Capa_de_Presentacion
             datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
             for (i = 0; i < dataGridView1.ColumnCount; i++)
             {
-                if (!bayPrice && i != 4)
-                    datatable.AddCell(new Phrase(dataGridView1.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
-
-                if (bayPrice)
-                    datatable.AddCell(new Phrase(dataGridView1.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
+                datatable.AddCell(new Phrase(dataGridView1.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
             }
 
             datatable.HeaderRows = 1;
@@ -493,15 +489,12 @@ namespace Capa_de_Presentacion
                 {
                     if (dataGridView1[j, i].Value != null)
                     {//En esta parte, se esta agregando un renglon por cada registro en el datagrid
-                        if (!bayPrice && i != 4)
-                            datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));
-
-                        if (bayPrice)
-                            datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));
+                      datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));
                     }
                 }
                 datatable.CompleteRow();
             }
+
             document.Add(datatable);
         }
 
@@ -517,13 +510,7 @@ namespace Capa_de_Presentacion
 
         private void btnimpimir_Click(object sender, EventArgs e)
         {
-            var withBayPrice = false;
-            if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Mostrar Precio de compra en el reporte?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-                withBayPrice = true;
-            }
-
-            To_pdf(withBayPrice);
+            To_pdf();
         }
 
         #region radiobutton area
@@ -822,6 +809,16 @@ namespace Capa_de_Presentacion
             {
                 cbxCategoria.Enabled = false;
             }
+        }
+
+        private void ckbPrecioCompra_CheckedChanged(object sender, EventArgs e)
+        {
+            if(ckbPrecioCompra.Checked && dataGridView1.Columns[4].HeaderText == "P. Compra")
+            {
+                dataGridView1.Columns.RemoveAt(4);
+                dataGridView1.Rows.RemoveAt(4);
+                ckbPrecioCompra.Visible = false;
+            } 
         }
     }
 }
