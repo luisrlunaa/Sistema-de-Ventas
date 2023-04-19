@@ -89,6 +89,7 @@ namespace CapaLogicaNegocio
                 {
                     Venta venta = new Venta();
                     venta.IdVenta = dr.GetInt32(dr.GetOrdinal("IdVenta"));
+                    venta.IdCliente = dr.GetInt32(dr.GetOrdinal("IdCliente"));
                     venta.IdEmpleado = dr.GetInt32(dr.GetOrdinal("IdEmpleado"));
                     venta.TipoDocumento = dr.GetString(dr.GetOrdinal("TipoDocumento"));
                     venta.NroComprobante = dr.GetString(dr.GetOrdinal("NroDocumento"));
@@ -101,6 +102,10 @@ namespace CapaLogicaNegocio
                     venta.borrador = dr.GetBoolean(dr.GetOrdinal("borrado")) ? 1 : 0;
                     venta.Telefono = dr.GetString(dr.GetOrdinal("Telefono"));
                     venta.Vehiculo = dr.GetString(dr.GetOrdinal("Vehiculo"));
+
+                    venta.NombreCliente = string.IsNullOrWhiteSpace(venta.NombreCliente) ? "Sin Cliente" : venta.NombreCliente;
+                    venta.Telefono = string.IsNullOrWhiteSpace(venta.Telefono) ? "Sin Telefono" : venta.Telefono;
+                    venta.Vehiculo = string.IsNullOrWhiteSpace(venta.Vehiculo) ? "Sin Vehiculo" : venta.Vehiculo;
 
                     newlist.Add(venta);
                 }

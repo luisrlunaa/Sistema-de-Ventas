@@ -275,6 +275,7 @@ namespace Capa_de_Presentacion
                 Program.ultimafechapago = dataGridView1.CurrentRow.Cells["ultimafecha"].Value.ToString();
             }
             Program.Telefono = dataGridView1.CurrentRow.Cells["telefono"].Value.ToString();
+            Program.Vehiculo = dataGridView1.CurrentRow.Cells["vehiculo"].Value.ToString();
 
             Program.ReImpresion = "Copia Factura";
         }
