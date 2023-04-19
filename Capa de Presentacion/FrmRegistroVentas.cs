@@ -741,6 +741,7 @@ namespace Capa_de_Presentacion
 
             txtDocIdentidad.Clear(); 
             txtTel.Clear();
+            txtVeh.Clear();
             txtDatos.Clear();
             dgvVenta.Rows.Clear();
             txtIdProducto.Clear();
@@ -764,6 +765,7 @@ namespace Capa_de_Presentacion
             Program.ApellidosCliente = string.Empty;
             Program.NombreCliente = string.Empty;
             Program.Telefono = string.Empty;
+            Program.Vehiculo = string.Empty;
             Program.fecha = string.Empty;
 
             listProducts = new List<PrecioCompraProducto>();
