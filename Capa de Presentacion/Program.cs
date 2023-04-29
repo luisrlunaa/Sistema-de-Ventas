@@ -112,7 +112,10 @@ namespace Capa_de_Presentacion
         {
             foreach (var property in obj.GetType().GetProperties())
             {
-                var isStringNull = (property.PropertyType == typeof(string) && string.IsNullOrWhiteSpace(property.GetValue(obj)?.ToString()));
+                var isStringNull = property.PropertyType == typeof(string)
+                                 && (property.GetValue(obj) == null
+                                 || string.IsNullOrWhiteSpace(property.GetValue(obj)?.ToString()));
+
                 if (property.GetValue(obj) == null || isStringNull)
                 {
                     if (property.PropertyType == typeof(string))
