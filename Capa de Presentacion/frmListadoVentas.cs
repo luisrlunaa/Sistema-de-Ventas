@@ -3,6 +3,7 @@ using CapaLogicaNegocio;
 using CapaLogicaNegocio.ViewModel;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -38,7 +39,7 @@ namespace Capa_de_Presentacion
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
 
-            if (clsGenericList.tempSalesData.Count > 0)
+            if (clsGenericList.tempSalesData != null && clsGenericList.tempSalesData.Count > 0)
             {
                 llenar_data(clsGenericList.tempSalesData);
 
@@ -87,9 +88,14 @@ namespace Capa_de_Presentacion
         public List<Venta> cargarListado()
         {
             clsVentas V = new clsVentas();
+            if (clsGenericList.tempSalesData is null)
+                clsGenericList.tempSalesData = new List<Venta>();
+
             try
             {
-                return clsGenericList.tempSalesData = V.GetListadoVentas(GetWeek(), DateTime.Now);
+                var ventas = V.GetListadoVentas(GetWeek(), DateTime.Now);
+                ventas.ForEach(x => clsGenericList.tempSalesData.Add(Program.AnyNullValue<Venta>(x)));
+                return clsGenericList.tempSalesData;
             }
             catch (Exception ex)
             {
@@ -529,7 +535,8 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                var isOnTempData = clsGenericList.tempSalesData.Count > 0 ? clsGenericList.tempSalesData.Where(x => isSameDate
+                var isOnTempData = clsGenericList.tempSalesData != null 
+                                 && clsGenericList.tempSalesData.Count > 0 ? clsGenericList.tempSalesData.Where(x => isSameDate
                                                               ? x.FechaVenta.Value.Date == date1
                                                               : x.FechaVenta.Value.Date >= date1 && x.FechaVenta.Value.Date <= date2)
                                                               .ToList().Count > 0
@@ -804,10 +811,13 @@ namespace Capa_de_Presentacion
                                         cmd.ExecuteNonQuery();
                                         M.Desconectar();
 
-                                        var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
-                                        if (venta != null)
+                                        if (clsGenericList.tempSalesData != null)
                                         {
-                                            clsGenericList.tempSalesData.Remove(venta);
+                                            var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
+                                            if (venta != null)
+                                            {
+                                                clsGenericList.tempSalesData.Remove(venta);
+                                            }
                                         }
 
                                         Program.Id = 0;

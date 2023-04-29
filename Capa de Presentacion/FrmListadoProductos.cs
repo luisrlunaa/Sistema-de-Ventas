@@ -73,6 +73,7 @@ namespace Capa_de_Presentacion
                     product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
                     product.m_Marca = reader["Marca"] == DBNull.Value ? string.Empty : reader["Marca"].ToString();
 
+                    product = Program.AnyNullValue<Producto>(product);
                     clsGenericList.listProducto.Add(product);
                 }
 

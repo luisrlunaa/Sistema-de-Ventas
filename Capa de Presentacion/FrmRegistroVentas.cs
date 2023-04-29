@@ -1018,6 +1018,7 @@ namespace Capa_de_Presentacion
                 venta.NombreCliente = Program.datoscliente;
                 venta.borrador = 0;
                 venta.Telefono = Program.Telefono;
+                venta = Program.AnyNullValue<Venta>(venta);
 
                 if (clsGenericList.tempSalesData != null)
                 {
@@ -1097,6 +1098,7 @@ namespace Capa_de_Presentacion
                             producto.m_Stock = producto.m_Stock - Convert.ToInt32(row.Cells["cantidadP"].Value);
                             Producto updateproducto = new Producto();
                             updateproducto = producto;
+                            updateproducto = Program.AnyNullValue<Producto>(producto);
 
                             clsGenericList.listProducto.Remove(producto);
                             clsGenericList.listProducto.Add(updateproducto);
