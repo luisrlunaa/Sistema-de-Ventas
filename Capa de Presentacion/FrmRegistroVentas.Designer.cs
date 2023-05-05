@@ -37,6 +37,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmRegistroVentas));
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.txtVeh = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.cbidentificacion = new System.Windows.Forms.CheckBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
@@ -134,8 +136,7 @@
             this.label23 = new System.Windows.Forms.Label();
             this.cbxTotals = new System.Windows.Forms.ComboBox();
             this.txtTel = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.txtVeh = new System.Windows.Forms.TextBox();
+            this.txtresultTotalCBX = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -183,6 +184,29 @@
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Cliente";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(13, 83);
+            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(62, 16);
+            this.label25.TabIndex = 152;
+            this.label25.Text = "Vehiculo:";
+            // 
+            // txtVeh
+            // 
+            this.txtVeh.BackColor = System.Drawing.Color.White;
+            this.txtVeh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtVeh.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVeh.ForeColor = System.Drawing.Color.Black;
+            this.txtVeh.Location = new System.Drawing.Point(83, 79);
+            this.txtVeh.Margin = new System.Windows.Forms.Padding(4);
+            this.txtVeh.Name = "txtVeh";
+            this.txtVeh.Size = new System.Drawing.Size(316, 22);
+            this.txtVeh.TabIndex = 151;
+            this.txtVeh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label24
             // 
@@ -1374,6 +1398,7 @@
             this.cbxTotals.Name = "cbxTotals";
             this.cbxTotals.Size = new System.Drawing.Size(184, 24);
             this.cbxTotals.TabIndex = 149;
+            this.cbxTotals.SelectedValueChanged += new System.EventHandler(this.cbxTotals_SelectedValueChanged);
             // 
             // txtTel
             // 
@@ -1388,28 +1413,17 @@
             this.txtTel.TabIndex = 95;
             this.txtTel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label25
+            // txtresultTotalCBX
             // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(13, 83);
-            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(62, 16);
-            this.label25.TabIndex = 152;
-            this.label25.Text = "Vehiculo:";
-            // 
-            // txtVeh
-            // 
-            this.txtVeh.BackColor = System.Drawing.Color.White;
-            this.txtVeh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtVeh.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVeh.ForeColor = System.Drawing.Color.Black;
-            this.txtVeh.Location = new System.Drawing.Point(83, 79);
-            this.txtVeh.Margin = new System.Windows.Forms.Padding(4);
-            this.txtVeh.Name = "txtVeh";
-            this.txtVeh.Size = new System.Drawing.Size(316, 22);
-            this.txtVeh.TabIndex = 151;
-            this.txtVeh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtresultTotalCBX.AutoSize = true;
+            this.txtresultTotalCBX.BackColor = System.Drawing.Color.Transparent;
+            this.txtresultTotalCBX.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtresultTotalCBX.ForeColor = System.Drawing.Color.Black;
+            this.txtresultTotalCBX.Location = new System.Drawing.Point(598, 267);
+            this.txtresultTotalCBX.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.txtresultTotalCBX.Name = "txtresultTotalCBX";
+            this.txtresultTotalCBX.Size = new System.Drawing.Size(0, 16);
+            this.txtresultTotalCBX.TabIndex = 151;
             // 
             // FrmRegistroVentas
             // 
@@ -1417,6 +1431,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(928, 775);
+            this.Controls.Add(this.txtresultTotalCBX);
             this.Controls.Add(this.txtTel);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.cbxTotals);
@@ -1599,5 +1614,6 @@
         public System.Windows.Forms.TextBox txtTel;
         private System.Windows.Forms.Label label25;
         public System.Windows.Forms.TextBox txtVeh;
+        private System.Windows.Forms.Label txtresultTotalCBX;
     }
 }

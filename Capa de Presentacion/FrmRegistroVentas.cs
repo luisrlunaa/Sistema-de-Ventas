@@ -515,6 +515,11 @@ namespace Capa_de_Presentacion
                 }
             }
 
+            if (!string.IsNullOrWhiteSpace(Program.Esabono) && cbxTotals.Items.Count == 0)
+            {
+                LoadComboCategories();
+            }
+
             btnSalir.Enabled = Program.pagoRealizado == 0 && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0
                             || (!string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito" && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0)
                             || Program.pagarcotizacion;
@@ -771,6 +776,7 @@ namespace Capa_de_Presentacion
             listProducts = new List<PrecioCompraProducto>();
             TotalsList = new List<categoriasTotals>();
         }
+
         private void btnSalir_Click(object sender, EventArgs e)
         {
             frmPagar pa = new frmPagar();
@@ -836,6 +842,12 @@ namespace Capa_de_Presentacion
             txtTel.Text = !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
             pa.Show();
 
+            LoadComboCategories();
+            Program.tipo = cbtipofactura.Text;
+        }
+
+        private void LoadComboCategories()
+        {
             var value = new List<string>();
             foreach (var item in listProducts)
             {
@@ -853,8 +865,8 @@ namespace Capa_de_Presentacion
                 if (!value.Contains(category))
                 {
                     var id = value.Count + 1;
-                    value.Add(category );
-                    TotalsList.Add(new categoriasTotals() { category = category, total= lst.Where(x => x.IdProducto == product.m_IdP).Sum(y => y.Cantidad) });
+                    value.Add(category);
+                    TotalsList.Add(new categoriasTotals() { category = category, total = lst.Where(x => x.IdProducto == product.m_IdP).Sum(y => y.Cantidad) });
                 }
                 else
                 {
@@ -866,11 +878,11 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            cbxTotals.Visible = string.IsNullOrWhiteSpace(Program.Esabono);
-            label23.Visible = string.IsNullOrWhiteSpace(Program.Esabono);
             GetTotalListValue(value);
-            Program.tipo = cbtipofactura.Text;
+            cbxTotals.Visible = cbxTotals.Items != null && cbxTotals.Items.Count > 0;
+            label23.Visible = cbxTotals.Items != null && cbxTotals.Items.Count > 0;
         }
+
         private void btnEliminarItem_Click(object sender, EventArgs e)
         {
             List<clsVentas> lista = new List<clsVentas>();
@@ -1166,6 +1178,7 @@ namespace Capa_de_Presentacion
 
             Program.pagoRealizado = 0;
         }
+
         public void CotizacionRealizada()
         {
             M.Desconectar();
@@ -1582,6 +1595,15 @@ namespace Capa_de_Presentacion
 
         private void btnImprimir_Click_1(object sender, EventArgs e)
         {
+            if (cbxTotals.Items.Count > 0 && cbxTotals.Text == "todos")
+            {
+                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Esta seguro desea la cantidad total de todos los productos?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
+                {
+                    MessageBox.Show("seleccione el tipo de producto que desea calcular la cantidad");
+                    return;
+                }
+            }
+
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de factura desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                 tickEstilo();
@@ -1941,6 +1963,30 @@ namespace Capa_de_Presentacion
         {
             if (string.IsNullOrWhiteSpace(txtDocIdentidad.Text))
                 Program.IdCliente = 0;
+        }
+
+        private void cbxTotals_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var result = string.Empty;
+
+            if (cbxTotals.Items.Count > 0 && cbxTotals.Text != "ninguno")
+            {
+                result = "Cantidad Total de Productos" + "\n";
+                if (cbxTotals.Text == "todos")
+                {
+                    foreach (var item in TotalsList)
+                    {
+                        result += "Cantidad de " + item.category + "= " + item.total + "\n";
+                    }
+                }
+                else
+                {
+                    var category = TotalsList.FirstOrDefault(x => x.category == cbxTotals.Text);
+                    result += "Cantidad de " + category.category + "= " + category.total;
+                }
+            }
+
+            txtresultTotalCBX.Text = result;
         }
     }
 }
