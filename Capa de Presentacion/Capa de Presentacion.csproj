@@ -160,6 +160,12 @@
     <Compile Include="frmMovimientoCaja.Designer.cs">
       <DependentUpon>frmMovimientoCaja.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMontoAPagar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMontoAPagar.Designer.cs">
+      <DependentUpon>frmMontoAPagar.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPagar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,6 +301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMovimientoCaja.resx">
       <DependentUpon>frmMovimientoCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMontoAPagar.resx">
+      <DependentUpon>frmMontoAPagar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPagar.resx">
       <DependentUpon>frmPagar.cs</DependentUpon>

@@ -842,7 +842,6 @@ namespace Capa_de_Presentacion
             txtTel.Text = !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
             pa.Show();
 
-            LoadComboCategories();
             Program.tipo = cbtipofactura.Text;
         }
 
@@ -1440,7 +1439,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("");
             ticket.TextoIzquierda("");
             ticket.CortaTicket();//CORTAR TICKET
-            ticket.ImprimirTicket("POS-80");//NOMBRE DE LA IMPRESORA
+            ticket.ImprimirTicket(Program.ImpresonaPeq);//NOMBRE DE LA IMPRESORA
         }
 
         private void txtPVenta_KeyPress(object sender, KeyPressEventArgs e)
@@ -1987,6 +1986,11 @@ namespace Capa_de_Presentacion
             }
 
             txtresultTotalCBX.Text = result;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            LoadComboCategories();
         }
     }
 }

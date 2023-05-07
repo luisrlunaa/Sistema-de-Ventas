@@ -133,6 +133,8 @@ namespace Capa_de_Presentacion
                 lblTel2.Text = leer["Tel2"].ToString();
                 lblCorreo.Text = leer["Correo"].ToString();
                 lblrnc.Text = leer["RNC"].ToString();
+                var impresoraPeq = leer["ImpresoraPeq"].ToString();
+                Program.ImpresonaPeq = string.IsNullOrWhiteSpace(impresoraPeq) ? "POS-80" : impresoraPeq;
             }
             M.Desconectar();
         }
@@ -184,6 +186,13 @@ namespace Capa_de_Presentacion
             {
                 FrmListadoClientes C = new FrmListadoClientes();
                 C.btnActualizar.Enabled = Program.isAdminUser;
+                C.lblUsuario.Text = lblUsuario.Text;
+                C.lblLogo.Text = lblLogo.Text;
+                C.lblDir.Text = lblDir.Text;
+                C.lblTel1.Text = lblTel1.Text;
+                C.lblTel2.Text = lblTel2.Text;
+                C.lblrnc.Text = lblrnc.Text;
+
                 Program.abierto = true;
                 C.Show();
             }

@@ -3,6 +3,7 @@ using CapaLogicaNegocio;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -13,6 +14,8 @@ namespace Capa_de_Presentacion
         private clsCliente C = new clsCliente();
         clsManejador M = new clsManejador();
         int Listado = 0;
+        int IdClienteSelected;
+        string ClienteSelected;
 
         public FrmListadoClientes()
         {
@@ -244,14 +247,6 @@ namespace Capa_de_Presentacion
             button1.Enabled = true;
         }
 
-        private void dataGridView2_CellClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridView2.Rows.Count > 0)
-            {
-                dataGridView2.Rows[dataGridView2.CurrentRow.Index].Selected = true;
-            }
-        }
-
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.Rows.Count > 0)
@@ -271,6 +266,7 @@ namespace Capa_de_Presentacion
         private void dataGridView1_Click(object sender, EventArgs e)
         {
             button1.Enabled = true;
+            button2.Enabled = true;
         }
 
         private void txtBuscarCliente_KeyUp(object sender, KeyEventArgs e)
@@ -315,6 +311,34 @@ namespace Capa_de_Presentacion
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
+            var apellido = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            var nombre = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+
+            IdClienteSelected = id;
+            ClienteSelected = nombre + apellido;
+            clsVentas V = new clsVentas();
+            var ventas = V.GetListadoVentasporIdCliente(IdClienteSelected).OrderBy(y=>y.FechaVenta).ToList();
+            if(ventas != null && ventas.Any())
+            {
+                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Seguro desea pagar las facturas que "+ ClienteSelected + "?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
+                    frmMontoAPagar pagar = new frmMontoAPagar();
+                    pagar.idsAmountToPay = new System.Collections.Generic.List<Topay>();
+                    pagar.lblUsuario.Text = lblUsuario.Text;
+                    pagar.lblLogo.Text = lblLogo.Text;
+                    pagar.lblDir.Text = lblDir.Text;
+                    pagar.lblTel1.Text = lblTel1.Text;
+                    pagar.lblTel2.Text = lblTel2.Text;
+                    pagar.lblrnc.Text = lblrnc.Text;
+                    ventas.ForEach(x => pagar.idsAmountToPay.Add(new Topay() { IdVenta =x.IdVenta, Total = x.Restante, ncf = x.NroComprobante, tipoNCF=x.TipoDocumento, cliente = ClienteSelected}));
+                    pagar.Show();
+                }
+            }
         }
     }
 }

@@ -137,6 +137,7 @@
             this.cbxTotals = new System.Windows.Forms.ComboBox();
             this.txtTel = new System.Windows.Forms.TextBox();
             this.txtresultTotalCBX = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -1380,7 +1381,7 @@
             this.label23.BackColor = System.Drawing.Color.Transparent;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.Black;
-            this.label23.Location = new System.Drawing.Point(654, 208);
+            this.label23.Location = new System.Drawing.Point(598, 208);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(63, 16);
@@ -1425,12 +1426,33 @@
             this.txtresultTotalCBX.Size = new System.Drawing.Size(0, 16);
             this.txtresultTotalCBX.TabIndex = 151;
             // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.ForestGreen;
+            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.ForeColor = System.Drawing.Color.Black;
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.Location = new System.Drawing.Point(697, 199);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(85, 30);
+            this.button4.TabIndex = 152;
+            this.button4.Text = "Cargar Totales";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(928, 775);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.txtresultTotalCBX);
             this.Controls.Add(this.txtTel);
             this.Controls.Add(this.label23);
@@ -1615,5 +1637,6 @@
         private System.Windows.Forms.Label label25;
         public System.Windows.Forms.TextBox txtVeh;
         private System.Windows.Forms.Label txtresultTotalCBX;
+        public System.Windows.Forms.Button button4;
     }
 }
