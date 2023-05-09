@@ -490,7 +490,7 @@ namespace Capa_de_Presentacion
                 {
                     if (dataGridView1[j, i].Value != null)
                     {//En esta parte, se esta agregando un renglon por cada registro en el datagrid
-                      datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));
+                        datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));
                     }
                 }
                 datatable.CompleteRow();
@@ -814,12 +814,12 @@ namespace Capa_de_Presentacion
 
         private void ckbPrecioCompra_CheckedChanged(object sender, EventArgs e)
         {
-            if(ckbPrecioCompra.Checked && dataGridView1.Columns[4].HeaderText == "P. Compra")
+            if (ckbPrecioCompra.Checked && dataGridView1.Columns[4].HeaderText == "P. Compra")
             {
                 dataGridView1.Columns.RemoveAt(4);
                 dataGridView1.Rows.RemoveAt(4);
                 ckbPrecioCompra.Visible = false;
-            } 
+            }
         }
     }
 }

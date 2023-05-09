@@ -181,6 +181,68 @@ namespace CapaLogicaNegocio
                 return newlist;
             }
         }
+
+        public List<Venta> GetListadoVentasporTelefono(string telefono)
+        {
+            var newlist = new List<Venta>();
+            var query = @"select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,
+                        FechaVenta,Total,IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),
+                        Telefono = COALESCE(Telefono, 'Sin Telefono'),Vehiculo = COALESCE(Vehiculo, 'Sin Vehiculo'),borrado,
+                        ultimaFechaPago from venta where Telefono = @telefono AND TipoFactura = 'Credito' And Restante > 0 AND borrado = 0 
+                        order by IdVenta";
+
+            M.Desconectar();
+            try
+            {
+                //variable de tipo Sqlcommand
+                SqlCommand comando = new SqlCommand();
+                comando.Connection = M.conexion;
+                //variable SqlDataReader para leer los datos
+                SqlDataReader dr;
+                //declaramos el comando para realizar la busqueda
+                comando.CommandText = query;
+                //especificamos que es de tipo Text
+                comando.CommandType = CommandType.Text;
+                //sustituyendo variables por data
+                comando.Parameters.AddWithValue("@telefono", telefono);
+                //se abre la conexion
+                M.Conectar();
+                //a la variable DataReader asignamos  el la variable de tipo SqlCommand
+                dr = comando.ExecuteReader();
+                while (dr.Read())
+                {
+                    Venta venta = new Venta();
+                    venta.IdVenta = dr.GetInt32(dr.GetOrdinal("IdVenta"));
+                    venta.IdCliente = dr.GetInt32(dr.GetOrdinal("IdCliente"));
+                    venta.IdEmpleado = dr.GetInt32(dr.GetOrdinal("IdEmpleado"));
+                    venta.TipoDocumento = dr.GetString(dr.GetOrdinal("TipoDocumento"));
+                    venta.NroComprobante = dr.GetString(dr.GetOrdinal("NroDocumento"));
+                    venta.Total = dr.GetDecimal(dr.GetOrdinal("Total"));
+                    venta.Tipofactura = dr.GetString(dr.GetOrdinal("Tipofactura"));
+                    venta.Restante = dr.GetDecimal(dr.GetOrdinal("Restante"));
+                    venta.FechaVenta = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
+                    venta.NombreCliente = dr.GetString(dr.GetOrdinal("NombreCliente"));
+                    venta.UltimaFechaPago = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
+                    venta.borrador = dr.GetBoolean(dr.GetOrdinal("borrado")) ? 1 : 0;
+                    venta.Telefono = dr.GetString(dr.GetOrdinal("Telefono"));
+                    venta.Vehiculo = dr.GetString(dr.GetOrdinal("Vehiculo"));
+
+                    venta.NombreCliente = string.IsNullOrWhiteSpace(venta.NombreCliente) ? "Sin Cliente" : venta.NombreCliente;
+                    venta.Telefono = string.IsNullOrWhiteSpace(venta.Telefono) ? "Sin Telefono" : venta.Telefono;
+                    venta.Vehiculo = string.IsNullOrWhiteSpace(venta.Vehiculo) ? "Sin Vehiculo" : venta.Vehiculo;
+
+                    newlist.Add(venta);
+                }
+                M.Desconectar();
+
+                return newlist;
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return newlist;
+            }
+        }
     }
 
     public class Venta

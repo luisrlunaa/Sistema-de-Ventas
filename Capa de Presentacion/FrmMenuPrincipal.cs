@@ -1,11 +1,9 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -117,7 +115,7 @@ namespace Capa_de_Presentacion
             if (panel3.Visible)
                 panel3.Visible = false;
         }
-        
+
         public void llenar()
         {
             M.Desconectar();

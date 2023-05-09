@@ -1,8 +1,6 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
-using CapaLogicaNegocio.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;

@@ -3,7 +3,6 @@ using CapaLogicaNegocio;
 using CapaLogicaNegocio.ViewModel;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -535,7 +534,7 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                var isOnTempData = clsGenericList.tempSalesData != null 
+                var isOnTempData = clsGenericList.tempSalesData != null
                                  && clsGenericList.tempSalesData.Count > 0 ? clsGenericList.tempSalesData.Where(x => isSameDate
                                                               ? x.FechaVenta.Value.Date == date1
                                                               : x.FechaVenta.Value.Date >= date1 && x.FechaVenta.Value.Date <= date2)
@@ -1015,7 +1014,7 @@ namespace Capa_de_Presentacion
                             i = i + 1;
                         }
 
-                        if(clsGenericList.tempSalesData != null && clsGenericList.tempSalesData.Any())
+                        if (clsGenericList.tempSalesData != null && clsGenericList.tempSalesData.Any())
                         {
                             var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Id);
                             if (venta != null)

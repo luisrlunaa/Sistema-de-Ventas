@@ -744,7 +744,7 @@ namespace Capa_de_Presentacion
             lbligv.Text = "...";
             lblabono.Text = null;
 
-            txtDocIdentidad.Clear(); 
+            txtDocIdentidad.Clear();
             txtTel.Clear();
             txtVeh.Clear();
             txtDatos.Clear();
@@ -957,8 +957,8 @@ namespace Capa_de_Presentacion
                 procedure = "RegistrarVentasinIDcliente";
             }
 
-            var idVenta =  Convert.ToInt32(txtIdVenta.Text);
-            if(fuicotizacion)
+            var idVenta = Convert.ToInt32(txtIdVenta.Text);
+            if (fuicotizacion)
             {
                 idVenta = Program.Id;
             }
@@ -972,7 +972,7 @@ namespace Capa_de_Presentacion
                     cmd.Parameters.Add("@IdCliente", SqlDbType.Int).Value = Convert.ToInt32(txtidCli.Text);
                 }
 
-                cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text; 
+                cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
                 cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(txtTel.Text) ? "sin Telefono" : txtTel.Text;
                 cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idVenta;
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
@@ -1162,7 +1162,7 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            if(fuicotizacion && ventaGuardada)
+            if (fuicotizacion && ventaGuardada)
             {
                 M.Conectar();
                 var cmd = new SqlCommand("delete Cotizacion where IdCotizacion =" + idVenta, M.conexion);

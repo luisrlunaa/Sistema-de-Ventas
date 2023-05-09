@@ -1,6 +1,7 @@
 ﻿using CapaEnlaceDatos;
 using CapaLogicaNegocio;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace Capa_de_Presentacion
             dataGridView1.ClearSelection();
             dataGridView2.ClearSelection();
             button1.Enabled = false;
+            txtTelefono.Visible = false;
             btnActualizar.Enabled = Program.isAdminUser;
         }
 
@@ -315,17 +317,40 @@ namespace Capa_de_Presentacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
-            var apellido = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-            var nombre = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            chkClienteNoRegistrado.Checked = false;
+            txtTelefono.Visible = false;
 
-            IdClienteSelected = id;
-            ClienteSelected = nombre + apellido;
             clsVentas V = new clsVentas();
-            var ventas = V.GetListadoVentasporIdCliente(IdClienteSelected).OrderBy(y=>y.FechaVenta).ToList();
-            if(ventas != null && ventas.Any())
+            var ventas = new List<Venta>();
+            if (!string.IsNullOrWhiteSpace(txtTelefono.Text))
             {
-                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Seguro desea pagar las facturas que "+ ClienteSelected + "?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                ventas = V.GetListadoVentasporTelefono(txtTelefono.Text).OrderBy(y => y.FechaVenta).ToList();
+                var list = ventas.Select(x => x.NombreCliente).Distinct().ToList();
+                if (list != null && list.Count > 1)
+                {
+                    var lstNombres = string.Join("\n", list);
+                    if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Seguro que \n " + lstNombres + " \n es la misma persona?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+
+                ClienteSelected = list.FirstOrDefault();
+            }
+            else
+            {
+                var id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
+                var apellido = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+                var nombre = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+
+                IdClienteSelected = id;
+                ClienteSelected = nombre + apellido;
+                ventas = V.GetListadoVentasporIdCliente(IdClienteSelected).OrderBy(y => y.FechaVenta).ToList();
+            }
+
+            if (ventas != null && ventas.Any())
+            {
+                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Seguro desea pagar las facturas que " + ClienteSelected + "?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
                     frmMontoAPagar pagar = new frmMontoAPagar();
                     pagar.idsAmountToPay = new System.Collections.Generic.List<Topay>();
@@ -335,9 +360,18 @@ namespace Capa_de_Presentacion
                     pagar.lblTel1.Text = lblTel1.Text;
                     pagar.lblTel2.Text = lblTel2.Text;
                     pagar.lblrnc.Text = lblrnc.Text;
-                    ventas.ForEach(x => pagar.idsAmountToPay.Add(new Topay() { IdVenta =x.IdVenta, Total = x.Restante, ncf = x.NroComprobante, tipoNCF=x.TipoDocumento, cliente = ClienteSelected}));
+                    ventas.ForEach(x => pagar.idsAmountToPay.Add(new Topay() { IdVenta = x.IdVenta, Total = x.Restante, ncf = x.NroComprobante, tipoNCF = x.TipoDocumento, cliente = ClienteSelected }));
                     pagar.Show();
                 }
+            }
+        }
+
+        private void chkClienteNoRegistrado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkClienteNoRegistrado.Checked)
+            {
+                txtTelefono.Visible = true;
+                button2.Enabled = true;
             }
         }
     }

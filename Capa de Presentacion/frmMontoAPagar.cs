@@ -2,8 +2,8 @@
 using CapaLogicaNegocio;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -23,7 +23,7 @@ namespace Capa_de_Presentacion
             var monto = Convert.ToDecimal(txtmonto.Text);
             if (idsAmountToPay != null && idsAmountToPay.Any())
             {
-                foreach (var item in idsAmountToPay.Where(x=>x.pagada == false && x.abono == false))
+                foreach (var item in idsAmountToPay.Where(x => x.pagada == false && x.abono == false))
                 {
                     var nuevoMonto = monto - item.Total;
                     if (nuevoMonto > 0)
@@ -49,7 +49,7 @@ namespace Capa_de_Presentacion
                                 monto = nuevoMonto;
                                 var newItem = item;
                                 newItem.pagada = true;
-                                idsAmountToPay.Where(x=>x.IdVenta == item.IdVenta)
+                                idsAmountToPay.Where(x => x.IdVenta == item.IdVenta)
                                               .ToList()
                                               .ForEach(y => y = newItem);
                             }
@@ -61,7 +61,7 @@ namespace Capa_de_Presentacion
                     }
                     else
                     {
-                        if(monto > 0 && monto < item.Total)
+                        if (monto > 0 && monto < item.Total)
                         {
                             using (SqlCommand cmd2 = new SqlCommand("pagoporcliente", M.conexion))
                             {
@@ -109,7 +109,7 @@ namespace Capa_de_Presentacion
 
         private void txtmonto_TextChanged(object sender, EventArgs e)
         {
-            if(!string.IsNullOrWhiteSpace(txtTotal.Text) && !string.IsNullOrWhiteSpace(txtmonto.Text))
+            if (!string.IsNullOrWhiteSpace(txtTotal.Text) && !string.IsNullOrWhiteSpace(txtmonto.Text))
             {
                 var total = Convert.ToDecimal(txtTotal.Text);
                 var monto = Convert.ToDecimal(txtmonto.Text);
@@ -130,7 +130,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Atendido Por : " + lblUsuario.Text);
             ticket.TextoIzquierda("Cliente : " + nombre);
             ticket.TextoIzquierda("Fecha Abono : " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year);
-                
+
             foreach (var fila in idsAmountToPay)
             {
                 ticket.lineasGuio();
@@ -138,13 +138,11 @@ namespace Capa_de_Presentacion
                 ticket.TextoIzquierda("Numero de Comprobante : " + fila.ncf);
                 ticket.TextoIzquierda("ID VENTA : " + fila.IdVenta);
                 ticket.TextoIzquierda("Monto Total de Factura : " + fila.Total);
-                if(fila.pagada)
-                {
+                
+                if (fila.pagada) {
                     ticket.TextoIzquierda("Factura Pagada Completa");
-                }
-                else if(fila.abono)
-                {
-                    ticket.TextoIzquierda("Abono Realizado ");
+                } else if (fila.abono) {
+                    ticket.TextoIzquierda("Abono Realizado");
                     ticket.TextoIzquierda("Total Abonado : " + fila.montoPagado);
                 }
 
