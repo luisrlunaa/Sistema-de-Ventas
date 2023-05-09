@@ -326,10 +326,11 @@ namespace Capa_de_Presentacion
             {
                 ventas = V.GetListadoVentasporTelefono(txtTelefono.Text).OrderBy(y => y.FechaVenta).ToList();
                 var list = ventas.Select(x => x.NombreCliente).Distinct().ToList();
+
                 if (list != null && list.Count > 1)
                 {
                     var lstNombres = string.Join("\n", list);
-                    if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Seguro que \n " + lstNombres + " \n es la misma persona?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
+                    if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Seguro que \n \n " + lstNombres + " \n \n es la misma persona?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
                     {
                         return;
                     }
