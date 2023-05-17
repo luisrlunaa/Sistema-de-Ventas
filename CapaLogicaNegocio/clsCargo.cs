@@ -9,16 +9,16 @@ namespace CapaLogicaNegocio
     {
         private clsManejador M = new clsManejador();
 
-        Int32 m_IdCargo;
-        String m_Descripcion;
+        int m_IdCargo;
+        string m_Descripcion;
 
-        public Int32 IdCargo
+        public int IdCargo
         {
             get { return m_IdCargo; }
             set { m_IdCargo = value; }
         }
 
-        public String Descripcion
+        public string Descripcion
         {
             get { return m_Descripcion; }
             set { m_Descripcion = value; }
@@ -29,9 +29,9 @@ namespace CapaLogicaNegocio
             return M.Listado("ListarCargo", null);
         }
 
-        public String RegistrarCargo()
+        public string RegistrarCargo()
         {
-            String Mensaje = "";
+            string Mensaje = "";
             List<clsParametro> lst = new List<clsParametro>();
             try
             {
@@ -47,9 +47,9 @@ namespace CapaLogicaNegocio
             return Mensaje;
         }
 
-        public String ActualizarCargo()
+        public string ActualizarCargo()
         {
-            String Mensaje = "";
+            string Mensaje = "";
             List<clsParametro> lst = new List<clsParametro>();
             try
             {
@@ -66,7 +66,7 @@ namespace CapaLogicaNegocio
             return Mensaje;
         }
 
-        public DataTable BusquedaCargo(String objDescripcion)
+        public DataTable BusquedaCargo(string objDescripcion)
         {
             DataTable dt = new DataTable();
             List<clsParametro> lst = new List<clsParametro>();

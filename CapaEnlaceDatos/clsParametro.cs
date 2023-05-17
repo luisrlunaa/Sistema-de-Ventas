@@ -6,19 +6,19 @@ namespace CapaEnlaceDatos
 {
     public class clsParametro
     {
-        private String m_Nombre;
-        private Object m_Valor;
+        private string m_Nombre;
+        private object m_Valor;
         private SqlDbType m_TipoDato;
         private ParameterDirection m_Direccion;
         private int m_Tamaño;
 
-        public String Nombre
+        public string Nombre
         {
             get { return m_Nombre; }
             set { m_Nombre = value; }
         }
 
-        public Object Valor
+        public object Valor
         {
             get { return m_Valor; }
             set { m_Valor = value; }
@@ -44,14 +44,14 @@ namespace CapaEnlaceDatos
             set { m_Tamaño = value; }
         }
 
-        public clsParametro(String objNombre, Object objValor)
+        public clsParametro(string objNombre, object objValor)
         {
             m_Nombre = objNombre;
             m_Valor = objValor;
             m_Direccion = ParameterDirection.Input;
         }
 
-        public clsParametro(String objNombre, Object objValor, SqlDbType objTipoDato, ParameterDirection objDireccion, int objTamaño)
+        public clsParametro(string objNombre, object objValor, SqlDbType objTipoDato, ParameterDirection objDireccion, int objTamaño)
         {
             m_Nombre = objNombre;
             m_Valor = objValor;

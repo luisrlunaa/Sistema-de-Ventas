@@ -1,6 +1,8 @@
-﻿using CapaLogicaNegocio;
+﻿using CapaEnlaceDatos;
+using CapaLogicaNegocio;
 using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
@@ -8,6 +10,7 @@ namespace Capa_de_Presentacion
     public partial class FrmListadoCategoria : DevComponents.DotNetBar.Metro.MetroForm
     {
         private clsCategoria C = new clsCategoria();
+        clsManejador M = new clsManejador();
 
         public FrmListadoCategoria()
         {
@@ -34,6 +37,7 @@ namespace Capa_de_Presentacion
 
         private void FrmListadoCategoria_Load(object sender, EventArgs e)
         {
+            button2.Enabled = false;
             ListarElementos();
             dataGridView1.ClearSelection();
             btnEditar.Enabled = Program.isAdminUser;
@@ -64,6 +68,7 @@ namespace Capa_de_Presentacion
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dataGridView1.Rows[dataGridView1.CurrentRow.Index].Selected = true;
+            button2.Enabled = true;
         }
 
         private void txtBuscarCategoria_KeyPress(object sender, KeyPressEventArgs e)
@@ -127,6 +132,36 @@ namespace Capa_de_Presentacion
             Program.abierto = false;
             btnEditar.Enabled = Program.isAdminUser;
             this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Está Seguro que Desea Eliminar esta Categoria.?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
+                    var id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                    string sql = "delete Categoria where IdCategoria = @id";
+                    using (SqlCommand cmd = new SqlCommand(sql, M.conexion))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+                        try
+                        {
+                            M.Conectar();
+                            cmd.ExecuteNonQuery();
+                            M.Desconectar();
+                            ListarElementos();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al realizar el eliminar. \n" + ex);
+                            return;
+                        }
+                    }
+                }
+            }
         }
     }
 }

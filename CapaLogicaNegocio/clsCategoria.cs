@@ -9,22 +9,22 @@ namespace CapaLogicaNegocio
     {
         private clsManejador M = new clsManejador();
 
-        private Int32 m_IdC;
-        private Int32 m_IdCategoria;
-        private String m_Descripcion;
+        private int m_IdC;
+        private int m_IdCategoria;
+        private string m_Descripcion;
 
-        public Int32 IdC
+        public int IdC
         {
             get { return m_IdC; }
             set { m_IdC = value; }
         }
-        public Int32 IdCategoria
+        public int IdCategoria
         {
             get { return m_IdCategoria; }
             set { m_IdCategoria = value; }
         }
 
-        public String Descripcion
+        public string Descripcion
         {
             get { return m_Descripcion; }
             set { m_Descripcion = value; }
@@ -40,10 +40,10 @@ namespace CapaLogicaNegocio
             return M.Listado("ListartipoGoma", null);
         }
 
-        public String RegistrarCategoria()
+        public string RegistrarCategoria()
         {
             List<clsParametro> lst = new List<clsParametro>();
-            String Mensaje = "";
+            string Mensaje = "";
             try
             {
                 lst.Add(new clsParametro("@Descripcion", m_Descripcion));
@@ -58,7 +58,7 @@ namespace CapaLogicaNegocio
             return Mensaje;
         }
 
-        public DataTable BuscarCategoria(String objDescripcin)
+        public DataTable BuscarCategoria(string objDescripcin)
         {
             List<clsParametro> lst = new List<clsParametro>();
             DataTable dt = new DataTable();
@@ -73,10 +73,10 @@ namespace CapaLogicaNegocio
             }
         }
 
-        public String ActualizarCategoria()
+        public string ActualizarCategoria()
         {
             List<clsParametro> lst = new List<clsParametro>();
-            String Mensaje = "";
+            string Mensaje = "";
             try
             {
                 lst.Add(new clsParametro("@IdC", m_IdC));

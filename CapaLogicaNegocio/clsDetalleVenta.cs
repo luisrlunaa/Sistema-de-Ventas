@@ -8,17 +8,17 @@ namespace CapaLogicaNegocio
     public class clsDetalleVenta
     {
         clsManejador M = new clsManejador();
-        public Int32 IdProducto { get; set; }
-        public Int32 IdVenta { get; set; }
-        public Int32 Cantidad { get; set; }
-        public Decimal PUnitario { get; set; }
-        public Decimal Igv { get; set; }
-        public Decimal SubTotal { get; set; }
+        public int IdProducto { get; set; }
+        public int IdVenta { get; set; }
+        public int Cantidad { get; set; }
+        public decimal PUnitario { get; set; }
+        public decimal Igv { get; set; }
+        public decimal SubTotal { get; set; }
 
-        public String RegistrarDetalleVenta()
+        public string RegistrarDetalleVenta()
         {
             List<clsParametro> lst = new List<clsParametro>();
-            String Mensaje = "";
+            string Mensaje = "";
             try
             {
                 lst.Add(new clsParametro("@IdProducto", IdProducto));

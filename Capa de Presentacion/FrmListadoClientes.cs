@@ -326,7 +326,6 @@ namespace Capa_de_Presentacion
             {
                 ventas = V.GetListadoVentasporTelefono(txtTelefono.Text).OrderBy(y => y.FechaVenta).ToList();
                 var list = ventas.Select(x => x.NombreCliente).Distinct().ToList();
-
                 if (list != null && list.Count > 1)
                 {
                     var lstNombres = string.Join("\n", list);

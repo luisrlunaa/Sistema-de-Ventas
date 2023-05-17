@@ -11,20 +11,20 @@ namespace CapaLogicaNegocio
         clsManejador M = new clsManejador();
 
         public int IdCargo { get; set; }
-        public String Dni { get; set; }
-        public String Apellidos { get; set; }
-        public String Nombres { get; set; }
-        public Char Sexo { get; set; }
+        public string Dni { get; set; }
+        public string Apellidos { get; set; }
+        public string Nombres { get; set; }
+        public char Sexo { get; set; }
         public DateTime FechaNac { get; set; }
-        public String Direccion { get; set; }
-        public Char EstadoCivil { get; set; }
+        public string Direccion { get; set; }
+        public char EstadoCivil { get; set; }
 
 
 
-        public String MantenimientoEmpleados()
+        public string MantenimientoEmpleados()
         {
             List<clsParametro> lst = new List<clsParametro>();
-            String Mensaje = "";
+            string Mensaje = "";
             try
             {
                 lst.Add(new clsParametro("@IdCargo", IdCargo));
@@ -51,7 +51,7 @@ namespace CapaLogicaNegocio
             return M.Listado("ListadoEmpleados", null);
         }
 
-        public DataTable BuscarEmpleado(String objDatos)
+        public DataTable BuscarEmpleado(string objDatos)
         {
             DataTable dt = new DataTable();
             List<clsParametro> lst = new List<clsParametro>();

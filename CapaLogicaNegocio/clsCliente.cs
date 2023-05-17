@@ -9,39 +9,39 @@ namespace CapaLogicaNegocio
     {
         private clsManejador M = new clsManejador();
 
-        private String m_Dni;
-        private String m_Apellidos;
-        private String m_Nombres;
-        private String m_Direccion;
-        private String m_Telefono;
+        private string m_Dni;
+        private string m_Apellidos;
+        private string m_Nombres;
+        private string m_Direccion;
+        private string m_Telefono;
         private int m_estado;
 
 
-        public String Dni
+        public string Dni
         {
             get { return m_Dni; }
             set { m_Dni = value; }
         }
 
-        public String Apellidos
+        public string Apellidos
         {
             get { return m_Apellidos; }
             set { m_Apellidos = value; }
         }
 
-        public String Nombres
+        public string Nombres
         {
             get { return m_Nombres; }
             set { m_Nombres = value; }
         }
 
-        public String Telefono
+        public string Telefono
         {
             get { return m_Telefono; }
             set { m_Telefono = value; }
         }
 
-        public String Direccion
+        public string Direccion
         {
             get { return m_Direccion; }
             set { m_Direccion = value; }
@@ -58,7 +58,7 @@ namespace CapaLogicaNegocio
             return M.Listado("ListarClientes", null);
         }
 
-        public DataTable BuscarCliente(String objDatos)
+        public DataTable BuscarCliente(string objDatos)
         {
             DataTable dt = new DataTable();
             List<clsParametro> lst = new List<clsParametro>();
@@ -66,10 +66,10 @@ namespace CapaLogicaNegocio
             return dt = M.Listado("FiltrarDatosCliente", lst);
         }
 
-        public String RegistrarCliente()
+        public string RegistrarCliente()
         {
             List<clsParametro> lst = new List<clsParametro>();
-            String Mensaje = "";
+            string Mensaje = "";
             try
             {
                 lst.Add(new clsParametro("@DNI", m_Dni));
@@ -89,10 +89,10 @@ namespace CapaLogicaNegocio
             return Mensaje;
         }
 
-        public String ActualizarCliente()
+        public string ActualizarCliente()
         {
             List<clsParametro> lst = new List<clsParametro>();
-            String Mensaje = "";
+            string Mensaje = "";
             try
             {
                 lst.Add(new clsParametro("@DNI", m_Dni));

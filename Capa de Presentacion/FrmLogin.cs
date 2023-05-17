@@ -22,7 +22,7 @@ namespace Capa_de_Presentacion
         public void obtenerFiladeCaja()
         {
             Cx.Desconectar();
-            string cadSql = "SELECT id_caja, monto_inicial,fecha  FROM Caja where monto_final =0 AND fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
+            string cadSql = "SELECT id_caja, monto_inicial,fecha FROM Caja where monto_final = 0 AND fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
             Cx.Conectar();
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
 
@@ -134,7 +134,7 @@ namespace Capa_de_Presentacion
         public void llenarid()
         {
             Cx.Desconectar();
-            string cadSql = "select top(1) id_caja  from Caja order by id_caja desc";
+            string cadSql = "select top(1) id_caja from Caja order by id_caja desc";
 
             SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
             Cx.Conectar();

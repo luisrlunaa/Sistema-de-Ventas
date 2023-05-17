@@ -25,47 +25,47 @@ namespace CapaLogicaNegocio
     {
         private clsManejador M = new clsManejador();
 
-        private Int32 m_IdP;
-        private Int32 m_IdCategoria;
-        private String m_Producto;
-        private String m_Marca;
-        private String m_tipoGoma;
-        private Int32 m_Stock;
+        private int m_IdP;
+        private int m_IdCategoria;
+        private string m_Producto;
+        private string m_Marca;
+        private string m_tipoGoma;
+        private int m_Stock;
         private decimal m_PrecioCompra;
         private decimal m_PrecioVenta;
         private decimal m_itbis;
         private DateTime m_FechaVencimiento;
 
-        public Int32 IdP
+        public int IdP
         {
             get { return m_IdP; }
             set { m_IdP = value; }
         }
 
-        public Int32 IdCategoria
+        public int IdCategoria
         {
             get { return m_IdCategoria; }
             set { m_IdCategoria = value; }
         }
 
-        public String Producto
+        public string Producto
         {
             get { return m_Producto; }
             set { m_Producto = value; }
         }
 
-        public String Marca
+        public string Marca
         {
             get { return m_Marca; }
             set { m_Marca = value; }
         }
-        public String tipoGoma
+        public string tipoGoma
         {
             get { return m_tipoGoma; }
             set { m_tipoGoma = value; }
         }
 
-        public Int32 Stock
+        public int Stock
         {
             get { return m_Stock; }
             set { m_Stock = value; }
@@ -105,7 +105,7 @@ namespace CapaLogicaNegocio
             return M.Listado("ListadoProductos", null);
         }
 
-        public DataTable BusquedaProductos(String objDatos)
+        public DataTable BusquedaProductos(string objDatos)
         {
             DataTable dt = new DataTable();
             List<clsParametro> lst = new List<clsParametro>();
@@ -121,10 +121,10 @@ namespace CapaLogicaNegocio
             return dt;
         }
 
-        public String RegistrarProductos()
+        public string RegistrarProductos()
         {
             List<clsParametro> lst = new List<clsParametro>();
-            String Mensaje = "";
+            string Mensaje = "";
 
             try
             {
@@ -145,10 +145,10 @@ namespace CapaLogicaNegocio
             return Mensaje;
         }
 
-        public String ActualizarProductos()
+        public string ActualizarProductos()
         {
             List<clsParametro> lst = new List<clsParametro>();
-            String Mensaje = "";
+            string Mensaje = "";
 
             try
             {
