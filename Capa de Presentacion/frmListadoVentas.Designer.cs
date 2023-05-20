@@ -40,6 +40,20 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.tipoCompChk = new System.Windows.Forms.CheckBox();
+            this.noCompChk = new System.Windows.Forms.CheckBox();
+            this.fechAboChk = new System.Windows.Forms.CheckBox();
+            this.telefChk = new System.Windows.Forms.CheckBox();
+            this.vehChk = new System.Windows.Forms.CheckBox();
+            this.fechaVentaChk = new System.Windows.Forms.CheckBox();
+            this.checktotalChk = new System.Windows.Forms.CheckBox();
+            this.restChk = new System.Windows.Forms.CheckBox();
+            this.tipofactChk = new System.Windows.Forms.CheckBox();
+            this.nomClientChk = new System.Windows.Forms.CheckBox();
+            this.idVentaChk = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombrecliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,6 +66,7 @@
             this.nroComprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ultimafecha = new DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn();
             this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtBuscarid = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -104,8 +119,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.chkid = new System.Windows.Forms.CheckBox();
             this.chknombre = new System.Windows.Forms.CheckBox();
-            this.vehiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -115,12 +131,212 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.dataGridView1);
             this.panel1.Location = new System.Drawing.Point(14, 158);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(891, 383);
             this.panel1.TabIndex = 9;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label10);
+            this.panel3.Controls.Add(this.tipoCompChk);
+            this.panel3.Controls.Add(this.noCompChk);
+            this.panel3.Controls.Add(this.fechAboChk);
+            this.panel3.Controls.Add(this.telefChk);
+            this.panel3.Controls.Add(this.vehChk);
+            this.panel3.Controls.Add(this.fechaVentaChk);
+            this.panel3.Controls.Add(this.checktotalChk);
+            this.panel3.Controls.Add(this.restChk);
+            this.panel3.Controls.Add(this.tipofactChk);
+            this.panel3.Controls.Add(this.nomClientChk);
+            this.panel3.Controls.Add(this.idVentaChk);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.button5);
+            this.panel3.Location = new System.Drawing.Point(507, 29);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(379, 350);
+            this.panel3.TabIndex = 141;
+            this.panel3.Visible = false;
+            // 
+            // tipoCompChk
+            // 
+            this.tipoCompChk.AutoSize = true;
+            this.tipoCompChk.Checked = true;
+            this.tipoCompChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tipoCompChk.Location = new System.Drawing.Point(186, 54);
+            this.tipoCompChk.Name = "tipoCompChk";
+            this.tipoCompChk.Size = new System.Drawing.Size(142, 20);
+            this.tipoCompChk.TabIndex = 151;
+            this.tipoCompChk.Text = "Tipo Comprobante";
+            this.tipoCompChk.UseVisualStyleBackColor = true;
+            this.tipoCompChk.CheckedChanged += new System.EventHandler(this.tipoCompChk_CheckedChanged);
+            // 
+            // noCompChk
+            // 
+            this.noCompChk.AutoSize = true;
+            this.noCompChk.Checked = true;
+            this.noCompChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.noCompChk.Location = new System.Drawing.Point(186, 94);
+            this.noCompChk.Name = "noCompChk";
+            this.noCompChk.Size = new System.Drawing.Size(181, 20);
+            this.noCompChk.TabIndex = 150;
+            this.noCompChk.Text = "Numero de Comprobante";
+            this.noCompChk.UseVisualStyleBackColor = true;
+            this.noCompChk.CheckedChanged += new System.EventHandler(this.noCompChk_CheckedChanged);
+            // 
+            // fechAboChk
+            // 
+            this.fechAboChk.AutoSize = true;
+            this.fechAboChk.Checked = true;
+            this.fechAboChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.fechAboChk.Location = new System.Drawing.Point(186, 134);
+            this.fechAboChk.Name = "fechAboChk";
+            this.fechAboChk.Size = new System.Drawing.Size(110, 20);
+            this.fechAboChk.TabIndex = 149;
+            this.fechAboChk.Text = "Fecha Abono";
+            this.fechAboChk.UseVisualStyleBackColor = true;
+            this.fechAboChk.CheckedChanged += new System.EventHandler(this.fechAboChk_CheckedChanged);
+            // 
+            // telefChk
+            // 
+            this.telefChk.AutoSize = true;
+            this.telefChk.Checked = true;
+            this.telefChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.telefChk.Location = new System.Drawing.Point(186, 177);
+            this.telefChk.Name = "telefChk";
+            this.telefChk.Size = new System.Drawing.Size(83, 20);
+            this.telefChk.TabIndex = 147;
+            this.telefChk.Text = "Telefono";
+            this.telefChk.UseVisualStyleBackColor = true;
+            this.telefChk.CheckedChanged += new System.EventHandler(this.telefChk_CheckedChanged);
+            // 
+            // vehChk
+            // 
+            this.vehChk.AutoSize = true;
+            this.vehChk.Checked = true;
+            this.vehChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.vehChk.Location = new System.Drawing.Point(186, 220);
+            this.vehChk.Name = "vehChk";
+            this.vehChk.Size = new System.Drawing.Size(81, 20);
+            this.vehChk.TabIndex = 146;
+            this.vehChk.Text = "Vehiculo";
+            this.vehChk.UseVisualStyleBackColor = true;
+            this.vehChk.CheckedChanged += new System.EventHandler(this.vehChk_CheckedChanged);
+            // 
+            // fechaVentaChk
+            // 
+            this.fechaVentaChk.AutoSize = true;
+            this.fechaVentaChk.Checked = true;
+            this.fechaVentaChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.fechaVentaChk.Location = new System.Drawing.Point(34, 264);
+            this.fechaVentaChk.Name = "fechaVentaChk";
+            this.fechaVentaChk.Size = new System.Drawing.Size(124, 20);
+            this.fechaVentaChk.TabIndex = 145;
+            this.fechaVentaChk.Text = "Fecha de Venta";
+            this.fechaVentaChk.UseVisualStyleBackColor = true;
+            this.fechaVentaChk.CheckedChanged += new System.EventHandler(this.fechaVentaChk_CheckedChanged);
+            // 
+            // checktotalChk
+            // 
+            this.checktotalChk.AutoSize = true;
+            this.checktotalChk.Checked = true;
+            this.checktotalChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checktotalChk.Location = new System.Drawing.Point(34, 221);
+            this.checktotalChk.Name = "checktotalChk";
+            this.checktotalChk.Size = new System.Drawing.Size(60, 20);
+            this.checktotalChk.TabIndex = 144;
+            this.checktotalChk.Text = "Total";
+            this.checktotalChk.UseVisualStyleBackColor = true;
+            this.checktotalChk.CheckedChanged += new System.EventHandler(this.checktotalChk_CheckedChanged);
+            // 
+            // restChk
+            // 
+            this.restChk.AutoSize = true;
+            this.restChk.Checked = true;
+            this.restChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.restChk.Location = new System.Drawing.Point(34, 177);
+            this.restChk.Name = "restChk";
+            this.restChk.Size = new System.Drawing.Size(83, 20);
+            this.restChk.TabIndex = 143;
+            this.restChk.Text = "Restante";
+            this.restChk.UseVisualStyleBackColor = true;
+            this.restChk.CheckedChanged += new System.EventHandler(this.restChk_CheckedChanged);
+            // 
+            // tipofactChk
+            // 
+            this.tipofactChk.AutoSize = true;
+            this.tipofactChk.Checked = true;
+            this.tipofactChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tipofactChk.Location = new System.Drawing.Point(34, 134);
+            this.tipofactChk.Name = "tipofactChk";
+            this.tipofactChk.Size = new System.Drawing.Size(105, 20);
+            this.tipofactChk.TabIndex = 142;
+            this.tipofactChk.Text = "Tipo Factura";
+            this.tipofactChk.UseVisualStyleBackColor = true;
+            this.tipofactChk.CheckedChanged += new System.EventHandler(this.tipofactChk_CheckedChanged);
+            // 
+            // nomClientChk
+            // 
+            this.nomClientChk.AutoSize = true;
+            this.nomClientChk.Checked = true;
+            this.nomClientChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.nomClientChk.Location = new System.Drawing.Point(34, 94);
+            this.nomClientChk.Name = "nomClientChk";
+            this.nomClientChk.Size = new System.Drawing.Size(122, 20);
+            this.nomClientChk.TabIndex = 141;
+            this.nomClientChk.Text = "Nombre Cliente";
+            this.nomClientChk.UseVisualStyleBackColor = true;
+            this.nomClientChk.CheckedChanged += new System.EventHandler(this.nomClientChk_CheckedChanged);
+            // 
+            // idVentaChk
+            // 
+            this.idVentaChk.AutoSize = true;
+            this.idVentaChk.Checked = true;
+            this.idVentaChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.idVentaChk.Location = new System.Drawing.Point(34, 54);
+            this.idVentaChk.Name = "idVentaChk";
+            this.idVentaChk.Size = new System.Drawing.Size(78, 20);
+            this.idVentaChk.TabIndex = 140;
+            this.idVentaChk.Text = "Id Venta";
+            this.idVentaChk.UseVisualStyleBackColor = true;
+            this.idVentaChk.CheckedChanged += new System.EventHandler(this.idVentaChk_CheckedChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.Red;
+            this.label9.Location = new System.Drawing.Point(339, 9);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(28, 27);
+            this.label9.TabIndex = 136;
+            this.label9.Text = "X";
+            this.label9.Click += new System.EventHandler(this.label9_Click_1);
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.Khaki;
+            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.ForeColor = System.Drawing.Color.Black;
+            this.button5.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
+            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button5.Location = new System.Drawing.Point(26, 298);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(327, 39);
+            this.button5.TabIndex = 139;
+            this.button5.Text = "Imprimir Reporte de Ventas";
+            this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click_1);
             // 
             // dataGridView1
             // 
@@ -314,6 +530,13 @@
             this.telefono.MinimumWidth = 6;
             this.telefono.Name = "telefono";
             this.telefono.Width = 110;
+            // 
+            // vehiculo
+            // 
+            this.vehiculo.HeaderText = "Vehiculo";
+            this.vehiculo.MinimumWidth = 6;
+            this.vehiculo.Name = "vehiculo";
+            this.vehiculo.Width = 110;
             // 
             // txtBuscarid
             // 
@@ -968,12 +1191,15 @@
             this.chknombre.UseVisualStyleBackColor = true;
             this.chknombre.CheckedChanged += new System.EventHandler(this.chknombre_CheckedChanged);
             // 
-            // vehiculo
+            // label10
             // 
-            this.vehiculo.HeaderText = "Vehiculo";
-            this.vehiculo.MinimumWidth = 6;
-            this.vehiculo.Name = "vehiculo";
-            this.vehiculo.Width = 110;
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(45, 9);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(267, 29);
+            this.label10.TabIndex = 136;
+            this.label10.Text = "Columnas de Reporte";
             // 
             // frmListadoVentas
             // 
@@ -1031,6 +1257,8 @@
             this.Load += new System.EventHandler(this.frmListadoVentas_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.frmListadoVentas_MouseDown);
             this.panel1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -1109,5 +1337,20 @@
         private DevComponents.DotNetBar.Controls.DataGridViewDateTimeInputColumn ultimafecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn telefono;
         private System.Windows.Forms.DataGridViewTextBoxColumn vehiculo;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.CheckBox tipoCompChk;
+        private System.Windows.Forms.CheckBox noCompChk;
+        private System.Windows.Forms.CheckBox fechAboChk;
+        private System.Windows.Forms.CheckBox telefChk;
+        private System.Windows.Forms.CheckBox vehChk;
+        private System.Windows.Forms.CheckBox fechaVentaChk;
+        private System.Windows.Forms.CheckBox checktotalChk;
+        private System.Windows.Forms.CheckBox restChk;
+        private System.Windows.Forms.CheckBox tipofactChk;
+        private System.Windows.Forms.CheckBox nomClientChk;
+        private System.Windows.Forms.CheckBox idVentaChk;
+        private System.Windows.Forms.Label label9;
+        public System.Windows.Forms.Button button5;
+        public System.Windows.Forms.Label label10;
     }
 }

@@ -27,6 +27,13 @@ namespace Capa_de_Presentacion
         public int borrado = 0;
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
+            if (dataGridView1.Columns[3].HeaderText == "Id Empleado")
+            {
+                dataGridView1.Columns.RemoveAt(3);
+                if (dataGridView1.Rows.Count > 0)
+                    dataGridView1.Rows.RemoveAt(3);
+            }
+
             if (tempSalesData is null)
             {
                 tempSalesData = cargarListado();
@@ -161,7 +168,7 @@ namespace Capa_de_Presentacion
                 int renglon = dataGridView1.Rows.Add();
 
                 dataGridView1.Rows[renglon].Cells["id"].Value = item.IdVenta.ToString();
-                dataGridView1.Rows[renglon].Cells["idEm"].Value = item.IdEmpleado.ToString();
+                //dataGridView1.Rows[renglon].Cells["idEm"].Value = item.IdEmpleado.ToString();
                 dataGridView1.Rows[renglon].Cells["NCF"].Value = item.TipoDocumento.ToString();
                 dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = item.NroComprobante.ToString();
                 dataGridView1.Rows[renglon].Cells["total"].Value = item.Total.ToString();
@@ -210,14 +217,8 @@ namespace Capa_de_Presentacion
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte \n Si=Especifico \n No=General ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-                To_pdf1();
-            }
-            else
-            {
-                To_pdf();
-            }
+            panel3.Show();
+            btnCancelar.Hide();
         }
 
         public void llenaridCliente(int idventa)
@@ -1123,5 +1124,232 @@ namespace Capa_de_Presentacion
             }
         }
         #endregion
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte \n Si=Especifico \n No=General ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            {
+                To_pdf1();
+            }
+            else
+            {
+                To_pdf();
+            }
+        }
+
+        private void idVentaChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!idVentaChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == idVentaChk.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                idVentaChk.Visible = false;
+            }
+        }
+
+        private void nomClientChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!nomClientChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == nomClientChk.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                nomClientChk.Visible = false;
+            }
+        }
+
+        private void tipofactChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!tipofactChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == tipofactChk.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                tipofactChk.Visible = false;
+            }
+        }
+
+        private void restChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!restChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == restChk.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                restChk.Visible = false;
+            }
+        }
+
+        private void checktotalChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!checktotalChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == checktotalChk.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                checktotalChk.Visible = false;
+            }
+        }
+
+        private void fechaVentaChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!fechaVentaChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == fechaVentaChk.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                fechaVentaChk.Visible = false;
+            }
+        }
+
+        private void tipoCompChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!tipoCompChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == tipoCompChk.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                tipoCompChk.Visible = false;
+            }
+        }
+
+        private void noCompChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!noCompChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == noCompChk.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                noCompChk.Visible = false;
+            }
+        }
+
+        private void fechAboChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!fechAboChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == fechAboChk.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                fechAboChk.Visible = false;
+            }
+        }
+
+        private void telefChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!telefChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == telefChk.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                telefChk.Visible = false;
+            }
+        }
+
+        private void vehChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!vehChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == vehChk.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                vehChk.Visible = false;
+            }
+        }
+
+        private void label9_Click_1(object sender, EventArgs e)
+        {
+            panel3.Hide();
+            btnCancelar.Show();
+        }
     }
 }

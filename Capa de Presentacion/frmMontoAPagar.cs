@@ -138,10 +138,13 @@ namespace Capa_de_Presentacion
                 ticket.TextoIzquierda("Numero de Comprobante : " + fila.ncf);
                 ticket.TextoIzquierda("ID VENTA : " + fila.IdVenta);
                 ticket.TextoIzquierda("Monto Total de Factura : " + fila.Total);
-                
-                if (fila.pagada) {
+
+                if (fila.pagada)
+                {
                     ticket.TextoIzquierda("Factura Pagada Completa");
-                } else if (fila.abono) {
+                }
+                else if (fila.abono)
+                {
                     ticket.TextoIzquierda("Abono Realizado");
                     ticket.TextoIzquierda("Total Abonado : " + fila.montoPagado);
                 }
