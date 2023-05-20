@@ -61,9 +61,19 @@ namespace CapaLogicaNegocio
             var isSame = date.Date == date1.Date;
             var query = string.Empty;
             if (isSame)
-                query = "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),Telefono = COALESCE(Telefono, 'Sin Telefono'),Vehiculo = COALESCE(Vehiculo, 'Sin Vehiculo'),borrado,UltimaFechaPago from venta where FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND borrado = 0 order by IdVenta";
+                query = @"select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,
+                          (select sum(DetalleVenta.Igv) from DetalleVenta where IdVenta = venta.IdVenta) as Itbis,
+                          (select sum(DetalleVenta.SubTotal) from DetalleVenta where IdVenta = venta.IdVenta) as SubTotal, Total,
+                          IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),
+                          Telefono = COALESCE(Telefono, 'Sin Telefono'),Vehiculo = COALESCE(Vehiculo, 'Sin Vehiculo'),borrado,UltimaFechaPago 
+                          from venta where FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND borrado = 0 order by IdVenta";
             else
-                query = "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),Telefono = COALESCE(Telefono, 'Sin Telefono'),Vehiculo = COALESCE(Vehiculo, 'Sin Vehiculo'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) AND borrado = 0 order by IdVenta";
+                query = @"select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,
+                          (select sum(DetalleVenta.Igv) from DetalleVenta where IdVenta = venta.IdVenta) as Itbis,
+                          (select sum(DetalleVenta.SubTotal) from DetalleVenta where IdVenta = venta.IdVenta) as SubTotal, Total,
+                          IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),
+                          Telefono = COALESCE(Telefono, 'Sin Telefono'),Vehiculo = COALESCE(Vehiculo, 'Sin Vehiculo'),borrado,UltimaFechaPago 
+                          from venta where FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) AND borrado = 0 order by IdVenta";
 
             M.Desconectar();
             try
@@ -93,6 +103,8 @@ namespace CapaLogicaNegocio
                     venta.IdEmpleado = dr.GetInt32(dr.GetOrdinal("IdEmpleado"));
                     venta.TipoDocumento = dr.GetString(dr.GetOrdinal("TipoDocumento"));
                     venta.NroComprobante = dr.GetString(dr.GetOrdinal("NroDocumento"));
+                    venta.Itbis = dr.GetDecimal(dr.GetOrdinal("Itbis"));
+                    venta.SubTotal = dr.GetDecimal(dr.GetOrdinal("SubTotal"));
                     venta.Total = dr.GetDecimal(dr.GetOrdinal("Total"));
                     venta.Tipofactura = dr.GetString(dr.GetOrdinal("Tipofactura"));
                     venta.Restante = dr.GetDecimal(dr.GetOrdinal("Restante"));
@@ -255,6 +267,8 @@ namespace CapaLogicaNegocio
         public string TipoDocumento { get; set; }
         public DateTime? FechaVenta { get; set; }
         public decimal Total { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal Itbis { get; set; }
         public string Tipofactura { get; set; }
         public decimal Restante { get; set; }
         public string NombreCliente { get; set; }
