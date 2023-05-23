@@ -27,13 +27,6 @@ namespace Capa_de_Presentacion
         public int borrado = 0;
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
-            if (dataGridView1.Columns[3].HeaderText == "Id Empleado")
-            {
-                dataGridView1.Columns.RemoveAt(3);
-                if (dataGridView1.Rows.Count > 0)
-                    dataGridView1.Rows.RemoveAt(3);
-            }
-
             if (tempSalesData is null)
             {
                 tempSalesData = cargarListado();
@@ -168,7 +161,7 @@ namespace Capa_de_Presentacion
                 int renglon = dataGridView1.Rows.Add();
 
                 dataGridView1.Rows[renglon].Cells["id"].Value = item.IdVenta.ToString();
-                //dataGridView1.Rows[renglon].Cells["idEm"].Value = item.IdEmpleado.ToString();
+                dataGridView1.Rows[renglon].Cells["idEm"].Value = item.IdEmpleado.ToString();
                 dataGridView1.Rows[renglon].Cells["NCF"].Value = item.TipoDocumento.ToString();
                 dataGridView1.Rows[renglon].Cells["nroComprobante"].Value = item.NroComprobante.ToString();
                 dataGridView1.Rows[renglon].Cells["Itbis"].Value = item.Itbis.ToString();
@@ -1129,6 +1122,18 @@ namespace Capa_de_Presentacion
 
         private void button5_Click_1(object sender, EventArgs e)
         {
+            var count = dataGridView1.Columns.Count;
+            for (int index = 0; index < count; index++)
+            {
+                if (dataGridView1.Columns[index].HeaderText == "Id Empleado")
+                {
+                    dataGridView1.Columns.RemoveAt(index);
+                    //if (dataGridView1.Rows.Count > 0)
+                    //    dataGridView1.Rows.RemoveAt(index);
+                    count--;
+                }
+            }
+
             if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte \n Si=Especifico \n No=General ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                 To_pdf1();
@@ -1149,8 +1154,8 @@ namespace Capa_de_Presentacion
                     if (dataGridView1.Columns[index].HeaderText == idVentaChk.Text)
                     {
                         dataGridView1.Columns.RemoveAt(index);
-                        if (dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
                         count--;
                     }
                 }
@@ -1169,8 +1174,8 @@ namespace Capa_de_Presentacion
                     if (dataGridView1.Columns[index].HeaderText == nomClientChk.Text)
                     {
                         dataGridView1.Columns.RemoveAt(index);
-                        if (dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
                         count--;
                     }
                 }
@@ -1189,8 +1194,8 @@ namespace Capa_de_Presentacion
                     if (dataGridView1.Columns[index].HeaderText == tipofactChk.Text)
                     {
                         dataGridView1.Columns.RemoveAt(index);
-                        if (dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
                         count--;
                     }
                 }
@@ -1209,8 +1214,8 @@ namespace Capa_de_Presentacion
                     if (dataGridView1.Columns[index].HeaderText == restChk.Text)
                     {
                         dataGridView1.Columns.RemoveAt(index);
-                        if (dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
                         count--;
                     }
                 }
@@ -1229,8 +1234,8 @@ namespace Capa_de_Presentacion
                     if (dataGridView1.Columns[index].HeaderText == checktotalChk.Text)
                     {
                         dataGridView1.Columns.RemoveAt(index);
-                        if (dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
                         count--;
                     }
                 }
@@ -1249,8 +1254,8 @@ namespace Capa_de_Presentacion
                     if (dataGridView1.Columns[index].HeaderText == fechaVentaChk.Text)
                     {
                         dataGridView1.Columns.RemoveAt(index);
-                        if (dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
                         count--;
                     }
                 }
@@ -1269,8 +1274,8 @@ namespace Capa_de_Presentacion
                     if (dataGridView1.Columns[index].HeaderText == tipoCompChk.Text)
                     {
                         dataGridView1.Columns.RemoveAt(index);
-                        if (dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
                         count--;
                     }
                 }
@@ -1289,8 +1294,8 @@ namespace Capa_de_Presentacion
                     if (dataGridView1.Columns[index].HeaderText == noCompChk.Text)
                     {
                         dataGridView1.Columns.RemoveAt(index);
-                        if (dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
                         count--;
                     }
                 }
@@ -1309,53 +1314,13 @@ namespace Capa_de_Presentacion
                     if (dataGridView1.Columns[index].HeaderText == fechAboChk.Text)
                     {
                         dataGridView1.Columns.RemoveAt(index);
-                        if (dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
                         count--;
                     }
                 }
 
                 fechAboChk.Visible = false;
-            }
-        }
-
-        private void telefChk_CheckedChanged(object sender, EventArgs e)
-        {
-            var count = dataGridView1.Columns.Count;
-            if (!telefChk.Checked)
-            {
-                for (int index = 0; index < count; index++)
-                {
-                    if (dataGridView1.Columns[index].HeaderText == telefChk.Text)
-                    {
-                        dataGridView1.Columns.RemoveAt(index);
-                        if (dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
-                        count--;
-                    }
-                }
-
-                telefChk.Visible = false;
-            }
-        }
-
-        private void vehChk_CheckedChanged(object sender, EventArgs e)
-        {
-            var count = dataGridView1.Columns.Count;
-            if (!vehChk.Checked)
-            {
-                for (int index = 0; index < count; index++)
-                {
-                    if (dataGridView1.Columns[index].HeaderText == vehChk.Text)
-                    {
-                        dataGridView1.Columns.RemoveAt(index);
-                        if (dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
-                        count--;
-                    }
-                }
-
-                vehChk.Visible = false;
             }
         }
 
@@ -1365,7 +1330,7 @@ namespace Capa_de_Presentacion
             btnCancelar.Show();
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void itbisChk_CheckedChanged(object sender, EventArgs e)
         {
             var count = dataGridView1.Columns.Count;
             if (!itbisChk.Checked)
@@ -1375,8 +1340,8 @@ namespace Capa_de_Presentacion
                     if (dataGridView1.Columns[index].HeaderText == itbisChk.Text)
                     {
                         dataGridView1.Columns.RemoveAt(index);
-                        if (dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
                         count--;
                     }
                 }
@@ -1392,16 +1357,56 @@ namespace Capa_de_Presentacion
             {
                 for (int index = 0; index < count; index++)
                 {
-                    if (dataGridView1.Columns[index].HeaderText == subchk.Text)
+                    if (dataGridView1.Columns[index].Name == subchk.Text)
                     {
                         dataGridView1.Columns.RemoveAt(index);
-                        if(dataGridView1.Rows.Count > 0)
-                            dataGridView1.Rows.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
                         count--;
                     }
                 }
 
                 subchk.Visible = false;
+            }
+        }
+
+        private void vehChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!vehChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText.ToLower() == vehChk.Text.ToLower())
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                vehChk.Visible = false;
+            }
+        }
+
+        private void telefChk_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!telefChk.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == telefChk.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                telefChk.Visible = false;
             }
         }
     }
