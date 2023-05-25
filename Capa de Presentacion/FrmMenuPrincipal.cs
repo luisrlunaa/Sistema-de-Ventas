@@ -130,6 +130,8 @@ namespace Capa_de_Presentacion
                 lblTel2.Text = leer["Tel2"].ToString();
                 lblCorreo.Text = leer["Correo"].ToString();
                 lblrnc.Text = leer["RNC"].ToString();
+                var impresoraPeq = leer["ImpresoraPeq"].ToString();
+                Program.ImpresonaPeq = string.IsNullOrWhiteSpace(impresoraPeq) ? "POS80 Printer" : impresoraPeq;
             }
             Cx.Desconectar();
         }

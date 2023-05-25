@@ -410,7 +410,7 @@ namespace Capa_de_Presentacion
         private void label18_Click(object sender, EventArgs e)
         {
             M.Desconectar();
-            Program.abiertosecundarias = false;
+            Program.abiertosecundario = false;
             Program.abierto = false;
 
             var dirs = new DirectoryInfo(@"" + Program.SqlFolder).FullName;
