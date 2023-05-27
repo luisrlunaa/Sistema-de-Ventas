@@ -65,6 +65,7 @@ namespace CapaLogicaNegocio
                           (select sum(DetalleVenta.Igv) from DetalleVenta where IdVenta = venta.IdVenta) as Itbis,
                           (select sum(DetalleVenta.SubTotal) from DetalleVenta where IdVenta = venta.IdVenta) as SubTotal, Total,
                           IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),
+                          COALESCE((select DNI from Cliente where IdCliente = venta.IdCliente), 'Sin Identidad') as Identidad,
                           Telefono = COALESCE(Telefono, 'Sin Telefono'),Vehiculo = COALESCE(Vehiculo, 'Sin Vehiculo'),borrado,UltimaFechaPago 
                           from venta where FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND borrado = 0 order by IdVenta";
             else
@@ -72,6 +73,7 @@ namespace CapaLogicaNegocio
                           (select sum(DetalleVenta.Igv) from DetalleVenta where IdVenta = venta.IdVenta) as Itbis,
                           (select sum(DetalleVenta.SubTotal) from DetalleVenta where IdVenta = venta.IdVenta) as SubTotal, Total,
                           IdEmpleado,Restante,TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),
+                          COALESCE((select DNI from Cliente where IdCliente = venta.IdCliente), 'Sin Identidad') as Identidad,
                           Telefono = COALESCE(Telefono, 'Sin Telefono'),Vehiculo = COALESCE(Vehiculo, 'Sin Vehiculo'),borrado,UltimaFechaPago 
                           from venta where FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) AND borrado = 0 order by IdVenta";
 
@@ -114,6 +116,7 @@ namespace CapaLogicaNegocio
                     venta.borrador = dr.GetBoolean(dr.GetOrdinal("borrado")) ? 1 : 0;
                     venta.Telefono = dr.GetString(dr.GetOrdinal("Telefono"));
                     venta.Vehiculo = dr.GetString(dr.GetOrdinal("Vehiculo"));
+                    venta.Identidad = dr.GetString(dr.GetOrdinal("Identidad"));
 
                     venta.NombreCliente = string.IsNullOrWhiteSpace(venta.NombreCliente) ? "Sin Cliente" : venta.NombreCliente;
                     venta.Telefono = string.IsNullOrWhiteSpace(venta.Telefono) ? "Sin Telefono" : venta.Telefono;
@@ -276,6 +279,7 @@ namespace CapaLogicaNegocio
         public int? borrador { get; set; }
         public string Vehiculo { get; set; }
         public string Telefono { get; set; }
+        public string Identidad { get; set; }
     }
 
     public class Topay

@@ -171,6 +171,7 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["restante"].Value = item.Restante.ToString();
                 dataGridView1.Rows[renglon].Cells["fecha"].Value = item.FechaVenta;
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = item.NombreCliente.ToString();
+                dataGridView1.Rows[renglon].Cells["Identidad"].Value = item.Identidad.ToString();
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = item.UltimaFechaPago;
                 dataGridView1.Rows[renglon].Cells["vehiculo"].Value = item.Vehiculo.ToString();
                 dataGridView1.Rows[renglon].Cells["telefono"].Value = item.Telefono.ToString();
@@ -522,38 +523,10 @@ namespace Capa_de_Presentacion
             var isDiferentWeek = dtpfecha1.Value.Date < DateTime.Today.AddDays(-8);
 
             var (date1, date2) = GetDaysToFilter(isSameDate, dtpfecha1.Value.Date, dtpfecha2.Value.Date);
-            if (!isDiferentWeek)
-            {
-                listFind = tempSalesData.Where(x => isSameDate
-                                                              ? x.FechaVenta.Value.Date == date1
-                                                              : x.FechaVenta.Value.Date >= date1 && x.FechaVenta.Value.Date <= date2)
-                    .OrderBy(x => x.IdVenta).ToList();
-            }
-            else
-            {
-                var isOnTempData = tempSalesData != null
-                                 && tempSalesData.Count > 0 ? tempSalesData.Where(x => isSameDate
-                                                              ? x.FechaVenta.Value.Date == date1
-                                                              : x.FechaVenta.Value.Date >= date1 && x.FechaVenta.Value.Date <= date2)
-                                                              .ToList().Count > 0
-                                                          : false;
+            clsVentas V = new clsVentas();
+            listFind = V.GetListadoVentas(date1, date2);
 
-                var searchOnDB = isDiferentWeek || !isOnTempData;
-                if (searchOnDB)
-                {
-                    clsVentas V = new clsVentas();
-                    listFind = V.GetListadoVentas(date1, date2);
-                }
-                else
-                {
-                    listFind = tempSalesData.Where(x => isSameDate
-                                                              ? x.FechaVenta.Value.Date == date1
-                                                              : x.FechaVenta.Value.Date >= date1 && x.FechaVenta.Value.Date <= date2)
-                                                              .ToList();
-                }
-            }
-
-            var newlist = new List<Venta>();
+var newlist = new List<Venta>();
             if (!string.IsNullOrWhiteSpace(txtBuscarid.Text))
             {
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
@@ -1407,6 +1380,26 @@ namespace Capa_de_Presentacion
                 }
 
                 telefChk.Visible = false;
+            }
+        }
+
+        private void chkIdentidad_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!chkIdentidad.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == chkIdentidad.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                chkIdentidad.Visible = false;
             }
         }
     }

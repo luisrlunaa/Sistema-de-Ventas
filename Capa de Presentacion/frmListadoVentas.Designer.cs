@@ -110,7 +110,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.chkid = new System.Windows.Forms.CheckBox();
             this.chknombre = new System.Windows.Forms.CheckBox();
+            this.chkIdentidad = new System.Windows.Forms.CheckBox();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Identidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombrecliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idEm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -145,6 +147,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.chkIdentidad);
             this.panel3.Controls.Add(this.subchk);
             this.panel3.Controls.Add(this.itbisChk);
             this.panel3.Controls.Add(this.label10);
@@ -397,6 +400,7 @@
             this.dataGridView1.ColumnHeadersHeight = 29;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
+            this.Identidad,
             this.nombrecliente,
             this.Tipo,
             this.idEm,
@@ -1090,6 +1094,19 @@
             this.chknombre.UseVisualStyleBackColor = true;
             this.chknombre.CheckedChanged += new System.EventHandler(this.chknombre_CheckedChanged);
             // 
+            // chkIdentidad
+            // 
+            this.chkIdentidad.AutoSize = true;
+            this.chkIdentidad.Checked = true;
+            this.chkIdentidad.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIdentidad.Location = new System.Drawing.Point(186, 252);
+            this.chkIdentidad.Name = "chkIdentidad";
+            this.chkIdentidad.Size = new System.Drawing.Size(85, 20);
+            this.chkIdentidad.TabIndex = 154;
+            this.chkIdentidad.Text = "Identidad";
+            this.chkIdentidad.UseVisualStyleBackColor = true;
+            this.chkIdentidad.CheckedChanged += new System.EventHandler(this.chkIdentidad_CheckedChanged);
+            // 
             // id
             // 
             this.id.HeaderText = "Id Venta";
@@ -1097,6 +1114,13 @@
             this.id.Name = "id";
             this.id.ReadOnly = true;
             this.id.Width = 107;
+            // 
+            // Identidad
+            // 
+            this.Identidad.HeaderText = "Identidad";
+            this.Identidad.MinimumWidth = 6;
+            this.Identidad.Name = "Identidad";
+            this.Identidad.Width = 114;
             // 
             // nombrecliente
             // 
@@ -1389,7 +1413,9 @@
         public System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox itbisChk;
         private System.Windows.Forms.CheckBox subchk;
+        private System.Windows.Forms.CheckBox chkIdentidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Identidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombrecliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn idEm;
