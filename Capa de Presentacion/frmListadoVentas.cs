@@ -526,7 +526,7 @@ namespace Capa_de_Presentacion
             clsVentas V = new clsVentas();
             listFind = V.GetListadoVentas(date1, date2);
 
-var newlist = new List<Venta>();
+            var newlist = new List<Venta>();
             if (!string.IsNullOrWhiteSpace(txtBuscarid.Text))
             {
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
