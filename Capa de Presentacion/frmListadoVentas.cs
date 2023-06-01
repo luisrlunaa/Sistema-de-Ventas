@@ -197,7 +197,8 @@ namespace Capa_de_Presentacion
         {
             decimal total = 0;
             dataGridView3.Rows.Clear();
-            foreach (var item in listaventas)
+            var lstOthers = listaventas.Where(c => c.CategoryOfProducts.ToLower() != "aceite" && c.CategoryOfProducts.ToLower() != "filtros").ToList();
+            foreach (var item in lstOthers)
             {
                 int renglon = dataGridView3.Rows.Add();
                 // especificamos en que fila se mostrará cada registro
@@ -206,9 +207,26 @@ namespace Capa_de_Presentacion
                 dataGridView3.Rows[renglon].Cells["CantidadOfProducts"].Value = item.CantidadOfProducts.ToString();
                 dataGridView3.Rows[renglon].Cells["CategoryOfProducts"].Value = item.CategoryOfProducts;
 
-                total += item.PrecioOfProducts;
-                txttotalventaespecifica.Text = Math.Round(total, 2).ToString("C2");
+                //total += item.PrecioOfProducts;
+                //txttotalventaespecifica.Text = Math.Round(total, 2).ToString("C2");
             }
+            txttotalventaespecifica.Text = Math.Round(lstOthers.Sum(x=>x.PrecioOfProducts), 2).ToString("C2");
+
+            var lstFilterAndOils = listaventas.Where(c => c.CategoryOfProducts.ToLower() == "aceite" || c.CategoryOfProducts.ToLower() == "filtros").ToList();
+            dataGridView4.Rows.Clear();
+            foreach (var item in lstFilterAndOils)
+            {
+                int renglon = dataGridView4.Rows.Add();
+                // especificamos en que fila se mostrará cada registro
+
+                dataGridView4.Rows[renglon].Cells["dataGridViewTextBoxColumn3"].Value = item.PrecioOfProducts.ToString();
+                dataGridView4.Rows[renglon].Cells["dataGridViewTextBoxColumn2"].Value = item.CantidadOfProducts.ToString();
+                dataGridView4.Rows[renglon].Cells["dataGridViewTextBoxColumn1"].Value = item.CategoryOfProducts;
+
+                //total += item.PrecioOfProducts;
+                //txttotalventaespecificaFilterAndOils.Text = Math.Round(total, 2).ToString("C2");
+            }
+            txttotalventaespecificaFilterAndOils.Text = Math.Round(lstFilterAndOils.Sum(x => x.PrecioOfProducts), 2).ToString("C2");
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -292,7 +310,7 @@ namespace Capa_de_Presentacion
             this.Close();
         }
 
-        private void To_pdf1()
+        private void To_pdf1(bool espOther, bool espOils)
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -336,14 +354,31 @@ namespace Capa_de_Presentacion
                     doc.Add(ubicacionalign);
 
                     doc.Add(new Paragraph("Reporte Especifico de Ventas Realizadas"));
+                    doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + ", " + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("                       "));
-                    GenerarDocumento1(doc);
-                    doc.AddCreationDate();
                     doc.Add(new Paragraph("                       "));
-                    doc.Add(new Paragraph("Total de Ventas      : " + txttotalventaespecifica.Text));
-                    doc.Add(new Paragraph("Total de Ganancias   : " + txtGanancias.Text));
-                    doc.Add(new Paragraph("                       "));
+
+                    if (espOther)
+                    {
+                        doc.Add(new Paragraph("Reporte Especifico de Ventas Realizadas"));
+                        GenerarDocumento1(doc);
+                        doc.AddCreationDate();
+                        doc.Add(new Paragraph("                       "));
+                        doc.Add(new Paragraph("Total      : " + txttotalventaespecifica.Text));
+                        doc.Add(new Paragraph("                       "));
+                    }
+
+                    if(espOils)
+                    {
+                        doc.Add(new Paragraph("Reporte Especifico de Ventas de Filtros y Aceites Realizadas"));
+                        GenerarDocumento2(doc);
+                        doc.AddCreationDate();
+                        doc.Add(new Paragraph("                       "));
+                        doc.Add(new Paragraph("Total      : " + txttotalventaespecificaFilterAndOils.Text)); 
+                        doc.Add(new Paragraph("                       "));
+                    }
+
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("____________________________________"));
                     doc.Add(new Paragraph("                         Firma              "));
@@ -424,9 +459,21 @@ namespace Capa_de_Presentacion
                         GenerarDocumento(doc);
                         doc.AddCreationDate();
                         doc.Add(new Paragraph("                       "));
+
                         doc.Add(new Paragraph("Reporte Especifico de Ventas Realizadas"));
                         GenerarDocumento1(doc);
+                        doc.AddCreationDate();
                         doc.Add(new Paragraph("                       "));
+                        doc.Add(new Paragraph("Total     : " + txttotalventaespecifica.Text));
+                        doc.Add(new Paragraph("                       "));
+
+                        doc.Add(new Paragraph("Reporte Especifico de Ventas de Filtros y Aceites Realizadas"));
+                        GenerarDocumento2(doc);
+                        doc.AddCreationDate();
+                        doc.Add(new Paragraph("                       "));
+                        doc.Add(new Paragraph("Total     : " + txttotalventaespecificaFilterAndOils.Text));
+                        doc.Add(new Paragraph("                       "));
+
                         doc.Add(new Paragraph("Total de Ventas      : " + txtTtal.Text));
                         doc.Add(new Paragraph("Total de Ganancias   : " + txtGanancias.Text));
                         //doc.Add(new Paragraph("Producto Mas Vendido : " + txtRepi.Text));
@@ -445,6 +492,35 @@ namespace Capa_de_Presentacion
             {
                 MessageBox.Show("No guardo el Archivo");
             }
+        }
+        public void GenerarDocumento2(Document document)
+        {
+            int i, j;
+            PdfPTable datatable = new PdfPTable(dataGridView4.ColumnCount);
+            datatable.DefaultCell.Padding = 2;
+            float[] headerwidths = GetTamañoColumnas(dataGridView4);
+            datatable.SetWidths(headerwidths);
+            datatable.WidthPercentage = 100;
+            datatable.DefaultCell.BorderWidth = 1;
+            datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
+            for (i = 0; i < dataGridView4.ColumnCount; i++)
+            {
+                datatable.AddCell(new Phrase(dataGridView4.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
+            }
+            datatable.HeaderRows = 1;
+            datatable.DefaultCell.BorderWidth = 1;
+            for (i = 0; i < dataGridView4.Rows.Count; i++)
+            {
+                for (j = 0; j < dataGridView4.Columns.Count; j++)
+                {
+                    if (dataGridView4[j, i].Value != null)
+                    {
+                        datatable.AddCell(new Phrase(dataGridView4[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
+                    }
+                }
+                datatable.CompleteRow();
+            }
+            document.Add(datatable);
         }
 
         public void GenerarDocumento1(Document document)
@@ -1109,7 +1185,7 @@ namespace Capa_de_Presentacion
 
             if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte \n Si=Especifico \n No=General ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                To_pdf1();
+                To_pdf1(true, true);
             }
             else
             {
@@ -1400,6 +1476,22 @@ namespace Capa_de_Presentacion
                 }
 
                 chkIdentidad.Visible = false;
+            }
+        }
+
+        private void btnEspOtrasImp_Click(object sender, EventArgs e)
+        {
+            if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte Especifico de Ventas \n (sin Aceites ni Filtros)", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            {
+                To_pdf1(true, false);
+            }
+        }
+
+        private void btnEspOilsImp_Click(object sender, EventArgs e)
+        {
+            if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte Especifico de Aceites y Filtros", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            {
+                To_pdf1(false, true);
             }
         }
     }
