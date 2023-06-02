@@ -289,6 +289,7 @@ namespace Capa_de_Presentacion
                 txtIgv.Text = Program.itbis + "";
                 txtpmax.Text = Program.Pmax + "";
                 txtpmin.Text = Program.Pmin + "";
+                txtImei.Text = !string.IsNullOrWhiteSpace(Program.Imei) ? Program.Imei : txtImei.Text;
             }
 
             if (Program.IdProducto > 0)
@@ -311,7 +312,7 @@ namespace Capa_de_Presentacion
 
             combo_tipo_NCF.Text = !string.IsNullOrWhiteSpace(Program.NCF) ? Program.NCF : combo_tipo_NCF.Text;
             txtNCF.Text = !string.IsNullOrWhiteSpace(Program.NroComprobante) ? Program.NroComprobante : txtNCF.Text;
-   
+
             lbltotal.Text = Program.total > 0 ? Program.total + "" : string.IsNullOrWhiteSpace(lbltotal.Text) || lbltotal.Text == "..." ? 0.ToString() : lbltotal.Text;
             lblsubt.Text = Program.ST > 0 ? Program.ST + "" : lblsubt.Text;
             lbligv.Text = Program.igv > 0 ? Program.igv + "" : lbligv.Text;
