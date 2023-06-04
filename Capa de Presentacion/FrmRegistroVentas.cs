@@ -968,28 +968,6 @@ namespace Capa_de_Presentacion
                     MessageBox.Show("Error al realizar la venta. \n" + ex);
                     return;
                 }
-
-                Venta venta = new Venta();
-                venta.IdVenta = Convert.ToInt32(txtIdVenta.Text);
-                if (!string.IsNullOrWhiteSpace(txtidCli.Text))
-                {
-                    venta.IdCliente = Convert.ToInt32(txtidCli.Text);
-                }
-                venta.IdEmpleado = Convert.ToInt32(txtidEmp.Text);
-                venta.TipoDocumento = combo_tipo_NCF.Text;
-                venta.NroComprobante = txtNCF.Text;
-                venta.Total = Convert.ToDecimal(lbltotal.Text);
-                venta.Tipofactura = cbtipofactura.Text;
-                venta.Restante = restante;
-                venta.FechaVenta = dateTimePicker1.Value;
-                venta.UltimaFechaPago = dateTimePicker1.Value;
-                venta.NombreCliente = Program.datoscliente;
-                venta.borrador = 0;
-
-                if (clsGenericList.tempSalesData != null)
-                {
-                    clsGenericList.tempSalesData.Add(venta);
-                }
             }
 
             using (SqlCommand cmd1 = new SqlCommand("RegistrarDetalleVenta", M.conexion))
@@ -1080,21 +1058,6 @@ namespace Capa_de_Presentacion
                     catch (Exception ex)
                     {
                         MessageBox.Show("Error al actualizar los productos vendidos, favor actualizar de manera manual. \n" + ex);
-                    }
-
-                    if (clsGenericList.listProducto != null)
-                    {
-                        var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == Convert.ToInt32(row.Cells["IDP"].Value));
-                        if (producto.m_Stock > 0)
-                        {
-                            producto.m_Stock = producto.m_Stock - Convert.ToInt32(row.Cells["cantidadP"].Value);
-
-                            Producto updateproducto = new Producto();
-                            updateproducto = producto;
-
-                            clsGenericList.listProducto.Remove(producto);
-                            clsGenericList.listProducto.Add(updateproducto);
-                        }
                     }
                 }
             }
@@ -1737,18 +1700,6 @@ namespace Capa_de_Presentacion
                 {
                     MessageBox.Show("Error al realizar el abono. \n" + ex);
                     return;
-                }
-
-                var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
-                if (venta != null)
-                {
-                    venta.Restante = restante;
-
-                    Venta ventaup = new Venta();
-                    ventaup = venta;
-
-                    clsGenericList.tempSalesData.Remove(venta);
-                    clsGenericList.tempSalesData.Add(ventaup);
                 }
             }
 

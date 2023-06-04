@@ -93,14 +93,6 @@ namespace Capa_de_Presentacion
                             {
                                 using (SqlCommand cmd = new SqlCommand("RegistrarProducto", Cx.conexion))
                                 {
-                                    var exist = clsGenericList.listProducto.FirstOrDefault(x => x.m_Producto == txtProducto.Text.ToUpper() && x.m_Marca == txtMarca.Text.ToUpper());
-                                    if (exist != null)
-                                    {
-                                        DevComponents.DotNetBar.MessageBoxEx.Show("El producto ya existe", "Sistema de Ventas.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        Cx.Desconectar();
-                                    }
-                                    else
-                                    {
                                         cmd.CommandType = CommandType.StoredProcedure;
                                         cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
                                         cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
@@ -118,31 +110,10 @@ namespace Capa_de_Presentacion
                                         Cx.Conectar();
                                         cmd.ExecuteNonQuery();
                                         Cx.Desconectar();
-
-                                        Producto product = new Producto();
-                                        int idP = clsGenericList.listProducto.Count + 1;
-                                        product.m_IdP = idP;
-                                        product.m_IdCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
-                                        product.m_Producto = txtProducto.Text;
-                                        product.m_tipoGoma = cbtipo.Text;
-                                        product.m_itbis = Convert.ToDecimal(txtitbis.Text);
-                                        product.m_PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
-                                        product.m_PrecioCompra = Convert.ToDecimal(txtPCompra.Text);
-                                        product.m_Preciomax = 0;
-                                        product.m_Preciomin = 0;
-                                        product.m_Stock = Convert.ToInt32(txtStock.Text);
-                                        product.m_Marca = txtMarca.Text;
-                                        product.m_FechaModificacion = dateTimePicker1.Value;
-                                        product.m_FechaVencimiento = dateTimePicker1.Value;
-
-                                        clsGenericList.listProducto.Add(product);
-
                                         P.Listar();
                                         ListarElementos();
                                         Limpiar();
                                     }
-
-                                }
                             }
                             else
                             {
@@ -221,7 +192,6 @@ namespace Capa_de_Presentacion
         private void button1_Click(object sender, EventArgs e)
         {
             Cx.Desconectar();
-            FrmListadoProductos LP = new FrmListadoProductos();
             if (txtProducto.Text.Trim() != "")
             {
                 if (txtMarca.Text.Trim() != "")
@@ -253,29 +223,6 @@ namespace Capa_de_Presentacion
                                     cmd.ExecuteNonQuery();
                                     Cx.Desconectar();
                                     ListarElementos();
-
-                                    var idp = Convert.ToInt32(txtIdP.Text);
-                                    var producto = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idp);
-
-                                    Producto product = new Producto();
-                                    product.m_IdP = idp;
-                                    product.m_IdCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
-                                    product.m_Producto = txtProducto.Text;
-                                    product.m_tipoGoma = cbtipo.Text;
-                                    product.m_itbis = Convert.ToDecimal(txtitbis.Text);
-                                    product.m_PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
-                                    product.m_PrecioCompra = Convert.ToDecimal(txtPCompra.Text);
-                                    product.m_Preciomax = 0;
-                                    product.m_Preciomin = 0;
-                                    product.m_Stock = Convert.ToInt32(txtStock.Text);
-                                    product.m_Marca = txtMarca.Text;
-                                    product.m_FechaModificacion = dateTimePicker1.Value;
-                                    product.m_FechaVencimiento = producto.m_FechaVencimiento;
-
-                                    clsGenericList.listProducto.Remove(producto);
-                                    clsGenericList.listProducto.Add(product);
-
-                                    LP.CargarListado(clsGenericList.listProducto);
                                     Limpiar();
                                     this.Close();
                                 }
