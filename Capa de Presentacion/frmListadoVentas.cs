@@ -24,11 +24,12 @@ namespace Capa_de_Presentacion
 
         clsManejador M = new clsManejador();
         public int borrado = 0;
+        private List<Venta> tempSalesData;
         private void frmListadoVentas_Load(object sender, EventArgs e)
         {
-            if (clsGenericList.tempSalesData is null)
+            if (tempSalesData is null)
             {
-                clsGenericList.tempSalesData = cargarListado();
+                tempSalesData = cargarListado();
             }
 
             button3.Enabled = false;
@@ -38,12 +39,12 @@ namespace Capa_de_Presentacion
             cargar_combo_NCF(combo_tipo_NCF);
             cargar_combo_Tipofactura(cbtipofactura);
 
-            if (clsGenericList.tempSalesData.Count > 0)
+            if (tempSalesData.Count > 0)
             {
-                llenar_data(clsGenericList.tempSalesData);
+                llenar_data(tempSalesData);
 
-                var fecha1 = clsGenericList.tempSalesData.FirstOrDefault().FechaVenta;
-                var fecha2 = clsGenericList.tempSalesData.LastOrDefault().FechaVenta;
+                var fecha1 = tempSalesData.FirstOrDefault().FechaVenta;
+                var fecha2 = tempSalesData.LastOrDefault().FechaVenta;
 
                 var listVentCateg = new List<VentasPorCategoria>();
                 try
@@ -90,7 +91,7 @@ namespace Capa_de_Presentacion
             clsVentas V = new clsVentas();
             try
             {
-                return clsGenericList.tempSalesData = V.GetListadoVentas(GetWeek(), DateTime.Now);
+                return tempSalesData = V.GetListadoVentas(GetWeek(), DateTime.Now);
             }
             catch (Exception ex)
             {
@@ -527,14 +528,14 @@ namespace Capa_de_Presentacion
             var (date1, date2) = GetDaysToFilter(isSameDate, dtpfecha1.Value.Date, dtpfecha2.Value.Date);
             if (!isDiferentWeek)
             {
-                listFind = clsGenericList.tempSalesData.Where(x => isSameDate
+                listFind = tempSalesData.Where(x => isSameDate
                                                               ? x.FechaVenta.Date == date1
                                                               : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
                     .OrderBy(x => x.IdVenta).ToList();
             }
             else
             {
-                var isOnTempData = clsGenericList.tempSalesData.Count > 0 ? clsGenericList.tempSalesData.Where(x => isSameDate
+                var isOnTempData = tempSalesData.Count > 0 ? tempSalesData.Where(x => isSameDate
                                                               ? x.FechaVenta.Date == date1
                                                               : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
                                                               .ToList().Count > 0
@@ -548,7 +549,7 @@ namespace Capa_de_Presentacion
                 }
                 else
                 {
-                    listFind = clsGenericList.tempSalesData.Where(x => isSameDate
+                    listFind = tempSalesData.Where(x => isSameDate
                                                               ? x.FechaVenta.Date == date1
                                                               : x.FechaVenta.Date >= date1 && x.FechaVenta.Date <= date2)
                                                               .ToList();
@@ -651,7 +652,7 @@ namespace Capa_de_Presentacion
             vereliminadas.Checked = false;
             Program.Id = 0;
             Program.tipo = "";
-            llenar_data(clsGenericList.tempSalesData.OrderBy(x => x.IdVenta).ToList());
+            llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -671,7 +672,7 @@ namespace Capa_de_Presentacion
                 if (txtBuscarid.Text.Length >= 1 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
                     int id = Convert.ToInt32(txtBuscarid.Text);
-                    var newlist = clsGenericList.tempSalesData.Where(x => x.IdVenta == id).ToList();
+                    var newlist = tempSalesData.Where(x => x.IdVenta == id).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
@@ -680,13 +681,13 @@ namespace Capa_de_Presentacion
                 if (txtBuscarid.Text.Length >= 4 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
                     string name = txtBuscarid.Text;
-                    var newlist = clsGenericList.tempSalesData.Where(x => x.NombreCliente.ToLower().Contains(name.ToLower())).ToList();
+                    var newlist = tempSalesData.Where(x => x.NombreCliente.ToLower().Contains(name.ToLower())).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
                 }
             }
             else
             {
-                llenar_data(clsGenericList.tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
             }
         }
 
@@ -809,10 +810,10 @@ namespace Capa_de_Presentacion
                                         cmd.ExecuteNonQuery();
                                         M.Desconectar();
 
-                                        var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
+                                        var venta = tempSalesData.FirstOrDefault(x => x.IdVenta == Program.Id);
                                         if (venta != null)
                                         {
-                                            clsGenericList.tempSalesData.Remove(venta);
+                                            tempSalesData.Remove(venta);
                                         }
 
                                         Program.Id = 0;
@@ -853,13 +854,13 @@ namespace Capa_de_Presentacion
             if (vereliminadas.Checked)
             {
                 borrado = 1;
-                var newlist = clsGenericList.tempSalesData.Where(x => x.borrador == borrado).ToList();
+                var newlist = tempSalesData.Where(x => x.borrador == borrado).ToList();
                 llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
             }
             else
             {
                 borrado = 0;
-                var newlist = clsGenericList.tempSalesData.Where(x => x.borrador == borrado).ToList();
+                var newlist = tempSalesData.Where(x => x.borrador == borrado).ToList();
                 llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
             }
         }
@@ -914,22 +915,6 @@ namespace Capa_de_Presentacion
 
                             cmd3.ExecuteNonQuery();
 
-                            if (clsGenericList.listProducto != null)
-                            {
-                                var deleteProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
-                                if (deleteProduct != null)
-                                {
-                                    var updateProduct = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV);
-                                    if (updateProduct != null)
-                                    {
-                                        updateProduct.m_Stock = updateProduct.m_Stock + (int)cantidadDV;
-
-                                        clsGenericList.listProducto.Remove(deleteProduct);
-                                        clsGenericList.listProducto.Add(updateProduct);
-                                    }
-                                }
-                            }
-
                             if (i == dt.Rows.Count)
                             {
                                 if (restanteDV != TotalDV)
@@ -953,22 +938,6 @@ namespace Capa_de_Presentacion
                                         cmd4.Parameters.Add("@id_caja", SqlDbType.Int).Value = idcajaDV1;
 
                                         cmd4.ExecuteNonQuery();
-
-                                        if (clsGenericList.listProducto != null)
-                                        {
-                                            var deleteProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
-                                            if (deleteProduct1 != null)
-                                            {
-                                                var updateProduct1 = clsGenericList.listProducto.FirstOrDefault(x => x.m_IdP == idProductoDV1);
-                                                if (updateProduct1 != null)
-                                                {
-                                                    updateProduct1.m_Stock = updateProduct1.m_Stock + (int)cantidadDV1;
-
-                                                    clsGenericList.listProducto.Remove(deleteProduct1);
-                                                    clsGenericList.listProducto.Add(updateProduct1);
-                                                }
-                                            }
-                                        }
                                     }
                                 }
 
@@ -1011,12 +980,12 @@ namespace Capa_de_Presentacion
                             i = i + 1;
                         }
 
-                        if (clsGenericList.tempSalesData != null && clsGenericList.tempSalesData.Any())
+                        if (tempSalesData != null && tempSalesData.Any())
                         {
-                            var venta = clsGenericList.tempSalesData.FirstOrDefault(x => x.IdVenta == Id);
+                            var venta = tempSalesData.FirstOrDefault(x => x.IdVenta == Id);
                             if (venta != null)
                             {
-                                clsGenericList.tempSalesData.Remove(venta);
+                                tempSalesData.Remove(venta);
                             }
                         }
                     }
