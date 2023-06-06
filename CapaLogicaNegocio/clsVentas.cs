@@ -61,21 +61,21 @@ namespace CapaLogicaNegocio
             var isSame = date.Date == date1.Date;
             var query = string.Empty;
             if (isSame)
-                query = @"select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,
+                query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, '0'),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta,
                           COALESCE((select sum(DetalleVenta.Igv) from DetalleVenta where IdVenta = venta.IdVenta), 0 ) as Itbis,
-                          COALESCE((select sum(DetalleVenta.SubTotal) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, Total,
-                          IdEmpleado,Restante = COALESCE(Restante, 0),TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),
+                          COALESCE((select sum(DetalleVenta.SubTotal) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, venta.Total,
+                          venta.IdEmpleado,Restante = COALESCE(venta.Restante, 0),venta.TipoFactura,NombreCliente = COALESCE(venta.NombreCliente, 'Sin Cliente'),
                           COALESCE((select DNI from Cliente where IdCliente = venta.IdCliente), 'Sin Identidad') as Identidad,
-                          Telefono = COALESCE(Telefono, 'Sin Telefono'),Vehiculo = COALESCE(Vehiculo, 'Sin Vehiculo'),borrado,UltimaFechaPago 
-                          from venta where FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) order by IdVenta";
+                          Telefono = COALESCE(venta.Telefono, 'Sin Telefono'),Vehiculo = COALESCE(venta.Vehiculo, 'Sin Vehiculo'),venta.borrado,venta.UltimaFechaPago 
+                          from venta where venta.FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) order by venta.IdVenta";
             else
-                query = @"select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,
+                query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, '0'),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta,
                           COALESCE((select sum(DetalleVenta.Igv) from DetalleVenta where IdVenta = venta.IdVenta), 0 ) as Itbis,
-                          COALESCE((select sum(DetalleVenta.SubTotal) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, Total,
-                          IdEmpleado,Restante = COALESCE(Restante, 0),TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),
+                          COALESCE((select sum(DetalleVenta.SubTotal) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, venta.Total,
+                          venta.IdEmpleado,Restante = COALESCE(venta.Restante, 0),venta.TipoFactura,NombreCliente = COALESCE(venta.NombreCliente, 'Sin Cliente'),
                           COALESCE((select DNI from Cliente where IdCliente = venta.IdCliente), 'Sin Identidad') as Identidad,
-                          Telefono = COALESCE(Telefono, 'Sin Telefono'),Vehiculo = COALESCE(Vehiculo, 'Sin Vehiculo'),borrado,UltimaFechaPago 
-                          from venta where FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) 
+                          Telefono = COALESCE(venta.Telefono, 'Sin Telefono'),Vehiculo = COALESCE(venta.Vehiculo, 'Sin Vehiculo'),venta.borrado,venta.UltimaFechaPago 
+                          from venta where venta.FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) 
                           AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) order by IdVenta";
 
             M.Desconectar();

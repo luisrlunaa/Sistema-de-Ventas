@@ -1183,11 +1183,7 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte \n Si=Especifico \n No=General ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-                To_pdf1(true, true);
-            }
-            else
+            if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte General", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                 To_pdf();
             }
