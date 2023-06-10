@@ -61,17 +61,17 @@ namespace CapaLogicaNegocio
             var isSame = date.Date == date1.Date;
             var query = string.Empty;
             if (isSame)
-                query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, '0'),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta,
-                          COALESCE((select sum(DetalleVenta.Igv) from DetalleVenta where IdVenta = venta.IdVenta), 0 ) as Itbis,
-                          COALESCE((select sum(DetalleVenta.SubTotal) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, venta.Total,
+                query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta,
+                          COALESCE((select sum(DetalleVenta.Igv * DetalleVenta.Cantidad) from DetalleVenta where IdVenta = venta.IdVenta), 0 ) as Itbis,
+                          COALESCE((select sum(DetalleVenta.PrecioUnitario * DetalleVenta.Cantidad) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, venta.Total,
                           venta.IdEmpleado,Restante = COALESCE(venta.Restante, 0),venta.TipoFactura,NombreCliente = COALESCE(venta.NombreCliente, 'Sin Cliente'),
                           COALESCE((select DNI from Cliente where IdCliente = venta.IdCliente), 'Sin Identidad') as Identidad,
                           Telefono = COALESCE(venta.Telefono, 'Sin Telefono'),Vehiculo = COALESCE(venta.Vehiculo, 'Sin Vehiculo'),venta.borrado,venta.UltimaFechaPago 
                           from venta where venta.FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) order by venta.IdVenta";
             else
-                query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, '0'),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta,
-                          COALESCE((select sum(DetalleVenta.Igv) from DetalleVenta where IdVenta = venta.IdVenta), 0 ) as Itbis,
-                          COALESCE((select sum(DetalleVenta.SubTotal) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, venta.Total,
+                query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta,
+                          COALESCE((select sum(DetalleVenta.Igv * DetalleVenta.Cantidad) from DetalleVenta where IdVenta = venta.IdVenta), 0 ) as Itbis,
+                          COALESCE((select sum(DetalleVenta.PrecioUnitario * DetalleVenta.Cantidad) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, venta.Total,
                           venta.IdEmpleado,Restante = COALESCE(venta.Restante, 0),venta.TipoFactura,NombreCliente = COALESCE(venta.NombreCliente, 'Sin Cliente'),
                           COALESCE((select DNI from Cliente where IdCliente = venta.IdCliente), 'Sin Identidad') as Identidad,
                           Telefono = COALESCE(venta.Telefono, 'Sin Telefono'),Vehiculo = COALESCE(venta.Vehiculo, 'Sin Vehiculo'),venta.borrado,venta.UltimaFechaPago 
@@ -122,6 +122,11 @@ namespace CapaLogicaNegocio
                     venta.NombreCliente = string.IsNullOrWhiteSpace(venta.NombreCliente) ? "Sin Cliente" : venta.NombreCliente;
                     venta.Telefono = string.IsNullOrWhiteSpace(venta.Telefono) ? "Sin Telefono" : venta.Telefono;
                     venta.Vehiculo = string.IsNullOrWhiteSpace(venta.Vehiculo) ? "Sin Vehiculo" : venta.Vehiculo;
+
+                    if(venta.SubTotal == venta.Total && venta.Itbis > 0)
+                    {
+                        venta.SubTotal = venta.Total - venta.Itbis;
+                    }
 
                     newlist.Add(venta);
                 }
