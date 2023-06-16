@@ -150,7 +150,7 @@ namespace Capa_de_Presentacion
                     cmd.Parameters.Add("@vehiculo", SqlDbType.NVarChar).Value = (txtMarca.Text + " " + txtmodelo.Text).ToUpper();
                     cmd.Parameters.Add("@AroGoma", SqlDbType.Int).Value = !string.IsNullOrWhiteSpace(txtaros.Text) ? Convert.ToInt32(txtaros.Text) : 0;
                     cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = Convert.ToDateTime(dtpFecha.Text);
-                    cmd.Parameters.Add("@precio", SqlDbType.Decimal).Value = Convert.ToDecimal(txtTotal.Text);
+                    cmd.Parameters.Add("@precio", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtTotal.Text);
                     cmd.Parameters.Add("@nota", SqlDbType.NVarChar).Value = txtnota.Text;
 
                     M.Conectar();
@@ -237,7 +237,7 @@ namespace Capa_de_Presentacion
             Program.descripcion = cbtipo.Text;
             Program.marca = txtMarca.Text;
             Program.Aros = txtaros.Text;
-            Program.total = Convert.ToDecimal(txtTotal.Text);
+            Program.total = Program.GetTwoNumberAfterPointWithOutRound(txtTotal.Text);
             Program.nota = txtnota.Text;
 
             pa.Show();

@@ -364,6 +364,10 @@ namespace Capa_de_Presentacion
                     pagar.Show();
                 }
             }
+            else
+            {
+                MessageBox.Show("Este cliente no tiene deudas");
+            }
         }
 
         private void chkClienteNoRegistrado_CheckedChanged(object sender, EventArgs e)

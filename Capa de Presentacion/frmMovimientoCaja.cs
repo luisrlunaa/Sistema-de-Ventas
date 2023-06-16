@@ -66,19 +66,19 @@ namespace Capa_de_Presentacion
                 dataGridView2.Rows[renglon].Cells["descripcion"].Value = dr.GetString(dr.GetOrdinal("descripcion"));
                 dataGridView2.Rows[renglon].Cells["montogasto"].Value = dr.GetDecimal(dr.GetOrdinal("monto")).ToString();
 
-                gastos += Math.Round(Convert.ToDecimal(dr.GetDecimal(dr.GetOrdinal("monto"))), 2);
+                gastos += Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("monto")).ToString());
             }
 
             lbldeu.Text = gastos.ToString();
 
             if (lbling.Text != "...")
             {
-                pagos = Convert.ToDecimal(lbling.Text);
+                pagos = Program.GetTwoNumberAfterPointWithOutRound(lbling.Text);
             }
 
             if (lbldeu.Text != "...")
             {
-                gastos = Convert.ToDecimal(lbldeu.Text);
+                gastos = Program.GetTwoNumberAfterPointWithOutRound(lbldeu.Text);
             }
 
             total = pagos - gastos;
@@ -126,12 +126,12 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["ingresos"].Value = dr.GetDecimal(dr.GetOrdinal("ingresos")).ToString();
                 dataGridView1.Rows[renglon].Cells["egresos"].Value = dr.GetDecimal(dr.GetOrdinal("egresos")).ToString();
 
-                devuelta += Math.Round(dr.GetDecimal(dr.GetOrdinal("egresos")), 2);
-                pagos += Math.Round(dr.GetDecimal(dr.GetOrdinal("ingresos")), 2);
+                devuelta += dr.GetDecimal(dr.GetOrdinal("egresos"));
+                pagos += dr.GetDecimal(dr.GetOrdinal("ingresos"));
             }
 
-            lblegr.Text = devuelta.ToString();
-            lbling.Text = pagos.ToString();
+            lblegr.Text = Program.GetTwoNumberAfterPointWithOutRound(devuelta.ToString()).ToString();
+            lbling.Text = Program.GetTwoNumberAfterPointWithOutRound(pagos.ToString()).ToString();
 
             llenar_datagastos();
         }
@@ -345,7 +345,7 @@ namespace Capa_de_Presentacion
                     //tabla gastos
                     cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Program.idgastos;
                     cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtdescripciondegasto.Text;
-                    cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txtmontogasto.Text);
+                    cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtmontogasto.Text);
                     cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
                     M.Conectar();

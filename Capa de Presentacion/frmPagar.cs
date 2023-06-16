@@ -92,7 +92,7 @@ namespace Capa_de_Presentacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (Program.tipo != "Credito" && Convert.ToDecimal(txtmonto.Text) > Convert.ToDecimal(txtpaga.Text))
+            if (Program.tipo != "Credito" && Program.GetTwoNumberAfterPointWithOutRound(txtmonto.Text) > Program.GetTwoNumberAfterPointWithOutRound(txtpaga.Text))
             {
                 Program.pagoRealizado = 0;
                 MessageBox.Show("Por Favor Cambiar tipo de Factura, Las Facturas a Debito no Aceptan Deudas.");
@@ -110,11 +110,11 @@ namespace Capa_de_Presentacion
                     else
                         Program.idPago = Convert.ToInt32(txtIdp.Text);
 
-                    Program.Devuelta = Convert.ToDecimal(txtDev.Text);
+                    Program.Devuelta = Program.GetTwoNumberAfterPointWithOutRound(txtDev.Text);
                     Program.Fechapago = dateTimePicker1.Text;
 
-                    decimal dev = decimal.Parse(txtDev.Text);
-                    decimal paga = decimal.Parse(txtpaga.Text);
+                    decimal dev = Program.GetTwoNumberAfterPointWithOutRound(txtDev.Text);
+                    decimal paga = Program.GetTwoNumberAfterPointWithOutRound(txtpaga.Text);
 
                     if (dev <= 0)
                     {

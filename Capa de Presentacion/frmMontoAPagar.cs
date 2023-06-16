@@ -20,7 +20,7 @@ namespace Capa_de_Presentacion
         clsManejador M = new clsManejador();
         private void button2_Click(object sender, EventArgs e)
         {
-            var monto = Convert.ToDecimal(txtmonto.Text);
+            var monto = Program.GetTwoNumberAfterPointWithOutRound(txtmonto.Text);
             if (idsAmountToPay != null && idsAmountToPay.Any())
             {
                 foreach (var item in idsAmountToPay.Where(x => x.pagada == false && x.abono == false))
@@ -111,8 +111,8 @@ namespace Capa_de_Presentacion
         {
             if (!string.IsNullOrWhiteSpace(txtTotal.Text) && !string.IsNullOrWhiteSpace(txtmonto.Text))
             {
-                var total = Convert.ToDecimal(txtTotal.Text);
-                var monto = Convert.ToDecimal(txtmonto.Text);
+                var total = Program.GetTwoNumberAfterPointWithOutRound(txtTotal.Text);
+                var monto = Program.GetTwoNumberAfterPointWithOutRound(txtmonto.Text);
                 var rest = (total - monto);
 
                 txtRestante.Text = rest.ToString();

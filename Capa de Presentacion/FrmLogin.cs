@@ -212,7 +212,7 @@ namespace Capa_de_Presentacion
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
-                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = string.IsNullOrWhiteSpace(txtmontoinicial.Text) ? 0 : Convert.ToDecimal(txtmontoinicial.Text);
+                cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = string.IsNullOrWhiteSpace(txtmontoinicial.Text) ? 0 : Program.GetTwoNumberAfterPointWithOutRound(txtmontoinicial.Text);
                 cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
                 Cx.Conectar();

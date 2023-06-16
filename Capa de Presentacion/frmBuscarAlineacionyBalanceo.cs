@@ -82,7 +82,7 @@ namespace Capa_de_Presentacion
             Program.marca = valores[0].Trim();
             Program.modelo = valores[1].Trim();
             Program.Aros = dataGridView1.CurrentRow.Cells["AroGoma"].Value.ToString();
-            Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["precio"].Value.ToString());
+            Program.total = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["precio"].Value.ToString());
             Program.nota = dataGridView1.CurrentRow.Cells["nota"].Value.ToString();
             Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
 
