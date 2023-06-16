@@ -143,5 +143,22 @@ namespace Capa_de_Presentacion
 
             return (T)Convert.ChangeType(obj, typeof(T));
         }
+
+        public static decimal GetTwoNumberAfterPointWithOutRound(string number)
+        {
+            decimal output = 0;
+            if (!string.IsNullOrWhiteSpace(number) && number.Contains("."))
+            {
+                var firtsPartOfNumber = number.Split('.')[0];
+                var secondPartOfNumber = number.Split('.')[1].Substring(0, 2);
+                var newNumber = firtsPartOfNumber + "." + secondPartOfNumber;
+                output = decimal.Parse(newNumber);
+            }
+            else
+            {
+                output = decimal.Parse(number);
+            }
+            return output;
+        }
     }
 }

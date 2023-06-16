@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
@@ -538,8 +539,8 @@ namespace Capa_de_Presentacion
                 LoadComboCategories();
             }
 
-            btnSalir.Enabled = Program.pagoRealizado == 0 && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0
-                            || (!string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito" && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Convert.ToDecimal(txttotal.Text) > 0)
+            btnSalir.Enabled = Program.pagoRealizado == 0 && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text) > 0
+                            || (!string.IsNullOrWhiteSpace(Program.tipo) && Program.tipo.ToLower() == "credito" && !string.IsNullOrWhiteSpace(txttotal.Text) && txttotal.Text != "..." && Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text) > 0)
                             || Program.pagarcotizacion;
 
             button3.Enabled = !Program.pagarcotizacion;
@@ -597,20 +598,23 @@ namespace Capa_de_Presentacion
 
             if (txtPorcentaje.Text.Trim() != "" && txtPVenta.Text.Trim() != "")
             {
-                decimal precioreal = Convert.ToDecimal(txtPVenta.Text);
+                decimal precioreal = Program.GetTwoNumberAfterPointWithOutRound(txtPVenta.Text);
                 decimal porcentaje = Convert.ToInt32(txtPorcentaje.Text);
                 decimal valortotalporcentaje = 100;
-                decimal divisor = Convert.ToDecimal(txtDivisor.Text);
+                decimal divisor = Program.GetTwoNumberAfterPointWithOutRound(txtDivisor.Text);
 
-                decimal calculoporcentaje = Convert.ToDecimal((porcentaje / valortotalporcentaje).ToString("0.00"));
+                decimal calculoporcentaje = porcentaje / valortotalporcentaje;
 
-                precio = Convert.ToDecimal((precioreal / divisor).ToString("0.00"));
-                itbis = Convert.ToDecimal((precio * calculoporcentaje).ToString("0.00"));
+                decimal decimalPrecio = precioreal / divisor;
+                decimal decimalitbis = decimalPrecio * calculoporcentaje;
+
+                precio = Program.GetTwoNumberAfterPointWithOutRound(decimalPrecio.ToString());
+                itbis = Program.GetTwoNumberAfterPointWithOutRound(decimalitbis.ToString());                
             }
             else
             {
-                precio = Convert.ToDecimal(txtPVenta.Text);
-                itbis = Convert.ToDecimal(txtIgv.Text);
+                precio = Program.GetTwoNumberAfterPointWithOutRound(txtPVenta.Text);
+                itbis = Program.GetTwoNumberAfterPointWithOutRound(txtIgv.Text);
             }
             if (txtDescripcion.Text.Trim() != "")
             {
@@ -627,12 +631,12 @@ namespace Capa_de_Presentacion
                             V.PrecioCompra = Program.PrecioCompra;
                             V.Igv = itbis;
                             V.PrecioVenta = precio;
-                            V.SubTotal = Convert.ToDecimal(((precio + itbis) * Convert.ToInt32(txtCantidad.Text)).ToString("0.00"));
+                            V.SubTotal = Program.GetTwoNumberAfterPointWithOutRound(((precio + itbis) * Convert.ToInt32(txtCantidad.Text)).ToString());
                             btnAgregar.Visible = false;
                             lst.Add(V);
 
                             PCP.ID = Convert.ToInt32(txtIdProducto.Text);
-                            PCP.Precio = Convert.ToDecimal(Program.PrecioCompra.ToString("0.00"));
+                            PCP.Precio = Program.GetTwoNumberAfterPointWithOutRound(Program.PrecioCompra.ToString());
                             listProducts.Add(PCP);
 
                             LlenarGri();
@@ -690,22 +694,22 @@ namespace Capa_de_Presentacion
                 dgvVenta.Rows[i].Cells["SubtoTal"].Value = lst[i].SubTotal;
                 dgvVenta.Rows[i].Cells["IDP"].Value = lst[i].IdProducto;
 
-                var preciounidad = Convert.ToDecimal(dgvVenta.Rows[i].Cells["PrecioU"].Value);
-                var cantidad = Convert.ToInt32(dgvVenta.Rows[i].Cells["cantidadP"].Value);
-                var igv = Convert.ToDecimal(dgvVenta.Rows[i].Cells["IGV"].Value);
+                var preciounidad = Program.GetTwoNumberAfterPointWithOutRound(dgvVenta.Rows[i].Cells["PrecioU"].Value.ToString());
+                var cantidad = Convert.ToInt32(dgvVenta.Rows[i].Cells["cantidadP"].Value.ToString());
+                var igv = Program.GetTwoNumberAfterPointWithOutRound(dgvVenta.Rows[i].Cells["IGV"].Value.ToString());
 
                 SumaSubTotal += preciounidad * cantidad;
                 SumaIgv += igv * cantidad;
 
-                SumaTotal += Convert.ToDecimal(dgvVenta.Rows[i].Cells["SubtoTal"].Value);
+                SumaTotal += Program.GetTwoNumberAfterPointWithOutRound(dgvVenta.Rows[i].Cells["SubtoTal"].Value.ToString());
 
                 lblsubt.Text = Convert.ToString(SumaSubTotal);
                 lbligv.Text = Convert.ToString(SumaIgv);
                 txttotal.Text = Convert.ToString(SumaTotal);
 
-                Program.igv = Convert.ToDecimal(lbligv.Text);
-                Program.ST = Convert.ToDecimal(lblsubt.Text);
-                Program.total = Convert.ToDecimal(txttotal.Text);
+                Program.igv = Program.GetTwoNumberAfterPointWithOutRound(lbligv.Text);
+                Program.ST = Program.GetTwoNumberAfterPointWithOutRound(lblsubt.Text);
+                Program.total = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text);
                 Program.PrecioCompra = 0;
             }
         }
@@ -798,9 +802,9 @@ namespace Capa_de_Presentacion
         private void btnSalir_Click(object sender, EventArgs e)
         {
             frmPagar pa = new frmPagar();
-            Program.total = Convert.ToDecimal(txttotal.Text);
-            Program.igv = Convert.ToDecimal(lbligv.Text);
-            Program.ST = Convert.ToDecimal(lblsubt.Text);
+            Program.total = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text);
+            Program.igv = Program.GetTwoNumberAfterPointWithOutRound(lbligv.Text);
+            Program.ST = Program.GetTwoNumberAfterPointWithOutRound(lblsubt.Text);
             pa.txtmonto.Text = txttotal.Text;
             pa.gbAbrir.Visible = false;
             pa.btnCerrar.Visible = false;
@@ -994,13 +998,13 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(txtTel.Text) ? "sin Telefono" : txtTel.Text;
                 cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idVenta;
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
-                cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
+                cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text);
                 cmd.Parameters.Add("@Vehiculo", SqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(txtVeh.Text) ? "sin Vehiculo" : txtVeh.Text;
                 cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
 
                 if (cbtipofactura.Text == "Credito")
                 {
-                    restante = Convert.ToDecimal(txttotal.Text) - Program.pagoRealizado;
+                    restante = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text) - Program.pagoRealizado;
                     cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
                 }
                 else
@@ -1042,20 +1046,20 @@ namespace Capa_de_Presentacion
                     int idventa = 0;
 
                     decimal preciocompra = listProducts.FirstOrDefault(x => x.ID == idProducto).Precio;
-                    decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
+                    decimal precioUnitario = Program.GetTwoNumberAfterPointWithOutRound(row.Cells["PrecioU"].Value.ToString());
                     int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
 
-                    Ganancia = Convert.ToDecimal(((precioUnitario - preciocompra) * cantidad).ToString("0.00"));
+                    Ganancia = Program.GetTwoNumberAfterPointWithOutRound(((precioUnitario - preciocompra) * cantidad).ToString());
                     idventa = Convert.ToInt32(row.Cells["IdD"].Value);
 
                     //Tabla detalles ventas
                     cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
                     cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
                     cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
-                    cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["PrecioU"].Value);
-                    cmd1.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
+                    cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(row.Cells["PrecioU"].Value.ToString());
+                    cmd1.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(row.Cells["SubtoTal"].Value.ToString());
                     cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
-                    cmd1.Parameters.Add("@Igv", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["IGV"].Value);
+                    cmd1.Parameters.Add("@Igv", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(row.Cells["IGV"].Value.ToString());
                     cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Decimal).Value = Ganancia;
 
                     try
@@ -1106,7 +1110,7 @@ namespace Capa_de_Presentacion
                 cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Convert.ToInt32(txtIdVenta.Text);
                 cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = Program.idPago;
                 cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
-                cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
+                cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text);
                 cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = Program.pagoRealizado;
 
                 if (Program.Devuelta > 0)
@@ -1182,7 +1186,7 @@ namespace Capa_de_Presentacion
 
                 cmd.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = id;
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
-                cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Convert.ToDecimal(txttotal.Text);
+                cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text);
                 cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
                 cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = txtTel.Text;
                 cmd.Parameters.Add("@Vehiculo", SqlDbType.VarChar).Value = txtVeh.Text;
@@ -1214,10 +1218,10 @@ namespace Capa_de_Presentacion
                     cmd1.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = id;
                     cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
                     cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
-                    cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["PrecioU"].Value);
-                    cmd1.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
+                    cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(row.Cells["PrecioU"].Value.ToString());
+                    cmd1.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(row.Cells["SubtoTal"].Value.ToString());
                     cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
-                    cmd1.Parameters.Add("@Igv", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["IGV"].Value);
+                    cmd1.Parameters.Add("@Igv", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(row.Cells["IGV"].Value.ToString());
                     cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Decimal).Value = Ganancia;
 
                     try
@@ -1808,7 +1812,7 @@ namespace Capa_de_Presentacion
         private void button2_Click(object sender, EventArgs e)
         {
             M.Desconectar();
-            restante = Convert.ToDecimal(txttotal.Text) - Program.pagoRealizado;
+            restante = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text) - Program.pagoRealizado;
 
             using (SqlCommand cmd = new SqlCommand("AbonaraVenta", M.conexion))
             {

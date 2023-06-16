@@ -63,11 +63,11 @@ namespace Capa_de_Presentacion
                     product.m_IdCategoria = reader["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdCategoria"]);
                     product.m_Producto = reader["Nombre"] == DBNull.Value ? string.Empty : reader["Nombre"].ToString();
                     product.m_tipoGoma = reader["tipoGOma"] == DBNull.Value ? string.Empty : reader["tipoGOma"].ToString();
-                    product.m_itbis = reader["itbis"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["itbis"]);
-                    product.m_PrecioVenta = reader["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioVenta"]);
-                    product.m_PrecioCompra = reader["PrecioCompra"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioCompra"]);
-                    product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmax"]);
-                    product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmin"]);
+                    product.m_itbis = reader["itbis"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["itbis"].ToString());
+                    product.m_PrecioVenta = reader["PrecioVenta"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["PrecioVenta"].ToString());
+                    product.m_PrecioCompra = reader["PrecioCompra"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["PrecioCompra"].ToString());
+                    product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["Pmax"].ToString());
+                    product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["Pmin"].ToString());
                     product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
                     product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Stock"]);
                     product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
@@ -203,11 +203,11 @@ namespace Capa_de_Presentacion
                         product.m_IdCategoria = reader["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdCategoria"]);
                         product.m_Producto = reader["Nombre"] == DBNull.Value ? string.Empty : reader["Nombre"].ToString();
                         product.m_tipoGoma = reader["tipoGOma"] == DBNull.Value ? string.Empty : reader["tipoGOma"].ToString();
-                        product.m_itbis = reader["itbis"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["itbis"]);
-                        product.m_PrecioVenta = reader["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioVenta"]);
-                        product.m_PrecioCompra = reader["PrecioCompra"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioCompra"]);
-                        product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmax"]);
-                        product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmin"]);
+                        product.m_itbis = reader["itbis"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["itbis"].ToString());
+                        product.m_PrecioVenta = reader["PrecioVenta"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["PrecioVenta"].ToString());
+                        product.m_PrecioCompra = reader["PrecioCompra"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["PrecioCompra"].ToString());
+                        product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["Pmax"].ToString());
+                        product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["Pmin"].ToString());
                         product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
                         product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Stock"]);
                         product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
@@ -330,11 +330,11 @@ namespace Capa_de_Presentacion
             Program.IdProducto = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Column1"].Value.ToString());
             Program.Descripcion = dataGridView1.CurrentRow.Cells["description"].Value.ToString();
             Program.Marca = dataGridView1.CurrentRow.Cells["marca"].Value.ToString();
-            Program.PrecioVenta = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["pVenta"].Value.ToString());
-            Program.PrecioCompra = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["pCompra"].Value.ToString());
+            Program.PrecioVenta = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["pVenta"].Value.ToString());
+            Program.PrecioCompra = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["pCompra"].Value.ToString());
             Program.Stock = Convert.ToInt32(dataGridView1.CurrentRow.Cells["cantidad"].Value.ToString());
             Program.IdCategoria = Convert.ToInt32(dataGridView1.CurrentRow.Cells["IdC"].Value.ToString());
-            Program.itbis = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["itbis"].Value.ToString());
+            Program.itbis = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["itbis"].Value.ToString());
             //Program.tipo = dataGridView1.CurrentRow.Cells["tipoGOma"].Value.ToString();
             this.Close();
         }

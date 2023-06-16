@@ -197,7 +197,7 @@ namespace Capa_de_Presentacion
                 Program.DocumentoIdentidad = "Sin Documento de Identificacion";
             }
 
-            Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
+            Program.total = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
             Program.fecha = dataGridView1.CurrentRow.Cells["fecha"].Value.ToString();
             Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
             Program.pagarcotizacion = true;

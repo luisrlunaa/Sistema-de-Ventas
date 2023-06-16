@@ -65,8 +65,8 @@ namespace Capa_de_Presentacion
                     foreach (DataRow reader in dtPC.Rows)
                     {
                         VentasPorCategoria ventaPC = new VentasPorCategoria();
-                        ventaPC.PrecioOfProducts = reader["PrecioOfProducts"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioOfProducts"]);
-                        ventaPC.CantidadOfProducts = reader["CantidadOfProducts"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["CantidadOfProducts"]);
+                        ventaPC.PrecioOfProducts = reader["PrecioOfProducts"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["PrecioOfProducts"].ToString());
+                        ventaPC.CantidadOfProducts = reader["CantidadOfProducts"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["CantidadOfProducts"].ToString());
                         ventaPC.CategoryOfProducts = reader["CategoryOfProducts"] == DBNull.Value ? string.Empty : reader["CategoryOfProducts"].ToString();
                         listVentCateg.Add(ventaPC);
                     }
@@ -280,19 +280,19 @@ namespace Capa_de_Presentacion
             Program.tipo = dataGridView1.CurrentRow.Cells["Tipo"].Value.ToString();
             Program.NCF = dataGridView1.CurrentRow.Cells["NCF"].Value.ToString();
             Program.NroComprobante = dataGridView1.CurrentRow.Cells["nroComprobante"].Value.ToString();
-            Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
+            Program.total = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
             Program.fecha = dataGridView1.CurrentRow.Cells["fecha"].Value.ToString();
             Program.IdEmpleado = Convert.ToInt32(dataGridView1.CurrentRow.Cells["idEm"].Value.ToString());
 
             if (Program.tipo != "Credito")
             {
                 Program.Esabono = "";
-                Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
+                Program.total = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["total"].Value.ToString());
             }
             else
             {
                 Program.Esabono = "Es Abono";
-                Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["restante"].Value.ToString());
+                Program.total = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["restante"].Value.ToString());
                 Program.ultimafechapago = dataGridView1.CurrentRow.Cells["ultimafecha"].Value.ToString();
             }
             Program.Telefono = dataGridView1.CurrentRow.Cells["telefono"].Value.ToString();
@@ -762,13 +762,13 @@ namespace Capa_de_Presentacion
                         {
                             cmd3.CommandType = CommandType.StoredProcedure;
 
-                            decimal cantidadDV = Convert.ToDecimal(data[0]);
+                            decimal cantidadDV = Program.GetTwoNumberAfterPointWithOutRound(data[0].ToString());
                             int idProductoDV = Convert.ToInt32(data[1]);
                             string tipofacturaDV = data[2].ToString().ToLower();
-                            decimal subtotalDV = Convert.ToDecimal(data[3]);
+                            decimal subtotalDV = Program.GetTwoNumberAfterPointWithOutRound(data[3].ToString());
                             int idcajaDV = Convert.ToInt32(data[4]);
-                            decimal restanteDV = Convert.ToDecimal(data[5]);
-                            decimal TotalDV = Convert.ToDecimal(data[6]);
+                            decimal restanteDV = Program.GetTwoNumberAfterPointWithOutRound(data[5].ToString());
+                            decimal TotalDV = Program.GetTwoNumberAfterPointWithOutRound(data[6].ToString());
 
                             if (tipofacturaDV.ToLower() == "credito")
                             {
@@ -825,16 +825,16 @@ namespace Capa_de_Presentacion
                                     caja = Convert.ToInt32(reade["id_caja"]);
                                     if (Program.tipo != "Debito")
                                     {
-                                        decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
-                                        decimal egresos = Convert.ToDecimal(reade["egresos"]);
-                                        monto = Convert.ToDecimal(reade["monto"]);
+                                        decimal ingresos = Program.GetTwoNumberAfterPointWithOutRound(reade["ingresos"].ToString());
+                                        decimal egresos = Program.GetTwoNumberAfterPointWithOutRound(reade["egresos"].ToString());
+                                        monto = Program.GetTwoNumberAfterPointWithOutRound(reade["monto"].ToString());
 
                                         montoingresos = ingresos - egresos;
                                     }
                                     else
                                     {
-                                        decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
-                                        decimal egresos = Convert.ToDecimal(reade["egresos"]);
+                                        decimal ingresos = Program.GetTwoNumberAfterPointWithOutRound(reade["ingresos"].ToString());
+                                        decimal egresos = Program.GetTwoNumberAfterPointWithOutRound(reade["egresos"].ToString());
 
                                         monto = ingresos - egresos;
                                     }
@@ -941,13 +941,13 @@ namespace Capa_de_Presentacion
                         {
                             cmd3.CommandType = CommandType.StoredProcedure;
 
-                            decimal cantidadDV = Convert.ToDecimal(data[0]);
+                            decimal cantidadDV = Program.GetTwoNumberAfterPointWithOutRound(data[0].ToString());
                             int idProductoDV = Convert.ToInt32(data[1]);
                             string tipofacturaDV = data[2].ToString();
-                            decimal subtotalDV = Convert.ToDecimal(data[3]);
+                            decimal subtotalDV = Program.GetTwoNumberAfterPointWithOutRound(data[3].ToString());
                             int idcajaDV = Convert.ToInt32(data[4]);
-                            decimal restanteDV = Convert.ToDecimal(data[5]);
-                            decimal TotalDV = Convert.ToDecimal(data[6]);
+                            decimal restanteDV = Program.GetTwoNumberAfterPointWithOutRound(data[5].ToString());
+                            decimal TotalDV = Program.GetTwoNumberAfterPointWithOutRound(data[6].ToString());
 
                             if (tipofacturaDV.ToLower() == "credito")
                             {
@@ -1008,16 +1008,16 @@ namespace Capa_de_Presentacion
                                     caja = Convert.ToInt32(reade["id_caja"]);
                                     if (Program.tipo != "Debito")
                                     {
-                                        decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
-                                        decimal egresos = Convert.ToDecimal(reade["egresos"]);
-                                        monto = Convert.ToDecimal(reade["monto"]);
+                                        decimal ingresos = Program.GetTwoNumberAfterPointWithOutRound(reade["ingresos"].ToString());
+                                        decimal egresos = Program.GetTwoNumberAfterPointWithOutRound(reade["egresos"].ToString());
+                                        monto = Program.GetTwoNumberAfterPointWithOutRound(reade["monto"].ToString());
 
                                         montoingresos = ingresos - egresos;
                                     }
                                     else
                                     {
-                                        decimal ingresos = Convert.ToDecimal(reade["ingresos"]);
-                                        decimal egresos = Convert.ToDecimal(reade["egresos"]);
+                                        decimal ingresos = Program.GetTwoNumberAfterPointWithOutRound(reade["ingresos"].ToString());
+                                        decimal egresos = Program.GetTwoNumberAfterPointWithOutRound(reade["egresos"].ToString());
 
                                         monto = ingresos - egresos;
                                     }
@@ -1121,8 +1121,8 @@ namespace Capa_de_Presentacion
                 foreach (DataRow reader in dtPC.Rows)
                 {
                     VentasPorCategoria ventaPC = new VentasPorCategoria();
-                    ventaPC.PrecioOfProducts = reader["PrecioOfProducts"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioOfProducts"]);
-                    ventaPC.CantidadOfProducts = reader["CantidadOfProducts"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["CantidadOfProducts"]);
+                    ventaPC.PrecioOfProducts = reader["PrecioOfProducts"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["PrecioOfProducts"].ToString());
+                    ventaPC.CantidadOfProducts = reader["CantidadOfProducts"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["CantidadOfProducts"].ToString());
                     ventaPC.CategoryOfProducts = reader["CategoryOfProducts"] == DBNull.Value ? string.Empty : reader["CategoryOfProducts"].ToString();
                     listVentCateg.Add(ventaPC);
                 }
@@ -1152,7 +1152,7 @@ namespace Capa_de_Presentacion
                         SqlDataReader leer = comando.ExecuteReader();
                         if (leer.Read() == true)
                         {
-                            var monto = leer["ganancia"] == DBNull.Value ? 0 : Convert.ToDecimal(leer["ganancia"]) > 0 ? Convert.ToDecimal(leer["ganancia"]) : 0;
+                            var monto = leer["ganancia"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(leer["ganancia"].ToString()) > 0 ? Program.GetTwoNumberAfterPointWithOutRound(leer["ganancia"].ToString()) : 0;
                             ganancia += monto;
                         }
                         M.Desconectar();
