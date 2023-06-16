@@ -1052,11 +1052,11 @@ namespace Capa_de_Presentacion
                     cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
                     cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
                     cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
-                    cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
-                    cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
+                    cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["PrecioU"].Value);
+                    cmd1.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
                     cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
-                    cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
-                    cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
+                    cmd1.Parameters.Add("@Igv", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["IGV"].Value);
+                    cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Decimal).Value = Ganancia;
 
                     try
                     {
