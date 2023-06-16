@@ -602,10 +602,10 @@ namespace Capa_de_Presentacion
                 decimal valortotalporcentaje = 100;
                 decimal divisor = Convert.ToDecimal(txtDivisor.Text);
 
-                decimal calculoporcentaje = Math.Round(porcentaje / valortotalporcentaje, 2);
+                decimal calculoporcentaje = Convert.ToDecimal((porcentaje / valortotalporcentaje).ToString("0.00"));
 
-                precio = Math.Round(precioreal / divisor, 2);
-                itbis = Math.Round(precio * calculoporcentaje, 2);
+                precio = Convert.ToDecimal((precioreal / divisor).ToString("0.00"));
+                itbis = Convert.ToDecimal((precio * calculoporcentaje).ToString("0.00"));
             }
             else
             {
@@ -627,12 +627,12 @@ namespace Capa_de_Presentacion
                             V.PrecioCompra = Program.PrecioCompra;
                             V.Igv = itbis;
                             V.PrecioVenta = precio;
-                            V.SubTotal = Math.Round((precio + itbis) * Convert.ToInt32(txtCantidad.Text), 2);
+                            V.SubTotal = Convert.ToDecimal(((precio + itbis) * Convert.ToInt32(txtCantidad.Text)).ToString("0.00"));
                             btnAgregar.Visible = false;
                             lst.Add(V);
 
                             PCP.ID = Convert.ToInt32(txtIdProducto.Text);
-                            PCP.Precio = Program.PrecioCompra;
+                            PCP.Precio = Convert.ToDecimal(Program.PrecioCompra.ToString("0.00"));
                             listProducts.Add(PCP);
 
                             LlenarGri();
@@ -697,7 +697,7 @@ namespace Capa_de_Presentacion
                 SumaSubTotal += preciounidad * cantidad;
                 SumaIgv += igv * cantidad;
 
-                SumaTotal += Math.Round(Convert.ToDecimal(dgvVenta.Rows[i].Cells["SubtoTal"].Value), 2);
+                SumaTotal += Convert.ToDecimal(dgvVenta.Rows[i].Cells["SubtoTal"].Value);
 
                 lblsubt.Text = Convert.ToString(SumaSubTotal);
                 lbligv.Text = Convert.ToString(SumaIgv);
@@ -1045,7 +1045,7 @@ namespace Capa_de_Presentacion
                     decimal precioUnitario = Convert.ToDecimal(row.Cells["PrecioU"].Value);
                     int cantidad = Convert.ToInt32(row.Cells["cantidadP"].Value);
 
-                    Ganancia = Math.Round((precioUnitario - preciocompra) * cantidad);
+                    Ganancia = Convert.ToDecimal(((precioUnitario - preciocompra) * cantidad).ToString("0.00"));
                     idventa = Convert.ToInt32(row.Cells["IdD"].Value);
 
                     //Tabla detalles ventas
@@ -1214,11 +1214,11 @@ namespace Capa_de_Presentacion
                     cmd1.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = id;
                     cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
                     cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
-                    cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["PrecioU"].Value);
-                    cmd1.Parameters.Add("@SubTotal", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["SubtoTal"].Value);
+                    cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["PrecioU"].Value);
+                    cmd1.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["SubtoTal"].Value);
                     cmd1.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
-                    cmd1.Parameters.Add("@Igv", SqlDbType.Float).Value = Convert.ToDouble(row.Cells["IGV"].Value);
-                    cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Float).Value = Ganancia;
+                    cmd1.Parameters.Add("@Igv", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["IGV"].Value);
+                    cmd1.Parameters.Add("@GananciaVenta", SqlDbType.Decimal).Value = Ganancia;
 
                     try
                     {
