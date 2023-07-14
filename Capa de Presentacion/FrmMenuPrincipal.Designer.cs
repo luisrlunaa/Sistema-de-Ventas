@@ -97,7 +97,7 @@
             this.lblLogo.Location = new System.Drawing.Point(0, 0);
             this.lblLogo.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(1452, 150);
+            this.lblLogo.Size = new System.Drawing.Size(1249, 150);
             this.lblLogo.TabIndex = 0;
             this.lblLogo.Text = "logo";
             this.lblLogo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -109,7 +109,7 @@
             this.label2.BackColor = System.Drawing.Color.Crimson;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(1114, 72);
+            this.label2.Location = new System.Drawing.Point(903, 72);
             this.label2.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 25);
@@ -121,7 +121,7 @@
             this.lblFecha.BackColor = System.Drawing.Color.Crimson;
             this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFecha.ForeColor = System.Drawing.Color.White;
-            this.lblFecha.Location = new System.Drawing.Point(1240, 74);
+            this.lblFecha.Location = new System.Drawing.Point(1029, 74);
             this.lblFecha.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(171, 28);
@@ -134,7 +134,7 @@
             this.label3.BackColor = System.Drawing.Color.Crimson;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(1114, 111);
+            this.label3.Location = new System.Drawing.Point(903, 111);
             this.label3.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 25);
@@ -146,7 +146,7 @@
             this.lblHora.BackColor = System.Drawing.Color.Crimson;
             this.lblHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHora.ForeColor = System.Drawing.Color.White;
-            this.lblHora.Location = new System.Drawing.Point(1240, 113);
+            this.lblHora.Location = new System.Drawing.Point(1029, 113);
             this.lblHora.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.lblHora.Name = "lblHora";
             this.lblHora.Size = new System.Drawing.Size(167, 28);
@@ -173,14 +173,14 @@
             this.panel1.Location = new System.Drawing.Point(0, 148);
             this.panel1.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(61, 659);
+            this.panel1.Size = new System.Drawing.Size(65, 564);
             this.panel1.TabIndex = 5;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.btnCotizar);
             this.panel3.Controls.Add(this.button8);
-            this.panel3.Location = new System.Drawing.Point(80, 135);
+            this.panel3.Location = new System.Drawing.Point(80, 109);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(297, 92);
@@ -237,7 +237,7 @@
             this.button6.ForeColor = System.Drawing.Color.White;
             this.button6.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_caja_registradora_30;
             this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(4, 484);
+            this.button6.Location = new System.Drawing.Point(4, 427);
             this.button6.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(311, 50);
@@ -258,10 +258,10 @@
             this.btnAyB.ForeColor = System.Drawing.Color.White;
             this.btnAyB.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_copia_de_seguridad_de_un_base_de_datos_40;
             this.btnAyB.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAyB.Location = new System.Drawing.Point(5, 198);
+            this.btnAyB.Location = new System.Drawing.Point(5, 162);
             this.btnAyB.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnAyB.Name = "btnAyB";
-            this.btnAyB.Size = new System.Drawing.Size(311, 57);
+            this.btnAyB.Size = new System.Drawing.Size(311, 50);
             this.btnAyB.TabIndex = 15;
             this.btnAyB.Text = "Tren Delantero";
             this.btnAyB.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -279,10 +279,10 @@
             this.button5.ForeColor = System.Drawing.Color.White;
             this.button5.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_lista_resumen_40;
             this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(4, 260);
+            this.button5.Location = new System.Drawing.Point(4, 215);
             this.button5.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(311, 53);
+            this.button5.Size = new System.Drawing.Size(311, 50);
             this.button5.TabIndex = 14;
             this.button5.Text = "Lista de Ventas";
             this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -299,7 +299,7 @@
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(4, 549);
+            this.button1.Location = new System.Drawing.Point(4, 480);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 36);
@@ -320,7 +320,7 @@
             this.button3.ForeColor = System.Drawing.Color.White;
             this.button3.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_transferencia_entre_usuarios_24;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(107, 548);
+            this.button3.Location = new System.Drawing.Point(107, 479);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(209, 36);
@@ -341,7 +341,7 @@
             this.btnVer.ForeColor = System.Drawing.Color.White;
             this.btnVer.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_engranajes_24;
             this.btnVer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVer.Location = new System.Drawing.Point(4, 592);
+            this.btnVer.Location = new System.Drawing.Point(4, 520);
             this.btnVer.Margin = new System.Windows.Forms.Padding(4);
             this.btnVer.Name = "btnVer";
             this.btnVer.Size = new System.Drawing.Size(312, 36);
@@ -362,7 +362,7 @@
             this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_bloqueador_40;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(5, 318);
+            this.button2.Location = new System.Drawing.Point(5, 268);
             this.button2.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(311, 50);
@@ -383,7 +383,7 @@
             this.btnEmpleados.ForeColor = System.Drawing.Color.White;
             this.btnEmpleados.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_profesor_hirring_40;
             this.btnEmpleados.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEmpleados.Location = new System.Drawing.Point(4, 428);
+            this.btnEmpleados.Location = new System.Drawing.Point(4, 374);
             this.btnEmpleados.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnEmpleados.Name = "btnEmpleados";
             this.btnEmpleados.Size = new System.Drawing.Size(311, 50);
@@ -404,10 +404,10 @@
             this.btnVentas.ForeColor = System.Drawing.Color.White;
             this.btnVentas.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_ventas_totales_40;
             this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentas.Location = new System.Drawing.Point(5, 135);
+            this.btnVentas.Location = new System.Drawing.Point(5, 109);
             this.btnVentas.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnVentas.Name = "btnVentas";
-            this.btnVentas.Size = new System.Drawing.Size(311, 55);
+            this.btnVentas.Size = new System.Drawing.Size(311, 50);
             this.btnVentas.TabIndex = 0;
             this.btnVentas.Text = "Cotizar o Ventas";
             this.btnVentas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -425,7 +425,7 @@
             this.btnUsuarios.ForeColor = System.Drawing.Color.White;
             this.btnUsuarios.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_grupos_de_usuarios_40;
             this.btnUsuarios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUsuarios.Location = new System.Drawing.Point(4, 373);
+            this.btnUsuarios.Location = new System.Drawing.Point(4, 321);
             this.btnUsuarios.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnUsuarios.Name = "btnUsuarios";
             this.btnUsuarios.Size = new System.Drawing.Size(311, 50);
@@ -446,10 +446,10 @@
             this.btnClientes.ForeColor = System.Drawing.Color.White;
             this.btnClientes.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_clientes_40;
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClientes.Location = new System.Drawing.Point(5, 73);
+            this.btnClientes.Location = new System.Drawing.Point(5, 58);
             this.btnClientes.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(311, 58);
+            this.btnClientes.Size = new System.Drawing.Size(311, 50);
             this.btnClientes.TabIndex = 0;
             this.btnClientes.Text = "Clientes";
             this.btnClientes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -467,10 +467,10 @@
             this.btnProductos.ForeColor = System.Drawing.Color.White;
             this.btnProductos.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_producto_40;
             this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProductos.Location = new System.Drawing.Point(5, 12);
+            this.btnProductos.Location = new System.Drawing.Point(5, 6);
             this.btnProductos.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnProductos.Name = "btnProductos";
-            this.btnProductos.Size = new System.Drawing.Size(311, 57);
+            this.btnProductos.Size = new System.Drawing.Size(311, 50);
             this.btnProductos.TabIndex = 0;
             this.btnProductos.Text = "Productos";
             this.btnProductos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -657,7 +657,7 @@
             this.usuario.Controls.Add(this.txtClave);
             this.usuario.Controls.Add(this.txtUser);
             this.usuario.ForeColor = System.Drawing.Color.White;
-            this.usuario.Location = new System.Drawing.Point(1168, 585);
+            this.usuario.Location = new System.Drawing.Point(945, 327);
             this.usuario.Margin = new System.Windows.Forms.Padding(4);
             this.usuario.Name = "usuario";
             this.usuario.Size = new System.Drawing.Size(271, 178);
@@ -719,7 +719,7 @@
             this.panel2.Controls.Add(this.ckbEmp);
             this.panel2.Controls.Add(this.ckbUsu);
             this.panel2.Controls.Add(this.ckbLimite);
-            this.panel2.Location = new System.Drawing.Point(1171, 587);
+            this.panel2.Location = new System.Drawing.Point(945, 327);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(268, 178);
@@ -740,7 +740,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(1227, 782);
+            this.label8.Location = new System.Drawing.Point(1031, 678);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(212, 16);
@@ -754,7 +754,7 @@
             this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Red;
-            this.label9.Location = new System.Drawing.Point(1417, 9);
+            this.label9.Location = new System.Drawing.Point(1206, 9);
             this.label9.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(28, 27);
@@ -769,7 +769,7 @@
             this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Yellow;
-            this.label10.Location = new System.Drawing.Point(1389, 9);
+            this.label10.Location = new System.Drawing.Point(1178, 9);
             this.label10.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(25, 27);
@@ -784,7 +784,7 @@
             this.pictureBox2.Location = new System.Drawing.Point(378, 186);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(1061, 577);
+            this.pictureBox2.Size = new System.Drawing.Size(856, 488);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 26;
             this.pictureBox2.TabStop = false;
@@ -813,7 +813,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1452, 804);
+            this.ClientSize = new System.Drawing.Size(1249, 712);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);

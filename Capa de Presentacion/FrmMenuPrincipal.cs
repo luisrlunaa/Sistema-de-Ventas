@@ -138,7 +138,7 @@ namespace Capa_de_Presentacion
         }
         private void btnProductos_Click(object sender, EventArgs e)
         {
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -178,7 +178,7 @@ namespace Capa_de_Presentacion
         }
         private void btnClientes_Click(object sender, EventArgs e)
         {
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -198,7 +198,7 @@ namespace Capa_de_Presentacion
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            panel1.Size = new Size(321, 659);
+            panel1.Size = new Size(322, 564);
             button7.Text = "<<";
 
             if (panel3.Visible == false)
@@ -208,7 +208,7 @@ namespace Capa_de_Presentacion
         }
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -220,7 +220,7 @@ namespace Capa_de_Presentacion
 
         private void btnEmpleados_Click(object sender, EventArgs e)
         {
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -233,7 +233,7 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             frmTurno Tu = new frmTurno();
             Tu.lblLogo.Text = lblLogo.Text;
@@ -243,7 +243,7 @@ namespace Capa_de_Presentacion
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -254,7 +254,7 @@ namespace Capa_de_Presentacion
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -298,7 +298,7 @@ namespace Capa_de_Presentacion
         }
         private void btnVer_Click(object sender, EventArgs e)
         {
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             usuario.Show();
             btnVer.Hide();
@@ -350,7 +350,7 @@ namespace Capa_de_Presentacion
         }
         private void button5_Click(object sender, EventArgs e)
         {
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -403,7 +403,7 @@ namespace Capa_de_Presentacion
 
         private void btnAyB_Click(object sender, EventArgs e)
         {
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -423,7 +423,7 @@ namespace Capa_de_Presentacion
 
         private void button6_Click(object sender, EventArgs e)
         {
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -467,14 +467,14 @@ namespace Capa_de_Presentacion
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if (panel1.Size == new Size(321, 659))
+            if (panel1.Size == new Size(322, 564))
             {
-                panel1.Size = new Size(65, 659);
+                panel1.Size = new Size(65, 564);
                 button7.Text = ">>";
             }
             else
             {
-                panel1.Size = new Size(321, 659);
+                panel1.Size = new Size(322, 564);
                 button7.Text = "<<";
             }
         }
@@ -493,7 +493,7 @@ namespace Capa_de_Presentacion
         private void button8_Click(object sender, EventArgs e)
         {
             Program.isSaler = true;
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
@@ -525,7 +525,7 @@ namespace Capa_de_Presentacion
         private void btnCotizar_Click(object sender, EventArgs e)
         {
             Program.isSaler = false;
-            panel1.Size = new Size(65, 659);
+            panel1.Size = new Size(65, 564);
             button7.Text = ">>";
             if (Program.abierto == false)
             {
