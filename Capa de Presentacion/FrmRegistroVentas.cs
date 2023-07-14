@@ -10,7 +10,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
@@ -609,7 +608,7 @@ namespace Capa_de_Presentacion
                 decimal decimalitbis = decimalPrecio * calculoporcentaje;
 
                 precio = Program.GetTwoNumberAfterPointWithOutRound(decimalPrecio.ToString());
-                itbis = Program.GetTwoNumberAfterPointWithOutRound(decimalitbis.ToString());                
+                itbis = Program.GetTwoNumberAfterPointWithOutRound(decimalitbis.ToString());
             }
             else
             {
@@ -1762,41 +1761,7 @@ namespace Capa_de_Presentacion
 
         public void GenerarDocumento(Document document)
         {
-            int i, j;
-            PdfPTable datatable = new PdfPTable(dgvVenta.ColumnCount);
-            float[] headerwidths = GetTamañoColumnas(dgvVenta);
-            datatable.SetWidths(headerwidths);
-            datatable.WidthPercentage = 100;
-            datatable.DefaultCell.BorderWidth = 1;
-            datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
-            for (i = 0; i < dgvVenta.ColumnCount; i++)
-            {
-                datatable.AddCell(new Phrase(dgvVenta.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
-            }
-            datatable.HeaderRows = 1;
-            datatable.DefaultCell.BorderWidth = 1;
-            for (i = 0; i < dgvVenta.Rows.Count; i++)
-            {
-                for (j = 0; j < dgvVenta.Columns.Count; j++)
-                {
-                    if (dgvVenta[j, i].Value != null)
-                    {
-                        datatable.AddCell(new Phrase(dgvVenta[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
-                    }
-                }
-                datatable.CompleteRow();
-            }
-            document.Add(datatable);
-        }
-
-        public float[] GetTamañoColumnas(DataGridView dg)
-        {
-            float[] values = new float[dg.ColumnCount];
-            for (int i = 0; i < dg.ColumnCount; i++)
-            {
-                values[i] = (float)dg.Columns[i].Width;
-            }
-            return values;
+            Pdf.GenerarDocumento(document, dgvVenta);
         }
 
         private void dgvVenta_Click(object sender, EventArgs e)

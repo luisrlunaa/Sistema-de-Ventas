@@ -123,7 +123,7 @@ namespace CapaLogicaNegocio
                     venta.Telefono = string.IsNullOrWhiteSpace(venta.Telefono) ? "Sin Telefono" : venta.Telefono;
                     venta.Vehiculo = string.IsNullOrWhiteSpace(venta.Vehiculo) ? "Sin Vehiculo" : venta.Vehiculo;
 
-                    if(venta.SubTotal == venta.Total && venta.Itbis > 0)
+                    if (venta.SubTotal == venta.Total && venta.Itbis > 0)
                     {
                         venta.SubTotal = venta.Total - venta.Itbis;
                     }

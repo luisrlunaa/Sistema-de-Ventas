@@ -210,7 +210,7 @@ namespace Capa_de_Presentacion
                 //total += item.PrecioOfProducts;
                 //txttotalventaespecifica.Text = Math.Round(total, 2).ToString("C2");
             }
-            txttotalventaespecifica.Text = Math.Round(lstOthers.Sum(x=>x.PrecioOfProducts), 2).ToString("C2");
+            txttotalventaespecifica.Text = Math.Round(lstOthers.Sum(x => x.PrecioOfProducts), 2).ToString("C2");
 
             var lstFilterAndOils = listaventas.Where(c => c.CategoryOfProducts.ToLower() == "aceite" || c.CategoryOfProducts.ToLower() == "filtros").ToList();
             dataGridView4.Rows.Clear();
@@ -310,6 +310,26 @@ namespace Capa_de_Presentacion
             this.Close();
         }
 
+        private void To_excel()
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.InitialDirectory = @"C:";
+            saveFileDialog1.Title = "Guardar Reporte";
+            saveFileDialog1.DefaultExt = "xlsx";
+            saveFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx|Excel 2007 (*.xls)|*.xls";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.FileName = "Reporte";
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                DataTable dt = Excel.DataGridView_To_Datatable(dataGridView1);
+                dt.exportToExcel(saveFileDialog1.FileName);
+            }
+            else
+            {
+                MessageBox.Show("No guardo el Archivo");
+            }
+        }
         private void To_pdf1(bool espOther, bool espOils)
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
@@ -323,13 +343,13 @@ namespace Capa_de_Presentacion
             saveFileDialog1.Filter = "pdf Files (*.pdf)|*.pdf| All Files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
-            string filename = "Reporte" + DateTime.Now.ToString();
+            saveFileDialog1.FileName = "Reporte";
+
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                filename = saveFileDialog1.FileName;
-                if (filename.Trim() != "")
+                if (saveFileDialog1.FileName.Trim() != "")
                 {
-                    FileStream file = new FileStream(filename,
+                    FileStream file = new FileStream(saveFileDialog1.FileName,
                     FileMode.OpenOrCreate,
                     FileAccess.ReadWrite,
                     FileShare.ReadWrite);
@@ -369,13 +389,13 @@ namespace Capa_de_Presentacion
                         doc.Add(new Paragraph("                       "));
                     }
 
-                    if(espOils)
+                    if (espOils)
                     {
                         doc.Add(new Paragraph("Reporte Especifico de Ventas de Filtros y Aceites Realizadas"));
                         GenerarDocumento2(doc);
                         doc.AddCreationDate();
                         doc.Add(new Paragraph("                       "));
-                        doc.Add(new Paragraph("Total      : " + txttotalventaespecificaFilterAndOils.Text)); 
+                        doc.Add(new Paragraph("Total      : " + txttotalventaespecificaFilterAndOils.Text));
                         doc.Add(new Paragraph("                       "));
                     }
 
@@ -383,7 +403,7 @@ namespace Capa_de_Presentacion
                     doc.Add(new Paragraph("____________________________________"));
                     doc.Add(new Paragraph("                         Firma              "));
                     doc.Close();
-                    Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
+                    Process.Start(saveFileDialog1.FileName);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
                 }
             }
             else
@@ -391,7 +411,6 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("No guardo el Archivo");
             }
         }
-
         private void To_pdf()
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
@@ -405,13 +424,13 @@ namespace Capa_de_Presentacion
             saveFileDialog1.Filter = "pdf Files (*.pdf)|*.pdf| All Files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
-            string filename = "Reporte" + DateTime.Now.ToString();
+            saveFileDialog1.FileName = "Reporte";
+
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                filename = saveFileDialog1.FileName;
-                if (filename.Trim() != "")
+                if (saveFileDialog1.FileName.Trim() != "")
                 {
-                    FileStream file = new FileStream(filename,
+                    FileStream file = new FileStream(saveFileDialog1.FileName,
                     FileMode.OpenOrCreate,
                     FileAccess.ReadWrite,
                     FileShare.ReadWrite);
@@ -485,7 +504,7 @@ namespace Capa_de_Presentacion
                         doc.Close();
                     }
 
-                    Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
+                    Process.Start(saveFileDialog1.FileName);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
                 }
             }
             else
@@ -495,101 +514,15 @@ namespace Capa_de_Presentacion
         }
         public void GenerarDocumento2(Document document)
         {
-            int i, j;
-            PdfPTable datatable = new PdfPTable(dataGridView4.ColumnCount);
-            datatable.DefaultCell.Padding = 2;
-            float[] headerwidths = GetTamañoColumnas(dataGridView4);
-            datatable.SetWidths(headerwidths);
-            datatable.WidthPercentage = 100;
-            datatable.DefaultCell.BorderWidth = 1;
-            datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
-            for (i = 0; i < dataGridView4.ColumnCount; i++)
-            {
-                datatable.AddCell(new Phrase(dataGridView4.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
-            }
-            datatable.HeaderRows = 1;
-            datatable.DefaultCell.BorderWidth = 1;
-            for (i = 0; i < dataGridView4.Rows.Count; i++)
-            {
-                for (j = 0; j < dataGridView4.Columns.Count; j++)
-                {
-                    if (dataGridView4[j, i].Value != null)
-                    {
-                        datatable.AddCell(new Phrase(dataGridView4[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
-                    }
-                }
-                datatable.CompleteRow();
-            }
-            document.Add(datatable);
+            Pdf.GenerarDocumento(document, dataGridView4);
         }
-
         public void GenerarDocumento1(Document document)
         {
-            int i, j;
-            PdfPTable datatable = new PdfPTable(dataGridView3.ColumnCount);
-            datatable.DefaultCell.Padding = 2;
-            float[] headerwidths = GetTamañoColumnas(dataGridView3);
-            datatable.SetWidths(headerwidths);
-            datatable.WidthPercentage = 100;
-            datatable.DefaultCell.BorderWidth = 1;
-            datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
-            for (i = 0; i < dataGridView3.ColumnCount; i++)
-            {
-                datatable.AddCell(new Phrase(dataGridView3.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
-            }
-            datatable.HeaderRows = 1;
-            datatable.DefaultCell.BorderWidth = 1;
-            for (i = 0; i < dataGridView3.Rows.Count; i++)
-            {
-                for (j = 0; j < dataGridView3.Columns.Count; j++)
-                {
-                    if (dataGridView3[j, i].Value != null)
-                    {
-                        datatable.AddCell(new Phrase(dataGridView3[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
-                    }
-                }
-                datatable.CompleteRow();
-            }
-            document.Add(datatable);
+            Pdf.GenerarDocumento(document, dataGridView3);
         }
-
         public void GenerarDocumento(Document document)
         {
-            int i, j;
-            PdfPTable datatable = new PdfPTable(dataGridView1.ColumnCount);
-            float[] headerwidths = GetTamañoColumnas(dataGridView1);
-            datatable.SetWidths(headerwidths);
-            datatable.WidthPercentage = 100;
-            datatable.DefaultCell.BorderWidth = 1;
-            datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
-            for (i = 0; i < dataGridView1.ColumnCount; i++)
-            {
-                datatable.AddCell(new Phrase(dataGridView1.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
-            }
-            datatable.HeaderRows = 1;
-            datatable.DefaultCell.BorderWidth = 1;
-            for (i = 0; i < dataGridView1.Rows.Count; i++)
-            {
-                for (j = 0; j < dataGridView1.Columns.Count; j++)
-                {
-                    if (dataGridView1[j, i].Value != null)
-                    {
-                        datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
-                    }
-                }
-                datatable.CompleteRow();
-            }
-            document.Add(datatable);
-        }
-
-        public float[] GetTamañoColumnas(DataGridView dg)
-        {
-            float[] values = new float[dg.ColumnCount];
-            for (int i = 0; i < dg.ColumnCount; i++)
-            {
-                values[i] = (float)dg.Columns[i].Width;
-            }
-            return values;
+            Pdf.GenerarDocumento(document, dataGridView1);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -1183,9 +1116,13 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte General", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte General \n Si- PDF \n No- Excel", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                 To_pdf();
+            }
+            else
+            {
+                To_excel();
             }
         }
 
