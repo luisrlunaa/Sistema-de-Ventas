@@ -74,7 +74,7 @@
             this.gbAbrir.Controls.Add(this.label1);
             this.gbAbrir.Controls.Add(this.txtActual);
             this.gbAbrir.Controls.Add(this.txtCaja);
-            this.gbAbrir.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbAbrir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbAbrir.ForeColor = System.Drawing.Color.Black;
             this.gbAbrir.Location = new System.Drawing.Point(836, 13);
             this.gbAbrir.Margin = new System.Windows.Forms.Padding(4);
@@ -115,7 +115,7 @@
             this.dgvCaja.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -242,7 +242,7 @@
             this.label2.Location = new System.Drawing.Point(193, 30);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 17);
+            this.label2.Size = new System.Drawing.Size(101, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Cantidad Actual";
             // 
@@ -253,7 +253,7 @@
             this.label1.Location = new System.Drawing.Point(20, 30);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 17);
+            this.label1.Size = new System.Drawing.Size(94, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "Monto En Caja";
             // 
@@ -287,7 +287,7 @@
             // 
             // gbPagar
             // 
-            this.gbPagar.BackColor = System.Drawing.Color.SeaGreen;
+            this.gbPagar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.gbPagar.Controls.Add(this.btnC);
             this.gbPagar.Controls.Add(this.label6);
             this.gbPagar.Controls.Add(this.txtmonto);
@@ -298,8 +298,8 @@
             this.gbPagar.Controls.Add(this.label4);
             this.gbPagar.Controls.Add(this.txtpaga);
             this.gbPagar.Controls.Add(this.txtCaja1);
-            this.gbPagar.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbPagar.ForeColor = System.Drawing.Color.Black;
+            this.gbPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbPagar.ForeColor = System.Drawing.Color.White;
             this.gbPagar.Location = new System.Drawing.Point(13, 13);
             this.gbPagar.Margin = new System.Windows.Forms.Padding(4);
             this.gbPagar.Name = "gbPagar";
@@ -313,7 +313,7 @@
             // 
             this.btnC.FlatAppearance.BorderSize = 0;
             this.btnC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnC.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnC.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnC.ForeColor = System.Drawing.Color.Red;
             this.btnC.Location = new System.Drawing.Point(662, 19);
             this.btnC.Margin = new System.Windows.Forms.Padding(4);
@@ -328,10 +328,11 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(199, 36);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(109, 17);
+            this.label6.Size = new System.Drawing.Size(101, 16);
             this.label6.TabIndex = 13;
             this.label6.Text = "Monto a Pagar :";
             // 
@@ -352,10 +353,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(542, 36);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 17);
+            this.label5.Size = new System.Drawing.Size(67, 16);
             this.label5.TabIndex = 11;
             this.label5.Text = "Devuelta :";
             // 
@@ -398,10 +400,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(378, 36);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 17);
+            this.label3.Size = new System.Drawing.Size(75, 16);
             this.label3.TabIndex = 8;
             this.label3.Text = "Pagar con :";
             // 
@@ -409,10 +412,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(20, 36);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 17);
+            this.label4.Size = new System.Drawing.Size(94, 16);
             this.label4.TabIndex = 7;
             this.label4.Text = "Monto En Caja";
             // 
@@ -432,10 +436,10 @@
             // 
             // txtCaja1
             // 
-            this.txtCaja1.BackColor = System.Drawing.Color.SeaGreen;
+            this.txtCaja1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.txtCaja1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCaja1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCaja1.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.txtCaja1.ForeColor = System.Drawing.Color.White;
             this.txtCaja1.Location = new System.Drawing.Point(23, 63);
             this.txtCaja1.Margin = new System.Windows.Forms.Padding(4);
             this.txtCaja1.Multiline = true;

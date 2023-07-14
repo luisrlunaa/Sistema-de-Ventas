@@ -68,6 +68,7 @@
             // 
             this.groupBox2.Controls.Add(this.dtpFecha);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.groupBox2.Location = new System.Drawing.Point(13, 151);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
@@ -101,6 +102,7 @@
             this.groupBox4.Controls.Add(this.txtMarca);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.groupBox4.Location = new System.Drawing.Point(13, 240);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
@@ -114,7 +116,7 @@
             // 
             this.cbtipo.BackColor = System.Drawing.Color.White;
             this.cbtipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbtipo.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.cbtipo.ForeColor = System.Drawing.Color.Black;
             this.cbtipo.FormattingEnabled = true;
             this.cbtipo.Location = new System.Drawing.Point(162, 90);
             this.cbtipo.Margin = new System.Windows.Forms.Padding(4);
@@ -125,19 +127,20 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.SeaGreen;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(38, 93);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(108, 17);
+            this.label11.Size = new System.Drawing.Size(102, 16);
             this.label11.TabIndex = 91;
             this.label11.Text = "Tipo de trabajo:";
             // 
             // txtnota
             // 
             this.txtnota.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtnota.ForeColor = System.Drawing.Color.Black;
             this.txtnota.Location = new System.Drawing.Point(60, 148);
             this.txtnota.Margin = new System.Windows.Forms.Padding(4);
             this.txtnota.Multiline = true;
@@ -160,6 +163,7 @@
             // txtaros
             // 
             this.txtaros.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtaros.ForeColor = System.Drawing.Color.Black;
             this.txtaros.Location = new System.Drawing.Point(535, 32);
             this.txtaros.Margin = new System.Windows.Forms.Padding(4);
             this.txtaros.Name = "txtaros";
@@ -182,6 +186,7 @@
             // txtmodelo
             // 
             this.txtmodelo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtmodelo.ForeColor = System.Drawing.Color.Black;
             this.txtmodelo.Location = new System.Drawing.Point(283, 32);
             this.txtmodelo.Margin = new System.Windows.Forms.Padding(4);
             this.txtmodelo.Name = "txtmodelo";
@@ -204,6 +209,7 @@
             // txtTotal
             // 
             this.txtTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTotal.ForeColor = System.Drawing.Color.Black;
             this.txtTotal.Location = new System.Drawing.Point(472, 90);
             this.txtTotal.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotal.Name = "txtTotal";
@@ -226,6 +232,7 @@
             // txtMarca
             // 
             this.txtMarca.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMarca.ForeColor = System.Drawing.Color.Black;
             this.txtMarca.Location = new System.Drawing.Point(68, 32);
             this.txtMarca.Margin = new System.Windows.Forms.Padding(4);
             this.txtMarca.Name = "txtMarca";
@@ -264,7 +271,7 @@
             this.lblTel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTel2.Location = new System.Drawing.Point(1035, 360);
             this.lblTel2.Name = "lblTel2";
-            this.lblTel2.Size = new System.Drawing.Size(35, 17);
+            this.lblTel2.Size = new System.Drawing.Size(32, 16);
             this.lblTel2.TabIndex = 46;
             this.lblTel2.Text = "tel2";
             // 
@@ -274,7 +281,7 @@
             this.lbltel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltel.Location = new System.Drawing.Point(401, 91);
             this.lbltel.Name = "lbltel";
-            this.lbltel.Size = new System.Drawing.Size(31, 17);
+            this.lbltel.Size = new System.Drawing.Size(28, 16);
             this.lbltel.TabIndex = 53;
             this.lbltel.Text = "tel2";
             // 
@@ -284,7 +291,7 @@
             this.lbltel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltel1.Location = new System.Drawing.Point(317, 91);
             this.lbltel1.Name = "lbltel1";
-            this.lbltel1.Size = new System.Drawing.Size(31, 17);
+            this.lbltel1.Size = new System.Drawing.Size(28, 16);
             this.lbltel1.TabIndex = 52;
             this.lbltel1.Text = "tel1";
             // 
@@ -294,7 +301,7 @@
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.Location = new System.Drawing.Point(160, 91);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(150, 17);
+            this.label14.Size = new System.Drawing.Size(142, 16);
             this.label14.TabIndex = 51;
             this.label14.Text = "Numeros Telefonicos :";
             // 
@@ -304,7 +311,7 @@
             this.lbldir.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbldir.Location = new System.Drawing.Point(186, 70);
             this.lbldir.Name = "lbldir";
-            this.lbldir.Size = new System.Drawing.Size(24, 17);
+            this.lbldir.Size = new System.Drawing.Size(22, 16);
             this.lbldir.TabIndex = 50;
             this.lbldir.Text = "dir";
             // 
@@ -323,7 +330,7 @@
             this.lblrnc.AutoSize = true;
             this.lblrnc.Location = new System.Drawing.Point(766, 257);
             this.lblrnc.Name = "lblrnc";
-            this.lblrnc.Size = new System.Drawing.Size(37, 17);
+            this.lblrnc.Size = new System.Drawing.Size(36, 16);
             this.lblrnc.TabIndex = 86;
             this.lblrnc.Text = "RNC";
             this.lblrnc.Visible = false;
@@ -333,7 +340,7 @@
             this.lblCorreo.AutoSize = true;
             this.lblCorreo.Location = new System.Drawing.Point(766, 289);
             this.lblCorreo.Name = "lblCorreo";
-            this.lblCorreo.Size = new System.Drawing.Size(51, 17);
+            this.lblCorreo.Size = new System.Drawing.Size(48, 16);
             this.lblCorreo.TabIndex = 87;
             this.lblCorreo.Text = "Correo";
             this.lblCorreo.Visible = false;
@@ -343,7 +350,7 @@
             this.txtUsu.AutoSize = true;
             this.txtUsu.Location = new System.Drawing.Point(766, 317);
             this.txtUsu.Name = "txtUsu";
-            this.txtUsu.Size = new System.Drawing.Size(55, 17);
+            this.txtUsu.Size = new System.Drawing.Size(51, 16);
             this.txtUsu.TabIndex = 88;
             this.txtUsu.Text = "usuario";
             // 
@@ -375,11 +382,11 @@
             // 
             this.label18.AutoSize = true;
             this.label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label18.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.Crimson;
             this.label18.Location = new System.Drawing.Point(621, 9);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(24, 25);
+            this.label18.Size = new System.Drawing.Size(28, 27);
             this.label18.TabIndex = 91;
             this.label18.Text = "X";
             this.label18.Click += new System.EventHandler(this.label18_Click);
@@ -390,7 +397,7 @@
             this.linkLabel1.LinkColor = System.Drawing.Color.White;
             this.linkLabel1.Location = new System.Drawing.Point(337, 188);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(201, 17);
+            this.linkLabel1.Size = new System.Drawing.Size(191, 16);
             this.linkLabel1.TabIndex = 92;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Lista de Alineacion y Balanceo";
@@ -401,7 +408,7 @@
             this.lblidAliBal.AutoSize = true;
             this.lblidAliBal.Location = new System.Drawing.Point(766, 347);
             this.lblidAliBal.Name = "lblidAliBal";
-            this.lblidAliBal.Size = new System.Drawing.Size(54, 17);
+            this.lblidAliBal.Size = new System.Drawing.Size(53, 16);
             this.lblidAliBal.TabIndex = 93;
             this.lblidAliBal.Text = "idAliBal";
             this.lblidAliBal.Visible = false;
@@ -410,7 +417,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
+            this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(655, 615);
             this.Controls.Add(this.lblidAliBal);
             this.Controls.Add(this.linkLabel1);
@@ -431,6 +438,7 @@
             this.Controls.Add(this.groupBox2);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmAlineamiento";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

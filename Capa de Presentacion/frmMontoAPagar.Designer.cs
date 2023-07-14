@@ -50,7 +50,7 @@
             // 
             // gbPagar
             // 
-            this.gbPagar.BackColor = System.Drawing.Color.SeaGreen;
+            this.gbPagar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.gbPagar.Controls.Add(this.label6);
             this.gbPagar.Controls.Add(this.txtmonto);
             this.gbPagar.Controls.Add(this.label5);
@@ -60,7 +60,7 @@
             this.gbPagar.Controls.Add(this.label4);
             this.gbPagar.Controls.Add(this.txtTotal);
             this.gbPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbPagar.ForeColor = System.Drawing.Color.Black;
+            this.gbPagar.ForeColor = System.Drawing.Color.White;
             this.gbPagar.Location = new System.Drawing.Point(13, 13);
             this.gbPagar.Margin = new System.Windows.Forms.Padding(4);
             this.gbPagar.Name = "gbPagar";
@@ -74,6 +74,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(17, 128);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
@@ -84,7 +85,7 @@
             // txtmonto
             // 
             this.txtmonto.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtmonto.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.txtmonto.ForeColor = System.Drawing.Color.Black;
             this.txtmonto.Location = new System.Drawing.Point(20, 155);
             this.txtmonto.Margin = new System.Windows.Forms.Padding(4);
             this.txtmonto.Multiline = true;
@@ -98,6 +99,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(175, 36);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
@@ -107,9 +109,9 @@
             // 
             // txtRestante
             // 
-            this.txtRestante.BackColor = System.Drawing.Color.SeaGreen;
+            this.txtRestante.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.txtRestante.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRestante.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.txtRestante.ForeColor = System.Drawing.Color.White;
             this.txtRestante.Location = new System.Drawing.Point(178, 63);
             this.txtRestante.Margin = new System.Windows.Forms.Padding(4);
             this.txtRestante.Multiline = true;
@@ -160,6 +162,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(17, 36);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
@@ -169,9 +172,9 @@
             // 
             // txtTotal
             // 
-            this.txtTotal.BackColor = System.Drawing.Color.SeaGreen;
+            this.txtTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.txtTotal.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotal.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.txtTotal.ForeColor = System.Drawing.Color.White;
             this.txtTotal.Location = new System.Drawing.Point(20, 63);
             this.txtTotal.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotal.Multiline = true;

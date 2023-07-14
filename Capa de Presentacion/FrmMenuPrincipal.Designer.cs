@@ -90,14 +90,14 @@
             // 
             // lblLogo
             // 
-            this.lblLogo.BackColor = System.Drawing.Color.DarkCyan;
+            this.lblLogo.BackColor = System.Drawing.Color.Crimson;
             this.lblLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblLogo.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLogo.ForeColor = System.Drawing.Color.White;
             this.lblLogo.Location = new System.Drawing.Point(0, 0);
-            this.lblLogo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblLogo.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(1209, 122);
+            this.lblLogo.Size = new System.Drawing.Size(1452, 150);
             this.lblLogo.TabIndex = 0;
             this.lblLogo.Text = "logo";
             this.lblLogo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -106,56 +106,56 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.DarkCyan;
+            this.label2.BackColor = System.Drawing.Color.Crimson;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(931, 59);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Location = new System.Drawing.Point(1114, 72);
+            this.label2.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 20);
+            this.label2.Size = new System.Drawing.Size(78, 25);
             this.label2.TabIndex = 1;
             this.label2.Text = "Fecha :";
             // 
             // lblFecha
             // 
-            this.lblFecha.BackColor = System.Drawing.Color.DarkCyan;
+            this.lblFecha.BackColor = System.Drawing.Color.Crimson;
             this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFecha.ForeColor = System.Drawing.Color.White;
-            this.lblFecha.Location = new System.Drawing.Point(1025, 61);
-            this.lblFecha.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblFecha.Location = new System.Drawing.Point(1240, 74);
+            this.lblFecha.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.lblFecha.Name = "lblFecha";
-            this.lblFecha.Size = new System.Drawing.Size(128, 23);
+            this.lblFecha.Size = new System.Drawing.Size(171, 28);
             this.lblFecha.TabIndex = 2;
             this.lblFecha.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.DarkCyan;
+            this.label3.BackColor = System.Drawing.Color.Crimson;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(931, 91);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label3.Location = new System.Drawing.Point(1114, 111);
+            this.label3.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 20);
+            this.label3.Size = new System.Drawing.Size(65, 25);
             this.label3.TabIndex = 3;
             this.label3.Text = "Hora :";
             // 
             // lblHora
             // 
-            this.lblHora.BackColor = System.Drawing.Color.DarkCyan;
+            this.lblHora.BackColor = System.Drawing.Color.Crimson;
             this.lblHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHora.ForeColor = System.Drawing.Color.White;
-            this.lblHora.Location = new System.Drawing.Point(1025, 93);
-            this.lblHora.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblHora.Location = new System.Drawing.Point(1240, 113);
+            this.lblHora.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.lblHora.Name = "lblHora";
-            this.lblHora.Size = new System.Drawing.Size(125, 23);
+            this.lblHora.Size = new System.Drawing.Size(167, 28);
             this.lblHora.TabIndex = 4;
             this.lblHora.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.DarkCyan;
+            this.panel1.BackColor = System.Drawing.Color.Crimson;
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.btnAyB);
@@ -170,19 +170,20 @@
             this.panel1.Controls.Add(this.btnClientes);
             this.panel1.Controls.Add(this.btnProductos);
             this.panel1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.panel1.Location = new System.Drawing.Point(0, 120);
-            this.panel1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.panel1.Location = new System.Drawing.Point(0, 148);
+            this.panel1.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(61, 606);
+            this.panel1.Size = new System.Drawing.Size(61, 659);
             this.panel1.TabIndex = 5;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.btnCotizar);
             this.panel3.Controls.Add(this.button8);
-            this.panel3.Location = new System.Drawing.Point(60, 110);
+            this.panel3.Location = new System.Drawing.Point(80, 135);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(223, 75);
+            this.panel3.Size = new System.Drawing.Size(297, 92);
             this.panel3.TabIndex = 41;
             // 
             // btnCotizar
@@ -195,10 +196,10 @@
             this.btnCotizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCotizar.ForeColor = System.Drawing.Color.White;
             this.btnCotizar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCotizar.Location = new System.Drawing.Point(-1, 40);
-            this.btnCotizar.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnCotizar.Location = new System.Drawing.Point(-1, 49);
+            this.btnCotizar.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnCotizar.Name = "btnCotizar";
-            this.btnCotizar.Size = new System.Drawing.Size(223, 31);
+            this.btnCotizar.Size = new System.Drawing.Size(297, 38);
             this.btnCotizar.TabIndex = 2;
             this.btnCotizar.Text = "Cotizar";
             this.btnCotizar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -215,10 +216,10 @@
             this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button8.ForeColor = System.Drawing.Color.White;
             this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(0, 4);
-            this.button8.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.button8.Location = new System.Drawing.Point(0, 5);
+            this.button8.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(223, 34);
+            this.button8.Size = new System.Drawing.Size(297, 42);
             this.button8.TabIndex = 1;
             this.button8.Text = "Ventas";
             this.button8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -227,7 +228,7 @@
             // 
             // button6
             // 
-            this.button6.BackColor = System.Drawing.Color.Teal;
+            this.button6.BackColor = System.Drawing.Color.MidnightBlue;
             this.button6.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.button6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -236,10 +237,10 @@
             this.button6.ForeColor = System.Drawing.Color.White;
             this.button6.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_caja_registradora_30;
             this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(3, 393);
-            this.button6.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.button6.Location = new System.Drawing.Point(4, 484);
+            this.button6.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(233, 41);
+            this.button6.Size = new System.Drawing.Size(311, 50);
             this.button6.TabIndex = 16;
             this.button6.Text = "Movimientos Caja";
             this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -248,7 +249,7 @@
             // 
             // btnAyB
             // 
-            this.btnAyB.BackColor = System.Drawing.Color.Teal;
+            this.btnAyB.BackColor = System.Drawing.Color.MidnightBlue;
             this.btnAyB.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnAyB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnAyB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -257,10 +258,10 @@
             this.btnAyB.ForeColor = System.Drawing.Color.White;
             this.btnAyB.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_copia_de_seguridad_de_un_base_de_datos_40;
             this.btnAyB.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAyB.Location = new System.Drawing.Point(4, 161);
-            this.btnAyB.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnAyB.Location = new System.Drawing.Point(5, 198);
+            this.btnAyB.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnAyB.Name = "btnAyB";
-            this.btnAyB.Size = new System.Drawing.Size(233, 46);
+            this.btnAyB.Size = new System.Drawing.Size(311, 57);
             this.btnAyB.TabIndex = 15;
             this.btnAyB.Text = "Tren Delantero";
             this.btnAyB.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -269,7 +270,7 @@
             // 
             // button5
             // 
-            this.button5.BackColor = System.Drawing.Color.Teal;
+            this.button5.BackColor = System.Drawing.Color.MidnightBlue;
             this.button5.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -278,10 +279,10 @@
             this.button5.ForeColor = System.Drawing.Color.White;
             this.button5.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_lista_resumen_40;
             this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(3, 211);
-            this.button5.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.button5.Location = new System.Drawing.Point(4, 260);
+            this.button5.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(233, 43);
+            this.button5.Size = new System.Drawing.Size(311, 53);
             this.button5.TabIndex = 14;
             this.button5.Text = "Lista de Ventas";
             this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -290,7 +291,7 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.Teal;
+            this.button1.BackColor = System.Drawing.Color.MidnightBlue;
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -298,9 +299,10 @@
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(4, 474);
+            this.button1.Location = new System.Drawing.Point(4, 549);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(69, 29);
+            this.button1.Size = new System.Drawing.Size(92, 36);
             this.button1.TabIndex = 11;
             this.button1.Text = "Turnos";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -309,7 +311,7 @@
             // 
             // button3
             // 
-            this.button3.BackColor = System.Drawing.Color.Teal;
+            this.button3.BackColor = System.Drawing.Color.MidnightBlue;
             this.button3.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -318,9 +320,10 @@
             this.button3.ForeColor = System.Drawing.Color.White;
             this.button3.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_transferencia_entre_usuarios_24;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(79, 474);
+            this.button3.Location = new System.Drawing.Point(107, 548);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(157, 29);
+            this.button3.Size = new System.Drawing.Size(209, 36);
             this.button3.TabIndex = 13;
             this.button3.Text = "Cambiar Usuario";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -329,7 +332,7 @@
             // 
             // btnVer
             // 
-            this.btnVer.BackColor = System.Drawing.Color.Teal;
+            this.btnVer.BackColor = System.Drawing.Color.MidnightBlue;
             this.btnVer.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnVer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnVer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -338,9 +341,10 @@
             this.btnVer.ForeColor = System.Drawing.Color.White;
             this.btnVer.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_engranajes_24;
             this.btnVer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVer.Location = new System.Drawing.Point(4, 509);
+            this.btnVer.Location = new System.Drawing.Point(4, 592);
+            this.btnVer.Margin = new System.Windows.Forms.Padding(4);
             this.btnVer.Name = "btnVer";
-            this.btnVer.Size = new System.Drawing.Size(234, 29);
+            this.btnVer.Size = new System.Drawing.Size(312, 36);
             this.btnVer.TabIndex = 5;
             this.btnVer.Text = "Opciones Especiales ";
             this.btnVer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -349,7 +353,7 @@
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.Teal;
+            this.button2.BackColor = System.Drawing.Color.MidnightBlue;
             this.button2.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -358,10 +362,10 @@
             this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_bloqueador_40;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(4, 258);
-            this.button2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.button2.Location = new System.Drawing.Point(5, 318);
+            this.button2.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(233, 41);
+            this.button2.Size = new System.Drawing.Size(311, 50);
             this.button2.TabIndex = 12;
             this.button2.Text = "Limitantes NCF";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -370,7 +374,7 @@
             // 
             // btnEmpleados
             // 
-            this.btnEmpleados.BackColor = System.Drawing.Color.Teal;
+            this.btnEmpleados.BackColor = System.Drawing.Color.MidnightBlue;
             this.btnEmpleados.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnEmpleados.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnEmpleados.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -379,10 +383,10 @@
             this.btnEmpleados.ForeColor = System.Drawing.Color.White;
             this.btnEmpleados.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_profesor_hirring_40;
             this.btnEmpleados.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEmpleados.Location = new System.Drawing.Point(3, 348);
-            this.btnEmpleados.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnEmpleados.Location = new System.Drawing.Point(4, 428);
+            this.btnEmpleados.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnEmpleados.Name = "btnEmpleados";
-            this.btnEmpleados.Size = new System.Drawing.Size(233, 41);
+            this.btnEmpleados.Size = new System.Drawing.Size(311, 50);
             this.btnEmpleados.TabIndex = 1;
             this.btnEmpleados.Text = "Empleados";
             this.btnEmpleados.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -391,7 +395,7 @@
             // 
             // btnVentas
             // 
-            this.btnVentas.BackColor = System.Drawing.Color.Teal;
+            this.btnVentas.BackColor = System.Drawing.Color.MidnightBlue;
             this.btnVentas.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnVentas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -400,10 +404,10 @@
             this.btnVentas.ForeColor = System.Drawing.Color.White;
             this.btnVentas.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_ventas_totales_40;
             this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentas.Location = new System.Drawing.Point(4, 110);
-            this.btnVentas.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnVentas.Location = new System.Drawing.Point(5, 135);
+            this.btnVentas.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnVentas.Name = "btnVentas";
-            this.btnVentas.Size = new System.Drawing.Size(233, 45);
+            this.btnVentas.Size = new System.Drawing.Size(311, 55);
             this.btnVentas.TabIndex = 0;
             this.btnVentas.Text = "Cotizar o Ventas";
             this.btnVentas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -412,7 +416,7 @@
             // 
             // btnUsuarios
             // 
-            this.btnUsuarios.BackColor = System.Drawing.Color.Teal;
+            this.btnUsuarios.BackColor = System.Drawing.Color.MidnightBlue;
             this.btnUsuarios.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnUsuarios.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnUsuarios.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -421,10 +425,10 @@
             this.btnUsuarios.ForeColor = System.Drawing.Color.White;
             this.btnUsuarios.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_grupos_de_usuarios_40;
             this.btnUsuarios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUsuarios.Location = new System.Drawing.Point(3, 303);
-            this.btnUsuarios.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnUsuarios.Location = new System.Drawing.Point(4, 373);
+            this.btnUsuarios.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnUsuarios.Name = "btnUsuarios";
-            this.btnUsuarios.Size = new System.Drawing.Size(233, 41);
+            this.btnUsuarios.Size = new System.Drawing.Size(311, 50);
             this.btnUsuarios.TabIndex = 0;
             this.btnUsuarios.Text = "Usuarios";
             this.btnUsuarios.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -433,7 +437,7 @@
             // 
             // btnClientes
             // 
-            this.btnClientes.BackColor = System.Drawing.Color.Teal;
+            this.btnClientes.BackColor = System.Drawing.Color.MidnightBlue;
             this.btnClientes.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnClientes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnClientes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -442,10 +446,10 @@
             this.btnClientes.ForeColor = System.Drawing.Color.White;
             this.btnClientes.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_clientes_40;
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClientes.Location = new System.Drawing.Point(4, 59);
-            this.btnClientes.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnClientes.Location = new System.Drawing.Point(5, 73);
+            this.btnClientes.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(233, 47);
+            this.btnClientes.Size = new System.Drawing.Size(311, 58);
             this.btnClientes.TabIndex = 0;
             this.btnClientes.Text = "Clientes";
             this.btnClientes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -454,7 +458,7 @@
             // 
             // btnProductos
             // 
-            this.btnProductos.BackColor = System.Drawing.Color.Teal;
+            this.btnProductos.BackColor = System.Drawing.Color.MidnightBlue;
             this.btnProductos.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
             this.btnProductos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
             this.btnProductos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
@@ -463,10 +467,10 @@
             this.btnProductos.ForeColor = System.Drawing.Color.White;
             this.btnProductos.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_producto_40;
             this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProductos.Location = new System.Drawing.Point(4, 10);
-            this.btnProductos.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnProductos.Location = new System.Drawing.Point(5, 12);
+            this.btnProductos.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.btnProductos.Name = "btnProductos";
-            this.btnProductos.Size = new System.Drawing.Size(233, 46);
+            this.btnProductos.Size = new System.Drawing.Size(311, 57);
             this.btnProductos.TabIndex = 0;
             this.btnProductos.Text = "Productos";
             this.btnProductos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -476,25 +480,25 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.DarkCyan;
+            this.label4.BackColor = System.Drawing.Color.Crimson;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(11, 5);
-            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label4.Location = new System.Drawing.Point(15, 6);
+            this.label4.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 17);
+            this.label4.Size = new System.Drawing.Size(118, 20);
             this.label4.TabIndex = 6;
             this.label4.Text = "Usuario Activo";
             // 
             // lblUsuario
             // 
-            this.lblUsuario.BackColor = System.Drawing.Color.DarkCyan;
+            this.lblUsuario.BackColor = System.Drawing.Color.Crimson;
             this.lblUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUsuario.ForeColor = System.Drawing.Color.White;
-            this.lblUsuario.Location = new System.Drawing.Point(11, 31);
-            this.lblUsuario.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblUsuario.Location = new System.Drawing.Point(15, 38);
+            this.lblUsuario.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(313, 31);
+            this.lblUsuario.Size = new System.Drawing.Size(417, 38);
             this.lblUsuario.TabIndex = 7;
             this.lblUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -503,9 +507,10 @@
             this.lblDir.AutoSize = true;
             this.lblDir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDir.ForeColor = System.Drawing.Color.Black;
-            this.lblDir.Location = new System.Drawing.Point(428, 123);
+            this.lblDir.Location = new System.Drawing.Point(571, 151);
+            this.lblDir.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDir.Name = "lblDir";
-            this.lblDir.Size = new System.Drawing.Size(76, 17);
+            this.lblDir.Size = new System.Drawing.Size(90, 20);
             this.lblDir.TabIndex = 25;
             this.lblDir.Text = "Direccion";
             this.lblDir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -513,9 +518,10 @@
             // lblTel1
             // 
             this.lblTel1.AutoSize = true;
-            this.lblTel1.Location = new System.Drawing.Point(320, 135);
+            this.lblTel1.Location = new System.Drawing.Point(427, 166);
+            this.lblTel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTel1.Name = "lblTel1";
-            this.lblTel1.Size = new System.Drawing.Size(24, 13);
+            this.lblTel1.Size = new System.Drawing.Size(28, 16);
             this.lblTel1.TabIndex = 27;
             this.lblTel1.Text = "tel1";
             this.lblTel1.Visible = false;
@@ -523,9 +529,10 @@
             // lblTel2
             // 
             this.lblTel2.AutoSize = true;
-            this.lblTel2.Location = new System.Drawing.Point(281, 135);
+            this.lblTel2.Location = new System.Drawing.Point(375, 166);
+            this.lblTel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTel2.Name = "lblTel2";
-            this.lblTel2.Size = new System.Drawing.Size(24, 13);
+            this.lblTel2.Size = new System.Drawing.Size(28, 16);
             this.lblTel2.TabIndex = 28;
             this.lblTel2.Text = "tel2";
             this.lblTel2.Visible = false;
@@ -533,51 +540,57 @@
             // lblCorreo
             // 
             this.lblCorreo.AutoSize = true;
-            this.lblCorreo.Location = new System.Drawing.Point(289, 123);
+            this.lblCorreo.Location = new System.Drawing.Point(385, 151);
+            this.lblCorreo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCorreo.Name = "lblCorreo";
-            this.lblCorreo.Size = new System.Drawing.Size(37, 13);
+            this.lblCorreo.Size = new System.Drawing.Size(46, 16);
             this.lblCorreo.TabIndex = 29;
             this.lblCorreo.Text = "correo";
             this.lblCorreo.Visible = false;
             // 
             // txtcargo
             // 
-            this.txtcargo.Location = new System.Drawing.Point(1440, 263);
+            this.txtcargo.Location = new System.Drawing.Point(1920, 324);
+            this.txtcargo.Margin = new System.Windows.Forms.Padding(4);
             this.txtcargo.Name = "txtcargo";
-            this.txtcargo.Size = new System.Drawing.Size(153, 19);
+            this.txtcargo.Size = new System.Drawing.Size(203, 22);
             this.txtcargo.TabIndex = 31;
             // 
             // lblrnc
             // 
             this.lblrnc.AutoSize = true;
-            this.lblrnc.Location = new System.Drawing.Point(359, 135);
+            this.lblrnc.Location = new System.Drawing.Point(479, 166);
+            this.lblrnc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblrnc.Name = "lblrnc";
-            this.lblrnc.Size = new System.Drawing.Size(30, 13);
+            this.lblrnc.Size = new System.Drawing.Size(36, 16);
             this.lblrnc.TabIndex = 32;
             this.lblrnc.Text = "RNC";
             this.lblrnc.Visible = false;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(1440, 297);
+            this.textBox1.Location = new System.Drawing.Point(1920, 366);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(153, 19);
+            this.textBox1.Size = new System.Drawing.Size(203, 22);
             this.textBox1.TabIndex = 35;
             // 
             // txtUser
             // 
-            this.txtUser.Location = new System.Drawing.Point(51, 31);
+            this.txtUser.Location = new System.Drawing.Point(68, 38);
+            this.txtUser.Margin = new System.Windows.Forms.Padding(4);
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(100, 19);
+            this.txtUser.Size = new System.Drawing.Size(132, 22);
             this.txtUser.TabIndex = 0;
             this.txtUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtClave
             // 
-            this.txtClave.Location = new System.Drawing.Point(51, 77);
+            this.txtClave.Location = new System.Drawing.Point(68, 95);
+            this.txtClave.Margin = new System.Windows.Forms.Padding(4);
             this.txtClave.Name = "txtClave";
             this.txtClave.PasswordChar = '*';
-            this.txtClave.Size = new System.Drawing.Size(100, 19);
+            this.txtClave.Size = new System.Drawing.Size(132, 22);
             this.txtClave.TabIndex = 1;
             this.txtClave.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtClave.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtClave_KeyPress);
@@ -586,9 +599,10 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(70, 12);
+            this.label5.Location = new System.Drawing.Point(93, 15);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(50, 13);
+            this.label5.Size = new System.Drawing.Size(61, 16);
             this.label5.TabIndex = 2;
             this.label5.Text = "Usuario";
             // 
@@ -596,9 +610,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(79, 57);
+            this.label6.Location = new System.Drawing.Point(105, 70);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 13);
+            this.label6.Size = new System.Drawing.Size(47, 16);
             this.label6.TabIndex = 4;
             this.label6.Text = "Clave";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -612,9 +627,10 @@
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.Color.Black;
-            this.button4.Location = new System.Drawing.Point(67, 106);
+            this.button4.Location = new System.Drawing.Point(89, 130);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(64, 29);
+            this.button4.Size = new System.Drawing.Size(85, 36);
             this.button4.TabIndex = 34;
             this.button4.Text = "Iniciar";
             this.button4.UseVisualStyleBackColor = false;
@@ -623,16 +639,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(175, 4);
+            this.label1.Location = new System.Drawing.Point(233, 5);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(14, 13);
+            this.label1.Size = new System.Drawing.Size(15, 16);
             this.label1.TabIndex = 35;
             this.label1.Text = "X";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // usuario
             // 
-            this.usuario.BackColor = System.Drawing.Color.Teal;
+            this.usuario.BackColor = System.Drawing.Color.Crimson;
             this.usuario.Controls.Add(this.label1);
             this.usuario.Controls.Add(this.button4);
             this.usuario.Controls.Add(this.label6);
@@ -640,18 +657,20 @@
             this.usuario.Controls.Add(this.txtClave);
             this.usuario.Controls.Add(this.txtUser);
             this.usuario.ForeColor = System.Drawing.Color.White;
-            this.usuario.Location = new System.Drawing.Point(993, 432);
+            this.usuario.Location = new System.Drawing.Point(1168, 585);
+            this.usuario.Margin = new System.Windows.Forms.Padding(4);
             this.usuario.Name = "usuario";
-            this.usuario.Size = new System.Drawing.Size(203, 145);
+            this.usuario.Size = new System.Drawing.Size(271, 178);
             this.usuario.TabIndex = 34;
             this.usuario.Visible = false;
             // 
             // ckbLimite
             // 
             this.ckbLimite.AutoSize = true;
-            this.ckbLimite.Location = new System.Drawing.Point(38, 19);
+            this.ckbLimite.Location = new System.Drawing.Point(51, 23);
+            this.ckbLimite.Margin = new System.Windows.Forms.Padding(4);
             this.ckbLimite.Name = "ckbLimite";
-            this.ckbLimite.Size = new System.Drawing.Size(82, 17);
+            this.ckbLimite.Size = new System.Drawing.Size(101, 20);
             this.ckbLimite.TabIndex = 0;
             this.ckbLimite.Text = "Limites NCF";
             this.ckbLimite.UseVisualStyleBackColor = true;
@@ -660,9 +679,10 @@
             // ckbUsu
             // 
             this.ckbUsu.AutoSize = true;
-            this.ckbUsu.Location = new System.Drawing.Point(38, 49);
+            this.ckbUsu.Location = new System.Drawing.Point(51, 60);
+            this.ckbUsu.Margin = new System.Windows.Forms.Padding(4);
             this.ckbUsu.Name = "ckbUsu";
-            this.ckbUsu.Size = new System.Drawing.Size(67, 17);
+            this.ckbUsu.Size = new System.Drawing.Size(83, 20);
             this.ckbUsu.TabIndex = 1;
             this.ckbUsu.Text = "Usuarios";
             this.ckbUsu.UseVisualStyleBackColor = true;
@@ -671,9 +691,10 @@
             // ckbEmp
             // 
             this.ckbEmp.AutoSize = true;
-            this.ckbEmp.Location = new System.Drawing.Point(38, 78);
+            this.ckbEmp.Location = new System.Drawing.Point(51, 96);
+            this.ckbEmp.Margin = new System.Windows.Forms.Padding(4);
             this.ckbEmp.Name = "ckbEmp";
-            this.ckbEmp.Size = new System.Drawing.Size(78, 17);
+            this.ckbEmp.Size = new System.Drawing.Size(99, 20);
             this.ckbEmp.TabIndex = 2;
             this.ckbEmp.Text = "Empleados";
             this.ckbEmp.UseVisualStyleBackColor = true;
@@ -682,9 +703,10 @@
             // ckbback
             // 
             this.ckbback.AutoSize = true;
-            this.ckbback.Location = new System.Drawing.Point(38, 104);
+            this.ckbback.Location = new System.Drawing.Point(51, 128);
+            this.ckbback.Margin = new System.Windows.Forms.Padding(4);
             this.ckbback.Name = "ckbback";
-            this.ckbback.Size = new System.Drawing.Size(99, 17);
+            this.ckbback.Size = new System.Drawing.Size(121, 20);
             this.ckbback.TabIndex = 3;
             this.ckbback.Text = "Lista de Ventas";
             this.ckbback.UseVisualStyleBackColor = true;
@@ -697,18 +719,20 @@
             this.panel2.Controls.Add(this.ckbEmp);
             this.panel2.Controls.Add(this.ckbUsu);
             this.panel2.Controls.Add(this.ckbLimite);
-            this.panel2.Location = new System.Drawing.Point(992, 434);
+            this.panel2.Location = new System.Drawing.Point(1171, 587);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(201, 145);
+            this.panel2.Size = new System.Drawing.Size(268, 178);
             this.panel2.TabIndex = 33;
             this.panel2.Visible = false;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(171, 7);
+            this.label7.Location = new System.Drawing.Point(228, 9);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(14, 13);
+            this.label7.Size = new System.Drawing.Size(15, 16);
             this.label7.TabIndex = 4;
             this.label7.Text = "X";
             this.label7.Click += new System.EventHandler(this.label7_Click_1);
@@ -716,23 +740,24 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(952, 642);
+            this.label8.Location = new System.Drawing.Point(1227, 782);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(169, 13);
+            this.label8.Size = new System.Drawing.Size(212, 16);
             this.label8.TabIndex = 37;
             this.label8.Text = "@Copyright by LunasSystem-2020";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.DarkCyan;
+            this.label9.BackColor = System.Drawing.Color.MidnightBlue;
             this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Red;
-            this.label9.Location = new System.Drawing.Point(1174, 9);
-            this.label9.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label9.Location = new System.Drawing.Point(1417, 9);
+            this.label9.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(22, 22);
+            this.label9.Size = new System.Drawing.Size(28, 27);
             this.label9.TabIndex = 38;
             this.label9.Text = "X";
             this.label9.Click += new System.EventHandler(this.label9_Click);
@@ -740,14 +765,14 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.DarkCyan;
+            this.label10.BackColor = System.Drawing.Color.MidnightBlue;
             this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Yellow;
-            this.label10.Location = new System.Drawing.Point(1153, 9);
-            this.label10.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label10.Location = new System.Drawing.Point(1389, 9);
+            this.label10.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(20, 22);
+            this.label10.Size = new System.Drawing.Size(25, 27);
             this.label10.TabIndex = 39;
             this.label10.Text = "_";
             this.label10.Click += new System.EventHandler(this.label10_Click);
@@ -755,23 +780,25 @@
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.White;
-            this.pictureBox2.Image = global::Capa_de_Presentacion.Properties.Resources.llantas_toyota_corolla;
-            this.pictureBox2.Location = new System.Drawing.Point(245, 170);
+            this.pictureBox2.Image = global::Capa_de_Presentacion.Properties.Resources.LogoCepeda;
+            this.pictureBox2.Location = new System.Drawing.Point(378, 186);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(948, 469);
+            this.pictureBox2.Size = new System.Drawing.Size(1061, 577);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 26;
             this.pictureBox2.TabStop = false;
             // 
             // button7
             // 
-            this.button7.BackColor = System.Drawing.Color.DarkCyan;
+            this.button7.BackColor = System.Drawing.Color.Crimson;
             this.button7.FlatAppearance.BorderSize = 0;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(0, 96);
+            this.button7.Location = new System.Drawing.Point(0, 118);
+            this.button7.Margin = new System.Windows.Forms.Padding(4);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(61, 23);
+            this.button7.Size = new System.Drawing.Size(81, 28);
             this.button7.TabIndex = 40;
             this.button7.Text = ">>";
             this.button7.UseVisualStyleBackColor = false;
@@ -784,9 +811,9 @@
             // 
             // FrmMenuPrincipal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1209, 674);
+            this.ClientSize = new System.Drawing.Size(1452, 804);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -813,7 +840,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.Name = "FrmMenuPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu Principal";

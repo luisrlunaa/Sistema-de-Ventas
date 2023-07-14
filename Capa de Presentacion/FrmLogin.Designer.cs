@@ -42,22 +42,23 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtmontoinicial = new System.Windows.Forms.TextBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.btnIngresar = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btnIngresar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(135, 25);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
@@ -69,6 +70,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(135, 85);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
@@ -78,7 +80,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.DarkCyan;
+            this.groupBox1.BackColor = System.Drawing.Color.MidnightBlue;
             this.groupBox1.Controls.Add(this.rbNCF);
             this.groupBox1.Controls.Add(this.panelmontoinicial);
             this.groupBox1.Controls.Add(this.rbVentas);
@@ -106,6 +108,7 @@
             // 
             this.rbNCF.AutoSize = true;
             this.rbNCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbNCF.ForeColor = System.Drawing.Color.White;
             this.rbNCF.Location = new System.Drawing.Point(91, 300);
             this.rbNCF.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbNCF.Name = "rbNCF";
@@ -117,7 +120,7 @@
             // 
             // panelmontoinicial
             // 
-            this.panelmontoinicial.Location = new System.Drawing.Point(57, 337);
+            this.panelmontoinicial.Location = new System.Drawing.Point(51, 340);
             this.panelmontoinicial.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelmontoinicial.Name = "panelmontoinicial";
             this.panelmontoinicial.Size = new System.Drawing.Size(235, 92);
@@ -127,6 +130,7 @@
             // 
             this.rbVentas.AutoSize = true;
             this.rbVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbVentas.ForeColor = System.Drawing.Color.White;
             this.rbVentas.Location = new System.Drawing.Point(91, 272);
             this.rbVentas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbVentas.Name = "rbVentas";
@@ -151,6 +155,7 @@
             // 
             this.rbInventario.AutoSize = true;
             this.rbInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbInventario.ForeColor = System.Drawing.Color.White;
             this.rbInventario.Location = new System.Drawing.Point(91, 244);
             this.rbInventario.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbInventario.Name = "rbInventario";
@@ -164,6 +169,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(77, 348);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
@@ -193,27 +199,6 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Recuperar Contraseña";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // btnIngresar
-            // 
-            this.btnIngresar.BackColor = System.Drawing.Color.SpringGreen;
-            this.btnIngresar.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnIngresar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnIngresar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIngresar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
-            this.btnIngresar.ForeColor = System.Drawing.Color.Black;
-            this.btnIngresar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_entrar;
-            this.btnIngresar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnIngresar.Location = new System.Drawing.Point(101, 162);
-            this.btnIngresar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnIngresar.Name = "btnIngresar";
-            this.btnIngresar.Size = new System.Drawing.Size(133, 39);
-            this.btnIngresar.TabIndex = 4;
-            this.btnIngresar.Text = "Ingresar";
-            this.btnIngresar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnIngresar.UseVisualStyleBackColor = false;
-            this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             // 
             // txtPassword
             // 
@@ -248,21 +233,9 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Version 1.9.2";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::Capa_de_Presentacion.Properties.Resources.LogoCepeda;
-            this.pictureBox2.Location = new System.Drawing.Point(1, 26);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(403, 215);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 24;
-            this.pictureBox2.TabStop = false;
-            // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.DarkCyan;
+            this.panel1.BackColor = System.Drawing.Color.MidnightBlue;
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(1, 0);
@@ -283,11 +256,44 @@
             this.label5.Text = "X";
             this.label5.Click += new System.EventHandler(this.label5_Click_1);
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.White;
+            this.pictureBox2.Image = global::Capa_de_Presentacion.Properties.Resources.LogoCepeda;
+            this.pictureBox2.Location = new System.Drawing.Point(1, 26);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(403, 215);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 24;
+            this.pictureBox2.TabStop = false;
+            // 
+            // btnIngresar
+            // 
+            this.btnIngresar.BackColor = System.Drawing.Color.SpringGreen;
+            this.btnIngresar.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnIngresar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnIngresar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIngresar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.btnIngresar.ForeColor = System.Drawing.Color.Black;
+            this.btnIngresar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_entrar;
+            this.btnIngresar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnIngresar.Location = new System.Drawing.Point(101, 162);
+            this.btnIngresar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnIngresar.Name = "btnIngresar";
+            this.btnIngresar.Size = new System.Drawing.Size(133, 39);
+            this.btnIngresar.TabIndex = 4;
+            this.btnIngresar.Text = "Ingresar";
+            this.btnIngresar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnIngresar.UseVisualStyleBackColor = false;
+            this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(173)))), ((int)(((byte)(229)))));
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(403, 674);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox2);
@@ -303,9 +309,9 @@
             this.Load += new System.EventHandler(this.FrmLogin_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -36,6 +36,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.id_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_caja = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ingresos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.egresos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtBuscarCaja = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblDir = new System.Windows.Forms.Label();
@@ -53,6 +58,9 @@
             this.lbling = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.montogasto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtdescripciondegasto = new System.Windows.Forms.TextBox();
             this.txtmontogasto = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -60,14 +68,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtmonto_inicial = new System.Windows.Forms.TextBox();
             this.agregargasto = new System.Windows.Forms.Button();
-            this.id_pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_caja = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ingresos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.egresos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.montogasto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -120,6 +120,47 @@
             this.dataGridView1.Size = new System.Drawing.Size(476, 434);
             this.dataGridView1.TabIndex = 0;
             // 
+            // id_pago
+            // 
+            this.id_pago.HeaderText = "ID Pago";
+            this.id_pago.MinimumWidth = 80;
+            this.id_pago.Name = "id_pago";
+            this.id_pago.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.id_pago.Width = 80;
+            // 
+            // id_caja
+            // 
+            this.id_caja.HeaderText = "ID Caja";
+            this.id_caja.MinimumWidth = 6;
+            this.id_caja.Name = "id_caja";
+            this.id_caja.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.id_caja.Visible = false;
+            this.id_caja.Width = 125;
+            // 
+            // monto
+            // 
+            this.monto.HeaderText = "Monto venta";
+            this.monto.MinimumWidth = 120;
+            this.monto.Name = "monto";
+            this.monto.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.monto.Width = 120;
+            // 
+            // ingresos
+            // 
+            this.ingresos.HeaderText = "Pagos";
+            this.ingresos.MinimumWidth = 110;
+            this.ingresos.Name = "ingresos";
+            this.ingresos.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ingresos.Width = 110;
+            // 
+            // egresos
+            // 
+            this.egresos.HeaderText = "Devueltas";
+            this.egresos.MinimumWidth = 110;
+            this.egresos.Name = "egresos";
+            this.egresos.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.egresos.Width = 110;
+            // 
             // txtBuscarCaja
             // 
             this.txtBuscarCaja.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -134,7 +175,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.MidnightBlue;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(23, 79);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
@@ -148,7 +191,7 @@
             this.lblDir.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDir.Location = new System.Drawing.Point(1302, 240);
             this.lblDir.Name = "lblDir";
-            this.lblDir.Size = new System.Drawing.Size(24, 17);
+            this.lblDir.Size = new System.Drawing.Size(22, 16);
             this.lblDir.TabIndex = 54;
             this.lblDir.Text = "dir";
             // 
@@ -158,7 +201,7 @@
             this.lblLogo.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLogo.Location = new System.Drawing.Point(1300, 211);
             this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(65, 29);
+            this.lblLogo.Size = new System.Drawing.Size(61, 27);
             this.lblLogo.TabIndex = 53;
             this.lblLogo.Text = "logo";
             // 
@@ -188,11 +231,11 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Red;
             this.label2.Location = new System.Drawing.Point(909, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 25);
+            this.label2.Size = new System.Drawing.Size(28, 27);
             this.label2.TabIndex = 55;
             this.label2.Text = "X";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -200,7 +243,9 @@
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.MidnightBlue;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(363, 25);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(256, 29);
@@ -210,7 +255,9 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.MidnightBlue;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(23, 556);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
@@ -221,7 +268,9 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.MidnightBlue;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(23, 585);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
@@ -232,7 +281,9 @@
             // lblgastos
             // 
             this.lblgastos.AutoSize = true;
+            this.lblgastos.BackColor = System.Drawing.Color.MidnightBlue;
             this.lblgastos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblgastos.ForeColor = System.Drawing.Color.White;
             this.lblgastos.Location = new System.Drawing.Point(23, 615);
             this.lblgastos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblgastos.Name = "lblgastos";
@@ -243,7 +294,9 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.MidnightBlue;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(23, 646);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
@@ -254,8 +307,9 @@
             // lbltotal
             // 
             this.lbltotal.AutoSize = true;
+            this.lbltotal.BackColor = System.Drawing.Color.MidnightBlue;
             this.lbltotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltotal.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.lbltotal.ForeColor = System.Drawing.Color.White;
             this.lbltotal.Location = new System.Drawing.Point(172, 646);
             this.lbltotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbltotal.Name = "lbltotal";
@@ -266,8 +320,9 @@
             // lbldeu
             // 
             this.lbldeu.AutoSize = true;
+            this.lbldeu.BackColor = System.Drawing.Color.MidnightBlue;
             this.lbldeu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbldeu.ForeColor = System.Drawing.Color.Gold;
+            this.lbldeu.ForeColor = System.Drawing.Color.White;
             this.lbldeu.Location = new System.Drawing.Point(172, 615);
             this.lbldeu.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbldeu.Name = "lbldeu";
@@ -278,8 +333,9 @@
             // lblegr
             // 
             this.lblegr.AutoSize = true;
+            this.lblegr.BackColor = System.Drawing.Color.MidnightBlue;
             this.lblegr.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblegr.ForeColor = System.Drawing.Color.Red;
+            this.lblegr.ForeColor = System.Drawing.Color.White;
             this.lblegr.Location = new System.Drawing.Point(172, 585);
             this.lblegr.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblegr.Name = "lblegr";
@@ -290,8 +346,9 @@
             // lbling
             // 
             this.lbling.AutoSize = true;
+            this.lbling.BackColor = System.Drawing.Color.MidnightBlue;
             this.lbling.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbling.ForeColor = System.Drawing.Color.GreenYellow;
+            this.lbling.ForeColor = System.Drawing.Color.White;
             this.lbling.Location = new System.Drawing.Point(172, 556);
             this.lbling.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbling.Name = "lbling";
@@ -345,6 +402,31 @@
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             this.dataGridView2.DoubleClick += new System.EventHandler(this.dataGridView2_DoubleClick);
             // 
+            // id
+            // 
+            this.id.HeaderText = "Id Gasto";
+            this.id.MinimumWidth = 6;
+            this.id.Name = "id";
+            this.id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.id.Visible = false;
+            this.id.Width = 125;
+            // 
+            // descripcion
+            // 
+            this.descripcion.HeaderText = "Descripcion";
+            this.descripcion.MinimumWidth = 150;
+            this.descripcion.Name = "descripcion";
+            this.descripcion.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.descripcion.Width = 150;
+            // 
+            // montogasto
+            // 
+            this.montogasto.HeaderText = "Monto";
+            this.montogasto.MinimumWidth = 120;
+            this.montogasto.Name = "montogasto";
+            this.montogasto.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.montogasto.Width = 120;
+            // 
             // txtdescripciondegasto
             // 
             this.txtdescripciondegasto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -368,7 +450,9 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.MidnightBlue;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(524, 123);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
@@ -379,7 +463,9 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.MidnightBlue;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(524, 164);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
@@ -390,7 +476,9 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.MidnightBlue;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(630, 79);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
@@ -424,77 +512,11 @@
             this.agregargasto.UseVisualStyleBackColor = false;
             this.agregargasto.Click += new System.EventHandler(this.agregargasto_Click_1);
             // 
-            // id_pago
-            // 
-            this.id_pago.HeaderText = "ID Pago";
-            this.id_pago.MinimumWidth = 80;
-            this.id_pago.Name = "id_pago";
-            this.id_pago.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.id_pago.Width = 80;
-            // 
-            // id_caja
-            // 
-            this.id_caja.HeaderText = "ID Caja";
-            this.id_caja.MinimumWidth = 6;
-            this.id_caja.Name = "id_caja";
-            this.id_caja.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.id_caja.Visible = false;
-            this.id_caja.Width = 125;
-            // 
-            // monto
-            // 
-            this.monto.HeaderText = "Monto venta";
-            this.monto.MinimumWidth = 120;
-            this.monto.Name = "monto";
-            this.monto.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.monto.Width = 120;
-            // 
-            // ingresos
-            // 
-            this.ingresos.HeaderText = "Pagos";
-            this.ingresos.MinimumWidth = 110;
-            this.ingresos.Name = "ingresos";
-            this.ingresos.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ingresos.Width = 110;
-            // 
-            // egresos
-            // 
-            this.egresos.HeaderText = "Devueltas";
-            this.egresos.MinimumWidth = 110;
-            this.egresos.Name = "egresos";
-            this.egresos.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.egresos.Width = 110;
-            // 
-            // id
-            // 
-            this.id.HeaderText = "Id Gasto";
-            this.id.MinimumWidth = 6;
-            this.id.Name = "id";
-            this.id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.id.Visible = false;
-            this.id.Width = 125;
-            // 
-            // descripcion
-            // 
-            this.descripcion.HeaderText = "Descripcion";
-            this.descripcion.MinimumWidth = 150;
-            this.descripcion.Name = "descripcion";
-            this.descripcion.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.descripcion.Width = 150;
-            // 
-            // montogasto
-            // 
-            this.montogasto.HeaderText = "Monto";
-            this.montogasto.MinimumWidth = 120;
-            this.montogasto.Name = "montogasto";
-            this.montogasto.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.montogasto.Width = 120;
-            // 
             // frmMovimientoCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
+            this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(945, 682);
             this.Controls.Add(this.agregargasto);
             this.Controls.Add(this.txtmonto_inicial);

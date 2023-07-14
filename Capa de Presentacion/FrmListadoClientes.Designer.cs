@@ -79,6 +79,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Control;
             this.label1.Location = new System.Drawing.Point(25, 99);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
@@ -382,6 +383,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.SystemColors.Control;
             this.label3.Location = new System.Drawing.Point(459, 43);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(238, 29);
@@ -482,6 +484,7 @@
             // chkClienteNoRegistrado
             // 
             this.chkClienteNoRegistrado.AutoSize = true;
+            this.chkClienteNoRegistrado.ForeColor = System.Drawing.SystemColors.Control;
             this.chkClienteNoRegistrado.Location = new System.Drawing.Point(950, 216);
             this.chkClienteNoRegistrado.Name = "chkClienteNoRegistrado";
             this.chkClienteNoRegistrado.Size = new System.Drawing.Size(158, 20);
@@ -504,7 +507,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SeaGreen;
+            this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(1129, 531);
             this.Controls.Add(this.txtTelefono);
             this.Controls.Add(this.chkClienteNoRegistrado);
