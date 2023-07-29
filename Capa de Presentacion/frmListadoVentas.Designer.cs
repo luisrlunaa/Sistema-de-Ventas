@@ -107,6 +107,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnEspOtrasImp = new System.Windows.Forms.Button();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.CategoryOfProducts = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CantidadOfProducts = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -130,13 +131,14 @@
             this.chkid = new System.Windows.Forms.CheckBox();
             this.chknombre = new System.Windows.Forms.CheckBox();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.btnEspOilsImp = new System.Windows.Forms.Button();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txttotalventaespecificaFilterAndOils = new System.Windows.Forms.TextBox();
-            this.btnEspOtrasImp = new System.Windows.Forms.Button();
-            this.btnEspOilsImp = new System.Windows.Forms.Button();
+            this.chkProdName = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -648,7 +650,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(33, 78);
+            this.label1.Location = new System.Drawing.Point(33, 60);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(134, 18);
@@ -1009,6 +1011,26 @@
             this.panel2.Size = new System.Drawing.Size(460, 426);
             this.panel2.TabIndex = 113;
             // 
+            // btnEspOtrasImp
+            // 
+            this.btnEspOtrasImp.BackColor = System.Drawing.Color.Khaki;
+            this.btnEspOtrasImp.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnEspOtrasImp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnEspOtrasImp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btnEspOtrasImp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEspOtrasImp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEspOtrasImp.ForeColor = System.Drawing.Color.Black;
+            this.btnEspOtrasImp.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
+            this.btnEspOtrasImp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEspOtrasImp.Location = new System.Drawing.Point(418, 0);
+            this.btnEspOtrasImp.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEspOtrasImp.Name = "btnEspOtrasImp";
+            this.btnEspOtrasImp.Size = new System.Drawing.Size(42, 39);
+            this.btnEspOtrasImp.TabIndex = 156;
+            this.btnEspOtrasImp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnEspOtrasImp.UseVisualStyleBackColor = false;
+            this.btnEspOtrasImp.Click += new System.EventHandler(this.btnEspOtrasImp_Click);
+            // 
             // dataGridView3
             // 
             this.dataGridView3.AllowUserToAddRows = false;
@@ -1153,7 +1175,7 @@
             // vereliminadas
             // 
             this.vereliminadas.AutoSize = true;
-            this.vereliminadas.Location = new System.Drawing.Point(15, 54);
+            this.vereliminadas.Location = new System.Drawing.Point(15, 36);
             this.vereliminadas.Name = "vereliminadas";
             this.vereliminadas.Size = new System.Drawing.Size(120, 20);
             this.vereliminadas.TabIndex = 120;
@@ -1227,7 +1249,7 @@
             // cbPendiente
             // 
             this.cbPendiente.AutoSize = true;
-            this.cbPendiente.Location = new System.Drawing.Point(15, 31);
+            this.cbPendiente.Location = new System.Drawing.Point(15, 13);
             this.cbPendiente.Name = "cbPendiente";
             this.cbPendiente.Size = new System.Drawing.Size(97, 20);
             this.cbPendiente.TabIndex = 128;
@@ -1259,7 +1281,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(33, 100);
+            this.label8.Location = new System.Drawing.Point(33, 82);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(182, 18);
@@ -1269,7 +1291,7 @@
             // chkid
             // 
             this.chkid.AutoSize = true;
-            this.chkid.Location = new System.Drawing.Point(15, 78);
+            this.chkid.Location = new System.Drawing.Point(15, 60);
             this.chkid.Name = "chkid";
             this.chkid.Size = new System.Drawing.Size(18, 17);
             this.chkid.TabIndex = 134;
@@ -1279,7 +1301,7 @@
             // chknombre
             // 
             this.chknombre.AutoSize = true;
-            this.chknombre.Location = new System.Drawing.Point(15, 101);
+            this.chknombre.Location = new System.Drawing.Point(15, 83);
             this.chknombre.Name = "chknombre";
             this.chknombre.Size = new System.Drawing.Size(18, 17);
             this.chknombre.TabIndex = 135;
@@ -1295,6 +1317,26 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(460, 152);
             this.panel4.TabIndex = 114;
+            // 
+            // btnEspOilsImp
+            // 
+            this.btnEspOilsImp.BackColor = System.Drawing.Color.Khaki;
+            this.btnEspOilsImp.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnEspOilsImp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnEspOilsImp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btnEspOilsImp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEspOilsImp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEspOilsImp.ForeColor = System.Drawing.Color.Black;
+            this.btnEspOilsImp.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
+            this.btnEspOilsImp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEspOilsImp.Location = new System.Drawing.Point(422, 0);
+            this.btnEspOilsImp.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEspOilsImp.Name = "btnEspOilsImp";
+            this.btnEspOilsImp.Size = new System.Drawing.Size(42, 39);
+            this.btnEspOilsImp.TabIndex = 157;
+            this.btnEspOilsImp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnEspOilsImp.UseVisualStyleBackColor = false;
+            this.btnEspOilsImp.Click += new System.EventHandler(this.btnEspOilsImp_Click);
             // 
             // dataGridView4
             // 
@@ -1374,45 +1416,26 @@
             this.txttotalventaespecificaFilterAndOils.TabIndex = 136;
             this.txttotalventaespecificaFilterAndOils.Visible = false;
             // 
-            // btnEspOtrasImp
+            // chkProdName
             // 
-            this.btnEspOtrasImp.BackColor = System.Drawing.Color.Khaki;
-            this.btnEspOtrasImp.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnEspOtrasImp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnEspOtrasImp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.btnEspOtrasImp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEspOtrasImp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEspOtrasImp.ForeColor = System.Drawing.Color.Black;
-            this.btnEspOtrasImp.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
-            this.btnEspOtrasImp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEspOtrasImp.Location = new System.Drawing.Point(418, 0);
-            this.btnEspOtrasImp.Margin = new System.Windows.Forms.Padding(4);
-            this.btnEspOtrasImp.Name = "btnEspOtrasImp";
-            this.btnEspOtrasImp.Size = new System.Drawing.Size(42, 39);
-            this.btnEspOtrasImp.TabIndex = 156;
-            this.btnEspOtrasImp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnEspOtrasImp.UseVisualStyleBackColor = false;
-            this.btnEspOtrasImp.Click += new System.EventHandler(this.btnEspOtrasImp_Click);
+            this.chkProdName.AutoSize = true;
+            this.chkProdName.Location = new System.Drawing.Point(15, 104);
+            this.chkProdName.Name = "chkProdName";
+            this.chkProdName.Size = new System.Drawing.Size(18, 17);
+            this.chkProdName.TabIndex = 138;
+            this.chkProdName.UseVisualStyleBackColor = true;
+            this.chkProdName.CheckedChanged += new System.EventHandler(this.chkProdName_CheckedChanged);
             // 
-            // btnEspOilsImp
+            // label13
             // 
-            this.btnEspOilsImp.BackColor = System.Drawing.Color.Khaki;
-            this.btnEspOilsImp.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnEspOilsImp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnEspOilsImp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.btnEspOilsImp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEspOilsImp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEspOilsImp.ForeColor = System.Drawing.Color.Black;
-            this.btnEspOilsImp.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
-            this.btnEspOilsImp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEspOilsImp.Location = new System.Drawing.Point(422, 0);
-            this.btnEspOilsImp.Margin = new System.Windows.Forms.Padding(4);
-            this.btnEspOilsImp.Name = "btnEspOilsImp";
-            this.btnEspOilsImp.Size = new System.Drawing.Size(42, 39);
-            this.btnEspOilsImp.TabIndex = 157;
-            this.btnEspOilsImp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnEspOilsImp.UseVisualStyleBackColor = false;
-            this.btnEspOilsImp.Click += new System.EventHandler(this.btnEspOilsImp_Click);
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(33, 103);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(140, 18);
+            this.label13.TabIndex = 137;
+            this.label13.Text = "Filtrar por Producto:";
             // 
             // frmListadoVentas
             // 
@@ -1420,6 +1443,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(1386, 731);
+            this.Controls.Add(this.chkProdName);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.txttotalventaespecificaFilterAndOils);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.chknombre);
@@ -1583,5 +1608,7 @@
         public System.Windows.Forms.TextBox txttotalventaespecificaFilterAndOils;
         public System.Windows.Forms.Button btnEspOtrasImp;
         public System.Windows.Forms.Button btnEspOilsImp;
+        private System.Windows.Forms.CheckBox chkProdName;
+        private System.Windows.Forms.Label label13;
     }
 }
