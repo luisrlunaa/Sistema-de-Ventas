@@ -632,6 +632,12 @@ namespace Capa_de_Presentacion
             Program.Id = 0;
             Program.tipo = "";
             llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+            var fecha1 = tempSalesData.FirstOrDefault().FechaVenta;
+            var fecha2 = tempSalesData.LastOrDefault().FechaVenta;
+            var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
+            llenar_categoryandquantity(newlistVentasPorCategoria);
+            var ganancias = Ganancias(tempSalesData);
+            GananciaTotal(ganancias);
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -653,6 +659,12 @@ namespace Capa_de_Presentacion
                     int id = Convert.ToInt32(txtBuscarid.Text);
                     var newlist = tempSalesData.Where(x => x.IdVenta == id).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    var fecha1 = newlist.FirstOrDefault().FechaVenta;
+                    var fecha2 = newlist.LastOrDefault().FechaVenta;
+                    var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
+                    llenar_categoryandquantity(newlistVentasPorCategoria);
+                    var ganancias = Ganancias(newlist);
+                    GananciaTotal(ganancias);
                 }
             }
             else if (chknombre.Checked && chkid.Checked == false)
@@ -662,11 +674,39 @@ namespace Capa_de_Presentacion
                     string name = txtBuscarid.Text;
                     var newlist = tempSalesData.Where(x => x.NombreCliente.ToLower().Contains(name.ToLower()) || x.Vehiculo.ToLower().Contains(name.ToLower())).ToList();
                     llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    var fecha1 = newlist.FirstOrDefault().FechaVenta;
+                    var fecha2 = newlist.LastOrDefault().FechaVenta;
+                    var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
+                    llenar_categoryandquantity(newlistVentasPorCategoria);
+                    var ganancias = Ganancias(newlist);
+                    GananciaTotal(ganancias);
+                }
+            }
+            else if (chkProdName.Checked && chknombre.Checked == false && chkid.Checked == false)
+            {
+                if (txtBuscarid.Text.Length >= 4 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
+                {
+                    clsVentas V = new clsVentas();
+                    string name = txtBuscarid.Text;
+                    var lst = V.GetListadoVentasporNombreProducto(name);
+                    llenar_data(lst.OrderBy(x => x.IdVenta).ToList());
+                    var fecha1 = lst.FirstOrDefault().FechaVenta;
+                    var fecha2 = lst.LastOrDefault().FechaVenta;
+                    var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
+                    llenar_categoryandquantity(newlistVentasPorCategoria);
+                    var ganancias = Ganancias(lst);
+                    GananciaTotal(ganancias);
                 }
             }
             else
             {
                 llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                var fecha1 = tempSalesData.FirstOrDefault().FechaVenta;
+                var fecha2 = tempSalesData.LastOrDefault().FechaVenta;
+                var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
+                llenar_categoryandquantity(newlistVentasPorCategoria);
+                var ganancias = Ganancias(tempSalesData);
+                GananciaTotal(ganancias);
             }
         }
 
@@ -1425,6 +1465,19 @@ namespace Capa_de_Presentacion
             if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte Especifico de Aceites y Filtros", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
                 To_pdf1(false, true);
+            }
+        }
+
+        private void chkProdName_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!chkid.Checked && !chknombre.Checked && chkProdName.Checked)
+            {
+                txtBuscarid.Enabled = true;
+                isallowNumber = true;
+            }
+            else
+            {
+                txtBuscarid.Enabled = false;
             }
         }
     }

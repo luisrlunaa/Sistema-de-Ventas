@@ -1000,6 +1000,7 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text);
                 cmd.Parameters.Add("@Vehiculo", SqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(txtVeh.Text) ? "sin Vehiculo" : txtVeh.Text;
                 cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
+                cmd.Parameters.Add("@Rnc", SqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? "sin Identidad" : txtDocIdentidad.Text;
 
                 if (cbtipofactura.Text == "Credito")
                 {
