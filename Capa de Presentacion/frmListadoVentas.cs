@@ -43,8 +43,8 @@ namespace Capa_de_Presentacion
             {
                 llenar_data(tempSalesData);
 
-                var fecha1 = tempSalesData.FirstOrDefault().FechaVenta;
-                var fecha2 = tempSalesData.LastOrDefault().FechaVenta;
+                var fecha1 = tempSalesData?.FirstOrDefault()?.FechaVenta;
+                var fecha2 = tempSalesData?.LastOrDefault()?.FechaVenta;
 
                 var listVentCateg = new List<VentasPorCategoria>();
                 try
@@ -632,8 +632,8 @@ namespace Capa_de_Presentacion
             Program.Id = 0;
             Program.tipo = "";
             llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
-            var fecha1 = tempSalesData.FirstOrDefault().FechaVenta;
-            var fecha2 = tempSalesData.LastOrDefault().FechaVenta;
+            var fecha1 = tempSalesData?.FirstOrDefault()?.FechaVenta;
+            var fecha2 = tempSalesData?.LastOrDefault()?.FechaVenta;
             var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
             llenar_categoryandquantity(newlistVentasPorCategoria);
             var ganancias = Ganancias(tempSalesData);
@@ -661,8 +661,8 @@ namespace Capa_de_Presentacion
                     if (newlist != null && newlist.Any())
                     {
                         llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
-                        var fecha1 = newlist.FirstOrDefault().FechaVenta;
-                        var fecha2 = newlist.LastOrDefault().FechaVenta;
+                        var fecha1 = newlist?.FirstOrDefault()?.FechaVenta;
+                        var fecha2 = newlist?.LastOrDefault()?.FechaVenta;
                         var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
                         llenar_categoryandquantity(newlistVentasPorCategoria);
                         var ganancias = Ganancias(newlist);
@@ -679,8 +679,8 @@ namespace Capa_de_Presentacion
                     if(newlist != null && newlist.Any())
                     {
                         llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
-                        var fecha1 = newlist.FirstOrDefault().FechaVenta;
-                        var fecha2 = newlist.LastOrDefault().FechaVenta;
+                        var fecha1 = newlist?.FirstOrDefault()?.FechaVenta;
+                        var fecha2 = newlist?.LastOrDefault()?.FechaVenta;
                         var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
                         llenar_categoryandquantity(newlistVentasPorCategoria);
                         var ganancias = Ganancias(newlist);
@@ -698,8 +698,8 @@ namespace Capa_de_Presentacion
                     if (lst != null && lst.Any())
                     {
                         llenar_data(lst.OrderBy(x => x.IdVenta).ToList());
-                        var fecha1 = lst.FirstOrDefault().FechaVenta;
-                        var fecha2 = lst.LastOrDefault().FechaVenta;
+                        var fecha1 = lst?.FirstOrDefault()?.FechaVenta;
+                        var fecha2 = lst?.LastOrDefault()?.FechaVenta;
                         var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
                         llenar_categoryandquantity(newlistVentasPorCategoria);
                         var ganancias = Ganancias(lst);
@@ -712,8 +712,8 @@ namespace Capa_de_Presentacion
                 if (tempSalesData != null && tempSalesData.Any())
                 {
                     llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
-                    var fecha1 = tempSalesData.FirstOrDefault().FechaVenta;
-                    var fecha2 = tempSalesData.LastOrDefault().FechaVenta;
+                    var fecha1 = tempSalesData?.FirstOrDefault()?.FechaVenta;
+                    var fecha2 = tempSalesData?.LastOrDefault()?.FechaVenta;
                     var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
                     llenar_categoryandquantity(newlistVentasPorCategoria);
                     var ganancias = Ganancias(tempSalesData);
