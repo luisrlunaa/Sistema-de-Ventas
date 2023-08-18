@@ -93,6 +93,10 @@
             this.lblmensaje = new System.Windows.Forms.Label();
             this.lblmontoinicial = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txtTransferencia = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.txtTarjeta = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -199,7 +203,7 @@
             this.btnimprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnimprimir.ForeColor = System.Drawing.Color.Black;
             this.btnimprimir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnimprimir.Location = new System.Drawing.Point(403, 507);
+            this.btnimprimir.Location = new System.Drawing.Point(458, 592);
             this.btnimprimir.Margin = new System.Windows.Forms.Padding(4);
             this.btnimprimir.Name = "btnimprimir";
             this.btnimprimir.Size = new System.Drawing.Size(192, 33);
@@ -482,7 +486,7 @@
             this.btnregistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnregistrar.ForeColor = System.Drawing.Color.Black;
             this.btnregistrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnregistrar.Location = new System.Drawing.Point(403, 507);
+            this.btnregistrar.Location = new System.Drawing.Point(458, 592);
             this.btnregistrar.Margin = new System.Windows.Forms.Padding(4);
             this.btnregistrar.Name = "btnregistrar";
             this.btnregistrar.Size = new System.Drawing.Size(192, 33);
@@ -679,10 +683,10 @@
             // btnsuma
             // 
             this.btnsuma.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.btnsuma.Location = new System.Drawing.Point(603, 507);
+            this.btnsuma.Location = new System.Drawing.Point(554, 549);
             this.btnsuma.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnsuma.Name = "btnsuma";
-            this.btnsuma.Size = new System.Drawing.Size(35, 33);
+            this.btnsuma.Size = new System.Drawing.Size(96, 33);
             this.btnsuma.TabIndex = 149;
             this.btnsuma.Text = "+";
             this.btnsuma.UseVisualStyleBackColor = false;
@@ -838,12 +842,62 @@
             this.label21.TabIndex = 164;
             this.label21.Text = "Monto Inicial:";
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.SystemColors.Control;
+            this.label22.Location = new System.Drawing.Point(87, 601);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(175, 18);
+            this.label22.TabIndex = 176;
+            this.label22.Text = "Monto por Transferencia:";
+            // 
+            // txtTransferencia
+            // 
+            this.txtTransferencia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTransferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTransferencia.Location = new System.Drawing.Point(313, 600);
+            this.txtTransferencia.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTransferencia.Name = "txtTransferencia";
+            this.txtTransferencia.Size = new System.Drawing.Size(137, 25);
+            this.txtTransferencia.TabIndex = 175;
+            this.txtTransferencia.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.SystemColors.Control;
+            this.label23.Location = new System.Drawing.Point(87, 558);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(130, 18);
+            this.label23.TabIndex = 174;
+            this.label23.Text = "Monto por Tarjeta:";
+            // 
+            // txtTarjeta
+            // 
+            this.txtTarjeta.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTarjeta.Location = new System.Drawing.Point(313, 557);
+            this.txtTarjeta.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTarjeta.Name = "txtTarjeta";
+            this.txtTarjeta.Size = new System.Drawing.Size(137, 25);
+            this.txtTarjeta.TabIndex = 173;
+            this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // cuadredecaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(683, 574);
+            this.ClientSize = new System.Drawing.Size(693, 648);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.txtTransferencia);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.txtTarjeta);
             this.Controls.Add(this.lblmontoinicial);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.lblmensaje);
@@ -974,5 +1028,9 @@
         private System.Windows.Forms.Label lblmensaje;
         private System.Windows.Forms.Label lblmontoinicial;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox txtTransferencia;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox txtTarjeta;
     }
 }

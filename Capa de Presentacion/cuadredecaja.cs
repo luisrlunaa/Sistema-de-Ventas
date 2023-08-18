@@ -30,6 +30,8 @@ namespace Capa_de_Presentacion
             txtde500.Text = "0";
             txtde1000.Text = "0";
             txtde2000.Text = "0";
+            txtTarjeta.Text = "0";
+            txtTransferencia.Text = "0";
 
             txtde5.ReadOnly = false;
             txtde10.ReadOnly = false;
@@ -40,6 +42,8 @@ namespace Capa_de_Presentacion
             txtde500.ReadOnly = false;
             txtde1000.ReadOnly = false;
             txtde2000.ReadOnly = false;
+            txtTarjeta.ReadOnly = false;
+            txtTransferencia.ReadOnly = false;
 
             lbldeudas.Text = "...";
             lblmontocuadre.Text = "...";
@@ -66,7 +70,8 @@ namespace Capa_de_Presentacion
                         //tabla cuadre
                         cmd.Parameters.Add("@id", SqlDbType.Int).Value = Program.idcaja;
                         cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtde5.Text + "," + txtde10.Text + "," + txtde25.Text + ","
-                            + txtde50.Text + "," + txtde100.Text + "," + txtde200.Text + "," + txtde500.Text + "," + txtde1000.Text + "," + txtde2000.Text;
+                            + txtde50.Text + "," + txtde100.Text + "," + txtde200.Text + "," + txtde500.Text + "," + txtde1000.Text + "," + txtde2000.Text + ","
+                            + txtTarjeta.Text + "," + txtTransferencia.Text;
                         cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = montofinal;
                         cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
@@ -168,6 +173,11 @@ namespace Capa_de_Presentacion
                             txtde500.Text = valores[6];
                             txtde1000.Text = valores[7];
                             txtde2000.Text = valores[8];
+                            if (valores.Length > 8)
+                            {
+                                txtTarjeta.Text = valores[9];
+                                txtTransferencia.Text = valores[10];
+                            }
                         }
 
                         txtde5.ReadOnly = true;
@@ -179,6 +189,8 @@ namespace Capa_de_Presentacion
                         txtde500.ReadOnly = true;
                         txtde1000.ReadOnly = true;
                         txtde2000.ReadOnly = true;
+                        txtTarjeta.ReadOnly = true;
+                        txtTransferencia.ReadOnly = true;
 
                         lblmontocuadre.Text = dataGridView1.Rows[renglon].Cells[2].Value.ToString();
 
@@ -353,6 +365,9 @@ namespace Capa_de_Presentacion
                     doc.Add(new Paragraph("Total de Billetes de 500      : " + txtde500.Text));
                     doc.Add(new Paragraph("Total de Billetes de 1000    : " + txtde1000.Text));
                     doc.Add(new Paragraph("Total de Billetes de 2000    : " + txtde2000.Text));
+                    doc.Add(new Paragraph("Monto de Pagos por Tarjeta    : " + txtTarjeta.Text));
+                    doc.Add(new Paragraph("Monto de Pagos por Transferencias    : " + txtTransferencia.Text));
+
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("Totales de Ingresos  : " + lblmontoingreso.Text));
@@ -537,10 +552,20 @@ namespace Capa_de_Presentacion
             {
                 txtde2000.Text = "0";
             }
+            if (string.IsNullOrWhiteSpace(txtTarjeta.Text))
+            {
+                txtTarjeta.Text = "0";
+            }
+
+            if (string.IsNullOrWhiteSpace(txtTransferencia.Text))
+            {
+                txtTransferencia.Text = "0";
+            }
 
             decimal total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
                                        (50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) +
-                                       (500 * decimal.Parse(txtde500.Text)) + (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text)));
+                                       (500 * decimal.Parse(txtde500.Text)) + (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text))
+                                       + decimal.Parse(txtTarjeta.Text) + decimal.Parse(txtTransferencia.Text));
 
             if (cuadre < total)
             {
