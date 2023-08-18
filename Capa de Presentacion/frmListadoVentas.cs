@@ -195,10 +195,9 @@ namespace Capa_de_Presentacion
 
         public void llenar_categoryandquantity(List<VentasPorCategoria> listaventas)
         {
-            decimal total = 0;
             dataGridView3.Rows.Clear();
-            var lstOthers = listaventas.Where(c => c.CategoryOfProducts.ToLower() != "aceite" && c.CategoryOfProducts.ToLower() != "filtros").ToList();
-            foreach (var item in lstOthers)
+            //var lstOthers = listaventas.Where(c => c.CategoryOfProducts.ToLower() != "aceite" && c.CategoryOfProducts.ToLower() != "filtros").ToList();
+            foreach (var item in listaventas /*lstOthers*/)
             {
                 int renglon = dataGridView3.Rows.Add();
                 // especificamos en que fila se mostrará cada registro
@@ -210,23 +209,23 @@ namespace Capa_de_Presentacion
                 //total += item.PrecioOfProducts;
                 //txttotalventaespecifica.Text = Math.Round(total, 2).ToString("C2");
             }
-            txttotalventaespecifica.Text = Math.Round(lstOthers.Sum(x => x.PrecioOfProducts), 2).ToString("C2");
+            txttotalventaespecifica.Text = Math.Round(listaventas.Sum(x => x.PrecioOfProducts), 2).ToString("C2");
 
-            var lstFilterAndOils = listaventas.Where(c => c.CategoryOfProducts.ToLower() == "aceite" || c.CategoryOfProducts.ToLower() == "filtros").ToList();
-            dataGridView4.Rows.Clear();
-            foreach (var item in lstFilterAndOils)
-            {
-                int renglon = dataGridView4.Rows.Add();
-                // especificamos en que fila se mostrará cada registro
+            //var lstFilterAndOils = listaventas.Where(c => c.CategoryOfProducts.ToLower() == "aceite" || c.CategoryOfProducts.ToLower() == "filtros").ToList();
+            //dataGridView4.Rows.Clear();
+            //foreach (var item in lstFilterAndOils)
+            //{
+            //    int renglon = dataGridView4.Rows.Add();
+            //    // especificamos en que fila se mostrará cada registro
 
-                dataGridView4.Rows[renglon].Cells["dataGridViewTextBoxColumn3"].Value = item.PrecioOfProducts.ToString();
-                dataGridView4.Rows[renglon].Cells["dataGridViewTextBoxColumn2"].Value = item.CantidadOfProducts.ToString();
-                dataGridView4.Rows[renglon].Cells["dataGridViewTextBoxColumn1"].Value = item.CategoryOfProducts;
+            //    dataGridView4.Rows[renglon].Cells["dataGridViewTextBoxColumn3"].Value = item.PrecioOfProducts.ToString();
+            //    dataGridView4.Rows[renglon].Cells["dataGridViewTextBoxColumn2"].Value = item.CantidadOfProducts.ToString();
+            //    dataGridView4.Rows[renglon].Cells["dataGridViewTextBoxColumn1"].Value = item.CategoryOfProducts;
 
-                //total += item.PrecioOfProducts;
-                //txttotalventaespecificaFilterAndOils.Text = Math.Round(total, 2).ToString("C2");
-            }
-            txttotalventaespecificaFilterAndOils.Text = Math.Round(lstFilterAndOils.Sum(x => x.PrecioOfProducts), 2).ToString("C2");
+            //    //total += item.PrecioOfProducts;
+            //    //txttotalventaespecificaFilterAndOils.Text = Math.Round(total, 2).ToString("C2");
+            //}
+            //txttotalventaespecificaFilterAndOils.Text = Math.Round(lstFilterAndOils.Sum(x => x.PrecioOfProducts), 2).ToString("C2");
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -330,7 +329,7 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("No guardo el Archivo");
             }
         }
-        private void To_pdf1(bool espOther, bool espOils)
+        private void To_pdf1(/*bool espOther, bool espOils*/)
         {
             Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -379,25 +378,25 @@ namespace Capa_de_Presentacion
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("                       "));
 
-                    if (espOther)
-                    {
-                        doc.Add(new Paragraph("Reporte Especifico de Ventas Realizadas"));
+                    //if (espOther)
+                    //{
+                        //doc.Add(new Paragraph("Reporte Especifico de Ventas Realizadas"));
                         GenerarDocumento1(doc);
                         doc.AddCreationDate();
                         doc.Add(new Paragraph("                       "));
                         doc.Add(new Paragraph("Total      : " + txttotalventaespecifica.Text));
                         doc.Add(new Paragraph("                       "));
-                    }
+                    //}
 
-                    if (espOils)
-                    {
-                        doc.Add(new Paragraph("Reporte Especifico de Ventas de Filtros y Aceites Realizadas"));
-                        GenerarDocumento2(doc);
-                        doc.AddCreationDate();
-                        doc.Add(new Paragraph("                       "));
-                        doc.Add(new Paragraph("Total      : " + txttotalventaespecificaFilterAndOils.Text));
-                        doc.Add(new Paragraph("                       "));
-                    }
+                    //if (espOils)
+                    //{
+                    //    doc.Add(new Paragraph("Reporte Especifico de Ventas de Filtros y Aceites Realizadas"));
+                    //    GenerarDocumento2(doc);
+                    //    doc.AddCreationDate();
+                    //    doc.Add(new Paragraph("                       "));
+                    //    doc.Add(new Paragraph("Total      : " + txttotalventaespecificaFilterAndOils.Text));
+                    //    doc.Add(new Paragraph("                       "));
+                    //}
 
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("____________________________________"));
@@ -486,12 +485,12 @@ namespace Capa_de_Presentacion
                         doc.Add(new Paragraph("Total     : " + txttotalventaespecifica.Text));
                         doc.Add(new Paragraph("                       "));
 
-                        doc.Add(new Paragraph("Reporte Especifico de Ventas de Filtros y Aceites Realizadas"));
-                        GenerarDocumento2(doc);
-                        doc.AddCreationDate();
-                        doc.Add(new Paragraph("                       "));
-                        doc.Add(new Paragraph("Total     : " + txttotalventaespecificaFilterAndOils.Text));
-                        doc.Add(new Paragraph("                       "));
+                        //doc.Add(new Paragraph("Reporte Especifico de Ventas de Filtros y Aceites Realizadas"));
+                        //GenerarDocumento2(doc);
+                        //doc.AddCreationDate();
+                        //doc.Add(new Paragraph("                       "));
+                        //doc.Add(new Paragraph("Total     : " + txttotalventaespecificaFilterAndOils.Text));
+                        //doc.Add(new Paragraph("                       "));
 
                         doc.Add(new Paragraph("Total de Ventas      : " + txtTtal.Text));
                         doc.Add(new Paragraph("Total de Ganancias   : " + txtGanancias.Text));
@@ -512,10 +511,10 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("No guardo el Archivo");
             }
         }
-        public void GenerarDocumento2(Document document)
-        {
-            Pdf.GenerarDocumento(document, dataGridView4);
-        }
+        //public void GenerarDocumento2(Document document)
+        //{
+        //    Pdf.GenerarDocumento(document, dataGridView4);
+        //}
         public void GenerarDocumento1(Document document)
         {
             Pdf.GenerarDocumento(document, dataGridView3);
@@ -1466,17 +1465,9 @@ namespace Capa_de_Presentacion
 
         private void btnEspOtrasImp_Click(object sender, EventArgs e)
         {
-            if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte Especifico de Ventas \n (sin Aceites ni Filtros)", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte Especifico de Ventas", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                To_pdf1(true, false);
-            }
-        }
-
-        private void btnEspOilsImp_Click(object sender, EventArgs e)
-        {
-            if (DevComponents.DotNetBar.MessageBoxEx.Show("Imprimir Reporte Especifico de Aceites y Filtros", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-                To_pdf1(false, true);
+                To_pdf1(/*true, false*/);
             }
         }
 

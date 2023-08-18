@@ -138,6 +138,7 @@
             this.txtTel = new System.Windows.Forms.TextBox();
             this.txtresultTotalCBX = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
+            this.ckcRePrint = new System.Windows.Forms.CheckBox();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -1446,12 +1447,27 @@
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // ckcRePrint
+            // 
+            this.ckcRePrint.AutoSize = true;
+            this.ckcRePrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ckcRePrint.Location = new System.Drawing.Point(712, 70);
+            this.ckcRePrint.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ckcRePrint.Name = "ckcRePrint";
+            this.ckcRePrint.Size = new System.Drawing.Size(170, 20);
+            this.ckcRePrint.TabIndex = 153;
+            this.ckcRePrint.Text = "Re-Imprimir esta factura";
+            this.ckcRePrint.UseVisualStyleBackColor = true;
+            this.ckcRePrint.Visible = false;
+            this.ckcRePrint.CheckedChanged += new System.EventHandler(this.ckcRePrint_CheckedChanged);
+            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(928, 775);
+            this.Controls.Add(this.ckcRePrint);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.txtresultTotalCBX);
             this.Controls.Add(this.txtTel);
@@ -1638,5 +1654,6 @@
         public System.Windows.Forms.TextBox txtVeh;
         private System.Windows.Forms.Label txtresultTotalCBX;
         public System.Windows.Forms.Button button4;
+        private System.Windows.Forms.CheckBox ckcRePrint;
     }
 }

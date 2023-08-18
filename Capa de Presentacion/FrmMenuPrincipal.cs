@@ -114,6 +114,8 @@ namespace Capa_de_Presentacion
             llenar();
             if (panel3.Visible)
                 panel3.Visible = false;
+
+            btnAyB.Enabled = false;
         }
 
         public void llenar()
@@ -405,20 +407,20 @@ namespace Capa_de_Presentacion
         {
             panel1.Size = new Size(61, 606);
             button7.Text = ">>";
-            if (Program.abierto == false)
-            {
-                frmAlineamiento V = new frmAlineamiento();
-                V.txtUsu.Text = lblUsuario.Text;
-                V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
-                V.lblLogo.Text = lblLogo.Text;
-                V.lbldir.Text = lblDir.Text;
-                V.lbltel1.Text = lblTel1.Text;
-                V.lbltel.Text = lblTel2.Text;
-                V.lblCorreo.Text = lblCorreo.Text;
-                V.lblrnc.Text = lblrnc.Text;
-                Program.abierto = true;
-                V.Show();
-            }
+            //if (Program.abierto == false)
+            //{
+            //    frmAlineamiento V = new frmAlineamiento();
+            //    V.txtUsu.Text = lblUsuario.Text;
+            //    V.txtidEmp.Text = Convert.ToString(Program.IdEmpleadoLogueado);
+            //    V.lblLogo.Text = lblLogo.Text;
+            //    V.lbldir.Text = lblDir.Text;
+            //    V.lbltel1.Text = lblTel1.Text;
+            //    V.lbltel.Text = lblTel2.Text;
+            //    V.lblCorreo.Text = lblCorreo.Text;
+            //    V.lblrnc.Text = lblrnc.Text;
+            //    Program.abierto = true;
+            //    V.Show();
+            //}
         }
 
         private void button6_Click(object sender, EventArgs e)

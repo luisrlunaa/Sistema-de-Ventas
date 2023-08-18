@@ -383,6 +383,7 @@ namespace Capa_de_Presentacion
                 btnSalir.Visible = true;
                 lblabono.Visible = true;
                 lbltituloabono.Visible = true;
+                ckcRePrint.Visible = Program.total > 0;
                 var fecha = Convert.ToDateTime(Program.ultimafechapago);
                 lblabono.Text = fecha.Day + "/" + fecha.Month + "/" + fecha.Year;
             }
@@ -1928,6 +1929,20 @@ namespace Capa_de_Presentacion
         private void button4_Click(object sender, EventArgs e)
         {
             LoadComboCategories();
+        }
+
+        private void ckcRePrint_CheckedChanged(object sender, EventArgs e)
+        {
+            if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de factura desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            {
+                tickEstilo();
+            }
+            else
+            {
+                To_pdf();
+            }
+
+            ckcRePrint.Checked = false;
         }
     }
 }
