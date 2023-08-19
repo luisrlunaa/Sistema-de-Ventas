@@ -97,6 +97,8 @@
             this.txtTransferencia = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.txtTarjeta = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtCheques = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -203,7 +205,7 @@
             this.btnimprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnimprimir.ForeColor = System.Drawing.Color.Black;
             this.btnimprimir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnimprimir.Location = new System.Drawing.Point(458, 592);
+            this.btnimprimir.Location = new System.Drawing.Point(484, 635);
             this.btnimprimir.Margin = new System.Windows.Forms.Padding(4);
             this.btnimprimir.Name = "btnimprimir";
             this.btnimprimir.Size = new System.Drawing.Size(192, 33);
@@ -486,7 +488,7 @@
             this.btnregistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnregistrar.ForeColor = System.Drawing.Color.Black;
             this.btnregistrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnregistrar.Location = new System.Drawing.Point(458, 592);
+            this.btnregistrar.Location = new System.Drawing.Point(484, 635);
             this.btnregistrar.Margin = new System.Windows.Forms.Padding(4);
             this.btnregistrar.Name = "btnregistrar";
             this.btnregistrar.Size = new System.Drawing.Size(192, 33);
@@ -683,7 +685,7 @@
             // btnsuma
             // 
             this.btnsuma.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.btnsuma.Location = new System.Drawing.Point(554, 549);
+            this.btnsuma.Location = new System.Drawing.Point(580, 592);
             this.btnsuma.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnsuma.Name = "btnsuma";
             this.btnsuma.Size = new System.Drawing.Size(96, 33);
@@ -888,12 +890,37 @@
             this.txtTarjeta.TabIndex = 173;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.SystemColors.Control;
+            this.label24.Location = new System.Drawing.Point(87, 644);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(138, 18);
+            this.label24.TabIndex = 178;
+            this.label24.Text = "Monto en Cheques:";
+            // 
+            // txtCheques
+            // 
+            this.txtCheques.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCheques.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCheques.Location = new System.Drawing.Point(313, 643);
+            this.txtCheques.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCheques.Name = "txtCheques";
+            this.txtCheques.Size = new System.Drawing.Size(137, 25);
+            this.txtCheques.TabIndex = 177;
+            this.txtCheques.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // cuadredecaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(693, 648);
+            this.ClientSize = new System.Drawing.Size(693, 685);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.txtCheques);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.txtTransferencia);
             this.Controls.Add(this.label23);
@@ -1032,5 +1059,7 @@
         private System.Windows.Forms.TextBox txtTransferencia;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox txtTarjeta;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox txtCheques;
     }
 }
