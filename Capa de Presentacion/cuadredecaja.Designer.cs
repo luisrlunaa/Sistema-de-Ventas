@@ -97,6 +97,8 @@
             this.txtTransferencia = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.txtTarjeta = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtCheques = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -114,7 +116,7 @@
             this.agregargasto.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_buscar;
             this.agregargasto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.agregargasto.Location = new System.Drawing.Point(385, 76);
-            this.agregargasto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.agregargasto.Margin = new System.Windows.Forms.Padding(4);
             this.agregargasto.Name = "agregargasto";
             this.agregargasto.Size = new System.Drawing.Size(44, 33);
             this.agregargasto.TabIndex = 110;
@@ -200,8 +202,8 @@
             this.btnimprimir.ForeColor = System.Drawing.Color.Black;
             this.btnimprimir.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_imprimir;
             this.btnimprimir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnimprimir.Location = new System.Drawing.Point(458, 589);
-            this.btnimprimir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnimprimir.Location = new System.Drawing.Point(458, 631);
+            this.btnimprimir.Margin = new System.Windows.Forms.Padding(4);
             this.btnimprimir.Name = "btnimprimir";
             this.btnimprimir.Size = new System.Drawing.Size(192, 33);
             this.btnimprimir.TabIndex = 99;
@@ -226,7 +228,7 @@
             this.txtde50.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtde50.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtde50.Location = new System.Drawing.Point(313, 284);
-            this.txtde50.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtde50.Margin = new System.Windows.Forms.Padding(4);
             this.txtde50.Name = "txtde50";
             this.txtde50.Size = new System.Drawing.Size(57, 25);
             this.txtde50.TabIndex = 116;
@@ -260,7 +262,7 @@
             this.txtde100.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtde100.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtde100.Location = new System.Drawing.Point(313, 327);
-            this.txtde100.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtde100.Margin = new System.Windows.Forms.Padding(4);
             this.txtde100.Name = "txtde100";
             this.txtde100.Size = new System.Drawing.Size(57, 25);
             this.txtde100.TabIndex = 118;
@@ -283,7 +285,7 @@
             this.txtde200.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtde200.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtde200.Location = new System.Drawing.Point(313, 377);
-            this.txtde200.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtde200.Margin = new System.Windows.Forms.Padding(4);
             this.txtde200.Name = "txtde200";
             this.txtde200.Size = new System.Drawing.Size(57, 25);
             this.txtde200.TabIndex = 120;
@@ -306,7 +308,7 @@
             this.txtde500.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtde500.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtde500.Location = new System.Drawing.Point(313, 423);
-            this.txtde500.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtde500.Margin = new System.Windows.Forms.Padding(4);
             this.txtde500.Name = "txtde500";
             this.txtde500.Size = new System.Drawing.Size(57, 25);
             this.txtde500.TabIndex = 122;
@@ -318,7 +320,7 @@
             this.txtde10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtde10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtde10.Location = new System.Drawing.Point(313, 192);
-            this.txtde10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtde10.Margin = new System.Windows.Forms.Padding(4);
             this.txtde10.Name = "txtde10";
             this.txtde10.Size = new System.Drawing.Size(57, 25);
             this.txtde10.TabIndex = 130;
@@ -341,7 +343,7 @@
             this.txtde5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtde5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtde5.Location = new System.Drawing.Point(313, 149);
-            this.txtde5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtde5.Margin = new System.Windows.Forms.Padding(4);
             this.txtde5.Name = "txtde5";
             this.txtde5.Size = new System.Drawing.Size(57, 25);
             this.txtde5.TabIndex = 128;
@@ -364,7 +366,7 @@
             this.txtde2000.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtde2000.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtde2000.Location = new System.Drawing.Point(313, 512);
-            this.txtde2000.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtde2000.Margin = new System.Windows.Forms.Padding(4);
             this.txtde2000.Name = "txtde2000";
             this.txtde2000.Size = new System.Drawing.Size(57, 25);
             this.txtde2000.TabIndex = 126;
@@ -387,7 +389,7 @@
             this.txtde1000.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtde1000.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtde1000.Location = new System.Drawing.Point(313, 469);
-            this.txtde1000.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtde1000.Margin = new System.Windows.Forms.Padding(4);
             this.txtde1000.Name = "txtde1000";
             this.txtde1000.Size = new System.Drawing.Size(57, 25);
             this.txtde1000.TabIndex = 124;
@@ -399,7 +401,7 @@
             this.txtde25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtde25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtde25.Location = new System.Drawing.Point(313, 238);
-            this.txtde25.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtde25.Margin = new System.Windows.Forms.Padding(4);
             this.txtde25.Name = "txtde25";
             this.txtde25.Size = new System.Drawing.Size(57, 25);
             this.txtde25.TabIndex = 132;
@@ -434,7 +436,7 @@
             this.dpkfechacuadre.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpkfechacuadre.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dpkfechacuadre.Location = new System.Drawing.Point(229, 80);
-            this.dpkfechacuadre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dpkfechacuadre.Margin = new System.Windows.Forms.Padding(4);
             this.dpkfechacuadre.Name = "dpkfechacuadre";
             this.dpkfechacuadre.Size = new System.Drawing.Size(147, 22);
             this.dpkfechacuadre.TabIndex = 137;
@@ -473,8 +475,8 @@
             this.btnregistrar.ForeColor = System.Drawing.Color.Black;
             this.btnregistrar.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_enviar_documento_24;
             this.btnregistrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnregistrar.Location = new System.Drawing.Point(458, 589);
-            this.btnregistrar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnregistrar.Location = new System.Drawing.Point(458, 631);
+            this.btnregistrar.Margin = new System.Windows.Forms.Padding(4);
             this.btnregistrar.Name = "btnregistrar";
             this.btnregistrar.Size = new System.Drawing.Size(192, 33);
             this.btnregistrar.TabIndex = 140;
@@ -505,7 +507,7 @@
             this.idcuadre});
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(723, 151);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.Size = new System.Drawing.Size(420, 114);
@@ -559,7 +561,7 @@
             this.egresos});
             this.dataGridView2.EnableHeadersVisualStyles = false;
             this.dataGridView2.Location = new System.Drawing.Point(723, 295);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView2.Name = "dataGridView2";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.MidnightBlue;
@@ -670,7 +672,7 @@
             // btnsuma
             // 
             this.btnsuma.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.btnsuma.Location = new System.Drawing.Point(554, 546);
+            this.btnsuma.Location = new System.Drawing.Point(554, 588);
             this.btnsuma.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnsuma.Name = "btnsuma";
             this.btnsuma.Size = new System.Drawing.Size(96, 33);
@@ -871,12 +873,36 @@
             this.txtTarjeta.TabIndex = 166;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(87, 640);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(138, 18);
+            this.label24.TabIndex = 171;
+            this.label24.Text = "Monto en Cheques:";
+            // 
+            // txtCheques
+            // 
+            this.txtCheques.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCheques.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCheques.Location = new System.Drawing.Point(313, 639);
+            this.txtCheques.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCheques.Name = "txtCheques";
+            this.txtCheques.Size = new System.Drawing.Size(137, 25);
+            this.txtCheques.TabIndex = 170;
+            this.txtCheques.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // cuadredecaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
-            this.ClientSize = new System.Drawing.Size(668, 629);
+            this.ClientSize = new System.Drawing.Size(668, 677);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.txtCheques);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.txtTransferencia);
             this.Controls.Add(this.label23);
@@ -1015,5 +1041,7 @@
         private System.Windows.Forms.TextBox txtTransferencia;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox txtTarjeta;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox txtCheques;
     }
 }

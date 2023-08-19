@@ -32,6 +32,7 @@ namespace Capa_de_Presentacion
             txtde2000.Text = "0";
             txtTarjeta.Text = "0";
             txtTransferencia.Text = "0";
+            txtCheques.Text = "0";
 
             txtde5.ReadOnly = false;
             txtde10.ReadOnly = false;
@@ -44,6 +45,7 @@ namespace Capa_de_Presentacion
             txtde2000.ReadOnly = false;
             txtTarjeta.ReadOnly = false;
             txtTransferencia.ReadOnly = false;
+            txtCheques.ReadOnly = false;
 
             lbldeudas.Text = "...";
             lblmontocuadre.Text = "...";
@@ -71,7 +73,7 @@ namespace Capa_de_Presentacion
                         cmd.Parameters.Add("@id", SqlDbType.Int).Value = Program.idcaja;
                         cmd.Parameters.Add("@descripcion", SqlDbType.NVarChar).Value = txtde5.Text + "," + txtde10.Text + "," + txtde25.Text + ","
                             + txtde50.Text + "," + txtde100.Text + "," + txtde200.Text + "," + txtde500.Text + "," + txtde1000.Text + "," + txtde2000.Text + ","
-                            + txtTarjeta.Text + "," + txtTransferencia.Text;
+                            + txtTarjeta.Text + "," + txtTransferencia.Text + "," + txtCheques.Text;
                         cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = montofinal;
                         cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
@@ -177,6 +179,7 @@ namespace Capa_de_Presentacion
                             {
                                 txtTarjeta.Text = valores[9];
                                 txtTransferencia.Text = valores[10];
+                                txtCheques.Text = valores[11];
                             }
                         }
 
@@ -191,6 +194,7 @@ namespace Capa_de_Presentacion
                         txtde2000.ReadOnly = true;
                         txtTarjeta.ReadOnly = true;
                         txtTransferencia.ReadOnly = true;
+                        txtCheques.ReadOnly = true;
 
                         lblmontocuadre.Text = dataGridView1.Rows[renglon].Cells[2].Value.ToString();
 
@@ -367,6 +371,7 @@ namespace Capa_de_Presentacion
                     doc.Add(new Paragraph("Total de Billetes de 2000    : " + txtde2000.Text));
                     doc.Add(new Paragraph("Monto de Pagos por Tarjeta    : " + txtTarjeta.Text));
                     doc.Add(new Paragraph("Monto de Pagos por Transferencias    : " + txtTransferencia.Text));
+                    doc.Add(new Paragraph("Monto de Pagos en Cheques    : " + txtCheques.Text));
 
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("                       "));
@@ -562,10 +567,15 @@ namespace Capa_de_Presentacion
                 txtTransferencia.Text = "0";
             }
 
+            if (string.IsNullOrWhiteSpace(txtCheques.Text))
+            {
+                txtCheques.Text = "0";
+            }
+
             decimal total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
                                        (50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) +
                                        (500 * decimal.Parse(txtde500.Text)) + (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text))
-                                       + decimal.Parse(txtTarjeta.Text) + decimal.Parse(txtTransferencia.Text));
+                                       + decimal.Parse(txtTarjeta.Text) + decimal.Parse(txtTransferencia.Text) + decimal.Parse(txtCheques.Text));
 
             if (cuadre < total)
             {
