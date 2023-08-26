@@ -449,8 +449,8 @@ namespace Capa_de_Presentacion
                             dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                             dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
 
-                            subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                            igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            subtotal += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            igv += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("Igv")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
                         }
                     }
 
@@ -515,12 +515,12 @@ namespace Capa_de_Presentacion
                             dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                             dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
 
-                            subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                            igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            subtotal += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            igv += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("Igv")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
 
                             PrecioCompraProducto PCP = new PrecioCompraProducto();
                             PCP.ID = dr.GetInt32(dr.GetOrdinal("IdProducto"));
-                            PCP.Precio = dr.GetDecimal(dr.GetOrdinal("GananciaVenta"));
+                            PCP.Precio = Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("GananciaVenta")).ToString());
                             listProducts.Add(PCP);
                         }
                     }
