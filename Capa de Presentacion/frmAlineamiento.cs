@@ -106,7 +106,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("NOTA: " + txtnota.Text);
             ticket.TextoIzquierda("");
             //resumen de la venta
-            ticket.AgregarTotales("       COSTO TOTAL DEL SERVICIO : ", decimal.Parse(txtTotal.Text));
+            ticket.AgregarTotales("       COSTO TOTAL DEL SERVICIO : ", Program.GetTwoNumberAfterPointWithOutRound(txtTotal.Text));
 
             //TEXTO FINAL DEL TICKET
             ticket.TextoIzquierda("EXTRA");

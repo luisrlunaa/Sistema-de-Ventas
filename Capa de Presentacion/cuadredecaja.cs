@@ -493,17 +493,17 @@ namespace Capa_de_Presentacion
 
             if (lblmontogasto.Text != "...")
             {
-                gastos = Math.Round(Convert.ToDecimal(lblmontogasto.Text));
+                gastos = Program.GetTwoNumberAfterPointWithOutRound(lblmontogasto.Text);
             }
 
             if (lblmontoingreso.Text != "...")
             {
-                ingresos = Math.Round(Convert.ToDecimal(lblmontoingreso.Text));
+                ingresos = Program.GetTwoNumberAfterPointWithOutRound(lblmontoingreso.Text);
             }
 
             if (lblmontoinicial.Text != "...")
             {
-                inicial = Math.Round(Convert.ToDecimal(lblmontoinicial.Text));
+                inicial = Program.GetTwoNumberAfterPointWithOutRound(lblmontoinicial.Text);
             }
 
             decimal cuadre = (ingresos + inicial) - gastos;
@@ -572,10 +572,10 @@ namespace Capa_de_Presentacion
                 txtCheques.Text = "0";
             }
 
-            decimal total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
-                                       (50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) +
-                                       (500 * decimal.Parse(txtde500.Text)) + (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text))
-                                       + decimal.Parse(txtTarjeta.Text) + decimal.Parse(txtTransferencia.Text) + decimal.Parse(txtCheques.Text));
+            decimal total = Math.Round((5 * Program.GetTwoNumberAfterPointWithOutRound(txtde5.Text)) + (10 * Program.GetTwoNumberAfterPointWithOutRound(txtde10.Text)) + (25 * Program.GetTwoNumberAfterPointWithOutRound(txtde25.Text)) +
+                                       (50 * Program.GetTwoNumberAfterPointWithOutRound(txtde50.Text)) + (100 * Program.GetTwoNumberAfterPointWithOutRound(txtde100.Text)) + (200 * Program.GetTwoNumberAfterPointWithOutRound(txtde200.Text)) +
+                                       (500 * Program.GetTwoNumberAfterPointWithOutRound(txtde500.Text)) + (1000 * Program.GetTwoNumberAfterPointWithOutRound(txtde1000.Text)) + (2000 * Program.GetTwoNumberAfterPointWithOutRound(txtde2000.Text))
+                                       + Program.GetTwoNumberAfterPointWithOutRound(txtTarjeta.Text) + Program.GetTwoNumberAfterPointWithOutRound(txtTransferencia.Text) + Program.GetTwoNumberAfterPointWithOutRound(txtCheques.Text));
 
             if (cuadre < total)
             {

@@ -98,7 +98,7 @@ namespace Capa_de_Presentacion
                     }
                 }
 
-                tickEstilo(idsAmountToPay.FirstOrDefault().cliente, decimal.Parse(txtmonto.Text), decimal.Parse(txtRestante.Text));
+                tickEstilo(idsAmountToPay.FirstOrDefault().cliente, Program.GetTwoNumberAfterPointWithOutRound(txtmonto.Text), Program.GetTwoNumberAfterPointWithOutRound(txtRestante.Text));
             }
         }
 
