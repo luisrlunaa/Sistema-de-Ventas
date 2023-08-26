@@ -520,7 +520,7 @@ namespace Capa_de_Presentacion
 
                             PrecioCompraProducto PCP = new PrecioCompraProducto();
                             PCP.ID = dr.GetInt32(dr.GetOrdinal("IdProducto"));
-                            PCP.Precio = dr.GetDecimal(dr.GetOrdinal("GananciaVenta"));
+                            PCP.Precio = Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("GananciaVenta")).ToString());
                             listProducts.Add(PCP);
                         }
                     }
@@ -1370,7 +1370,7 @@ namespace Capa_de_Presentacion
             foreach (DataGridViewRow fila in dgvVenta.Rows)
             {
                 ticket.AgregaArticulo(fila.Cells["DescripcionP"].Value.ToString().Trim(),
-                                      fila.Cells["cantidadP"].Value.ToString().Trim() + "x" + Program.GetTwoNumberAfterPointWithOutRound(fila.Cells["PrecioU"].Value.ToString().Trim()),
+                                      fila.Cells["cantidadP"].Value.ToString().Trim() + "x" + fila.Cells["PrecioU"].Value.ToString().Trim(),
                                       Program.GetTwoNumberAfterPointWithOutRound(fila.Cells["SubtoTal"].Value.ToString().Trim()),
                                       Program.GetTwoNumberAfterPointWithOutRound(fila.Cells["IGV"].Value.ToString().Trim()));
             }
