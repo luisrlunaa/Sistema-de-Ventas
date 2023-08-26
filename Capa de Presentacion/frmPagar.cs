@@ -78,8 +78,8 @@ namespace Capa_de_Presentacion
         {
             if (txtpaga.Text != "")
             {
-                decimal paga = decimal.Parse(txtpaga.Text);
-                decimal total = decimal.Parse(txtmonto.Text);
+                decimal paga = Program.GetTwoNumberAfterPointWithOutRound(txtpaga.Text);
+                decimal total = Program.GetTwoNumberAfterPointWithOutRound(txtmonto.Text);
                 decimal devuelta = Math.Round(paga - total, 2);
                 txtDev.Text = devuelta.ToString();
             }

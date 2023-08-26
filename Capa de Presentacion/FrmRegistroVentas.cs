@@ -449,8 +449,8 @@ namespace Capa_de_Presentacion
                             dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                             dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
 
-                            subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                            igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            subtotal += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            igv += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("Igv")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
                         }
                     }
 
@@ -515,8 +515,8 @@ namespace Capa_de_Presentacion
                             dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                             dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
 
-                            subtotal += (dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                            igv += (dr.GetDecimal(dr.GetOrdinal("Igv")) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            subtotal += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            igv += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("Igv")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
 
                             PrecioCompraProducto PCP = new PrecioCompraProducto();
                             PCP.ID = dr.GetInt32(dr.GetOrdinal("IdProducto"));
@@ -1370,20 +1370,20 @@ namespace Capa_de_Presentacion
             foreach (DataGridViewRow fila in dgvVenta.Rows)
             {
                 ticket.AgregaArticulo(fila.Cells["DescripcionP"].Value.ToString().Trim(),
-                                      fila.Cells["cantidadP"].Value.ToString().Trim() + "x" + fila.Cells["PrecioU"].Value.ToString().Trim(),
-                                      decimal.Parse(fila.Cells["SubtoTal"].Value.ToString().Trim()),
-                                      decimal.Parse(fila.Cells["IGV"].Value.ToString().Trim()));
+                                      fila.Cells["cantidadP"].Value.ToString().Trim() + "x" + Program.GetTwoNumberAfterPointWithOutRound(fila.Cells["PrecioU"].Value.ToString().Trim()),
+                                      Program.GetTwoNumberAfterPointWithOutRound(fila.Cells["SubtoTal"].Value.ToString().Trim()),
+                                      Program.GetTwoNumberAfterPointWithOutRound(fila.Cells["IGV"].Value.ToString().Trim()));
             }
             ticket.TextoIzquierda(" ");
 
             //resumen de la venta
-            ticket.AgregarTotales("SUB-TOTAL    : ", decimal.Parse(lblsubt.Text));
-            ticket.AgregarTotales("ITBIS     : ", decimal.Parse(lbligv.Text));
-            ticket.AgregarTotales("TOTAL A PAGAR    : ", decimal.Parse(txttotal.Text));
+            ticket.AgregarTotales("SUB-TOTAL    : ", Program.GetTwoNumberAfterPointWithOutRound(lblsubt.Text));
+            ticket.AgregarTotales("ITBIS     : ", Program.GetTwoNumberAfterPointWithOutRound(lbligv.Text));
+            ticket.AgregarTotales("TOTAL A PAGAR    : ", Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text));
 
             if (cbtipofactura.Text.ToLower() == "credito")
             {
-                ticket.AgregarTotales("RESTANTE : ", decimal.Parse(restante.ToString()));
+                ticket.AgregarTotales("RESTANTE : ", Program.GetTwoNumberAfterPointWithOutRound(restante.ToString()));
             }
 
             if (cbxTotals.Items.Count > 0 && cbxTotals.Text != "ninguno")
@@ -1704,9 +1704,9 @@ namespace Capa_de_Presentacion
                         }
                     }
 
-                    decimal Sub = decimal.Parse(lblsubt.Text);
-                    decimal ITBIS = decimal.Parse(lbligv.Text);
-                    decimal total = decimal.Parse(txttotal.Text);
+                    decimal Sub = Program.GetTwoNumberAfterPointWithOutRound(lblsubt.Text);
+                    decimal ITBIS = Program.GetTwoNumberAfterPointWithOutRound(lbligv.Text);
+                    decimal total = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text);
 
                     doc.Add(new Paragraph("Sub-Total   : " + Sub.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("ITBIS   : " + ITBIS.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
@@ -1714,7 +1714,7 @@ namespace Capa_de_Presentacion
 
                     if (cbtipofactura.Text.ToLower() == "credito")
                     {
-                        doc.Add(new Paragraph("Total de Restante : " + restante.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Total de Restante : " + Program.GetTwoNumberAfterPointWithOutRound(restante.ToString()).ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
 
                     if (cbxTotals.Items.Count > 0 && cbxTotals.Text != "ninguno")

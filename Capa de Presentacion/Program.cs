@@ -147,17 +147,25 @@ namespace Capa_de_Presentacion
         public static decimal GetTwoNumberAfterPointWithOutRound(string number)
         {
             decimal output = 0;
-            if (!string.IsNullOrWhiteSpace(number) && number.Contains("."))
+            try
             {
-                var firtsPartOfNumber = number.Split('.')[0];
-                var secondPartOfNumber = number.Split('.')[1].Substring(0, 2);
-                var newNumber = firtsPartOfNumber + "." + secondPartOfNumber;
-                output = decimal.Parse(newNumber);
+                if (!string.IsNullOrWhiteSpace(number) && number.Contains("."))
+                {
+                    var firtsPartOfNumber = number.Split('.')[0];
+                    var secondPartOfNumber = number.Split('.')[1].Substring(0, 2);
+                    var newNumber = firtsPartOfNumber + "." + secondPartOfNumber;
+                    output = decimal.Parse(newNumber);
+                }
+                else
+                {
+                    output = decimal.Parse(number);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                output = decimal.Parse(number);
+                MessageBox.Show(ex.Message);
             }
+
             return output;
         }
     }

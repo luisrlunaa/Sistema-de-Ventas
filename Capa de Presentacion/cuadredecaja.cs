@@ -62,7 +62,7 @@ namespace Capa_de_Presentacion
             M.Desconectar();
             if (lblmontocuadre.Text != "..." && !string.IsNullOrWhiteSpace(lblmontocuadre.Text))
             {
-                decimal montofinal = Convert.ToDecimal(lblmontocuadre.Text);
+                decimal montofinal = Program.GetTwoNumberAfterPointWithOutRound(lblmontocuadre.Text);
                 if (montofinal > 0)
                 {
                     using (SqlCommand cmd = new SqlCommand("Registrarcuadre", M.conexion))
@@ -106,7 +106,7 @@ namespace Capa_de_Presentacion
 
             if (leer.Read() == true)
             {
-                var deuda = leer["deuda"] != null ? Math.Round(Convert.ToDecimal(leer["deuda"].ToString())) : 0;
+                var deuda = leer["deuda"] != null ? Math.Round(Program.GetTwoNumberAfterPointWithOutRound(leer["deuda"].ToString())) : 0;
                 lbldeudas.Text = deuda.ToString();
             }
             M.Desconectar();
@@ -249,14 +249,14 @@ namespace Capa_de_Presentacion
                     dataGridView2.Rows[renglon].Cells["egresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("egresos")));
                     if (Convert.ToInt32(dataGridView2.Rows[renglon].Cells["id_caja"].Value) == id)
                     {
-                        pagos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["ingresos"].Value), 2);
-                        devuelta += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["egresos"].Value), 2);
+                        pagos += Program.GetTwoNumberAfterPointWithOutRound(dataGridView2.Rows[renglon].Cells["ingresos"].Value.ToString());
+                        devuelta += Program.GetTwoNumberAfterPointWithOutRound(dataGridView2.Rows[renglon].Cells["egresos"].Value.ToString());
                     }
                 }
             }
 
             if (pagos > 0)
-                lblmontoingreso.Text = Math.Round(Convert.ToDecimal(pagos)).ToString();
+                lblmontoingreso.Text = Program.GetTwoNumberAfterPointWithOutRound(pagos.ToString()).ToString();
 
             M.Desconectar();
         }
@@ -274,13 +274,13 @@ namespace Capa_de_Presentacion
             if (leer.Read() == true)
             {
                 decimal montogasto = 0;
-                decimal montoactual = leer["montoactual"] != null ? Math.Round(Convert.ToDecimal(leer["montoactual"].ToString())) : 0;
-                decimal montoinicial = leer["monto_inicial"] != null ? Math.Round(Convert.ToDecimal(leer["monto_inicial"].ToString())) : 0;
+                decimal montoactual = leer["montoactual"] != null ? Math.Round(Program.GetTwoNumberAfterPointWithOutRound(leer["montoactual"].ToString())) : 0;
+                decimal montoinicial = leer["monto_inicial"] != null ? Math.Round(Program.GetTwoNumberAfterPointWithOutRound(leer["monto_inicial"].ToString())) : 0;
                 lblmontoinicial.Text = montoinicial.ToString();
 
                 if (lblmontogasto.Text != "...")
                 {
-                    montogasto = Math.Round(Convert.ToDecimal(lblmontogasto.Text));
+                    montogasto = Math.Round(Program.GetTwoNumberAfterPointWithOutRound(lblmontogasto.Text));
                 }
 
                 lblmontocaja.Text = Math.Round((montoactual - montogasto) + montoinicial).ToString();
@@ -301,7 +301,7 @@ namespace Capa_de_Presentacion
             SqlDataReader leer = comando.ExecuteReader();
             while (leer.Read())
             {
-                var monto = leer["monto"] != null ? Convert.ToDecimal(leer["monto"].ToString()) : 0;
+                var monto = leer["monto"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["monto"].ToString()) : 0;
                 totalgasto += monto;
             }
 
@@ -404,7 +404,7 @@ namespace Capa_de_Presentacion
 
             if (leer.Read() == true)
             {
-                lbldeudas.Text = leer["deuda"] != null ? Math.Round(Convert.ToDecimal(leer["deuda"].ToString())).ToString() : "0";
+                lbldeudas.Text = leer["deuda"] != null ? Math.Round(Program.GetTwoNumberAfterPointWithOutRound(leer["deuda"].ToString())).ToString() : "0";
             }
             M.Desconectar();
         }
@@ -493,17 +493,17 @@ namespace Capa_de_Presentacion
 
             if (lblmontogasto.Text != "...")
             {
-                gastos = Math.Round(Convert.ToDecimal(lblmontogasto.Text));
+                gastos = Program.GetTwoNumberAfterPointWithOutRound(lblmontogasto.Text);
             }
 
             if (lblmontoingreso.Text != "...")
             {
-                ingresos = Math.Round(Convert.ToDecimal(lblmontoingreso.Text));
+                ingresos = Program.GetTwoNumberAfterPointWithOutRound(lblmontoingreso.Text);
             }
 
             if (lblmontoinicial.Text != "...")
             {
-                inicial = Math.Round(Convert.ToDecimal(lblmontoinicial.Text));
+                inicial = Program.GetTwoNumberAfterPointWithOutRound(lblmontoinicial.Text);
             }
 
             decimal cuadre = (ingresos + inicial) - gastos;
@@ -572,10 +572,10 @@ namespace Capa_de_Presentacion
                 txtCheques.Text = "0";
             }
 
-            decimal total = Math.Round((5 * decimal.Parse(txtde5.Text)) + (10 * decimal.Parse(txtde10.Text)) + (25 * decimal.Parse(txtde25.Text)) +
-                                       (50 * decimal.Parse(txtde50.Text)) + (100 * decimal.Parse(txtde100.Text)) + (200 * decimal.Parse(txtde200.Text)) +
-                                       (500 * decimal.Parse(txtde500.Text)) + (1000 * decimal.Parse(txtde1000.Text)) + (2000 * decimal.Parse(txtde2000.Text))
-                                       + decimal.Parse(txtTarjeta.Text) + decimal.Parse(txtTransferencia.Text) + decimal.Parse(txtCheques.Text));
+            decimal total = Math.Round((5 * Program.GetTwoNumberAfterPointWithOutRound(txtde5.Text)) + (10 * Program.GetTwoNumberAfterPointWithOutRound(txtde10.Text)) + (25 * Program.GetTwoNumberAfterPointWithOutRound(txtde25.Text)) +
+                                       (50 * Program.GetTwoNumberAfterPointWithOutRound(txtde50.Text)) + (100 * Program.GetTwoNumberAfterPointWithOutRound(txtde100.Text)) + (200 * Program.GetTwoNumberAfterPointWithOutRound(txtde200.Text)) +
+                                       (500 * Program.GetTwoNumberAfterPointWithOutRound(txtde500.Text)) + (1000 * Program.GetTwoNumberAfterPointWithOutRound(txtde1000.Text)) + (2000 * Program.GetTwoNumberAfterPointWithOutRound(txtde2000.Text))
+                                       + Program.GetTwoNumberAfterPointWithOutRound(txtTarjeta.Text) + Program.GetTwoNumberAfterPointWithOutRound(txtTransferencia.Text) + Program.GetTwoNumberAfterPointWithOutRound(txtCheques.Text));
 
             if (cuadre < total)
             {
