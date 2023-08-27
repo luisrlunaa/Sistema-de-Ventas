@@ -458,6 +458,7 @@ namespace Capa_de_Presentacion
                     Program.igv = igv;
                     lblsubt.Text = subtotal.ToString();
                     lbligv.Text = igv.ToString();
+                    txttotal.Text = (subtotal + igv).ToString();
 
                     M.Desconectar();
                     buscaridcaja();
@@ -529,6 +530,7 @@ namespace Capa_de_Presentacion
                     Program.igv = igv;
                     lblsubt.Text = subtotal.ToString();
                     lbligv.Text = igv.ToString();
+                    txttotal.Text = (subtotal + igv).ToString();
 
                     M.Desconectar();
                 }
@@ -1714,7 +1716,7 @@ namespace Capa_de_Presentacion
 
                     if (cbtipofactura.Text.ToLower() == "credito")
                     {
-                        doc.Add(new Paragraph("Total de Restante : " + restante.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Total de Restante : " + Program.GetTwoNumberAfterPointWithOutRound(restante.ToString()).ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
 
                     if (cbxTotals.Items.Count > 0 && cbxTotals.Text != "ninguno")
