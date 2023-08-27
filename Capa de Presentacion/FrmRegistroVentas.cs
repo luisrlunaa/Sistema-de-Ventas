@@ -458,6 +458,7 @@ namespace Capa_de_Presentacion
                     Program.igv = igv;
                     lblsubt.Text = subtotal.ToString();
                     lbligv.Text = igv.ToString();
+                    txttotal.Text = (subtotal + igv).ToString();
 
                     M.Desconectar();
                     buscaridcaja();
@@ -529,6 +530,7 @@ namespace Capa_de_Presentacion
                     Program.igv = igv;
                     lblsubt.Text = subtotal.ToString();
                     lbligv.Text = igv.ToString();
+                    txttotal.Text = (subtotal + igv).ToString();
 
                     M.Desconectar();
                 }
