@@ -459,11 +459,6 @@ namespace Capa_de_Presentacion
                     lblsubt.Text = subtotal.ToString();
                     lbligv.Text = igv.ToString();
 
-                    if (Program.tipo != "Credito")
-                        txttotal.Text = (subtotal + igv).ToString();
-                    else
-                        txttotal.Text = Program.total.ToString();
-
                     M.Desconectar();
                     buscaridcaja();
                 }
@@ -534,11 +529,6 @@ namespace Capa_de_Presentacion
                     Program.igv = igv;
                     lblsubt.Text = subtotal.ToString();
                     lbligv.Text = igv.ToString();
-
-                    if (Program.tipo != "Credito")
-                        txttotal.Text = (subtotal + igv).ToString();
-                    else
-                        txttotal.Text = Program.total.ToString();
 
                     M.Desconectar();
                 }
