@@ -459,11 +459,6 @@ namespace Capa_de_Presentacion
                     lblsubt.Text = subtotal.ToString();
                     lbligv.Text = igv.ToString();
 
-                    if (Program.tipo != "Credito")
-                        txttotal.Text = (subtotal + igv).ToString();
-                    else
-                        txttotal.Text = Program.total.ToString();
-
                     M.Desconectar();
                     buscaridcaja();
                 }
@@ -534,11 +529,6 @@ namespace Capa_de_Presentacion
                     Program.igv = igv;
                     lblsubt.Text = subtotal.ToString();
                     lbligv.Text = igv.ToString();
-
-                    if (Program.tipo != "Credito")
-                        txttotal.Text = (subtotal + igv).ToString();
-                    else
-                        txttotal.Text = Program.total.ToString();
 
                     M.Desconectar();
                 }
@@ -1940,6 +1930,7 @@ namespace Capa_de_Presentacion
         {
             LoadComboCategories();
         }
+
         private void ckcRePrint_CheckedChanged_1(object sender, EventArgs e)
         {
             if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Que tipo de factura desea? \n Si=Pequeña \n No=Grande ", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
