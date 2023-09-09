@@ -20,6 +20,7 @@ namespace Capa_de_Presentacion
         clsManejador M = new clsManejador();
         private void button2_Click(object sender, EventArgs e)
         {
+            var idCaja = buscaridcaja();
             var monto = Program.GetTwoNumberAfterPointWithOutRound(txtmonto.Text);
             if (idsAmountToPay != null && idsAmountToPay.Any())
             {
@@ -28,71 +29,32 @@ namespace Capa_de_Presentacion
                     var nuevoMonto = monto - item.Total;
                     if (nuevoMonto > 0)
                     {
-                        using (SqlCommand cmd2 = new SqlCommand("pagoporcliente", M.conexion))
+                        var waspay = paysales(item.IdVenta, item.Total, 0, idCaja);
+                        if (waspay)
                         {
-                            M.Desconectar();
-                            cmd2.CommandType = CommandType.StoredProcedure;
-
-                            //Tabla de pago
-                            cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = item.IdVenta;
-                            cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
-                            cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = item.Total;
-                            cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = item.Total;
-                            cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
-
-                            try
-                            {
-                                M.Conectar();
-                                cmd2.ExecuteNonQuery();
-                                M.Desconectar();
-
-                                monto = nuevoMonto;
-                                var newItem = item;
-                                newItem.pagada = true;
-                                idsAmountToPay.Where(x => x.IdVenta == item.IdVenta)
-                                              .ToList()
-                                              .ForEach(y => y = newItem);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Error al guardar el pago. \n" + ex);
-                            }
+                            monto = nuevoMonto;
+                            var newItem = item;
+                            newItem.pagada = true;
+                            idsAmountToPay.Where(x => x.IdVenta == item.IdVenta)
+                                          .ToList()
+                                          .ForEach(y => y = newItem);
                         }
                     }
                     else
                     {
                         if (monto > 0 && monto < item.Total)
                         {
-                            using (SqlCommand cmd2 = new SqlCommand("pagoporcliente", M.conexion))
+                            var restante = item.Total - monto;
+                            var wasabonado = paysales(item.IdVenta, monto, restante, idCaja);
+                            if (wasabonado)
                             {
-                                M.Desconectar();
-                                cmd2.CommandType = CommandType.StoredProcedure;
-
-                                //Tabla de pago
-                                cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = item.IdVenta;
-                                cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = Program.idcaja;
-                                cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = monto;
-                                cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = monto;
-                                cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
-
-                                try
-                                {
-                                    M.Conectar();
-                                    cmd2.ExecuteNonQuery();
-                                    M.Desconectar();
-
-                                    var newItem = item;
-                                    newItem.abono = true;
-                                    newItem.montoPagado = monto;
-                                    idsAmountToPay.Where(x => x.IdVenta == item.IdVenta)
-                                                  .ToList()
-                                                  .ForEach(y => y = newItem);
-                                    monto = 0;
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show("Error al guardar el pago. \n" + ex);
-                                }
+                                var newItem = item;
+                                newItem.abono = true;
+                                newItem.montoPagado = monto;
+                                idsAmountToPay.Where(x => x.IdVenta == item.IdVenta)
+                                              .ToList()
+                                              .ForEach(y => y = newItem);
+                                monto = 0;
                             }
                         }
                     }
@@ -180,6 +142,81 @@ namespace Capa_de_Presentacion
             {
                 txtTotal.Text = idsAmountToPay.Sum(x => x.Total).ToString();
             }
+        }
+
+        private bool paysales(int idVenta, decimal pago, decimal restante, int idCaja)
+        {
+            M.Desconectar();
+            using (SqlCommand cmd = new SqlCommand("AbonaraVenta", M.conexion))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                //tabla Ventas
+                cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idVenta;
+                cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
+
+                try
+                {
+                    M.Conectar();
+                    cmd.ExecuteNonQuery();
+                    M.Desconectar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al realizar el abono. \n" + ex);
+                    return false;
+                }
+            }
+
+            using (SqlCommand cmd2 = new SqlCommand("Actualizarpagos_re", M.conexion))
+            {
+                cmd2.CommandType = CommandType.StoredProcedure;
+
+                //Tabla de pago
+                cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idVenta;
+                cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = 0;
+                cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = idCaja;
+                cmd2.Parameters.Add("@id_cajaAnterior", SqlDbType.Int).Value = idCaja;
+                cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = pago;
+                cmd2.Parameters.Add("@ingresos", SqlDbType.Decimal).Value = pago;
+                cmd2.Parameters.Add("@egresos", SqlDbType.Decimal).Value = 0;
+                cmd2.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
+                cmd2.Parameters.Add("@deuda", SqlDbType.Decimal).Value = restante;
+
+                try
+                {
+                    M.Conectar();
+                    cmd2.ExecuteNonQuery();
+                    M.Desconectar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Factura actualizada, pero hubo un Error al actualizar el pago en la caja. \n" + ex);
+                    return false;
+                }
+
+
+                return true;
+            }
+        }
+
+        public int buscaridcaja()
+        {
+            int id = 0;
+            M.Desconectar();
+            M.Conectar();
+            string sql = "select id_caja from Caja where fecha = convert(datetime,CONVERT(varchar(10), @fecha, 103),103)";
+            SqlCommand cmd = new SqlCommand(sql, M.conexion);
+            cmd.Parameters.AddWithValue("@fecha", DateTime.Today);
+
+            SqlDataReader reade = cmd.ExecuteReader();
+            if (reade.Read())
+            {
+                id = Convert.ToInt32(reade["id_caja"]);
+            }
+
+            M.Desconectar();
+            return id;
         }
     }
 }
