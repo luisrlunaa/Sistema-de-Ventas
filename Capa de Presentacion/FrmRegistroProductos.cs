@@ -83,9 +83,9 @@ namespace Capa_de_Presentacion
                                     cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
                                     cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
                                     cmd.Parameters.Add("@Stock", SqlDbType.Int).Value = txtStock.Text;
-                                    cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
-                                    cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
-                                    cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
+                                    cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtPCompra.Text);
+                                    cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtPVenta.Text);
+                                    cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtitbis.Text);
                                     cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
                                     cmd.Parameters.Add("@FechaVencimiento", SqlDbType.Date).Value = dateTimePicker1.Text;
                                     cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
@@ -195,9 +195,9 @@ namespace Capa_de_Presentacion
                                     cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text;
                                     cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text;
                                     cmd.Parameters.Add("@Stock", SqlDbType.Int).Value = txtStock.Text;
-                                    cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
-                                    cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
-                                    cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
+                                    cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtPCompra.Text);
+                                    cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtPVenta.Text);
+                                    cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtitbis.Text);
                                     cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
                                     cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
                                     cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = 0;
