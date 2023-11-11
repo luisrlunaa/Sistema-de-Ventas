@@ -55,7 +55,7 @@ namespace Capa_de_Presentacion
 
             txtPVenta.Enabled = Program.isAdminUser;
             txtIgv.Enabled = Program.isAdminUser;
-
+            txtDivisor.Text = "1.18";
             txtid.Text = "0";
             Program.ReImpresion = "";
             Program.datoscliente = "";
@@ -593,10 +593,12 @@ namespace Capa_de_Presentacion
                             if (!string.IsNullOrWhiteSpace(txtIgv.Text))
                                 itbis = Convert.ToDecimal(txtIgv.Text);
 
+                            var divisor = string.IsNullOrWhiteSpace(txtDivisor.Text) ? (decimal)1.18 : Convert.ToDecimal(txtDivisor.Text);
+                            var divisorArray = divisor.ToString().Split('.');
                             var Cant = decimal.Parse(txtCantidad.Text);
-                            var precioreal = Convert.ToDecimal(txtPVenta.Text);
-                            decimal newitbis = itbis == 0 ? precioreal * (decimal)0.16 : itbis;
-                            decimal pventa = (precioreal - newitbis);
+                            var precioreal = (Convert.ToDecimal(txtPVenta.Text) / divisor).ToString("F");
+                            var porcentaje = (Convert.ToDecimal(divisorArray[1]) / 100).ToString("F");
+                            var decimalitbis = itbis == 0 ? (Convert.ToDecimal(precioreal) * Convert.ToDecimal(porcentaje)).ToString("F") : itbis.ToString("F");
 
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
                             V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
@@ -604,10 +606,10 @@ namespace Capa_de_Presentacion
                             V.Cantidad = Cant;
                             V.PrecioCompra = Program.PrecioCompra;
 
-                            V.Igv = newitbis;
-                            V.PrecioVenta = pventa;
+                            V.Igv = Convert.ToDecimal(decimalitbis);
+                            V.PrecioVenta = Convert.ToDecimal(precioreal);
 
-                            V.SubTotal = (pventa + newitbis) * Cant;
+                            V.SubTotal = (Convert.ToDecimal(precioreal) + Convert.ToDecimal(decimalitbis)) * Cant;
                             btnAgregar.Visible = false;
                             lst.Add(V);
 
@@ -724,6 +726,7 @@ namespace Capa_de_Presentacion
             lblsubt.Text = "...";
             txttotal.Text = "...";
             lbligv.Text = "...";
+            txtDivisor.Text = "1.18";
             lblabono.Text = null;
 
             txtDocIdentidad.Clear();
