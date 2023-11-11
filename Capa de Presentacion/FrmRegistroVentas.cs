@@ -577,6 +577,7 @@ namespace Capa_de_Presentacion
         {
             if (string.IsNullOrWhiteSpace(txtPVenta.Text))
                 return;
+
             clsVentas V = new clsVentas();
             PrecioCompraProducto PCP = new PrecioCompraProducto();
 
@@ -588,20 +589,25 @@ namespace Capa_de_Presentacion
                     {
                         if (Convert.ToDecimal(txtStock.Text) >= Convert.ToDecimal(txtCantidad.Text))
                         {
+                            decimal itbis = 0;
+                            if (!string.IsNullOrWhiteSpace(txtIgv.Text))
+                                itbis = Convert.ToDecimal(txtIgv.Text);
+
                             var Cant = decimal.Parse(txtCantidad.Text);
+                            var precioreal = Convert.ToDecimal(txtPVenta.Text);
+                            decimal newitbis = itbis == 0 ? precioreal * (decimal)0.16 : itbis;
+                            decimal pventa = (precioreal - newitbis);
+
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
                             V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
                             V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).Trim();
                             V.Cantidad = Cant;
-
-                            if (!string.IsNullOrWhiteSpace(txtIgv.Text))
-                            {
-                                V.Igv = Convert.ToDecimal(txtIgv.Text);
-                            }
                             V.PrecioCompra = Program.PrecioCompra;
-                            V.PrecioVenta = Convert.ToDecimal(txtPVenta.Text);
 
-                            V.SubTotal = (Convert.ToDecimal(txtPVenta.Text) + Convert.ToDecimal(txtIgv.Text)) * Cant;
+                            V.Igv = newitbis;
+                            V.PrecioVenta = pventa;
+
+                            V.SubTotal = (pventa + newitbis) * Cant;
                             btnAgregar.Visible = false;
                             lst.Add(V);
 
