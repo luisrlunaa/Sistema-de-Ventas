@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Capa_de_Presentacion
 {
@@ -225,6 +226,22 @@ namespace Capa_de_Presentacion
         // agregar los articulos a la factura
         public void AgregaArticulo(string articulo, string cantxprecio, decimal Subtotal, decimal itbis)
         {
+            if (cantxprecio.ToString().Length > 15)
+            {
+                cortar = cantxprecio.ToString().Length - 15;
+                cantxprecio = cantxprecio.Remove(15, cortar);
+            }
+            if (Subtotal.ToString().Length > 12)
+            {
+                cortar = cantxprecio.ToString().Length - 12;
+                Subtotal = Convert.ToDecimal(itbis.ToString().Remove(12, cortar));
+            }
+            if (itbis.ToString().Length > 6)
+            {
+                cortar = itbis.ToString().Length - 6;
+                itbis = Convert.ToDecimal(itbis.ToString().Remove(6, cortar));
+            }
+
             // valida que cant precio e importe esten dentro del rango
             if (cantxprecio.ToString().Length <= 15 && Subtotal.ToString().Length <= 12 && itbis.ToString().Length <= 6)
             {
@@ -314,7 +331,8 @@ namespace Capa_de_Presentacion
             {
                 linea.AppendLine("valores ingresados para esta fila");
                 linea.AppendLine("superan las columnas soportadas por este");
-                throw new Exception("los valores ingresados para algunas filas del ticket/no superan las soportadas por este");
+                MessageBox.Show("los valores ingresados para algunas filas del ticket/no superan las soportadas por este");
+                return;
             }
         }
         //Metodos para enviar secuencias de escape a la impresora
