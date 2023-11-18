@@ -413,29 +413,64 @@ namespace Capa_de_Presentacion
             Program.abiertosecundarias = false;
             Program.abierto = false;
 
+            var dbName = M.conexion.Database;
             var dirs = new DirectoryInfo(@"" + Program.SqlFolder).FullName;
-            var (save, fileName) = MakeBackup(dirs, M.conexion.ConnectionString, M.conexion.Database);
-            if (save)
-            {
-                var destination = @"" + Program.WindUser + "\\" + fileName;
-                if (File.Exists(destination))
-                {
-                    File.Delete(destination);
-                }
-
-                File.Move(dirs + "\\" + fileName, destination);
-                MessageBox.Show("Backup de base de datos realizado y guardado");
-            }
-            else
-                MessageBox.Show("Error al realizar el Backup de base de datos");
-
-            Application.Exit();
+            string fileName = "_" + dbName + "_" + DateTime.Now.ToShortDateString().Replace("/", "-") + ".bak";
+            ReintentBackup(dbName, dirs, fileName);
         }
 
-        public (bool success, string filename) MakeBackup(string ubicacion, string strConnection, string dbName)
+        private void ReintentBackup(string dbName, string dirs, string fileName)
         {
-            string nombre = "_" + dbName + "_" + DateTime.Now.ToShortDateString().Replace("/", "-") + ".bak";
+            bool continueLoop = true;
 
+            while (continueLoop)
+            {
+                try
+                {
+                    var (save, message) = MakeBackup(dirs, M.conexion.ConnectionString, dbName, fileName);
+                    if (save)
+                    {
+                        var destination = @"" + Program.WindUser + "\\" + fileName;
+                        if (File.Exists(destination))
+                        {
+                            File.Delete(destination);
+                        }
+
+                        File.Move(dirs + "\\" + fileName, destination);
+                        MessageBox.Show("Copia de seguridad de base de datos realizado y guardado");
+                        continueLoop = false;
+                        Application.Exit();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al realizar la Copia de seguridad de base de datos");
+                        DialogResult result = MessageBox.Show("¿Desea intentar nuevamente guardar la copia de seguridad?", "Sistema de Ventas", MessageBoxButtons.YesNo);
+
+                        if (result == DialogResult.No)
+                        {
+                            continueLoop = false;
+                            // Exit the application if the user chooses not to continue
+                            Application.Exit();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                    DialogResult result = MessageBox.Show("¿Desea intentar nuevamente guardar la copia de seguridad?", "Sistema de Ventas", MessageBoxButtons.YesNo);
+
+                    if (result == DialogResult.No)
+                    {
+                        continueLoop = false;
+                        // Exit the application if the user chooses not to continue
+                        Application.Exit();
+                    }
+                }
+            }
+        }
+
+        public (bool success, string message) MakeBackup(string ubicacion, string strConnection, string dbName, string nombre)
+        {
             var con = new SqlConnection(strConnection);
             var cmd = new SqlCommand("BACKUP DATABASE " + dbName + " TO DISK='" + ubicacion + "/" + nombre + "'", con);
 
@@ -443,13 +478,13 @@ namespace Capa_de_Presentacion
             {
                 con.Open();
                 cmd.ExecuteNonQuery();
-                return (true, nombre);
+                return (true, "Success");
             }
             catch (Exception ex)
             {
-                ex.Message.ToString();
+                MessageBox.Show(ex.Message.ToString());
                 con.Close();
-                return (false, string.Empty);
+                return (false, ex.Message.ToString());
             }
         }
 
