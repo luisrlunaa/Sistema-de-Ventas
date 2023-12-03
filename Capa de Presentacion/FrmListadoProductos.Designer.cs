@@ -101,6 +101,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.cbtipogomafiltro = new System.Windows.Forms.CheckBox();
             this.ckbPrecioCompra = new System.Windows.Forms.CheckBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -251,6 +252,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.SeaGreen;
+            this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.cbcategoriafiltro);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.txttotalG);
@@ -633,6 +635,15 @@
             this.ckbPrecioCompra.UseVisualStyleBackColor = true;
             this.ckbPrecioCompra.CheckedChanged += new System.EventHandler(this.ckbPrecioCompra_CheckedChanged);
             // 
+            // radioButton2
+            // 
+            resources.ApplyResources(this.radioButton2, "radioButton2");
+            this.radioButton2.BackColor = System.Drawing.Color.Transparent;
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.TabStop = true;
+            this.radioButton2.UseVisualStyleBackColor = false;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
             // FrmListadoProductos
             // 
             resources.ApplyResources(this, "$this");
@@ -747,5 +758,6 @@
         private System.Windows.Forms.CheckBox cbcategoriafiltro;
         private System.Windows.Forms.CheckBox cbtipogomafiltro;
         private System.Windows.Forms.CheckBox ckbPrecioCompra;
+        private System.Windows.Forms.RadioButton radioButton2;
     }
 }

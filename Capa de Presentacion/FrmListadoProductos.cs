@@ -784,6 +784,12 @@ namespace Capa_de_Presentacion
                 ckbPrecioCompra.Visible = false;
             }
         }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            var lst = listProducto.Where(c => c.m_Stock > 0).OrderByDescending(x => x.m_Stock).ToList();
+            CargarListado(lst);
+        }
     }
 }
 
