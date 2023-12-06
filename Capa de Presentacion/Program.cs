@@ -6,9 +6,9 @@ namespace Capa_de_Presentacion
     public static class Program
     {
         /// <summary>
-        /// Punto de entrada principal para la aplicación.      
+        /// Punto de entrada principal para la aplicación.
         /// </summary>
-        /// 
+        ///
         public static bool isSaler;
         public static bool isAdminUser;
         public static bool abierto;
@@ -152,8 +152,8 @@ namespace Capa_de_Presentacion
                 if (!string.IsNullOrWhiteSpace(number) && number.Contains("."))
                 {
                     var firtsPartOfNumber = number.Split('.')[0];
-                    var secondPartOfNumber = number.Split('.')[1].Substring(0, 2);
-                    var newNumber = firtsPartOfNumber + "." + secondPartOfNumber;
+                    var secondPartOfNumber = number.Split('.')[1].Substring(0, (number.Split('.')[1].Length));
+                    var newNumber = firtsPartOfNumber + "." + (secondPartOfNumber.Length == 1 ? secondPartOfNumber + 0 : secondPartOfNumber);
                     output = decimal.Parse(newNumber);
                 }
                 else
