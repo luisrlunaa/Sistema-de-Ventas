@@ -151,9 +151,14 @@ namespace Capa_de_Presentacion
             {
                 if (!string.IsNullOrWhiteSpace(number) && number.Contains("."))
                 {
-                    var firtsPartOfNumber = number.Split('.')[0];
-                    var secondPartOfNumber = number.Split('.')[1].Substring(0, (number.Split('.')[1].Length));
-                    var newNumber = firtsPartOfNumber + "." + (secondPartOfNumber.Length == 1 ? secondPartOfNumber + 0 : secondPartOfNumber);
+                    var numberArray = number.Split('.');
+                    var firstPartOfNumber = numberArray[0];
+
+                    // Ensuring the second part of the number has two digits
+                    string secondPartOfNumber = numberArray.Length > 1 ? numberArray[1] : "00";
+                    secondPartOfNumber = secondPartOfNumber.Length > 1 ? secondPartOfNumber.Substring(0, 2) : secondPartOfNumber + "0";
+
+                    var newNumber = firstPartOfNumber + "." + secondPartOfNumber;
                     output = decimal.Parse(newNumber);
                 }
                 else
