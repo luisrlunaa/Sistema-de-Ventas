@@ -43,39 +43,10 @@ namespace Capa_de_Presentacion
             {
                 llenar_data(tempSalesData);
 
-                var fecha1 = tempSalesData.FirstOrDefault().FechaVenta;
-                var fecha2 = tempSalesData.LastOrDefault().FechaVenta;
+                var fecha1 = tempSalesData?.FirstOrDefault()?.FechaVenta;
+                var fecha2 = tempSalesData?.LastOrDefault()?.FechaVenta;
 
-                var listVentCateg = new List<VentasPorCategoria>();
-                try
-                {
-                    string sql = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.SubTotal) AS PrecioOfProducts" +
-                        " FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
-                        "INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta  where venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) AND " +
-                        "convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103) and dbo.Venta.borrado=" + borrado + "group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
-
-                    SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
-                    cmd1.Parameters.AddWithValue("@fecha1", fecha1);
-                    cmd1.Parameters.AddWithValue("@fecha2", fecha2);
-
-                    DataTable dtPC = new DataTable();
-                    SqlDataAdapter da = new SqlDataAdapter(cmd1);
-                    da.Fill(dtPC);
-
-                    foreach (DataRow reader in dtPC.Rows)
-                    {
-                        VentasPorCategoria ventaPC = new VentasPorCategoria();
-                        ventaPC.PrecioOfProducts = reader["PrecioOfProducts"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["PrecioOfProducts"].ToString());
-                        ventaPC.CantidadOfProducts = reader["CantidadOfProducts"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["CantidadOfProducts"].ToString());
-                        ventaPC.CategoryOfProducts = reader["CategoryOfProducts"] == DBNull.Value ? string.Empty : reader["CategoryOfProducts"].ToString();
-                        listVentCateg.Add(ventaPC);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ex.Message.ToString();
-                }
-
+                var listVentCateg = ListaPorCatergoria(fecha1.Value, fecha2.Value, borrado);
                 llenar_categoryandquantity(listVentCateg);
             }
         }
@@ -380,12 +351,12 @@ namespace Capa_de_Presentacion
 
                     //if (espOther)
                     //{
-                        doc.Add(new Paragraph("Reporte Especifico de Ventas Realizadas"));
-                        GenerarDocumento1(doc);
-                        doc.AddCreationDate();
-                        doc.Add(new Paragraph("                       "));
-                        doc.Add(new Paragraph("Total      : " + txttotalventaespecifica.Text));
-                        doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("Reporte Especifico de Ventas Realizadas"));
+                    GenerarDocumento1(doc);
+                    doc.AddCreationDate();
+                    doc.Add(new Paragraph("                       "));
+                    doc.Add(new Paragraph("Total      : " + txttotalventaespecifica.Text));
+                    doc.Add(new Paragraph("                       "));
                     //}
 
                     //if (espOils)
