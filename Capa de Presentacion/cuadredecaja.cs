@@ -57,7 +57,7 @@ namespace Capa_de_Presentacion
             if (lblmontocuadre.Text != "..." && !string.IsNullOrWhiteSpace(lblmontocuadre.Text))
             {
                 decimal montofinal = Convert.ToDecimal(lblmontocuadre.Text);
-                if (montofinal > 0)
+                if (montofinal >= 0)
                 {
                     using (SqlCommand cmd = new SqlCommand("Registrarcuadre", M.conexion))
                     {
@@ -409,14 +409,18 @@ namespace Capa_de_Presentacion
 
         private void label18_Click(object sender, EventArgs e)
         {
-            M.Desconectar();
-            Program.abiertosecundario = false;
-            Program.abierto = false;
+            DialogResult result = MessageBox.Show("¿Desea guardar la copia de seguridad?", "Sistema de Ventas", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                M.Desconectar();
+                Program.abiertosecundario = false;
+                Program.abierto = false;
 
-            var dbName = M.conexion.Database;
-            var dirs = new DirectoryInfo(@"" + Program.SqlFolder).FullName;
-            string fileName = "_" + dbName + "_" + DateTime.Now.ToShortDateString().Replace("/", "-") + ".bak";
-            ReintentBackup(dbName, dirs, fileName);
+                var dbName = M.conexion.Database;
+                var dirs = new DirectoryInfo(@"" + Program.SqlFolder).FullName;
+                string fileName = "_" + dbName + "_" + DateTime.Now.ToShortDateString().Replace("/", "-") + ".bak";
+                ReintentBackup(dbName, dirs, fileName);
+            }
         }
 
         private void ReintentBackup(string dbName, string dirs, string fileName)
@@ -443,7 +447,7 @@ namespace Capa_de_Presentacion
                     }
                     else
                     {
-                        MessageBox.Show("Error al realizar la Copia de seguridad de base de datos");
+                        MessageBox.Show("Error al realizar la Copia de seguridad de base de datos" + message);
                         DialogResult result = MessageBox.Show("¿Desea intentar nuevamente guardar la copia de seguridad?", "Sistema de Ventas", MessageBoxButtons.YesNo);
 
                         if (result == DialogResult.No)
