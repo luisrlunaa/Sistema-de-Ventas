@@ -1030,10 +1030,16 @@ namespace Capa_de_Presentacion
             clsManejador M = new clsManejador();
             try
             {
-                string sql = "SELECT Categoria.Descripcion AS CategoryOfProducts,sum(DetalleVenta.Cantidad) AS CantidadOfProducts,sum(DetalleVenta.SubTotal) AS PrecioOfProducts" +
-                    " FROM DetalleVenta INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria " +
-                    "INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta  where venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) AND " +
-                    "convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103) and dbo.Venta.borrado=" + borrador + "group by Categoria.Descripcion ORDER BY sum(DetalleVenta.Cantidad) DESC";
+                string sql = string.Format(@"SELECT Categoria.Descripcion AS CategoryOfProducts, SUM(DetalleVenta.Cantidad) AS CantidadOfProducts, SUM(DetalleVenta.SubTotal) AS PrecioOfProducts
+                                             FROM DetalleVenta
+                                             INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto
+                                             INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria
+                                             INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta
+                                             WHERE Venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) 
+                                             AND convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103) 
+                                             AND dbo.Venta.borrado = {0}
+                                             GROUP BY Categoria.Descripcion
+                                             ORDER BY SUM(DetalleVenta.Cantidad) DESC", borrador);
 
                 SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
                 cmd1.Parameters.AddWithValue("@fecha1", fecha1);
