@@ -130,6 +130,13 @@
             this.txttotalventaespecificaFilterAndOils = new System.Windows.Forms.TextBox();
             this.chkProdName = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.dtHastaSearchBy = new System.Windows.Forms.DateTimePicker();
+            this.dtDesdeSearchBy = new System.Windows.Forms.DateTimePicker();
+            this.btnSearchBy = new System.Windows.Forms.Button();
+            this.txtMarcaSearchBy = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -1386,12 +1393,98 @@
             this.label13.TabIndex = 139;
             this.label13.Text = "Filtrar por Producto:";
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Location = new System.Drawing.Point(1139, 558);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(46, 16);
+            this.label15.TabIndex = 152;
+            this.label15.Text = "Hasta:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.ForeColor = System.Drawing.Color.White;
+            this.label16.Location = new System.Drawing.Point(941, 560);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(54, 16);
+            this.label16.TabIndex = 151;
+            this.label16.Text = "Desde :";
+            // 
+            // dtHastaSearchBy
+            // 
+            this.dtHastaSearchBy.CustomFormat = "";
+            this.dtHastaSearchBy.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtHastaSearchBy.Location = new System.Drawing.Point(1108, 576);
+            this.dtHastaSearchBy.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dtHastaSearchBy.Name = "dtHastaSearchBy";
+            this.dtHastaSearchBy.Size = new System.Drawing.Size(121, 22);
+            this.dtHastaSearchBy.TabIndex = 149;
+            // 
+            // dtDesdeSearchBy
+            // 
+            this.dtDesdeSearchBy.CustomFormat = "";
+            this.dtDesdeSearchBy.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtDesdeSearchBy.Location = new System.Drawing.Point(918, 578);
+            this.dtDesdeSearchBy.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dtDesdeSearchBy.Name = "dtDesdeSearchBy";
+            this.dtDesdeSearchBy.Size = new System.Drawing.Size(121, 22);
+            this.dtDesdeSearchBy.TabIndex = 150;
+            // 
+            // btnSearchBy
+            // 
+            this.btnSearchBy.BackColor = System.Drawing.Color.DarkGray;
+            this.btnSearchBy.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnSearchBy.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnSearchBy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btnSearchBy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearchBy.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchBy.ForeColor = System.Drawing.Color.Black;
+            this.btnSearchBy.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_buscar;
+            this.btnSearchBy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearchBy.Location = new System.Drawing.Point(1172, 502);
+            this.btnSearchBy.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSearchBy.Name = "btnSearchBy";
+            this.btnSearchBy.Size = new System.Drawing.Size(57, 42);
+            this.btnSearchBy.TabIndex = 148;
+            this.btnSearchBy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSearchBy.UseVisualStyleBackColor = false;
+            this.btnSearchBy.Click += new System.EventHandler(this.btnSearchBy_Click);
+            // 
+            // txtMarcaSearchBy
+            // 
+            this.txtMarcaSearchBy.Location = new System.Drawing.Point(918, 522);
+            this.txtMarcaSearchBy.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtMarcaSearchBy.Name = "txtMarcaSearchBy";
+            this.txtMarcaSearchBy.Size = new System.Drawing.Size(237, 22);
+            this.txtMarcaSearchBy.TabIndex = 147;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(916, 502);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(170, 18);
+            this.label14.TabIndex = 146;
+            this.label14.Text = "Buscar Total Por Marca:";
+            // 
             // frmListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(1386, 731);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.dtHastaSearchBy);
+            this.Controls.Add(this.dtDesdeSearchBy);
+            this.Controls.Add(this.btnSearchBy);
+            this.Controls.Add(this.txtMarcaSearchBy);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.chkProdName);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.txttotalventaespecificaFilterAndOils);
@@ -1550,5 +1643,12 @@
         public System.Windows.Forms.Button btnEspOtrasImp;
         private System.Windows.Forms.CheckBox chkProdName;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.DateTimePicker dtHastaSearchBy;
+        private System.Windows.Forms.DateTimePicker dtDesdeSearchBy;
+        private System.Windows.Forms.Button btnSearchBy;
+        public System.Windows.Forms.TextBox txtMarcaSearchBy;
+        public System.Windows.Forms.Label label14;
     }
 }
