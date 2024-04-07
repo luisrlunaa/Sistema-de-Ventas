@@ -1096,6 +1096,7 @@ namespace Capa_de_Presentacion
 
             return listVentCateg;
         }
+
         public decimal Ganancias(List<Venta> newlist)
         {
             decimal ganancia = 0;
@@ -1127,6 +1128,66 @@ namespace Capa_de_Presentacion
                 ex.Message.ToString();
                 return ganancia;
             }
+        }
+
+        public List<VentasPorCategoria> ListaPorMarca(DateTime fecha1, DateTime fecha2, string marca)
+        {
+            var listVentCateg = new List<VentasPorCategoria>();
+            clsManejador M = new clsManejador();
+            try
+            {
+                string sql = string.Empty;
+                if (string.IsNullOrWhiteSpace(marca))
+                    sql = @"SELECT CASE WHEN CHARINDEX('-', REVERSE(DetalleVenta.detalles_P)) > 0 THEN RIGHT(DetalleVenta.detalles_P, CHARINDEX('-', REVERSE(DetalleVenta.detalles_P)) - 1) ELSE DetalleVenta.detalles_P END AS CategoryOfProducts,
+                                SUM(DetalleVenta.SubTotal) AS PrecioOfProducts,
+                                SUM(DetalleVenta.Cantidad) AS CantidadOfProducts
+                            FROM DetalleVenta
+                            INNER JOIN Producto ON DetalleVenta.IdProducto = Producto.IdProducto
+                            INNER JOIN Categoria ON Producto.IdCategoria = Categoria.IdCategoria
+                            INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta
+                            WHERE Venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) 
+                            AND convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103) 
+                            GROUP BY CASE WHEN CHARINDEX('-', REVERSE(DetalleVenta.detalles_P)) > 0 
+                                    THEN RIGHT(DetalleVenta.detalles_P, CHARINDEX('-', REVERSE(DetalleVenta.detalles_P)) - 1) 
+                                    ELSE DetalleVenta.detalles_P END
+                            ORDER BY SUM(DetalleVenta.Cantidad) DESC";
+                else
+                    sql = string.Format(@"SELECT '{0}' AS CategoryOfProducts,
+                                             SUM(DetalleVenta.SubTotal) AS PrecioOfProducts,
+                                             SUM(DetalleVenta.Cantidad) AS CantidadOfProducts
+                                             FROM DetalleVenta
+                                             INNER JOIN Venta ON DetalleVenta.IdVenta = Venta.IdVenta
+                                             WHERE Venta.FechaVenta BETWEEN convert(datetime, CONVERT(varchar(10),@fecha1, 103), 103) 
+                                             AND convert(datetime, CONVERT(varchar(10),@fecha2, 103), 103) 
+                                             AND DetalleVenta.detalles_P LIKE '%{0}%'", marca);
+
+                if (!string.IsNullOrWhiteSpace(sql))
+                {
+                    SqlCommand cmd1 = new SqlCommand(sql, M.conexion);
+                    cmd1.Parameters.AddWithValue("@fecha1", fecha1);
+                    cmd1.Parameters.AddWithValue("@fecha2", fecha2);
+
+                    DataTable dtPC = new DataTable();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd1);
+                    da.Fill(dtPC);
+
+                    foreach (DataRow reader in dtPC.Rows)
+                    {
+                        VentasPorCategoria ventaPC = new VentasPorCategoria();
+                        ventaPC.PrecioOfProducts = reader["PrecioOfProducts"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["PrecioOfProducts"].ToString());
+                        ventaPC.CantidadOfProducts = reader["CantidadOfProducts"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["CantidadOfProducts"].ToString());
+                        ventaPC.CategoryOfProducts = reader["CategoryOfProducts"] == DBNull.Value ? string.Empty : reader["CategoryOfProducts"].ToString();
+                        listVentCateg.Add(ventaPC);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return listVentCateg;
+            }
+
+            return listVentCateg;
         }
         #endregion
 
@@ -1459,6 +1520,12 @@ namespace Capa_de_Presentacion
             {
                 txtBuscarid.Enabled = false;
             }
+        }
+
+        private void btnSearchBy_Click(object sender, EventArgs e)
+        {
+            var lst = ListaPorMarca(dtDesdeSearchBy.Value.Date, dtHastaSearchBy.Value.Date, txtMarcaSearchBy.Text);
+            llenar_categoryandquantity(lst);
         }
     }
 }
