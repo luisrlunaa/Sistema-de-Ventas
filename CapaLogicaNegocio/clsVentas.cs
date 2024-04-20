@@ -57,7 +57,7 @@ namespace CapaLogicaNegocio
             return M.Listado("ListadoVentas", null);
         }
 
-        public List<Venta> GetListadoVentas(DateTime date, DateTime date1)
+        public List<Venta> GetListadoVentas(DateTime date, DateTime date1, string brand)
         {
             var newlist = new List<Venta>();
             var isSame = date.Date == date1.Date;
@@ -69,7 +69,7 @@ namespace CapaLogicaNegocio
                           venta.IdEmpleado,Restante = COALESCE(venta.Restante, 0),venta.TipoFactura,NombreCliente = COALESCE(venta.NombreCliente, 'Sin Cliente'),
                           CASE WHEN (SELECT COUNT(DNI) FROM Cliente WHERE IdCliente = venta.IdCliente) > 0 THEN (SELECT DNI FROM Cliente WHERE IdCliente = venta.IdCliente) WHEN Venta.IdentidadCliente != '' THEN Venta.IdentidadCliente ELSE 'Sin Identidad' END AS Identidad,
                           Telefono = COALESCE(venta.Telefono, 'Sin Telefono'),Vehiculo = COALESCE(venta.Vehiculo, 'Sin Vehiculo'),venta.borrado,venta.UltimaFechaPago 
-                          from venta where venta.FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) order by venta.IdVenta";
+                          from venta where venta.FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) {0} order by venta.IdVenta";
             else
                 query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta,
                           COALESCE((select CAST(sum(DetalleVenta.Igv * DetalleVenta.Cantidad) AS DECIMAL(10,2)) from DetalleVenta where IdVenta = venta.IdVenta), 0 ) as Itbis,
@@ -78,7 +78,13 @@ namespace CapaLogicaNegocio
                           CASE WHEN (SELECT COUNT(DNI) FROM Cliente WHERE IdCliente = venta.IdCliente) > 0 THEN (SELECT DNI FROM Cliente WHERE IdCliente = venta.IdCliente) WHEN Venta.IdentidadCliente != '' THEN Venta.IdentidadCliente ELSE 'Sin Identidad' END AS Identidad,
                           Telefono = COALESCE(venta.Telefono, 'Sin Telefono'),Vehiculo = COALESCE(venta.Vehiculo, 'Sin Vehiculo'),venta.borrado,venta.UltimaFechaPago 
                           from venta where venta.FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) 
-                          AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) order by IdVenta";
+                          AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) {0} order by IdVenta";
+
+            var part = string.Empty;
+            if (!string.IsNullOrWhiteSpace(brand))
+                part = string.Format("AND venta.IdVenta in (SELECT  distinct IdVenta FROM DetalleVenta WHERE detalles_P LIKE '%{0}%')", brand);
+
+            query = string.Format(query, part);
 
             M.Desconectar();
             try
