@@ -64,7 +64,7 @@ namespace Capa_de_Presentacion
 
             try
             {
-                var ventas = V.GetListadoVentas(GetWeek(), DateTime.Now);
+                var ventas = V.GetListadoVentas(GetWeek(), DateTime.Now, string.Empty);
                 ventas.ForEach(x => tempSalesData.Add(Program.AnyNullValue<Venta>(x)));
                 return tempSalesData;
             }
@@ -151,17 +151,14 @@ namespace Capa_de_Presentacion
             var totalVendido = listaventas.Sum(x => x.Total);
 
             txtTtal.Text = string.Empty;
-            txtTtal.Text = Math.Round(totalVendido, 2).ToString("C2");
-            if (string.IsNullOrWhiteSpace(txtGanancias.Text))
-            {
-                GananciaTotal(Ganancias(listaventas));
-            }
+            txtTtal.Text = Program.GetTwoNumberAfterPointWithOutRound(totalVendido.ToString()).ToString("C2");
+            GananciaTotal(Ganancias(listaventas));
         }
 
         public void GananciaTotal(decimal monto)
         {
             txtGanancias.Text = string.Empty;
-            txtGanancias.Text = Math.Round(monto, 2).ToString("C2");
+            txtGanancias.Text = Program.GetTwoNumberAfterPointWithOutRound(monto.ToString()).ToString("C2");
         }
 
         public void llenar_categoryandquantity(List<VentasPorCategoria> listaventas)
@@ -503,7 +500,7 @@ namespace Capa_de_Presentacion
 
             var (date1, date2) = GetDaysToFilter(isSameDate, dtpfecha1.Value.Date, dtpfecha2.Value.Date);
             clsVentas V = new clsVentas();
-            listFind = V.GetListadoVentas(date1, date2);
+            listFind = V.GetListadoVentas(date1, date2, string.Empty);
 
             var newlist = new List<Venta>();
             if (!string.IsNullOrWhiteSpace(txtBuscarid.Text))
@@ -1526,6 +1523,13 @@ namespace Capa_de_Presentacion
         {
             var lst = ListaPorMarca(dtDesdeSearchBy.Value.Date, dtHastaSearchBy.Value.Date, txtMarcaSearchBy.Text);
             llenar_categoryandquantity(lst);
+
+            clsVentas V = new clsVentas();
+            var listFind = V.GetListadoVentas(dtDesdeSearchBy.Value.Date, dtHastaSearchBy.Value.Date, txtMarcaSearchBy.Text);
+            var newlist = listFind.Where(x => x.borrador == borrado).ToList();
+            llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+            var ganancias = Ganancias(newlist);
+            GananciaTotal(ganancias);
         }
     }
 }
