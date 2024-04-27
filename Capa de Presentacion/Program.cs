@@ -63,7 +63,7 @@ namespace Capa_de_Presentacion
         public static int IdCategoria;
         public static string Descripcion;
         public static string Marca;
-        public static int Stock;
+        public static decimal Stock;
         public static decimal itbis;
         public static decimal PrecioVenta;
         public static decimal PrecioCompra;

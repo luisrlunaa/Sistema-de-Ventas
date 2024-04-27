@@ -10,7 +10,7 @@ namespace CapaLogicaNegocio
         clsManejador M = new clsManejador();
         public int IdProducto { get; set; }
         public int IdVenta { get; set; }
-        public int Cantidad { get; set; }
+        public decimal Cantidad { get; set; }
         public decimal PUnitario { get; set; }
         public decimal Igv { get; set; }
         public decimal SubTotal { get; set; }

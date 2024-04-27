@@ -69,7 +69,7 @@ namespace Capa_de_Presentacion
                     product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["Pmax"].ToString());
                     product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["Pmin"].ToString());
                     product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
-                    product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Stock"]);
+                    product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["Stock"].ToString());
                     product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
                     product.m_Marca = reader["Marca"] == DBNull.Value ? string.Empty : reader["Marca"].ToString();
 
@@ -209,7 +209,7 @@ namespace Capa_de_Presentacion
                         product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["Pmax"].ToString());
                         product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["Pmin"].ToString());
                         product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
-                        product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Stock"]);
+                        product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(reader["Stock"].ToString());
                         product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
                         product.m_Marca = reader["Marca"] == DBNull.Value ? string.Empty : reader["Marca"].ToString();
 
@@ -332,7 +332,7 @@ namespace Capa_de_Presentacion
             Program.Marca = dataGridView1.CurrentRow.Cells["marca"].Value.ToString();
             Program.PrecioVenta = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["pVenta"].Value.ToString());
             Program.PrecioCompra = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["pCompra"].Value.ToString());
-            Program.Stock = Convert.ToInt32(dataGridView1.CurrentRow.Cells["cantidad"].Value.ToString());
+            Program.Stock = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["cantidad"].Value.ToString());
             Program.IdCategoria = Convert.ToInt32(dataGridView1.CurrentRow.Cells["IdC"].Value.ToString());
             Program.itbis = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["itbis"].Value.ToString());
             //Program.tipo = dataGridView1.CurrentRow.Cells["tipoGOma"].Value.ToString();
@@ -647,25 +647,25 @@ namespace Capa_de_Presentacion
         {
             if (this.dataGridView1.Columns[e.ColumnIndex].Name == "cantidad")
             {
-                if (Convert.ToInt32(e.Value) == 0)
+                if (Convert.ToDecimal(e.Value) == 0)
                 {
                     e.CellStyle.ForeColor = System.Drawing.Color.White;
                     e.CellStyle.BackColor = System.Drawing.Color.Red;
                 }
 
-                if (Convert.ToInt32(e.Value) > 0 && Convert.ToInt32(e.Value) < 5)
+                if (Convert.ToDecimal(e.Value) > 0 && Convert.ToDecimal(e.Value) < 5)
                 {
                     e.CellStyle.ForeColor = System.Drawing.Color.Black;
                     e.CellStyle.BackColor = System.Drawing.Color.Yellow;
                 }
 
-                if (Convert.ToInt32(e.Value) > 4 && Convert.ToInt32(e.Value) < 11)
+                if (Convert.ToDecimal(e.Value) > 4 && Convert.ToDecimal(e.Value) < 11)
                 {
                     e.CellStyle.ForeColor = System.Drawing.Color.Black;
                     e.CellStyle.BackColor = System.Drawing.Color.LightGreen;
                 }
 
-                if (Convert.ToInt32(e.Value) > 10)
+                if (Convert.ToDecimal(e.Value) > 10)
                 {
                     e.CellStyle.ForeColor = System.Drawing.Color.Black;
                     e.CellStyle.BackColor = System.Drawing.Color.CornflowerBlue;

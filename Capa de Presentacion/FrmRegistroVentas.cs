@@ -29,7 +29,7 @@ namespace Capa_de_Presentacion
         public class categoriasTotals
         {
             public string category;
-            public int total;
+            public decimal total;
         }
 
         public List<categoriasTotals> TotalsList = new List<categoriasTotals>();
@@ -442,15 +442,15 @@ namespace Capa_de_Presentacion
                         if (idVenta == txtIdV.Text)
                         {
                             dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                            dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Cantidad")));
                             dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
                             dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
                             dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
                             dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                             dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
 
-                            subtotal += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                            igv += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("Igv")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            subtotal += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")).ToString()) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
+                            igv += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("Igv")).ToString()) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
                         }
                     }
 
@@ -508,15 +508,15 @@ namespace Capa_de_Presentacion
                         if (idVenta == txtIdV.Text)
                         {
                             dgvVenta.Rows[renglon].Cells["IdD"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdCotizacion")));
-                            dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            dgvVenta.Rows[renglon].Cells["cantidadP"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Cantidad")));
                             dgvVenta.Rows[renglon].Cells["DescripcionP"].Value = dr.GetString(dr.GetOrdinal("detalles_P"));
                             dgvVenta.Rows[renglon].Cells["PrecioU"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")));
                             dgvVenta.Rows[renglon].Cells["SubtoTal"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("SubTotal")));
                             dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                             dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
 
-                            subtotal += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                            igv += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("Igv")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            subtotal += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")).ToString()) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
+                            igv += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("Igv")).ToString()) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
 
                             PrecioCompraProducto PCP = new PrecioCompraProducto();
                             PCP.ID = dr.GetInt32(dr.GetOrdinal("IdProducto"));
@@ -620,18 +620,18 @@ namespace Capa_de_Presentacion
             {
                 if (txtCantidad.Text.Trim() != "")
                 {
-                    if (Convert.ToInt32(txtCantidad.Text) > 0)
+                    if (Program.GetTwoNumberAfterPointWithOutRound(txtCantidad.Text) > 0)
                     {
-                        if (Convert.ToInt32(txtStock.Text) >= Convert.ToInt32(txtCantidad.Text))
+                        if (Program.GetTwoNumberAfterPointWithOutRound(txtStock.Text) >= Program.GetTwoNumberAfterPointWithOutRound(txtCantidad.Text))
                         {
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
                             V.IdVenta = Program.isSaler ? Convert.ToInt32(txtIdVenta.Text) : llenarIdCotizacion();
                             V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).Trim();
-                            V.Cantidad = Convert.ToInt32(txtCantidad.Text);
+                            V.Cantidad = Program.GetTwoNumberAfterPointWithOutRound(txtCantidad.Text);
                             V.PrecioCompra = Program.PrecioCompra;
                             V.Igv = itbis;
                             V.PrecioVenta = precio;
-                            V.SubTotal = Program.GetTwoNumberAfterPointWithOutRound(((precio + itbis) * Convert.ToInt32(txtCantidad.Text)).ToString());
+                            V.SubTotal = Program.GetTwoNumberAfterPointWithOutRound(((precio + itbis) * Program.GetTwoNumberAfterPointWithOutRound(txtCantidad.Text)).ToString());
                             btnAgregar.Visible = false;
                             lst.Add(V);
 
@@ -695,7 +695,7 @@ namespace Capa_de_Presentacion
                 dgvVenta.Rows[i].Cells["IDP"].Value = lst[i].IdProducto;
 
                 var preciounidad = Program.GetTwoNumberAfterPointWithOutRound(dgvVenta.Rows[i].Cells["PrecioU"].Value.ToString());
-                var cantidad = Convert.ToInt32(dgvVenta.Rows[i].Cells["cantidadP"].Value.ToString());
+                var cantidad = Program.GetTwoNumberAfterPointWithOutRound(dgvVenta.Rows[i].Cells["cantidadP"].Value.ToString());
                 var igv = Program.GetTwoNumberAfterPointWithOutRound(dgvVenta.Rows[i].Cells["IGV"].Value.ToString());
 
                 SumaSubTotal += preciounidad * cantidad;
@@ -1055,7 +1055,7 @@ namespace Capa_de_Presentacion
 
                     //Tabla detalles ventas
                     cmd1.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idventa;
-                    cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
+                    cmd1.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
                     cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
                     cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(row.Cells["PrecioU"].Value.ToString());
                     cmd1.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(row.Cells["SubtoTal"].Value.ToString());
@@ -1086,7 +1086,7 @@ namespace Capa_de_Presentacion
                     cmd3.CommandType = CommandType.StoredProcedure;
 
                     //UpdateStock
-                    cmd3.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
+                    cmd3.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
                     cmd3.Parameters.Add("@IdProducto", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["IDP"].Value);
 
                     try
@@ -1217,7 +1217,7 @@ namespace Capa_de_Presentacion
 
                     //Tabla detalles ventas
                     cmd1.Parameters.Add("@IdCotizacion", SqlDbType.Int).Value = id;
-                    cmd1.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Convert.ToInt32(row.Cells["cantidadP"].Value);
+                    cmd1.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = Convert.ToDecimal(row.Cells["cantidadP"].Value);
                     cmd1.Parameters.Add("@detalles", SqlDbType.NVarChar).Value = Convert.ToString(row.Cells["DescripcionP"].Value);
                     cmd1.Parameters.Add("@PrecioUnitario", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(row.Cells["PrecioU"].Value.ToString());
                     cmd1.Parameters.Add("@SubTotal", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(row.Cells["SubtoTal"].Value.ToString());
