@@ -48,7 +48,7 @@ namespace Capa_de_Presentacion
             CrearTiket ticket = new CrearTiket();
 
             //cabecera del ticket.
-            //Image img = Image.FromFile("Logo.png");
+            //Image img = Image.FromFile("logo.jpg");
             //ticket.HeaderImage = img;
             ticket.TextoCentro(lblLogo.Text);
             ticket.TextoIzquierda("");
