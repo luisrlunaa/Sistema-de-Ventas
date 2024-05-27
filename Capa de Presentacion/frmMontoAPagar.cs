@@ -24,10 +24,10 @@ namespace Capa_de_Presentacion
             var monto = Program.GetTwoNumberAfterPointWithOutRound(txtmonto.Text);
             if (idsAmountToPay != null && idsAmountToPay.Any())
             {
-                foreach (var item in idsAmountToPay.Where(x => x.pagada == false && x.abono == false))
+                foreach (var item in idsAmountToPay.Where(x => !x.pagada && !x.abono))
                 {
                     var nuevoMonto = monto - item.Total;
-                    if (nuevoMonto > 0)
+                    if (nuevoMonto >= 0)
                     {
                         var waspay = paysales(item.IdVenta, item.Total, 0, idCaja);
                         if (waspay)
@@ -60,7 +60,11 @@ namespace Capa_de_Presentacion
                     }
                 }
 
-                tickEstilo(idsAmountToPay.FirstOrDefault().cliente, Program.GetTwoNumberAfterPointWithOutRound(txtmonto.Text), Program.GetTwoNumberAfterPointWithOutRound(txtRestante.Text));
+                tickEstilo(idsAmountToPay?.FirstOrDefault()?.cliente, Program.GetTwoNumberAfterPointWithOutRound(txtmonto.Text), Program.GetTwoNumberAfterPointWithOutRound(txtRestante.Text));
+            }
+            else
+            {
+                MessageBox.Show("Error al cargar el listado de facturas, favor volver a intentar");
             }
         }
 
@@ -93,7 +97,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Cliente : " + nombre);
             ticket.TextoIzquierda("Fecha Abono : " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year);
 
-            foreach (var fila in idsAmountToPay)
+            foreach (var fila in idsAmountToPay.Where(x => x.pagada || x.abono))
             {
                 ticket.lineasGuio();
                 ticket.TextoIzquierda("Tipo de Comprobante : " + fila.tipoNCF);
@@ -174,7 +178,7 @@ namespace Capa_de_Presentacion
 
                 //Tabla de pago
                 cmd2.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idVenta;
-                cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = 0;
+                cmd2.Parameters.Add("@id_pago", SqlDbType.Int).Value = idpago();
                 cmd2.Parameters.Add("@id_caja", SqlDbType.Int).Value = idCaja;
                 cmd2.Parameters.Add("@id_cajaAnterior", SqlDbType.Int).Value = idCaja;
                 cmd2.Parameters.Add("@monto", SqlDbType.Decimal).Value = pago;
@@ -195,7 +199,6 @@ namespace Capa_de_Presentacion
                     return false;
                 }
 
-
                 return true;
             }
         }
@@ -213,6 +216,23 @@ namespace Capa_de_Presentacion
             if (reade.Read())
             {
                 id = Convert.ToInt32(reade["id_caja"]);
+            }
+
+            M.Desconectar();
+            return id;
+        }
+
+        public int idpago()
+        {
+            int id = 0;
+            M.Desconectar();
+            M.Conectar();
+            string sql = "select (MAX(id_pago)+1) AS idpago from Pagos";
+            SqlCommand cmd = new SqlCommand(sql, M.conexion);
+            SqlDataReader reade = cmd.ExecuteReader();
+            if (reade.Read())
+            {
+                id = Convert.ToInt32(reade["idpago"]);
             }
 
             M.Desconectar();
