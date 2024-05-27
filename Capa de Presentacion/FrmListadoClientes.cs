@@ -325,17 +325,22 @@ namespace Capa_de_Presentacion
             if (!string.IsNullOrWhiteSpace(txtTelefono.Text))
             {
                 ventas = V.GetListadoVentasporTelefono(txtTelefono.Text).OrderBy(y => y.FechaVenta).ToList();
+                if (!ventas.Any())
+                {
+                    MessageBox.Show("Este Numero telefonico no tiene deudas o no existe");
+                }
+
                 var list = ventas.Select(x => x.NombreCliente).Distinct().ToList();
-                if (list != null && list.Count > 1)
+                if (list.Any())
                 {
                     var lstNombres = string.Join("\n", list);
                     if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Seguro que \n \n " + lstNombres + " \n \n es la misma persona?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.No)
                     {
                         return;
                     }
-                }
 
-                ClienteSelected = list.FirstOrDefault();
+                    ClienteSelected = list.FirstOrDefault();
+                }
             }
             else
             {
@@ -348,12 +353,12 @@ namespace Capa_de_Presentacion
                 ventas = V.GetListadoVentasporIdCliente(IdClienteSelected).OrderBy(y => y.FechaVenta).ToList();
             }
 
-            if (ventas != null && ventas.Any())
+            if (ventas.Any())
             {
-                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Seguro desea pagar las facturas que " + ClienteSelected + "?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Seguro desea pagar las facturas de " + ClienteSelected + "?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
                     frmMontoAPagar pagar = new frmMontoAPagar();
-                    pagar.idsAmountToPay = new System.Collections.Generic.List<Topay>();
+                    pagar.idsAmountToPay = new List<Topay>();
                     pagar.lblUsuario.Text = lblUsuario.Text;
                     pagar.lblLogo.Text = lblLogo.Text;
                     pagar.lblDir.Text = lblDir.Text;
