@@ -1648,7 +1648,7 @@ namespace Capa_de_Presentacion
 
                     cedula = !string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? txtDocIdentidad.Text : "Sin identificación";
 
-                    var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 11, iTextSharp.text.Font.ITALIC));
+                    var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
 
                     fecha.Alignment = Element.ALIGN_RIGHT;
                     doc.Add(fecha);
@@ -1657,37 +1657,37 @@ namespace Capa_de_Presentacion
                     var chuckalign = new Paragraph(chunk);
                     chuckalign.Alignment = Element.ALIGN_CENTER;
                     doc.Add(chuckalign);
-                    var ubicacionalign = new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL));
+                    var ubicacionalign = new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL));
                     ubicacionalign.Alignment = Element.ALIGN_CENTER;
                     doc.Add(ubicacionalign);
-                    var telefonos = new Paragraph("Tel: " + lblTel1.Text + " / " + lblTel2.Text, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL));
+                    var telefonos = new Paragraph("Tel: " + lblTel1.Text + " / " + lblTel2.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL));
                     telefonos.Alignment = Element.ALIGN_CENTER;
                     doc.Add(telefonos);
-                    var RNC = new Paragraph("RNC: " + lblrnc.Text, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL));
+                    var RNC = new Paragraph("RNC: " + lblrnc.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL));
                     RNC.Alignment = Element.ALIGN_CENTER;
                     doc.Add(RNC);
 
                     doc.Add(new Paragraph(" "));
                     if (cbtipofactura.Text.ToLower() == "credito" && Program.Esabono == "Es Abono")
                     {
-                        var fechaabono = new Paragraph("Fecha Abono: " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.ITALIC));
+                        var fechaabono = new Paragraph("Fecha Abono: " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
                         doc.Add(fechaabono);
                     }
-                    doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     if (Program.isSaler)
                     {
-                        doc.Add(new Paragraph("Tipo de Factura: " + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
-                        doc.Add(new Paragraph("Tipo de Comprobante: " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
-                        doc.Add(new Paragraph("Numero de Comprobante: " + txtNCF.Text, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Tipo de Factura: " + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Tipo de Comprobante: " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Numero de Comprobante: " + txtNCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
                     else
                     {
-                        doc.Add(new Paragraph("COTIZACION", FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("COTIZACION", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
-                    doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Telefono: " + (string.IsNullOrWhiteSpace(txtTel.Text) ? "sin Telefono" : txtTel.Text), FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Vehiculo: " + (string.IsNullOrWhiteSpace(txtVeh.Text) ? "sin Vehiculo" : txtVeh.Text), FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Telefono: " + (string.IsNullOrWhiteSpace(txtTel.Text) ? "sin Telefono" : txtTel.Text), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Vehiculo: " + (string.IsNullOrWhiteSpace(txtVeh.Text) ? "sin Vehiculo" : txtVeh.Text), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph(" "));
 
                     GenerarDocumento(doc);
@@ -1708,13 +1708,13 @@ namespace Capa_de_Presentacion
                     decimal ITBIS = Program.GetTwoNumberAfterPointWithOutRound(lbligv.Text);
                     decimal total = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text);
 
-                    doc.Add(new Paragraph("Sub-Total   : " + Sub.ToString("C2"), FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("ITBIS   : " + ITBIS.ToString("C2"), FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Total a Pagar   : " + total.ToString("C2"), FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Sub-Total   : " + Sub.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("ITBIS   : " + ITBIS.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Total a Pagar   : " + total.ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
 
                     if (cbtipofactura.Text.ToLower() == "credito")
                     {
-                        doc.Add(new Paragraph("Total de Restante : " + Program.GetTwoNumberAfterPointWithOutRound(restante.ToString()).ToString("C2"), FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Total de Restante : " + Program.GetTwoNumberAfterPointWithOutRound(restante.ToString()).ToString("C2"), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
 
                     if (cbxTotals.Items.Count > 0 && cbxTotals.Text != "ninguno")
@@ -1725,19 +1725,19 @@ namespace Capa_de_Presentacion
                         {
                             foreach (var item in TotalsList)
                             {
-                                doc.Add(new Paragraph("Cantidad de " + item.category + "= " + item.total, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
+                                doc.Add(new Paragraph("Cantidad de " + item.category + "= " + item.total, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                             }
                         }
                         else
                         {
                             var category = TotalsList.FirstOrDefault(x => x.category == cbxTotals.Text);
-                            doc.Add(new Paragraph("Cantidad de " + category.category + "= " + category.total, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
+                            doc.Add(new Paragraph("Cantidad de " + category.category + "= " + category.total, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                         }
                     }
 
                     doc.Add(new Paragraph("                       "));
-                    doc.Add(new Paragraph("_________________________" + "                                                                                                                                                 " + "_________________________", FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("      Facturado Por      " + "                                                                                                                                                                         " + "     Recibido Por  ", FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("_________________________" + "                                                                                                                                                 " + "_________________________", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("      Facturado Por      " + "                                                                                                                                                                         " + "     Recibido Por  ", FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("                       "));
 
                     var Nota = new Paragraph("Nota: Los productos con garantia pierden su garantia si deja perder la factura.", FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.ITALIC, color: BaseColor.RED));
