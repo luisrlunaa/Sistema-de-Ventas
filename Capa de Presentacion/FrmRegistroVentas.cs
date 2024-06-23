@@ -1648,7 +1648,7 @@ namespace Capa_de_Presentacion
 
                     cedula = !string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? txtDocIdentidad.Text : "Sin identificación";
 
-                    var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+                    var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 12, iTextSharp.text.Font.BOLDITALIC));
 
                     fecha.Alignment = Element.ALIGN_RIGHT;
                     doc.Add(fecha);
