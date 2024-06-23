@@ -327,7 +327,7 @@ namespace Capa_de_Presentacion
                     string envio = "Fecha : " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
 
                     Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
-                    var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+                    var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 12, iTextSharp.text.Font.BOLDITALIC));
 
                     fecha.Alignment = Element.ALIGN_RIGHT;
                     doc.Add(fecha);
@@ -408,7 +408,7 @@ namespace Capa_de_Presentacion
                     string envio = "Fecha : " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
 
                     Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
-                    var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
+                    var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 12, iTextSharp.text.Font.BOLDITALIC));
 
                     fecha.Alignment = Element.ALIGN_RIGHT;
                     doc.Add(fecha);
