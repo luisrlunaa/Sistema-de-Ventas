@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaEnlaceDatos", "CapaEnla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capa de Presentacion", "Capa de Presentacion\Capa de Presentacion.csproj", "{F54C7316-903E-4543-840A-9CFB39CF275A}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "David Smartphone", "David Smartphone\David Smartphone.vdproj", "{BF2A1C8E-CC82-46F1-9C3F-F84B929F21FB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		All|Any CPU = All|Any CPU
@@ -42,9 +40,6 @@ Global
 		{F54C7316-903E-4543-840A-9CFB39CF275A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F54C7316-903E-4543-840A-9CFB39CF275A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F54C7316-903E-4543-840A-9CFB39CF275A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF2A1C8E-CC82-46F1-9C3F-F84B929F21FB}.All|Any CPU.ActiveCfg = Debug
-		{BF2A1C8E-CC82-46F1-9C3F-F84B929F21FB}.Debug|Any CPU.ActiveCfg = Debug
-		{BF2A1C8E-CC82-46F1-9C3F-F84B929F21FB}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
