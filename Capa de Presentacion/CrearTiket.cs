@@ -225,8 +225,16 @@ namespace Capa_de_Presentacion
         // agregar los articulos a la factura
         public void AgregaArticulo(string articulo, string cantxprecio, decimal Subtotal, decimal itbis)
         {
-            // valida que cant precio e importe esten dentro del rango
-            if (cantxprecio.ToString().Length <= 15 && Subtotal.ToString().Length <= 12 && itbis.ToString().Length <= 6)
+            // valida que cant precio, subtotal e importe esten dentro del rango
+            var errormessage = string.Empty;
+            if (!(cantxprecio.ToString().Length <= 15))
+                errormessage = "cant x precio tiene mas de 15 caracteres. ";
+            if (!(Subtotal.ToString().Length <= 10))
+                errormessage += "subtotal tiene mas de 10 caracteres. ";
+            if (!(itbis.ToString().Length <= 8))
+                errormessage += "itbis tiene mas de 8 caracteres. ";
+
+            if (cantxprecio.ToString().Length <= 15 && Subtotal.ToString().Length <= 10 && itbis.ToString().Length <= 8)
             {
                 string elemento = "", espacios = "";
                 bool bandera = false;
@@ -236,7 +244,7 @@ namespace Capa_de_Presentacion
                     //colocar la cantidad a la derecha
 
                     espacios = "";
-                    for (int i = 0; i < 2; i++)
+                    for (int i = 0; i < 1; i++)
                     {
                         espacios += " ";
                     }
@@ -246,7 +254,7 @@ namespace Capa_de_Presentacion
                     //colocar el precio a la derecha.
 
                     espacios = "";
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i < 2; i++)
                     {
                         espacios += " ";
                     }
@@ -257,7 +265,7 @@ namespace Capa_de_Presentacion
                     //colocar el importe a la derecha
 
                     espacios = "";
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i < 2; i++)
                     {
                         espacios += " ";
                     }
@@ -318,7 +326,7 @@ namespace Capa_de_Presentacion
             {
                 linea.AppendLine("valores ingresados para esta fila");
                 linea.AppendLine("superan las columnas soportadas por este");
-                throw new Exception("los valores ingresados para algunas filas del ticket/no superan las soportadas por este");
+                throw new Exception("los valores ingresados del ticket/no " + errormessage);
             }
         }
         //Metodos para enviar secuencias de escape a la impresora
