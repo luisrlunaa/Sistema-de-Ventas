@@ -227,14 +227,14 @@ namespace Capa_de_Presentacion
         {
             // valida que cant precio, subtotal e importe esten dentro del rango
             var errormessage = string.Empty;
-            if (!(cantxprecio.ToString().Length <= 15))
+            if (!(cantxprecio.ToString().Split('.')[0].Length <= 15))
                 errormessage = "cant x precio tiene mas de 15 caracteres. ";
-            if (!(Subtotal.ToString().Length <= 10))
+            if (!(Subtotal.ToString().Split('.')[0].Length <= 10))
                 errormessage += "subtotal tiene mas de 10 caracteres. ";
-            if (!(itbis.ToString().Length <= 8))
+            if (!(itbis.ToString().Split('.')[0].Length <= 8))
                 errormessage += "itbis tiene mas de 8 caracteres. ";
 
-            if (cantxprecio.ToString().Length <= 15 && Subtotal.ToString().Length <= 10 && itbis.ToString().Length <= 8)
+            if (cantxprecio.ToString().Split('.')[0].Length <= 15 && Subtotal.ToString().Split('.')[0].Length <= 10 && itbis.ToString().Split('.')[0].Length <= 8)
             {
                 string elemento = "", espacios = "";
                 bool bandera = false;
