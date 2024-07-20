@@ -30,7 +30,7 @@ namespace Capa_de_Presentacion
 
             SqlDataReader leer = comando.ExecuteReader();
 
-            if (leer.Read() == true)
+            if (leer.Read())
             {
                 txtCaja1.Text = leer["montoactual"].ToString();
             }

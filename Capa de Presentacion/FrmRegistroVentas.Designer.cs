@@ -41,15 +41,11 @@
             this.txtVeh = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.cbidentificacion = new System.Windows.Forms.CheckBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtDocIdentidad = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtDatos = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -139,6 +135,14 @@
             this.txtresultTotalCBX = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.ckcRePrint = new System.Windows.Forms.CheckBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txtAtendidoPor = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.cbTipoPago = new System.Windows.Forms.ComboBox();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -152,7 +156,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(49, 140);
+            this.label4.Location = new System.Drawing.Point(49, 133);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(0, 17);
@@ -161,6 +165,8 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox3.Controls.Add(this.txtAtendidoPor);
+            this.groupBox3.Controls.Add(this.label26);
             this.groupBox3.Controls.Add(this.label25);
             this.groupBox3.Controls.Add(this.txtVeh);
             this.groupBox3.Controls.Add(this.label24);
@@ -178,11 +184,11 @@
             this.groupBox3.Controls.Add(this.textBox2);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.Black;
-            this.groupBox3.Location = new System.Drawing.Point(17, 188);
+            this.groupBox3.Location = new System.Drawing.Point(17, 185);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(573, 107);
+            this.groupBox3.Size = new System.Drawing.Size(573, 121);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Cliente";
@@ -206,7 +212,7 @@
             this.txtVeh.Location = new System.Drawing.Point(83, 79);
             this.txtVeh.Margin = new System.Windows.Forms.Padding(4);
             this.txtVeh.Name = "txtVeh";
-            this.txtVeh.Size = new System.Drawing.Size(316, 22);
+            this.txtVeh.Size = new System.Drawing.Size(250, 22);
             this.txtVeh.TabIndex = 151;
             this.txtVeh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -232,19 +238,6 @@
             this.cbidentificacion.Text = "Con Identificación";
             this.cbidentificacion.UseVisualStyleBackColor = false;
             this.cbidentificacion.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // textBox6
-            // 
-            this.textBox6.BackColor = System.Drawing.Color.White;
-            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.textBox6.Location = new System.Drawing.Point(124, 214);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(83, 22);
-            this.textBox6.TabIndex = 13;
-            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnBuscar
             // 
@@ -304,18 +297,6 @@
             this.txtDatos.TabIndex = 1;
             this.txtDatos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox5
-            // 
-            this.textBox5.BackColor = System.Drawing.Color.White;
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.textBox5.Location = new System.Drawing.Point(375, 214);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(99, 22);
-            this.textBox5.TabIndex = 9;
-            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -325,33 +306,6 @@
             this.label1.Size = new System.Drawing.Size(42, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Sr (a):";
-            // 
-            // textBox3
-            // 
-            this.textBox3.BackColor = System.Drawing.Color.White;
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.textBox3.Location = new System.Drawing.Point(124, 172);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(83, 22);
-            this.textBox3.TabIndex = 5;
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox4
-            // 
-            this.textBox4.BackColor = System.Drawing.Color.White;
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.textBox4.Location = new System.Drawing.Point(375, 172);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(99, 22);
-            this.textBox4.TabIndex = 7;
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox1
             // 
@@ -404,7 +358,7 @@
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.Color.Black;
-            this.groupBox4.Location = new System.Drawing.Point(17, 295);
+            this.groupBox4.Location = new System.Drawing.Point(17, 317);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
@@ -681,7 +635,7 @@
             // 
             this.lblsubt.AutoSize = true;
             this.lblsubt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblsubt.Location = new System.Drawing.Point(383, 718);
+            this.lblsubt.Location = new System.Drawing.Point(382, 740);
             this.lblsubt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblsubt.Name = "lblsubt";
             this.lblsubt.Size = new System.Drawing.Size(21, 20);
@@ -692,7 +646,7 @@
             // 
             this.lbligv.AutoSize = true;
             this.lbligv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbligv.Location = new System.Drawing.Point(559, 718);
+            this.lbligv.Location = new System.Drawing.Point(558, 740);
             this.lbligv.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbligv.Name = "lbligv";
             this.lbligv.Size = new System.Drawing.Size(21, 20);
@@ -703,7 +657,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(653, 718);
+            this.label15.Location = new System.Drawing.Point(652, 740);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(61, 20);
@@ -714,7 +668,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(269, 718);
+            this.label16.Location = new System.Drawing.Point(268, 740);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(96, 20);
@@ -725,7 +679,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(493, 718);
+            this.label17.Location = new System.Drawing.Point(492, 740);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(65, 20);
@@ -835,7 +789,7 @@
             this.dgvVenta.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvVenta.EnableHeadersVisualStyles = false;
             this.dgvVenta.GridColor = System.Drawing.Color.MidnightBlue;
-            this.dgvVenta.Location = new System.Drawing.Point(17, 478);
+            this.dgvVenta.Location = new System.Drawing.Point(16, 500);
             this.dgvVenta.Margin = new System.Windows.Forms.Padding(0);
             this.dgvVenta.Name = "dgvVenta";
             this.dgvVenta.ReadOnly = true;
@@ -855,7 +809,7 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.dgvVenta.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvVenta.RowTemplate.Height = 24;
-            this.dgvVenta.Size = new System.Drawing.Size(893, 233);
+            this.dgvVenta.Size = new System.Drawing.Size(894, 233);
             this.dgvVenta.TabIndex = 43;
             this.dgvVenta.Click += new System.EventHandler(this.dgvVenta_Click);
             // 
@@ -921,7 +875,7 @@
             this.groupBox2.Controls.Add(this.dateTimePicker1);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(19, 114);
+            this.groupBox2.Location = new System.Drawing.Point(19, 107);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -1049,7 +1003,7 @@
             this.combo_tipo_NCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.combo_tipo_NCF.ForeColor = System.Drawing.Color.MidnightBlue;
             this.combo_tipo_NCF.FormattingEnabled = true;
-            this.combo_tipo_NCF.Location = new System.Drawing.Point(513, 126);
+            this.combo_tipo_NCF.Location = new System.Drawing.Point(513, 119);
             this.combo_tipo_NCF.Margin = new System.Windows.Forms.Padding(4);
             this.combo_tipo_NCF.Name = "combo_tipo_NCF";
             this.combo_tipo_NCF.Size = new System.Drawing.Size(328, 24);
@@ -1062,7 +1016,7 @@
             this.txtNCF.BackColor = System.Drawing.Color.White;
             this.txtNCF.Enabled = false;
             this.txtNCF.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.txtNCF.Location = new System.Drawing.Point(513, 158);
+            this.txtNCF.Location = new System.Drawing.Point(513, 151);
             this.txtNCF.Margin = new System.Windows.Forms.Padding(4);
             this.txtNCF.Name = "txtNCF";
             this.txtNCF.Size = new System.Drawing.Size(245, 22);
@@ -1075,7 +1029,7 @@
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.Black;
-            this.label13.Location = new System.Drawing.Point(436, 128);
+            this.label13.Location = new System.Drawing.Point(436, 121);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(65, 16);
@@ -1088,7 +1042,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(436, 158);
+            this.label2.Location = new System.Drawing.Point(436, 151);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 16);
@@ -1132,7 +1086,7 @@
             this.cbtipofactura.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbtipofactura.ForeColor = System.Drawing.Color.MidnightBlue;
             this.cbtipofactura.FormattingEnabled = true;
-            this.cbtipofactura.Location = new System.Drawing.Point(239, 150);
+            this.cbtipofactura.Location = new System.Drawing.Point(239, 143);
             this.cbtipofactura.Margin = new System.Windows.Forms.Padding(4);
             this.cbtipofactura.Name = "cbtipofactura";
             this.cbtipofactura.Size = new System.Drawing.Size(177, 24);
@@ -1145,7 +1099,7 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(271, 126);
+            this.label11.Location = new System.Drawing.Point(271, 119);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(102, 16);
@@ -1156,7 +1110,7 @@
             // 
             this.chkComprobante.AutoSize = true;
             this.chkComprobante.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkComprobante.Location = new System.Drawing.Point(771, 159);
+            this.chkComprobante.Location = new System.Drawing.Point(771, 152);
             this.chkComprobante.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkComprobante.Name = "chkComprobante";
             this.chkComprobante.Size = new System.Drawing.Size(138, 20);
@@ -1168,7 +1122,7 @@
             // 
             this.txttotal.AutoSize = true;
             this.txttotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
-            this.txttotal.Location = new System.Drawing.Point(721, 718);
+            this.txttotal.Location = new System.Drawing.Point(720, 740);
             this.txttotal.Name = "txttotal";
             this.txttotal.Size = new System.Drawing.Size(21, 20);
             this.txttotal.TabIndex = 92;
@@ -1188,7 +1142,7 @@
             // 
             this.lbltituloabono.AutoSize = true;
             this.lbltituloabono.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltituloabono.Location = new System.Drawing.Point(15, 718);
+            this.lbltituloabono.Location = new System.Drawing.Point(14, 740);
             this.lbltituloabono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbltituloabono.Name = "lbltituloabono";
             this.lbltituloabono.Size = new System.Drawing.Size(117, 20);
@@ -1200,7 +1154,7 @@
             // 
             this.lblabono.AutoSize = true;
             this.lblabono.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblabono.Location = new System.Drawing.Point(15, 741);
+            this.lblabono.Location = new System.Drawing.Point(14, 763);
             this.lblabono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblabono.Name = "lblabono";
             this.lblabono.Size = new System.Drawing.Size(21, 20);
@@ -1382,7 +1336,7 @@
             this.label23.BackColor = System.Drawing.Color.Transparent;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.Black;
-            this.label23.Location = new System.Drawing.Point(598, 208);
+            this.label23.Location = new System.Drawing.Point(594, 201);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(63, 16);
@@ -1395,7 +1349,7 @@
             this.cbxTotals.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxTotals.ForeColor = System.Drawing.Color.MidnightBlue;
             this.cbxTotals.FormattingEnabled = true;
-            this.cbxTotals.Location = new System.Drawing.Point(598, 232);
+            this.cbxTotals.Location = new System.Drawing.Point(594, 227);
             this.cbxTotals.Margin = new System.Windows.Forms.Padding(4);
             this.cbxTotals.Name = "cbxTotals";
             this.cbxTotals.Size = new System.Drawing.Size(184, 24);
@@ -1437,7 +1391,7 @@
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.Color.Black;
             this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(697, 199);
+            this.button4.Location = new System.Drawing.Point(693, 192);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(85, 30);
@@ -1461,12 +1415,114 @@
             this.ckcRePrint.Visible = false;
             this.ckcRePrint.CheckedChanged += new System.EventHandler(this.ckcRePrint_CheckedChanged);
             // 
+            // textBox4
+            // 
+            this.textBox4.BackColor = System.Drawing.Color.White;
+            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.textBox4.Location = new System.Drawing.Point(375, 172);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(99, 22);
+            this.textBox4.TabIndex = 7;
+            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox3
+            // 
+            this.textBox3.BackColor = System.Drawing.Color.White;
+            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.textBox3.Location = new System.Drawing.Point(124, 172);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(83, 22);
+            this.textBox3.TabIndex = 5;
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox5
+            // 
+            this.textBox5.BackColor = System.Drawing.Color.White;
+            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox5.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.textBox5.Location = new System.Drawing.Point(375, 214);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(99, 22);
+            this.textBox5.TabIndex = 9;
+            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox6
+            // 
+            this.textBox6.BackColor = System.Drawing.Color.White;
+            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox6.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.textBox6.Location = new System.Drawing.Point(124, 214);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.ReadOnly = true;
+            this.textBox6.Size = new System.Drawing.Size(83, 22);
+            this.textBox6.TabIndex = 13;
+            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(338, 83);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(88, 16);
+            this.label26.TabIndex = 153;
+            this.label26.Text = "Atendido Por:";
+            // 
+            // txtAtendidoPor
+            // 
+            this.txtAtendidoPor.BackColor = System.Drawing.Color.White;
+            this.txtAtendidoPor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtAtendidoPor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAtendidoPor.ForeColor = System.Drawing.Color.Black;
+            this.txtAtendidoPor.Location = new System.Drawing.Point(428, 79);
+            this.txtAtendidoPor.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAtendidoPor.Name = "txtAtendidoPor";
+            this.txtAtendidoPor.Size = new System.Drawing.Size(137, 22);
+            this.txtAtendidoPor.TabIndex = 154;
+            this.txtAtendidoPor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.BackColor = System.Drawing.Color.Transparent;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.ForeColor = System.Drawing.Color.Black;
+            this.label27.Location = new System.Drawing.Point(598, 262);
+            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(96, 16);
+            this.label27.TabIndex = 158;
+            this.label27.Text = "Tipo de Pago :";
+            // 
+            // cbTipoPago
+            // 
+            this.cbTipoPago.BackColor = System.Drawing.Color.White;
+            this.cbTipoPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTipoPago.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.cbTipoPago.FormattingEnabled = true;
+            this.cbTipoPago.Location = new System.Drawing.Point(598, 282);
+            this.cbTipoPago.Margin = new System.Windows.Forms.Padding(4);
+            this.cbTipoPago.Name = "cbTipoPago";
+            this.cbTipoPago.Size = new System.Drawing.Size(143, 24);
+            this.cbTipoPago.TabIndex = 159;
+            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
-            this.ClientSize = new System.Drawing.Size(928, 775);
+            this.ClientSize = new System.Drawing.Size(928, 788);
+            this.Controls.Add(this.cbTipoPago);
+            this.Controls.Add(this.label27);
             this.Controls.Add(this.ckcRePrint);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.txtresultTotalCBX);
@@ -1610,10 +1666,6 @@
 		private System.Windows.Forms.Label label18;
 		public System.Windows.Forms.Label lblrnc;
 		public System.Windows.Forms.TextBox txtidEmp;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         public System.Windows.Forms.Button btnSalir;
@@ -1655,5 +1707,13 @@
         private System.Windows.Forms.Label txtresultTotalCBX;
         public System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox ckcRePrint;
+        public System.Windows.Forms.TextBox txtAtendidoPor;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label27;
+        public System.Windows.Forms.ComboBox cbTipoPago;
     }
 }

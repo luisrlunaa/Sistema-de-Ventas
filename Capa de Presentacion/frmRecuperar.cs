@@ -95,7 +95,7 @@ namespace Capa_de_Presentacion
                 M.Conectar();
                 SqlDataReader leer = command.ExecuteReader();
 
-                if (leer.Read() == true)
+                if (leer.Read())
                 {
                     txtUsuarioCed.Text = leer["Usuario"].ToString();
                 }

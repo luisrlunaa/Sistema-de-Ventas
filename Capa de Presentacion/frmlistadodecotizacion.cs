@@ -212,7 +212,7 @@ namespace Capa_de_Presentacion
 
             SqlDataReader leer = comando.ExecuteReader();
 
-            if (leer.Read() == true)
+            if (leer.Read())
             {
                 Program.IdCliente = Convert.ToInt32(leer["IdCliente"]);
             }

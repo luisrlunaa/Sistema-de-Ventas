@@ -24,7 +24,7 @@ namespace Capa_de_Presentacion
             var monto = Program.GetTwoNumberAfterPointWithOutRound(txtmonto.Text);
             if (idsAmountToPay != null && idsAmountToPay.Any())
             {
-                foreach (var item in idsAmountToPay.Where(x => !x.pagada && !x.abono))
+                foreach (var item in idsAmountToPay.Where(x => !x.pagada && !x.abono).OrderBy(y => y.IdVenta).ToList())
                 {
                     var nuevoMonto = monto - item.Total;
                     if (nuevoMonto >= 0)

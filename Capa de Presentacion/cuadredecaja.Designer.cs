@@ -99,6 +99,8 @@
             this.txtTarjeta = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.txtCheques = new System.Windows.Forms.TextBox();
+            this.lblEfectivo = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -799,7 +801,7 @@
             this.lblmensaje.AutoSize = true;
             this.lblmensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblmensaje.ForeColor = System.Drawing.Color.White;
-            this.lblmensaje.Location = new System.Drawing.Point(397, 425);
+            this.lblmensaje.Location = new System.Drawing.Point(404, 450);
             this.lblmensaje.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblmensaje.Name = "lblmensaje";
             this.lblmensaje.Size = new System.Drawing.Size(25, 22);
@@ -895,12 +897,37 @@
             this.txtCheques.TabIndex = 170;
             this.txtCheques.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // lblEfectivo
+            // 
+            this.lblEfectivo.AutoSize = true;
+            this.lblEfectivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEfectivo.ForeColor = System.Drawing.Color.White;
+            this.lblEfectivo.Location = new System.Drawing.Point(551, 412);
+            this.lblEfectivo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEfectivo.Name = "lblEfectivo";
+            this.lblEfectivo.Size = new System.Drawing.Size(20, 18);
+            this.lblEfectivo.TabIndex = 173;
+            this.lblEfectivo.Text = "...";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(408, 412);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(112, 18);
+            this.label26.TabIndex = 172;
+            this.label26.Text = "Monto Efectivo:";
+            // 
             // cuadredecaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaGreen;
             this.ClientSize = new System.Drawing.Size(668, 677);
+            this.Controls.Add(this.lblEfectivo);
+            this.Controls.Add(this.label26);
             this.Controls.Add(this.label24);
             this.Controls.Add(this.txtCheques);
             this.Controls.Add(this.label22);
@@ -1043,5 +1070,7 @@
         private System.Windows.Forms.TextBox txtTarjeta;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox txtCheques;
+        private System.Windows.Forms.Label lblEfectivo;
+        private System.Windows.Forms.Label label26;
     }
 }

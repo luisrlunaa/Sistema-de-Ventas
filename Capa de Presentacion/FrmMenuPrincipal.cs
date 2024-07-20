@@ -125,7 +125,7 @@ namespace Capa_de_Presentacion
             SqlCommand comando = new SqlCommand(cadSql, M.conexion);
             M.Conectar();
             SqlDataReader leer = comando.ExecuteReader();
-            if (leer.Read() == true)
+            if (leer.Read())
             {
                 lblDir.Text = leer["DirEmp"].ToString();
                 lblLogo.Text = leer["NombreEmp"].ToString();

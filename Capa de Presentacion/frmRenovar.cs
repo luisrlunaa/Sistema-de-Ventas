@@ -35,7 +35,7 @@ namespace Capa_de_Presentacion
             var nuevafecha = DateTime.Today.AddYears(1);
             if (licenciaAnterior == "")
             {
-                licenciaAnterior = (new Guid()).ToString();
+                licenciaAnterior = Guid.NewGuid().ToString();
             }
 
             if (txtrenovar.Text != "" && txtrenovar.Text != null)
@@ -76,7 +76,7 @@ namespace Capa_de_Presentacion
 
             SqlDataReader leer = comando.ExecuteReader();
 
-            if (leer.Read() == true)
+            if (leer.Read())
             {
                 empresa = leer["empresa"].ToString();
                 proveedor = leer["proveedor"].ToString();
@@ -104,7 +104,7 @@ namespace Capa_de_Presentacion
 
             SqlDataReader leer = comando.ExecuteReader();
 
-            if (leer.Read() == true)
+            if (leer.Read())
             {
                 licenciaAnterior = leer["Licencia_Post"].ToString();
             }

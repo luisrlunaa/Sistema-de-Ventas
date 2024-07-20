@@ -41,7 +41,7 @@ namespace Capa_de_Presentacion
 
             if (tempSalesData != null && tempSalesData.Count > 0)
             {
-                llenar_data(tempSalesData);
+                llenar_data(tempSalesData.OrderByDescending(c => c.IdVenta).ToList());
 
                 var fecha1 = tempSalesData?.FirstOrDefault()?.FechaVenta;
                 var fecha2 = tempSalesData?.LastOrDefault()?.FechaVenta;
@@ -146,6 +146,8 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = item.UltimaFechaPago;
                 dataGridView1.Rows[renglon].Cells["vehiculo"].Value = item.Vehiculo.ToString();
                 dataGridView1.Rows[renglon].Cells["telefono"].Value = item.Telefono.ToString();
+                dataGridView1.Rows[renglon].Cells["AtendidoPor"].Value = item.AtendidoPor.ToString();
+                dataGridView1.Rows[renglon].Cells["TipoPago"].Value = item.TipoPago.ToString();
             }
 
             var totalVendido = listaventas.Sum(x => x.Total);
@@ -211,7 +213,7 @@ namespace Capa_de_Presentacion
 
             SqlDataReader leer = comando.ExecuteReader();
 
-            if (leer.Read() == true)
+            if (leer.Read())
             {
                 Program.IdCliente = Convert.ToInt32(leer["IdCliente"]);
             }
@@ -264,7 +266,8 @@ namespace Capa_de_Presentacion
             }
             Program.Telefono = dataGridView1.CurrentRow.Cells["telefono"].Value.ToString();
             Program.Vehiculo = dataGridView1.CurrentRow.Cells["vehiculo"].Value.ToString();
-
+            Program.AtendidoPor = dataGridView1.CurrentRow.Cells["AtendidoPor"].Value.ToString();
+            Program.TipoPago = dataGridView1.CurrentRow.Cells["TipoPago"].Value.ToString();
             Program.ReImpresion = "Copia Factura";
         }
 
@@ -479,10 +482,7 @@ namespace Capa_de_Presentacion
                 MessageBox.Show("No guardo el Archivo");
             }
         }
-        //public void GenerarDocumento2(Document document)
-        //{
-        //    Pdf.GenerarDocumento(document, dataGridView4);
-        //}
+
         public void GenerarDocumento1(Document document)
         {
             Pdf.GenerarDocumento(document, dataGridView3);
@@ -508,32 +508,32 @@ namespace Capa_de_Presentacion
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
                     newlist = listFind.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
-                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
                     newlist = listFind.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower()) && x.Restante > 0).ToList();
-                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
                     newlist = listFind.Where(x => x.Tipofactura == cbtipofactura.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
-                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
                     newlist = listFind.Where(x => x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
-                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
                 else if (cbPendiente.Checked == true)
                 {
                     newlist = listFind.Where(x => x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower()) && x.Restante > 0).ToList();
-                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
                 else
                 {
                     newlist = listFind.Where(x => x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
-                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
             }
             else
@@ -541,32 +541,32 @@ namespace Capa_de_Presentacion
                 if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
                 {
                     newlist = listFind.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado).ToList();
-                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
                 else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
                 {
                     newlist = listFind.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.Restante > 0).ToList();
-                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
                 {
                     newlist = listFind.Where(x => x.Tipofactura == cbtipofactura.Text && x.borrador == borrado).ToList();
-                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
                 else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
                 {
                     newlist = listFind.Where(x => x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado).ToList();
-                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
                 else if (cbPendiente.Checked == true)
                 {
                     newlist = listFind.Where(x => x.borrador == borrado && x.Restante > 0).ToList();
-                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
                 else
                 {
                     newlist = listFind.Where(x => x.borrador == borrado).ToList();
-                    llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
             }
 
@@ -598,7 +598,7 @@ namespace Capa_de_Presentacion
             vereliminadas.Checked = false;
             Program.Id = 0;
             Program.tipo = "";
-            llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+            llenar_data(tempSalesData.OrderByDescending(c => c.IdVenta).ToList());
             var fecha1 = tempSalesData?.FirstOrDefault()?.FechaVenta;
             var fecha2 = tempSalesData?.LastOrDefault()?.FechaVenta;
             var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
@@ -627,7 +627,7 @@ namespace Capa_de_Presentacion
                     var newlist = tempSalesData.Where(x => x.IdVenta == id).ToList();
                     if (newlist != null && newlist.Any())
                     {
-                        llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                        llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                         var fecha1 = newlist?.FirstOrDefault()?.FechaVenta;
                         var fecha2 = newlist?.LastOrDefault()?.FechaVenta;
                         var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
@@ -645,7 +645,7 @@ namespace Capa_de_Presentacion
                     var newlist = tempSalesData.Where(x => x.NombreCliente.ToLower().Contains(name.ToLower()) || x.Vehiculo.ToLower().Contains(name.ToLower())).ToList();
                     if (newlist != null && newlist.Any())
                     {
-                        llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                        llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                         var fecha1 = newlist?.FirstOrDefault()?.FechaVenta;
                         var fecha2 = newlist?.LastOrDefault()?.FechaVenta;
                         var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
@@ -664,7 +664,7 @@ namespace Capa_de_Presentacion
                     var lst = V.GetListadoVentasporNombreProducto(name);
                     if (lst != null && lst.Any())
                     {
-                        llenar_data(lst.OrderBy(x => x.IdVenta).ToList());
+                        llenar_data(lst.OrderByDescending(c => c.IdVenta).ToList());
                         var fecha1 = lst?.FirstOrDefault()?.FechaVenta;
                         var fecha2 = lst?.LastOrDefault()?.FechaVenta;
                         var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
@@ -678,7 +678,7 @@ namespace Capa_de_Presentacion
             {
                 if (tempSalesData != null && tempSalesData.Any())
                 {
-                    llenar_data(tempSalesData.OrderBy(x => x.IdVenta).ToList());
+                    llenar_data(tempSalesData.OrderByDescending(c => c.IdVenta).ToList());
                     var fecha1 = tempSalesData?.FirstOrDefault()?.FechaVenta;
                     var fecha2 = tempSalesData?.LastOrDefault()?.FechaVenta;
                     var newlistVentasPorCategoria = ListaPorCatergoria(fecha1.Value.Date, fecha2.Value.Date, borrado);
@@ -855,13 +855,13 @@ namespace Capa_de_Presentacion
             {
                 borrado = 1;
                 var newlist = tempSalesData.Where(x => x.borrador == borrado).ToList();
-                llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
             }
             else
             {
                 borrado = 0;
                 var newlist = tempSalesData.Where(x => x.borrador == borrado).ToList();
-                llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+                llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
             }
         }
 
@@ -1109,7 +1109,7 @@ namespace Capa_de_Presentacion
                         SqlCommand comando = new SqlCommand(cadSql, M.conexion);
                         M.Conectar();
                         SqlDataReader leer = comando.ExecuteReader();
-                        if (leer.Read() == true)
+                        if (leer.Read())
                         {
                             var monto = leer["ganancia"] == DBNull.Value ? 0 : Program.GetTwoNumberAfterPointWithOutRound(leer["ganancia"].ToString()) > 0 ? Program.GetTwoNumberAfterPointWithOutRound(leer["ganancia"].ToString()) : 0;
                             ganancia += monto;
@@ -1527,9 +1527,49 @@ namespace Capa_de_Presentacion
             clsVentas V = new clsVentas();
             var listFind = V.GetListadoVentas(dtDesdeSearchBy.Value.Date, dtHastaSearchBy.Value.Date, txtMarcaSearchBy.Text);
             var newlist = listFind.Where(x => x.borrador == borrado).ToList();
-            llenar_data(newlist.OrderBy(x => x.IdVenta).ToList());
+            llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
             var ganancias = Ganancias(newlist);
             GananciaTotal(ganancias);
+        }
+
+        private void chkAtendidoPor_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!chkAtendidoPor.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == chkAtendidoPor.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                chkIdentidad.Visible = false;
+            }
+        }
+
+        private void chkTipoPago_CheckedChanged(object sender, EventArgs e)
+        {
+            var count = dataGridView1.Columns.Count;
+            if (!chkTipoPago.Checked)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    if (dataGridView1.Columns[index].HeaderText == chkTipoPago.Text)
+                    {
+                        dataGridView1.Columns.RemoveAt(index);
+                        //if (dataGridView1.Rows.Count > 0)
+                        //    dataGridView1.Rows.RemoveAt(index);
+                        count--;
+                    }
+                }
+
+                chkIdentidad.Visible = false;
+            }
         }
     }
 }

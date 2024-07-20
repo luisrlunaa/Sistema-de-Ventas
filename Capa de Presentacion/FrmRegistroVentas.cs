@@ -102,6 +102,18 @@ namespace Capa_de_Presentacion
 
             cbxTotals.Visible = false;
             label23.Visible = false;
+
+            var values = new List<string>();
+            values.Add("Efectivo");
+            values.Add("Tarjeta");
+            values.Add("Transferencia");
+            values.Add("Cheque");
+
+
+            cbTipoPago.DisplayMember = "text";
+            cbTipoPago.ValueMember = "text";
+            cbTipoPago.DataSource = values;
+            //cbTipoPago.SelectedIndex = 0;
         }
 
         public int buscarProductoporid(int id)
@@ -253,7 +265,7 @@ namespace Capa_de_Presentacion
             SqlDataReader leer = comando.ExecuteReader();
             int varcodigo;
 
-            if (leer.Read() == true)
+            if (leer.Read())
             {
                 varcodigo = Convert.ToInt32(leer["IdVenta"]) + 1;
                 txtIdVenta.Text = varcodigo.ToString();
@@ -275,7 +287,7 @@ namespace Capa_de_Presentacion
             SqlDataReader leer = comando.ExecuteReader();
             int varcodigo;
 
-            if (leer.Read() == true)
+            if (leer.Read())
             {
                 varcodigo = Convert.ToInt32(leer["IdCotizacion"]) + 1;
             }
@@ -359,6 +371,8 @@ namespace Capa_de_Presentacion
             lbligv.Text = Program.igv > 0 ? Program.igv + "" : lbligv.Text;
             txtTel.Text = !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
             txtVeh.Text = !string.IsNullOrWhiteSpace(Program.Vehiculo) ? Program.Vehiculo : txtVeh.Text;
+            txtAtendidoPor.Text = !string.IsNullOrWhiteSpace(Program.AtendidoPor) ? Program.AtendidoPor : txtAtendidoPor.Text;
+            cbTipoPago.Text = !string.IsNullOrWhiteSpace(Program.TipoPago) ? Program.TipoPago : cbTipoPago.Text;
 
             if (!string.IsNullOrWhiteSpace(Program.Esabono) && Program.pagoRealizado > 0 && Program.realizopago == true)
             {
@@ -616,6 +630,7 @@ namespace Capa_de_Presentacion
                 precio = Program.GetTwoNumberAfterPointWithOutRound(txtPVenta.Text);
                 itbis = Program.GetTwoNumberAfterPointWithOutRound(txtIgv.Text);
             }
+
             if (txtDescripcion.Text.Trim() != "")
             {
                 if (txtCantidad.Text.Trim() != "")
@@ -773,6 +788,7 @@ namespace Capa_de_Presentacion
             dgvVenta.Rows.Clear();
             txtIdProducto.Clear();
             txtNCF.Clear();
+            txtAtendidoPor.Clear();
             lst.Clear();
 
             cbidentificacion.Visible = true;
@@ -794,6 +810,7 @@ namespace Capa_de_Presentacion
             Program.Telefono = string.Empty;
             Program.Vehiculo = string.Empty;
             Program.fecha = string.Empty;
+            Program.AtendidoPor = string.Empty;
 
             listProducts = new List<PrecioCompraProducto>();
             TotalsList = new List<categoriasTotals>();
@@ -1001,6 +1018,7 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text);
                 cmd.Parameters.Add("@Vehiculo", SqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(txtVeh.Text) ? "sin Vehiculo" : txtVeh.Text;
                 cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
+                cmd.Parameters.Add("@TipoPago", SqlDbType.NVarChar).Value = cbTipoPago.Text;
                 cmd.Parameters.Add("@Rnc", SqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? "sin Identidad" : txtDocIdentidad.Text;
 
                 if (cbtipofactura.Text == "Credito")
@@ -1020,6 +1038,7 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@Serie", SqlDbType.Int).Value = Convert.ToInt32(txtid.Text);
                 cmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = txtNCF.Text;
                 cmd.Parameters.Add("@TipoDocumento", SqlDbType.VarChar).Value = combo_tipo_NCF.Text;
+                cmd.Parameters.Add("@AtendidoPor", SqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(txtAtendidoPor.Text) ? " " : txtAtendidoPor.Text;
                 cmd.Parameters.Add("@FechaVenta", SqlDbType.DateTime).Value = fecha;
 
                 try
@@ -1333,6 +1352,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Correo: " + lblCorreo.Text);
             ticket.TextoIzquierda("Tipo de Comprobante: " + combo_tipo_NCF.Text);
             ticket.TextoIzquierda("Tipo de Factura: " + cbtipofactura.Text.ToUpper());
+            ticket.TextoIzquierda("Tipo de Pago: " + cbTipoPago.Text.ToUpper());
             ticket.TextoIzquierda("Numero de Comprobante: " + txtNCF.Text);
             ticket.TextoIzquierda("RNC: " + lblrnc.Text);
             ticket.TextoExtremos("CAJA #1", Program.isSaler ? "ID VENTA: " + txtIdVenta.Text : "ID Cotizacion: " + txtIdVenta.Text);
@@ -1350,11 +1370,12 @@ namespace Capa_de_Presentacion
             cedula = !string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? txtDocIdentidad.Text : "Sin identificación";
 
             //SUB CABECERA.
-            ticket.TextoIzquierda("Atendido Por: " + txtUsu.Text);
+            ticket.TextoIzquierda("Despachado Por: " + txtUsu.Text);
             ticket.TextoIzquierda("Cliente: " + nombre);
             ticket.TextoIzquierda("Telefono: " + (string.IsNullOrWhiteSpace(txtTel.Text) ? "sin Telefono" : txtTel.Text));
             ticket.TextoIzquierda("Documento de Identificación: " + cedula);
             ticket.TextoIzquierda("Vehiculo: " + (string.IsNullOrWhiteSpace(txtVeh.Text) ? "sin Vehiculo" : txtVeh.Text));
+            ticket.TextoIzquierda("Atendido Por: " + (string.IsNullOrWhiteSpace(txtAtendidoPor.Text) ? "" : txtAtendidoPor.Text));
             ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Value.Day + "/" + dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year);
 
             if (cbtipofactura.Text.ToLower() == "credito" && Program.Esabono == "Es Abono")
@@ -1673,10 +1694,11 @@ namespace Capa_de_Presentacion
                         var fechaabono = new Paragraph("Fecha Abono: " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.ITALIC));
                         doc.Add(fechaabono);
                     }
-                    doc.Add(new Paragraph("Atendido por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Despachado por: " + txtUsu.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     if (Program.isSaler)
                     {
                         doc.Add(new Paragraph("Tipo de Factura: " + cbtipofactura.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                        doc.Add(new Paragraph("Tipo de Pago: " + cbTipoPago.Text.ToUpper(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                         doc.Add(new Paragraph("Tipo de Comprobante: " + combo_tipo_NCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                         doc.Add(new Paragraph("Numero de Comprobante: " + txtNCF.Text, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     }
@@ -1688,6 +1710,7 @@ namespace Capa_de_Presentacion
                     doc.Add(new Paragraph("Telefono: " + (string.IsNullOrWhiteSpace(txtTel.Text) ? "sin Telefono" : txtTel.Text), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Vehiculo: " + (string.IsNullOrWhiteSpace(txtVeh.Text) ? "sin Vehiculo" : txtVeh.Text), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Atendido Por: " + (string.IsNullOrWhiteSpace(txtAtendidoPor.Text) ? "" : txtAtendidoPor.Text), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph(" "));
 
                     GenerarDocumento(doc);

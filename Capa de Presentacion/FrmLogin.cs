@@ -28,7 +28,7 @@ namespace Capa_de_Presentacion
 
             SqlDataReader leer = comando.ExecuteReader();
 
-            if (leer.Read() == true)
+            if (leer.Read())
             {
                 tienefila = true;
             }
@@ -141,7 +141,7 @@ namespace Capa_de_Presentacion
 
             SqlDataReader leer = comando.ExecuteReader();
 
-            if (leer.Read() == true)
+            if (leer.Read())
             {
                 var id = string.IsNullOrWhiteSpace(leer["id_caja"].ToString()) ? 0 : Convert.ToInt32(leer["id_caja"]);
                 Program.idcaja = id;
@@ -187,7 +187,7 @@ namespace Capa_de_Presentacion
 
             SqlDataReader leer = comando.ExecuteReader();
 
-            if (leer.Read() == true)
+            if (leer.Read())
             {
                 FechaVenc = Convert.ToDateTime(leer["FechaVenc"]);
                 Program.WindUser = Convert.ToString(leer["WindowsUserName"]);
