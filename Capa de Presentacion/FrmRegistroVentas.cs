@@ -609,7 +609,7 @@ namespace Capa_de_Presentacion
             PrecioCompraProducto PCP = new PrecioCompraProducto();
             decimal precio = 0;
             decimal itbis = 0;
-            var comprobantevalue = txtNCF.Text.Substring(0, 3);
+            var comprobantevalue = !string.IsNullOrWhiteSpace(txtNCF.Text) ? txtNCF.Text.Substring(0, 3) : string.Empty;
             var add18 = comprobantevalue != "B02" && string.IsNullOrWhiteSpace(txtPorcentaje.Text.Trim());
 
             if ((!string.IsNullOrWhiteSpace(txtPorcentaje.Text.Trim()) && !string.IsNullOrWhiteSpace(txtPVenta.Text.Trim()))
