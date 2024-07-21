@@ -609,11 +609,14 @@ namespace Capa_de_Presentacion
             PrecioCompraProducto PCP = new PrecioCompraProducto();
             decimal precio = 0;
             decimal itbis = 0;
+            var comprobantevalue = txtNCF.Text.Substring(0, 3);
+            var add18 = comprobantevalue != "B02" && string.IsNullOrWhiteSpace(txtPorcentaje.Text.Trim());
 
-            if (txtPorcentaje.Text.Trim() != "" && txtPVenta.Text.Trim() != "")
+            if ((!string.IsNullOrWhiteSpace(txtPorcentaje.Text.Trim()) && !string.IsNullOrWhiteSpace(txtPVenta.Text.Trim()))
+                || (add18 && !string.IsNullOrWhiteSpace(txtPVenta.Text.Trim())))
             {
                 decimal precioreal = Program.GetTwoNumberAfterPointWithOutRound(txtPVenta.Text);
-                decimal porcentaje = Convert.ToInt32(txtPorcentaje.Text);
+                decimal porcentaje = add18 ? 18 : Convert.ToInt32(txtPorcentaje.Text);
                 decimal valortotalporcentaje = 100;
                 decimal divisor = Program.GetTwoNumberAfterPointWithOutRound(txtDivisor.Text);
 
