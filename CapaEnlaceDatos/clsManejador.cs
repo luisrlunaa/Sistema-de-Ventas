@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace CapaEnlaceDatos
 {
     public class clsManejador
     {
-        public SqlConnection conexion = new SqlConnection("Data Source=.;Initial Catalog=SalesSystemValeria;Integrated Security=True");
+        public SqlConnection conexion = new SqlConnection(LeerConexionDesdeArchivo());
+
         public void Conectar()
         {
             if (conexion.State == ConnectionState.Closed)
@@ -77,6 +78,29 @@ namespace CapaEnlaceDatos
                 throw ex;
             }
             Desconectar();
+        }
+
+        public static string LeerConexionDesdeArchivo()
+        {
+            string filePath = @"C:\conexion.txt";
+            var conn = string.Empty;
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    conn = File.ReadAllText(filePath);
+                }
+                else
+                {
+                    Console.WriteLine("El archivo de conexión no se encontró.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al leer el archivo de conexión: " + ex.Message);
+            }
+
+            return conn;
         }
     }
 }
