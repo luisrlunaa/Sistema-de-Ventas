@@ -141,6 +141,8 @@
             this.ckcRePrint = new System.Windows.Forms.CheckBox();
             this.cbTipoPago = new System.Windows.Forms.ComboBox();
             this.label27 = new System.Windows.Forms.Label();
+            this.txtAtendidoPor = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -163,6 +165,8 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox3.Controls.Add(this.txtAtendidoPor);
+            this.groupBox3.Controls.Add(this.label26);
             this.groupBox3.Controls.Add(this.label25);
             this.groupBox3.Controls.Add(this.txtVeh);
             this.groupBox3.Controls.Add(this.label24);
@@ -184,7 +188,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(573, 107);
+            this.groupBox3.Size = new System.Drawing.Size(573, 118);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Cliente";
@@ -193,7 +197,7 @@
             // 
             this.label25.AutoSize = true;
             this.label25.ForeColor = System.Drawing.Color.White;
-            this.label25.Location = new System.Drawing.Point(13, 83);
+            this.label25.Location = new System.Drawing.Point(13, 89);
             this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(62, 16);
@@ -206,10 +210,10 @@
             this.txtVeh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtVeh.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVeh.ForeColor = System.Drawing.Color.Black;
-            this.txtVeh.Location = new System.Drawing.Point(83, 79);
+            this.txtVeh.Location = new System.Drawing.Point(83, 85);
             this.txtVeh.Margin = new System.Windows.Forms.Padding(4);
             this.txtVeh.Name = "txtVeh";
-            this.txtVeh.Size = new System.Drawing.Size(316, 22);
+            this.txtVeh.Size = new System.Drawing.Size(250, 22);
             this.txtVeh.TabIndex = 151;
             this.txtVeh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -411,7 +415,7 @@
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.ForeColor = System.Drawing.Color.White;
-            this.groupBox4.Location = new System.Drawing.Point(17, 295);
+            this.groupBox4.Location = new System.Drawing.Point(17, 314);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
@@ -703,7 +707,7 @@
             this.lblsubt.AutoSize = true;
             this.lblsubt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblsubt.ForeColor = System.Drawing.Color.White;
-            this.lblsubt.Location = new System.Drawing.Point(383, 718);
+            this.lblsubt.Location = new System.Drawing.Point(383, 740);
             this.lblsubt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblsubt.Name = "lblsubt";
             this.lblsubt.Size = new System.Drawing.Size(21, 20);
@@ -715,7 +719,7 @@
             this.lbligv.AutoSize = true;
             this.lbligv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbligv.ForeColor = System.Drawing.Color.White;
-            this.lbligv.Location = new System.Drawing.Point(559, 718);
+            this.lbligv.Location = new System.Drawing.Point(559, 740);
             this.lbligv.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbligv.Name = "lbligv";
             this.lbligv.Size = new System.Drawing.Size(21, 20);
@@ -727,7 +731,7 @@
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.White;
-            this.label15.Location = new System.Drawing.Point(653, 718);
+            this.label15.Location = new System.Drawing.Point(653, 740);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(61, 20);
@@ -739,7 +743,7 @@
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.White;
-            this.label16.Location = new System.Drawing.Point(269, 718);
+            this.label16.Location = new System.Drawing.Point(269, 740);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(96, 20);
@@ -751,7 +755,7 @@
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.White;
-            this.label17.Location = new System.Drawing.Point(493, 718);
+            this.label17.Location = new System.Drawing.Point(493, 740);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(65, 20);
@@ -865,7 +869,7 @@
             this.dgvVenta.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvVenta.EnableHeadersVisualStyles = false;
             this.dgvVenta.GridColor = System.Drawing.Color.MidnightBlue;
-            this.dgvVenta.Location = new System.Drawing.Point(17, 478);
+            this.dgvVenta.Location = new System.Drawing.Point(17, 500);
             this.dgvVenta.Margin = new System.Windows.Forms.Padding(0);
             this.dgvVenta.Name = "dgvVenta";
             this.dgvVenta.ReadOnly = true;
@@ -1200,7 +1204,7 @@
             this.txttotal.AutoSize = true;
             this.txttotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.txttotal.ForeColor = System.Drawing.Color.White;
-            this.txttotal.Location = new System.Drawing.Point(721, 718);
+            this.txttotal.Location = new System.Drawing.Point(721, 740);
             this.txttotal.Name = "txttotal";
             this.txttotal.Size = new System.Drawing.Size(21, 20);
             this.txttotal.TabIndex = 92;
@@ -1221,7 +1225,7 @@
             this.lbltituloabono.AutoSize = true;
             this.lbltituloabono.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltituloabono.ForeColor = System.Drawing.Color.White;
-            this.lbltituloabono.Location = new System.Drawing.Point(15, 718);
+            this.lbltituloabono.Location = new System.Drawing.Point(15, 740);
             this.lbltituloabono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbltituloabono.Name = "lbltituloabono";
             this.lbltituloabono.Size = new System.Drawing.Size(117, 20);
@@ -1234,7 +1238,7 @@
             this.lblabono.AutoSize = true;
             this.lblabono.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblabono.ForeColor = System.Drawing.Color.White;
-            this.lblabono.Location = new System.Drawing.Point(15, 741);
+            this.lblabono.Location = new System.Drawing.Point(15, 763);
             this.lblabono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblabono.Name = "lblabono";
             this.lblabono.Size = new System.Drawing.Size(21, 20);
@@ -1520,12 +1524,35 @@
             this.label27.TabIndex = 160;
             this.label27.Text = "Tipo de Pago :";
             // 
+            // txtAtendidoPor
+            // 
+            this.txtAtendidoPor.BackColor = System.Drawing.Color.White;
+            this.txtAtendidoPor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtAtendidoPor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAtendidoPor.ForeColor = System.Drawing.Color.Black;
+            this.txtAtendidoPor.Location = new System.Drawing.Point(428, 83);
+            this.txtAtendidoPor.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAtendidoPor.Name = "txtAtendidoPor";
+            this.txtAtendidoPor.Size = new System.Drawing.Size(137, 22);
+            this.txtAtendidoPor.TabIndex = 156;
+            this.txtAtendidoPor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(339, 87);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(88, 16);
+            this.label26.TabIndex = 155;
+            this.label26.Text = "Atendido Por:";
+            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(928, 775);
+            this.ClientSize = new System.Drawing.Size(928, 792);
             this.Controls.Add(this.cbTipoPago);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.ckcRePrint);
@@ -1719,5 +1746,7 @@
         private System.Windows.Forms.CheckBox ckcRePrint;
         public System.Windows.Forms.ComboBox cbTipoPago;
         private System.Windows.Forms.Label label27;
+        public System.Windows.Forms.TextBox txtAtendidoPor;
+        private System.Windows.Forms.Label label26;
     }
 }
