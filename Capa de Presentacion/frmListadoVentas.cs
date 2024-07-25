@@ -1522,7 +1522,20 @@ namespace Capa_de_Presentacion
             }
         }
 
-        private void chkAtendidoPor_CheckedChanged(object sender, EventArgs e)
+        private void btnSearchBy_Click(object sender, EventArgs e)
+        {
+            var lst = ListaPorMarca(dtDesdeSearchBy.Value.Date, dtHastaSearchBy.Value.Date, txtMarcaSearchBy.Text);
+            llenar_categoryandquantity(lst);
+
+            clsVentas V = new clsVentas();
+            var listFind = V.GetListadoVentas(dtDesdeSearchBy.Value.Date, dtHastaSearchBy.Value.Date, txtMarcaSearchBy.Text);
+            var newlist = listFind.Where(x => x.borrador == borrado).ToList();
+            llenar_data(newlist.OrderByDescending(x => x.IdVenta).ToList());
+            var ganancias = Ganancias(newlist);
+            GananciaTotal(ganancias);
+        }
+
+        private void chkAtendidoPor_CheckedChanged_1(object sender, EventArgs e)
         {
             var count = dataGridView1.Columns.Count;
             if (!chkAtendidoPor.Checked)
@@ -1542,7 +1555,7 @@ namespace Capa_de_Presentacion
             }
         }
 
-        private void chkTipoPago_CheckedChanged(object sender, EventArgs e)
+        private void chkTipoPago_CheckedChanged_1(object sender, EventArgs e)
         {
             var count = dataGridView1.Columns.Count;
             if (!chkTipoPago.Checked)
@@ -1560,19 +1573,6 @@ namespace Capa_de_Presentacion
 
                 chkIdentidad.Visible = false;
             }
-        }
-
-        private void btnSearchBy_Click(object sender, EventArgs e)
-        {
-            var lst = ListaPorMarca(dtDesdeSearchBy.Value.Date, dtHastaSearchBy.Value.Date, txtMarcaSearchBy.Text);
-            llenar_categoryandquantity(lst);
-
-            clsVentas V = new clsVentas();
-            var listFind = V.GetListadoVentas(dtDesdeSearchBy.Value.Date, dtHastaSearchBy.Value.Date, txtMarcaSearchBy.Text);
-            var newlist = listFind.Where(x => x.borrador == borrado).ToList();
-            llenar_data(newlist.OrderByDescending(x => x.IdVenta).ToList());
-            var ganancias = Ganancias(newlist);
-            GananciaTotal(ganancias);
         }
     }
 }
