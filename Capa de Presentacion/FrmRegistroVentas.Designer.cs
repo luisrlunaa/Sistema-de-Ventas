@@ -139,6 +139,8 @@
             this.txtresultTotalCBX = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.ckcRePrint = new System.Windows.Forms.CheckBox();
+            this.cbTipoPago = new System.Windows.Forms.ComboBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -1493,12 +1495,39 @@
             this.ckcRePrint.UseVisualStyleBackColor = true;
             this.ckcRePrint.CheckedChanged += new System.EventHandler(this.ckcRePrint_CheckedChanged_1);
             // 
+            // cbTipoPago
+            // 
+            this.cbTipoPago.BackColor = System.Drawing.Color.White;
+            this.cbTipoPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTipoPago.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.cbTipoPago.FormattingEnabled = true;
+            this.cbTipoPago.Location = new System.Drawing.Point(598, 295);
+            this.cbTipoPago.Margin = new System.Windows.Forms.Padding(4);
+            this.cbTipoPago.Name = "cbTipoPago";
+            this.cbTipoPago.Size = new System.Drawing.Size(143, 24);
+            this.cbTipoPago.TabIndex = 161;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.BackColor = System.Drawing.Color.Transparent;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.ForeColor = System.Drawing.Color.White;
+            this.label27.Location = new System.Drawing.Point(598, 275);
+            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(96, 16);
+            this.label27.TabIndex = 160;
+            this.label27.Text = "Tipo de Pago :";
+            // 
             // FrmRegistroVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(928, 775);
+            this.Controls.Add(this.cbTipoPago);
+            this.Controls.Add(this.label27);
             this.Controls.Add(this.ckcRePrint);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.txtresultTotalCBX);
@@ -1688,5 +1717,7 @@
         private System.Windows.Forms.Label txtresultTotalCBX;
         public System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox ckcRePrint;
+        public System.Windows.Forms.ComboBox cbTipoPago;
+        private System.Windows.Forms.Label label27;
     }
 }
