@@ -32,6 +32,8 @@ namespace Capa_de_Presentacion
         public static string datoscliente;
         public static string Telefono;
         public static string Vehiculo;
+        public static string AtendidoPor;
+        public static string TipoPago;
 
         //Datos del Cliente2
         public static int IdCliente2;

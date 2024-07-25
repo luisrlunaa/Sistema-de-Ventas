@@ -52,6 +52,7 @@ namespace Capa_de_Presentacion
             lblmontocaja.Text = "...";
             lblmontoingreso.Text = "...";
             lblmontogasto.Text = "...";
+            lblEfectivo.Text = "...";
 
             dataGridView1.Rows.Clear();
             dataGridView2.Rows.Clear();
@@ -62,7 +63,7 @@ namespace Capa_de_Presentacion
             M.Desconectar();
             if (lblmontocuadre.Text != "..." && !string.IsNullOrWhiteSpace(lblmontocuadre.Text))
             {
-                decimal montofinal = Convert.ToDecimal(lblmontocuadre.Text);
+                decimal montofinal = Program.GetTwoNumberAfterPointWithOutRound(lblmontocuadre.Text);
                 if (montofinal > 0)
                 {
                     using (SqlCommand cmd = new SqlCommand("Registrarcuadre", M.conexion))
@@ -101,12 +102,10 @@ namespace Capa_de_Presentacion
             M.Conectar();
 
             SqlCommand comando = new SqlCommand(cadSql, M.conexion);
-
             SqlDataReader leer = comando.ExecuteReader();
-
-            if (leer.Read() == true)
+            if (leer.Read())
             {
-                var deuda = leer["deuda"] != null ? Math.Round(Convert.ToDecimal(leer["deuda"].ToString())) : 0;
+                var deuda = leer["deuda"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["deuda"].ToString()) : 0;
                 lbldeudas.Text = deuda.ToString();
             }
             M.Desconectar();
@@ -153,10 +152,10 @@ namespace Capa_de_Presentacion
                         dataGridView1.Rows[renglon].Cells[2].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("monto")));
                         dataGridView1.Rows[renglon].Cells[3].Value = dr.GetDateTime(dr.GetOrdinal("fecha"));
 
-                        llenargridpagos(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
-                        llenar(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
                         llenardeudas(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
                         llenargastos();
+                        llenargridpagos(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
+                        llenar(Convert.ToInt32(dataGridView1.Rows[renglon].Cells[0].Value));
 
                         string desglose = dataGridView1.Rows[renglon].Cells[1].Value.ToString();
                         if (desglose != "")
@@ -181,6 +180,8 @@ namespace Capa_de_Presentacion
                                 txtTransferencia.Text = valores[10];
                                 txtCheques.Text = valores[11];
                             }
+
+                            lblmensaje.Text = string.Empty;
                         }
 
                         txtde5.ReadOnly = true;
@@ -249,41 +250,42 @@ namespace Capa_de_Presentacion
                     dataGridView2.Rows[renglon].Cells["egresos"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("egresos")));
                     if (Convert.ToInt32(dataGridView2.Rows[renglon].Cells["id_caja"].Value) == id)
                     {
-                        pagos += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["ingresos"].Value), 2);
-                        devuelta += Math.Round(Convert.ToDecimal(dataGridView2.Rows[renglon].Cells["egresos"].Value), 2);
+                        pagos += Program.GetTwoNumberAfterPointWithOutRound(dataGridView2.Rows[renglon].Cells["ingresos"].Value.ToString());
+                        devuelta += Program.GetTwoNumberAfterPointWithOutRound(dataGridView2.Rows[renglon].Cells["egresos"].Value.ToString());
                     }
                 }
             }
 
             if (pagos > 0)
-                lblmontoingreso.Text = Math.Round(Convert.ToDecimal(pagos)).ToString();
+                lblmontoingreso.Text = Program.GetTwoNumberAfterPointWithOutRound(pagos.ToString()).ToString();
 
             M.Desconectar();
         }
 
         public void llenar(int id)
         {
+            llenarTiposDePago();
+
             M.Desconectar();
             string cadSql = "select montoactual, monto_inicial from Caja where id_caja=" + id;
 
             M.Conectar();
             SqlCommand comando = new SqlCommand(cadSql, M.conexion);
-
             SqlDataReader leer = comando.ExecuteReader();
-
-            if (leer.Read() == true)
+            if (leer.Read())
             {
                 decimal montogasto = 0;
-                decimal montoactual = leer["montoactual"] != null ? Math.Round(Convert.ToDecimal(leer["montoactual"].ToString())) : 0;
-                decimal montoinicial = leer["monto_inicial"] != null ? Math.Round(Convert.ToDecimal(leer["monto_inicial"].ToString())) : 0;
+                decimal montoactual = leer["montoactual"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["montoactual"].ToString()) : 0;
+                decimal montoinicial = leer["monto_inicial"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["monto_inicial"].ToString()) : 0;
                 lblmontoinicial.Text = montoinicial.ToString();
 
                 if (lblmontogasto.Text != "...")
                 {
-                    montogasto = Math.Round(Convert.ToDecimal(lblmontogasto.Text));
+                    montogasto = Program.GetTwoNumberAfterPointWithOutRound(lblmontogasto.Text);
                 }
 
-                lblmontocaja.Text = Math.Round((montoactual - montogasto) + montoinicial).ToString();
+                var monto = (montoactual - montogasto) + montoinicial;
+                lblmontocaja.Text = Program.GetTwoNumberAfterPointWithOutRound(monto.ToString()).ToString();
             }
 
             M.Desconectar();
@@ -297,15 +299,14 @@ namespace Capa_de_Presentacion
             M.Conectar();
             SqlCommand comando = new SqlCommand(cadSql, M.conexion);
             comando.Parameters.AddWithValue("@fecha", dpkfechacuadre.Value);
-
             SqlDataReader leer = comando.ExecuteReader();
             while (leer.Read())
             {
-                var monto = leer["monto"] != null ? Convert.ToDecimal(leer["monto"].ToString()) : 0;
+                var monto = leer["monto"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["monto"].ToString()) : 0;
                 totalgasto += monto;
             }
 
-            lblmontogasto.Text = Math.Round(totalgasto).ToString();
+            lblmontogasto.Text = Program.GetTwoNumberAfterPointWithOutRound(totalgasto.ToString()).ToString();
             M.Desconectar();
         }
 
@@ -402,9 +403,9 @@ namespace Capa_de_Presentacion
 
             SqlDataReader leer = comando.ExecuteReader();
 
-            if (leer.Read() == true)
+            if (leer.Read())
             {
-                lbldeudas.Text = leer["deuda"] != null ? Math.Round(Convert.ToDecimal(leer["deuda"].ToString())).ToString() : "0";
+                lbldeudas.Text = leer["deuda"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["deuda"].ToString()).ToString() : "0";
             }
             M.Desconectar();
         }
@@ -525,6 +526,7 @@ namespace Capa_de_Presentacion
             decimal inicial = 0;
             decimal ingresos = 0;
             decimal gastos = 0;
+            decimal efectivo = 0;
 
             if (lblmontogasto.Text != "...")
             {
@@ -539,6 +541,11 @@ namespace Capa_de_Presentacion
             if (lblmontoinicial.Text != "...")
             {
                 inicial = Program.GetTwoNumberAfterPointWithOutRound(lblmontoinicial.Text);
+            }
+
+            if (lblEfectivo.Text != "...")
+            {
+                efectivo = Program.GetTwoNumberAfterPointWithOutRound(lblEfectivo.Text);
             }
 
             decimal cuadre = (ingresos + inicial) - gastos;
@@ -592,6 +599,7 @@ namespace Capa_de_Presentacion
             {
                 txtde2000.Text = "0";
             }
+
             if (string.IsNullOrWhiteSpace(txtTarjeta.Text))
             {
                 txtTarjeta.Text = "0";
@@ -607,10 +615,21 @@ namespace Capa_de_Presentacion
                 txtCheques.Text = "0";
             }
 
-            decimal total = Math.Round((5 * Program.GetTwoNumberAfterPointWithOutRound(txtde5.Text)) + (10 * Program.GetTwoNumberAfterPointWithOutRound(txtde10.Text)) + (25 * Program.GetTwoNumberAfterPointWithOutRound(txtde25.Text)) +
-                                       (50 * Program.GetTwoNumberAfterPointWithOutRound(txtde50.Text)) + (100 * Program.GetTwoNumberAfterPointWithOutRound(txtde100.Text)) + (200 * Program.GetTwoNumberAfterPointWithOutRound(txtde200.Text)) +
-                                       (500 * Program.GetTwoNumberAfterPointWithOutRound(txtde500.Text)) + (1000 * Program.GetTwoNumberAfterPointWithOutRound(txtde1000.Text)) + (2000 * Program.GetTwoNumberAfterPointWithOutRound(txtde2000.Text))
-                                       + Program.GetTwoNumberAfterPointWithOutRound(txtTarjeta.Text) + Program.GetTwoNumberAfterPointWithOutRound(txtTransferencia.Text) + Program.GetTwoNumberAfterPointWithOutRound(txtCheques.Text));
+            decimal totalEfectivo = (5 * Program.GetTwoNumberAfterPointWithOutRound(txtde5.Text)) + (10 * Program.GetTwoNumberAfterPointWithOutRound(txtde10.Text)) + (25 * Program.GetTwoNumberAfterPointWithOutRound(txtde25.Text)) +
+                                    (50 * Program.GetTwoNumberAfterPointWithOutRound(txtde50.Text)) + (100 * Program.GetTwoNumberAfterPointWithOutRound(txtde100.Text)) + (200 * Program.GetTwoNumberAfterPointWithOutRound(txtde200.Text)) +
+                                    (500 * Program.GetTwoNumberAfterPointWithOutRound(txtde500.Text)) + (1000 * Program.GetTwoNumberAfterPointWithOutRound(txtde1000.Text)) + (2000 * Program.GetTwoNumberAfterPointWithOutRound(txtde2000.Text));
+
+
+            decimal total = Program.GetTwoNumberAfterPointWithOutRound((totalEfectivo + (Program.GetTwoNumberAfterPointWithOutRound(txtTarjeta.Text) + Program.GetTwoNumberAfterPointWithOutRound(txtTransferencia.Text) + Program.GetTwoNumberAfterPointWithOutRound(txtCheques.Text))).ToString());
+            if (totalEfectivo < efectivo)
+            {
+                var faltante = efectivo - totalEfectivo;
+                lblmensaje.Text = "Faltan : " + faltante + " Pesos \n en Efectivo";
+                lblmensaje.ForeColor = System.Drawing.Color.Yellow;
+                btnregistrar.Enabled = false;
+                return;
+            }
+
 
             if (cuadre < total)
             {
@@ -644,6 +663,37 @@ namespace Capa_de_Presentacion
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void llenarTiposDePago()
+        {
+            M.Desconectar();
+            string cadSql = @"SELECT
+                                 SUM(CASE WHEN TipoPago IS NULL OR TipoPago = '' OR TipoPago = 'Efectivo' THEN Total ELSE 0 END) AS TotalEfectivo,
+                                 SUM(CASE WHEN TipoPago = 'Tarjeta' THEN Total ELSE 0 END) AS TotalTarjeta,
+                                 SUM(CASE WHEN TipoPago = 'Transferencia' THEN Total ELSE 0 END) AS TotalTransferencia,
+                                 SUM(CASE WHEN TipoPago = 'Cheque' THEN Total ELSE 0 END) AS TotalCheque
+                             FROM
+                                 [dbo].[Venta]
+                             WHERE
+                                 FechaVenta = CONVERT(date, CONVERT(varchar(10), @fecha, 103), 103)";
+            M.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+            comando.Parameters.AddWithValue("@fecha", dpkfechacuadre.Value);
+            SqlDataReader leer = comando.ExecuteReader();
+            if (leer.Read())
+            {
+                var TotalEfectivo = leer["TotalEfectivo"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["TotalEfectivo"].ToString()) : 0;
+                var TotalTarjeta = leer["TotalTarjeta"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["TotalTarjeta"].ToString()) : 0;
+                var TotalTransferencia = leer["TotalTransferencia"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["TotalTransferencia"].ToString()) : 0;
+                var TotalCheque = leer["TotalCheque"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["TotalCheque"].ToString()) : 0;
+
+                lblEfectivo.Text = TotalEfectivo.ToString();
+                txtTarjeta.Text = TotalTarjeta.ToString();
+                txtTransferencia.Text = TotalTransferencia.ToString();
+                txtCheques.Text = TotalCheque.ToString();
+            }
+            M.Desconectar();
         }
     }
 }

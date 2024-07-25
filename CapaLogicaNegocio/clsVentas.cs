@@ -26,6 +26,8 @@ namespace CapaLogicaNegocio
         public int IdProducto { get; set; }
         public decimal Igv { get; set; }
         public decimal SubTotal { get; set; }
+        public string AtendidoPor { get; set; }
+        public string TipoPago { get; set; }
         public clsVentas()
         {
             Cantidad = 0;
@@ -37,9 +39,11 @@ namespace CapaLogicaNegocio
             Igv = 0;
             SubTotal = 0;
             IdentidadCliente = "";
+            AtendidoPor = "";
+            TipoPago = "";
         }
         public clsVentas(int objIdVenta, decimal objCantidad, string objDescripcion, string objimei, decimal objPVenta, decimal objPCompra,
-            int objIdProducto, decimal objIgv, decimal objSubTotal, string objIdentidadCliente)
+            int objIdProducto, decimal objIgv, decimal objSubTotal, string objIdentidadCliente, string objAtendidoPor, string objTipoPago)
         {
             IdVenta = objIdVenta;
             Cantidad = objCantidad;
@@ -50,6 +54,8 @@ namespace CapaLogicaNegocio
             Igv = objIgv;
             SubTotal = objSubTotal;
             IdentidadCliente = objIdentidadCliente;
+            AtendidoPor = objAtendidoPor;
+            TipoPago = objTipoPago;
         }
 
         public DataTable Listado()
@@ -63,7 +69,7 @@ namespace CapaLogicaNegocio
             var isSame = date.Date == date1.Date;
             var query = string.Empty;
             if (isSame)
-                query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta,
+                query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta, venta.AtendidoPor, venta.TipoPago,
                           COALESCE((select CAST(sum(DetalleVenta.Igv * DetalleVenta.Cantidad) AS DECIMAL(10,2)) from DetalleVenta where IdVenta = venta.IdVenta), 0 ) as Itbis,
                           COALESCE((select CAST(sum(DetalleVenta.PrecioUnitario * DetalleVenta.Cantidad) AS DECIMAL(10,2)) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, venta.Total,
                           venta.IdEmpleado,Restante = COALESCE(venta.Restante, 0),venta.TipoFactura,NombreCliente = COALESCE(venta.NombreCliente, 'Sin Cliente'),
@@ -71,7 +77,7 @@ namespace CapaLogicaNegocio
                           Telefono = COALESCE(venta.Telefono, 'Sin Telefono'),Vehiculo = COALESCE(venta.Vehiculo, 'Sin Vehiculo'),venta.borrado,venta.UltimaFechaPago 
                           from venta where venta.FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) {0} order by venta.IdVenta";
             else
-                query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta,
+                query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta, venta.AtendidoPor, venta.TipoPago,
                           COALESCE((select CAST(sum(DetalleVenta.Igv * DetalleVenta.Cantidad) AS DECIMAL(10,2)) from DetalleVenta where IdVenta = venta.IdVenta), 0 ) as Itbis,
                           COALESCE((select CAST(sum(DetalleVenta.PrecioUnitario * DetalleVenta.Cantidad) AS DECIMAL(10,2)) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, venta.Total,
                           venta.IdEmpleado,Restante = COALESCE(venta.Restante, 0),venta.TipoFactura,NombreCliente = COALESCE(venta.NombreCliente, 'Sin Cliente'),
@@ -120,16 +126,14 @@ namespace CapaLogicaNegocio
                     venta.Tipofactura = dr.GetString(dr.GetOrdinal("Tipofactura"));
                     venta.Restante = dr.GetDecimal(dr.GetOrdinal("Restante"));
                     venta.FechaVenta = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
-                    venta.NombreCliente = dr.GetString(dr.GetOrdinal("NombreCliente"));
+                    venta.NombreCliente = !dr.IsDBNull(dr.GetOrdinal("NombreCliente")) ? dr.GetString(dr.GetOrdinal("NombreCliente")) : "Sin Cliente";
                     venta.UltimaFechaPago = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
                     venta.borrador = dr.GetBoolean(dr.GetOrdinal("borrado")) ? 1 : 0;
-                    venta.Telefono = dr.GetString(dr.GetOrdinal("Telefono"));
-                    venta.Vehiculo = dr.GetString(dr.GetOrdinal("Vehiculo"));
-                    venta.Identidad = dr.GetString(dr.GetOrdinal("Identidad"));
-
-                    venta.NombreCliente = string.IsNullOrWhiteSpace(venta.NombreCliente) ? "Sin Cliente" : venta.NombreCliente;
-                    venta.Telefono = string.IsNullOrWhiteSpace(venta.Telefono) ? "Sin Telefono" : venta.Telefono;
-                    venta.Vehiculo = string.IsNullOrWhiteSpace(venta.Vehiculo) ? "Sin Vehiculo" : venta.Vehiculo;
+                    venta.Telefono = !dr.IsDBNull(dr.GetOrdinal("Telefono")) ? dr.GetString(dr.GetOrdinal("Telefono")) : "Sin Telefono";
+                    venta.Vehiculo = !dr.IsDBNull(dr.GetOrdinal("Vehiculo")) ? dr.GetString(dr.GetOrdinal("Vehiculo")) : "Sin Vehiculo";
+                    venta.Identidad = !dr.IsDBNull(dr.GetOrdinal("Identidad")) ? dr.GetString(dr.GetOrdinal("Identidad")) : " ";
+                    venta.AtendidoPor = !dr.IsDBNull(dr.GetOrdinal("AtendidoPor")) ? dr.GetString(dr.GetOrdinal("AtendidoPor")) : " ";
+                    venta.TipoPago = !dr.IsDBNull(dr.GetOrdinal("TipoPago")) ? dr.GetString(dr.GetOrdinal("TipoPago")) : "Efectivo";
 
                     if (venta.SubTotal == venta.Total && venta.Itbis > 0)
                     {
@@ -152,7 +156,7 @@ namespace CapaLogicaNegocio
         public List<Venta> GetListadoVentasporIdCliente(int id)
         {
             var newlist = new List<Venta>();
-            var query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta,
+            var query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta, venta.AtendidoPor, venta.TipoPago,
                           COALESCE((select CAST(sum(DetalleVenta.Igv * DetalleVenta.Cantidad) AS DECIMAL(10,2)) from DetalleVenta where IdVenta = venta.IdVenta), 0 ) as Itbis,
                           COALESCE((select CAST(sum(DetalleVenta.PrecioUnitario * DetalleVenta.Cantidad) AS DECIMAL(10,2)) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, venta.Total,
                           venta.IdEmpleado,Restante = COALESCE(venta.Restante, 0),venta.TipoFactura,NombreCliente = COALESCE(venta.NombreCliente, 'Sin Cliente'),
@@ -193,16 +197,14 @@ namespace CapaLogicaNegocio
                     venta.Tipofactura = dr.GetString(dr.GetOrdinal("Tipofactura"));
                     venta.Restante = dr.GetDecimal(dr.GetOrdinal("Restante"));
                     venta.FechaVenta = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
-                    venta.NombreCliente = dr.GetString(dr.GetOrdinal("NombreCliente"));
+                    venta.NombreCliente = !dr.IsDBNull(dr.GetOrdinal("NombreCliente")) ? dr.GetString(dr.GetOrdinal("NombreCliente")) : "Sin Cliente";
                     venta.UltimaFechaPago = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
                     venta.borrador = dr.GetBoolean(dr.GetOrdinal("borrado")) ? 1 : 0;
-                    venta.Telefono = dr.GetString(dr.GetOrdinal("Telefono"));
-                    venta.Vehiculo = dr.GetString(dr.GetOrdinal("Vehiculo"));
-                    venta.Identidad = dr.GetString(dr.GetOrdinal("Identidad"));
-
-                    venta.NombreCliente = string.IsNullOrWhiteSpace(venta.NombreCliente) ? "Sin Cliente" : venta.NombreCliente;
-                    venta.Telefono = string.IsNullOrWhiteSpace(venta.Telefono) ? "Sin Telefono" : venta.Telefono;
-                    venta.Vehiculo = string.IsNullOrWhiteSpace(venta.Vehiculo) ? "Sin Vehiculo" : venta.Vehiculo;
+                    venta.Telefono = !dr.IsDBNull(dr.GetOrdinal("Telefono")) ? dr.GetString(dr.GetOrdinal("Telefono")) : "Sin Telefono";
+                    venta.Vehiculo = !dr.IsDBNull(dr.GetOrdinal("Vehiculo")) ? dr.GetString(dr.GetOrdinal("Vehiculo")) : "Sin Vehiculo";
+                    venta.Identidad = !dr.IsDBNull(dr.GetOrdinal("Identidad")) ? dr.GetString(dr.GetOrdinal("Identidad")) : " ";
+                    venta.AtendidoPor = !dr.IsDBNull(dr.GetOrdinal("AtendidoPor")) ? dr.GetString(dr.GetOrdinal("AtendidoPor")) : " ";
+                    venta.TipoPago = !dr.IsDBNull(dr.GetOrdinal("TipoPago")) ? dr.GetString(dr.GetOrdinal("TipoPago")) : "Efectivo";
 
                     if (venta.SubTotal == venta.Total && venta.Itbis > 0)
                     {
@@ -225,7 +227,7 @@ namespace CapaLogicaNegocio
         public List<Venta> GetListadoVentasporTelefono(string telefono)
         {
             var newlist = new List<Venta>();
-            var query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta,
+            var query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta, venta.AtendidoPor, venta.TipoPago,
                           COALESCE((select CAST(sum(DetalleVenta.Igv * DetalleVenta.Cantidad) AS DECIMAL(10,2)) from DetalleVenta where IdVenta = venta.IdVenta), 0 ) as Itbis,
                           COALESCE((select CAST(sum(DetalleVenta.PrecioUnitario * DetalleVenta.Cantidad) AS DECIMAL(10,2)) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, venta.Total,
                           venta.IdEmpleado,Restante = COALESCE(venta.Restante, 0),venta.TipoFactura,NombreCliente = COALESCE(venta.NombreCliente, 'Sin Cliente'),
@@ -266,16 +268,14 @@ namespace CapaLogicaNegocio
                     venta.Tipofactura = dr.GetString(dr.GetOrdinal("Tipofactura"));
                     venta.Restante = dr.GetDecimal(dr.GetOrdinal("Restante"));
                     venta.FechaVenta = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
-                    venta.NombreCliente = dr.GetString(dr.GetOrdinal("NombreCliente"));
+                    venta.NombreCliente = !dr.IsDBNull(dr.GetOrdinal("NombreCliente")) ? dr.GetString(dr.GetOrdinal("NombreCliente")) : "Sin Cliente";
                     venta.UltimaFechaPago = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
                     venta.borrador = dr.GetBoolean(dr.GetOrdinal("borrado")) ? 1 : 0;
-                    venta.Telefono = dr.GetString(dr.GetOrdinal("Telefono"));
-                    venta.Vehiculo = dr.GetString(dr.GetOrdinal("Vehiculo"));
-                    venta.Identidad = dr.GetString(dr.GetOrdinal("Identidad"));
-
-                    venta.NombreCliente = string.IsNullOrWhiteSpace(venta.NombreCliente) ? "Sin Cliente" : venta.NombreCliente;
-                    venta.Telefono = string.IsNullOrWhiteSpace(venta.Telefono) ? "Sin Telefono" : venta.Telefono;
-                    venta.Vehiculo = string.IsNullOrWhiteSpace(venta.Vehiculo) ? "Sin Vehiculo" : venta.Vehiculo;
+                    venta.Telefono = !dr.IsDBNull(dr.GetOrdinal("Telefono")) ? dr.GetString(dr.GetOrdinal("Telefono")) : "Sin Telefono";
+                    venta.Vehiculo = !dr.IsDBNull(dr.GetOrdinal("Vehiculo")) ? dr.GetString(dr.GetOrdinal("Vehiculo")) : "Sin Vehiculo";
+                    venta.Identidad = !dr.IsDBNull(dr.GetOrdinal("Identidad")) ? dr.GetString(dr.GetOrdinal("Identidad")) : " ";
+                    venta.AtendidoPor = !dr.IsDBNull(dr.GetOrdinal("AtendidoPor")) ? dr.GetString(dr.GetOrdinal("AtendidoPor")) : " ";
+                    venta.TipoPago = !dr.IsDBNull(dr.GetOrdinal("TipoPago")) ? dr.GetString(dr.GetOrdinal("TipoPago")) : "Efectivo";
 
                     if (venta.SubTotal == venta.Total && venta.Itbis > 0)
                     {
@@ -298,7 +298,7 @@ namespace CapaLogicaNegocio
         public List<Venta> GetListadoVentasporNombreProducto(string pName)
         {
             var newlist = new List<Venta>();
-            var query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta,
+            var query = @"select venta.IdVenta,IdCliente= COALESCE(venta.IdCliente, 0),venta.Serie,venta.NroDocumento,venta.TipoDocumento,venta.FechaVenta, venta.AtendidoPor, venta.TipoPago,
                           COALESCE((select CAST(sum(DetalleVenta.Igv * DetalleVenta.Cantidad) AS DECIMAL(10,2)) from DetalleVenta where IdVenta = venta.IdVenta), 0 ) as Itbis,
                           COALESCE((select CAST(sum(DetalleVenta.PrecioUnitario * DetalleVenta.Cantidad) AS DECIMAL(10,2)) from DetalleVenta where IdVenta = venta.IdVenta), 0) as SubTotal, venta.Total,
                           venta.IdEmpleado,Restante = COALESCE(venta.Restante, 0),venta.TipoFactura,NombreCliente = COALESCE(venta.NombreCliente, 'Sin Cliente'),
@@ -337,16 +337,14 @@ namespace CapaLogicaNegocio
                     venta.Tipofactura = dr.GetString(dr.GetOrdinal("Tipofactura"));
                     venta.Restante = dr.GetDecimal(dr.GetOrdinal("Restante"));
                     venta.FechaVenta = dr.GetDateTime(dr.GetOrdinal("FechaVenta"));
-                    venta.NombreCliente = dr.GetString(dr.GetOrdinal("NombreCliente"));
+                    venta.NombreCliente = !dr.IsDBNull(dr.GetOrdinal("NombreCliente")) ? dr.GetString(dr.GetOrdinal("NombreCliente")) : "Sin Cliente";
                     venta.UltimaFechaPago = dr.GetDateTime(dr.GetOrdinal("UltimaFechaPago"));
                     venta.borrador = dr.GetBoolean(dr.GetOrdinal("borrado")) ? 1 : 0;
-                    venta.Telefono = dr.GetString(dr.GetOrdinal("Telefono"));
-                    venta.Vehiculo = dr.GetString(dr.GetOrdinal("Vehiculo"));
-                    venta.Identidad = dr.GetString(dr.GetOrdinal("Identidad"));
-
-                    venta.NombreCliente = string.IsNullOrWhiteSpace(venta.NombreCliente) ? "Sin Cliente" : venta.NombreCliente;
-                    venta.Telefono = string.IsNullOrWhiteSpace(venta.Telefono) ? "Sin Telefono" : venta.Telefono;
-                    venta.Vehiculo = string.IsNullOrWhiteSpace(venta.Vehiculo) ? "Sin Vehiculo" : venta.Vehiculo;
+                    venta.Telefono = !dr.IsDBNull(dr.GetOrdinal("Telefono")) ? dr.GetString(dr.GetOrdinal("Telefono")) : "Sin Telefono";
+                    venta.Vehiculo = !dr.IsDBNull(dr.GetOrdinal("Vehiculo")) ? dr.GetString(dr.GetOrdinal("Vehiculo")) : "Sin Vehiculo";
+                    venta.Identidad = !dr.IsDBNull(dr.GetOrdinal("Identidad")) ? dr.GetString(dr.GetOrdinal("Identidad")) : " ";
+                    venta.AtendidoPor = !dr.IsDBNull(dr.GetOrdinal("AtendidoPor")) ? dr.GetString(dr.GetOrdinal("AtendidoPor")) : " ";
+                    venta.TipoPago = !dr.IsDBNull(dr.GetOrdinal("TipoPago")) ? dr.GetString(dr.GetOrdinal("TipoPago")) : "Efectivo";
 
                     if (venta.SubTotal == venta.Total && venta.Itbis > 0)
                     {
@@ -387,6 +385,8 @@ namespace CapaLogicaNegocio
         public string Vehiculo { get; set; }
         public string Telefono { get; set; }
         public string Identidad { get; set; }
+        public string AtendidoPor { get; set; }
+        public string TipoPago { get; set; }
     }
 
     public class Topay

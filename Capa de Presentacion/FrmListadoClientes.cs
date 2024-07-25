@@ -365,7 +365,7 @@ namespace Capa_de_Presentacion
                     pagar.lblTel1.Text = lblTel1.Text;
                     pagar.lblTel2.Text = lblTel2.Text;
                     pagar.lblrnc.Text = lblrnc.Text;
-                    ventas.ForEach(x => pagar.idsAmountToPay.Add(new Topay() { IdVenta = x.IdVenta, Total = x.Restante, ncf = x.NroComprobante, tipoNCF = x.TipoDocumento, cliente = ClienteSelected }));
+                    ventas.OrderBy(y => y.FechaVenta).ToList().ForEach(x => pagar.idsAmountToPay.Add(new Topay() { IdVenta = x.IdVenta, Total = x.Restante, ncf = x.NroComprobante, tipoNCF = x.TipoDocumento, cliente = ClienteSelected }));
                     pagar.Show();
                 }
             }
