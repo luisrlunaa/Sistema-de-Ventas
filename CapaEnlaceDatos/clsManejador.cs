@@ -82,7 +82,7 @@ namespace CapaEnlaceDatos
 
         public static string LeerConexionDesdeArchivo()
         {
-            string filePath = @"C:\conexion.txt";
+            string filePath = @"C:\conexion1.txt";
             var conn = string.Empty;
             try
             {
