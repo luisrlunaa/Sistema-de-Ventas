@@ -105,7 +105,7 @@ namespace Capa_de_Presentacion
             SqlDataReader leer = comando.ExecuteReader();
             if (leer.Read())
             {
-                var deuda = leer["deuda"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["deuda"].ToString()) : 0;
+                var deuda = !leer.IsDBNull(leer.GetOrdinal("deuda")) ? Program.GetTwoNumberAfterPointWithOutRound(leer["deuda"].ToString()) : 0;
                 lbldeudas.Text = deuda.ToString();
             }
             M.Desconectar();
@@ -275,8 +275,8 @@ namespace Capa_de_Presentacion
             if (leer.Read())
             {
                 decimal montogasto = 0;
-                decimal montoactual = leer["montoactual"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["montoactual"].ToString()) : 0;
-                decimal montoinicial = leer["monto_inicial"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["monto_inicial"].ToString()) : 0;
+                decimal montoactual = !leer.IsDBNull(leer.GetOrdinal("montoactual")) ? Program.GetTwoNumberAfterPointWithOutRound(leer["montoactual"].ToString()) : 0;
+                decimal montoinicial = !leer.IsDBNull(leer.GetOrdinal("monto_inicial")) ? Program.GetTwoNumberAfterPointWithOutRound(leer["monto_inicial"].ToString()) : 0;
                 lblmontoinicial.Text = montoinicial.ToString();
 
                 if (lblmontogasto.Text != "...")
@@ -302,7 +302,7 @@ namespace Capa_de_Presentacion
             SqlDataReader leer = comando.ExecuteReader();
             while (leer.Read())
             {
-                var monto = leer["monto"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["monto"].ToString()) : 0;
+                var monto = !leer.IsDBNull(leer.GetOrdinal("monto")) ? Program.GetTwoNumberAfterPointWithOutRound(leer["monto"].ToString()) : 0;
                 totalgasto += monto;
             }
 
@@ -405,7 +405,7 @@ namespace Capa_de_Presentacion
 
             if (leer.Read())
             {
-                lbldeudas.Text = leer["deuda"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["deuda"].ToString()).ToString() : "0";
+                lbldeudas.Text = !leer.IsDBNull(leer.GetOrdinal("deuda")) ? Program.GetTwoNumberAfterPointWithOutRound(leer["deuda"].ToString()).ToString() : "0";
             }
             M.Desconectar();
         }
@@ -665,10 +665,10 @@ namespace Capa_de_Presentacion
             SqlDataReader leer = comando.ExecuteReader();
             if (leer.Read())
             {
-                var TotalEfectivo = leer["TotalEfectivo"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["TotalEfectivo"].ToString()) : 0;
-                var TotalTarjeta = leer["TotalTarjeta"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["TotalTarjeta"].ToString()) : 0;
-                var TotalTransferencia = leer["TotalTransferencia"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["TotalTransferencia"].ToString()) : 0;
-                var TotalCheque = leer["TotalCheque"] != null ? Program.GetTwoNumberAfterPointWithOutRound(leer["TotalCheque"].ToString()) : 0;
+                var TotalEfectivo = !leer.IsDBNull(leer.GetOrdinal("TotalEfectivo")) ? Program.GetTwoNumberAfterPointWithOutRound(leer["TotalEfectivo"].ToString()) : 0;
+                var TotalTarjeta = !leer.IsDBNull(leer.GetOrdinal("TotalTarjeta")) ? Program.GetTwoNumberAfterPointWithOutRound(leer["TotalTarjeta"].ToString()) : 0;
+                var TotalTransferencia = !leer.IsDBNull(leer.GetOrdinal("TotalTransferencia")) ? Program.GetTwoNumberAfterPointWithOutRound(leer["TotalTransferencia"].ToString()) : 0;
+                var TotalCheque = !leer.IsDBNull(leer.GetOrdinal("TotalCheque")) ? Program.GetTwoNumberAfterPointWithOutRound(leer["TotalCheque"].ToString()) : 0;
 
                 lblEfectivo.Text = TotalEfectivo.ToString();
                 txtTarjeta.Text = TotalTarjeta.ToString();
