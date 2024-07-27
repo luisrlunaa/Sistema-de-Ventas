@@ -1720,7 +1720,7 @@ namespace Capa_de_Presentacion
                     doc.AddCreationDate();
                     if (dgvVenta.Rows.Count >= 1)
                     {
-                        int filas = 20 - dgvVenta.Rows.Count;
+                        int filas = 17 - dgvVenta.Rows.Count;
                         if (filas > 1)
                         {
                             for (int i = 1; i < filas; i++)
