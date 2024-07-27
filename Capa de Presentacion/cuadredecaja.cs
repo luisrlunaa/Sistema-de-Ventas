@@ -526,7 +526,6 @@ namespace Capa_de_Presentacion
             decimal inicial = 0;
             decimal ingresos = 0;
             decimal gastos = 0;
-            decimal efectivo = 0;
 
             if (lblmontogasto.Text != "...")
             {
@@ -541,11 +540,6 @@ namespace Capa_de_Presentacion
             if (lblmontoinicial.Text != "...")
             {
                 inicial = Program.GetTwoNumberAfterPointWithOutRound(lblmontoinicial.Text);
-            }
-
-            if (lblEfectivo.Text != "...")
-            {
-                efectivo = Program.GetTwoNumberAfterPointWithOutRound(lblEfectivo.Text);
             }
 
             decimal cuadre = (ingresos + inicial) - gastos;
@@ -599,7 +593,6 @@ namespace Capa_de_Presentacion
             {
                 txtde2000.Text = "0";
             }
-
             if (string.IsNullOrWhiteSpace(txtTarjeta.Text))
             {
                 txtTarjeta.Text = "0";
@@ -615,21 +608,10 @@ namespace Capa_de_Presentacion
                 txtCheques.Text = "0";
             }
 
-            decimal totalEfectivo = (5 * Program.GetTwoNumberAfterPointWithOutRound(txtde5.Text)) + (10 * Program.GetTwoNumberAfterPointWithOutRound(txtde10.Text)) + (25 * Program.GetTwoNumberAfterPointWithOutRound(txtde25.Text)) +
-                                    (50 * Program.GetTwoNumberAfterPointWithOutRound(txtde50.Text)) + (100 * Program.GetTwoNumberAfterPointWithOutRound(txtde100.Text)) + (200 * Program.GetTwoNumberAfterPointWithOutRound(txtde200.Text)) +
-                                    (500 * Program.GetTwoNumberAfterPointWithOutRound(txtde500.Text)) + (1000 * Program.GetTwoNumberAfterPointWithOutRound(txtde1000.Text)) + (2000 * Program.GetTwoNumberAfterPointWithOutRound(txtde2000.Text));
-
-
-            decimal total = Program.GetTwoNumberAfterPointWithOutRound((totalEfectivo + (Program.GetTwoNumberAfterPointWithOutRound(txtTarjeta.Text) + Program.GetTwoNumberAfterPointWithOutRound(txtTransferencia.Text) + Program.GetTwoNumberAfterPointWithOutRound(txtCheques.Text))).ToString());
-            if (totalEfectivo < efectivo)
-            {
-                var faltante = efectivo - totalEfectivo;
-                lblmensaje.Text = "Faltan : " + faltante + " Pesos \n en Efectivo";
-                lblmensaje.ForeColor = System.Drawing.Color.Yellow;
-                btnregistrar.Enabled = false;
-                return;
-            }
-
+            decimal total = Math.Round((5 * Program.GetTwoNumberAfterPointWithOutRound(txtde5.Text)) + (10 * Program.GetTwoNumberAfterPointWithOutRound(txtde10.Text)) + (25 * Program.GetTwoNumberAfterPointWithOutRound(txtde25.Text)) +
+                                       (50 * Program.GetTwoNumberAfterPointWithOutRound(txtde50.Text)) + (100 * Program.GetTwoNumberAfterPointWithOutRound(txtde100.Text)) + (200 * Program.GetTwoNumberAfterPointWithOutRound(txtde200.Text)) +
+                                       (500 * Program.GetTwoNumberAfterPointWithOutRound(txtde500.Text)) + (1000 * Program.GetTwoNumberAfterPointWithOutRound(txtde1000.Text)) + (2000 * Program.GetTwoNumberAfterPointWithOutRound(txtde2000.Text))
+                                       + Program.GetTwoNumberAfterPointWithOutRound(txtTarjeta.Text) + Program.GetTwoNumberAfterPointWithOutRound(txtTransferencia.Text) + Program.GetTwoNumberAfterPointWithOutRound(txtCheques.Text));
 
             if (cuadre < total)
             {
