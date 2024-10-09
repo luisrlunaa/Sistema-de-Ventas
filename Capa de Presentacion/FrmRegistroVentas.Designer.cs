@@ -37,18 +37,25 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmRegistroVentas));
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtAtendidoPor = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.txtVeh = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.cbidentificacion = new System.Windows.Forms.CheckBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtDocIdentidad = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtDatos = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbitbis = new System.Windows.Forms.CheckBox();
             this.label21 = new System.Windows.Forms.Label();
             this.txtDivisor = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
@@ -135,12 +142,6 @@
             this.txtresultTotalCBX = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.ckcRePrint = new System.Windows.Forms.CheckBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.txtAtendidoPor = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.cbTipoPago = new System.Windows.Forms.ComboBox();
             this.groupBox3.SuspendLayout();
@@ -193,6 +194,29 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Cliente";
             // 
+            // txtAtendidoPor
+            // 
+            this.txtAtendidoPor.BackColor = System.Drawing.Color.White;
+            this.txtAtendidoPor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtAtendidoPor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAtendidoPor.ForeColor = System.Drawing.Color.Black;
+            this.txtAtendidoPor.Location = new System.Drawing.Point(428, 79);
+            this.txtAtendidoPor.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAtendidoPor.Name = "txtAtendidoPor";
+            this.txtAtendidoPor.Size = new System.Drawing.Size(137, 22);
+            this.txtAtendidoPor.TabIndex = 154;
+            this.txtAtendidoPor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(338, 83);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(88, 16);
+            this.label26.TabIndex = 153;
+            this.label26.Text = "Atendido Por:";
+            // 
             // label25
             // 
             this.label25.AutoSize = true;
@@ -238,6 +262,19 @@
             this.cbidentificacion.Text = "Con Identificación";
             this.cbidentificacion.UseVisualStyleBackColor = false;
             this.cbidentificacion.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // textBox6
+            // 
+            this.textBox6.BackColor = System.Drawing.Color.White;
+            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox6.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.textBox6.Location = new System.Drawing.Point(124, 214);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.ReadOnly = true;
+            this.textBox6.Size = new System.Drawing.Size(83, 22);
+            this.textBox6.TabIndex = 13;
+            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnBuscar
             // 
@@ -297,6 +334,18 @@
             this.txtDatos.TabIndex = 1;
             this.txtDatos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // textBox5
+            // 
+            this.textBox5.BackColor = System.Drawing.Color.White;
+            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox5.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.textBox5.Location = new System.Drawing.Point(375, 214);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(99, 22);
+            this.textBox5.TabIndex = 9;
+            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -306,6 +355,33 @@
             this.label1.Size = new System.Drawing.Size(42, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Sr (a):";
+            // 
+            // textBox3
+            // 
+            this.textBox3.BackColor = System.Drawing.Color.White;
+            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.textBox3.Location = new System.Drawing.Point(124, 172);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(83, 22);
+            this.textBox3.TabIndex = 5;
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox4
+            // 
+            this.textBox4.BackColor = System.Drawing.Color.White;
+            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.textBox4.Location = new System.Drawing.Point(375, 172);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(99, 22);
+            this.textBox4.TabIndex = 7;
+            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox1
             // 
@@ -338,6 +414,7 @@
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox4.Controls.Add(this.cbitbis);
             this.groupBox4.Controls.Add(this.label21);
             this.groupBox4.Controls.Add(this.txtDivisor);
             this.groupBox4.Controls.Add(this.label20);
@@ -366,6 +443,19 @@
             this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Producto";
+            // 
+            // cbitbis
+            // 
+            this.cbitbis.AutoSize = true;
+            this.cbitbis.BackColor = System.Drawing.Color.Transparent;
+            this.cbitbis.Location = new System.Drawing.Point(314, 151);
+            this.cbitbis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbitbis.Name = "cbitbis";
+            this.cbitbis.Size = new System.Drawing.Size(75, 20);
+            this.cbitbis.TabIndex = 95;
+            this.cbitbis.Text = "Sin Itbis";
+            this.cbitbis.UseVisualStyleBackColor = false;
+            this.cbitbis.Visible = false;
             // 
             // label21
             // 
@@ -1415,81 +1505,6 @@
             this.ckcRePrint.Visible = false;
             this.ckcRePrint.CheckedChanged += new System.EventHandler(this.ckcRePrint_CheckedChanged);
             // 
-            // textBox4
-            // 
-            this.textBox4.BackColor = System.Drawing.Color.White;
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.textBox4.Location = new System.Drawing.Point(375, 172);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(99, 22);
-            this.textBox4.TabIndex = 7;
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox3
-            // 
-            this.textBox3.BackColor = System.Drawing.Color.White;
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.textBox3.Location = new System.Drawing.Point(124, 172);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(83, 22);
-            this.textBox3.TabIndex = 5;
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox5
-            // 
-            this.textBox5.BackColor = System.Drawing.Color.White;
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.textBox5.Location = new System.Drawing.Point(375, 214);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(99, 22);
-            this.textBox5.TabIndex = 9;
-            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox6
-            // 
-            this.textBox6.BackColor = System.Drawing.Color.White;
-            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.textBox6.Location = new System.Drawing.Point(124, 214);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(83, 22);
-            this.textBox6.TabIndex = 13;
-            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(338, 83);
-            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(88, 16);
-            this.label26.TabIndex = 153;
-            this.label26.Text = "Atendido Por:";
-            // 
-            // txtAtendidoPor
-            // 
-            this.txtAtendidoPor.BackColor = System.Drawing.Color.White;
-            this.txtAtendidoPor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtAtendidoPor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAtendidoPor.ForeColor = System.Drawing.Color.Black;
-            this.txtAtendidoPor.Location = new System.Drawing.Point(428, 79);
-            this.txtAtendidoPor.Margin = new System.Windows.Forms.Padding(4);
-            this.txtAtendidoPor.Name = "txtAtendidoPor";
-            this.txtAtendidoPor.Size = new System.Drawing.Size(137, 22);
-            this.txtAtendidoPor.TabIndex = 154;
-            this.txtAtendidoPor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // label27
             // 
             this.label27.AutoSize = true;
@@ -1715,5 +1730,6 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label27;
         public System.Windows.Forms.ComboBox cbTipoPago;
+        private System.Windows.Forms.CheckBox cbitbis;
     }
 }
