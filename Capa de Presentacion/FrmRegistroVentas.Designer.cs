@@ -37,6 +37,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmRegistroVentas));
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtAtendidoPor = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.txtVeh = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -141,8 +143,7 @@
             this.ckcRePrint = new System.Windows.Forms.CheckBox();
             this.cbTipoPago = new System.Windows.Forms.ComboBox();
             this.label27 = new System.Windows.Forms.Label();
-            this.txtAtendidoPor = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
+            this.cbitbis = new System.Windows.Forms.CheckBox();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVenta)).BeginInit();
@@ -192,6 +193,29 @@
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Cliente";
+            // 
+            // txtAtendidoPor
+            // 
+            this.txtAtendidoPor.BackColor = System.Drawing.Color.White;
+            this.txtAtendidoPor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtAtendidoPor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAtendidoPor.ForeColor = System.Drawing.Color.Black;
+            this.txtAtendidoPor.Location = new System.Drawing.Point(428, 83);
+            this.txtAtendidoPor.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAtendidoPor.Name = "txtAtendidoPor";
+            this.txtAtendidoPor.Size = new System.Drawing.Size(137, 22);
+            this.txtAtendidoPor.TabIndex = 156;
+            this.txtAtendidoPor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(339, 87);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(88, 16);
+            this.label26.TabIndex = 155;
+            this.label26.Text = "Atendido Por:";
             // 
             // label25
             // 
@@ -395,6 +419,7 @@
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox4.Controls.Add(this.cbitbis);
             this.groupBox4.Controls.Add(this.label21);
             this.groupBox4.Controls.Add(this.txtDivisor);
             this.groupBox4.Controls.Add(this.label20);
@@ -1524,28 +1549,18 @@
             this.label27.TabIndex = 160;
             this.label27.Text = "Tipo de Pago :";
             // 
-            // txtAtendidoPor
+            // cbitbis
             // 
-            this.txtAtendidoPor.BackColor = System.Drawing.Color.White;
-            this.txtAtendidoPor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtAtendidoPor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAtendidoPor.ForeColor = System.Drawing.Color.Black;
-            this.txtAtendidoPor.Location = new System.Drawing.Point(428, 83);
-            this.txtAtendidoPor.Margin = new System.Windows.Forms.Padding(4);
-            this.txtAtendidoPor.Name = "txtAtendidoPor";
-            this.txtAtendidoPor.Size = new System.Drawing.Size(137, 22);
-            this.txtAtendidoPor.TabIndex = 156;
-            this.txtAtendidoPor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(339, 87);
-            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(88, 16);
-            this.label26.TabIndex = 155;
-            this.label26.Text = "Atendido Por:";
+            this.cbitbis.AutoSize = true;
+            this.cbitbis.BackColor = System.Drawing.Color.Transparent;
+            this.cbitbis.Location = new System.Drawing.Point(314, 154);
+            this.cbitbis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbitbis.Name = "cbitbis";
+            this.cbitbis.Size = new System.Drawing.Size(75, 20);
+            this.cbitbis.TabIndex = 96;
+            this.cbitbis.Text = "Sin Itbis";
+            this.cbitbis.UseVisualStyleBackColor = false;
+            this.cbitbis.Visible = false;
             // 
             // FrmRegistroVentas
             // 
@@ -1748,5 +1763,6 @@
         private System.Windows.Forms.Label label27;
         public System.Windows.Forms.TextBox txtAtendidoPor;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.CheckBox cbitbis;
     }
 }
