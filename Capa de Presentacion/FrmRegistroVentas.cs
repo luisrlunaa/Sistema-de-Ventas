@@ -1689,7 +1689,7 @@ namespace Capa_de_Presentacion
                 //tabla Ventas
                 cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = Program.Id;
                 cmd.Parameters.Add("@Restante", SqlDbType.Decimal).Value = restante;
-                
+
                 try
                 {
                     M.Conectar();

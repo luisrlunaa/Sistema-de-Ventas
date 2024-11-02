@@ -4,7 +4,6 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -93,27 +92,27 @@ namespace Capa_de_Presentacion
                             {
                                 using (SqlCommand cmd = new SqlCommand("RegistrarProducto", Cx.conexion))
                                 {
-                                        cmd.CommandType = CommandType.StoredProcedure;
-                                        cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
-                                        cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
-                                        cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
-                                        cmd.Parameters.Add("@Stock", SqlDbType.Int).Value = txtStock.Text;
-                                        cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
-                                        cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
-                                        cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
-                                        cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
-                                        cmd.Parameters.Add("@FechaVencimiento", SqlDbType.Date).Value = dateTimePicker1.Text;
-                                        cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
-                                        cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
-                                        cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
+                                    cmd.CommandType = CommandType.StoredProcedure;
+                                    cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
+                                    cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
+                                    cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
+                                    cmd.Parameters.Add("@Stock", SqlDbType.Int).Value = txtStock.Text;
+                                    cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = txtPCompra.Text;
+                                    cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = txtPVenta.Text;
+                                    cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = txtitbis.Text;
+                                    cmd.Parameters.Add("@TipoGoma", SqlDbType.NVarChar).Value = cbtipo.Text;
+                                    cmd.Parameters.Add("@FechaVencimiento", SqlDbType.Date).Value = dateTimePicker1.Text;
+                                    cmd.Parameters.Add("@FechaModificacion", SqlDbType.Date).Value = dateTimePicker1.Text;
+                                    cmd.Parameters.Add("@Pmax", SqlDbType.Decimal).Value = txtPmax.Text;
+                                    cmd.Parameters.Add("@Pmin", SqlDbType.Decimal).Value = txtPmin.Text;
 
-                                        Cx.Conectar();
-                                        cmd.ExecuteNonQuery();
-                                        Cx.Desconectar();
-                                        P.Listar();
-                                        ListarElementos();
-                                        Limpiar();
-                                    }
+                                    Cx.Conectar();
+                                    cmd.ExecuteNonQuery();
+                                    Cx.Desconectar();
+                                    P.Listar();
+                                    ListarElementos();
+                                    Limpiar();
+                                }
                             }
                             else
                             {

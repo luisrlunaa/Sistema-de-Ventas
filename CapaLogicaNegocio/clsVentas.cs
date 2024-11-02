@@ -61,10 +61,10 @@ namespace CapaLogicaNegocio
             var newlist = new List<Venta>();
             var isSame = date.Date == date1.Date;
             var query = string.Empty;
-            if(isSame)
+            if (isSame)
                 query = "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante = COALESCE(Restante, 0),TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where FechaVenta = convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND borrado = 0 order by IdVenta";
             else
-                query= "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante = COALESCE(Restante, 0),TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) AND borrado = 0 order by IdVenta";
+                query = "select IdVenta,IdCliente= COALESCE(IdCliente, '0'),Serie,NroDocumento,TipoDocumento,FechaVenta,Total,IdEmpleado,Restante = COALESCE(Restante, 0),TipoFactura,NombreCliente = COALESCE(NombreCliente, 'Sin Cliente'),borrado,UltimaFechaPago from venta where FechaVenta BETWEEN convert(datetime,CONVERT(varchar(10), @fecha, 103),103) AND convert(datetime,CONVERT(varchar(10), @fecha1, 103),103) AND borrado = 0 order by IdVenta";
 
             M.Desconectar();
             try
@@ -80,7 +80,7 @@ namespace CapaLogicaNegocio
                 comando.CommandType = CommandType.Text;
                 //sustituyendo variables por data
                 comando.Parameters.AddWithValue("@fecha", date);
-                if(!isSame)
+                if (!isSame)
                     comando.Parameters.AddWithValue("@fecha1", date1);
                 //se abre la conexion
                 M.Conectar();
