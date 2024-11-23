@@ -610,7 +610,7 @@ namespace Capa_de_Presentacion
             var add18 = comprobantevalue != "B02" && string.IsNullOrWhiteSpace(txtPorcentaje.Text.Trim());
 
             if ((!string.IsNullOrWhiteSpace(txtPorcentaje.Text.Trim()) && !string.IsNullOrWhiteSpace(txtPVenta.Text.Trim()))
-                || (add18 && !string.IsNullOrWhiteSpace(txtPVenta.Text.Trim())))
+                || (add18 && !cbitbis.Checked && !string.IsNullOrWhiteSpace(txtPVenta.Text.Trim())))
             {
                 decimal precioreal = Program.GetTwoNumberAfterPointWithOutRound(txtPVenta.Text);
                 decimal porcentaje = add18 ? 18 : Convert.ToInt32(txtPorcentaje.Text);
