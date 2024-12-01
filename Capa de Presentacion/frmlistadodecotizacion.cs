@@ -289,50 +289,47 @@ namespace Capa_de_Presentacion
 
         private void To_pdf()
         {
-            Document doc = new Document(PageSize.LETTER, 10f, 10f, 10f, 0f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            Image image1 = Image.GetInstance("LogoCepeda.png");
-            image1.ScaleAbsoluteWidth(140);
-            image1.ScaleAbsoluteHeight(70);
             saveFileDialog1.InitialDirectory = @"C:";
             saveFileDialog1.Title = "Guardar Reporte";
             saveFileDialog1.DefaultExt = "pdf";
             saveFileDialog1.Filter = "pdf Files (*.pdf)|*.pdf| All Files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
-            string filename = "Reporte" + DateTime.Now.ToString();
+            saveFileDialog1.FileName = "Reporte" + DateTime.Now.ToString();
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                filename = saveFileDialog1.FileName;
-                if (filename.Trim() != "")
+                if (saveFileDialog1.FileName.Trim() != "")
                 {
-                    FileStream file = new FileStream(filename,
-                    FileMode.OpenOrCreate,
-                    FileAccess.ReadWrite,
-                    FileShare.ReadWrite);
+                    Document doc = new Document(PageSize.A4, 10f, 10f, 0f, 0f);
+                    FileStream file = new FileStream(saveFileDialog1.FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
                     PdfWriter.GetInstance(doc, file);
                     doc.Open();
                     string remito = lblLogo.Text;
                     string ubicado = lblDir.Text;
                     string envio = "Fecha : " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year;
 
-                    Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 16, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
+                    Chunk chunk = new Chunk(remito, FontFactory.GetFont("ARIAL", 18, iTextSharp.text.Font.BOLD, color: BaseColor.BLUE));
                     var fecha = new Paragraph(envio, FontFactory.GetFont("ARIAL", 12, iTextSharp.text.Font.BOLDITALIC));
-
                     fecha.Alignment = Element.ALIGN_RIGHT;
                     doc.Add(fecha);
+
+                    Image image1 = Image.GetInstance("LogoCepeda.png");
+                    image1.ScaleAbsoluteWidth(140);
+                    image1.ScaleAbsoluteHeight(70);
                     image1.Alignment = Image.TEXTWRAP | Image.ALIGN_CENTER;
                     doc.Add(image1);
+
                     var chuckalign = new Paragraph(chunk);
                     chuckalign.Alignment = Element.ALIGN_CENTER;
                     doc.Add(chuckalign);
-                    var ubicacionalign = new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 9, iTextSharp.text.Font.NORMAL));
+
+                    var ubicacionalign = new Paragraph(ubicado, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL));
                     ubicacionalign.Alignment = Element.ALIGN_CENTER;
                     doc.Add(ubicacionalign);
 
                     doc.Add(new Paragraph("Reporte de General de Ventas Realizadas"));
-                    doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + ", "
-                        + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
+                    doc.Add(new Paragraph("Desde la Fecha: " + (dtpfecha1.Value.Day + "/" + dtpfecha1.Value.Month + "/" + dtpfecha1.Value.Year).ToString() + ", " + "Hasta la Fecha: " + (dtpfecha2.Value.Day + "/" + dtpfecha2.Value.Month + "/" + dtpfecha2.Value.Year).ToString(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("                       "));
                     GenerarDocumento(doc);
                     doc.AddCreationDate();
@@ -344,7 +341,7 @@ namespace Capa_de_Presentacion
                     doc.Add(new Paragraph("                         Firma              "));
                     doc.Close();
 
-                    Process.Start(filename);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
+                    Process.Start(saveFileDialog1.FileName);//Esta parte se puede omitir, si solo se desea guardar el archivo, y que este no se ejecute al instante
                 }
             }
             else
