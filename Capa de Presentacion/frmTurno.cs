@@ -48,21 +48,25 @@ namespace Capa_de_Presentacion
         public void tickEstilo()
         {
             CrearTiket ticket = new CrearTiket();
+            //cabecera del ticket.
+            ticket.TextoIzquierda("");
             ticket.TextoCentro(lblLogo.Text);
             ticket.TextoIzquierda("");
-            ticket.lineasGuio();
+            ticket.TextoIzquierda("");
 
             //SUB CABECERA.
             ticket.TextoIzquierda("");
             ticket.TextoIzquierda("FECHA: " + DateTime.Now.ToShortDateString());
             ticket.TextoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
-            ticket.lineasGuio();
+            ticket.TextoIzquierda("");
 
-            ticket.lineasGuio();
+            ticket.TextoIzquierda("");
 
             ticket.TextoCentro(label1.Text + "" + turno1.Text);
             ticket.TextoCentro(textBox1.Text);
             ticket.TextoCentro("!GRACIAS POR SU PACIENCIA!");
+            ticket.TextoIzquierda("");
+            ticket.TextoIzquierda("");
             ticket.CortaTicket();
             ticket.ImprimirTicket(Program.ImpresonaPeq);//NOMBRE DE LA IMPRESORA
         }

@@ -6,32 +6,32 @@ namespace Capa_de_Presentacion
 {
     public static class Pdf
     {
-        public static void GenerarDocumento(Document document, DataGridView dataGridView1)
+        public static void GenerarDocumento(Document document, DataGridView dataGridView)
         {
-            int i, j;
-            PdfPTable datatable = new PdfPTable(dataGridView1.ColumnCount);
-            float[] headerwidths = GetTamañoColumnas(dataGridView1);
-            datatable.SetWidths(headerwidths);
-            datatable.WidthPercentage = 100;
-            datatable.DefaultCell.BorderWidth = 1;
-            datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
-            for (i = 0; i < dataGridView1.ColumnCount; i++)
+            PdfPTable datatable = new PdfPTable(dataGridView.ColumnCount) { WidthPercentage = 100 };
+            float[] headerWidths = GetTamañoColumnas(dataGridView);
+            datatable.SetWidths(headerWidths);
+
+            // Encabezado de la tabla
+            foreach (DataGridViewColumn column in dataGridView.Columns)
             {
-                datatable.AddCell(new Phrase(dataGridView1.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
-            }
-            datatable.HeaderRows = 1;
-            datatable.DefaultCell.BorderWidth = 1;
-            for (i = 0; i < dataGridView1.Rows.Count; i++)
-            {
-                for (j = 0; j < dataGridView1.Columns.Count; j++)
+                PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, FontFactory.GetFont("ARIAL", 9, Font.BOLD)))
                 {
-                    if (dataGridView1[j, i].Value != null)
-                    {
-                        datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
-                    }
-                }
-                datatable.CompleteRow();
+                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    BackgroundColor = BaseColor.LIGHT_GRAY
+                };
+                datatable.AddCell(cell);
             }
+
+            // Datos
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    datatable.AddCell(new Phrase(cell.Value?.ToString() ?? "", FontFactory.GetFont("ARIAL", 8)));
+                }
+            }
+
             document.Add(datatable);
         }
 
