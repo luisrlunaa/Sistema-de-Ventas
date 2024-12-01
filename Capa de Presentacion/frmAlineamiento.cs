@@ -89,7 +89,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("TELEFONOS:" + lbltel.Text + "/" + lblTel2.Text);
             ticket.TextoIzquierda("RNC: " + lblrnc.Text);
             ticket.TextoIzquierda("EMAIL:" + lblCorreo.Text);
-            ticket.lineasGuio();
+            ticket.TextoIzquierda(" ");
 
             //SUB CABECERA.
             ticket.TextoIzquierda("ATENDIDO: " + txtUsu.Text);
@@ -97,7 +97,7 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
 
             //ARTICULOS A VENDER.
-            ticket.lineasGuio();
+            ticket.TextoIzquierda(" ");
 
             ticket.TextoIzquierda("TIPO DE TRABAJO: " + cbtipo.Text);
             ticket.TextoIzquierda("MARCA: " + txtMarca.Text);

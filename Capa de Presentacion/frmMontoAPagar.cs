@@ -99,7 +99,7 @@ namespace Capa_de_Presentacion
 
             foreach (var fila in idsAmountToPay.Where(x => x.pagada || x.abono))
             {
-                ticket.lineasGuio();
+                ticket.TextoIzquierda(" ");
                 ticket.TextoIzquierda("Tipo de Comprobante : " + fila.tipoNCF);
                 ticket.TextoIzquierda("Numero de Comprobante : " + fila.ncf);
                 ticket.TextoIzquierda("ID VENTA : " + fila.IdVenta);
@@ -115,7 +115,7 @@ namespace Capa_de_Presentacion
                     ticket.TextoIzquierda("Total Abonado : " + fila.montoPagado);
                 }
 
-                ticket.lineasGuio();
+                ticket.TextoIzquierda(" ");
             }
 
             ticket.TextoIzquierda(" ");
