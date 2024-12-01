@@ -188,7 +188,7 @@ namespace Capa_de_Presentacion
             {
                 if (saveFileDialog1.FileName.Trim() != "")
                 {
-                    Document doc = new Document(PageSize.A4, 10f, 10f, 0f, 0f);
+                    Document doc = new Document(PageSize.A4, 10f, 10f, 5f, 0f);
                     FileStream file = new FileStream(saveFileDialog1.FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
                     PdfWriter.GetInstance(doc, file);
                     doc.Open();
