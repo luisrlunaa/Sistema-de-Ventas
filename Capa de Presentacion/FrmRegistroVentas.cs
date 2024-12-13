@@ -1277,7 +1277,7 @@ namespace Capa_de_Presentacion
                     imeiproducto = (fila.Cells["ImeiC"].Value.ToString()).CleanSpace();
                 }
 
-                ticket.AgregaArticulo((fila.Cells["DescripcionP"].Value.ToString()).CleanSpace() + (string.IsNullOrWhiteSpace(imeiproducto) ? "" : "\n" + imeiproducto),
+                ticket.AgregaArticulo((fila.Cells["DescripcionP"].Value.ToString()).CleanSpace() + (string.IsNullOrWhiteSpace(imeiproducto) ? "" : " IMEI: " + imeiproducto),
                                      int.Parse((fila.Cells["cantidadP"].Value.ToString()).CleanSpace()) + "x" + decimal.Parse((fila.Cells["PrecioU"].Value.ToString()).CleanSpace()),
                                      decimal.Parse((fila.Cells["SubtoTal"].Value.ToString()).CleanSpace()),
                                      decimal.Parse((fila.Cells["IGV"].Value.ToString()).CleanSpace()));
