@@ -54,13 +54,13 @@ namespace Capa_de_Presentacion
                 case 4: EstadoCivil = 'V'; break;
             }
 
-            if (txtDni.Text.Trim() != "")
+            if (txtDni.Text.CleanSpace() != "")
             {
-                if (txtApellidos.Text.Trim() != "")
+                if (txtApellidos.Text.CleanSpace() != "")
                 {
-                    if (txtNombres.Text.Trim() != "")
+                    if (txtNombres.Text.CleanSpace() != "")
                     {
-                        if (txtDireccion.Text.Trim() != "")
+                        if (txtDireccion.Text.CleanSpace() != "")
                         {
                             if (comboBox1.SelectedValue != null)
                             {
