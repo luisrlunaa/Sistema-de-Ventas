@@ -30,7 +30,7 @@ namespace Capa_de_Presentacion
 
             try
             {
-                if (txtCategoria.Text.Trim() != "")
+                if (txtCategoria.Text.CleanSpace() != "")
                 {
                     if (Program.Evento == 0)
                     {

@@ -79,8 +79,8 @@ namespace Capa_de_Presentacion
             string[] valores = cadena.Split(delimitador);
 
             Program.descripcion = dataGridView1.CurrentRow.Cells["tipoDeTrabajo"].Value.ToString();
-            Program.marca = valores[0].Trim();
-            Program.modelo = valores[1].Trim();
+            Program.marca = valores[0].CleanSpace();
+            Program.modelo = valores[1].CleanSpace();
             Program.Aros = dataGridView1.CurrentRow.Cells["AroGoma"].Value.ToString();
             Program.total = Program.GetTwoNumberAfterPointWithOutRound(dataGridView1.CurrentRow.Cells["precio"].Value.ToString());
             Program.nota = dataGridView1.CurrentRow.Cells["nota"].Value.ToString();
@@ -186,7 +186,7 @@ namespace Capa_de_Presentacion
             saveFileDialog1.FileName = "Reporte" + DateTime.Now.ToString();
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if (saveFileDialog1.FileName.Trim() != "")
+                if (saveFileDialog1.FileName.CleanSpace() != "")
                 {
                     Document doc = new Document(PageSize.A4, 10f, 10f, 5f, 0f);
                     FileStream file = new FileStream(saveFileDialog1.FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);

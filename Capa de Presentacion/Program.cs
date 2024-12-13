@@ -175,5 +175,15 @@ namespace Capa_de_Presentacion
 
             return output;
         }
+
+        public static string CleanSpace(this string str)
+        {
+            return string.IsNullOrWhiteSpace(str) ? string.Empty : str.Trim();
+        }
+
+        public static string CleanSpace(this string str, string defaultValue)
+        {
+            return string.IsNullOrWhiteSpace(str) ? defaultValue : str.Trim();
+        }
     }
 }

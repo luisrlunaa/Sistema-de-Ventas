@@ -610,10 +610,10 @@ namespace Capa_de_Presentacion
             decimal precio = 0;
             decimal itbis = 0;
             var comprobantevalue = !string.IsNullOrWhiteSpace(txtNCF.Text) ? txtNCF.Text.Substring(0, 3) : string.Empty;
-            var add18 = comprobantevalue != "B02" && string.IsNullOrWhiteSpace(txtPorcentaje.Text.Trim());
+            var add18 = comprobantevalue != "B02" && string.IsNullOrWhiteSpace(txtPorcentaje.Text.CleanSpace());
 
-            if ((!string.IsNullOrWhiteSpace(txtPorcentaje.Text.Trim()) && !string.IsNullOrWhiteSpace(txtPVenta.Text.Trim()))
-                || (add18 && !cbitbis.Checked && !string.IsNullOrWhiteSpace(txtPVenta.Text.Trim())))
+            if ((!string.IsNullOrWhiteSpace(txtPorcentaje.Text.CleanSpace()) && !string.IsNullOrWhiteSpace(txtPVenta.Text.CleanSpace()))
+                || (add18 && !cbitbis.Checked && !string.IsNullOrWhiteSpace(txtPVenta.Text.CleanSpace())))
             {
                 decimal precioreal = Program.GetTwoNumberAfterPointWithOutRound(txtPVenta.Text);
                 decimal porcentaje = add18 ? 18 : Convert.ToInt32(txtPorcentaje.Text);
@@ -634,9 +634,9 @@ namespace Capa_de_Presentacion
                 itbis = Program.GetTwoNumberAfterPointWithOutRound(txtIgv.Text);
             }
 
-            if (txtDescripcion.Text.Trim() != "")
+            if (txtDescripcion.Text.CleanSpace() != "")
             {
-                if (txtCantidad.Text.Trim() != "")
+                if (txtCantidad.Text.CleanSpace() != "")
                 {
                     if (Convert.ToInt32(txtCantidad.Text) > 0)
                     {
@@ -644,7 +644,7 @@ namespace Capa_de_Presentacion
                         {
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
                             V.IdVenta = Program.isSaler ? Convert.ToInt32(txtIdVenta.Text) : llenarIdCotizacion();
-                            V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).Trim();
+                            V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).CleanSpace();
                             V.Cantidad = Convert.ToInt32(txtCantidad.Text);
                             V.PrecioCompra = Program.PrecioCompra;
                             V.Igv = itbis;
@@ -1392,10 +1392,10 @@ namespace Capa_de_Presentacion
             //SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
             foreach (DataGridViewRow fila in dgvVenta.Rows)
             {
-                ticket.AgregaArticulo(fila.Cells["DescripcionP"].Value.ToString().Trim(),
-                                      fila.Cells["cantidadP"].Value.ToString().Trim() + "x" + fila.Cells["PrecioU"].Value.ToString().Trim(),
-                                      Program.GetTwoNumberAfterPointWithOutRound(fila.Cells["SubtoTal"].Value.ToString().Trim()),
-                                      Program.GetTwoNumberAfterPointWithOutRound(fila.Cells["IGV"].Value.ToString().Trim()));
+                ticket.AgregaArticulo(fila.Cells["DescripcionP"].Value.ToString().CleanSpace(),
+                                      fila.Cells["cantidadP"].Value.ToString().CleanSpace() + "x" + fila.Cells["PrecioU"].Value.ToString().CleanSpace(),
+                                      Program.GetTwoNumberAfterPointWithOutRound(fila.Cells["SubtoTal"].Value.ToString().CleanSpace()),
+                                      Program.GetTwoNumberAfterPointWithOutRound(fila.Cells["IGV"].Value.ToString().CleanSpace()));
             }
             ticket.TextoIzquierda(" ");
 
@@ -1639,7 +1639,7 @@ namespace Capa_de_Presentacion
             saveFileDialog1.FileName = "Venta" + DateTime.Now.ToString();
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if (saveFileDialog1.FileName.Trim() != "")
+                if (saveFileDialog1.FileName.CleanSpace() != "")
                 {
                     Document doc = new Document(PageSize.A4, 10f, 10f, 5f, 0f);
                     FileStream file = new FileStream(saveFileDialog1.FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
