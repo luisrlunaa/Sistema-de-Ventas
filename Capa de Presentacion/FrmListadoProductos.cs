@@ -51,41 +51,41 @@ namespace Capa_de_Presentacion
         public List<Producto> CargarListados()
         {
             #region Listado Productos
-                listProducto = new List<Producto>();
+            listProducto = new List<Producto>();
 
-                DataTable dtP = new DataTable();
-                dtP = P.Listar();
+            DataTable dtP = new DataTable();
+            dtP = P.Listar();
 
-                try
+            try
+            {
+                foreach (DataRow reader in dtP.Rows)
                 {
-                    foreach (DataRow reader in dtP.Rows)
-                    {
-                        Producto product = new Producto();
+                    Producto product = new Producto();
 
-                        product.m_IdP = reader["IdProducto"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdProducto"]);
-                        product.m_IdCategoria = reader["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdCategoria"]);
-                        product.m_Producto = reader["Nombre"] == DBNull.Value ? string.Empty : reader["Nombre"].ToString();
-                        product.m_tipoGoma = reader["tipoGOma"] == DBNull.Value ? string.Empty : reader["tipoGOma"].ToString();
-                        product.m_itbis = reader["itbis"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["itbis"]);
-                        product.m_PrecioVenta = reader["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioVenta"]);
-                        product.m_PrecioCompra = reader["PrecioCompra"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioCompra"]);
-                        product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmax"]);
-                        product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmin"]);
-                        product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
-                        product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Stock"]);
-                        product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
-                        product.m_Marca = reader["Marca"] == DBNull.Value ? string.Empty : reader["Marca"].ToString();
+                    product.m_IdP = reader["IdProducto"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdProducto"]);
+                    product.m_IdCategoria = reader["IdCategoria"] == DBNull.Value ? 0 : Convert.ToInt32(reader["IdCategoria"]);
+                    product.m_Producto = reader["Nombre"] == DBNull.Value ? string.Empty : reader["Nombre"].ToString();
+                    product.m_tipoGoma = reader["tipoGOma"] == DBNull.Value ? string.Empty : reader["tipoGOma"].ToString();
+                    product.m_itbis = reader["itbis"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["itbis"]);
+                    product.m_PrecioVenta = reader["PrecioVenta"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioVenta"]);
+                    product.m_PrecioCompra = reader["PrecioCompra"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["PrecioCompra"]);
+                    product.m_Preciomax = reader["Pmax"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmax"]);
+                    product.m_Preciomin = reader["Pmin"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Pmin"]);
+                    product.m_FechaVencimiento = Convert.ToDateTime(reader["FechaVencimiento"]);
+                    product.m_Stock = reader["Stock"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Stock"]);
+                    product.m_FechaModificacion = Convert.ToDateTime(reader["FechaModificacion"]);
+                    product.m_Marca = reader["Marca"] == DBNull.Value ? string.Empty : reader["Marca"].ToString();
 
-                        listProducto.Add(product);
-                    }
-
-                    return listProducto;
+                    listProducto.Add(product);
                 }
-                catch (Exception ex)
-                {
-                    DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
-                    return new List<Producto>();
-                }
+
+                return listProducto;
+            }
+            catch (Exception ex)
+            {
+                DevComponents.DotNetBar.MessageBoxEx.Show(ex.Message);
+                return new List<Producto>();
+            }
             #endregion
         }
 
@@ -485,40 +485,7 @@ namespace Capa_de_Presentacion
 
         public void GenerarDocumento(Document document)
         {
-            int i, j;
-            PdfPTable datatable = new PdfPTable(dataGridView1.ColumnCount);
-            float[] headerwidths = GetTamañoColumnas(dataGridView1);
-            datatable.SetWidths(headerwidths);
-            datatable.WidthPercentage = 100;
-            datatable.DefaultCell.BorderWidth = 1;
-            datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
-            for (i = 0; i < dataGridView1.ColumnCount; i++)
-            {
-                datatable.AddCell(new Phrase(dataGridView1.Columns[i].HeaderText, FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
-            }
-            datatable.HeaderRows = 1;
-            datatable.DefaultCell.BorderWidth = 1;
-            for (i = 0; i < dataGridView1.Rows.Count; i++)
-            {
-                for (j = 0; j < dataGridView1.Columns.Count; j++)
-                {
-                    if (dataGridView1[j, i].Value != null)
-                    {
-                        datatable.AddCell(new Phrase(dataGridView1[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 6, iTextSharp.text.Font.NORMAL)));//En esta parte, se esta agregando un renglon por cada registro en el datagrid
-                    }
-                }
-                datatable.CompleteRow();
-            }
-            document.Add(datatable);
-        }
-        public float[] GetTamañoColumnas(DataGridView dg)
-        {
-            float[] values = new float[dg.ColumnCount];
-            for (int i = 0; i < dg.ColumnCount; i++)
-            {
-                values[i] = (float)dg.Columns[i].Width;
-            }
-            return values;
+            Pdf.GenerarDocumento(document, dataGridView1);
         }
 
         private void btnimpimir_Click(object sender, EventArgs e)
