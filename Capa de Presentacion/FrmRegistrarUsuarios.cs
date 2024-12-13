@@ -24,9 +24,9 @@ namespace Capa_de_Presentacion
 
         private void btnGrabar_Click(object sender, EventArgs e)
         {
-            if (txtUser.Text.Trim() != "")
+            if (txtUser.Text.CleanSpace() != "")
             {
-                if (txtPassword.Text.Trim() != "")
+                if (txtPassword.Text.CleanSpace() != "")
                 {
                     if (Program.IdEmpleado != 0)
                     {

@@ -30,7 +30,7 @@ namespace Capa_de_Presentacion
         public string licenciaAnterior = "";
         private void btnGrabar_Click(object sender, EventArgs e)
         {
-            var nuevafecha = DateTime.Today.AddYears(1);
+            var nuevafecha = DateTime.Today.AddYears(50);
             if (licenciaAnterior == "")
             {
                 licenciaAnterior = (new Guid()).ToString();

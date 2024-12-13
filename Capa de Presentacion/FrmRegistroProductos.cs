@@ -63,7 +63,7 @@ namespace Capa_de_Presentacion
         }
         public void ListarElementos()
         {
-            if (IdC.Text.Trim() != "")
+            if (IdC.Text.CleanSpace() != "")
             {
                 cbxCategoria.DisplayMember = "Descripcion";
                 cbxCategoria.ValueMember = "IdCategoria";
@@ -86,15 +86,15 @@ namespace Capa_de_Presentacion
                 M.Desconectar();
             }
 
-            txtMarca.Text = string.IsNullOrWhiteSpace(txtMarca.Text) ? string.Empty : txtMarca.Text.Trim();
-            var precioCompra = string.IsNullOrWhiteSpace(txtPCompra.Text) ? "0" : txtPCompra.Text.Trim();
+            txtMarca.Text = string.IsNullOrWhiteSpace(txtMarca.Text) ? string.Empty : txtMarca.Text.CleanSpace();
+            var precioCompra = string.IsNullOrWhiteSpace(txtPCompra.Text) ? "0" : txtPCompra.Text.CleanSpace();
             txtPCompra.Text = precioCompra;
 
-            if (txtProducto.Text.Trim() != "")
+            if (txtProducto.Text.CleanSpace() != "")
             {
-                if (txtPVenta.Text.Trim() != "")
+                if (txtPVenta.Text.CleanSpace() != "")
                 {
-                    if (txtStock.Text.Trim() != "")
+                    if (txtStock.Text.CleanSpace() != "")
                     {
                         using (SqlCommand cmd = new SqlCommand("RegistrarProducto", M.conexion))
                         {
@@ -185,15 +185,15 @@ namespace Capa_de_Presentacion
                 M.Desconectar();
             }
 
-            var precioCompra = string.IsNullOrWhiteSpace(txtPCompra.Text) ? "0" : txtPCompra.Text.Trim();
-            txtMarca.Text = string.IsNullOrWhiteSpace(txtMarca.Text) ? string.Empty : txtMarca.Text.Trim();
+            var precioCompra = string.IsNullOrWhiteSpace(txtPCompra.Text) ? "0" : txtPCompra.Text.CleanSpace();
+            txtMarca.Text = string.IsNullOrWhiteSpace(txtMarca.Text) ? string.Empty : txtMarca.Text.CleanSpace();
             txtPCompra.Text = precioCompra;
 
-            if (txtProducto.Text.Trim() != "")
+            if (txtProducto.Text.CleanSpace() != "")
             {
-                if (txtPVenta.Text.Trim() != "")
+                if (txtPVenta.Text.CleanSpace() != "")
                 {
-                    if (txtStock.Text.Trim() != "")
+                    if (txtStock.Text.CleanSpace() != "")
                     {
                         using (SqlCommand cmd = new SqlCommand("ActualizarProducto", M.conexion))
                         {

@@ -418,7 +418,7 @@ namespace Capa_de_Presentacion
                             clsVentas V = new clsVentas();
                             V.IdProducto = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                             V.IdVenta = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                            V.Descripcion = (dr.GetString(dr.GetOrdinal("detalles_P"))).Trim();
+                            V.Descripcion = (dr.GetString(dr.GetOrdinal("detalles_P"))).CleanSpace();
                             V.Cantidad = Cant;
                             if (!string.IsNullOrWhiteSpace(Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")))))
                             {
@@ -506,7 +506,7 @@ namespace Capa_de_Presentacion
                             clsVentas V = new clsVentas();
                             V.IdProducto = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                             V.IdVenta = Convert.ToInt32(dr.GetInt32(dr.GetOrdinal("IdVenta")));
-                            V.Descripcion = (dr.GetString(dr.GetOrdinal("detalles_P"))).Trim();
+                            V.Descripcion = (dr.GetString(dr.GetOrdinal("detalles_P"))).CleanSpace();
                             V.Cantidad = Cant;
                             if (!string.IsNullOrWhiteSpace(Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")))))
                             {
@@ -580,9 +580,9 @@ namespace Capa_de_Presentacion
             clsVentas V = new clsVentas();
             PrecioCompraProducto PCP = new PrecioCompraProducto();
 
-            if (txtDescripcion.Text.Trim() != "")
+            if (txtDescripcion.Text.CleanSpace() != "")
             {
-                if (txtCantidad.Text.Trim() != "")
+                if (txtCantidad.Text.CleanSpace() != "")
                 {
                     if (Convert.ToDecimal(txtCantidad.Text) > 0)
                     {
@@ -591,7 +591,7 @@ namespace Capa_de_Presentacion
                             var Cant = decimal.Parse(txtCantidad.Text);
                             V.IdProducto = Convert.ToInt32(txtIdProducto.Text);
                             V.IdVenta = Convert.ToInt32(txtIdVenta.Text);
-                            V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).Trim();
+                            V.Descripcion = (txtDescripcion.Text + "-" + txtMarca.Text).CleanSpace();
                             V.Cantidad = Cant;
 
                             if (!string.IsNullOrWhiteSpace(txtIgv.Text))
@@ -1215,7 +1215,8 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Numero de Comprobante: " + txtNCF.Text);
             ticket.TextoIzquierda("RNC: " + lblrnc.Text);
             ticket.TextoExtremos("CAJA #1", Program.isSaler ? "ID VENTA: " + txtIdVenta.Text : "ID Cotizacion: " + txtIdVenta.Text);
-            ticket.lineasGuio();
+
+            ticket.TextoIzquierda("");
 
             if (Program.datoscliente != "" && Program.IdCliente == 0)
             {
@@ -1244,10 +1245,9 @@ namespace Capa_de_Presentacion
                 ticket.TextoIzquierda("Fecha Abono: " + DateTime.Today.Day + "/" + DateTime.Today.Month + "/" + DateTime.Today.Year);
             }
 
+            ticket.TextoIzquierda("");
             //ARTICULOS A VENDER.
             ticket.EncabezadoVenta();// NOMBRE DEL ARTICULOS, CANTxPRECIO, SUBT, ITBIS
-            ticket.lineasGuio();
-
             //SI TIENE UN DATAGRIDVIEW DONDE ESTAN SUS ARTICULOS A VENDER PUEDEN USAR ESTA MANERA PARA AGREARLOS
             foreach (var fila in lst)
             {
@@ -1470,7 +1470,7 @@ namespace Capa_de_Presentacion
             {
                 filename = saveFileDialog1.FileName;
 
-                if (filename.Trim() != "")
+                if (filename.CleanSpace() != "")
                 {
                     FileStream file = new FileStream(filename,
                     FileMode.OpenOrCreate,

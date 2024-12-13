@@ -6,7 +6,7 @@ namespace Capa_de_Presentacion
     public static class Program
     {
         /// <summary>
-        /// Punto de entrada principal para la aplicación.      
+        /// Punto de entrada principal para la aplicación.
         /// </summary>;
 
         public static bool isSaler;
@@ -108,6 +108,16 @@ namespace Capa_de_Presentacion
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FrmLogin());
+        }
+
+        public static string CleanSpace(this string str)
+        {
+            return string.IsNullOrWhiteSpace(str) ? string.Empty : str.Trim();
+        }
+
+        public static string CleanSpace(this string str, string defaultValue)
+        {
+            return string.IsNullOrWhiteSpace(str) ? defaultValue : str.Trim();
         }
     }
 }

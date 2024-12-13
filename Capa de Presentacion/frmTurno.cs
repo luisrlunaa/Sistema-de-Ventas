@@ -51,15 +51,11 @@ namespace Capa_de_Presentacion
             //cabecera del ticket.
             ticket.TextoCentro(lblLogo.Text);
             ticket.TextoIzquierda("");
-            ticket.lineasGuio();
 
             //SUB CABECERA.
             ticket.TextoIzquierda("");
             ticket.TextoIzquierda("FECHA: " + DateTime.Now.ToShortDateString());
             ticket.TextoIzquierda("HORA: " + DateTime.Now.ToShortTimeString());
-            ticket.lineasGuio();
-
-            ticket.lineasGuio();
 
             ticket.TextoCentro(label1.Text + "" + turno1.Text);
             ticket.TextoCentro(textBox1.Text);

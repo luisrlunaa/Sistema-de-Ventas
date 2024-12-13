@@ -39,9 +39,9 @@ namespace Capa_de_Presentacion
 
         public void btnIngresar_Click(object sender, EventArgs e)
         {
-            if (txtUser.Text.Trim() != "")
+            if (txtUser.Text.CleanSpace() != "")
             {
-                if (txtPassword.Text.Trim() != "")
+                if (txtPassword.Text.CleanSpace() != "")
                 {
                     string Mensaje = "";
                     U.User = txtUser.Text;

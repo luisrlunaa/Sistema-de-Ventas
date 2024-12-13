@@ -330,7 +330,7 @@ namespace Capa_de_Presentacion
             RecuperarDatosSesion1();
             MessageBox.Show("Buscando Usuario");
             Refresh();
-            if (textBox1.Text.Trim() == "Administrador")
+            if (textBox1.Text.CleanSpace() == "Administrador")
             {
                 usuario.Hide();
                 panel2.Show();
