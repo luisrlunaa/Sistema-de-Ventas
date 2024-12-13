@@ -11,8 +11,8 @@ public class CrearTiket
     private Image _headerImage = null;
 
     private const int MaxCar = 49; // Máximo de caracteres por línea.
-    private const int ColArticuloWidth = 22; // Ancho máximo para la columna de artículos.
-    private const int ColCantxPrecioWidth = 22; // Ancho máximo para la columna de CantxPrecio.
+    private const int ColArticuloWidth = 21; // Ancho máximo para la columna de artículos.
+    private const int ColCantxPrecioWidth = 21; // Ancho máximo para la columna de CantxPrecio.
     private const int ColSubtotalWidth = 14;
     private const int ColItbisWidth = 12;
 
