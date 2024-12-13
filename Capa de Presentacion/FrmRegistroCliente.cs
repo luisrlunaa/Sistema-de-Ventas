@@ -21,15 +21,15 @@ namespace Capa_de_Presentacion
         {
             Cx.Desconectar();
 
-            if (txtDni.Text.Trim() != "")
+            if (txtDni.Text.CleanSpace() != "")
             {
-                if (txtApellidos.Text.Trim() != "")
+                if (txtApellidos.Text.CleanSpace() != "")
                 {
-                    if (txtNombres.Text.Trim() != "")
+                    if (txtNombres.Text.CleanSpace() != "")
                     {
-                        if (txtDireccion.Text.Trim() != "")
+                        if (txtDireccion.Text.CleanSpace() != "")
                         {
-                            if (txtTelefono.Text.Trim() != "")
+                            if (txtTelefono.Text.CleanSpace() != "")
                             {
 
                                 if (Program.Evento == 0)
@@ -189,15 +189,15 @@ namespace Capa_de_Presentacion
         {
             Cx.Desconectar();
 
-            if (txtDni.Text.Trim() != "")
+            if (txtDni.Text.CleanSpace() != "")
             {
-                if (txtApellidos.Text.Trim() != "")
+                if (txtApellidos.Text.CleanSpace() != "")
                 {
-                    if (txtNombres.Text.Trim() != "")
+                    if (txtNombres.Text.CleanSpace() != "")
                     {
-                        if (txtDireccion.Text.Trim() != "")
+                        if (txtDireccion.Text.CleanSpace() != "")
                         {
-                            if (txtTelefono.Text.Trim() != "")
+                            if (txtTelefono.Text.CleanSpace() != "")
                             {
                                 if (Program.Evento == 1)
                                 {

@@ -88,10 +88,10 @@ namespace Capa_de_Presentacion
             Program.descripcion = dataGridView1.CurrentRow.Cells["tipoDeTrabajo"].Value.ToString();
             Program.marca = dataGridView1.CurrentRow.Cells["marca"].Value.ToString();
             Program.averia = dataGridView1.CurrentRow.Cells["averia"].Value.ToString();
-            Program.NombreCliente = valores1[0].Trim();
-            Program.telefono = valores1[1].Trim();
-            Program.Imei = valores[1].Trim();
-            Program.Modelo = valores[0].Trim();
+            Program.NombreCliente = valores1[0].CleanSpace();
+            Program.telefono = valores1[1].CleanSpace();
+            Program.Imei = valores[1].CleanSpace();
+            Program.Modelo = valores[0].CleanSpace();
             Program.total = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["precio"].Value.ToString());
             Program.nota = dataGridView1.CurrentRow.Cells["nota"].Value.ToString();
             Program.Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
@@ -204,7 +204,7 @@ namespace Capa_de_Presentacion
                 filename = saveFileDialog1.FileName;
             }
 
-            if (filename.Trim() != "")
+            if (filename.CleanSpace() != "")
             {
                 FileStream file = new FileStream(filename,
                 FileMode.OpenOrCreate,

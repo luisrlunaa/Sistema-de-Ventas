@@ -29,11 +29,11 @@ namespace Capa_de_Presentacion
         private void btnGrabar_Click(object sender, EventArgs e)
         {
             Cx.Desconectar();
-            if (txtCed.Text.Trim() != "")
+            if (txtCed.Text.CleanSpace() != "")
             {
-                if (txtUsu.Text.Trim() != "")
+                if (txtUsu.Text.CleanSpace() != "")
                 {
-                    if (txtCon.Text.Trim() != "")
+                    if (txtCon.Text.CleanSpace() != "")
                     {
                         if (txtConf.Text == txtCon.Text)
                         {

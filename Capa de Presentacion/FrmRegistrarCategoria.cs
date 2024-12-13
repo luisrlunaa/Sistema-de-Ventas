@@ -34,7 +34,7 @@ namespace Capa_de_Presentacion
             String Mensaje = "";
             try
             {
-                if (txtCategoria.Text.Trim() != "")
+                if (txtCategoria.Text.CleanSpace() != "")
                 {
                     if (Program.Evento == 0)
                     {

@@ -87,7 +87,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Correo.cs" />
     <Compile Include="CrearTiket.cs" />
     <Compile Include="cuadredecaja.cs">
       <SubType>Form</SubType>

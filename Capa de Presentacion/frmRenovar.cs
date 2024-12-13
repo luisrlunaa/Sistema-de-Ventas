@@ -31,7 +31,7 @@ namespace Capa_de_Presentacion
         private void btnGrabar_Click(object sender, EventArgs e)
         {
             Cx.Desconectar();
-            var nuevafecha = DateTime.Today.AddYears(1);
+            var nuevafecha = DateTime.Today.AddYears(50);
             if (licenciaAnterior == "")
             {
                 licenciaAnterior = (new Guid()).ToString();

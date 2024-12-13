@@ -137,7 +137,7 @@ namespace Capa_de_Presentacion
 
         private void ListarElementostipo()
         {
-            if (id.Text.Trim() != "")
+            if (id.Text.CleanSpace() != "")
             {
                 cbTipoGoma.DisplayMember = "descripcion";
                 cbTipoGoma.ValueMember = "id";
@@ -154,7 +154,7 @@ namespace Capa_de_Presentacion
 
         private void ListarElementos()
         {
-            if (id.Text.Trim() != "")
+            if (id.Text.CleanSpace() != "")
             {
                 cbxCategoria.DisplayMember = "Descripcion";
                 cbxCategoria.ValueMember = "IdCategoria";
@@ -432,7 +432,7 @@ namespace Capa_de_Presentacion
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 filename = saveFileDialog1.FileName;
-                if (filename.Trim() != "")
+                if (filename.CleanSpace() != "")
                 {
                     FileStream file = new FileStream(filename,
                     FileMode.OpenOrCreate,

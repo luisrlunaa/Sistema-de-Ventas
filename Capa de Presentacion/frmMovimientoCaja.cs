@@ -166,7 +166,7 @@ namespace Capa_de_Presentacion
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 filename = saveFileDialog1.FileName;
-                if (filename.Trim() != "")
+                if (filename.CleanSpace() != "")
                 {
                     FileStream file = new FileStream(filename,
                     FileMode.OpenOrCreate,
