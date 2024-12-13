@@ -328,7 +328,7 @@ namespace Capa_de_Presentacion
             saveFileDialog1.FileName = "Reporte de Cuadre de Caja";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if (saveFileDialog1.FileName.Trim() != "")
+                if (saveFileDialog1.FileName.CleanSpace() != "")
                 {
                     Document doc = new Document(PageSize.A4, 10f, 10f, 5f, 0f);
                     FileStream file = new FileStream(saveFileDialog1.FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);

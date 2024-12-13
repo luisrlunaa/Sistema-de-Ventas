@@ -24,7 +24,7 @@ namespace Capa_de_Presentacion
             String Mensaje = "";
             try
             {
-                if (txtCargo.Text.Trim() != "")
+                if (txtCargo.Text.CleanSpace() != "")
                 {
                     if (Program.Evento == 0)
                     {

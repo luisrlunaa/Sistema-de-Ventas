@@ -42,7 +42,7 @@ namespace Capa_de_Presentacion
         }
         public void ListarElementos()
         {
-            if (IdC.Text.Trim() != "")
+            if (IdC.Text.CleanSpace() != "")
             {
                 cbxCategoria.DisplayMember = "Descripcion";
                 cbxCategoria.ValueMember = "IdCategoria";
@@ -66,15 +66,15 @@ namespace Capa_de_Presentacion
             }
 
             clsProducto P = new clsProducto();
-            if (txtProducto.Text.Trim() != "")
+            if (txtProducto.Text.CleanSpace() != "")
             {
-                if (txtMarca.Text.Trim() != "")
+                if (txtMarca.Text.CleanSpace() != "")
                 {
-                    if (txtPCompra.Text.Trim() != "")
+                    if (txtPCompra.Text.CleanSpace() != "")
                     {
-                        if (txtPVenta.Text.Trim() != "")
+                        if (txtPVenta.Text.CleanSpace() != "")
                         {
-                            if (txtStock.Text.Trim() != "")
+                            if (txtStock.Text.CleanSpace() != "")
                             {
                                 using (SqlCommand cmd = new SqlCommand("RegistrarProducto", M.conexion))
                                 {
@@ -176,15 +176,15 @@ namespace Capa_de_Presentacion
         {
             M.Desconectar();
             FrmListadoProductos LP = new FrmListadoProductos();
-            if (txtProducto.Text.Trim() != "")
+            if (txtProducto.Text.CleanSpace() != "")
             {
-                if (txtMarca.Text.Trim() != "")
+                if (txtMarca.Text.CleanSpace() != "")
                 {
-                    if (txtPCompra.Text.Trim() != "")
+                    if (txtPCompra.Text.CleanSpace() != "")
                     {
-                        if (txtPVenta.Text.Trim() != "")
+                        if (txtPVenta.Text.CleanSpace() != "")
                         {
-                            if (txtStock.Text.Trim() != "")
+                            if (txtStock.Text.CleanSpace() != "")
                             {
                                 using (SqlCommand cmd = new SqlCommand("ActualizarProducto", M.conexion))
                                 {
