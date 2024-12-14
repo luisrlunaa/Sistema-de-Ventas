@@ -1440,8 +1440,6 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("");
             ticket.TextoIzquierda("");
             ticket.TextoIzquierda("");
-            // Mostrar vista previa
-            ticket.VistaPreviaTicket();
             ticket.CortaTicket();//CORTAR TICKET
             ticket.ImprimirTicket(Program.ImpresonaPeq);//NOMBRE DE LA IMPRESORA
         }
