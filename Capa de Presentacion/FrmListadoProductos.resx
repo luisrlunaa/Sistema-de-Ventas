@@ -352,16 +352,16 @@
     <value>NoControl</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 205</value>
+    <value>18, 205</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 17</value>
+    <value>160, 17</value>
   </data>
   <data name="label16.TabIndex" type="System.Int32, mscorlib">
     <value>122</value>
   </data>
   <data name="label16.Text" xml:space="preserve">
-    <value>Ganancias de venta</value>
+    <value>Ganancias de produtos:</value>
   </data>
   <data name="label16.Visible" type="System.Boolean, mscorlib">
     <value>False</value>

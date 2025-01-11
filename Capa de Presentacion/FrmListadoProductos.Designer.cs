@@ -52,6 +52,7 @@
             this.itbis = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipoGOma = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.cbcategoriafiltro = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -102,7 +103,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.cbtipogomafiltro = new System.Windows.Forms.CheckBox();
             this.ckbPrecioCompra = new System.Windows.Forms.CheckBox();
-            this.label16 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.lbltotalventaproductos = new System.Windows.Forms.Label();
             this.lbltotalcompraproductos = new System.Windows.Forms.Label();
@@ -276,6 +276,11 @@
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
             // 
             // radioButton2
             // 
@@ -649,11 +654,6 @@
             this.ckbPrecioCompra.Name = "ckbPrecioCompra";
             this.ckbPrecioCompra.UseVisualStyleBackColor = true;
             this.ckbPrecioCompra.CheckedChanged += new System.EventHandler(this.ckbPrecioCompra_CheckedChanged);
-            // 
-            // label16
-            // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.Name = "label16";
             // 
             // label18
             // 
