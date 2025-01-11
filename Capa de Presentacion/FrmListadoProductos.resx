@@ -363,9 +363,6 @@
   <data name="label16.Text" xml:space="preserve">
     <value>Ganancias de produtos:</value>
   </data>
-  <data name="label16.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;label16.Name" xml:space="preserve">
     <value>label16</value>
   </data>
