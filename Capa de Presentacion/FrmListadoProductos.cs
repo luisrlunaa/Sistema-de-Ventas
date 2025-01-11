@@ -252,8 +252,10 @@ namespace Capa_de_Presentacion
                 ventas = listaproductos.Sum(x => x.m_PrecioVenta);
                 totalproducto = listaproductos.Sum(x => x.m_Stock);
                 total = ventas - compras;
-                txttotalG.Text = Convert.ToString(total);
-                lbltotalproductos.Text = Convert.ToString(totalproducto);
+                txttotalG.Text = Program.GetTwoNumberAfterPointWithOutRound(total.ToString()).ToString();
+                lbltotalproductos.Text = Program.GetTwoNumberAfterPointWithOutRound(totalproducto.ToString()).ToString();
+                lbltotalventaproductos.Text = Program.GetTwoNumberAfterPointWithOutRound(ventas.ToString()).ToString();
+                lbltotalcompraproductos.Text = Program.GetTwoNumberAfterPointWithOutRound(compras.ToString()).ToString();
             }
             catch (Exception ex)
             {
@@ -451,6 +453,8 @@ namespace Capa_de_Presentacion
                     doc.AddCreationDate();
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("Total de Productos = " + lbltotalproductos.Text));
+                    doc.Add(new Paragraph("Total de Venta de Productos = " + lbltotalventaproductos.Text));
+                    doc.Add(new Paragraph("Total de Compras de Productos = " + lbltotalcompraproductos.Text));
                     doc.Add(new Paragraph("Ganancias Total de Ventas= " + txttotalG.Text));
                     doc.Add(new Paragraph("                       "));
                     doc.Add(new Paragraph("                       "));
