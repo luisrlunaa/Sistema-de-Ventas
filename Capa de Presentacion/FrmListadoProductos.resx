@@ -345,6 +345,36 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>24</value>
   </data>
+  <data name="label16.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 204</value>
+  </data>
+  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 17</value>
+  </data>
+  <data name="label16.TabIndex" type="System.Int32, mscorlib">
+    <value>123</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>Ganancias de productos:</value>
+  </data>
+  <data name="&gt;&gt;label16.Name" xml:space="preserve">
+    <value>label16</value>
+  </data>
+  <data name="&gt;&gt;label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="radioButton2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -352,7 +382,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButton2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 57</value>
+    <value>19, 49</value>
   </data>
   <data name="radioButton2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
@@ -376,7 +406,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButton2.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="cbcategoriafiltro.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -385,7 +415,7 @@
     <value>NoControl</value>
   </data>
   <data name="cbcategoriafiltro.Location" type="System.Drawing.Point, System.Drawing">
-    <value>135, 254</value>
+    <value>135, 257</value>
   </data>
   <data name="cbcategoriafiltro.Size" type="System.Drawing.Size, System.Drawing">
     <value>164, 21</value>
@@ -406,7 +436,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;cbcategoriafiltro.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="rbfechamod.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -616,13 +646,13 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="txttotalG.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9pt, style=Bold</value>
   </data>
   <data name="txttotalG.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 218</value>
+    <value>19, 223</value>
   </data>
   <data name="txttotalG.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
@@ -646,7 +676,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;txttotalG.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -655,7 +685,7 @@
     <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 370</value>
+    <value>115, 373</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
     <value>167, 17</value>
@@ -679,7 +709,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -688,7 +718,7 @@
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>133, 315</value>
+    <value>133, 318</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>151, 17</value>
@@ -712,7 +742,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="txtRep.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -721,7 +751,7 @@
     <value>Microsoft Sans Serif, 9pt, style=Bold</value>
   </data>
   <data name="txtRep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>89, 336</value>
+    <value>89, 339</value>
   </data>
   <data name="txtRep.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
@@ -748,7 +778,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;txtRep.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -775,13 +805,13 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="cbxCategoria.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9pt, style=Bold, Italic</value>
   </data>
   <data name="cbxCategoria.Location" type="System.Drawing.Point, System.Drawing">
-    <value>89, 279</value>
+    <value>89, 282</value>
   </data>
   <data name="cbxCategoria.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
@@ -802,7 +832,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;cbxCategoria.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="txtMrep.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -811,7 +841,7 @@
     <value>Microsoft Sans Serif, 9pt, style=Bold</value>
   </data>
   <data name="txtMrep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>89, 390</value>
+    <value>89, 393</value>
   </data>
   <data name="txtMrep.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
@@ -838,7 +868,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;txtMrep.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="rbtodos.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -847,7 +877,7 @@
     <value>NoControl</value>
   </data>
   <data name="rbtodos.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 30</value>
+    <value>19, 22</value>
   </data>
   <data name="rbtodos.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
@@ -871,7 +901,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;rbtodos.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="radioButton1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -880,7 +910,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButton1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 115</value>
+    <value>19, 107</value>
   </data>
   <data name="radioButton1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
@@ -904,7 +934,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;radioButton1.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="rbbuena.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -913,7 +943,7 @@
     <value>NoControl</value>
   </data>
   <data name="rbbuena.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 179</value>
+    <value>19, 171</value>
   </data>
   <data name="rbbuena.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
@@ -937,7 +967,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;rbbuena.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="rdmedia.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -946,7 +976,7 @@
     <value>NoControl</value>
   </data>
   <data name="rdmedia.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 147</value>
+    <value>19, 139</value>
   </data>
   <data name="rdmedia.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
@@ -970,7 +1000,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;rdmedia.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="rbCero.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -979,7 +1009,7 @@
     <value>NoControl</value>
   </data>
   <data name="rbCero.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 85</value>
+    <value>19, 77</value>
   </data>
   <data name="rbCero.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 2</value>
@@ -1003,7 +1033,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;rbCero.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt</value>

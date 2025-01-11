@@ -106,6 +106,7 @@
             this.label19 = new System.Windows.Forms.Label();
             this.lbltotalventaproductos = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -257,6 +258,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.MidnightBlue;
+            this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.cbcategoriafiltro);
             this.groupBox1.Controls.Add(this.groupBox3);
@@ -692,6 +694,12 @@
             this.label18.ForeColor = System.Drawing.Color.White;
             this.label18.Name = "label18";
             // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.ForeColor = System.Drawing.SystemColors.Control;
+            this.label16.Name = "label16";
+            // 
             // FrmListadoProductos
             // 
             resources.ApplyResources(this, "$this");
@@ -815,5 +823,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label lbltotalventaproductos;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label16;
     }
 }
