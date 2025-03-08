@@ -288,7 +288,7 @@ namespace Capa_de_Presentacion
             saveFileDialog1.DefaultExt = "xlsx";
             saveFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx|Excel 2007 (*.xls)|*.xls";
             saveFileDialog1.FilterIndex = 1;
-            saveFileDialog1.FileName = "Reporte";
+            saveFileDialog1.FileName = "Reporte" + DateTime.Now.ToString("ddMMyyyyHHmmss");
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -309,7 +309,7 @@ namespace Capa_de_Presentacion
             saveFileDialog1.Filter = "pdf Files (*.pdf)|*.pdf| All Files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.FileName = "Reporte";
+            saveFileDialog1.FileName = "Reporte" + DateTime.Now.ToString("ddMMyyyyHHmmss");
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 if (saveFileDialog1.FileName.Trim() != "")
@@ -388,7 +388,7 @@ namespace Capa_de_Presentacion
             saveFileDialog1.Filter = "pdf Files (*.pdf)|*.pdf| All Files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.FileName = "Reporte";
+            saveFileDialog1.FileName = "Reporte" + DateTime.Now.ToString("ddMMyyyyHHmmss");
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 if (saveFileDialog1.FileName.Trim() != "")
