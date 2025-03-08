@@ -1636,7 +1636,7 @@ namespace Capa_de_Presentacion
             saveFileDialog1.Filter = "pdf Files (*.pdf)|*.pdf| All Files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.FileName = "Venta" + DateTime.Now.ToString();
+            saveFileDialog1.FileName = "Venta" + DateTime.Now.ToString("ddMMyyyyHHmmss");
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 if (saveFileDialog1.FileName.CleanSpace() != "")
