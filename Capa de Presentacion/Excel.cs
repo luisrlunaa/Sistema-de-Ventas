@@ -15,7 +15,7 @@ namespace Capa_de_Presentacion
                     throw new Exception("ExportToExcel: Null or empty input table!\n");
                 Microsoft.Office.Interop.Excel.Application Excel = new Microsoft.Office.Interop.Excel.Application();
                 Excel.Workbooks.Add();
-                Microsoft.Office.Interop.Excel._Worksheet Worksheet = Excel.ActiveSheet;
+                Microsoft.Office.Interop.Excel._Worksheet Worksheet = (Microsoft.Office.Interop.Excel._Worksheet)Excel.ActiveSheet;
                 object[] Header = new object[ColumnsCount];
                 for (int i = 0; i < ColumnsCount; i++)
                     Header[i] = DataTable.Columns[i].ColumnName;
