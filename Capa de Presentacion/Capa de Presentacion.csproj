@@ -1,16 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F54C7316-903E-4543-840A-9CFB39CF275A}</ProjectGuid>
+    <TargetFramework>net48</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Capa_de_Presentacion</RootNamespace>
-    <AssemblyName>Capa de Presentacion</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,427 +18,30 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <Configurations>All;Debug;Release</Configurations>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
-      <HintPath>..\packages\BouncyCastle.Cryptography.2.4.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
-    </Reference>
     <Reference Include="DevComponents.DotNetBar2">
       <HintPath>..\..\..\..\..\OneDrive\Pictures\Estilos de Sistema de Ventas\DevComponents.DotNetBar\DevComponents.DotNetBar2.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.Instrumentation">
       <HintPath>..\..\..\..\..\OneDrive\Pictures\Estilos de Sistema de Ventas\DevComponents.DotNetBar\DevComponents.Instrumentation.dll</HintPath>
     </Reference>
-    <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
-    </Reference>
-    <Reference Include="itextsharp.pdfa, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\itextsharp.pdfa.5.5.13.4\lib\net461\itextsharp.pdfa.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WinFormAnimation, Version=1.6.0.4, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinFormAnimation.1.6.0.4\lib\net40\WinFormAnimation.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pdf.cs" />
-    <Compile Include="Excel.cs" />
-    <Compile Include="CrearTiket.cs" />
-    <Compile Include="cuadredecaja.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="cuadredecaja.Designer.cs">
-      <DependentUpon>cuadredecaja.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmlistadodecotizacion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmlistadodecotizacion.Designer.cs">
-      <DependentUpon>frmlistadodecotizacion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmCambiarUsu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmCambiarUsu.Designer.cs">
-      <DependentUpon>frmCambiarUsu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmLimitantesNCF.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmLimitantesNCF.Designer.cs">
-      <DependentUpon>frmLimitantesNCF.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmBuscarAlineacionyBalanceo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmBuscarAlineacionyBalanceo.Designer.cs">
-      <DependentUpon>frmBuscarAlineacionyBalanceo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmListadoUsuario.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmListadoUsuario.Designer.cs">
-      <DependentUpon>FrmListadoUsuario.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmListadoCargos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmListadoCargos.Designer.cs">
-      <DependentUpon>FrmListadoCargos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmListadoEmpleados.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmListadoEmpleados.Designer.cs">
-      <DependentUpon>FrmListadoEmpleados.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmListadoVentas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmListadoVentas.Designer.cs">
-      <DependentUpon>frmListadoVentas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmLogin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmLogin.Designer.cs">
-      <DependentUpon>FrmLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmMenuPrincipal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmMenuPrincipal.Designer.cs">
-      <DependentUpon>FrmMenuPrincipal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmMovimientoCaja.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmMovimientoCaja.Designer.cs">
-      <DependentUpon>frmMovimientoCaja.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmMontoAPagar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmMontoAPagar.Designer.cs">
-      <DependentUpon>frmMontoAPagar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmPagar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmPagar.Designer.cs">
-      <DependentUpon>frmPagar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmRecuperar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmRecuperar.Designer.cs">
-      <DependentUpon>frmRecuperar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmRegistrarCargo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmRegistrarCargo.Designer.cs">
-      <DependentUpon>FrmRegistrarCargo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmRegistrarCategoria.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmRegistrarCategoria.Designer.cs">
-      <DependentUpon>FrmRegistrarCategoria.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmListadoCategoria.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmListadoCategoria.Designer.cs">
-      <DependentUpon>FrmListadoCategoria.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmListadoClientes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmListadoClientes.Designer.cs">
-      <DependentUpon>FrmListadoClientes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmListadoProductos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmListadoProductos.Designer.cs">
-      <DependentUpon>FrmListadoProductos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmRegistrarEmpleados.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmRegistrarEmpleados.Designer.cs">
-      <DependentUpon>FrmRegistrarEmpleados.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmRegistrarUsuarios.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmRegistrarUsuarios.Designer.cs">
-      <DependentUpon>FrmRegistrarUsuarios.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmRegistroCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmRegistroCliente.Designer.cs">
-      <DependentUpon>FrmRegistroCliente.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmRegistroProductos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmRegistroProductos.Designer.cs">
-      <DependentUpon>FrmRegistroProductos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmRegistroVentas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmRegistroVentas.Designer.cs">
-      <DependentUpon>FrmRegistroVentas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmAlineamiento.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmAlineamiento.Designer.cs">
-      <DependentUpon>frmAlineamiento.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmRenovar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmRenovar.Designer.cs">
-      <DependentUpon>frmRenovar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmTurno.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmTurno.Designer.cs">
-      <DependentUpon>frmTurno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="validar.cs" />
-    <EmbeddedResource Include="cuadredecaja.resx">
-      <DependentUpon>cuadredecaja.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmCambiarUsu.resx">
-      <DependentUpon>frmCambiarUsu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmLimitantesNCF.resx">
-      <DependentUpon>frmLimitantesNCF.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmBuscarAlineacionyBalanceo.resx">
-      <DependentUpon>frmBuscarAlineacionyBalanceo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmlistadodecotizacion.resx">
-      <DependentUpon>frmlistadodecotizacion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmListadoProductos.aa.resx">
-      <DependentUpon>FrmListadoProductos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmListadoUsuario.resx">
-      <DependentUpon>FrmListadoUsuario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmListadoCargos.resx">
-      <DependentUpon>FrmListadoCargos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmListadoEmpleados.resx">
-      <DependentUpon>FrmListadoEmpleados.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmListadoVentas.resx">
-      <DependentUpon>frmListadoVentas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmLogin.resx">
-      <DependentUpon>FrmLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmMenuPrincipal.es-DO.resx">
-      <DependentUpon>FrmMenuPrincipal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmMenuPrincipal.resx">
-      <DependentUpon>FrmMenuPrincipal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmMovimientoCaja.resx">
-      <DependentUpon>frmMovimientoCaja.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmMontoAPagar.resx">
-      <DependentUpon>frmMontoAPagar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmPagar.resx">
-      <DependentUpon>frmPagar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmRecuperar.resx">
-      <DependentUpon>frmRecuperar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmRegistrarCargo.resx">
-      <DependentUpon>FrmRegistrarCargo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmRegistrarCategoria.resx">
-      <DependentUpon>FrmRegistrarCategoria.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmListadoCategoria.resx">
-      <DependentUpon>FrmListadoCategoria.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmListadoClientes.resx">
-      <DependentUpon>FrmListadoClientes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmListadoProductos.resx">
-      <DependentUpon>FrmListadoProductos.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmRegistrarEmpleados.resx">
-      <DependentUpon>FrmRegistrarEmpleados.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmRegistrarUsuarios.resx">
-      <DependentUpon>FrmRegistrarUsuarios.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmRegistroCliente.resx">
-      <DependentUpon>FrmRegistroCliente.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmRegistroProductos.resx">
-      <DependentUpon>FrmRegistroProductos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmRegistroVentas.resx">
-      <DependentUpon>FrmRegistroVentas.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAlineamiento.resx">
-      <DependentUpon>frmAlineamiento.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmRenovar.resx">
-      <DependentUpon>frmRenovar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmTurno.resx">
-      <DependentUpon>frmTurno.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CapaEnlaceDatos\CapaEnlaceDatos.csproj">
-      <Project>{B7008032-AC5E-4216-9234-54B3E6CA3BDA}</Project>
-      <Name>CapaEnlaceDatos</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CapaLogicaNegocio\CapaLogicaNegocio.csproj">
-      <Project>{8087117a-5bea-4eb0-925a-407b17ab7983}</Project>
-      <Name>CapaLogicaNegocio</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\CapaEnlaceDatos\CapaEnlaceDatos.csproj" />
+    <ProjectReference Include="..\CapaLogicaNegocio\CapaLogicaNegocio.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\1button.png" />
     <Content Include="Resources\1button_click.png" />
     <Content Include="Resources\1button_hover.png" />
-    <None Include="Resources\icons8-caja-registradora-30.png" />
-    <None Include="Resources\CefletCepedaImport.png" />
-    <None Include="Resources\LogoCepeda.png" />
-    <None Include="Resources\llantas-toyota-corolla.jpg" />
-    <None Include="Resources\llantas-1024x682.jpg" />
-    <None Include="Resources\slid_lla2.jpg" />
-    <None Include="Resources\ferreteria.png" />
-    <None Include="Resources\icons8-lista-resumen-40.png" />
-    <None Include="Resources\icons8-omitir-16.png" />
-    <None Include="Resources\icons8-copia-de-seguridad-de-un-base-de-datos-40.png" />
-    <None Include="Resources\icons8-profesor-hirring-40.png" />
-    <None Include="Resources\icons8-grupos-de-usuarios-40.png" />
-    <None Include="Resources\icons8-bloqueador-40.png" />
-    <None Include="Resources\icons8-herramientas-40.png" />
-    <None Include="Resources\icons8-engranajes-24.png" />
-    <None Include="Resources\icons8-ventas-totales-40.png" />
-    <None Include="Resources\icons8-clientes-40.png" />
-    <None Include="Resources\icons8-producto-40.png" />
-    <None Include="Resources\icons8-producto-30.png" />
-    <None Include="Resources\icons8-transferencia-entre-usuarios-24.png" />
-    <None Include="Resources\icons8-reestablecer.png" />
-    <None Include="Resources\icons8-copias-de-seguridad-26.png" />
-    <None Include="Resources\icons8-categoria-24.png" />
-    <None Include="Resources\icons8-actualizar.png" />
-    <None Include="Resources\icons8-cargo.png" />
-    <None Include="Resources\icons8-cancelar-24.png" />
-    <None Include="Resources\icons8-guardar.png" />
-    <None Include="Resources\icons8-reporte.png" />
-    <None Include="Resources\icons8-cerrar-ventana1.png" />
-    <None Include="Resources\icons8-abrir-carpeta-16.png" />
-    <None Include="Resources\icons8-dinero-241.png" />
-    <None Include="Resources\icons8-imprimir.png" />
-    <None Include="Resources\icons8-usuarios1.png" />
-    <None Include="Resources\icons8-usuarios.png" />
-    <None Include="Resources\icons8-entrar.png" />
-    <None Include="Resources\icons8-enviar-documento-24.png" />
-    <None Include="Resources\icons8-salir-de-24.png" />
-    <None Include="Resources\icons8-nuevo.png" />
-    <None Include="Resources\icons8-editar.png" />
-    <None Include="Resources\icons8-aplicar.png" />
-    <None Include="Resources\icons8-dinero-24.png" />
-    <None Include="Resources\icons8-cerrar-ventana.png" />
-    <None Include="Resources\icons8-cerrar.png" />
-    <None Include="Resources\icons8-limpiar.png" />
-    <None Include="Resources\icons8-caja-registradora.png" />
-    <None Include="Resources\icons8-recibir-efectivo.png" />
-    <None Include="Resources\icons8-eliminar.png" />
-    <None Include="Resources\icons8-agregar.png" />
-    <None Include="Resources\icons8-buscar.png" />
-    <None Include="Resources\x-30465_960_720.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -464,14 +59,15 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\" />
+    <PackageReference Include="iTextSharp" />
+    <PackageReference Include="itextsharp.pdfa">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel" />
+    <PackageReference Include="System.Data.DataSetExtensions" />
+    <PackageReference Include="WinFormAnimation">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
