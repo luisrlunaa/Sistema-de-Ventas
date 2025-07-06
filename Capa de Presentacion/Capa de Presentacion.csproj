@@ -24,16 +24,13 @@
 		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
 		<Configurations>All;Debug;Release</Configurations>
 	</PropertyGroup>
-	<PropertyGroup>
-		<ApplicationIcon>CefletCepedaImporticon.ico</ApplicationIcon>
-	</PropertyGroup>
 	<ItemGroup>
 		<Reference Include="DevComponents.DotNetBar2">
-			<HintPath>..\..\..\..\OneDrive\Pictures\Estilos de Sistema de Ventas\DevComponents.DotNetBar\DevComponents.DotNetBar2.dll</HintPath>
+			<HintPath>..\..\..\..\..\OneDrive\Pictures\Estilos de Sistema de Ventas\DevComponents.DotNetBar\DevComponents.DotNetBar2.dll</HintPath>
 			<Private>True</Private>
 		</Reference>
 		<Reference Include="DevComponents.Instrumentation">
-			<HintPath>..\..\..\..\OneDrive\Pictures\Estilos de Sistema de Ventas\DevComponents.DotNetBar\DevComponents.Instrumentation.dll</HintPath>
+			<HintPath>..\..\..\..\..\OneDrive\Pictures\Estilos de Sistema de Ventas\DevComponents.DotNetBar\DevComponents.Instrumentation.dll</HintPath>
 			<Private>True</Private>
 		</Reference>
 		<Reference Include="System.Web">
@@ -52,7 +49,6 @@
 		</ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-		<Content Include="CefletCepedaImporticon.ico" />
 		<Content Include="Resources\1button.png" />
 		<Content Include="Resources\1button_click.png" />
 		<Content Include="Resources\1button_hover.png" />
