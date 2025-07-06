@@ -22,7 +22,9 @@
     <Configurations>All;Debug;Release</Configurations>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CapaEnlaceDatos\CapaEnlaceDatos.csproj" />
+    <ProjectReference Include="..\CapaEnlaceDatos\CapaEnlaceDatos.csproj">
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -39,5 +41,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" />
     <PackageReference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Update="System">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Update="System.Core">
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
 </Project>
