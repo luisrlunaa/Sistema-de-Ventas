@@ -28,11 +28,66 @@
 		<ApplicationIcon>CefletCepedaImporticon.ico</ApplicationIcon>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Resources\CefletCepedaImport.png" />
+	  <None Remove="Resources\ferreteria.png" />
+	  <None Remove="Resources\icons8-abrir-carpeta-16.png" />
+	  <None Remove="Resources\icons8-actualizar.png" />
+	  <None Remove="Resources\icons8-agregar.png" />
+	  <None Remove="Resources\icons8-aplicar.png" />
+	  <None Remove="Resources\icons8-bloqueador-40.png" />
+	  <None Remove="Resources\icons8-buscar.png" />
+	  <None Remove="Resources\icons8-caja-registradora-30.png" />
+	  <None Remove="Resources\icons8-caja-registradora.png" />
+	  <None Remove="Resources\icons8-cancelar-24.png" />
+	  <None Remove="Resources\icons8-cargo.png" />
+	  <None Remove="Resources\icons8-categoria-24.png" />
+	  <None Remove="Resources\icons8-cerrar-ventana.png" />
+	  <None Remove="Resources\icons8-cerrar-ventana1.png" />
+	  <None Remove="Resources\icons8-cerrar.png" />
+	  <None Remove="Resources\icons8-clientes-40.png" />
+	  <None Remove="Resources\icons8-copia-de-seguridad-de-un-base-de-datos-40.png" />
+	  <None Remove="Resources\icons8-copias-de-seguridad-26.png" />
+	  <None Remove="Resources\icons8-dinero-24.png" />
+	  <None Remove="Resources\icons8-dinero-241.png" />
+	  <None Remove="Resources\icons8-editar.png" />
+	  <None Remove="Resources\icons8-eliminar.png" />
+	  <None Remove="Resources\icons8-engranajes-24.png" />
+	  <None Remove="Resources\icons8-entrar.png" />
+	  <None Remove="Resources\icons8-enviar-documento-24.png" />
+	  <None Remove="Resources\icons8-grupos-de-usuarios-40.png" />
+	  <None Remove="Resources\icons8-guardar.png" />
+	  <None Remove="Resources\icons8-herramientas-40.png" />
+	  <None Remove="Resources\icons8-imprimir.png" />
+	  <None Remove="Resources\icons8-limpiar.png" />
+	  <None Remove="Resources\icons8-lista-resumen-40.png" />
+	  <None Remove="Resources\icons8-nuevo.png" />
+	  <None Remove="Resources\icons8-omitir-16.png" />
+	  <None Remove="Resources\icons8-producto-30.png" />
+	  <None Remove="Resources\icons8-producto-40.png" />
+	  <None Remove="Resources\icons8-profesor-hirring-40.png" />
+	  <None Remove="Resources\icons8-recibir-efectivo.png" />
+	  <None Remove="Resources\icons8-reestablecer.png" />
+	  <None Remove="Resources\icons8-reporte.png" />
+	  <None Remove="Resources\icons8-salir-de-24.png" />
+	  <None Remove="Resources\icons8-transferencia-entre-usuarios-24.png" />
+	  <None Remove="Resources\icons8-usuarios.png" />
+	  <None Remove="Resources\icons8-usuarios1.png" />
+	  <None Remove="Resources\icons8-ventas-totales-40.png" />
+	  <None Remove="Resources\llantas-1024x682.jpg" />
+	  <None Remove="Resources\llantas-toyota-corolla.jpg" />
+	  <None Remove="Resources\LogoCepeda.png" />
+	  <None Remove="Resources\LogoCepeda1.png" />
+	  <None Remove="Resources\slid_lla2.jpg" />
+	  <None Remove="Resources\x-30465_960_720.png" />
+	</ItemGroup>
+	<ItemGroup>
 		<Reference Include="DevComponents.DotNetBar2">
-		  <HintPath>..\..\..\..\OneDrive\Pictures\Estilos de Sistema de Ventas\DevComponents.DotNetBar\DevComponents.DotNetBar2.dll</HintPath>
+		  <HintPath>..\DevComponents.DotNetBar2.dll</HintPath>
+		  <Private>True</Private>
 		</Reference>
 		<Reference Include="DevComponents.Instrumentation">
-		  <HintPath>..\..\..\..\OneDrive\Pictures\Estilos de Sistema de Ventas\DevComponents.DotNetBar\DevComponents.Instrumentation.dll</HintPath>
+		  <HintPath>..\DevComponents.Instrumentation.dll</HintPath>
+		  <Private>True</Private>
 		</Reference>
 		<Reference Include="System.Web">
 			<Private>True</Private>
@@ -50,10 +105,171 @@
 		</ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-		<Content Include="CefletCepedaImporticon.ico" />
-		<Content Include="Resources\1button.png" />
-		<Content Include="Resources\1button_click.png" />
-		<Content Include="Resources\1button_hover.png" />
+		<Content Include="CefletCepedaImporticon.ico">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\1button.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\1button_click.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\1button_hover.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\CefletCepedaImport.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\ferreteria.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-abrir-carpeta-16.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-actualizar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-agregar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-aplicar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-bloqueador-40.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-buscar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-caja-registradora-30.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-caja-registradora.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-cancelar-24.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-cargo.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-categoria-24.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-cerrar-ventana.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-cerrar-ventana1.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-cerrar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-clientes-40.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-copia-de-seguridad-de-un-base-de-datos-40.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-copias-de-seguridad-26.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-dinero-24.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-dinero-241.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-editar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-eliminar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-engranajes-24.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-entrar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-enviar-documento-24.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-grupos-de-usuarios-40.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-guardar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-herramientas-40.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-imprimir.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-limpiar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-lista-resumen-40.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-nuevo.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-omitir-16.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-producto-30.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-producto-40.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-profesor-hirring-40.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-recibir-efectivo.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-reestablecer.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-reporte.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-salir-de-24.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-transferencia-entre-usuarios-24.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-usuarios.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-usuarios1.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\icons8-ventas-totales-40.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\llantas-1024x682.jpg">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\llantas-toyota-corolla.jpg">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\LogoCepeda.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\LogoCepeda1.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\slid_lla2.jpg">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\x-30465_960_720.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 	<ItemGroup>
 		<BootstrapperPackage Include="Microsoft.Net.Client.3.5">
