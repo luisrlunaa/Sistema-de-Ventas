@@ -26,10 +26,10 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<Reference Include="DevComponents.DotNetBar2">
-		  <HintPath>..\..\..\..\OneDrive\Pictures\Estilos de Sistema de Ventas\DevComponents.DotNetBar\DevComponents.DotNetBar2.dll</HintPath>
+		  <HintPath>..\DevComponents.DotNetBar2.dll</HintPath>
 		</Reference>
 		<Reference Include="DevComponents.Instrumentation">
-		  <HintPath>..\..\..\..\OneDrive\Pictures\Estilos de Sistema de Ventas\DevComponents.DotNetBar\DevComponents.Instrumentation.dll</HintPath>
+		  <HintPath>..\DevComponents.Instrumentation.dll</HintPath>
 		</Reference>
 		<Reference Include="System.Web">
 			<Private>True</Private>
