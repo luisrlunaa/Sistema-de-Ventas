@@ -12,7 +12,7 @@ namespace CapaLogicaNegocio
         public string m_Producto { get; set; }
         public string m_Marca { get; set; }
         public string m_tipoGoma { get; set; }
-        public int m_Stock { get; set; }
+        public decimal m_Stock { get; set; }
         public decimal m_PrecioCompra { get; set; }
         public decimal m_PrecioVenta { get; set; }
         public decimal m_Preciomin { get; set; }
@@ -30,7 +30,7 @@ namespace CapaLogicaNegocio
         private string m_Producto;
         private string m_Marca;
         private string m_tipoGoma;
-        private int m_Stock;
+        private decimal m_Stock;
         private decimal m_PrecioCompra;
         private decimal m_PrecioVenta;
         private decimal m_itbis;
@@ -65,7 +65,7 @@ namespace CapaLogicaNegocio
             set { m_tipoGoma = value; }
         }
 
-        public int Stock
+        public decimal Stock
         {
             get { return m_Stock; }
             set { m_Stock = value; }
