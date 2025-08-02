@@ -19,7 +19,7 @@ namespace CapaLogicaNegocio
         public decimal Total { get; set; }
         public string IdentidadCliente { get; set; }
         public int IdVenta { get; set; }
-        public int Cantidad { get; set; }
+        public decimal Cantidad { get; set; }
         public string Descripcion { get; set; }
         public decimal PrecioVenta { get; set; }
         public decimal PrecioCompra { get; set; }
@@ -42,7 +42,7 @@ namespace CapaLogicaNegocio
             AtendidoPor = "";
             TipoPago = "";
         }
-        public clsVentas(int objIdVenta, int objCantidad, string objDescripcion, string objimei, decimal objPVenta, decimal objPCompra,
+        public clsVentas(int objIdVenta, decimal objCantidad, string objDescripcion, string objimei, decimal objPVenta, decimal objPCompra,
             int objIdProducto, decimal objIgv, decimal objSubTotal, string objIdentidadCliente, string objAtendidoPor, string objTipoPago)
         {
             IdVenta = objIdVenta;

@@ -82,7 +82,7 @@ namespace Capa_de_Presentacion
                                     cmd.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = cbxCategoria.SelectedValue;
                                     cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text.ToUpper();
                                     cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text.ToUpper();
-                                    cmd.Parameters.Add("@Stock", SqlDbType.Int).Value = txtStock.Text;
+                                    cmd.Parameters.Add("@Stock", SqlDbType.Decimal).Value = txtStock.Text;
                                     cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtPCompra.Text);
                                     cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtPVenta.Text);
                                     cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtitbis.Text);
@@ -194,7 +194,7 @@ namespace Capa_de_Presentacion
                                     cmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = txtIdP.Text;
                                     cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = txtProducto.Text;
                                     cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = txtMarca.Text;
-                                    cmd.Parameters.Add("@Stock", SqlDbType.Int).Value = txtStock.Text;
+                                    cmd.Parameters.Add("@Stock", SqlDbType.Decimal).Value = txtStock.Text;
                                     cmd.Parameters.Add("@PrecioCompra", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtPCompra.Text);
                                     cmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtPVenta.Text);
                                     cmd.Parameters.Add("@itbis", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txtitbis.Text);
