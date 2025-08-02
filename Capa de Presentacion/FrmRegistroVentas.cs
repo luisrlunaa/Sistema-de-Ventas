@@ -463,8 +463,8 @@ namespace Capa_de_Presentacion
                             dgvVenta.Rows[renglon].Cells["IDP"].Value = Convert.ToString(dr.GetInt32(dr.GetOrdinal("IdProducto")));
                             dgvVenta.Rows[renglon].Cells["IGV"].Value = Convert.ToString(dr.GetDecimal(dr.GetOrdinal("Igv")));
 
-                            subtotal += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
-                            igv += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("Igv")).ToString()) * dr.GetInt32(dr.GetOrdinal("Cantidad")));
+                            subtotal += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("PrecioUnitario")).ToString()) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
+                            igv += (Program.GetTwoNumberAfterPointWithOutRound(dr.GetDecimal(dr.GetOrdinal("Igv")).ToString()) * dr.GetDecimal(dr.GetOrdinal("Cantidad")));
                         }
                     }
 
