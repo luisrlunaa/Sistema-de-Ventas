@@ -99,6 +99,8 @@ namespace Capa_de_Presentacion
         public static decimal MontoInicial;
         public static string Fechapago;
 
+        public static string stringConnection;
+
         [STAThread]
         static void Main()
         {

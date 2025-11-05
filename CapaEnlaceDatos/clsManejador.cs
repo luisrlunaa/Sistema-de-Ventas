@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -49,7 +48,7 @@ namespace CapaEnlaceDatos
             return dt;
         }
 
-        public void EjecutarSP(String NombreSP, ref List<clsParametro> lst)
+        public void EjecutarSP(string NombreSP, ref List<clsParametro> lst)
         {
             SqlCommand cmd;
             try

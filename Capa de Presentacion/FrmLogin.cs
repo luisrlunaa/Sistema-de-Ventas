@@ -10,21 +10,24 @@ namespace Capa_de_Presentacion
     public partial class FrmLogin : DevComponents.DotNetBar.Metro.MetroForm
     {
         clsUsuarios U = new clsUsuarios();
-        clsManejador Cx = new clsManejador();
+        clsManejador M = new clsManejador();
 
         public FrmLogin()
         {
             InitializeComponent();
+            Program.stringConnection = !string.IsNullOrWhiteSpace(M.conexion.ConnectionString.CleanSpace())
+                                     && M.conexion.ConnectionString.CleanSpace().Contains("Password") ? M.conexion.ConnectionString.CleanSpace()
+                                                                                                       : string.Empty;
         }
 
         public DateTime FechaVenc;
         bool tienefila = false;
         public void obtenerFiladeCaja()
         {
-            Cx.Desconectar();
+            M.Desconectar();
             string cadSql = "SELECT id_caja, monto_inicial,fecha FROM Caja where monto_final = 0 AND fecha = convert(datetime,CONVERT(varchar(10), getdate(), 103),103)";
-            Cx.Conectar();
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
+            M.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -32,7 +35,7 @@ namespace Capa_de_Presentacion
             {
                 tienefila = true;
             }
-            Cx.Desconectar();
+            M.Desconectar();
         }
 
         public void btnIngresar_Click(object sender, EventArgs e)
@@ -104,7 +107,7 @@ namespace Capa_de_Presentacion
                                     }
                                     else
                                     {
-                                        Cx.Desconectar();
+                                        M.Desconectar();
                                         insertCaja();
                                     }
                                 }
@@ -133,11 +136,11 @@ namespace Capa_de_Presentacion
 
         public void llenarid()
         {
-            Cx.Desconectar();
+            M.Desconectar();
             string cadSql = "select top(1) id_caja from Caja order by id_caja desc";
 
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+            M.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -146,7 +149,7 @@ namespace Capa_de_Presentacion
                 var id = string.IsNullOrWhiteSpace(leer["id_caja"].ToString()) ? 0 : Convert.ToInt32(leer["id_caja"]);
                 Program.idcaja = id;
             }
-            Cx.Desconectar();
+            M.Desconectar();
         }
 
         public void RecuperarDatosSesion()
@@ -179,11 +182,11 @@ namespace Capa_de_Presentacion
 
         public void fechaVenc()
         {
-            Cx.Desconectar();
+            M.Desconectar();
             string cadSql = "select top(1) FechaVenc,WindowsUserName,SqlFolderName from NomEmp order by idEmp desc";
 
-            SqlCommand comando = new SqlCommand(cadSql, Cx.conexion);
-            Cx.Conectar();
+            SqlCommand comando = new SqlCommand(cadSql, M.conexion);
+            M.Conectar();
 
             SqlDataReader leer = comando.ExecuteReader();
 
@@ -193,7 +196,7 @@ namespace Capa_de_Presentacion
                 Program.WindUser = Convert.ToString(leer["WindowsUserName"]);
                 Program.SqlFolder = Convert.ToString(leer["SqlFolderName"]);
             }
-            Cx.Desconectar();
+            M.Desconectar();
         }
 
         private void FrmLogin_Load(object sender, EventArgs e)
@@ -207,7 +210,7 @@ namespace Capa_de_Presentacion
 
         public void insertCaja()
         {
-            using (SqlCommand cmd = new SqlCommand("abrir_caja", Cx.conexion))
+            using (SqlCommand cmd = new SqlCommand("abrir_caja", M.conexion))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -215,9 +218,9 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@monto", SqlDbType.Decimal).Value = string.IsNullOrWhiteSpace(txtmontoinicial.Text) ? 0 : Program.GetTwoNumberAfterPointWithOutRound(txtmontoinicial.Text);
                 cmd.Parameters.Add("@fecha", SqlDbType.DateTime).Value = DateTime.Today;
 
-                Cx.Conectar();
+                M.Conectar();
                 cmd.ExecuteNonQuery();
-                Cx.Desconectar();
+                M.Desconectar();
             }
 
             Program.idcaja = Program.idcaja + 1;
@@ -229,7 +232,7 @@ namespace Capa_de_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Cx.Desconectar();
+            M.Desconectar();
             RecuperarDatosSesion();
             panelmontoinicial.Show();
             insertCaja();

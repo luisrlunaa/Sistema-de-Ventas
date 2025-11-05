@@ -447,7 +447,7 @@ namespace Capa_de_Presentacion
             {
                 try
                 {
-                    var (save, message) = MakeBackup(dirs, M.conexion.ConnectionString, dbName, fileName);
+                    var (save, message) = MakeBackup(dirs, string.IsNullOrWhiteSpace(Program.stringConnection) ? M.conexion.ConnectionString : Program.stringConnection, dbName, fileName);
                     if (save)
                     {
                         var destination = @"" + Program.WindUser + "\\" + fileName;
