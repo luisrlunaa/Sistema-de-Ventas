@@ -370,7 +370,6 @@ namespace Capa_de_Presentacion
             lblsubt.Text = Program.ST > 0 ? Program.ST + "" : lblsubt.Text;
             lbligv.Text = Program.igv > 0 ? Program.igv + "" : lbligv.Text;
             txtTel.Text = !string.IsNullOrWhiteSpace(Program.Telefono) ? Program.Telefono : txtTel.Text;
-            txtVeh.Text = !string.IsNullOrWhiteSpace(Program.Vehiculo) ? Program.Vehiculo : txtVeh.Text;
             txtAtendidoPor.Text = !string.IsNullOrWhiteSpace(Program.AtendidoPor) ? Program.AtendidoPor : txtAtendidoPor.Text;
             cbTipoPago.Text = !string.IsNullOrWhiteSpace(Program.TipoPago) ? Program.TipoPago : cbTipoPago.Text;
 
@@ -786,7 +785,6 @@ namespace Capa_de_Presentacion
 
             txtDocIdentidad.Clear();
             txtTel.Clear();
-            txtVeh.Clear();
             txtDatos.Clear();
             dgvVenta.Rows.Clear();
             txtIdProducto.Clear();
@@ -811,7 +809,6 @@ namespace Capa_de_Presentacion
             Program.ApellidosCliente = string.Empty;
             Program.NombreCliente = string.Empty;
             Program.Telefono = string.Empty;
-            Program.Vehiculo = string.Empty;
             Program.fecha = string.Empty;
             Program.AtendidoPor = string.Empty;
 
@@ -829,7 +826,7 @@ namespace Capa_de_Presentacion
             pa.gbAbrir.Visible = false;
             pa.btnCerrar.Visible = false;
 
-            if (chkComprobante.Checked == false && !string.IsNullOrEmpty(txtNCF.Text))
+            if (!chkComprobante.Checked && !string.IsNullOrEmpty(txtNCF.Text))
             {
                 if (DevComponents.DotNetBar.MessageBoxEx.Show("¿Desea Agregar Comprobantes a la Factura?", "Sistema de Ventas.", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
@@ -844,7 +841,7 @@ namespace Capa_de_Presentacion
                 }
             }
 
-            if (cbidentificacion.Checked == false && Program.IdCliente == 0)
+            if (!cbidentificacion.Checked && Program.IdCliente == 0)
             {
                 if (string.IsNullOrWhiteSpace(Program.datoscliente) && !string.IsNullOrWhiteSpace(txtDatos.Text))
                 {
@@ -1019,7 +1016,7 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@IdVenta", SqlDbType.Int).Value = idVenta;
                 cmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = txtidEmp.Text;
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text);
-                cmd.Parameters.Add("@Vehiculo", SqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(txtVeh.Text) ? "sin Vehiculo" : txtVeh.Text;
+                cmd.Parameters.Add("@Vehiculo", SqlDbType.VarChar).Value = "sin Vehiculo";
                 cmd.Parameters.Add("@TipoFactura", SqlDbType.NVarChar).Value = cbtipofactura.Text;
                 cmd.Parameters.Add("@TipoPago", SqlDbType.NVarChar).Value = cbTipoPago.Text;
                 cmd.Parameters.Add("@Rnc", SqlDbType.VarChar).Value = string.IsNullOrWhiteSpace(txtDocIdentidad.Text) ? "sin Identidad" : txtDocIdentidad.Text;
@@ -1212,7 +1209,7 @@ namespace Capa_de_Presentacion
                 cmd.Parameters.Add("@Total", SqlDbType.Decimal).Value = Program.GetTwoNumberAfterPointWithOutRound(txttotal.Text);
                 cmd.Parameters.Add("@NombreCliente", SqlDbType.VarChar).Value = txtDatos.Text;
                 cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = txtTel.Text;
-                cmd.Parameters.Add("@Vehiculo", SqlDbType.VarChar).Value = txtVeh.Text;
+                cmd.Parameters.Add("@Vehiculo", SqlDbType.VarChar).Value = "Sin vehiculo";
 
                 try
                 {
@@ -1376,7 +1373,6 @@ namespace Capa_de_Presentacion
             ticket.TextoIzquierda("Cliente: " + nombre);
             ticket.TextoIzquierda("Telefono: " + (string.IsNullOrWhiteSpace(txtTel.Text) ? "sin Telefono" : txtTel.Text));
             ticket.TextoIzquierda("Documento de Identificación: " + cedula);
-            ticket.TextoIzquierda("Vehiculo: " + (string.IsNullOrWhiteSpace(txtVeh.Text) ? "sin Vehiculo" : txtVeh.Text));
             ticket.TextoIzquierda("Atendido Por: " + (string.IsNullOrWhiteSpace(txtAtendidoPor.Text) ? "" : txtAtendidoPor.Text));
             ticket.TextoIzquierda("Fecha: " + dateTimePicker1.Value.Day + "/" + dateTimePicker1.Value.Month + "/" + dateTimePicker1.Value.Year);
 
@@ -1716,7 +1712,6 @@ namespace Capa_de_Presentacion
                     doc.Add(new Paragraph("Cliente: " + nombre, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Telefono: " + (string.IsNullOrWhiteSpace(txtTel.Text) ? "sin Telefono" : txtTel.Text), FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
                     doc.Add(new Paragraph("Documento de Identificación: " + cedula, FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
-                    doc.Add(new Paragraph("Vehiculo: " + (string.IsNullOrWhiteSpace(txtVeh.Text) ? "sin Vehiculo" : txtVeh.Text), FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));
                     if (!string.IsNullOrWhiteSpace(txtAtendidoPor.Text))
                     {
                         doc.Add(new Paragraph("Atendido Por: " + (string.IsNullOrWhiteSpace(txtAtendidoPor.Text) ? "" : txtAtendidoPor.Text), FontFactory.GetFont("ARIAL", 10, iTextSharp.text.Font.NORMAL)));

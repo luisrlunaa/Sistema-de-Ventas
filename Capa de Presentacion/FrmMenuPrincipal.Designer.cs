@@ -42,15 +42,12 @@
             this.btnCotizar = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.btnAyB = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.btnVer = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.btnEmpleados = new System.Windows.Forms.Button();
             this.btnVentas = new System.Windows.Forms.Button();
-            this.btnUsuarios = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
             this.btnProductos = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -158,15 +155,12 @@
             this.panel1.BackColor = System.Drawing.Color.DarkCyan;
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.button6);
-            this.panel1.Controls.Add(this.btnAyB);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.btnVer);
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.btnEmpleados);
             this.panel1.Controls.Add(this.btnVentas);
-            this.panel1.Controls.Add(this.btnUsuarios);
             this.panel1.Controls.Add(this.btnClientes);
             this.panel1.Controls.Add(this.btnProductos);
             this.panel1.ForeColor = System.Drawing.Color.MidnightBlue;
@@ -236,7 +230,7 @@
             this.button6.ForeColor = System.Drawing.Color.White;
             this.button6.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_caja_registradora_30;
             this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(3, 393);
+            this.button6.Location = new System.Drawing.Point(3, 208);
             this.button6.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(233, 41);
@@ -245,27 +239,6 @@
             this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // btnAyB
-            // 
-            this.btnAyB.BackColor = System.Drawing.Color.Teal;
-            this.btnAyB.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
-            this.btnAyB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
-            this.btnAyB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
-            this.btnAyB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAyB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAyB.ForeColor = System.Drawing.Color.White;
-            this.btnAyB.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_copia_de_seguridad_de_un_base_de_datos_40;
-            this.btnAyB.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAyB.Location = new System.Drawing.Point(4, 161);
-            this.btnAyB.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnAyB.Name = "btnAyB";
-            this.btnAyB.Size = new System.Drawing.Size(233, 46);
-            this.btnAyB.TabIndex = 15;
-            this.btnAyB.Text = "Tren Delantero";
-            this.btnAyB.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAyB.UseVisualStyleBackColor = false;
-            this.btnAyB.Click += new System.EventHandler(this.btnAyB_Click);
             // 
             // button5
             // 
@@ -278,7 +251,7 @@
             this.button5.ForeColor = System.Drawing.Color.White;
             this.button5.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_lista_resumen_40;
             this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(3, 211);
+            this.button5.Location = new System.Drawing.Point(3, 160);
             this.button5.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(233, 43);
@@ -358,7 +331,7 @@
             this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_bloqueador_40;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(4, 258);
+            this.button2.Location = new System.Drawing.Point(3, 254);
             this.button2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(233, 41);
@@ -367,27 +340,6 @@
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // btnEmpleados
-            // 
-            this.btnEmpleados.BackColor = System.Drawing.Color.Teal;
-            this.btnEmpleados.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
-            this.btnEmpleados.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
-            this.btnEmpleados.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
-            this.btnEmpleados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEmpleados.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEmpleados.ForeColor = System.Drawing.Color.White;
-            this.btnEmpleados.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_profesor_hirring_40;
-            this.btnEmpleados.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEmpleados.Location = new System.Drawing.Point(3, 348);
-            this.btnEmpleados.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnEmpleados.Name = "btnEmpleados";
-            this.btnEmpleados.Size = new System.Drawing.Size(233, 41);
-            this.btnEmpleados.TabIndex = 1;
-            this.btnEmpleados.Text = "Empleados";
-            this.btnEmpleados.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnEmpleados.UseVisualStyleBackColor = false;
-            this.btnEmpleados.Click += new System.EventHandler(this.btnEmpleados_Click);
             // 
             // btnVentas
             // 
@@ -409,27 +361,6 @@
             this.btnVentas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnVentas.UseVisualStyleBackColor = false;
             this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
-            // 
-            // btnUsuarios
-            // 
-            this.btnUsuarios.BackColor = System.Drawing.Color.Teal;
-            this.btnUsuarios.FlatAppearance.BorderColor = System.Drawing.Color.DarkSlateGray;
-            this.btnUsuarios.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkSlateGray;
-            this.btnUsuarios.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSeaGreen;
-            this.btnUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUsuarios.ForeColor = System.Drawing.Color.White;
-            this.btnUsuarios.Image = global::Capa_de_Presentacion.Properties.Resources.icons8_grupos_de_usuarios_40;
-            this.btnUsuarios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUsuarios.Location = new System.Drawing.Point(3, 303);
-            this.btnUsuarios.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnUsuarios.Name = "btnUsuarios";
-            this.btnUsuarios.Size = new System.Drawing.Size(233, 41);
-            this.btnUsuarios.TabIndex = 0;
-            this.btnUsuarios.Text = "Usuarios";
-            this.btnUsuarios.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnUsuarios.UseVisualStyleBackColor = false;
-            this.btnUsuarios.Click += new System.EventHandler(this.btnUsuarios_Click);
             // 
             // btnClientes
             // 
@@ -837,11 +768,9 @@
         private System.Windows.Forms.Label lblHora;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnVentas;
-        private System.Windows.Forms.Button btnUsuarios;
         private System.Windows.Forms.Button btnClientes;
         private System.Windows.Forms.Button btnProductos;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnEmpleados;
 		public System.Windows.Forms.Label lblUsuario;
 		public System.Windows.Forms.Label lblFecha;
 		private System.Windows.Forms.PictureBox pictureBox2;
@@ -872,7 +801,6 @@
         public System.Windows.Forms.Label lblTel2;
         public System.Windows.Forms.Label lblCorreo;
         public System.Windows.Forms.Label lblrnc;
-        private System.Windows.Forms.Button btnAyB;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;

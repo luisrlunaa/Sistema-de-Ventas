@@ -144,7 +144,6 @@ namespace Capa_de_Presentacion
                 dataGridView1.Rows[renglon].Cells["nombrecliente"].Value = item.NombreCliente.ToString();
                 dataGridView1.Rows[renglon].Cells["Identidad"].Value = item.Identidad.ToString();
                 dataGridView1.Rows[renglon].Cells["ultimafecha"].Value = item.UltimaFechaPago;
-                dataGridView1.Rows[renglon].Cells["vehiculo"].Value = item.Vehiculo.ToString();
                 dataGridView1.Rows[renglon].Cells["telefono"].Value = item.Telefono.ToString();
                 dataGridView1.Rows[renglon].Cells["AtendidoPor"].Value = item.AtendidoPor.ToString();
                 dataGridView1.Rows[renglon].Cells["TipoPago"].Value = item.TipoPago.ToString();
@@ -265,7 +264,6 @@ namespace Capa_de_Presentacion
                 Program.ultimafechapago = dataGridView1.CurrentRow.Cells["ultimafecha"].Value.ToString();
             }
             Program.Telefono = dataGridView1.CurrentRow.Cells["telefono"].Value.ToString();
-            Program.Vehiculo = dataGridView1.CurrentRow.Cells["vehiculo"].Value.ToString();
             Program.AtendidoPor = dataGridView1.CurrentRow.Cells["AtendidoPor"].Value.ToString();
             Program.TipoPago = dataGridView1.CurrentRow.Cells["TipoPago"].Value.ToString();
             Program.ReImpresion = "Copia Factura";
@@ -502,27 +500,27 @@ namespace Capa_de_Presentacion
             var newlist = new List<Venta>();
             if (!string.IsNullOrWhiteSpace(txtBuscarid.Text))
             {
-                if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
+                if (cbtipodocumento.Checked && !cbPendiente.Checked)
                 {
                     newlist = listFind.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
                     llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
-                else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
+                else if (cbtipodocumento.Checked && cbPendiente.Checked)
                 {
                     newlist = listFind.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower()) && x.Restante > 0).ToList();
                     llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
-                else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
+                else if (cktipofactura.Checked && !cbPendiente.Checked)
                 {
                     newlist = listFind.Where(x => x.Tipofactura == cbtipofactura.Text && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
                     llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
-                else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
+                else if (cktipofactura.Checked && cbPendiente.Checked)
                 {
                     newlist = listFind.Where(x => x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower())).ToList();
                     llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
-                else if (cbPendiente.Checked == true)
+                else if (cbPendiente.Checked)
                 {
                     newlist = listFind.Where(x => x.borrador == borrado && x.NombreCliente.ToLower().Contains(txtBuscarid.Text.ToLower()) && x.Restante > 0).ToList();
                     llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
@@ -535,27 +533,27 @@ namespace Capa_de_Presentacion
             }
             else
             {
-                if (cbtipodocumento.Checked == true && cbPendiente.Checked == false)
+                if (cbtipodocumento.Checked && !cbPendiente.Checked)
                 {
                     newlist = listFind.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado).ToList();
                     llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
-                else if (cbtipodocumento.Checked == true && cbPendiente.Checked == true)
+                else if (cbtipodocumento.Checked && cbPendiente.Checked)
                 {
                     newlist = listFind.Where(x => x.TipoDocumento == combo_tipo_NCF.Text && x.borrador == borrado && x.Restante > 0).ToList();
                     llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
-                else if (cktipofactura.Checked == true && cbPendiente.Checked == false)
+                else if (cktipofactura.Checked && !cbPendiente.Checked)
                 {
                     newlist = listFind.Where(x => x.Tipofactura == cbtipofactura.Text && x.borrador == borrado).ToList();
                     llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
-                else if (cktipofactura.Checked == true && cbPendiente.Checked == true)
+                else if (cktipofactura.Checked && cbPendiente.Checked)
                 {
                     newlist = listFind.Where(x => x.Tipofactura == cbtipofactura.Text && x.Restante > 0 && x.borrador == borrado).ToList();
                     llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
                 }
-                else if (cbPendiente.Checked == true)
+                else if (cbPendiente.Checked)
                 {
                     newlist = listFind.Where(x => x.borrador == borrado && x.Restante > 0).ToList();
                     llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
@@ -573,7 +571,7 @@ namespace Capa_de_Presentacion
             var ganancias = Ganancias(newlist);
             GananciaTotal(ganancias);
 
-            if (cbPendiente.Checked == true)
+            if (cbPendiente.Checked)
             {
                 label7.Visible = true;
                 txttotalpendiente.Visible = true;
@@ -639,7 +637,7 @@ namespace Capa_de_Presentacion
                 if (txtBuscarid.Text.Length >= 4 && cktipofactura.Checked == false && cbtipodocumento.Checked == false)
                 {
                     string name = txtBuscarid.Text;
-                    var newlist = tempSalesData.Where(x => x.NombreCliente.ToLower().Contains(name.ToLower()) || x.Vehiculo.ToLower().Contains(name.ToLower())).ToList();
+                    var newlist = tempSalesData.Where(x => x.NombreCliente.ToLower().Contains(name.ToLower())).ToList();
                     if (newlist != null && newlist.Any())
                     {
                         llenar_data(newlist.OrderByDescending(c => c.IdVenta).ToList());
@@ -1438,21 +1436,7 @@ namespace Capa_de_Presentacion
         private void vehChk_CheckedChanged(object sender, EventArgs e)
         {
             var count = dataGridView1.Columns.Count;
-            if (!vehChk.Checked)
-            {
-                for (int index = 0; index < count; index++)
-                {
-                    if (dataGridView1.Columns[index].HeaderText.ToLower() == vehChk.Text.ToLower())
-                    {
-                        dataGridView1.Columns.RemoveAt(index);
-                        //if (dataGridView1.Rows.Count > 0)
-                        //    dataGridView1.Rows.RemoveAt(index);
-                        count--;
-                    }
-                }
-
-                vehChk.Visible = false;
-            }
+           
         }
 
         private void telefChk_CheckedChanged(object sender, EventArgs e)
